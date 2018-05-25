@@ -1,0 +1,53 @@
+@extends("layouts.app")
+@section('content')
+    <style>
+    #slide1{
+        background-image: url({{ asset('images/vestidos_slide1.jpg') }});
+    }
+    #slide2{
+        background-image: url({{ asset('images/vestidos_slide3.jpg') }});
+    }
+    .section{
+		background-size: cover;
+	}
+	.slide{
+		background-size: cover;
+    }
+    </style>
+    <script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$('#fullpage').fullpage({
+				verticalCentered: false
+			});
+		});
+    </script>
+   <div id="fullpage">
+        <div class="section ">
+            <div class="slide" id="slide1"><h1>Slide Backgrounds</h1></div>
+            <div class="slide" id="slide2"><h1>Totally customizable</h1></div>
+        </div>
+        <div class="section " id="section1">
+                <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <a href="#" class="thumbnail">
+                            <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <a href="#" class="thumbnail">
+                            <img src="{{asset('images/middle_2.jpg')}}" alt="model1">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <a href="#" class="thumbnail">
+                            <img src="{{asset('images/middle_3.jpg')}}" alt="model1">
+                        </a>
+                    </div>
+                </div>
+                </div>
+                
+        </div>
+  </div>
+@endsection
