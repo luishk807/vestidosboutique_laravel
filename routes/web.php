@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/products/new','adminProductController@newProducts')->name('new_product');
     Route::post('/admin/products/new','adminProductController@createProducts');
 });
-Route::get("/","homeController@home");
+Route::get("/","homeController@index");
 Route::get('/generate/password',function(){
     return bcrypt("123456789");
 });
