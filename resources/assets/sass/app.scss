@@ -8,6 +8,38 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+/* playfair-display-regular - latin */
+// Google Fonts
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i");
+
+$font-family:"Playfair Display";
+.playfair-display{
+  font-family:$font-family;
+  font-weight: 400;
+}
+.playfair-display-italic{
+  font-family:$font-family;
+  font-weight: 400;
+  font-style: italic;
+}
+.playfair-display-bold{
+  font-family:$font-family;
+  font-weight: 700;
+}
+.playfair-display-bold-italic{
+  font-family:$font-family;
+  font-weight: 700;
+  font-style: italic;
+}
+.playfair-display-black{
+  font-family:$font-family;
+  font-weight: 900;
+}
+.playfair-display-black-italic{
+  font-family:$font-family;
+  font-weight: 900;
+  font-style: italic;
+}
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

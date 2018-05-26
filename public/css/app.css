@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);/*!
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i);/*!
  * Bootstrap v4.1.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -10409,6 +10409,41 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+/* playfair-display-regular - latin */
+
+.playfair-display {
+  font-family: "Playfair Display";
+  font-weight: 400;
+}
+
+.playfair-display-italic {
+  font-family: "Playfair Display";
+  font-weight: 400;
+  font-style: italic;
+}
+
+.playfair-display-bold {
+  font-family: "Playfair Display";
+  font-weight: 700;
+}
+
+.playfair-display-bold-italic {
+  font-family: "Playfair Display";
+  font-weight: 700;
+  font-style: italic;
+}
+
+.playfair-display-black {
+  font-family: "Playfair Display";
+  font-weight: 900;
+}
+
+.playfair-display-black-italic {
+  font-family: "Playfair Display";
+  font-weight: 900;
+  font-style: italic;
 }
 
 .navbar-laravel {

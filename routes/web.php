@@ -14,13 +14,21 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get("/",function(){
+    return view("home");
+});
+Route::get("/about",function(){
+    return view("about");
+});
+Route::get("/contact",function(){
+    return view("contact");
+});
 Route::middleware('auth')->group(function(){
     Route::get('/admin','adminHomeController@home');
     Route::get('/admin/products','adminProductController@show')->name('products');
     Route::get('/admin/products/new','adminProductController@newProducts')->name('new_product');
     Route::post('/admin/products/new','adminProductController@createProducts');
 });
-Route::get("/","homeController@index");
 Route::get('/generate/password',function(){
     return bcrypt("123456789");
 });
