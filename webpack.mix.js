@@ -11,5 +11,17 @@ let mix = require('laravel-mix');
  |
  */
 
+
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+// var directories = {
+//     'resources/assets/images': 'public/images/',
+//     'resources/assets/js/fullpage': 'public/js/fullpage',
+//     'resources/assets/fonts': 'public/fonts',
+// }
+// for (directory in directories) {
+//     mix.copy(directory, directories[directory],false)
+// }
+.sass('resources/assets/sass/app.scss', 'public/css')
+.copy('resources/assets/images/', 'public/images/', false) // Don't flatten!
+.copy('resources/assets/js/fullpage', 'public/js/fullpage'); // Don't flatten!
+//.copy('resources/assets/fonts/', 'public/fonts/'); // Don't flatten!

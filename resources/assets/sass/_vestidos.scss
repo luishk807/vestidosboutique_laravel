@@ -1,0 +1,73 @@
+/* playfair-display-regular - latin */
+// Google Fonts
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i");
+
+$font-family:"Playfair Display";
+.playfair-display{
+  font-family:$font-family;
+  font-weight: 400;
+}
+.playfair-display-italic{
+  font-family:$font-family;
+  font-weight: 400;
+  font-style: italic;
+}
+.playfair-display-bold{
+  font-family:$font-family;
+  font-weight: 700;
+}
+.playfair-display-bold-italic{
+  font-family:$font-family;
+  font-weight: 700;
+  font-style: italic;
+}
+.playfair-display-black{
+  font-family:$font-family;
+  font-weight: 900;
+}
+.playfair-display-black-italic{
+  font-family:$font-family;
+  font-weight: 900;
+  font-style: italic;
+}
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.vestidos-main-nav{
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  z-index: 9999;
+}
+
+#fullpage{
+  margin-top:50px;
+}
+#slide1{
+  background-image: url(/images/vestidos_slide1.jpg);
+  text-align:center;
+}
+#slide2{
+  background-image: url(/images/vestidos_slide3.jpg);
+}
+#slide3{
+  background-image: url(/images/home_main_img3.jpg);
+}
+.section{
+background-size: cover;
+}
+.slide{
+background-size: cover;
+}
+.home_bg_2{
+  background:url('/images/home_main_img2.jpg') no-repeat top center;
+  background-size:1551px 752px;
+  height:752px;
+}
+.home_w100{
+  max-width:100% !important;
+}
+.gray_bg{
+  background-color:#dfdfe1;
+}

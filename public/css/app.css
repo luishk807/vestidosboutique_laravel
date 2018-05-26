@@ -10459,6 +10459,45 @@ a.text-dark:focus {
   z-index: 9999;
 }
 
+#fullpage {
+  margin-top: 50px;
+}
+
+#slide1 {
+  background-image: url(/images/vestidos_slide1.jpg);
+  text-align: center;
+}
+
+#slide2 {
+  background-image: url(/images/vestidos_slide3.jpg);
+}
+
+#slide3 {
+  background-image: url(/images/home_main_img3.jpg);
+}
+
+.section {
+  background-size: cover;
+}
+
+.slide {
+  background-size: cover;
+}
+
+.home_bg_2 {
+  background: url("/images/home_main_img2.jpg") no-repeat top center;
+  background-size: 1551px 752px;
+  height: 752px;
+}
+
+.home_w100 {
+  max-width: 100% !important;
+}
+
+.gray_bg {
+  background-color: #dfdfe1;
+}
+
 .test {
   color: black;
 }
