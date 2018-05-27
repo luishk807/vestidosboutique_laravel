@@ -15,6 +15,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 <style>
+    .slide-main-btn{
+        font-family:"Playfair Display";
+        font-weight: 500;
+
+        width: 478px;
+        height: 400px;
+        color: #87124a;
+        font-size: 4rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 41%;
+        margin-left: auto;
+        margin-right: 300px;
+        text-align:right;
+    }
     .slide-main-txt{
         font-family:"Playfair Display";
         font-weight: 700;
@@ -29,6 +45,11 @@
         top: 41%;
         margin-left: 309px;
         margin-right: auto;
+        text-align:right;
+        line-height:52px;
+    }
+    .slide-main-txt span{
+        font-size: 6rem;
     }
     .slide{
         position:relative;

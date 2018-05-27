@@ -66,7 +66,7 @@ $crimson_txt:"Crimson Text";
 	color:white;
 }
 .vest-maintxtcolor{
-	color:#87124a;
+	background-color:#87124a;
 }
 .white-border-bg{
   border-color:white;
@@ -74,9 +74,12 @@ $crimson_txt:"Crimson Text";
 #fullpage{
   margin-top:50px;
 }
+#slide1,
+#slide2{
+  background-position: center center;
+}
 #slide1{
   background-image: url(/images/vestidos_slide1.jpg);
-  text-align:center;
 }
 #slide2{
   background-image: url(/images/vestidos_slide3.jpg);

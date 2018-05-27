@@ -10487,7 +10487,7 @@ a.text-dark:focus {
 }
 
 .vest-maintxtcolor {
-  color: #87124a;
+  background-color: #87124a;
 }
 
 .white-border-bg {
@@ -10498,9 +10498,13 @@ a.text-dark:focus {
   margin-top: 50px;
 }
 
+#slide1,
+#slide2 {
+  background-position: center center;
+}
+
 #slide1 {
   background-image: url(/images/vestidos_slide1.jpg);
-  text-align: center;
 }
 
 #slide2 {
