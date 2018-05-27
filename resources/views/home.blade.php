@@ -10,7 +10,14 @@
     </script>
    <div id="fullpage">
         <div class="section" id="home_main_slider">
-            <div class="slide playfair-display-black-italic" id="slide1"><h1>Slide Backgrounds</h1></div>
+            <div class="slide" id="slide1">
+                <div class="slide-main-txt">
+                    Formal Dresses
+                </div>
+                <div class="slide-main-btn playfair-display-black vest-maintxtcolor">
+                    Formal Dresses
+                </div>
+            </div>
             <div class="slide" id="slide2"><h1>Totally customizable</h1></div>
         </div>
         <div class="section " id="top_middle_sec">
