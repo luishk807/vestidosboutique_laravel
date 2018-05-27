@@ -20,7 +20,7 @@
         <div class="slide">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col top_middle_sec_title">
                             Top Dresses
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col top_middle_sec_title2">
                             I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing
                         </div>
                     </div>

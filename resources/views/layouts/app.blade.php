@@ -54,6 +54,25 @@
     .slide{
         position:relative;
     }
+    .top_middle_sec_title{
+        font-family:"Playfair Display";
+        font-weight: 400;
+        font-style: italic;
+        color:black;
+        text-align:center;
+        font-size:2.5rem;
+        padding:10px 0px;
+    }
+    .top_middle_sec_title2{
+        font-family:"Playfair Display";
+        font-weight: 400;
+        font-style: italic;
+        color:black;
+        text-align:center;
+        font-size:2.6rem;
+        padding:10px 0px;
+        line-height: 3rem;
+    }
 </style>
 </head>
 <body>
