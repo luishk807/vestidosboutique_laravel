@@ -10537,6 +10537,39 @@ a.text-dark:focus {
   background-color: #dfdfe1;
 }
 
+/***white arrow cont***/
+
+#home_main_slider #main_slider_arrow_cont {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+.main_slider_txt {
+  width: 200px;
+  text-align: center;
+  font-family: Arial;
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1rem;
+}
+
+#home_main_slider #main_slider_arrow_cont .main_slider_txt a {
+  margin: 0px auto;
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-image: url("/images/ves-down-arrow.svg");
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .test {
   color: black;
 }

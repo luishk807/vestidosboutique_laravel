@@ -51,7 +51,8 @@
     .slide-main-txt span{
         font-size: 6rem;
     }
-    .slide{
+    .slide,
+    #home_main_slider{
         position:relative;
     }
     .top_middle_sec_title{
