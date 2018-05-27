@@ -1,34 +1,13 @@
 @extends("layouts.app")
 @section('content')
     <style>
-    #home_main_slider #main_slider_arrow_cont{
-        position:absolute;
-        bottom:5%;
-        left:50%;
-        right:0;
-        z-index:999;
-        width:100%;
-    }
-    .main_slider_txt{
-        width: 200px;
-        text-align: center;
-        font-family:Arial;
-        color:white;
-        font-size:1.5rem;
-        line-height:1rem;
-    }
-    #home_main_slider #main_slider_arrow_cont .main_slider_txt a{
-        margin: 0px auto;
-        display:block;
-        width: 100px;
-        height: 100px;
-        background-image: url("{{ asset('images/ves-down-arrow.svg') }}");
-        background-repeat:no-repeat;
-        background-size: 100px 100px;
-        text-indent: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+        .top_middle_sec_title2 .vesti-excla{
+            color:#df1174;
+            font-size:10rem;
+            font-family:"Playfair Display";
+            font-weight: 500;
+            vertical-align:bottom;
+        }
     </style>
     <script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
     <script type="text/javascript">
@@ -78,7 +57,7 @@
                     </div>
                     <div class="row">
                         <div class="col top_middle_sec_title2">
-                            I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing
+                            <span class="vesti-excla">"</span>I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing <span class="vesti-excla">"</span>
                         </div>
                     </div>
                 </div>
@@ -123,7 +102,7 @@
                 <div class="container" id="vestidos-footer">
                     <div class="row">
                         <div class="col">
-                            <h1>footer</h1>
+                            <footer>TEST</footer>
                         </div>
                     </div>
                 </div>
