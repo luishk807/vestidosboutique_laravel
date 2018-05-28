@@ -10495,7 +10495,8 @@ a.text-dark:focus {
 }
 
 #slide1,
-#slide2 {
+#slide2,
+#slide3 {
   background-position: center center;
 }
 
@@ -10505,6 +10506,10 @@ a.text-dark:focus {
 
 #slide2 {
   background-image: url(/images/vestidos_slide3.jpg);
+}
+
+#slide3 {
+  background-image: url(/images/vestidos_slide2.jpg);
 }
 
 .section {

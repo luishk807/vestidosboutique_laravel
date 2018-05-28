@@ -204,7 +204,7 @@
                         <a href=''></a>
                     </div>
             </div>
-            <div class="slide playfair-display-black-italic" id="slide1">
+            <div class="slide playfair-display-black-italic" id="slide2">
                
             
                 <div class="container">
@@ -227,7 +227,8 @@
 
 
             </div>
-            <div class="slide" id="slide2"><h1>Totally customizable</h1></div>
+            <div class="slide" id="slide1"><h1>Totally customizable</h1></div>
+            <div class="slide" id="slide3"><h1>Totally customizable</h1></div>
         </div>
         <div class="section" id="top_middle_sec">
         <div class="intro">

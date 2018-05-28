@@ -77,7 +77,8 @@ $main_vest_color_b:#df1174;
 //   margin-top:50px;
 // }
 #slide1,
-#slide2{
+#slide2,
+#slide3{
   background-position: center center;
 }
 #slide1{
@@ -86,9 +87,9 @@ $main_vest_color_b:#df1174;
 #slide2{
   background-image: url(/images/vestidos_slide3.jpg);
 }
-// #slide3{
-//   background-image: url(/images/home_main_img3.jpg);
-// }
+#slide3{
+  background-image: url(/images/vestidos_slide2.jpg);
+}
 .section{
 background-size: cover;
 }
