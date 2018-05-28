@@ -113,6 +113,21 @@
         .vesti-footer-section-2 .text-right img{
             margin:10px 0px;
         }
+
+        .quince-select-title{
+            font-size:3rem;
+            font-family:'Playfair Display';
+            font-style:italic;
+            font-weight:700;
+        }
+        #quince_selec_sec{
+            margin:60px 0px 50px 0px;
+        }
+        .pos-f-t{
+            position: fixed;
+            z-index: 99999;
+            width: 100%;
+        }
     </style>
     <script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
     <script type="text/javascript">
@@ -156,7 +171,7 @@
                 if( win.width() >=400){
                     // initialization();
                    // $("#fullpage").css("margin-top","50px");
-                   $(".vestidos-main-nav").css("position","absolute");
+                //    $(".vestidos-main-nav").css("position","absolute");
                     $("#main_slider_arrow_cont").css("display","block");
                     $("#brands_section").css("background-image","url('{{ asset('/images/home_main_img2.jpg') }}')");
                     $(".brands_img img").css("display","none");
@@ -164,7 +179,9 @@
                 }else{
                    // $.fn.fullpage.destroy('all');
                  //  $("#fullpage").css("margin-top","0px");
-                 $(".vestidos-main-nav").css("position","fixed");
+                
+                //  $(".vestidos-main-nav-top").css("position","fixed");
+                //  $(".vestidos-main-nav").css("position","fixed");
                  $(".brands_img img").css("display","block");
                  $(".quince_img img").css("display","block");
                    $("#main_slider_arrow_cont").css("display","none");
@@ -262,7 +279,7 @@
             </div>
         </div>
         <div class="section" id="quince_main">
-            <div class="intro" id="slide3">
+            <div class="intro">
                 <div class="container">
                     <div class="row"  style="margin: 0px auto;">
                         <div class="col quince_txt">
@@ -279,17 +296,29 @@
             </div>
         </div>
         <div class="section" id="quince_selec_sec">
-            <div class="intro" id="slide3">
+            <div class="intro">
                 <div class="container">
-                    <div class="row"  style="margin: 0px auto;">
-                        <div class="col quince_txt">
-                            <div class="quince_img">
-                                <img src="{{asset('images/home_main_img2_min.jpg')}}" alt="model1">
-                            </div>
-                            <div>
-                                <div class="vesti_font_color_b">Lorem Ipsum has?</div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
-                            </div>
+                    <div class="row">
+                         <div class="col quince-select-title vesti_font_color_b text-center">Top Quinceanera Dresses</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mt-4 col-md-4">
+                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                        </div>
+                        <div class="col-sm-6 mt-4 col-md-4">
+                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                        </div>
+                        <div class="col-sm-6 mt-4 col-md-4">
+                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                        </div>
+                        <div class="col-sm-6 mt-4 col-md-4">
+                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                        </div>
+                        <div class="col-sm-6 mt-4 col-md-4">
+                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                        </div>
+                        <div class="col-sm-6 mt-4 col-md-4">
+                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
                     </div>
                 </div>
