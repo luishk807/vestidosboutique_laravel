@@ -5,6 +5,8 @@
 
 $playfair_display:"Playfair Display";
 $crimson_txt:"Crimson Text";
+$main_vest_color:#87124a;
+$main_vest_color_b:#df1174;
 .playfair-display{
   font-family:$playfair_display;
   font-weight: 400;
@@ -62,18 +64,18 @@ $crimson_txt:"Crimson Text";
   z-index: 9999;
 }
 .vest-maincolor{
-	background-color:#87124a;
+	background-color:$main_vest_color;
 	color:white;
 }
 .vest-maintxtcolor{
-	background-color:#87124a;
+	background-color:$main_vest_color;
 }
 .white-border-bg{
   border-color:white;
 }
-#fullpage{
-  margin-top:50px;
-}
+// #fullpage{
+//   margin-top:50px;
+// }
 #slide1,
 #slide2{
   background-position: center center;
@@ -84,9 +86,9 @@ $crimson_txt:"Crimson Text";
 #slide2{
   background-image: url(/images/vestidos_slide3.jpg);
 }
-#slide3{
-  background-image: url(/images/home_main_img3.jpg);
-}
+// #slide3{
+//   background-image: url(/images/home_main_img3.jpg);
+// }
 .section{
 background-size: cover;
 }
@@ -132,4 +134,10 @@ background-size: cover;
     text-indent: 100%;
     white-space: nowrap;
     overflow: hidden;
+}
+.vesti_font_color_a{
+  color:$main_vest_color;
+}
+.vesti_font_color_b{
+  color:$main_vest_color_b;
 }

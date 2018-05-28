@@ -2,19 +2,128 @@
 @section('content')
     <style>
         .top_middle_sec_title2 .vesti-excla{
-            color:#df1174;
             font-size:10rem;
             font-family:"Playfair Display";
             font-weight: 500;
             vertical-align:bottom;
+        
         }
+        #brands_section .col:nth-child(2){
+            text-align:center;
+            top:50%;
+        }
+        #brands_section .brands_txt div:first-child{
+            font-size:4rem;
+            font-family:'Playfair Display';
+            font-weight:700;
+        }
+        #brands_section .brands_txt div:last-child{
+            font-size:2rem;
+            font-family:'Playfair Display';
+            font-weight:400;
+        }
+        .brands_txt > div{
+            max-width:600px;
+            margin-left: auto;
+        }
+        .brands_img img{
+            display:none;
+        }
+        #brands_section{
+            background-color: #dfdfe1;
+            background-image:url("{{ asset('/images/home_main_img2.jpg') }}");
+        }
+        #quince_main .col:nth-child(2){
+            text-align:center;
+            top:50%;
+        }
+        #quince_main .quince_txt div:first-child{
+            font-size:4rem;
+            font-family:'Playfair Display';
+            font-weight:700;
+        }
+        #quince_main .quince_txt div:last-child{
+            font-size:2rem;
+            font-family:'Playfair Display';
+            font-weight:400;
+        }
+        #quince_main{
+            background-color:white;
+            background-image:url("{{ asset('/images/home_main_img3.jpg') }}");
+        }
+        .quince_img img{
+            display:none;
+        }
+        .quince_txt > div{
+            max-width:600px;
+            margin-right: auto;
+        }
+        /* .section > div{
+            vertical-align:top;
+        } */
     </style>
     <script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
     <script type="text/javascript">
 		$(document).ready(function() {
-			$('#fullpage').fullpage({
-				verticalCentered: false
-			});
+            var slideTimeout = null;
+            function setSlider(){
+                if(!slideTimeout){
+                    slideTimeout = setInterval(function () {
+                            $.fn.fullpage.moveSlideRight();
+                    },5000);
+                }
+            }
+            function initialization(){
+                $('#fullpage').fullpage({
+                    // scrollOverflow: true,
+                    navigation: true,
+                    responsiveWidth: 900,
+                    menu: '.navbar',
+                    afterRender: function () {
+                        //on page load, start the slideshow
+                        setSlider();
+                    },
+                    afterLoad: function(anchorLink, index){
+                        //set slider when in slide 1
+                        if (index == '1' && !slideTimeout) {
+                            setSlider();
+                        }
+                    },
+                    onLeave: function (index, direction) {
+                        //remove slider when leaving
+                        if (index == '1') {
+                            clearInterval(slideTimeout);
+                            slideTimeout =null;
+                        }
+                    }
+                });
+            }
+            initialization();
+            $(window).on("resize",function() {
+                var win = $(this); //this = window
+                if( win.width() >=400){
+                    // initialization();
+                   // $("#fullpage").css("margin-top","50px");
+                   $(".vestidos-main-nav").css("position","absolute");
+                    $("#main_slider_arrow_cont").css("display","block");
+                    $("#brands_section").css("background-image","url('{{ asset('/images/home_main_img2.jpg') }}')");
+                    $(".brands_img img").css("display","none");
+                    $(".quince_img img").css("display","none");
+                }else{
+                   // $.fn.fullpage.destroy('all');
+                 //  $("#fullpage").css("margin-top","0px");
+                 $(".vestidos-main-nav").css("position","fixed");
+                 $(".brands_img img").css("display","block");
+                 $(".quince_img img").css("display","block");
+                   $("#main_slider_arrow_cont").css("display","none");
+                   $("#brands_section").css("background-image","none");
+                   
+                }
+            });
+            $("#main_slider_arrow_cont .main_slider_txt a").click(function(e){
+                e.preventDefault();
+                $.fn.fullpage.moveSectionDown();
+            });
 		});
     </script>
    <div id="fullpage">
@@ -30,8 +139,8 @@
             </div>
             <div class="slide" id="slide2"><h1>Totally customizable</h1></div>
         </div>
-        <div class="section " id="top_middle_sec">
-        <div class="slide">
+        <div class="section" id="top_middle_sec">
+        <div class="intro">
                 <div class="container">
                     <div class="row">
                         <div class="col top_middle_sec_title">
@@ -57,34 +166,41 @@
                     </div>
                     <div class="row">
                         <div class="col top_middle_sec_title2">
-                            <span class="vesti-excla">"</span>I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing <span class="vesti-excla">"</span>
+                            <span class="vesti-excla vesti_font_color_b">"</span>I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing <span class="vesti-excla vesti_font_color_b">"</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="section" id="brands_section">
-            <div class="slide">
-                <div class="container home_w100">
-                    <div class="row gray_bg">
-                        <div class="col home_bg_2">
-                            <h1>Brands</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h1>Brands</h1>
+        <div class="intro">
+                <div class="container">
+                    <div class="row" style="margin: 0px auto;">
+                        <div class="col brands_txt">
+                            <div class="brands_img">
+                                <img src="{{asset('images/home_main_img2_min.jpg')}}" alt="model1">
+                            </div>
+                            <div>
+                                <div class="vesti_font_color_b">Lorem Ipsum has?</div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="section" id="quince_main">
-            <div class="slide" id="slide3">
-                <div class="container home_w100">
-                    <div class="row">
-                        <div class="col home_bg_3">
-                            <h1>Brands</h1>
+            <div class="intro" id="slide3">
+                <div class="container">
+                    <div class="row"  style="margin: 0px auto;">
+                        <div class="col quince_txt">
+                            <div class="quince_img">
+                                <img src="{{asset('images/home_main_img2_min.jpg')}}" alt="model1">
+                            </div>
+                            <div>
+                                <div class="vesti_font_color_b">Lorem Ipsum has?</div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
+                            </div>
                         </div>
                     </div>
                 </div>

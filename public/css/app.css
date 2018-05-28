@@ -10494,10 +10494,6 @@ a.text-dark:focus {
   border-color: white;
 }
 
-#fullpage {
-  margin-top: 50px;
-}
-
 #slide1,
 #slide2 {
   background-position: center center;
@@ -10509,10 +10505,6 @@ a.text-dark:focus {
 
 #slide2 {
   background-image: url(/images/vestidos_slide3.jpg);
-}
-
-#slide3 {
-  background-image: url(/images/home_main_img3.jpg);
 }
 
 .section {
@@ -10568,6 +10560,14 @@ a.text-dark:focus {
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.vesti_font_color_a {
+  color: #87124a;
+}
+
+.vesti_font_color_b {
+  color: #df1174;
 }
 
 .test {
