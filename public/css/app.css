@@ -10536,22 +10536,19 @@ a.text-dark:focus {
 
 /***white arrow cont***/
 
-#home_main_slider #main_slider_arrow_cont {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  right: 0;
-  z-index: 999;
-  width: 100%;
-}
-
 .main_arrow_slider_txt {
   width: 200px;
+  position: absolute;
   text-align: center;
   font-family: Arial;
   color: white;
   font-size: 1.5rem;
   line-height: 1rem;
+  bottom: 1%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 999;
 }
 
 #home_main_slider .vesti-down-arrow {

@@ -154,11 +154,14 @@
            #brands_section{
                background-image:none;
            }
+          #main_slider_arrow_cont{
+              display:none;
+          }
         }
 
         @media only screen and (min-width: 900px) {
             #main_slider_arrow_cont{
-                display","block";
+                display:block;
             }
             #brands_section{
                 background-image:url('{{ asset('/images/home_main_img2.jpg') }}');
@@ -184,17 +187,17 @@
                 $('#fullpage').fullpage({
                     // scrollOverflow: true,
                     navigation: true,
-                    responsiveWidth: 900,
+                    responsiveWidth: 300,
                     menu: '.navbar',
                     afterRender: function () {
                         //on page load, start the slideshow
-                        //setSlider();
+                        setSlider();
                     },
                     afterLoad: function(anchorLink, index){
                         //set slider when in slide 1
-                        // if (index == '1' && !slideTimeout) {
-                        //     setSlider();
-                        // }
+                        if (index == '1' && !slideTimeout) {
+                            setSlider();
+                        }
                     },
                     onLeave: function (index, direction) {
                         //remove slider when leaving
@@ -222,7 +225,7 @@
                 //  $(".vestidos-main-nav").css("position","fixed");
                 }
             });
-            $("#main_slider_arrow_cont vesti-down-arrow").click(function(e){
+            $("#main_slider_arrow_cont .vesti-down-arrow").click(function(e){
                 e.preventDefault();
                 $.fn.fullpage.moveSectionDown();
             });
