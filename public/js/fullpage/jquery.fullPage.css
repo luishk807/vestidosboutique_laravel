@@ -67,7 +67,7 @@ html.fp-enabled,
     -ms-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
-.fp-controlArrow.fp-prev {
+/* .fp-controlArrow.fp-prev {
     left: 15px;
     width: 0;
     border-width: 38.5px 34px 38.5px 0;
@@ -77,6 +77,46 @@ html.fp-enabled,
     right: 15px;
     border-width: 38.5px 0 38.5px 34px;
     border-color: transparent transparent transparent #fff;
+} */
+.fp-controlArrow.fp-prev {
+    left: 15px;
+    width: 0;
+    /* border-width: 38.5px 34px 38.5px 0;*/
+    /* border-color: transparent #fff transparent transparent; */
+    left:6%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+.fp-controlArrow.fp-next {
+    right: 15px;
+    /* border-width: 38.5px 0 38.5px 34px; */
+    /* border-color: transparent transparent transparent #fff; */
+
+    right:6%;
+    -webkit-transform: rotate(-138deg);
+    transform: rotate(-138deg)
+}
+.fp-controlArrow.fp-prev:hover,
+.fp-controlArrow.fp-next:hover{
+    opacity:1;
+}
+.fp-controlArrow.fp-prev,
+.fp-controlArrow.fp-next{
+    -webkit-transition: opacity .6s; /* Safari */
+    transition: opacity .6s;
+    opacity: .3;
+    border-color: transparent transparent transparent transparent;
+    margin: 0px auto;
+    display:inline-block;
+    background-repeat:no-repeat;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align:middle;
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+    background-image: url('/images/left-arrow.svg');
 }
 .fp-scrollable {
     overflow: hidden;
