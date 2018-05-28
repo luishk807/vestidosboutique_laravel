@@ -172,6 +172,7 @@
                     // initialization();
                    // $("#fullpage").css("margin-top","50px");
                 //    $(".vestidos-main-nav").css("position","absolute");
+                    $(".vestidos-main-nav-top").removeClass("show")
                     $("#main_slider_arrow_cont").css("display","block");
                     $("#brands_section").css("background-image","url('{{ asset('/images/home_main_img2.jpg') }}')");
                     $(".brands_img img").css("display","none");
