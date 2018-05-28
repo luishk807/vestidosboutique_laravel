@@ -15,7 +15,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 
 <style>
-    .slide-main-btn{
+    /* .slide-main-btn{
         font-family:"Playfair Display";
         font-weight: 500;
 
@@ -73,7 +73,7 @@
         font-size:2.6rem;
         padding:10px 0px;
         line-height: 3rem;
-    }
+    } */
 </style>
 </head>
 <body>

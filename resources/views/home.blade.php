@@ -1,12 +1,25 @@
 @extends("layouts.app")
 @section('content')
     <style>
-        .top_middle_sec_title2 .vesti-excla{
-            font-size:10rem;
+
+        .top_middle_sec_title{
             font-family:"Playfair Display";
-            font-weight: 500;
-            vertical-align:bottom;
-        
+            font-weight: 400;
+            font-style: italic;
+            color:black;
+            text-align:center;
+            font-size:2.5rem;
+            padding:10px 0px;
+        }
+        .top_middle_sec_title2{
+            font-family:"Playfair Display";
+            font-weight: 400;
+            font-style: italic;
+            color:black;
+            text-align:center;
+            font-size:2.6rem;
+            padding:10px 0px;
+            line-height: 3rem;
         }
         #brands_section .col:nth-child(2){
             text-align:center;
@@ -58,16 +71,8 @@
             max-width:600px;
             margin-right: auto;
         }
-        .main_slider_txt div{
-            line-height:0.8;
-            text-align:right;
-        }
-        .main_slider_txt span:nth-child(1){
-            font-size:3rem;
-        }
-        .main_slider_txt span:nth-child(3){
-            font-size:6rem;
-        }
+
+        
         /* .section > div{
             vertical-align:top;
         } */
@@ -76,32 +81,7 @@
             padding-bottom:50px;
             font-family:Arial;
         }
-        .vestidos-icons-payment,
-        .vestidos-icons-social,
-        .vestidos-icons-social-b{
-            margin: 0px auto;
-            display:inline-block;
-            background-repeat:no-repeat;
-            text-indent: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            vertical-align:middle;
-        }
-        .vestidos-icons-payment{
-            width: 50px;
-            height: 50px;
-            background-size: 50px 50px;
-        }
-        .vestidos-icons-social{
-            width: 30px;
-            height: 30px;
-            background-size: 30px 30px;
-        }
-        .vestidos-icons-social-b{
-            width: 30px;
-            height: 23px;
-            background-size: 30px 23px;
-        }
+
 
         .vesti-footer-section-2{
             border-top:#a76e8a 1px solid;
@@ -128,6 +108,66 @@
             z-index: 99999;
             width: 100%;
         }
+        .vesti-excla{
+            height:70px;
+            background-size:70px 70px;
+            width:70px;
+        }
+        #top_middle_sec .row:last-child{
+            margin:10px auto;
+        }
+        #top_middle_sec .row:last-child .col-md-2:nth-child(1){
+           text-align:right;
+        }
+        #top_middle_sec .row:last-child .col-md-2:nth-child(3){
+           text-align:left;
+        }
+        .btn-vesti-slide{
+            border: 1px solid;
+            padding: 10px 80px;
+            font-size:1.5rem;
+            margin: 20px 0px;
+        }
+        .main_slider_in{
+            line-height: .8;
+            text-align: right;
+            display: inline-block;
+        }
+        .main_slider_btn{
+            text-align:center;
+        }
+        .main_slider_txt{
+            text-align:left;
+        }
+        .main_slider_txt span:nth-child(1){
+            font-size:3rem;
+        }
+        .main_slider_txt span:nth-child(3){
+            font-size:6rem;
+        }
+        @media only screen and (max-width: 600px) {
+           .brands_img img,
+           .quince_img img,
+           #main_slider_arrow_cont{
+               display:block;
+           }
+           #brands_section{
+               background-image:none;
+           }
+        }
+
+        @media only screen and (min-width: 900px) {
+            #main_slider_arrow_cont{
+                display","block";
+            }
+            #brands_section{
+                background-image:url('{{ asset('/images/home_main_img2.jpg') }}');
+            }
+            .brands_img img,
+            .quince_img img{
+                display:none;
+            }
+        }
     </style>
     <script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
     <script type="text/javascript">
@@ -148,13 +188,13 @@
                     menu: '.navbar',
                     afterRender: function () {
                         //on page load, start the slideshow
-                        setSlider();
+                        //setSlider();
                     },
                     afterLoad: function(anchorLink, index){
                         //set slider when in slide 1
-                        if (index == '1' && !slideTimeout) {
-                            setSlider();
-                        }
+                        // if (index == '1' && !slideTimeout) {
+                        //     setSlider();
+                        // }
                     },
                     onLeave: function (index, direction) {
                         //remove slider when leaving
@@ -173,58 +213,52 @@
                    // $("#fullpage").css("margin-top","50px");
                 //    $(".vestidos-main-nav").css("position","absolute");
                     $(".vestidos-main-nav-top").removeClass("show")
-                    $("#main_slider_arrow_cont").css("display","block");
-                    $("#brands_section").css("background-image","url('{{ asset('/images/home_main_img2.jpg') }}')");
-                    $(".brands_img img").css("display","none");
-                    $(".quince_img img").css("display","none");
+                    
                 }else{
                    // $.fn.fullpage.destroy('all');
                  //  $("#fullpage").css("margin-top","0px");
                 
                 //  $(".vestidos-main-nav-top").css("position","fixed");
                 //  $(".vestidos-main-nav").css("position","fixed");
-                 $(".brands_img img").css("display","block");
-                 $(".quince_img img").css("display","block");
-                   $("#main_slider_arrow_cont").css("display","none");
-                   $("#brands_section").css("background-image","none");
-                   
                 }
             });
-            $("#main_slider_arrow_cont .main_arrow_slider_txt a").click(function(e){
+            $("#main_slider_arrow_cont vesti-down-arrow").click(function(e){
                 e.preventDefault();
                 $.fn.fullpage.moveSectionDown();
             });
 		});
     </script>
+
+    
+
+
    <div id="fullpage">
         <div class="section" id="home_main_slider">
             <div id="main_slider_arrow_cont">
                     <div class="main_arrow_slider_txt">
                         Scroll Down<br/>
-                        <a href=''></a>
+                        <a class="vesti-svg vesti-down-arrow" href=''></a>
                     </div>
             </div>
             <div class="slide playfair-display-black-italic" id="slide2">
                
-            
-                <div class="container">
-                    <div class="row"  style="margin: 0px auto;">
-                        <div class="col main_slider_txt">
-                            <div style="margin-right:84px">
-                                <div class="vesti_font_color_a">
-                                    <span>Lorem Ipsum has?</span><br/>
-                                    <span>2018</span>
-                                </div>
+                <div class="intro">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col main_slider_txt">
+                                    <div class="vesti_font_color_a main_slider_in">
+                                        <span>Lorem Ipsum has?</span><br/>
+                                        <span>2018</span>
+                                    </div>
                             </div>
-                        </div>
-                        <div class="col main_slider_btn">
-                            <div>
-                                <div class="vesti_font_color_a">Lorem Ipsum has?</div>
+                            <div class="col main_slider_btn">
+                                <div>
+                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
             </div>
             <div class="slide" id="slide1"><h1>Totally customizable</h1></div>
@@ -256,8 +290,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col top_middle_sec_title2">
-                            <span class="vesti-excla vesti_font_color_b">"</span>I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing <span class="vesti-excla vesti_font_color_b">"</span>
+                        <div class="col-md-2">
+                            <img src="{{ asset('images/home_main_ad1-01.svg') }}" class="vesti-svg vesti-excla" />
+                        </div>
+                        <div class="col-md-8 top_middle_sec_title2">
+                            I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing
+                        </div>
+                        <div class="col-md-2">
+                            <img src="{{ asset('images/home_main_ad2-01.svg') }}" class="vesti-svg vesti-excla" />
                         </div>
                     </div>
                 </div>
@@ -365,17 +405,17 @@
                     <div class="row vesti-footer-section-2">
                         <div class="col-md-4 text-center">
                             We Accept:
-                            <img src="/images/cc-visa.svg" class="vestidos-icons-payment"/>
-                            <img src="/images/cc-master.svg" class="vestidos-icons-payment"/>
-                            <img src="/images/cc-amex.svg" class="vestidos-icons-payment"/>
-                            <img src="/images/cc-discover.svg" class="vestidos-icons-payment"/>
+                            <img src="{{ asset('images/cc-visa.svg') }}" class="vesti-svg vestidos-icons-payment"/>
+                            <img src="{{ asset('images/cc-master.svg') }}" class="vesti-svg vestidos-icons-payment"/>
+                            <img src="{{ asset('images/cc-amex.svg') }}" class="vesti-svg vestidos-icons-payment"/>
+                            <img src="{{ asset('images/cc-discover.svg') }}" class="vesti-svg vestidos-icons-payment"/>
                         </div>
 
                         <div class="col-md-4 text-center">
-                            <img src="/images/social-facebook.svg" class="vestidos-icons-social-b"/>
-                            <img src="/images/social-instagram.svg" class="vestidos-icons-social"/>
-                            <img src="/images/social-twitter.svg" class="vestidos-icons-social"/>
-                            <img src="/images/social-pinterest.svg" class="vestidos-icons-social"/>
+                            <img src="{{ asset('images/social-facebook.svg') }}" class="vesti-svg vestidos-icons-social-b"/>
+                            <img src="{{ asset('images/social-instagram.svg') }}" class="vesti-svg vestidos-icons-social"/>
+                            <img src="{{ asset('images/social-twitter.svg') }}" class="vesti-svg vestidos-icons-social"/>
+                            <img src="{{ asset('images/social-pinterest.svg') }}" class="vesti-svg vestidos-icons-social"/>
                         </div>
                     </div>
                 </div>
