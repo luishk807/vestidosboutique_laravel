@@ -261,8 +261,44 @@
                 </div>
 
             </div>
-            <div class="slide" id="slide1"><h1>Totally customizable</h1></div>
-            <div class="slide" id="slide3"><h1>Totally customizable</h1></div>
+            <div class="slide playfair-display-black-italic" id="slide1">
+            <div class="intro">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col main_slider_txt">
+                                    <div class="vesti_font_color_a main_slider_in">
+                                        <span>Lorem Ipsum has?</span><br/>
+                                        <span>2018</span>
+                                    </div>
+                            </div>
+                            <div class="col main_slider_btn">
+                                <div>
+                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide playfair-display-black-italic" id="slide3">
+                <div class="intro">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col main_slider_txt">
+                                    <div class="vesti_font_color_a main_slider_in">
+                                        <span>Lorem Ipsum has?</span><br/>
+                                        <span>2018</span>
+                                    </div>
+                            </div>
+                            <div class="col main_slider_btn">
+                                <div>
+                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="section" id="top_middle_sec">
         <div class="intro">
