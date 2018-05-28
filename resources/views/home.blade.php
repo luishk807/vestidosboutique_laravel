@@ -58,6 +58,16 @@
             max-width:600px;
             margin-right: auto;
         }
+        .main_slider_txt div{
+            line-height:0.8;
+            text-align:right;
+        }
+        .main_slider_txt span:nth-child(1){
+            font-size:3rem;
+        }
+        .main_slider_txt span:nth-child(3){
+            font-size:6rem;
+        }
         /* .section > div{
             vertical-align:top;
         } */
@@ -120,7 +130,7 @@
                    
                 }
             });
-            $("#main_slider_arrow_cont .main_slider_txt a").click(function(e){
+            $("#main_slider_arrow_cont .main_arrow_slider_txt a").click(function(e){
                 e.preventDefault();
                 $.fn.fullpage.moveSectionDown();
             });
@@ -129,13 +139,33 @@
    <div id="fullpage">
         <div class="section" id="home_main_slider">
             <div id="main_slider_arrow_cont">
-                    <div class="main_slider_txt">
+                    <div class="main_arrow_slider_txt">
                         Scroll Down<br/>
                         <a href=''></a>
                     </div>
             </div>
             <div class="slide playfair-display-black-italic" id="slide1">
-                <h1>Slide Backgrounds</h1>
+               
+            
+                <div class="container">
+                    <div class="row"  style="margin: 0px auto;">
+                        <div class="col main_slider_txt">
+                            <div style="margin-right:84px">
+                                <div class="vesti_font_color_a">
+                                    <span>Lorem Ipsum has?</span><br/>
+                                    <span>2018</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col main_slider_btn">
+                            <div>
+                                <div class="vesti_font_color_a">Lorem Ipsum has?</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <div class="slide" id="slide2"><h1>Totally customizable</h1></div>
         </div>
