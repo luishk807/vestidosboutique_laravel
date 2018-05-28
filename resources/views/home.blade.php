@@ -71,6 +71,48 @@
         /* .section > div{
             vertical-align:top;
         } */
+        .vestidos-footer{
+            padding-top:150px;
+            padding-bottom:50px;
+            font-family:Arial;
+        }
+        .vestidos-icons-payment,
+        .vestidos-icons-social,
+        .vestidos-icons-social-b{
+            margin: 0px auto;
+            display:inline-block;
+            background-repeat:no-repeat;
+            text-indent: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align:middle;
+        }
+        .vestidos-icons-payment{
+            width: 50px;
+            height: 50px;
+            background-size: 50px 50px;
+        }
+        .vestidos-icons-social{
+            width: 30px;
+            height: 30px;
+            background-size: 30px 30px;
+        }
+        .vestidos-icons-social-b{
+            width: 30px;
+            height: 23px;
+            background-size: 30px 23px;
+        }
+
+        .vesti-footer-section-2{
+            border-top:#a76e8a 1px solid;
+        }
+        .vesti-footer-section-2 div:first-child{
+            border-right:#a76e8a 1px solid;
+        }
+
+        .vesti-footer-section-2 .text-right img{
+            margin:10px 0px;
+        }
     </style>
     <script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
     <script type="text/javascript">
@@ -237,21 +279,76 @@
             </div>
         </div>
         <div class="section" id="quince_selec_sec">
-            <div class="slide">
-                <div class="container" id="vestidos-quince-top">
-                    <div class="row">
-                        <div class="col">
-                            <h1>Brands</h1>
+            <div class="intro" id="slide3">
+                <div class="container">
+                    <div class="row"  style="margin: 0px auto;">
+                        <div class="col quince_txt">
+                            <div class="quince_img">
+                                <img src="{{asset('images/home_main_img2_min.jpg')}}" alt="model1">
+                            </div>
+                            <div>
+                                <div class="vesti_font_color_b">Lorem Ipsum has?</div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="container" id="vestidos-footer">
-                    <div class="row">
-                        <div class="col">
-                            <footer>TEST</footer>
+            </div>
+        </div>
+        <div class="section vestidos-footer fp-auto-height vest-maincolor">
+            <div class="intro footer">
+                
+            
+
+                <div class="container">
+                    <div class="row vesti-footer-section-1">
+                        <div class="col-md-4  text-center">
+                            Vestidos Boutique
+                        </div>
+
+                        <div class="col-md-8  text-center">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 text-center">
+                                        <ul class="list-unstyled">
+                                            <li>About Us</li>
+                                            <li>Contact Us</li>
+                                            <li>Faqs</li>
+                                            <li>Terms of Use</li>
+                                            <li>Privacy</li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <ul class="list-unstyled">
+                                            <li>Got Questions? Call Us</li>
+                                            <li>PHONE: +507 203-5848</li>
+                                            <li>EMAIL: info@vestidosboutique.com</li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row vesti-footer-section-2">
+                        <div class="col-md-4 text-center">
+                            We Accept:
+                            <img src="/images/cc-visa.svg" class="vestidos-icons-payment"/>
+                            <img src="/images/cc-master.svg" class="vestidos-icons-payment"/>
+                            <img src="/images/cc-amex.svg" class="vestidos-icons-payment"/>
+                            <img src="/images/cc-discover.svg" class="vestidos-icons-payment"/>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <img src="/images/social-facebook.svg" class="vestidos-icons-social-b"/>
+                            <img src="/images/social-instagram.svg" class="vestidos-icons-social"/>
+                            <img src="/images/social-twitter.svg" class="vestidos-icons-social"/>
+                            <img src="/images/social-pinterest.svg" class="vestidos-icons-social"/>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
   </div>
