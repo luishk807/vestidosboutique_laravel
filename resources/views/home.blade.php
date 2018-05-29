@@ -275,6 +275,7 @@
             }
             initialization();
             $(window).on("resize",function() {
+                $(".submenu-panel").removeClass("open");
                 var win = $(this); //this = window
                 if( win.width() >=400){
                     // initialization();

@@ -82,6 +82,24 @@
     .nav-item.hover{
         background-color: #5e002e;
     }
+    .submenu-panel.open{
+        top:50px;
+    }
+    .submenu-panel{
+        height: 213px;
+        position:absolute;
+        top:-5000px;
+        left:0px;
+        width:100%;
+        z-index: 999;
+        background-color: #5e002e;
+        color:white;
+        -webkit-transition:top .4s; 
+        -moz-transition:top .4s; 
+        -ms-transition:top .4s; 
+        -o-transition:top .4s; 
+        transition:top .4s;  
+    }
 </style>
 <script>
     $(document).ready(function(){
@@ -90,6 +108,26 @@
         });
         $(".collapse-link").click(function(){
             $(this).closest(".nav-item").toggleClass("hover");
+        })
+        var current=null;
+        var menu_id = null;
+        $(".vest-maincolor-left .nav-item a").click(function(){
+            if(current){
+                menu_id=$(this).attr("menu-target");
+                $("#"+current).toggleClass("open");
+                if(menu_id != current){
+                    current = null;
+                    setTimeout(function(){
+                        $(".submenu-panel").not(this).removeClass("open");
+                        $("#"+menu_id).toggleClass("open");
+                    },200)
+                }
+            }else{
+                menu_id=current=$(this).attr("menu-target");
+                $(".submenu-panel").not(this).removeClass("open");
+                $("#"+menu_id).toggleClass("open");
+            }
+
         })
     });
 </script>
@@ -117,10 +155,10 @@
                         <a class="nav-link text-white playfair-display-italic" href="#">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">Events</a>
+                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="events-submenu" href="#">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">Brands</a>
+                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="brands-submenu" href="#">Brands</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="#">Contact Us</a>
@@ -135,8 +173,9 @@
                 </ul>
             </div>
         </div>
-
     </nav>
+    <div id="events-submenu" class="submenu-panel">Event</div>
+    <div id="brands-submenu" class="submenu-panel">Brand</div>
 
         <div class="collapse vestidos-main-nav-top" id="navbarToggleExternalContent">
             <div class="vesti-custom-bg">
