@@ -169,6 +169,26 @@
         .main_slider_txt span:nth-child(3){
             font-size:6rem;
         }
+        .vesti-new-border{
+            z-index:9999;
+            position:absolute;
+            width: 0;
+            height: 0;
+            border-top: 100px solid #87124a;
+            border-right: 100px solid transparent;
+        }
+        .vesti-new-txt{
+            position: absolute;
+            z-index: 99999;
+            color: white;
+            font-family: arial;
+            font-size: 1rem;
+            font-weight: bold;
+            -webkit-transform: rotate(-44deg);
+            transform: rotate(-44deg);
+            top: 18px;
+            left: 27px;
+        }
         .flash_hover_link:hover img{
             opacity: 1;
             -webkit-animation: flash 1.5s;
@@ -358,6 +378,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 col-md-4">
+                            <div class="vesti-new-txt">NEW</div><div class="vesti-new-border"></div>
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="#" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
@@ -436,6 +457,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 mt-4 col-md-4">
+                            <div class="vesti-new-txt">NEW</div><div class="vesti-new-border"></div>
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
