@@ -226,7 +226,8 @@
               display:none !important;
           }
           .main_slider_in,
-          .main_slider_txt{
+          .main_slider_txt,
+          #brands_section .brands_txt div:last-child{
               text-align:center;
           }
 
@@ -264,6 +265,18 @@
           }
           .top_middle_sec_title2{
               font-size:2rem;
+          }
+          #brands_section .brands_txt div:first-child{
+              font-size:2rem;
+          }
+          #brands_section .brands_txt div:last-child{
+              font-size:1.5rem;
+          }
+          #quince_main .quince_txt div:first-child{
+              font-size:2rem;
+          }
+          #quince_main .quince_txt div:last-child{
+              font-size:1.5rem;
           }
         }
 
@@ -319,6 +332,7 @@
             initialization();
             $(window).on("resize",function() {
                 $(".submenu-panel").removeClass("open");
+                $('#vesti-main-nav-btn').removeClass('open');
                 var win = $(this); //this = window
                 if( win.width() >=400){
                     // initialization();
@@ -481,7 +495,7 @@
                     <div class="row"  style="margin: 0px auto;">
                         <div class="col quince_txt">
                             <div class="quince_img">
-                                <img src="{{asset('images/home_main_img2_min.jpg')}}" alt="model1">
+                                <img src="{{asset('images/home_main_img3-min.jpg')}}" alt="model1">
                             </div>
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
