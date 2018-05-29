@@ -113,6 +113,30 @@
             background-size:70px 70px;
             width:70px;
         }
+        .vesti-heart-link{
+            position:absolute;
+            z-index: 9999;
+            right:0;
+            top:0;
+        }
+        #quince_selec_sec .vesti-heart-link{
+            right:15px;
+        }
+        .vesti-heart-link span{
+            height:30px;
+            background-size:30px 30px;
+            width:30px;
+            background-image:url("{{asset('images/ves-heart.svg')}}");
+        }
+        .vesti-heart-link:hover span{
+            height:30px;
+            background-size:30px 30px;
+            width:30px;
+            background-image:url("{{asset('images/ves-heart-b.svg')}}");
+        }
+        #top_middle_sec row{
+            position:relative;
+        }
         #top_middle_sec .row:last-child{
             margin:10px auto;
         }
@@ -144,6 +168,27 @@
         }
         .main_slider_txt span:nth-child(3){
             font-size:6rem;
+        }
+        .flash_hover_link:hover img{
+            opacity: 1;
+            -webkit-animation: flash 1.5s;
+            animation: flash 1.5s;
+        }
+        @-webkit-keyframes flash {
+            0% {
+                opacity: .4;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes flash {
+            0% {
+                opacity: .4;
+            }
+            100% {
+                opacity: 1;
+            }
         }
         @media only screen and (max-width: 600px) {
            .brands_img img,
@@ -313,17 +358,20 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 col-md-4">
-                            <a href="#" class="thumbnail">
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="#" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
                             </a>
                         </div>
                         <div class="col-sm-6 col-md-4">
-                            <a href="#" class="thumbnail">
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="#" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_2.jpg')}}" alt="model1">
                             </a>
                         </div>
                         <div class="col-sm-6 col-md-4">
-                            <a href="#" class="thumbnail">
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="#" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_3.jpg')}}" alt="model1">
                             </a>
                         </div>
@@ -388,22 +436,28 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6 mt-4 col-md-4">
-                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
                         <div class="col-sm-6 mt-4 col-md-4">
-                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
                         <div class="col-sm-6 mt-4 col-md-4">
-                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
                         <div class="col-sm-6 mt-4 col-md-4">
-                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
                         <div class="col-sm-6 mt-4 col-md-4">
-                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
                         <div class="col-sm-6 mt-4 col-md-4">
-                           <a href='' class="thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
                     </div>
                 </div>
