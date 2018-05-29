@@ -120,7 +120,7 @@
                     setTimeout(function(){
                         $(".submenu-panel").not(this).removeClass("open");
                         $("#"+menu_id).toggleClass("open");
-                    },200)
+                    },100)
                 }
             }else{
                 menu_id=current=$(this).attr("menu-target");
