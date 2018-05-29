@@ -211,6 +211,7 @@
             }
         }
         @media only screen and (max-width: 600px) {
+ 
            .brands_img img,
            .quince_img img,
            #main_slider_arrow_cont{
@@ -219,8 +220,50 @@
            #brands_section{
                background-image:none;
            }
-          #main_slider_arrow_cont{
-              display:none;
+          #main_slider_arrow_cont,
+          #fp-nav,
+          .fp-controlArrow{
+              display:none !important;
+          }
+          .main_slider_in,
+          .main_slider_txt{
+              text-align:center;
+          }
+
+          .main_slider_txt span:nth-child(3),
+          .main_slider_txt span:nth-child(1){
+            line-height:2rem;
+            font-size: 2rem;
+            color:#87124a;
+          }
+          .btn-vesti-slide{
+            padding: 5px 70px;
+            font-size: 1rem;
+            margin: 4px 0px;
+            font-style:normal;
+            font-family:Arial;
+            border:1px solid #87124a;
+            background-color:#87124a;
+            color:white;
+          }
+          .btn-vesti-slide:hover{
+            border:1px solid #87124a;
+            background-color:white;
+            color:#87124a;
+          }
+          #home_main_slider .container{
+            /* background-color:white; */
+            position: absolute;
+            bottom: 20px;
+          }
+          #home_main_slider .slide{
+              position:relative;
+          }
+          #top_middle_sec .intro .row > div{
+              padding:0px !important;
+          }
+          .top_middle_sec_title2{
+              font-size:2rem;
           }
         }
 
