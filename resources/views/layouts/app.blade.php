@@ -54,12 +54,43 @@
     .nav-list li a{
         color:white;
     }
+    #vesti-custom-bottom{
+        position:absolute; bottom:50px; width:100%;
+    }
+    #vesti-custom-bottom .row div{
+       padding:10px 0px;
+    }
+    #vesti-custom-bottom .col:nth-child(1){
+        text-align:left;
+    }
+    #vesti-custom-bottom .col:nth-child(2){
+        text-align:right;
+    }
+    #vesti-custom-bottom a{
+       color:white;
+       text-decoration:none;
+       font-family:Arial;
+       font-size:1rem;
+       padding:10px .9rem;
+    }
+    .vesti-collapse{
+        padding-bottom:10px;
+    }
+    .nav-item{
+        padding:0px .9rem;
+    }
+    .nav-item.hover{
+        background-color: #5e002e;
+    }
 </style>
 <script>
     $(document).ready(function(){
         $('#vesti-main-nav-btn').click(function(){
             $(this).toggleClass('open');
         });
+        $(".collapse-link").click(function(){
+            $(this).closest(".nav-item").toggleClass("hover");
+        })
     });
 </script>
 </head>
@@ -105,58 +136,58 @@
             </div>
         </div>
 
-
-
     </nav>
 
-
-
         <div class="collapse vestidos-main-nav-top" id="navbarToggleExternalContent">
-        <div class="vesti-custom-bg p-4">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Events</a>
-                    <div class="collapse" id="toggle-events" style="height: 0px;">
-                        <ul class="nav-list">
-                        <li><a href="#">Submenu2.1</a></li>
-                        <li><a href="#">Submenu2.2</a></li>
-                        <li><a href="#">Submenu2.3</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white dropdown-toggle" href="#" data-toggle="collapse" class="collapsed" data-target="#toggle-brands">Brands</a>
-                    <div class="collapse" id="toggle-brands" style="height: 0px;">
-                        <ul class="nav-list">
-                        <li><a href="#">Submenu2.1</a></li>
-                        <li><a href="#">Submenu2.2</a></li>
-                        <li><a href="#">Submenu2.3</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Contact Us</a>
-                </li>
-            </ul>
-
-        <div style="position:absolute; bottom:0">
-            <ul>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Contact Us</a>
-                </li>
-            </ul>
+            <div class="vesti-custom-bg">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white collapse-link" href="#">Home </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Events</a>
+                        <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
+                            <ul class="nav-list">
+                                <li><a href="#">Submenu2.1</a></li>
+                                <li><a href="#">Submenu2.2</a></li>
+                                <li><a href="#">Submenu2.3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#" data-toggle="collapse" class="collapsed" data-target="#toggle-brands">Brands</a>
+                        <div class="collapse vesti-collapse" id="toggle-brands" style="height: 0px;">
+                            <ul class="nav-list">
+                                <li><a href="#">Submenu2.1</a></li>
+                                <li><a href="#">Submenu2.2</a></li>
+                                <li><a href="#">Submenu2.3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white collapse-link" href="#">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white collapse-link" href="#">Contact Us</a>
+                    </li>
+                </ul>
             </div>
+
+            <div id="vesti-custom-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-white">
+                            <a href="">Login</a>
+                        </div>
+                        <div class="col text-white">
+                            <a href="">Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-    </div>
 </div>
 @yield('content')
 </body>
