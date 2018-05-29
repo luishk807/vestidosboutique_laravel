@@ -353,6 +353,9 @@
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
+                                <div class="text-center">
+                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -370,6 +373,7 @@
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
+                               
                             </div>
                         </div>
                     </div>

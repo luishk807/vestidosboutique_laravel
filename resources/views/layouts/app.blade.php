@@ -22,9 +22,17 @@
         width:965px;
     }
     .vestidos-icons-header{
-        width: 20px;
-        height: 20px;
-        background-size: 20px 20px;
+        width: 18px;
+        height: 18px;
+        background-size: 18px 18px;
+    }
+    .vest-maincolor-right a{
+        display:inline-block;
+        padding:3px 2px;
+    }
+    .vest-maincolor-right img{
+        display:inline-block;
+        vertical-align: top;
     }
     .vest-maincolor-right .vestidos-icons-header{
         margin:0px 4px;                
