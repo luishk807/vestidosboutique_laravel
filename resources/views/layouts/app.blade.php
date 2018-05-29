@@ -106,6 +106,9 @@
         -o-transition:top .4s; 
         transition:top .4s;  
     }
+    #vestidos-top-news{
+        background-color:black; color:white; text-align:center;
+    }
 </style>
 <script>
     $(document).ready(function(){
@@ -143,7 +146,13 @@
 
 
 
-<!-- <div class="container-fluid navbar-fixed-top" style="background-color:black; color:white; text-align:center">TETS</div> -->
+     <div id="vestidos-top-news" class="container-fluid navbar-fixed-top">
+        <div class="row">
+            <div class="col">
+              Order Now for Free Shipping
+            </div>
+        </div>
+     </div>
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-lg navbar-light">
         <div class="vest-maincolor-container container-fluid">
             <div class="navbar-header">
