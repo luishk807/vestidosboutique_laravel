@@ -233,12 +233,12 @@
 
           .main_slider_txt span:nth-child(3),
           .main_slider_txt span:nth-child(1){
-            line-height:2rem;
-            font-size: 2rem;
+            line-height:1rem;
+            font-size: 1rem;
             color:#87124a;
           }
           .btn-vesti-slide{
-            padding: 5px 70px;
+            padding: 5px 90px;
             font-size: 1rem;
             margin: 4px 0px;
             font-style:normal;
@@ -253,9 +253,12 @@
             color:#87124a;
           }
           #home_main_slider .container{
-            /* background-color:white; */
+            background-color:white;
             position: absolute;
-            bottom: 20px;
+            bottom: 0px;
+          }
+          #home_main_slider .container .row{
+            padding:10px 0px;
           }
           #home_main_slider .slide{
               position:relative;
@@ -264,19 +267,23 @@
               padding:0px !important;
           }
           .top_middle_sec_title2{
-              font-size:2rem;
+              font-size:1rem;
+              line-height:2rem;
           }
           #brands_section .brands_txt div:first-child{
               font-size:2rem;
           }
           #brands_section .brands_txt div:last-child{
-              font-size:1.5rem;
+              font-size:1rem;
+          }
+          .quince-select-title{
+              font-size:2rem;
           }
           #quince_main .quince_txt div:first-child{
               font-size:2rem;
           }
           #quince_main .quince_txt div:last-child{
-              font-size:1.5rem;
+              font-size:1rem;
           }
         }
 
@@ -475,7 +482,7 @@
                     <div class="row" style="margin: 0px auto;">
                         <div class="col brands_txt">
                             <div class="brands_img">
-                                <img src="{{asset('images/home_main_img2_min.jpg')}}" alt="model1">
+                                <img src="{{asset('images/home_main_img2_minb.jpg')}}" alt="model1">
                             </div>
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
@@ -495,7 +502,7 @@
                     <div class="row"  style="margin: 0px auto;">
                         <div class="col quince_txt">
                             <div class="quince_img">
-                                <img src="{{asset('images/home_main_img3-min.jpg')}}" alt="model1">
+                                <img src="{{asset('images/home_main_img3-minb.jpg')}}" alt="model1">
                             </div>
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
