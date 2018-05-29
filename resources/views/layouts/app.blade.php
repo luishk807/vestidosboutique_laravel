@@ -37,28 +37,35 @@
     .vest-maincolor-right .vestidos-icons-header{
         margin:0px 4px;                
     }
+    .vesti-custom-bg{
+        background-color:#87124a;
+        border-top:1px solid rgba(255, 255, 255, .5);
+        height:100vh;
+    }
+    .vestidos-main-nav-top{
+        font-family:Arial;
+        margin-top:50px;
+    }
+    .nav-list{
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+    .nav-list li a{
+        color:white;
+    }
 </style>
+<script>
+    $(document).ready(function(){
+        $('.navbar-toggler').click(function(){
+            $('.navbar-toggler-icon').toggleClass('open');
+        });
+    });
+</script>
 </head>
 <body>
 <div class="pos-f-t" >
-    <div class="collapse vestidos-main-nav-top" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-white playfair-display-italic" href="#">Home </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white playfair-display-italic" href="#">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white playfair-display-italic" href="#">Brands</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white playfair-display-italic" href="#">Shop</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+
 
 
 
@@ -77,10 +84,13 @@
                         <a class="nav-link text-white playfair-display-italic" href="#">Home </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="#">Events</a>
+                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">Events</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="#">Brands</a>
+                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">Brands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white playfair-display-italic" href="#">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="#">Shop</a>
@@ -92,7 +102,41 @@
                 </ul>
             </div>
         </div>
+
+
+
     </nav>
+
+
+
+        <div class="collapse vestidos-main-nav-top" id="navbarToggleExternalContent">
+        <div class="vesti-custom-bg p-4">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggleDemo2">Events</a>
+                    <div class="collapse" id="toggleDemo2" style="height: 0px;">
+                        <ul class="nav-list">
+                        <li><a href="#">Submenu2.1</a></li>
+                        <li><a href="#">Submenu2.2</a></li>
+                        <li><a href="#">Submenu2.3</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white dropdown-toggle" href="#">Brands</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 @yield('content')
 </body>
