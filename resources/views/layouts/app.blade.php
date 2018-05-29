@@ -39,10 +39,10 @@
     }
     .vesti-custom-bg{
         background-color:#87124a;
-        border-top:1px solid rgba(255, 255, 255, .5);
         height:100vh;
     }
-    .vestidos-main-nav-top{
+    .vesti-custom-bg .navbar-nav{
+        border-top:1px solid rgba(255, 255, 255, .5);
         font-family:Arial;
         margin-top:50px;
     }
@@ -118,8 +118,8 @@
                     <a class="nav-link text-white" href="#">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggleDemo2">Events</a>
-                    <div class="collapse" id="toggleDemo2" style="height: 0px;">
+                    <a class="nav-link text-white dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Events</a>
+                    <div class="collapse" id="toggle-events" style="height: 0px;">
                         <ul class="nav-list">
                         <li><a href="#">Submenu2.1</a></li>
                         <li><a href="#">Submenu2.2</a></li>
@@ -128,7 +128,14 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white dropdown-toggle" href="#">Brands</a>
+                    <a class="nav-link text-white dropdown-toggle" href="#" data-toggle="collapse" class="collapsed" data-target="#toggle-brands">Brands</a>
+                    <div class="collapse" id="toggle-brands" style="height: 0px;">
+                        <ul class="nav-list">
+                        <li><a href="#">Submenu2.1</a></li>
+                        <li><a href="#">Submenu2.2</a></li>
+                        <li><a href="#">Submenu2.3</a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Shop</a>
@@ -137,6 +144,17 @@
                     <a class="nav-link text-white" href="#">Contact Us</a>
                 </li>
             </ul>
+
+        <div style="position:absolute; bottom:0">
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Contact Us</a>
+                </li>
+            </ul>
+            </div>
         </div>
     </div>
 </div>
