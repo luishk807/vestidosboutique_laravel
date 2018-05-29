@@ -54,14 +54,20 @@
     .nav-list li a{
         color:white;
     }
-    #vesti-custom-bottom{
+    /* #vesti-custom-bottom{
         position:absolute; bottom:50px; width:100%;
+    } */
+    #vesti-custom-bottom{
+        border-top:1px solid rgba(255,255,255,.1);
+        margin-top:50px;
+        width:80%;
     }
     #vesti-custom-bottom .row div{
        padding:10px 0px;
     }
     #vesti-custom-bottom .col:nth-child(1){
         text-align:left;
+        border-right:1px solid rgba(255,255,255,.1);
     }
     #vesti-custom-bottom .col:nth-child(2){
         text-align:right;
@@ -137,7 +143,7 @@
 
 
 
-
+<!-- <div class="container-fluid navbar-fixed-top" style="background-color:black; color:white; text-align:center">TETS</div> -->
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-lg navbar-light">
         <div class="vest-maincolor-container container-fluid">
             <div class="navbar-header">
@@ -210,9 +216,23 @@
                         <a class="nav-link text-white collapse-link" href="#">Contact Us</a>
                     </li>
                 </ul>
+
+                <div>
+
+                <div id="vesti-custom-bottom" class="container">
+                    <div class="row">
+                        <div class="col text-white">
+                            <a href="">Login</a>
+                        </div>
+                        <div class="col text-white">
+                            <a href="">Cart</a>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
 
-            <div id="vesti-custom-bottom">
+            <!-- <div id="vesti-custom-bottom">
                 <div class="container">
                     <div class="row">
                         <div class="col text-white">
@@ -223,7 +243,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
         </div>
