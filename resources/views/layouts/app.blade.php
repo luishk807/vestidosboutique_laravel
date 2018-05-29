@@ -57,8 +57,8 @@
 </style>
 <script>
     $(document).ready(function(){
-        $('.navbar-toggler').click(function(){
-            $('.navbar-toggler-icon').toggleClass('open');
+        $('#vesti-main-nav-btn').click(function(){
+            $(this).toggleClass('open');
         });
     });
 </script>
@@ -69,14 +69,16 @@
 
 
 
-
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-lg navbar-light">
         <div class="vest-maincolor-container container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand text-white" href="#" >Vestidos</a>
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button id='vesti-main-nav-btn' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="vest-maincolor-left navbar-nav mr-auto">
