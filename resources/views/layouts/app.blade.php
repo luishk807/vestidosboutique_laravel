@@ -21,6 +21,14 @@
     .vest-maincolor-container{
         width:965px;
     }
+    .vestidos-icons-header{
+        width: 20px;
+        height: 20px;
+        background-size: 20px 20px;
+    }
+    .vest-maincolor-right .vestidos-icons-header{
+        margin:0px 4px;                
+    }
 </style>
 </head>
 <body>
@@ -72,7 +80,7 @@
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="#">Login</a></li>
-                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="#">Cart</a></li>
+                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="#">Cart<img class="vesti-svg vestidos-icons-header" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a></li>
                 </ul>
             </div>
         </div>
