@@ -86,7 +86,7 @@
         top:50px;
     }
     .submenu-panel{
-        height: 213px;
+        min-height: 213px;
         position:absolute;
         top:-5000px;
         left:0px;
