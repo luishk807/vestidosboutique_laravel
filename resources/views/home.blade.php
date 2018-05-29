@@ -211,7 +211,9 @@
             }
         }
         @media only screen and (max-width: 600px) {
- 
+            .top_middle_sec_title{
+                font-size:2rem;
+            }
            .brands_img img,
            .quince_img img,
            #main_slider_arrow_cont{
