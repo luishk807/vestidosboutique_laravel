@@ -371,7 +371,7 @@
                 if(!slideTimeout){
                     slideTimeout = setInterval(function () {
                             $.fn.fullpage.moveSlideRight();
-                    },4000);
+                    },5000);
                 }
             }
             var isReponsive =false;
