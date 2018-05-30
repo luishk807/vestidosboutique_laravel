@@ -18,6 +18,12 @@
     .vest-maincolor-right li{
         margin:0px 10px;
     }
+    .vest-maincolor .nav-link,
+    .vest-maincolor .navbar-link{
+        font-size:1rem;
+        padding-right:0 !important;
+        padding-left:0 !important;
+    }
     .vest-maincolor-container{
         width:965px;
     }
@@ -32,7 +38,8 @@
     }
     .vest-maincolor-right img{
         display:inline-block;
-        vertical-align: top;
+        /* vertical-align: top; */
+        margin-top: -5px !important;
     }
     .vest-maincolor-right .vestidos-icons-header{
         margin:0px 4px;                
