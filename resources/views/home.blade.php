@@ -214,6 +214,10 @@
             .top_middle_sec_title{
                 font-size:2rem;
             }
+            .brands_img img,
+           .quince_img img{
+               width:100%;
+           }
            .brands_img img,
            .quince_img img,
            #main_slider_arrow_cont{
@@ -313,22 +317,30 @@
 		$(document).ready(function() {
             var slideTimeout = null;
             function setSlider(){
-                if(!slideTimeout){
-                    slideTimeout = setInterval(function () {
-                            $.fn.fullpage.moveSlideRight();
-                    },5000);
-                }
+                // if(!slideTimeout){
+                //     slideTimeout = setInterval(function () {
+                //             $.fn.fullpage.moveSlideRight();
+                //     },5000);
+                // }
             }
+
+           
             function initialization(){
                 $('#fullpage').fullpage({
                     // scrollOverflow: true,
                     navigation: true,
-                    responsiveWidth: 300,
+                    responsiveWidth: 600,
                     menu: '.navbar',
                     afterRender: function () {
                         //on page load, start the slideshow
                         setSlider();
                     },
+                    afterResponsive: function(isResponsivex){
+                        isReponsive = isResponsivex;
+                        if(isResponsivex){
+                            $("#home_main_slider .main_slider_txt").removeClass("col").addClass("col-md-4")
+                        }
+				    },
                     afterLoad: function(anchorLink, index){
                         //set slider when in slide 1
                         if (index == '1' && !slideTimeout) {
@@ -369,8 +381,6 @@
             });
 		});
     </script>
-
-    
 
 
    <div id="fullpage">
