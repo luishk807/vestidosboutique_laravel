@@ -268,6 +268,12 @@
           #top_middle_sec .intro .row > div{
               padding:0px !important;
           }
+          #top_middle_img1,
+          #top_middle_img2,
+          #top_middle_img3{
+              margin:10px auto;
+              width:auto;
+          }
           .top_middle_sec_title2{
               font-size:1rem;
               line-height:2rem;
@@ -443,21 +449,21 @@
                             Top Dresses
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-4">
+                    <div id="top_middle_sec_row" class="row">
+                        <div id="top_middle_img1" class="col-sm-6 col-md-4">
                             <div class="vesti-new-txt">NEW</div><div class="vesti-new-border"></div>
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="#" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
                             </a>
                         </div>
-                        <div class="col-sm-6 col-md-4">
+                        <div id="top_middle_img2" class="col-sm-6 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="#" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_2.jpg')}}" alt="model1">
                             </a>
                         </div>
-                        <div class="col-sm-6 col-md-4">
+                        <div id="top_middle_img3" class="col-sm-6 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="#" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_3.jpg')}}" alt="model1">

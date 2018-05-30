@@ -100,14 +100,15 @@
         z-index: 999;
         background-color: #5e002e;
         color:white;
-        -webkit-transition:top .4s; 
-        -moz-transition:top .4s; 
-        -ms-transition:top .4s; 
-        -o-transition:top .4s; 
-        transition:top .4s;  
+        -webkit-transition:top .4s ease-in-out; 
+        -moz-transition:top .4s ease-in-out; 
+        -ms-transition:top .4s ease-in-out; 
+        -o-transition:top .4s ease-in-out; 
+        transition:top .4s ease-in-out;  
     }
     #vestidos-top-news{
         background-color:black; color:white; text-align:center;
+        z-index:9999;
     }
 </style>
 <script>
@@ -119,7 +120,7 @@
             $(this).closest(".nav-item").toggleClass("hover");
         })
         var current=null;
-        var menu_id = null;
+        var menu_id=null;
         $(".vest-maincolor-left .nav-item a").click(function(){
             if(current){
                 menu_id=$(this).attr("menu-target");
