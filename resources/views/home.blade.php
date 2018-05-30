@@ -288,7 +288,11 @@
                 -o-transition:left 1s; 
                 transition:left 1s;  
             }
-
+            #top_middle_img1 img,
+            #top_middle_img2 img,
+            #top_middle_img3 img{
+                width:100%;
+            }
             .top_middle_sec_title{
                 font-size:2rem;
             }
