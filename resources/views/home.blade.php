@@ -214,8 +214,42 @@
         #top_middle_sec_row #top_middle_img3.active{
             left:800px;
         }
-
-
+        #quince_thumb_1,
+        #quince_thumb_2,
+        #quince_thumb_3,
+        #quince_thumb_4,
+        #quince_thumb_5,
+        #quince_thumb_6{
+            visibility:hidden;
+              opacity: 0;
+              -webkit-transition:visibility 0s, opacity 0.5s linear;
+                -moz-transition:visibility 0s, opacity 0.5s linear;
+                -ms-transition:visibility 0s, opacity 0.5s linear;
+                -o-transition:visibility 0s, opacity 0.5s linear;
+                transition:visibility 0s, opacity 0.5s linear; 
+        }
+        #quince_thumb_1.active,
+        #quince_thumb_2.active,
+        #quince_thumb_3.active,
+        #quince_thumb_4.active,
+        #quince_thumb_5.active,
+        #quince_thumb_6.active{
+            opacity: 1;
+            visibility:visible;
+        }
+        /* .quince_thumb{
+              visibility:hidden;
+              opacity: 0;
+              -webkit-transition:visibility 0s, opacity 0.5s linear;
+                -moz-transition:visibility 0s, opacity 0.5s linear;
+                -ms-transition:visibility 0s, opacity 0.5s linear;
+                -o-transition:visibility 0s, opacity 0.5s linear;
+                transition:visibility 0s, opacity 0.5s linear; 
+          }
+          .quince_thumb.active{
+            opacity: 1;
+            visibility:visible;
+          } */
         .flash_hover_link:hover img{
             opacity: 1;
             -webkit-animation: flash 1.5s;
@@ -335,7 +369,7 @@
           #quince_main .quince_txt div:last-child{
               font-size:1rem;
           }
-
+         
           #home_main_slider .slide{
               position:relative;
           }
@@ -390,10 +424,11 @@
                         if(isResponsivex){
                             $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').removeClass('active');
                             $("#home_main_slider .main_slider_txt").removeClass("col").addClass("col-md-4")
+                            $(".quince_thumb").addClass("active");
                         }else{
-                            if(index == 2){
-                                $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').addClass('active');
-                            }
+                            // if(index == 2){
+                            //     $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').addClass('active');
+                            // }
                             $(".vestidos-main-nav-top").removeClass("show")
                         }
 				    },
@@ -405,8 +440,18 @@
                         if(index == 2 && !isReponsive){
                             $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').addClass('active');
                         }
-                        if(index != 2 && !isReponsive){
-                            $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').removeClass('active');
+                        if(index == 5 && !isReponsive){
+                            $('#quince_thumb_1').addClass('active');
+                            var divs = $('.quince_thumb');
+                            var index = 1;
+                            var delay = setInterval( function(){
+                                if ( index <= divs.length ){
+                                    $( divs[index] ).addClass('active');
+                                    index += 1;
+                                }else{
+                                    clearInterval( delay );
+                                }
+                            },300);
                         }
                     },
                     onLeave: function (index, direction) {
@@ -590,28 +635,28 @@
                          <div class="col quince-select-title vesti_font_color_b text-center">Top Quinceanera Dresses</div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 mt-4 col-md-4">
+                        <div id="quince_thumb_1" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             <div class="vesti-new-txt">NEW</div><div class="vesti-new-border"></div>
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
-                        <div class="col-sm-6 mt-4 col-md-4">
+                        <div id="quince_thumb_2" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
-                        <div class="col-sm-6 mt-4 col-md-4">
+                        <div id="quince_thumb_3" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
-                        <div class="col-sm-6 mt-4 col-md-4">
+                        <div id="quince_thumb_4" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
-                        <div class="col-sm-6 mt-4 col-md-4">
+                        <div id="quince_thumb_5" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
-                        <div class="col-sm-6 mt-4 col-md-4">
+                        <div id="quince_thumb_6" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
