@@ -143,21 +143,6 @@
                 </div>
                 </div>
             </div>
-
-            <!-- <div id="vesti-custom-bottom">
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-white">
-                            <a href="">Login</a>
-                        </div>
-                        <div class="col text-white">
-                            <a href="">Cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-
         </div>
 </div>
 @yield('content')

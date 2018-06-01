@@ -1,6 +1,68 @@
 @extends("layouts.app")
 @section('content')
     <style>
+       @media only screen and (max-device-width: 812px) and (orientation: landscape) { 
+           #main_slider_arrow_cont{
+               display:none;
+           }
+           .main_slider_txt{
+            padding-top: 20px;
+           }
+           .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next{
+               display:none;
+           }
+
+           #home_main_slider .fp-tableCell{
+            vertical-align: bottom;
+           }
+           #home_main_slider .main_slider_btn{
+            text-align: right;
+           }
+           #home_main_slider .container .main_slider_txt span:nth-child(1),
+           #home_main_slider .container .main_slider_txt span:nth-child(3){
+            font-size: 1rem !important;
+           }
+           #slide1, #slide2, #slide3{
+            background-position: top center;
+           }
+           .btn-vesti-slide{
+            padding: 5px 53px;
+           }
+           #top_middle_sec #top_middle_sec_row img{
+               width:220px;
+           }
+            #top_middle_sec_row #top_middle_img1.active{
+            left:0px;
+            }
+            #top_middle_sec_row #top_middle_img2.active{
+            left:240px;
+            }
+            #top_middle_sec_row #top_middle_img3.active{
+            left:478px;
+            }
+            #top_middle_sec_row .vesti-heart-link{
+                right: 8px;
+            }
+            #top_middle_sec_row .vesti-new-txt{
+                font-size: .8rem;
+                top: 12px;
+                left: 24px;
+            }
+            #top_middle_sec_row .vesti-new-border{
+                border-top: 70px solid #87124a;
+                border-right: 70px solid transparent;
+            }
+            #fp-nav{
+                display:none
+            }
+            #top_middle_sec #top_middle_sec_row{
+                min-height: 580px !important;
+                height:auto;
+            }
+            #top_middle_sec .top_middle_sec_title2{
+                font-size: 1.6rem;
+            }
+        }
         @media only screen and (min-width: 900px) {
             #main_slider_arrow_cont{
                 display:block;
@@ -19,11 +81,11 @@
 		$(document).ready(function() {
             var slideTimeout = null;
             function setSlider(){
-                if(!slideTimeout){
-                    slideTimeout = setInterval(function () {
-                            $.fn.fullpage.moveSlideRight();
-                    },5000);
-                }
+                // if(!slideTimeout){
+                //     slideTimeout = setInterval(function () {
+                //             $.fn.fullpage.moveSlideRight();
+                //     },5000);
+                // }
             }
             var isReponsive =false;
             function initialization(){
