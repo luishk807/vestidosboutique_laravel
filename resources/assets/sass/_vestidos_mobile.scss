@@ -1,0 +1,136 @@
+@media only screen and (max-width: 600px) {
+
+    #top_middle_img1 img,
+    #top_middle_img2 img,
+    #top_middle_img3 img{
+        width:100%;
+    }
+    .brands_img img,
+   .quince_img img{
+       width:100%;
+   }
+   .brands_img img,
+   .quince_img img,
+   #main_slider_arrow_cont{
+       display:block;
+   }
+   #brands_section{
+       background-image:none;
+   }
+  #main_slider_arrow_cont,
+  #fp-nav,
+  .fp-controlArrow{
+      display:none !important;
+  }
+  .main_slider_in,
+  .main_slider_txt,
+  #brands_section .brands_txt div:last-child{
+      text-align:center;
+  }
+
+  .main_slider_txt span:nth-child(3),
+  .main_slider_txt span:nth-child(1){
+    line-height:1rem;
+    font-size: 1rem;
+    color:$main_vest_color;
+  }
+  .btn-vesti-slide{
+    padding: 5px 90px;
+    font-size: 1rem;
+    margin: 4px 0px;
+    font-style:normal;
+    font-family:Arial;
+    border:1px solid $main_vest_color;
+    background-color:$main_vest_color;
+    color:white;
+  }
+  .btn-vesti-slide:hover{
+    border:1px solid $main_vest_color;
+    background-color:white;
+    color:$main_vest_color;
+  }
+  #home_main_slider .container{
+    background-color:white;
+    position: absolute;
+    bottom: 0px;
+  }
+  #home_main_slider .container .row{
+    padding:10px 0px;
+  }
+  #home_main_slider .slide{
+      position:relative;
+  }
+  #top_middle_sec{
+    padding-top: 26px;
+  }
+  #top_middle_sec .intro .row > div{
+      padding:0px !important;
+  }
+  .top_middle_sec_title2{
+      font-size:1rem;
+      line-height:2rem;
+  }
+  #top_middle_sec_row{
+        position:relative;
+        height:auto;
+    }
+    #top_middle_sec_row #top_middle_img1,
+    #top_middle_sec_row #top_middle_img2,
+    #top_middle_sec_row #top_middle_img3{
+        position:relative;
+        top:0px;
+        left:0px;
+        -webkit-transition:left 1s; 
+        -moz-transition:left 1s; 
+        -ms-transition:left 1s; 
+        -o-transition:left 1s; 
+        transition:left 1s;  
+    }
+    .top_middle_sec_title{
+        font-size:2rem;
+    }
+  #brands_section .fp-tableCell,
+  #quince_main .fp-tableCell{
+    min-height: 500px !important;
+    height: auto !important;
+  }
+  #brands_section > div,
+  #quince_main > div{
+    vertical-align: top;
+  }
+  #brands_section,
+  #quince_main{
+      height:auto !important;
+  }
+  #brands_section .brands_txt div:first-child{
+      font-size:2rem;
+  }
+  #brands_section .brands_txt div:last-child{
+      font-size:1rem;
+  }
+  .quince-select-title{
+      font-size:2rem;
+  }
+  #quince_main .quince_txt div:first-child{
+      font-size:2rem;
+  }
+  #quince_main .quince_txt div:last-child{
+      font-size:1rem;
+  }
+ 
+  #home_main_slider .slide{
+      position:relative;
+  }
+  #top_middle_sec .intro .row > div{
+      padding:0px !important;
+  }
+  #top_middle_img1,
+  #top_middle_img2,
+  #top_middle_img3{
+      margin:10px auto;
+      width:auto;
+  }
+  .vestidos-footer{
+    padding-top: 50px;
+  }
+}
