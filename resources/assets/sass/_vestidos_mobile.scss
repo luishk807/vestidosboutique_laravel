@@ -83,11 +83,7 @@
         position:relative;
         top:0px;
         left:0px;
-        -webkit-transition:left 1s; 
-        -moz-transition:left 1s; 
-        -ms-transition:left 1s; 
-        -o-transition:left 1s; 
-        transition:left 1s;  
+        @include transition(left 1s);
     }
     .top_middle_sec_title{
         font-size:2rem;
@@ -135,5 +131,11 @@
   }
   .vestidos-footer{
     padding-top: 50px;
+  }
+  .vesti-footer-section-2{
+    border-top: none;
+  }
+  .vesti-footer-section-2 div:first-child{
+    border-right:none;
   }
 }

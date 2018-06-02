@@ -46,9 +46,6 @@
 </head>
 <body>
 <div class="pos-f-t" >
-
-
-
      <div id="vestidos-top-news" class="container-fluid navbar-fixed-top">
         <div class="row">
             <div class="col">
@@ -92,8 +89,58 @@
             </div>
         </div>
     </nav>
-    <div id="events-submenu" class="submenu-panel">Event</div>
-    <div id="brands-submenu" class="submenu-panel">Brand</div>
+    <div id="events-submenu" class="submenu-panel">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                            <li><a href="">events</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="brands-submenu" class="submenu-panel">
+         <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                            <li><a href="">Brands</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    </div>
 
         <div class="collapse vestidos-main-nav-top" id="navbarToggleExternalContent">
             <div class="vesti-custom-bg">

@@ -179,14 +179,8 @@ background-size: cover;
   border-radius: 9px;
   opacity: 1;
   left: 0;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .25s ease-in-out;
-  -moz-transition: .25s ease-in-out;
-  -o-transition: .25s ease-in-out;
-  transition: .25s ease-in-out;
+  @include rotate(0deg);
+  @include transition(.25s ease-in-out);
 }
 
 #vesti-main-nav-btn span:nth-child(1) {
@@ -205,16 +199,10 @@ background-size: cover;
   left: 50%;
 }
 #vesti-main-nav-btn.open span:nth-child(2) {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  @include rotate(45deg);
 }
 #vesti-main-nav-btn.open span:nth-child(3) {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  @include rotate(-45deg);
 }
 
 .top_middle_sec_title{
@@ -399,8 +387,7 @@ background-size: cover;
   font-family: arial;
   font-size: 1rem;
   font-weight: bold;
-  -webkit-transform: rotate(-44deg);
-  transform: rotate(-44deg);
+  @include rotate(-44deg);
   top: 18px;
   left: 27px;
 }
@@ -414,11 +401,7 @@ background-size: cover;
   position:absolute;
   top:0px;
   left:-50px;
-  -webkit-transition:left 1s; 
-  -moz-transition:left 1s; 
-  -ms-transition:left 1s; 
-  -o-transition:left 1s; 
-  transition:left 1s;  
+  @include transition(left 1s);
 }
 #top_middle_sec_row #top_middle_img1.active{
   left:0px;
@@ -437,11 +420,7 @@ background-size: cover;
 #quince_thumb_6{
   visibility:hidden;
     opacity: 0;
-    -webkit-transition:visibility 0s, opacity 0.5s linear;
-      -moz-transition:visibility 0s, opacity 0.5s linear;
-      -ms-transition:visibility 0s, opacity 0.5s linear;
-      -o-transition:visibility 0s, opacity 0.5s linear;
-      transition:visibility 0s, opacity 0.5s linear; 
+      @include transition(visibility 0s, opacity 0.5s linear);
 }
 #quince_thumb_1.active,
 #quince_thumb_2.active,

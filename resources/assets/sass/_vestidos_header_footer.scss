@@ -1,3 +1,22 @@
+.submenu-panel ul{
+    -moz-column-count: 4;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 20px;
+    column-count: 4;
+    column-gap: 20px;
+    list-style-type:none;
+}
+div.submenu-panel .col{
+    margin:20px 0px;
+}
+div.submenu-panel .col a{
+    color:white;
+    text-decoration:none;
+}
+div.submenu-panel .col a:hover{
+    text-decoration:underline;
+}
 .vest-maincolor-right li{
     margin:0px 10px;
 }
@@ -75,14 +94,25 @@
 .nav-item{
     padding:0px .9rem;
 }
+.vest-maincolor-left .nav-item{
+    padding:4px .9rem;
+}
+.vest-maincolor-right .nav-item{
+    padding:9px .9rem;
+}
+.vest-maincolor-left > .nav-item:hover,
+.vest-maincolor-right > .nav-item:hover{
+    background-color:$main-vest-color-dark;
+    @include transition(background-color .2s ease-in-out);
+}
 .nav-item.hover{
     background-color: $main_vest_color_dark;
 }
 .submenu-panel.open{
-    top:50px;
+    top:70px;
 }
 .submenu-panel{
-    min-height: 213px;
+    min-height: 150px;
     position:absolute;
     top:-5000px;
     left:0px;
@@ -90,13 +120,10 @@
     z-index: 999;
     background-color: $main_vest_color_dark;
     color:white;
-    -webkit-transition:top .4s ease-in-out; 
-    -moz-transition:top .4s ease-in-out; 
-    -ms-transition:top .4s ease-in-out; 
-    -o-transition:top .4s ease-in-out; 
-    transition:top .4s ease-in-out;  
+    @include transition(top .4s ease-in-out);
 }
 #vestidos-top-news{
+    position:relative;
     background-color:black; color:white; text-align:center;
     z-index:9999;
 }
