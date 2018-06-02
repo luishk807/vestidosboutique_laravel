@@ -69,12 +69,14 @@
             #top_middle_sec_row .vesti-heart-link{
                 right: 8px;
             }
-            #top_middle_sec_row .vesti-new-txt{
+            #top_middle_sec_row .vesti-new-txt,
+            #quince_selec_sec .vesti-new-txt{
                 font-size: .8rem;
                 top: 12px;
                 left: 24px;
             }
-            #top_middle_sec_row .vesti-new-border{
+            #top_middle_sec_row .vesti-new-border,
+            #quince_selec_sec .vesti-new-border{
                 border-top: 70px solid #87124a;
                 border-right: 70px solid transparent;
             }
