@@ -4,9 +4,30 @@
 	-o-transition: $property;
 	transition: $property;
   }
-  @mixin rotate($degree){
-	-webkit-transform: rotate($degree);
-	-moz-transform: rotate($degree);
-	-o-transform: rotate($degree);
-	transform: rotate($degree);
+  @mixin transform($type,$val){
+	-webkit-transform: $type($val);
+	-moz-transform: $type($val);
+	-o-transform: $type($val);
+	transform: $type($val);
+	}
+	@mixin transform-rotate($degrees) {
+    -webkit-transform: rotate($degrees);
+    -moz-transform: rotate($degrees);
+    -ms-transform: rotate($degrees);
+    -o-transform: rotate($degrees);
+    transform: rotate($degrees);
   }
+	@mixin transform-traslate($val...){
+		-webkit-transform: traslate($val);
+		-moz-transform: traslate($val);
+		-o-transform: traslate($val);
+		transform: traslate($val);
+	}
+	@mixin colum-gab($col, $gab){
+		-moz-column-count: $col;
+    -moz-column-gap: $gab;
+    -webkit-column-count: $col;
+    -webkit-column-gap: $gab;
+    column-count: $col;
+    column-gap: $gab;
+	}

@@ -3,11 +3,6 @@
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i");
 @import url("https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i,700,700i");
 
-$playfair_display:"Playfair Display";
-$crimson_txt:"Crimson Text";
-$main_vest_color:#87124a;
-$main-vest-color-dark:#5e002e;
-$main_vest_color_b:#df1174;
 .playfair-display{
   font-family:$playfair_display;
   font-weight: 400;
@@ -118,7 +113,7 @@ background-size: cover;
     font-size:1.5rem;
     line-height:1rem;
     bottom:1%; left: 50%;
-  transform: translate(-50%,-50%);
+     @include transform-traslate(-50%,-50%);
       z-index:999;
 }
 #home_main_slider .vesti-down-arrow{
@@ -179,7 +174,7 @@ background-size: cover;
   border-radius: 9px;
   opacity: 1;
   left: 0;
-  @include rotate(0deg);
+  @include transform-rotate(0deg);
   @include transition(.25s ease-in-out);
 }
 
@@ -199,10 +194,10 @@ background-size: cover;
   left: 50%;
 }
 #vesti-main-nav-btn.open span:nth-child(2) {
-  @include rotate(45deg);
+  @include transform-rotate(45deg);
 }
 #vesti-main-nav-btn.open span:nth-child(3) {
-  @include rotate(-45deg);
+  @include transform-rotate(-45deg);
 }
 
 .top_middle_sec_title{
@@ -287,10 +282,10 @@ background-size: cover;
 
 
 .vesti-footer-section-2{
-  border-top:#a76e8a 1px solid;
+  border-top:$main-vesti-color-light 1px solid;
 }
 .vesti-footer-section-2 div:first-child{
-  border-right:#a76e8a 1px solid;
+  border-right:$main-vesti-color-light 1px solid;
 }
 
 .vesti-footer-section-2 .text-right img{
@@ -387,7 +382,7 @@ background-size: cover;
   font-family: arial;
   font-size: 1rem;
   font-weight: bold;
-  @include rotate(-44deg);
+  @include transform(rotate,-44deg);
   top: 18px;
   left: 27px;
 }
