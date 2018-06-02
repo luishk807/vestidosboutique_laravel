@@ -1,7 +1,26 @@
 @extends("layouts.app")
 @section('content')
     <style>
-       @media only screen and (max-device-width: 812px) and (orientation: landscape) { 
+       @media only screen and (max-device-width: 812px) and (orientation: landscape) {
+           .vestidos-footer{
+            padding-top: 50px;
+           }
+           .vestidos-main-nav-top{
+            margin-top: -10px;
+           }
+           #vesti-main-nav-btn{
+            height: 26px;
+           }
+           #vesti-main-nav-btn span:nth-child(2),
+           #vesti-main-nav-btn span:nth-child(3){
+               top:10px;
+           }
+           #vesti-main-nav-btn span:nth-child(4){
+            top: 21px;
+           }
+           .vestidos-main-nav{
+            height: 40px;
+           }
            #main_slider_arrow_cont{
                display:none;
            }
@@ -13,31 +32,38 @@
            }
 
            #home_main_slider .fp-tableCell{
-            vertical-align: bottom;
+            vertical-align: middle;
            }
            #home_main_slider .main_slider_btn{
-            text-align: right;
+            text-align: center;
            }
            #home_main_slider .container .main_slider_txt span:nth-child(1),
            #home_main_slider .container .main_slider_txt span:nth-child(3){
-            font-size: 1rem !important;
+            font-size: 2rem !important;
+           }
+           home_main_slider .container .main_slider_txt .main_slider_in{
+            padding-right: 33px;
            }
            #slide1, #slide2, #slide3{
             background-position: top center;
            }
            .btn-vesti-slide{
             padding: 5px 53px;
+            font-size: 1rem;
            }
            #top_middle_sec #top_middle_sec_row img{
                width:220px;
            }
-            #top_middle_sec_row #top_middle_img1.active{
+           #top_middle_sec #top_middle_sec_row{
+            height: 381px;
+           }
+            #top_middle_sec_row #top_middle_img1{
             left:0px;
             }
-            #top_middle_sec_row #top_middle_img2.active{
+            #top_middle_sec_row #top_middle_img2{
             left:240px;
             }
-            #top_middle_sec_row #top_middle_img3.active{
+            #top_middle_sec_row #top_middle_img3{
             left:478px;
             }
             #top_middle_sec_row .vesti-heart-link{
@@ -55,12 +81,28 @@
             #fp-nav{
                 display:none
             }
-            #top_middle_sec #top_middle_sec_row{
-                min-height: 580px !important;
-                height:auto;
-            }
             #top_middle_sec .top_middle_sec_title2{
                 font-size: 1.6rem;
+            }
+            .brands_txt > div,
+            .quince_txt > div{
+                max-width: 412px;
+            }
+            #brands_section .brands_txt div:first-child,
+            #quince_main .quince_txt div:first-child{
+                font-size: 2rem;
+                text-align: left;
+            }
+            #quince_main,
+            #brands_section{
+                padding-bottom:20px !important;
+            }
+            #brands_section .brands_txt div:last-child,
+            #quince_main .quince_txt div:last-child{
+                font-size: 1rem;
+            }
+            #quince_selec_sec .quince-select-title{
+                font-size: 2rem;
             }
         }
         @media only screen and (min-width: 900px) {
@@ -92,7 +134,7 @@
                 $('#fullpage').fullpage({
                     // scrollOverflow: true,
                     navigation: true,
-                    responsiveWidth: 600,
+                    responsiveWidth: 900,
                     menu: '.navbar',
                     afterRender: function () {
                         //on page load, start the slideshow
@@ -102,7 +144,7 @@
                         isReponsive = isResponsivex;
                         if(isResponsivex){
                             $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').removeClass('active');
-                            $("#home_main_slider .main_slider_txt").removeClass("col").addClass("col-md-4")
+                            $("#home_main_slider .main_slider_btn").removeClass("col").addClass("col-md-4")
                             $(".quince_thumb").addClass("active");
                         }else{
                             // if(index == 2){
@@ -280,7 +322,7 @@
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
-                                <div class="text-center">
+                                <div>
                                     <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
                                 </div>
                             </div>

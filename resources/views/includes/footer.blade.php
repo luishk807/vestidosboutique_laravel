@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="row vesti-footer-section-2">
-        <div class="col-md-4 text-center">
+        <div class="col text-center">
             We Accept:
             <img src="{{ asset('images/cc-visa.svg') }}" class="vesti-svg vestidos-icons-payment"/>
             <img src="{{ asset('images/cc-master.svg') }}" class="vesti-svg vestidos-icons-payment"/>

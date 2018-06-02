@@ -10839,7 +10839,7 @@ a.text-dark:focus {
 }
 
 .main_slider_btn {
-  text-align: center;
+  text-align: right;
 }
 
 .main_slider_txt {
@@ -11017,6 +11017,10 @@ a.text-dark:focus {
 
   #home_main_slider .container .row {
     padding: 10px 0px;
+  }
+
+  #home_main_slider .main_slider_btn {
+    text-align: center;
   }
 
   #home_main_slider .slide {
