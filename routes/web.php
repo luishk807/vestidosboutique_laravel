@@ -23,6 +23,9 @@ Route::get("/about",function(){
 Route::get("/contact",function(){
     return view("contact");
 });
+Route::get("/product",function(){
+    return view("product");
+});
 Route::middleware('auth')->group(function(){
     Route::get('/admin','adminHomeController@home');
     Route::get('/admin/products','adminProductController@show')->name('products');

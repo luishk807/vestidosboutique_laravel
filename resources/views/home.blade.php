@@ -81,19 +81,19 @@
                         <div id="top_middle_img1" class="col-sm-6 col-md-4">
                             <div class="vesti-new-txt">NEW</div><div class="vesti-new-border"></div>
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                            <a href="#" class="flash_hover_link thumbnail">
+                            <a href="/product" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
                             </a>
                         </div>
                         <div id="top_middle_img2" class="col-sm-6 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                            <a href="#" class="flash_hover_link thumbnail">
+                            <a href="/product" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_2.jpg')}}" alt="model1">
                             </a>
                         </div>
                         <div id="top_middle_img3" class="col-sm-6 col-md-4">
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                            <a href="#" class="flash_hover_link thumbnail">
+                            <a href="/product" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_3.jpg')}}" alt="model1">
                             </a>
                         </div>

@@ -3,7 +3,7 @@
 <style>
 
 </style>
-<div class="contact_bg main_body_height">
+<div class="main_sub_body contact_bg main_body_height">
 <div class="container-fluid">
     <div class="row">
 
