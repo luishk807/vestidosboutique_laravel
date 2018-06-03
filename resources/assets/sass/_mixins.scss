@@ -23,6 +23,12 @@
 		-o-transform: traslate($val);
 		transform: traslate($val);
 	}
+	@mixin transform-background($type){
+		-webkit-background-size: $type;
+		-moz-background-size: $type;
+		-o-background-size: $type;
+		background-size: $type;
+	}
 	@mixin colum-gab($col, $gab){
 		-moz-column-count: $col;
     -moz-column-gap: $gab;

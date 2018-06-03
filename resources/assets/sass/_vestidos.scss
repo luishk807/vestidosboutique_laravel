@@ -460,5 +460,32 @@ background-size: cover;
       opacity: 1;
   }
 }
+//*****ABOUT PAGE**************/
+.about_bg{
+  background: url("/images/about_bg.jpg") no-repeat center center; 
+  @include transform-background(cover);
+}
+.about_panel_in{
+  background-color: white;
+  width: 45%;
+  padding:50px 20px;
+  margin: 134px auto 50px auto;
+}
+.about_panel_in p{
+  margin-bottom:40px;
+}
+.about_panel_in h2{
+  font-family:$playfair_display;
+  font-weight: 500;
+  color:$main_vest_color_b;
+  font-style: italic;
+  padding-bottom:16px;
+}
+.about-col{
+  margin:0px auto;
+}
+.about_panel_in div:last-child{
+  margin-top:50px;
+}
 //custom vestidos mobile scss
 @import "vestidos_mobile";

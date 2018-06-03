@@ -136,8 +136,17 @@
     border-top: none;
   }
   .vesti-footer-section-2 div:first-child{
-    border-right:none;
+    border-right:none; 
   }
+
+  /***********ABOUT PAGE**************/
+  .about_panel_in{
+        width: auto;
+        margin:50px auto 0px auto
+    }
+    .col-lg-9{
+        padding:0px;
+    }
 }
 @media only screen and (max-device-width: 812px) and (orientation: landscape) {
     .vestidos-footer{
@@ -247,4 +256,12 @@
      #quince_selec_sec .quince-select-title{
          font-size: 2rem;
      }
+     /***********ABOUT PAGE**************/
+     .about_panel_in{
+        width: auto;
+        margin:50px auto 0px auto
+    }
+    .col-lg-9{
+        padding:0px;
+    }
  }

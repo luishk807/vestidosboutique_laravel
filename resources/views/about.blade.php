@@ -1,23 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-    .about_bg{
-        background: url("{{ asset('images/about_bg.jpg') }}" ) no-repeat center center fixed; 
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
-    .about_panel_in{
-        background-color: white;
-        width: 80%;
-        padding:50px 20px;
-        margin: 134px auto 0px auto;
-    }
-    .about-col{
-        margin:0px auto;
-    }
-</style>
 <div class="about_bg main_body_height">
 <div class="container-fluid">
     <div class="row">
