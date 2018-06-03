@@ -73,26 +73,30 @@ $(document).ready(function() {
         e.preventDefault();
         $.fn.fullpage.moveSectionDown();
     });
-});
+    $('#vesti-main-nav-btn').click(function(){
+        $(this).toggleClass('open');
+    });
+    $(".collapse-link").click(function(){
+        $(this).closest(".nav-item").toggleClass("hover");
+    })
+    var current=null;
+    var menu_id=null;
+    $(".vest-maincolor-left .nav-item a").click(function(){
+        if(current){
+            menu_id=$(this).attr("menu-target");
+            $("#"+current).toggleClass("open");
+            if(menu_id != current){
+                current = null;
+                setTimeout(function(){
+                    $(".submenu-panel").not(this).removeClass("open");
+                    $("#"+menu_id).toggleClass("open");
+                },100)
+            }
+        }else{
+            menu_id=current=$(this).attr("menu-target");
+            $(".submenu-panel").not(this).removeClass("open");
+            $("#"+menu_id).toggleClass("open");
+        }
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-require('./bootstrap');
-
-window.Vue = require('vue');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-const app = new Vue({
-    el: '#app'
+    })
 });

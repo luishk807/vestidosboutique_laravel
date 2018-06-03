@@ -2,7 +2,15 @@
 // Google Fonts
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i");
 @import url("https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i,700,700i");
-
+body,html{
+  height: 100%;
+  margin: 0;
+}
+.main_body_height{
+    min-height: -webkit-calc(100% - 100px);     /* Chrome */
+    min-height: -moz-calc(100% - 100px);     /* Firefox */
+    min-height: calc(100% - 100px);     /* native */
+}
 .playfair-display{
   font-family:$playfair_display;
   font-weight: 400;
@@ -235,7 +243,11 @@ background-size: cover;
 }
 .brands_txt > div{
   max-width:600px;
-  margin-left: auto;
+  margin-left: 200px;
+ @include transition(margin-left 2s);
+}
+.brands_txt > div.active{
+  margin-left: 400px;
 }
 .brands_img img{
   display:none;
@@ -265,6 +277,7 @@ background-size: cover;
 .quince_img img{
   display:none;
 }
+
 .quince_txt > div{
   max-width:600px;
   margin-right: auto;
@@ -382,7 +395,7 @@ background-size: cover;
   font-family: arial;
   font-size: 1rem;
   font-weight: bold;
-  @include transform(rotate,-44deg);
+  @include transform-rotate(-44deg);
   top: 18px;
   left: 27px;
 }

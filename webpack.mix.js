@@ -12,7 +12,10 @@ let mix = require('laravel-mix');
  */
 
 
-mix.js('resources/assets/js/app.js', 'public/js')
+mix
+.scripts([
+    'resources/assets/js/vestidos.js'
+], 'public/js/vestidos.js')
 .sass('resources/assets/sass/app.scss', 'public/css')
 .copy('resources/assets/images/', 'public/images/', false) // Don't flatten!
 .copy('resources/assets/js/fullpage', 'public/js/fullpage'); // Don't flatten!

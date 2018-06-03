@@ -228,6 +228,9 @@
      .quince_txt > div{
          max-width: 412px;
      }
+     .brands_txt>div{
+         margin-left: auto !important;
+     }
      #brands_section .brands_txt div:first-child,
      #quince_main .quince_txt div:first-child{
          font-size: 2rem;
