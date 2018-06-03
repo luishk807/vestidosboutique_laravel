@@ -14,18 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <style>
-        @media only screen and (min-width: 900px) {
-            #main_slider_arrow_cont{
-                display:block;
-            }
-            #brands_section{
-                background-image:url('{{ asset('/images/home_main_img2.jpg') }}');
-            }
-            .brands_img img,
-            .quince_img img{
-                display:none;
-            }
-        }
+        
     </style>
 <script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
@@ -62,7 +51,7 @@
                         <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="brands-submenu" href="#">Brands</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="#">Contact Us</a>
+                        <a class="nav-link text-white playfair-display-italic" href="/contact">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="#">Shop</a>

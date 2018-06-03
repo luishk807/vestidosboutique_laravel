@@ -460,9 +460,25 @@ background-size: cover;
       opacity: 1;
   }
 }
+@media only screen and (min-width: 900px) {
+  #main_slider_arrow_cont{
+      display:block;
+  }
+  #brands_section{
+      background-image:url('/images/home_main_img2.jpg');
+  }
+  .brands_img img,
+  .quince_img img{
+      display:none;
+  }
+}
 //*****ABOUT PAGE**************/
 .about_bg{
   background: url("/images/about_bg.jpg") no-repeat center center; 
+  @include transform-background(cover);
+}
+.contact_bg{
+  background: url("/images/contact_bg.jpg") no-repeat center center; 
   @include transform-background(cover);
 }
 .about_panel_in{

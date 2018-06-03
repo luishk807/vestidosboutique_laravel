@@ -1,5 +1,6 @@
 @extends("layouts.sub-layout")
 @section('content')
+
 <div class="about_bg main_body_height">
 <div class="container-fluid">
     <div class="row">
