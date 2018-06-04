@@ -140,6 +140,18 @@ button.size_spheres:hover {
     height: 30px;
     background-size: 30px 30px;
 }
+.product_in_loved{
+    padding-top:100px;
+}
+.product_in_loved img{
+    width:100%;
+}
+.product_in_title_loved{
+    color:black !important;
+    font-weight:700 !important;
+    font-size:1rem;
+    padding-bottom: 0px !important;
+}
 </style>
 <div class="main_sub_body main_body_height">
 <div class="container">
@@ -148,13 +160,14 @@ button.size_spheres:hover {
             <div class="container-fluid product_in">
                 <div class="row">
                     <div class="col-md-2 product_thumnnail">
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="thumbnail"/></a>
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="thumbnail" /></a>
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="thumbnail" /></a>
+                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail"/></a>
+                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
+                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
                     </div>
                     <div class="col-md-6 product_main_img">
                         <div class="product_main_img_in">
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt /></a>
+                            <a href="#" class="vesti-heart-link-b"><span class="vesti-svg"></span></a>
+                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" class="img-fluid" alt /></a>
                         </div>
                     </div>
                     <div class="col-md-4 product_main_txt">
@@ -221,6 +234,41 @@ button.size_spheres:hover {
 
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col product_in_loved">
+                        <h2 class="product_in_title_loved">People Also Loved</h2>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xs-6 col-md-2  col-md-offset-1">
+                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
+                                </div>
+                                <div class="col-xs-6 col-md-2">
+                                     <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
+                                </div>
+                                <div class="col-xs-6 col-md-2">
+                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
+                                </div>
+                                <div class="col-xs-6 col-md-2">
+                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
+                                </div>
+                                <div class="col-xs-6 col-md-2">
+                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
+                                </div>
+                                <div class="col-xs-6 col-md-2">
+                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
                     </div>
                 </div>
             </div>

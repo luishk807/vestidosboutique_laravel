@@ -10817,10 +10817,20 @@ html {
   width: 70px;
 }
 
-.vesti-heart-link {
+.vesti-heart-link,
+.vesti-heart-link-b,
+.vesti-heart-link-c {
   position: absolute;
   z-index: 9999;
+}
+
+.vesti-heart-link {
   right: 0;
+  top: 0;
+}
+
+.vesti-heart-link-c {
+  right: 19px;
   top: 0;
 }
 
@@ -10828,17 +10838,38 @@ html {
   right: 15px;
 }
 
-.vesti-heart-link span {
+.vesti-heart-link span,
+.vesti-heart-link-c span {
   height: 30px;
   background-size: 30px 30px;
   width: 30px;
   background-image: url("/images/ves-heart.svg");
 }
 
-.vesti-heart-link:hover span {
+.vesti-heart-link:hover span,
+.vesti-heart-link-c:hover span {
   height: 30px;
   background-size: 30px 30px;
   width: 30px;
+  background-image: url("/images/ves-heart-b.svg");
+}
+
+.vesti-heart-link-b {
+  left: 23px;
+  top: 0;
+}
+
+.vesti-heart-link-b span {
+  height: 50px;
+  background-size: 50px 50px;
+  width: 50px;
+  background-image: url("/images/ves-heart.svg");
+}
+
+.vesti-heart-link-b:hover span {
+  height: 50px;
+  background-size: 50px 50px;
+  width: 50px;
   background-image: url("/images/ves-heart-b.svg");
 }
 
