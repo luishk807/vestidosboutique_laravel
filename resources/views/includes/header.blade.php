@@ -121,7 +121,7 @@
             <div class="vesti-custom-bg">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="#">Home </a>
+                        <a class="nav-link text-white collapse-link" href="/about">About Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Events</a>
@@ -147,7 +147,7 @@
                         <a class="nav-link text-white collapse-link" href="#">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="#">Contact Us</a>
+                        <a class="nav-link text-white collapse-link" href="/contact">Contact Us</a>
                     </li>
                 </ul>
 
