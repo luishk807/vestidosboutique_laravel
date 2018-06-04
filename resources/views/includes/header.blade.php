@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <link rel="stylesheet" type="text/css" href="{{ asset('js/fullpage/jquery.fullPage.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/vendor/fullpage/jquery.fullPage.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
      <title>Vestidos Boutique Main</title>
 
@@ -16,7 +16,7 @@
 <style>
         
     </style>
-<script type="text/javascript" src="{{ asset('js/fullpage/jquery.fullPage.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/vendor/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
 </head>
 <body>

@@ -1,5 +1,16 @@
 @extends("layouts.sub-layout")
 @section('content')
+<script src="{{ asset('/js/vendor/rater/rater.js') }}" charset="utf-8"></script>
+<script>
+	$(document).ready(function(){
+		$(".rate").rate({
+			readonly:true
+		});
+		$(".rate-view").rate({
+			readonly:true
+		});
+	})
+</script>
 <style>
 .product_in{
   
@@ -176,6 +187,7 @@ button.size_spheres:hover {
                                     <h2 class="product_in_title">Long Organaza Sweetheart Mori Lee Quinceanera Dress</h2>
                                     <div class="product_in_vendor">By Joanna</div>
                                     <div class="product_in_rate">
+                                        <div class='rate-view' data-rate-value="4"></div>
                                     </div>
                                     <div class="product_in_detail crimson-txt">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis elementum lacus ac condimentum. In eget tincidunt sem. Morbi aliquam justo at posuere lobortis. Sed id ex euismod, scelerisque tortor imperdiet, pharetra purus. Proin sed velit non dui ullamcorper tincidunt. Aliquam sed est diam.
