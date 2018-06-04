@@ -54,7 +54,7 @@
                         <a class="nav-link text-white playfair-display-italic" href="/contact">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="#">Shop</a>
+                        <a class="nav-link text-white playfair-display-italic" href="/shop">Shop</a>
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
@@ -144,7 +144,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="#">Shop</a>
+                        <a class="nav-link text-white collapse-link" href="/shop">Shop</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white collapse-link" href="/contact">Contact Us</a>
