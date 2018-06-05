@@ -100,6 +100,35 @@
     max-height: 250px;
     overflow: auto;
 }
+.shoplist-search-type-cont{
+    margin-bottom:20px;
+}
+#mobile-sort-nav{
+    display:none;
+    margin: 10px 0px;
+}
+#mobile-sort-nav #accordion .card-header{
+    background-color:black !important;;
+}
+#mobile-sort-nav button{
+    color:white;
+}
+@media only screen and (max-width: 600px) {
+    #mobile-sort-nav{
+        display:block;
+    }
+    #desktop-sort-nav{
+        display:none;
+    }
+}
+@media only screen and (max-device-width: 812px) and (orientation: landscape) {
+    #mobile-sort-nav{
+        display:block;
+    }
+    #desktop-sort-nav{
+        display:none;
+    }
+}
 </style>
 <script>
 	$(document).ready(function(){
@@ -114,10 +143,20 @@
         <div class="col container-in-center">
             <div class="container container-in-space">
                 <div class="row">
-                    <div class="col-md-3">
-                    
-                        <div class="shoplist-search-cont vesti-search-cont">
-                            <div>
+                    <div class="col-md-3" id="mobile-sort-nav"><!--mobile search-->
+                        <!--hiding mobile menu-->
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            +Optimize Search
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
+                                <div class="shoplist-search-cont vesti-search-cont">
+                            <div class="shoplist-search-type-cont">
                                 <h3>Category</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
@@ -147,7 +186,79 @@
                                         <li>Test</li>
                                     </ul>
                                 </div>   
+                            </div><!--end of search type-->
+                        </div>
+                        
+
+                                </div>
                             </div>
+                        </div>
+                                      <!--hiding mobile menu-->   
+                    </div><!--end of mobile search-->
+                    <div class="col-md-3" id="desktop-sort-nav">   
+                        <div class="shoplist-search-cont vesti-search-cont">
+                            <div class="shoplist-search-type-cont">
+                                <h3>Category</h3>
+                                <div class="shoplist-search-list-cont">
+                                    <ul>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                    </ul>
+                                </div>   
+                            </div><!--end of search type-->
+                            <div class="shoplist-search-type-cont">
+                                <h3>    Events</h3>
+                                <div class="shoplist-search-list-cont">
+                                    <ul>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                    </ul>
+                                </div>   
+                            </div><!--end of search type-->
                         </div>
 
 
