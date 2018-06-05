@@ -10,6 +10,14 @@
 	-o-transform: $type($val);
 	transform: $type($val);
 	}
+	@mixin transform-direction($val1,$val2,$val3){
+		-webkit-box-orient: $val1;
+		-webkit-box-direction:$val2;
+		-ms-flex-direction: $val3;
+		box-orient:$val1;
+		flex-direction: $val3;
+		box-direction: $val3; 
+	}
 	@mixin transform-rotate($degrees) {
     -webkit-transform: rotate($degrees);
     -moz-transform: rotate($degrees);

@@ -1,6 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<script src="{{ asset('/js/vendor/rater/rater.js') }}" charset="utf-8"></script>
 <script>
 	$(document).ready(function(){
 		$(".rate").rate({
@@ -105,43 +104,6 @@ button.size_spheres:hover {
 .product_in_btn:hover{
     background-color: transparent;
     color: #df1174;
-}
-/***ACCORDEON****/
-.card:first-child{
-    border-bottom: none;
-}
-.card{
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: transparent !important;
-    background-clip: border-box;
-    border-top: 1px solid rgba(0,0,0,.125);
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    border-left:none;
-    border-right:none;
-}
-.card-header{
-    padding: .2rem 1.25rem;
-    margin-bottom: 0;
-    background-color: transparent !important;
-    border-bottom: none;
-}
-.collapse-btn{
-    color:black;
-    text-decoration: none !important;
-    padding:0px;
-}
-#collapseOne{
-    padding: 5px 10px;
-    border-top: 1px solid rgba(0,0,0,.125);
 }
 .product_in_detail_drop{
     margin: 25px 0px;
