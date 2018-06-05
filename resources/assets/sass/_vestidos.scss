@@ -411,14 +411,14 @@ background-size: cover;
   font-size:6rem;
 }
 .vesti-new-border{
-  z-index:9999;
+  z-index:999;
   position:absolute;
   width: 0;
   height: 0;
 }
 .vesti-new-txt{
   position: absolute;
-  z-index: 99999;
+  z-index: 9999;
   color: white;
   font-family: arial;
   font-weight: bold;
@@ -576,6 +576,18 @@ background-size: cover;
 #collapseOne{
   padding: 5px 10px;
   border-top: 1px solid rgba(0,0,0,.125);
+}
+/***COLOR CUBES***/
+.colors_cubes{
+  display: inline-block;
+  border-radius: 4px;
+  margin:2px 2px 2px 0px;
+  border:1px rgba(0,0,0,.2) solid;
+}
+.color_cubes_btn_a{
+  cursor: pointer;
+  width: 33px;
+  height: 20px;
 }
 //custom vestidos mobile scss
 @import "vestidos_mobile";

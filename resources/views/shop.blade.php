@@ -22,22 +22,56 @@
     -moz-column-gap: 1em;
     -webkit-column-gap: 1em;
     column-gap: 1em;
-    -webkit-column-rule: 1px dotted #ddd;
-     -moz-column-rule: 1px dotted #ddd;
-          column-rule: 1px dotted #ddd;
+
 }
 .shoplist-cont li{
-    display:table-cell;
+    /* display:table-cell; */
     padding-top: 10px;
 }
+.shoplist-list-cont-in .row div{
+    padding-right:0px;
+    padding-left:0px;
+}
+.shoplist-list-cont-in .row div:nth-child(1){
+    text-align:left;
+}
+.shoplist-list-cont-in .row div:nth-child(2){
+    text-align:right;
+}
+.shoplist-list-cont-in .shoplist-thumb-name{
+    font-family: Arial;
+    font-size: .8rem;
+    font-weight: bold;
+}
+.shoplist-list-cont-in .shoplist-thumb-price{
+    font-family: Arial;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+.shoplist-list-cont-in .shoplist-thumb-auth{
+    font-family: Arial;
+    font-size: .8rem;
+    font-weight: bold;
+}
+.color_cubes_view_a{
+  width: 23px;
+  height: 15px;
+}
 </style>
+<script>
+	$(document).ready(function(){
+		$(".rate-shop").rate({
+			readonly:true
+		});
+	})
+</script>
 <div class="main_sub_body main_body_height">
 <div class="container">
     <div class="row">
         <div class="col container-in-center">
             <div class="container container-in-space">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                     
                         <div>
                             <div id="accordion">
@@ -72,62 +106,155 @@
 
 
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <div><img src="{{ asset('images/ad_testing.jpg') }}" class="img-fluid" alt/></div>    
                         <div>
-                            <!-- <div class="container shoplist-cont">
-                                <div class="row">
-                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
-                                    </div>
-                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
-                                    </div>
-                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
-                                    </div>
-                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
-                                    </div>
-                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
-                                    </div>
-                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
-                                    </div>
-                                </div>
-                            </div> -->
+                            
                             <ul class="shoplist-cont">
+                                <!--each pod-->
                                 <li class="shoplist-list">
+                                    <div>
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                                        <div class="container shoplist-list-cont-in">
+                                            <div class="row">
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class='rate-shop' data-rate-value="4"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
+                                <!--end pod-->
+                                <!--each pod-->
                                 <li class="shoplist-list">
+                                    <div>
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                                        <div class="container shoplist-list-cont-in">
+                                            <div class="row">
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class='rate-shop' data-rate-value="4"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
+                                <!--end pod-->
+                                <!--each pod-->
                                 <li class="shoplist-list">
+                                    <div>
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                                        <div class="container shoplist-list-cont-in">
+                                            <div class="row">
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class='rate-shop' data-rate-value="4"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
+                                <!--end pod-->
+                                <!--each pod-->
                                 <li class="shoplist-list">
+                                    <div>
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                                        <div class="container shoplist-list-cont-in">
+                                            <div class="row">
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class='rate-shop' data-rate-value="4"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
+                                <!--end pod-->
+                                <!--each pod-->
                                 <li class="shoplist-list">
+                                    <div>
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                                        <div class="container shoplist-list-cont-in">
+                                            <div class="row">
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class='rate-shop' data-rate-value="4"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
+                                <!--end pod-->
+                                <!--each pod-->
                                 <li class="shoplist-list">
+                                    <div>
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                                        <div class="container shoplist-list-cont-in">
+                                            <div class="row">
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class='rate-shop' data-rate-value="4"></div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
+                                <!--end pod-->
                             </ul>
                         </div>
                     </div>

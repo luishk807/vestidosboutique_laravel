@@ -62,15 +62,6 @@
 .product_in_size{
     margin-bottom: 10px;
 }
-.colors_cubes{
-    width: 33px;
-    height: 20px;
-    display: inline-block;
-    border-radius: 4px;
-    margin:2px 2px 2px 0px;
-    border:1px rgba(0,0,0,.2) solid;
-    cursor: pointer;
-}
 .size_spheres{
     width: 34px;
     height: 33px;
@@ -159,9 +150,9 @@ button.size_spheres:hover {
                                         <div class="product_in_sub_title">
                                             Select Colors
                                         </div>
-                                        <button class="colors_cubes" style="background-color:red"></button>
-                                        <button class="colors_cubes" style="background-color:pink"></button>
-                                        <button class="colors_cubes" style="background-color:blue"></button>
+                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:red"></button>
+                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:pink"></button>
+                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:blue"></button>
                                     </div>
                                     <div class="product_in_size">
                                         <div class="product_in_sub_title">
