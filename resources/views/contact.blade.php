@@ -9,7 +9,7 @@
 
         <div class="col-lg-9 about-col">
             <div>
-               <div class="about_panel_in">
+               <div class="container-in-space">
                     <h2>Contact</h2>
                     <div class="container">
                         <div class="row">

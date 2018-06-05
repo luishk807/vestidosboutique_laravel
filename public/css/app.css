@@ -10559,6 +10559,7 @@ html {
   line-height: 1rem;
   bottom: 1%;
   left: 50%;
+  margin-left: -100px;
   -webkit-transform: traslate(-50%, -50%);
   transform: traslate(-50%, -50%);
   z-index: 999;
@@ -11086,6 +11087,15 @@ html {
 
 .about_panel_in div:last-child {
   margin-top: 50px;
+}
+
+.container-in-space {
+  padding: 50px 0px;
+  margin: 100px auto 50px auto;
+}
+
+.container-in-center {
+  margin: 0px auto;
 }
 
 @media only screen and (max-width: 600px) {

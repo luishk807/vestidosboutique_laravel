@@ -167,8 +167,8 @@ button.size_spheres:hover {
 <div class="main_sub_body main_body_height">
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div class="container-fluid product_in">
+        <div class="col container-in-center">
+            <div class="container-fluid container-in-space">
                 <div class="row">
                     <div class="col-md-2 product_thumnnail">
                             <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail"/></a>

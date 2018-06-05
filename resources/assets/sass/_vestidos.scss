@@ -121,6 +121,7 @@ background-size: cover;
     font-size:1.5rem;
     line-height:1rem;
     bottom:1%; left: 50%;
+    margin-left:-100px;
      @include transform-traslate(-50%,-50%);
       z-index:999;
 }
@@ -531,6 +532,13 @@ background-size: cover;
 }
 .about_panel_in div:last-child{
   margin-top:50px;
+}
+.container-in-space{
+  padding: 50px 0px;
+  margin: 100px auto 50px auto;
+}
+.container-in-center{
+  margin: 0px auto;
 }
 //custom vestidos mobile scss
 @import "vestidos_mobile";
