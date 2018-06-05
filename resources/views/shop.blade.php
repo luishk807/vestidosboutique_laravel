@@ -6,9 +6,29 @@
   border-right: 60px solid transparent;
 }
 .vesti-new-txt-b{
-  font-size: .8rem;
-    top: 10px;
-    left: 20px;
+  font-size: .7rem;
+  margin-top: 10px;
+    margin-left: 5px;
+}
+.shoplist-cont{
+    list-style-type: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    -moz-columns: 3 200px;
+    -webkit-columns: 3 200px;
+    columns: 3 200px;
+    -moz-column-gap: 1em;
+    -webkit-column-gap: 1em;
+    column-gap: 1em;
+    -webkit-column-rule: 1px dotted #ddd;
+     -moz-column-rule: 1px dotted #ddd;
+          column-rule: 1px dotted #ddd;
+}
+.shoplist-cont li{
+    display:table-cell;
+    padding-top: 10px;
 }
 </style>
 <div class="main_sub_body main_body_height">
@@ -55,14 +75,60 @@
                     <div class="col-md-8">
                         <div><img src="{{ asset('images/ad_testing.jpg') }}" class="img-fluid" alt/></div>    
                         <div>
-                            <div class="container">
+                            <!-- <div class="container shoplist-cont">
                                 <div class="row">
-                                    <div class="col-sm-6 mt-4 col-md-4">
+                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                    </div>
+                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                    </div>
+                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                    </div>
+                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                    </div>
+                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                    </div>
+                                    <div class="shoplist-list col-sm-6 mt-4 col-md-4">
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
                                         <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <ul class="shoplist-cont">
+                                <li class="shoplist-list">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                </li>
+                                <li class="shoplist-list">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                </li>
+                                <li class="shoplist-list">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                </li>
+                                <li class="shoplist-list">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                </li>
+                                <li class="shoplist-list">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                </li>
+                                <li class="shoplist-list">
+                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <a href='' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
