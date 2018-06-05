@@ -25,7 +25,7 @@
 }
 .shoplist-cont li{
     /* display:table-cell; */
-    padding-top: 10px;
+    padding-top: 30px;
 }
 .shoplist-list > div{
     display:inline-table;
