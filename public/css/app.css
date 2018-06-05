@@ -10922,8 +10922,6 @@ html {
   position: absolute;
   width: 0;
   height: 0;
-  border-top: 100px solid #87124a;
-  border-right: 100px solid transparent;
 }
 
 .vesti-new-txt {
@@ -10931,10 +10929,18 @@ html {
   z-index: 99999;
   color: white;
   font-family: arial;
-  font-size: 1rem;
   font-weight: bold;
   -webkit-transform: rotate(-44deg);
   transform: rotate(-44deg);
+}
+
+.vesti-new-border-a {
+  border-top: 100px solid #87124a;
+  border-right: 100px solid transparent;
+}
+
+.vesti-new-txt-a {
+  font-size: 1rem;
   top: 18px;
   left: 27px;
 }
@@ -11425,15 +11431,15 @@ html {
     right: 8px;
   }
 
-  #top_middle_sec_row .vesti-new-txt,
-  #quince_selec_sec .vesti-new-txt {
+  #top_middle_sec_row .vesti-new-txt-a,
+  #quince_selec_sec .vesti-new-txt-a {
     font-size: .8rem;
     top: 12px;
     left: 24px;
   }
 
-  #top_middle_sec_row .vesti-new-border,
-  #quince_selec_sec .vesti-new-border {
+  #top_middle_sec_row .vesti-new-border-a,
+  #quince_selec_sec .vesti-new-border-a {
     border-top: 70px solid #87124a;
     border-right: 70px solid transparent;
   }

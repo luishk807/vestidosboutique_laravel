@@ -415,17 +415,21 @@ background-size: cover;
   position:absolute;
   width: 0;
   height: 0;
-  border-top: 100px solid $main_vest_color;
-  border-right: 100px solid transparent;
 }
 .vesti-new-txt{
   position: absolute;
   z-index: 99999;
   color: white;
   font-family: arial;
-  font-size: 1rem;
   font-weight: bold;
   @include transform-rotate(-44deg);
+}
+.vesti-new-border-a{
+  border-top: 100px solid $main_vest_color;
+  border-right: 100px solid transparent;
+}
+.vesti-new-txt-a{
+  font-size: 1rem;
   top: 18px;
   left: 27px;
 }

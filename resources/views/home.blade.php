@@ -79,7 +79,7 @@
                     </div>
                     <div id="top_middle_sec_row" class="row">
                         <div id="top_middle_img1" class="col-sm-6 col-md-4">
-                            <div class="vesti-new-txt">NEW</div><div class="vesti-new-border"></div>
+                            <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="/product" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
@@ -158,7 +158,7 @@
                     </div>
                     <div class="row">
                         <div id="quince_thumb_1" class="quince_thumb col-sm-6 mt-4 col-md-4">
-                            <div class="vesti-new-txt">NEW</div><div class="vesti-new-border"></div>
+                            <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                            <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
                         </div>
