@@ -140,13 +140,13 @@
   }
 
   /***********ABOUT PAGE**************/
-  .about_panel_in{
-        width: auto;
-        margin:50px auto 0px auto
-    }
-    .col-lg-9{
-        padding:0px;
-    }
+  .col-lg-9{
+    padding:0px;
+}
+.container-in-space{
+    width:auto !important;
+    margin: 50px auto 0px auto !important;
+  }
 }
 @media only screen and (max-device-width: 812px) and (orientation: landscape) {
     .vestidos-footer{
@@ -257,11 +257,11 @@
          font-size: 2rem;
      }
      /***********ABOUT PAGE**************/
-     .about_panel_in{
-        width: auto;
-        margin:50px auto 0px auto
-    }
     .col-lg-9{
         padding:0px;
     }
+    .container-in-space{
+        width:auto !important;
+        margin: 50px auto 0px auto !important;
+      }
  }

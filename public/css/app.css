@@ -10560,8 +10560,6 @@ html {
   bottom: 1%;
   left: 50%;
   margin-left: -100px;
-  -webkit-transform: traslate(-50%, -50%);
-  transform: traslate(-50%, -50%);
   z-index: 999;
 }
 
@@ -11052,6 +11050,14 @@ html {
   }
 }
 
+.contact-col {
+  width: 680px;
+}
+
+.about-col {
+  width: 540px;
+}
+
 .about_bg {
   background: url("/images/about_bg.jpg") no-repeat center center;
   background-size: cover;
@@ -11062,11 +11068,9 @@ html {
   background-size: cover;
 }
 
-.about_panel_in {
+.white-md-bg-in {
   background-color: white;
-  width: 45%;
   padding: 50px 20px;
-  margin: 134px auto 50px auto;
 }
 
 .about_panel_in p {
@@ -11081,16 +11085,9 @@ html {
   padding-bottom: 16px;
 }
 
-.about-col {
-  margin: 0px auto;
-}
-
-.about_panel_in div:last-child {
-  margin-top: 50px;
-}
-
 .container-in-space {
-  padding: 50px 0px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   margin: 100px auto 50px auto;
 }
 
@@ -11282,13 +11279,13 @@ html {
 
   /***********ABOUT PAGE**************/
 
-  .about_panel_in {
-    width: auto;
-    margin: 50px auto 0px auto;
-  }
-
   .col-lg-9 {
     padding: 0px;
+  }
+
+  .container-in-space {
+    width: auto !important;
+    margin: 50px auto 0px auto !important;
   }
 }
 
@@ -11435,13 +11432,13 @@ html {
 
   /***********ABOUT PAGE**************/
 
-  .about_panel_in {
-    width: auto;
-    margin: 50px auto 0px auto;
-  }
-
   .col-lg-9 {
     padding: 0px;
+  }
+
+  .container-in-space {
+    width: auto !important;
+    margin: 50px auto 0px auto !important;
   }
 }
 

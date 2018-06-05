@@ -7,9 +7,9 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-lg-9 about-col">
+        <div class="col-lg-9 container-in-center">
             <div>
-               <div class="container-in-space">
+               <div class="container-in-space white-md-bg-in contact-col">
                     <h2>Contact</h2>
                     <div class="container">
                         <div class="row">

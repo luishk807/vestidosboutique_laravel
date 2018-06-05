@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-9 container-in-center">
             <div>
-               <div class="container-in-space">
+               <div class="container-in-space white-md-bg-in about-col">
                     <h2>Our Story</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ac lacus sed finibus. Integer auctor urna a magna tristique porttitor. Aliquam nec tortor tellus. Nunc dignissim enim feugiat euismod ullamcorper. Sed sed purus porta, dictum lorem vitae, elementum nulla. Nunc consequat at nibh quis molestie. Nullam ut dictum orci. Mauris mollis odio eu justo tincidunt tristique. Sed vehicula massa quis magna semper volutpat. Sed gravida purus a neque tincidunt molestie. Suspendisse eget condimentum nibh, in tincidunt dui. Donec lorem tellus, rutrum posuere risus in, malesuada rutrum dolor. Fusce quis facilisis dui. Aliquam vitae leo a elit mattis cursus.</p>
                     <h2>Our Mission</h2>
