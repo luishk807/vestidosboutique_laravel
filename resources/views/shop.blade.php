@@ -84,6 +84,22 @@
     text-align: left;
     background: none;
 }
+.shoplist-search-cont ul{
+    list-style:none;
+    padding: 0;
+    margin: 0;
+}
+.shoplist-search-cont h3{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    line-height: 3rem;
+}
+.shoplist-search-cont ul li{
+    text-align:left;
+}
+.shoplist-search-list-cont{
+    max-height: 250px;
+    overflow: auto;
+}
 </style>
 <script>
 	$(document).ready(function(){
@@ -100,34 +116,37 @@
                 <div class="row">
                     <div class="col-md-3">
                     
-                        <div>
-                            <div id="accordion">
-                                <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                + Detail
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header" id="headingTwo">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                                + Description
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" aria-labelleby="headingTwo" data-parent="#accordion">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-
-                                    </div>
-                                </div>
+                        <div class="shoplist-search-cont vesti-search-cont">
+                            <div>
+                                <h3>Category</h3>
+                                <div class="shoplist-search-list-cont">
+                                    <ul>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                        <li>Test</li>
+                                    </ul>
+                                </div>   
                             </div>
                         </div>
 

@@ -10413,6 +10413,26 @@ a.text-dark:focus {
 
 /* playfair-display-regular - latin */
 
+/****default scroll bar***/
+
+/* width */
+
+.vesti-search-cont ::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+
+.vesti-search-cont ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Handle */
+
+.vesti-search-cont ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+}
+
 body,
 html {
   height: 100%;
