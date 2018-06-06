@@ -117,6 +117,15 @@ button.size_spheres:hover {
     padding-bottom: 0px !important;
 }
 </style>
+<script>
+$(document).ready(function(){
+    $(".product_thumnb_link").click(function(e){
+        e.preventDefault();
+       var getImg = $($(e.target).closest("img")).attr("src");
+       $(".product_main_img_in").find("img").attr("src",getImg);
+    })
+})
+</script>
 <div class="main_sub_body main_body_height">
 <div class="container">
     <div class="row">
@@ -124,9 +133,9 @@ button.size_spheres:hover {
             <div class="container-fluid container-in-space">
                 <div class="row">
                     <div class="col-md-2 product_thumnnail">
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail"/></a>
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
+                            <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail"/></a>
+                            <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
+                            <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
                     </div>
                     <div class="col-md-6 product_main_img">
                         <div class="product_main_img_in">
