@@ -43,17 +43,14 @@
 .shoplist-list-cont-in .shoplist-thumb-name{
     font-family: Arial;
     font-size: .8rem;
-    font-weight: bold;
 }
 .shoplist-list-cont-in .shoplist-thumb-price{
     font-family: Arial;
     font-size: 1.1rem;
-    font-weight: bold;
 }
 .shoplist-list-cont-in .shoplist-thumb-auth{
     font-family: Arial;
-    font-size: .8rem;
-    font-weight: bold;
+    font-size: .7rem;
 }
 .color_cubes_view_a{
   width: 23px;
@@ -113,6 +110,12 @@
 #mobile-sort-nav button{
     color:white;
 }
+.vestidos-check{
+
+}
+.vestidos-label{
+
+}
 @media only screen and (max-width: 600px) {
     #mobile-sort-nav{
         display:block;
@@ -160,30 +163,12 @@
                                 <h3>Category</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
@@ -201,30 +186,20 @@
                                 <h3>Category</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
+                                        <li><input id="vestidos_cat_1" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_1" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_2" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_2" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_4" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_4" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_5" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_5" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_6" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_6" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
@@ -232,30 +207,14 @@
                                 <h3>    Events</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
-                                        <li>Test</li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
