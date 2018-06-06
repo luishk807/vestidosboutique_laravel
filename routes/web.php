@@ -14,31 +14,53 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get("/",function(){
-    return view("home");
+Route::group(['middleware' => 'under-construction'], function () {
+    // Route::get('/live-site', function() {
+    //     echo 'content!';
+    // });
+    Route::get("/",function(){
+        return view("home");
+    });
+    Route::get("/about",function(){
+        return view("about");
+    });
+    Route::get("/shop",function(){
+        return view("/shop");
+    });
+    Route::get("/contact",function(){
+        return view("contact");
+    });
+    Route::get("/product",function(){
+        return view("product");
+    });
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::middleware('auth')->group(function(){
+        Route::get('/admin','adminHomeController@home');
+        Route::get('/admin/products','adminProductController@show')->name('products');
+        Route::get('/admin/products/new','adminProductController@newProducts')->name('new_product');
+        Route::post('/admin/products/new','adminProductController@createProducts');
+    });
+    Auth::routes();
 });
-Route::get("/about",function(){
-    return view("about");
-});
-Route::get("/shop",function(){
-    return view("/shop");
-});
-Route::get("/contact",function(){
-    return view("contact");
-});
-Route::get("/product",function(){
-    return view("product");
-});
-Route::middleware('auth')->group(function(){
-    Route::get('/admin','adminHomeController@home');
-    Route::get('/admin/products','adminProductController@show')->name('products');
-    Route::get('/admin/products/new','adminProductController@newProducts')->name('new_product');
-    Route::post('/admin/products/new','adminProductController@createProducts');
-});
+// Route::get("/",function(){
+//     return view("home");
+// });
+// Route::get("/about",function(){
+//     return view("about");
+// });
+// Route::get("/shop",function(){
+//     return view("/shop");
+// });
+// Route::get("/contact",function(){
+//     return view("contact");
+// });
+// Route::get("/product",function(){
+//     return view("product");
+// });
 Route::get('/generate/password',function(){
     return bcrypt("123456789");
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
