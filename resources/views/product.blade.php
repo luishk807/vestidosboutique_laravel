@@ -198,7 +198,7 @@ $(document).ready(function(){
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="product_in_btn_pnl"><button class="btn-block product_in_btn">ADD TO CART</button></div>
+                                    <div class="product_in_btn_pnl"><button class="btn-block product_in_btn" onclick="location.href='/cart'">ADD TO CART</button></div>
                                     <div class="product_in_social">
                                         
                                     </div>

@@ -33,6 +33,9 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get("/product",function(){
         return view("product");
     });
+    Route::get("/cart",function(){
+        return view("cart");
+    });
     Route::get('/home', 'HomeController@index')->name('home');
     Route::middleware('auth')->group(function(){
         Route::get('/admin','adminHomeController@home');
