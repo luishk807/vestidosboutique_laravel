@@ -1,6 +1,5 @@
 @extends("layouts.app")
 @section('content')
-   
    <div id="fullpage">
         <div class="section" id="home_main_slider">
             <div id="main_slider_arrow_cont">

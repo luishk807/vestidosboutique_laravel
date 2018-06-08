@@ -19,6 +19,9 @@ body,html{
   height: 100%;
   margin: 0;
 }
+#main-body{
+  display:none;
+}
 .main_body_height{
     min-height: -webkit-calc(100% - 100px);     /* Chrome */
     min-height: -moz-calc(100% - 100px);     /* Firefox */

@@ -19,6 +19,5 @@ mix
 .sass('resources/assets/sass/app.scss', 'public/css')
 .copy('resources/assets/images/', 'public/images/', false) // Don't flatten!
 .copy('resources/assets/js/vendor/fullpage', 'public/js/vendor/fullpage') // Don't flatten!
-.copy('resources/assets/js/vendor/rater', 'public/js/vendor/rater')
-.copy('resources/assets/js/vendor/elevezoom', 'public/js/vendor/elevezoom');
+.copy('resources/assets/js/vendor/rater', 'public/js/vendor/rater');
 //.copy('resources/assets/fonts/', 'public/fonts/'); // Don't flatten!

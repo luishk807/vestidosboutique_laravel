@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#main-body").fadeIn();
     var slideTimeout = null;
     function setSlider(){
         if(!slideTimeout){
