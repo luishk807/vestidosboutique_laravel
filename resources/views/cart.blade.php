@@ -7,9 +7,20 @@ body{
 .cart-container-in{
     padding-right:0px;
     padding-left:0px;
+    font-family: SANS-SERIF;
+}
+.cart-container-in h2{
+    position:absolute;
+    top: 25%;
 }
 .cart-container-in .row{
     margin:20px 0px;
+}
+.cart-item-1 .container{
+    padding-left:0px;
+}
+.cart-item-1 .row{
+    margin:0px 0px;
 }
 .cart-item-header > div:not(:first-child):not(:last-child),
 .cart-item-items > div:not(:first-child):not(:last-child){
@@ -23,11 +34,14 @@ body{
 .cart-item-items > div:last-child{
     text-align:right;
 }
-.cart-item-header > div{
-
+.cart-item-header{
+    font-weight:bold;
+    background-color: #F8F8F8;
+    padding: 10px 0px;
 }
-.cart-item-items > div{
-    
+.cart-container-in .cart-item-items:not(:nth-child(4)){
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-top: 20px;
 }
 .cart-container-in .cart-item-img{
     width:75%;
@@ -43,13 +57,36 @@ body{
     justify-content:space-between;
 
 }
+.cart-item-items .cart-item-1 .col:nth-child(2) div p:first-child{
+    
+    font-weight:bold;
+}
 .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
     line-height: .5rem;
+    font-size: .8rem;
+}
+.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a{
+   text-decoration:none;
+   color:black;
+}
+.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:hover{
+   text-decoration:underline;
 }
 .cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:last-child{
     margin-left:5%;
 }
+.vesti-cart-quantity-input{
+    padding: 10px 20px;
+    max-width: 60px;
+    text-align: center;
+}
+.cart-item-subtitle{
+    font-weight:bold;
+}
 @media only screen and (max-width: 600px) {
+    .cart-container-in h2{
+        position:static;
+    }
     .cart-container-in .cart-item-header{
         display:none;
     }
@@ -59,8 +96,14 @@ body{
     .cart-item-items .cart-item-1 .col:nth-child(2) div p{
         line-height: 1rem;
     }
+    .vesti-cart-quantity-input{
+        border:none;
+    }
 }
 @media only screen and (max-device-width: 812px) and (orientation: landscape) {
+    .cart-container-in h2{
+        position:static;
+    }
     .cart-container-in .cart-item-img{
         width:100%;
     }
@@ -94,15 +137,15 @@ body{
                         <!--cart header-->
                         <div class="row cart-item-header">
                             <div class="col-md-5 cart-item-1">
-                                Item
+                                ITEM
                             </div>
-                            <div class="col-md-2 cart-item-2">
+                            <div class="col cart-item-2">
                                QTY
                             </div>
-                            <div class="col-md-2 cart-item-3">
+                            <div class="col cart-item-3">
                                 PRICE
                             </div>
-                            <div class="col-md-3 cart-item-4">
+                            <div class="col cart-item-4">
                                 TOTAL PRICE
                             </div>
                         </div><!--end of cart header-->
@@ -118,11 +161,10 @@ body{
                                         <div class="col">
                                             <div>
                                                 <p>Long Organaza Sweetheart</p>
-                                                <p>by:Joanna</p>
                                                 <p>In Stock</p>
-                                                <p>Product ID</p>
-                                                <p>color:red</p>
-                                                <p>size: 6</p>
+                                                <p><span class="cart-item-subtitle">Product ID:</span>2343-343</p>
+                                                <p><span class="cart-item-subtitle">Color:</span>red</p>
+                                                <p><span class="cart-item-subtitle">Size:</span>6</p>
                                             </div>
                                             <div>
                                                 <a href="">Edit</a><a href="">Remove</a>
@@ -131,16 +173,20 @@ body{
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2 cart-item-2">
-                               <input type="text" class="vesti-cart-quantity-input"/>
+                            <div class="col cart-item-2">
+                               <input type="text" class="vesti-cart-quantity-input" value="1"/>
                             </div>
-                            <div class="col-md-2 cart-item-3">
+                            <div class="col cart-item-3">
                                 $50.00
                             </div>
-                            <div class="col-md-3 cart-item-4">
+                            <div class="col cart-item-4">
                                 $50.00
                             </div>
                         </div><!--end of cart items-->
+
+
+
+
                         <div class="row">
                             <div class="col">
                                 <!--maybe payment acceptable or payment portal-->
