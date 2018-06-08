@@ -99,6 +99,10 @@ body{
     .vesti-cart-quantity-input{
         border:none;
     }
+    .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
+        line-height: 1rem;
+        margin: 5px 0px;
+    }
 }
 @media only screen and (max-device-width: 812px) and (orientation: landscape) {
     .cart-container-in h2{
@@ -109,6 +113,10 @@ body{
     }
     .cart-item-items .cart-item-1 .col:nth-child(2) div p{
         line-height: 1rem;
+    }
+    .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
+        line-height: 1rem;
+        margin: 5px 0px;
     }
 }
 </style>
