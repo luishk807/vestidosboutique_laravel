@@ -2,9 +2,6 @@
 @section('content')
 <script>
 	$(document).ready(function(){
-		$(".rate").rate({
-			readonly:true
-		});
 		$(".rate-view").rate({
 			readonly:true
 		});
