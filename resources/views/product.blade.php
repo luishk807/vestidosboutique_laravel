@@ -75,24 +75,6 @@ button.size_spheres:hover {
     background: black;
     color: white;
 }
-.product_in_btn_pnl{
-    margin:25px 0px;
-}
-.product_in_btn{
-    background-color: #df1174;
-    border:1px solid #df1174;
-    color: white;
-    padding: 10px 0px;
-    font-family: "playfair display";
-    text-align:center;
-    font-style: italic;
-    cursor:pointer;
-    font-size:1rem;
-}
-.product_in_btn:hover{
-    background-color: transparent;
-    color: #df1174;
-}
 .product_in_detail_drop{
     margin: 25px 0px;
 }
@@ -198,7 +180,7 @@ $(document).ready(function(){
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="product_in_btn_pnl"><button class="btn-block product_in_btn" onclick="location.href='/cart'">ADD TO CART</button></div>
+                                    <div class="vesti_in_btn_pnl"><button class="btn-block vesti_in_btn" onclick="location.href='/cart'">ADD TO CART</button></div>
                                     <div class="product_in_social">
                                         
                                     </div>
