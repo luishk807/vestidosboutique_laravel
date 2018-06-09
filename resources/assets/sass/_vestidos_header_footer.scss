@@ -122,3 +122,105 @@ div.submenu-panel .col a:hover{
     background-color:black; color:white; text-align:center;
     z-index:9999;
 }
+/******cart panel *******/
+.vesti-cart-top{
+    max-height: 0px;
+    background-color: white;
+    color: black;
+    position: absolute;
+    min-width: 400px;
+    right: 0;
+    top: 47px;
+    z-index:-1;
+    border-left: $main_vest_color 1px solid;
+    border-bottom: $main_vest_color 1px solid;
+    border-right: $main_vest_color 1px solid;
+    border-top: $main_vest_color 1px solid;
+    overflow: hidden;
+    @include transition(max-height 0.25s ease-out);
+}
+.vesti-cart-top.active{
+    max-height:800px;
+    z-index:999;
+    @include transition(max-height 0.25s ease-in);
+}
+.vesti-cart-top .cart-top-items{
+    margin: 10px 0px;
+}
+.vesti-cart-top .cart-top-items .cart-top-item-txt{
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: left;
+    font-family:$playfair_display;
+    font-size: .8rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+.vesti-cart-top .cart-top-items .cart-top-item-txt a{
+    font-family:$playfair_display;
+   text-decoration:none;
+   color:black;
+}
+.vesti-cart-top .cart-top-items .cart-top-item-txt a:hover{
+   text-decoration:underline;
+}
+.vesti-cart-top .cart-top-items .col:nth-child(1) img{
+    width: 120px;
+}
+.vesti-cart-top .cart-top-items .cart-top-item-txt p{
+    margin:2px 0px;
+}
+.vesti-cart-top .cart-top-totals{
+    margin: 10px auto;
+    text-align: center;
+    border-top: $vesti-light-bars;
+    border-bottom: $vesti-light-bars;
+    padding: 6px 0px;
+    font-family:$playfair_display;
+}
+.vesti-cart-top .cart-top-buttons{
+    margin: 10px 0px;
+}
+.vesti_in_btn_b{
+    background-color:$main_vest_color;
+    border:1px solid $main_vest_color;
+    color: white;
+    padding: 5px 0px;
+    font-family:$playfair_display;
+    font-style:italic;
+    text-align:center;
+    cursor:pointer;
+    font-size:.9rem;
+}
+.vesti_in_btn_b:hover{
+    background-color: transparent;
+    color: $main_vest_color;
+}
+.cart-top-items:not(:first-child){
+    border-top:$vesti-light-bars;
+    padding: 10px 0px;
+}
+/*****cart top arrow***/
+.vesti-cart-arrow{
+    z-index: 1000;
+    width: 0px;
+    height: 0px;
+    top: 44px;
+    left: 28px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #ffff;
+    position: absolute;
+}
+.vesti-cart-arrow-b{
+    z-index: 998;
+    width: 0px;
+    height: 0px;
+    top: 43px;
+    left: 27px;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid $main_vest_color;
+    position: absolute;
+}

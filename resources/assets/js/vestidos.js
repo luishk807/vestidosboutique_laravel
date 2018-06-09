@@ -8,6 +8,16 @@ $(document).ready(function() {
             },5000);
         }
     }
+    /****CART TOP HOVER****/
+    $("#vesti-navbar-top-link").hover(function(){
+        $(".submenu-panel").removeClass("open");
+        $(".vesti-cart-top").toggleClass("active"); 
+    })
+    $(".vesti-cart-top").hover(function(){
+        $(".submenu-panel").removeClass("open");
+        $(this).toggleClass("active"); 
+    })
+    /***END ***/
     var isReponsive =false;
     function initialization(){
         $('#fullpage').fullpage({
