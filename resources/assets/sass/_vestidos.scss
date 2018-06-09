@@ -15,6 +15,9 @@
 .vesti-search-cont ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3)
 }
+.error{
+  color:red;
+}
 body{
   background-color:white;
 }
@@ -718,6 +721,10 @@ background-size: cover;
 .cart-footer-section .cart-footer-totals > .container .row:last-child{
   font-weight:bold;
   font-size: .9rem;
+}
+// ACCOUNT SECTION
+.account-form-section{
+  margin:0px auto;
 }
 //custom vestidos mobile scss
 @import "vestidos_mobile";

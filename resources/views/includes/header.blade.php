@@ -55,7 +55,7 @@
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
-                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="/signin">Login</a></li>
+                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="{{route('signin')}}">Login</a></li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
                         Cart<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
                         <!-- <div id="vesti-cart-top-cont">
@@ -186,7 +186,7 @@
                 <div id="vesti-custom-bottom" class="container">
                     <div class="row">
                         <div class="col text-white">
-                            <a href="/signin">Login</a>
+                            <a href="{{route('signin')}}">Login</a>
                         </div>
                         <div class="col text-white">
                             <a href="/cart">Cart</a>

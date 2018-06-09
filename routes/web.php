@@ -36,9 +36,14 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get("/cart",function(){
         return view("cart",['page_title'=>"Cart"]);
     });
-    Route::get("/signin",function(){
-        return view("/signin",['page_title'=>"Login"]);
-    });
+    Route::get("/signin",'clientController@login')->name("signin");
+    Route::post("/signin",'clientController@login')->name("login");
+    // Client Section
+    Route::get("/account/new",'clientController@newClient')->name("newclient");
+    Route::post("/account/new",'clientController@newClient')->name("createclient");
+    Route::get("/account/edit",'clientController@updateClient')->name("editclient");
+    Route::post("/account/edit",'clientController@updateClient')->name("updateclient");
+    //end of client
     Route::get('/home', 'HomeController@index')->name('home');
     Route::middleware('auth')->group(function(){
         Route::get('/admin','adminHomeController@home');

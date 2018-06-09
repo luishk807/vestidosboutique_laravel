@@ -10433,6 +10433,10 @@ a.text-dark:focus {
   background: rgba(0, 0, 0, 0.3);
 }
 
+.error {
+  color: red;
+}
+
 body {
   background-color: white;
 }
@@ -11329,6 +11333,10 @@ html {
 .cart-footer-section .cart-footer-totals > .container .row:last-child {
   font-weight: bold;
   font-size: .9rem;
+}
+
+.account-form-section {
+  margin: 0px auto;
 }
 
 @media only screen and (max-width: 600px) {
