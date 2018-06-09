@@ -5,6 +5,9 @@
     padding-left:0px;
     padding-right:0px;
 }
+.contact-container .contact-section-right{
+    margin-top: 10%;
+}
 </style>
 <div class="main_sub_body contact_bg main_body_height">
 <div class="container-fluid">
@@ -54,8 +57,8 @@
                                 </div>
 
                             </div><!--end of contact form-->
-                            <div class="col-md-5">
-                                dfasdf
+                            <div class="col-md-5 contact-section-right">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vel earum ut tempore similique sint quam fugiat, sunt beatae reprehenderit voluptatum
                             </div>
                         </div>
                     </div>
