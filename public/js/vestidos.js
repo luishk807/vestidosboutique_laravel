@@ -110,4 +110,7 @@ $(document).ready(function() {
         }
 
     })
+    $(".vesti-cart-quantity-input").click(function () {
+        $(this).select();
+    });
 });
