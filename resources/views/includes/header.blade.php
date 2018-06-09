@@ -15,6 +15,113 @@
 <script type="text/javascript" src="{{ asset('js/vendor/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $("#vesti-navbar-top-link").hover(
+            function(){
+                $(".vesti-cart-top").addClass("active"); 
+            },
+            function(){
+                $(".vesti-cart-top").removeClass("active"); 
+            }
+        )
+        $(".vesti-cart-top").hover(
+            function(){
+                $(this).addClass("active");
+            },
+            function(){
+                $(this).removeClass("active");
+            }
+        )
+    })
+</script>
+<style>
+    
+    .vesti-cart-top{
+        max-height: 0px;
+        background-color: white;
+        color: black;
+        position: absolute;
+        min-width: 400px;
+        right: 0;
+        top: 40px;
+        z-index:-1;
+        border-left: #87124a 1px solid;
+        border-bottom: #87124a 1px solid;
+        border-right: #87124a 1px solid;
+        border-top: #87124a 1px solid;
+        overflow: hidden;
+        -webkit-transition:  max-height 0.25s ease-out;
+        -moz-transition:  max-height 0.25s ease-out;
+        -o-transition:  max-height 0.25s ease-out;
+        transition:  max-height 0.25s ease-out;
+    }
+    .vesti-cart-top.active{
+        max-height:800px;
+        z-index:999;
+        -webkit-transition:  max-height 0.25s ease-in;
+        -moz-transition:  max-height 0.25s ease-in;
+        -o-transition:  max-height 0.25s ease-in;
+        transition:  max-height 0.25s ease-in;
+    }
+    .vesti-cart-top .cart-top-items{
+        margin: 10px 0px;
+    }
+    .vesti-cart-top .cart-top-items .cart-top-item-txt{
+        padding-left: 0px;
+        padding-right: 0px;
+        text-align: left;
+        font-family:"Playfair Display";
+        font-size: .8rem;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+    }
+    .vesti-cart-top .cart-top-items .cart-top-item-txt a{
+        font-family:"Playfair Display";
+       text-decoration:none;
+       color:black;
+    }
+    .vesti-cart-top .cart-top-items .cart-top-item-txt a:hover{
+       text-decoration:underline;
+    }
+    .vesti-cart-top .cart-top-items .col:nth-child(1) img{
+        width: 120px;
+    }
+    .vesti-cart-top .cart-top-items .cart-top-item-txt p{
+        margin:2px 0px;
+    }
+    .vesti-cart-top .cart-top-totals{
+        margin: 10px auto;
+        text-align: center;
+        border-top: 1px solid rgba(0,0,0,.1);
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        padding: 6px 0px;
+        font-family:"Playfair Display";
+    }
+    .vesti-cart-top .cart-top-buttons{
+        margin: 10px 0px;
+    }
+    .vesti_in_btn_b{
+        background-color:#87124a;
+        border:1px solid #87124a;
+        color: white;
+        padding: 5px 0px;
+        font-family:"Playfair Display";
+        font-style:italic;
+        text-align:center;
+        cursor:pointer;
+        font-size:.9rem;
+    }
+    .vesti_in_btn_b:hover{
+        background-color: transparent;
+        color: #87124a;
+    }
+    .cart-top-items:not(:first-child){
+        border-top: 1px solid rgba(0,0,0,.1);
+        padding: 10px 0px;
+    }
+</style>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >
@@ -56,7 +163,36 @@
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="#">Login</a></li>
-                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="#">Cart<img class="vesti-svg vestidos-icons-header" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a></li>
+                    <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
+                        Cart<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
+                        <div class="vesti-cart-top">
+                           <div class="container">
+                               <div class="row cart-top-items"> <!--item-->
+                                   <div class="col-md-4"><span><a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt width="100%"/></a></span></div>
+                                   <div class="col-md-8 cart-top-item-txt">
+                                       <div>
+                                       <p><a href="">Don't Bow Breaking My Heart Spot Dress</a></p>
+                                       <p>Unit Price: $150.00</p>
+                                       <p>Size: 4</p>
+                                       <p>Color: Red</p>
+                                        </div>
+                                        <div>
+                                            <a href="">Remove</a>
+                                        </div>
+                                   </div>
+                               </div><!--end of item-->
+                               <div class="row cart-top-totals">
+                                   <div class="col">Subtotal: $40.00</div>
+                               </div>
+                               <div class="row cart-top-buttons">
+                                   <div class="col"><button class="btn-block vesti_in_btn_b" onclick="location.href='/cart'">View Cart</button></div>
+                                   <div class="col"><button class="btn-block vesti_in_btn_b" onclick="">Checkout</button></div>
+                               </div>
+                           </div>
+                        </div><!--end of hover menu-->
+                    
+                        
+                    </li>
                 </ul>
             </div>
         </div>

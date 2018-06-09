@@ -15,6 +15,9 @@
 .vesti-search-cont ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3)
 }
+body{
+  background-color:white;
+}
 body,html{
   height: 100%;
   margin: 0;
@@ -76,6 +79,9 @@ body,html{
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.navbar-vesti-cart{
+  position: relative;
 }
 .vestidos-main-nav{
   position: absolute;
@@ -622,6 +628,96 @@ background-size: cover;
 .vesti_in_btn:hover{
   background-color: transparent;
   color: $main_vest_color_b;
+}
+//cart page
+.cart-container-in{
+  padding-right:0px;
+  padding-left:0px;
+  font-family: SANS-SERIF;
+}
+.cart-container-in h2{
+  position:absolute;
+  top: 25%;
+}
+.cart-container-in .row{
+  margin:20px 0px;
+}
+.cart-item-1 .container{
+  padding-left:0px;
+}
+.cart-item-1 .row{
+  margin:0px 0px;
+}
+.cart-item-header > div:not(:first-child):not(:last-child),
+.cart-item-items > div:not(:first-child):not(:last-child){
+  text-align:center;
+}
+.cart-item-header > div:first-child,
+.cart-item-items > div:first-child{
+  text-align:left;
+}
+.cart-item-header > div:last-child,
+.cart-item-items > div:last-child{
+  text-align:right;
+}
+.cart-item-header{
+  font-weight:bold;
+  background-color:$vesti-light-gray;
+  padding: 10px 0px;
+}
+.cart-container-in .cart-item-items:not(:nth-child(4)){
+  border-top: 1px solid rgba(0,0,0,.1);
+  padding-top: 20px;
+}
+.cart-container-in .cart-item-img{
+  width:75%;
+}
+.cart-item-items .cart-item-1 .col:nth-child(1){
+  padding-left:0px;
+  padding-right:0px;
+}
+.cart-item-items .cart-item-1 .col:nth-child(2){
+  /* line-height: 1rem; */
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+
+}
+.cart-item-items .cart-item-1 .col:nth-child(2) div p:first-child{
+  
+  font-weight:bold;
+}
+.cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
+  line-height: .5rem;
+  font-size: .8rem;
+}
+.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a{
+ text-decoration:none;
+ color:black;
+}
+.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:hover{
+ text-decoration:underline;
+}
+.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:last-child{
+  margin-left:5%;
+}
+.vesti-cart-quantity-input{
+  padding: 10px 20px;
+  max-width: 60px;
+  text-align: center;
+}
+.cart-item-subtitle{
+  font-weight:bold;
+}
+.cart-footer-section{
+  background-color: $vesti-light-gray;
+}
+.cart-footer-section .cart-footer-totals:nth-child(2){
+  text-align: right;
+}
+.cart-footer-section .cart-footer-totals > .container .row:last-child{
+  font-weight:bold;
+  font-size: .9rem;
 }
 //custom vestidos mobile scss
 @import "vestidos_mobile";

@@ -147,6 +147,26 @@
     width:auto !important;
     margin: 50px auto 0px auto !important;
   }
+  /*********** CART PAGE **************/
+    .cart-container-in h2{
+        position:static;
+    }
+    .cart-container-in .cart-item-header{
+        display:none;
+    }
+    .cart-container-in .cart-item-img{
+        width:100%;
+    }
+    .cart-item-items .cart-item-1 .col:nth-child(2) div p{
+        line-height: 1rem;
+    }
+    .vesti-cart-quantity-input{
+        border:none;
+    }
+    .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
+        line-height: 1rem;
+        margin: 5px 0px;
+    }
 }
 @media only screen and (max-device-width: 812px) and (orientation: landscape) {
     .vestidos-footer{
@@ -264,4 +284,18 @@
         width:auto !important;
         margin: 50px auto 0px auto !important;
       }
+      /**** CART PAGE *****/
+      .cart-container-in h2{
+        position:static;
+    }
+    .cart-container-in .cart-item-img{
+        width:100%;
+    }
+    .cart-item-items .cart-item-1 .col:nth-child(2) div p{
+        line-height: 1rem;
+    }
+    .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
+        line-height: 1rem;
+        margin: 5px 0px;
+    }
  }

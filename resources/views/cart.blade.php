@@ -1,125 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-body{
-    background-color:white;
-}
-.cart-container-in{
-    padding-right:0px;
-    padding-left:0px;
-    font-family: SANS-SERIF;
-}
-.cart-container-in h2{
-    position:absolute;
-    top: 25%;
-}
-.cart-container-in .row{
-    margin:20px 0px;
-}
-.cart-item-1 .container{
-    padding-left:0px;
-}
-.cart-item-1 .row{
-    margin:0px 0px;
-}
-.cart-item-header > div:not(:first-child):not(:last-child),
-.cart-item-items > div:not(:first-child):not(:last-child){
-    text-align:center;
-}
-.cart-item-header > div:first-child,
-.cart-item-items > div:first-child{
-    text-align:left;
-}
-.cart-item-header > div:last-child,
-.cart-item-items > div:last-child{
-    text-align:right;
-}
-.cart-item-header{
-    font-weight:bold;
-    background-color: #F8F8F8;
-    padding: 10px 0px;
-}
-.cart-container-in .cart-item-items:not(:nth-child(4)){
-    border-top: 1px solid rgba(0,0,0,.1);
-    padding-top: 20px;
-}
-.cart-container-in .cart-item-img{
-    width:75%;
-}
-.cart-item-items .cart-item-1 .col:nth-child(1){
-    padding-left:0px;
-    padding-right:0px;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2){
-    /* line-height: 1rem; */
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div p:first-child{
-    
-    font-weight:bold;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
-    line-height: .5rem;
-    font-size: .8rem;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a{
-   text-decoration:none;
-   color:black;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:hover{
-   text-decoration:underline;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:last-child{
-    margin-left:5%;
-}
-.vesti-cart-quantity-input{
-    padding: 10px 20px;
-    max-width: 60px;
-    text-align: center;
-}
-.cart-item-subtitle{
-    font-weight:bold;
-}
-@media only screen and (max-width: 600px) {
-    .cart-container-in h2{
-        position:static;
-    }
-    .cart-container-in .cart-item-header{
-        display:none;
-    }
-    .cart-container-in .cart-item-img{
-        width:100%;
-    }
-    .cart-item-items .cart-item-1 .col:nth-child(2) div p{
-        line-height: 1rem;
-    }
-    .vesti-cart-quantity-input{
-        border:none;
-    }
-    .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
-        line-height: 1rem;
-        margin: 5px 0px;
-    }
-}
-@media only screen and (max-device-width: 812px) and (orientation: landscape) {
-    .cart-container-in h2{
-        position:static;
-    }
-    .cart-container-in .cart-item-img{
-        width:100%;
-    }
-    .cart-item-items .cart-item-1 .col:nth-child(2) div p{
-        line-height: 1rem;
-    }
-    .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
-        line-height: 1rem;
-        margin: 5px 0px;
-    }
-}
-</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -195,12 +75,41 @@ body{
 
 
 
-                        <div class="row">
-                            <div class="col">
+                        <div class="row cart-footer-section">
+                            <div class="col-md-8">
                                 <!--maybe payment acceptable or payment portal-->
                             </div>
-                            <div class="col">
+                            <div class="col-md-4 cart-footer-totals">
                                 <!-- total info-->
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            Subtotal
+                                        </div>
+                                        <div class="col">
+                                            $130.00
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            Tax
+                                        </div>
+                                        <div class="col">
+                                            $10.40
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            Subtotal
+                                        </div>
+                                        <div class="col">
+                                            $130.00
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                         <div class="row">
