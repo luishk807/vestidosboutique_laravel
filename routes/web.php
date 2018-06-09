@@ -19,22 +19,25 @@ Route::group(['middleware' => 'under-construction'], function () {
     //     echo 'content!';
     // });
     Route::get("/",function(){
-        return view("home");
+        return view("home",['page_title'=>"Welcome Page"]);
     });
     Route::get("/about",function(){
-        return view("about");
+        return view("about",['page_title'=>"About Us"]);
     });
     Route::get("/shop",function(){
-        return view("/shop");
+        return view("/shop",['page_title'=>"Shop"]);
     });
     Route::get("/contact",function(){
-        return view("contact");
+        return view("contact",['page_title'=>"Contact Us"]);
     });
     Route::get("/product",function(){
-        return view("product");
+        return view("product",['page_title'=>"Product"]);
     });
     Route::get("/cart",function(){
-        return view("cart");
+        return view("cart",['page_title'=>"Cart"]);
+    });
+    Route::get("/signin",function(){
+        return view("/signin",['page_title'=>"Login"]);
     });
     Route::get('/home', 'HomeController@index')->name('home');
     Route::middleware('auth')->group(function(){

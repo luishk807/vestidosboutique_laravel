@@ -7,7 +7,7 @@
     
     <link rel="stylesheet" type="text/css" href="{{ asset('js/vendor/fullpage/jquery.fullPage.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-     <title>Vestidos Boutique Main</title>
+     <title>Vestidos Boutique Main - {{ $page_title }}</title>
 
  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -55,7 +55,7 @@
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
-                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="#">Login</a></li>
+                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="/signin">Login</a></li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
                         Cart<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
                         <!-- <div id="vesti-cart-top-cont">
@@ -68,7 +68,7 @@
                                    <div class="col-md-4"><span><a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt width="100%"/></a></span></div>
                                    <div class="col-md-8 cart-top-item-txt">
                                        <div>
-                                       <p><a href="">Don't Bow Breaking My Heart Spot Dress</a></p>
+                                       <p><a href="/product">Don't Bow Breaking My Heart Spot Dress</a></p>
                                        <p>Unit Price: $150.00</p>
                                        <p>Size: 4</p>
                                        <p>Color: Red</p>
@@ -186,10 +186,10 @@
                 <div id="vesti-custom-bottom" class="container">
                     <div class="row">
                         <div class="col text-white">
-                            <a href="">Login</a>
+                            <a href="/signin">Login</a>
                         </div>
                         <div class="col text-white">
-                            <a href="">Cart</a>
+                            <a href="/cart">Cart</a>
                         </div>
                     </div>
                 </div>
