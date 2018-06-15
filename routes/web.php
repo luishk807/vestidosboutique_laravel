@@ -30,6 +30,7 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get("/contact",function(){
         return view("contact",['page_title'=>"Contact Us"]);
     });
+    Route::post("/contact","homeController@sendEmail")->name("sendEmail");
     Route::get("/product",function(){
         return view("product",['page_title'=>"Product"]);
     });
