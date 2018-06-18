@@ -27,10 +27,8 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get("/shop",function(){
         return view("/shop",['page_title'=>"Shop"]);
     });
-    Route::get("/contact",function(){
-        return view("contact",['page_title'=>"Contact Us"]);
-    });
-    Route::post("/contact","homeController@sendEmail")->name("sendEmail");
+    Route::get("/contact","contactController@index")->name("viewContactPage");
+    Route::post("/contact","contactController@sendEmail")->name("sendEmail");
     Route::get("/product",function(){
         return view("product",['page_title'=>"Product"]);
     });

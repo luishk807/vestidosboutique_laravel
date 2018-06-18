@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\vestidosUsers as vestidosUsers;
 
 class clientController extends Controller
 {
