@@ -9,6 +9,7 @@ class clientController extends Controller
 {
     //
     public function login(Request $request){
+        $data["page_title"]="Login";
         if($request->isMethod("post")){
             $this->validate($request,[
                 "email"=>"required",
@@ -16,10 +17,13 @@ class clientController extends Controller
             ]);
             return redirect("signin");
         }
-        return view("/signin",["page_title"=>"Login"]);
+        return view("/signin",$data);
     }
     public function newClient(Request $request){
-        $title=array("Mr.","Mrs.","Ms.");
+        $titles=array("Mr.","Mrs.","Ms.");
+        $data["page_title"]="New Account";
+        $data["titles"]=$titles;
+
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
@@ -33,10 +37,12 @@ class clientController extends Controller
             ]);
             return redirect("newclient");
         }
-        return view("clientAccount/new",["page_title"=>"New Account","titles"=>$title]);
+        return view("clientAccount/new",$data);
     }
     public function updateClient(Request $request){
-        $title=array("Mr.","Mrs.","Ms.");
+        $titles=array("Mr.","Mrs.","Ms.");
+        $data["page_title"]="Edit Account";
+        $data["titles"]=$titles;
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
@@ -50,6 +56,6 @@ class clientController extends Controller
             ]);
             return redirect("editclient");
         }
-        return view("clientAccount/edit",["page_title"=>"Edit Account","titles"=>$title]);
+        return view("clientAccount/edit",$data);
     }
 }

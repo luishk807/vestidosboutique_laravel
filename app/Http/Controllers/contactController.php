@@ -9,7 +9,9 @@ class contactController extends Controller
 {
     //
     public function index(vestidosCountries $countries){
-        return view("contact",["page_title"=>"Contact Us","countries"=>$countries->all()]);
+        $data["page_title"]="Contact Us";
+        $data["countries"]=$countries->all();
+        return view("contact",$data);
     }
     public function sendEmail(Request $request){
         if($request->isMethod("post")){
