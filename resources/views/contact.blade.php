@@ -44,7 +44,11 @@
                                     <div class="form-group">
                                             <label class="accountCountrySelect" for="accountCountry">Select Country:</label>
                                             <select class="custom-select accountCountrySelect" name="country" id="accountCountry">
+                                                
                                                 <option selected>Select Country</option>
+                                                @foreach($countries as $country)
+                                                    <option vale="{{ $country->id }}">{{$country->countryName}} </option>
+                                                @endforeach
                                             </select>
                                             <small class="error">{{$errors->first("country")}}</small>
                                     </div>
