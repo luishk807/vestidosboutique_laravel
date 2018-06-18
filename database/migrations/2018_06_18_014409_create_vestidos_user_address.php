@@ -15,7 +15,8 @@ class CreateVestidosUserAddress extends Migration
     {
         Schema::create('vestidos_status_user_adddress', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign("user_id")->references("id")->on("vestidos_users");
             $table->integer('address_type');
             $table->string('first_name');
             $table->string('middle_name');
@@ -24,7 +25,8 @@ class CreateVestidosUserAddress extends Migration
             $table->string('address_2');
             $table->string('city');
             $table->string('state');
-            $table->integer('country_id');
+            $table->integer('country_id')->unsigned();
+            $table->foreign("country_id")->references("id")->on("vestidos_countries");
             $table->string('zip_code');
             $table->string('phone_number_1');
             $table->string('phone_number_2');

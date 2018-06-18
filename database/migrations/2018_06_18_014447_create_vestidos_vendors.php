@@ -25,7 +25,8 @@ class CreateVestidosVendors extends Migration
             $table->string('address_2');
             $table->string('city');
             $table->string('state');
-            $table->integer('country_id');
+            $table->integer('country_id')->unsigned();
+            $table->foreign("country_id")->references("id")->on("vestidos_countries");
             $table->string('zip_code');
             $table->text('ip_address');
             $table->integer('status');

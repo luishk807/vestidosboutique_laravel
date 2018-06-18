@@ -15,7 +15,8 @@ class CreateVestidosSize extends Migration
     {
         Schema::create('vestidos_size', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned();
+            $table->foreign("product_id")->references("id")->on("vestidos_products");
             $table->string('name');
             $table->integer('status');
             $table->timestamps();
