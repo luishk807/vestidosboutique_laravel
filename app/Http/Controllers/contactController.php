@@ -8,9 +8,13 @@ use App\vestidosCountries as vestidosCountries;
 class contactController extends Controller
 {
     //
-    public function index(vestidosCountries $countries){
+    public function __construct(vestidosCountries $countries){
+        $this->country=$countries->all();
+
+    }
+    public function index(){
         $data["page_title"]="Contact Us";
-        $data["countries"]=$countries->all();
+        $data["countries"]=$this->country->all();
         return view("contact",$data);
     }
     public function sendEmail(Request $request){
