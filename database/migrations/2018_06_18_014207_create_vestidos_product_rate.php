@@ -15,8 +15,10 @@ class CreateVestidosProductRate extends Migration
     {
         Schema::create('vestidos_product_rate', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('product_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign("user_id")->references("id")->on("vestidos_users");
+            $table->integer('product_id')->unsigned();
+            $table->foreign("category_id")->references("id")->on("vestidos_category");
             $table->text('user_comment');
             $table->integer('user_rate');
             $table->integer('status');
