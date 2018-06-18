@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVestidosAdminUsers extends Migration
+class CreateUserType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateVestidosAdminUsers extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_admin_users', function (Blueprint $table) {
+        Schema::create('vestidos_user_type', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateVestidosAdminUsers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_admin_users');
+        Schema::dropIfExists('vestidos_user_type');
     }
 }

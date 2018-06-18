@@ -15,6 +15,8 @@ class CreateVestidosUserWishlist extends Migration
     {
         Schema::create('vestidos_status_user_wishlist', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('product_id');
             $table->timestamps();
         });
     }

@@ -15,6 +15,18 @@ class CreateVestidosUsers extends Migration
     {
         Schema::create('vestidos_users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('user_name');
+            $table->string('password');
+            $table->string('first_name');
+            $table->string('middle_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('phone_number');
+            $table->dateTime('date_of_birth');
+            $table->integer('gender');
+            $table->text('ip');
+            $table->integer('preferred_language');
+            $table->integer('status');
             $table->timestamps();
         });
     }

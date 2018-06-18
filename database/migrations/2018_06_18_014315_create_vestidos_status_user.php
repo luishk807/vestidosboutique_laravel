@@ -15,6 +15,7 @@ class CreateVestidosStatusUser extends Migration
     {
         Schema::create('vestidos_status_user', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }

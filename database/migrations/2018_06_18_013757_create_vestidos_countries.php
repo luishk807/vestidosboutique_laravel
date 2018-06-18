@@ -30,7 +30,7 @@ class CreateVestidosCountries extends Migration
             $table->string('languages');
             $table->char('isoAlpha3',3);
             $table->integer('geonameId');
-           // $table->timestamps();
+            $table->timestamps();
         });
     }
 

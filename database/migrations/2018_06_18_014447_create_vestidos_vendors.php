@@ -15,6 +15,20 @@ class CreateVestidosVendors extends Migration
     {
         Schema::create('vestidos_vendors', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('first_name');
+            $table->string('middle_name');
+            $table->string('last_name');
+            $table->string('phone_number_1');
+            $table->string('phone_number_2');
+            $table->string('email');
+            $table->string('address_1');
+            $table->string('address_2');
+            $table->string('city');
+            $table->string('state');
+            $table->integer('country_id');
+            $table->string('postal_code');
+            $table->text('ip_address');
+            $table->integer('status');
             $table->timestamps();
         });
     }
