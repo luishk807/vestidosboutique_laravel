@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVestidosProductRate extends Migration
+class CreateVestidosUserWishlist extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateVestidosProductRate extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_product_rate', function (Blueprint $table) {
+        Schema::create('vestidos_user_wishlist', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign("user_id")->references("id")->on("vestidos_users");
             $table->integer('product_id')->unsigned();
-            $table->foreign("category_id")->references("id")->on("vestidos_category");
-            $table->text('user_comment');
-            $table->integer('user_rate');
-            $table->integer('status');
+            $table->foreign("product_id")->references("id")->on("vestidos_products");
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateVestidosProductRate extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_product_rate');
+        Schema::dropIfExists('vestidos_user_wishlist');
     }
 }

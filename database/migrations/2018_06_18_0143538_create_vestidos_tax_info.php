@@ -15,7 +15,8 @@ class CreateVestidosTaxInfo extends Migration
     {
         Schema::create('vestidos_tax_info', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('country_id');
+            $table->integer('country_id')->unsigned();
+            $table->foreign("country_id")->references("id")->on("vestidos_countries");
             $table->string('code');
             $table->decimal('tax',10,2);
             $table->integer('status');

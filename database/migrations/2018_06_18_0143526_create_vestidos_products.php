@@ -24,7 +24,7 @@ class CreateVestidosProducts extends Migration
             $table->foreign("brand_id")->references("id")->on("vestidos_brands");
             $table->integer('product_stock');
             $table->integer('product_closure_id')->unsigned();
-            $table->foreign("product_closure_id")->references("id")->on("vestidos_closures_types");
+            $table->foreign("product_closure_id")->references("id")->on("vestidos_closure_types");
             $table->string('product_detail');
             $table->integer('product_fabric_id')->unsigned();
             $table->foreign("product_fabric_id")->references("id")->on("vestidos_fabric_types");
