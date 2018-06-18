@@ -15,6 +15,26 @@ class CreateVestidosProducts extends Migration
     {
         Schema::create('vestidos_products', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('products_name');
+            $table->integer('products_img');
+            $table->text('products_description');
+            $table->integer('category_id');
+            $table->integer('brand_id');
+            $table->integer('product_stock');
+            $table->integer('product_closure_id');
+            $table->string('product_detail');
+            $table->integer('product_fabric_id');
+            $table->integer('product_fit_id');
+            $table->string('product_length');
+            $table->integer('product_neckline_id');
+            $table->integer('product_waistine_id');
+            $table->integer('product_size');
+            $table->decimal('product_total',10,2);
+            $table->text('search_labels');
+            $table->integer('vendor_id');
+            $table->dateTime('created_date');
+            $table->dateTime('modified_date');
+            $table->integer('status');
             $table->timestamps();
         });
     }

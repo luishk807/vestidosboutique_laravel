@@ -15,6 +15,8 @@ class CreateVestidosLanguages extends Migration
     {
         Schema::create('vestidos_languages', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('status');
             $table->timestamps();
         });
     }

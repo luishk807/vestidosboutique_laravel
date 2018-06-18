@@ -15,6 +15,10 @@ class CreateVestidosCategory extends Migration
     {
         Schema::create('vestidos_category', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('dress_type_id');
+            $table->integer('dress_stle_id');
+            $table->integer('status');
             $table->timestamps();
         });
     }

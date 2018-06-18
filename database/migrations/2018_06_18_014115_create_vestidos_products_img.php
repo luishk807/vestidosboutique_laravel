@@ -15,6 +15,10 @@ class CreateVestidosProductsImg extends Migration
     {
         Schema::create('vestidos_products_img', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('product_id');
+            $table->string('img_name');
+            $table->text('img_url');
+            $table->integer('status');
             $table->timestamps();
         });
     }

@@ -15,6 +15,19 @@ class CreateVestidosOrders extends Migration
     {
         Schema::create('vestidos_orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('product_id');
+            $table->dateTime('purchase_date');
+            $table->dateTime('shipping_date');
+            $table->integer('ship_address_id');
+            $table->integer('bill_address_id');
+            $table->integer('order_quantity');
+            $table->decimal('order_total');
+            $table->decimal('order_tax');
+            $table->decimal('order_shipping');
+            $table->text('ip');
+            $table->dateTime('modified_date');
+            $table->integer('status');
             $table->timestamps();
         });
     }

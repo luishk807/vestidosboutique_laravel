@@ -15,6 +15,8 @@ class CreateVestidosNecklineTypes extends Migration
     {
         Schema::create('vestidos_neckline_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('status');
             $table->timestamps();
         });
     }

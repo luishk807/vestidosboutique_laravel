@@ -15,6 +15,8 @@ class CreateVestidosWaistlineType extends Migration
     {
         Schema::create('vestidos_waistline_type', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->integer('status');
             $table->timestamps();
         });
     }

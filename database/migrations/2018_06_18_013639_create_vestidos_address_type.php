@@ -15,6 +15,7 @@ class CreateVestidosAddressType extends Migration
     {
         Schema::create('vestidos_address_type', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }

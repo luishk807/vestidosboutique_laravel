@@ -15,7 +15,22 @@ class CreateVestidosCountries extends Migration
     {
         Schema::create('vestidos_countries', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->char('countryCode',2);
+            $table->string('countryName');
+            $table->char('currencyCode',3);
+            $table->char('fipsCode',2);
+            $table->char('isoNumeric',4);
+            $table->string('north');
+            $table->string('south');
+            $table->string('east');
+            $table->string('west');
+            $table->string('capital');
+            $table->string('continentName');
+            $table->char('continent',2);
+            $table->string('languages');
+            $table->char('isoAlpha3',3);
+            $table->integer('geonameId');
+           // $table->timestamps();
         });
     }
 

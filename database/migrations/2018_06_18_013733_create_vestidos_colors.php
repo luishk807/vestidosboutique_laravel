@@ -15,6 +15,10 @@ class CreateVestidosColors extends Migration
     {
         Schema::create('vestidos_colors', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('product_id');
+            $table->string('name');
+            $table->string('color_code');
+            $table->integer('status');
             $table->timestamps();
         });
     }
