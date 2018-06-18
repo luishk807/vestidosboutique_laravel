@@ -13,14 +13,15 @@ class CreateVestidosCategory extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_category', function (Blueprint $table) {
+        Schema::create('vestidos_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('dress_type_id')->unsigned();
             $table->foreign('dress_type_id')->references("id")->on("vestidos_dress_types");
             $table->integer('dress_style_id')->unsigned();
             $table->foreign("dress_style_id")->references("id")->on("vestidos_styles");
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ class CreateVestidosCategory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_category');
+        Schema::dropIfExists('vestidos_categories');
     }
 }

@@ -19,7 +19,8 @@ class CreateVestidosTaxInfo extends Migration
             $table->foreign("country_id")->references("id")->on("vestidos_countries");
             $table->string('code');
             $table->decimal('tax',10,2);
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }

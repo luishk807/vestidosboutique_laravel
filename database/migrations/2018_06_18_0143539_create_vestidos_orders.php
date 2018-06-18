@@ -30,7 +30,8 @@ class CreateVestidosOrders extends Migration
             $table->decimal('order_tax');
             $table->decimal('order_shipping');
             $table->text('ip');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }

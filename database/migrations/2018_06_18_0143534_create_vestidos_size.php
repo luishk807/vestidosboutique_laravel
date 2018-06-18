@@ -13,12 +13,13 @@ class CreateVestidosSize extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_size', function (Blueprint $table) {
+        Schema::create('vestidos_sizes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->foreign("product_id")->references("id")->on("vestidos_products");
             $table->string('name');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateVestidosSize extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_size');
+        Schema::dropIfExists('vestidos_sizes');
     }
 }

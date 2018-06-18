@@ -19,7 +19,8 @@ class CreateVestidosProductsImg extends Migration
             $table->foreign("product_id")->references("id")->on("vestidos_products");
             $table->string('img_name');
             $table->text('img_url');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class CreateVestidosStatusUser extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_status_user', function (Blueprint $table) {
+        Schema::create('vestidos_status_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateVestidosStatusUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_status_user');
+        Schema::dropIfExists('vestidos_status_users');
     }
 }

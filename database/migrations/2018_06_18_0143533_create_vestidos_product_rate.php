@@ -13,7 +13,7 @@ class CreateVestidosProductRate extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_product_rate', function (Blueprint $table) {
+        Schema::create('vestidos_product_rates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign("user_id")->references("id")->on("vestidos_users");
@@ -21,7 +21,8 @@ class CreateVestidosProductRate extends Migration
             $table->foreign("product_id")->references("id")->on("vestidos_products");
             $table->text('user_comment');
             $table->integer('user_rate');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ class CreateVestidosProductRate extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_product_rate');
+        Schema::dropIfExists('vestidos_product_rates');
     }
 }

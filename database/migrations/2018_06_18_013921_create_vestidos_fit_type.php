@@ -13,10 +13,11 @@ class CreateVestidosFitType extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_fit_type', function (Blueprint $table) {
+        Schema::create('vestidos_fit_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateVestidosFitType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_fit_type');
+        Schema::dropIfExists('vestidos_fit_types');
     }
 }

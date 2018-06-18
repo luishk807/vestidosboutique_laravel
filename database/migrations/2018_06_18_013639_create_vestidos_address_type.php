@@ -13,7 +13,7 @@ class CreateVestidosAddressType extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_address_type', function (Blueprint $table) {
+        Schema::create('vestidos_address_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateVestidosAddressType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_address_type');
+        Schema::dropIfExists('vestidos_address_types');
     }
 }

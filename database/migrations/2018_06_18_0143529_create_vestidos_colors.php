@@ -19,7 +19,8 @@ class CreateVestidosColors extends Migration
             $table->foreign("product_id")->references("id")->on("vestidos_products");
             $table->string('name');
             $table->string('color_code');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }

@@ -16,7 +16,8 @@ class CreateVestidosStyles extends Migration
         Schema::create('vestidos_styles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }

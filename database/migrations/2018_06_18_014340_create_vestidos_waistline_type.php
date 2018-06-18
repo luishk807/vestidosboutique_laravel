@@ -13,10 +13,11 @@ class CreateVestidosWaistlineType extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_waistline_type', function (Blueprint $table) {
+        Schema::create('vestidos_waistline_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('status');
+            $table->integer('status')->unsigned();
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateVestidosWaistlineType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_waistline_type');
+        Schema::dropIfExists('vestidos_waistline_types');
     }
 }
