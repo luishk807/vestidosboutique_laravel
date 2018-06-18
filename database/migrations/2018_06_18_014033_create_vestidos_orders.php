@@ -26,7 +26,6 @@ class CreateVestidosOrders extends Migration
             $table->decimal('order_tax');
             $table->decimal('order_shipping');
             $table->text('ip');
-            $table->dateTime('modified_date');
             $table->integer('status');
             $table->timestamps();
         });

@@ -32,8 +32,6 @@ class CreateVestidosProducts extends Migration
             $table->decimal('product_total',10,2);
             $table->text('search_labels');
             $table->integer('vendor_id');
-            $table->dateTime('created_date');
-            $table->dateTime('modified_date');
             $table->integer('status');
             $table->timestamps();
         });

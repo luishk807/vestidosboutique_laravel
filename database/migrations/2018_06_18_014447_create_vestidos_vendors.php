@@ -26,7 +26,7 @@ class CreateVestidosVendors extends Migration
             $table->string('city');
             $table->string('state');
             $table->integer('country_id');
-            $table->string('postal_code');
+            $table->string('zip_code');
             $table->text('ip_address');
             $table->integer('status');
             $table->timestamps();

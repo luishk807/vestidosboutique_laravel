@@ -22,7 +22,7 @@ class CreateVestidosUsers extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('phone_number');
-            $table->dateTime('date_of_birth');
+            $table->date('date_of_birth');
             $table->integer('gender');
             $table->text('ip');
             $table->integer('preferred_language');

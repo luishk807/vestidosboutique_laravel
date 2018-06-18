@@ -25,7 +25,7 @@ class CreateVestidosUserAddress extends Migration
             $table->string('city');
             $table->string('state');
             $table->integer('country_id');
-            $table->string('postal_code');
+            $table->string('zip_code');
             $table->string('phone_number_1');
             $table->string('phone_number_2');
             $table->string('email');
