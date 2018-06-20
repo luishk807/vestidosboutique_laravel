@@ -33,7 +33,7 @@ class contactController extends Controller
                 'email'=>$request->input("email"),
                 'phone'=>$request->input("phone"),
                 'country'=>$request->input("country"),
-                'message'=>$request->input("question")
+                'message'=>$request->input("quesction")
             ];
             Mail::to('info@vestidosboutique.com')->send(new TestEmail($data));
            // return view("thankyou",["page_title"=>"Thank You"]);
