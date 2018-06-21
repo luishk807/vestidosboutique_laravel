@@ -8,7 +8,7 @@ class adminHomeController extends Controller
 {
     //
     function home(){
-
-        return view("admin/content/home");
+        $data["page_title"]="Login Page";
+        return view("admin/home",$data);
     }
 }

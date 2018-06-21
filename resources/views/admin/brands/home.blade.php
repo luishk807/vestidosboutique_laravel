@@ -1,4 +1,4 @@
 @extends('admin/layouts.app')
 @section('content')
-<h1>New Product</h1>
+<h1>Brands</h1>
 @endsection

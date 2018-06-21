@@ -44,29 +44,16 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::post("/account/edit",'clientController@updateClient')->name("updateclient");
     //end of client
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::middleware('auth')->group(function(){
+   // Route::middleware('auth')->group(function(){
         Route::get('/admin','adminHomeController@home');
-        Route::get('/admin/products','adminProductController@show')->name('products');
-        Route::get('/admin/products/new','adminProductController@newProducts')->name('new_product');
-        Route::post('/admin/products/new','adminProductController@createProducts');
-    });
-    Auth::routes();
+        Route::get('/admin/brands/','adminBrandController@index')->name("brands");
+        Route::get('/admin/brands/new','adminBrandController@newBrands')->name('new_brand');
+        Route::post('/admin/brands/new','adminBrandController@newBrands')->name('create_brand');
+        Route::get('/admin/brands/edit/{brand_id}','adminBrandController@editBrand')->name('edit_brand');
+        Route::post('/admin/brands/edit/{brand_id}','adminBrandController@editBrand')->name('save_brand');
+   // });
+   // Auth::routes();
 });
-// Route::get("/",function(){
-//     return view("home");
-// });
-// Route::get("/about",function(){
-//     return view("about");
-// });
-// Route::get("/shop",function(){
-//     return view("/shop");
-// });
-// Route::get("/contact",function(){
-//     return view("contact");
-// });
-// Route::get("/product",function(){
-//     return view("product");
-// });
 Route::get('/generate/password',function(){
     return bcrypt("123456789");
 });
