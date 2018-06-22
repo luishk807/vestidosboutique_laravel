@@ -42,7 +42,7 @@ class usersController extends Controller
             ]);
             return redirect("newclient");
         }
-        return view("userAccount/new",$data);
+        return view("account/new",$data);
     }
     public function updateUser(Request $request){
         $titles=array("Mr.","Mrs.","Ms.");
@@ -62,6 +62,6 @@ class usersController extends Controller
             ]);
             return redirect("editclient");
         }
-        return view("userAccount/edit",$data);
+        return view("account/edit",$data);
     }
 }

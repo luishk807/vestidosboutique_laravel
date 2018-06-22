@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-md-8 account-form-section">
                                 <h2>{{$page_title}}</h2>
-                                <form action="{{ route('createclient')}}" method="post">
+                                <form action="{{ route('createuser')}}" method="post">
                                 <div class="form-group">
                                         <label class="accountTitleSelect" for="accountTitle">Select Title:</label>
                                         <select class="custom-select accountTitleSelect" name="title" id="accountTitle">
