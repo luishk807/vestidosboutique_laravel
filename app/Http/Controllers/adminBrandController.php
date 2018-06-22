@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\vestidosBrands as vestidosBrands;
 use App\vestidosStatus as vestidosStatus;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon as carbon;
 
 class adminBrandController extends Controller
 {
@@ -29,6 +31,8 @@ class adminBrandController extends Controller
                 "status"=>"required",
             ]
             );
+            $data["created_at"]=carbon::now();
+            $date["updated_at"]=carbon::now();
             $this->brand->insert($data);
             return redirect("brands");
         }
@@ -50,11 +54,12 @@ class adminBrandController extends Controller
             ]);
             $brand =$this->brand->find($brand_id);
             $brand->name=$request->input("name");
-            $brand->status=$request->input("status");
-            
+            $brand->status=(int)$request->input("status");
+            $brand->updated_at=carbon::now();
+
             $brand->save();
 
-            return redirect("brands");
+            return redirect()->route("brands");
         }
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Brand";

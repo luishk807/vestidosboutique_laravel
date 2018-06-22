@@ -13,7 +13,11 @@
         <select class="custom-select brandStatus" name="status" id="brandStatus">
             <option>Select Status</option>
             @foreach($statuses as $status)
-                <option value="{{ $status->id }}" >{{$status->name}} </option>
+                <option value="{{ $status->id }}"
+                @if($status==$status)
+                    selected="selected"
+                @endif
+                >{{$status->name}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("first_name")}}</small>
