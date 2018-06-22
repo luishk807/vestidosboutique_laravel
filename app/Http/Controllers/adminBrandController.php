@@ -17,6 +17,7 @@ class adminBrandController extends Controller
     }
     public function index(){
         $data=[];
+        $data["brands"]=$this->brand->all();
         $data["page_title"]="Brands";
         return view("admin/brands/home",$data);
     }

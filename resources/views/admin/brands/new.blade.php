@@ -18,6 +18,19 @@
         </select>
         <small class="error">{{$errors->first("first_name")}}</small>
     </div>
-    <input type="submit" class="btn-block vesti_in_btn" value="Save Client"/>
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn-block vesti_in_btn" onclick="window.location.href='{{ route('brands') }}'">
+                    Back To Brands
+                </button>
+            </div>
+            <div class="col-md-6">
+                <input type="submit" class="btn-block vesti_in_btn" value="Save Client"/>
+            </div>
+        </div>
+    </div>
 </form>
 @endsection
