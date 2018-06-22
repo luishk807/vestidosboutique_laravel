@@ -9,16 +9,16 @@ class vestidosProducts extends Model
 {
     //
     public function images(){
-        return $this->hasMany("App/vestidosProductsImg");
+        return $this->hasMany('App\vestidosProductsImg');
     }
     public function colors(){
-        return $this->hasMany("App/vestidosColors");
+        return $this->hasMany('App\vestidosColors');
     }
     public function rates(){
-        return $this->hasMany("App/vestidosProductRates");
+        return $this->hasMany('App\vestidosProductRates');
     }
     public function vendor(){
-        return $this->belongsTo("App/vestidosVendors","vendor_id","id");
+        return $this->belongsTo('App\vestidosVendors',"vendor_id","id");
     }
     public function searchProductsByLabels($filter){
         $products = DB::table("vestidos_products as prod")

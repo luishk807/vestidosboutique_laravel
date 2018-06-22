@@ -18,8 +18,12 @@ class adminBrandController extends Controller
     public function index(){
         $data=[];
         $data["brands"]=$this->brand->all();
+        $data["status"]=vestidosBrands::with("status")->first();
         $data["page_title"]="Brands";
         return view("admin/brands/home",$data);
+    }
+    public static function getStatusName($brand_status){
+        return $this->brand->getStatus($brand_status);
     }
     public function newBrands(Request $request){
         $data=[];
