@@ -7,6 +7,7 @@ use App\vestidosBrands as vestidosBrands;
 use App\vestidosStatus as vestidosStatus;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon as carbon;
+use Illuminate\Support\Facades\DB;
 
 class adminBrandController extends Controller
 {
@@ -38,7 +39,7 @@ class adminBrandController extends Controller
             $data["created_at"]=carbon::now();
             $date["updated_at"]=carbon::now();
             $this->brand->insert($data);
-            return redirect("brands");
+            return redirect()->route("brands");
         }
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Brand";
@@ -69,8 +70,18 @@ class adminBrandController extends Controller
         $data["page_title"]="Edit Brand";
         return view("admin/brands/edit",$data);
     }
-    public function deleteBrand($brand_id){
+    public function deleteBrand($brand_id,Request $request){
+        $data=[];
+        $data["brand"]=$this->brand->find($brand_id);
+        $data["page_title"]="Delete Brands";
+        return view("admin/brands/confirm",$data);
+    }
+    public function destroy($brand_id){
+        $data=[];
         $brand = $this->brand->find($brand_id);
         $brand->delete();
+        $data["brands"]=$this->brand->all();
+        $data["page_title"]="Brands";
+        return view("admin/brands/home",$data);
     }
 }

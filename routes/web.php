@@ -46,7 +46,10 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
    // Route::middleware('auth')->group(function(){
         Route::get('/admin','adminHomeController@home');
+        //Admin Brand
         Route::get('/admin/brands/','adminBrandController@index')->name("brands");
+        Route::get('/admin/brands/confirm/{brand_id}','adminBrandController@deleteBrand')->name('confirm_brand');
+        Route::delete('/admin/brands/confirm/{brand_id}','adminBrandController@destroy')->name('delete_brand');
         Route::get('/admin/brands/new','adminBrandController@newBrands')->name('new_brand');
         Route::post('/admin/brands/new','adminBrandController@newBrands')->name('create_brand');
         Route::get('/admin/brands/edit/{brand_id}','adminBrandController@editBrand')->name('edit_brand');

@@ -1,4 +1,5 @@
 {
     "/css/app.css": "/css/app.css",
-    "/js/vestidos.js": "/js/vestidos.js"
+    "/js/vestidos.js": "/js/vestidos.js",
+    "/js/vestidos_admin.js": "/js/vestidos_admin.js"
 }

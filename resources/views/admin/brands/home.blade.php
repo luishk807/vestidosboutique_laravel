@@ -1,7 +1,11 @@
 @extends('admin/layouts.app')
 @section('content')
-<h1>Brands</h1>
 <div class="container">
+    <div class="row">
+        <div class="col text-center">
+        <h1>{{$page_title}}</h1>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-4">Name</div>
@@ -10,10 +14,13 @@
     </div>
     @foreach($brands as $brand)
     <div class="row">
-        <div class="col-md-2">{{$brand->name}}</div>
-        <div class="col-md-4">{{ $brand->getStatusName->name }}</div>
-        <div class="col-md-3"></div>
-        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">{{$brand->name}}</div>
+        <div class="col-md-3">{{ $brand->getStatusName->name }}</div>
+        <div class="col-md-3">
+            <a href="{{ route('confirm_brand',['brand_id'=>$brand->id])}}">delete</a>
+            <a href="{{ route('edit_brand',['brand_id'=>$brand->id])}}">edit</a>
+        </div>
     </div>
     @endforeach
 </div>
