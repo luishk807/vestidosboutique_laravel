@@ -69,7 +69,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="vesti_in_btn_pnl">
-                                                <button class="btn-block vesti_in_btn" onclick="location.href='{{route('newclient')}}'">Sign Up</button>
+                                                <button class="btn-block vesti_in_btn" onclick="location.href='{{route('newuser')}}'">Sign Up</button>
                                             </div>
                                         </div>
                                     </div>
