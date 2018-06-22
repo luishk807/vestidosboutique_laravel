@@ -8,13 +8,7 @@ use Illuminate\Support\Facades\DB;
 class vestidosBrands extends Model
 {
     //
-    public function status(){
-        // $brand = DB::table("vestidos_brands as b")
-        //             ->select("s.name")
-        //             ->join("vestidos_status as s","b.status","=","s.id")
-        //             ->whereRaw("b.id='{{$brand_id}}'")
-        //             ->get();
-        // return $brand;
+    public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }
 }

@@ -11,7 +11,7 @@
     @foreach($brands as $brand)
     <div class="row">
         <div class="col-md-2">{{$brand->name}}</div>
-        <div class="col-md-4">{{ $status }}</div>
+        <div class="col-md-4">{{ $brand->getStatusName->name }}</div>
         <div class="col-md-3"></div>
         <div class="col-md-3"></div>
     </div>
