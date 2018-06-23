@@ -14,24 +14,10 @@
                             <a href="{{ route('admin_brands')}}">Brands</a>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col">
-                            <a href="{{ route('admin_users')}}">Users</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <a href="{{ route('admin_colors')}}">Colors</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <a href="{{ route('admin_products')}}">Products</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <a href="{{ route('admin_orders')}}">Orders</a>
+                            <a href="{{ route('admin_category')}}">Category</a>
                         </div>
                     </div>
                 </div>

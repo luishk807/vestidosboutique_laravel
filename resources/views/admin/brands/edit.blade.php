@@ -25,9 +25,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <button class="btn-block vesti_in_btn" onclick="window.location.href='{{ route('brands') }}'">
+                <a class="btn-block vesti_in_btn" href="{{ route('brands') }}">
                     Back To Brands
-                </button>
+                </a>
             </div>
             <div class="col-md-6">
                 <input type="submit" class="btn-block vesti_in_btn" value="Save Brand"/>
