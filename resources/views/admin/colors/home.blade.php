@@ -23,14 +23,14 @@
         <div class="col-md-3">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($brands as $brand)
+    @foreach($colors as $color)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-4">{{$brand->name}}</div>
-        <div class="col-md-3">{{ $brand->getStatusName->name }}</div>
+        <div class="col-md-4">{{$color->name}}</div>
+        <div class="col-md-3">{{ $color->getStatusName->name }}</div>
         <div class="col-md-3">
-            <a href="{{ route('confirm_brand',['brand_id'=>$brand->id])}}">delete</a>
-            <a href="{{ route('edit_brand',['brand_id'=>$brand->id])}}">edit</a>
+            <a href="{{ route('confirm_color',['color_id'=>$color->id])}}">delete</a>
+            <a href="{{ route('edit_color',['color_id'=>$color->id])}}">edit</a>
         </div>
     </div>
     @endforeach

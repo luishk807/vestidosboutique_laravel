@@ -20,6 +20,7 @@ class adminColorController extends Controller
     public function index(){
         $data =[];
         $data["page_title"]="Colors";
+        $data["colors"]=$this->colors->all();
         $data["statuses"]=$this->statuses->all();
         $data["products"]=$this->products->all();
         return view("admin/colors/home",$data);
