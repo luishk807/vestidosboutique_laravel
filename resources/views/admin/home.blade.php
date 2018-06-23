@@ -14,7 +14,11 @@
                             <a href="{{ route('admin_brands')}}">Brands</a>
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ route('admin_colors')}}">Colors</a>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <a href="{{ route('admin_category')}}">Category</a>

@@ -41,13 +41,13 @@ Route::group(['middleware' => 'under-construction'], function () {
    // Route::middleware('auth')->group(function(){
         Route::get('/admin','adminHomeController@home')->name("admin");
         //Admin Color
-        Route::get('/admin/colors/','colorsController@index')->name("admin_colors");
-        Route::get('/admin/colors/confirm/{color_id}','colorsController@deleteColor')->name('confirm_color');
-        Route::delete('/admin/colors/confirm/{color_id}','colorsController@destroy')->name('delete_color');
-        Route::get('/admin/colors/new','colorsController@newColors')->name('new_color');
-        Route::post('/admin/colors/new','colorsController@newColors')->name('create_color');
-        Route::get('/admin/colors/edit/{color_id}','colorsController@editColor')->name('edit_color');
-        Route::post('/admin/colors/edit/{color_id}','colorsController@editColor')->name('save_color');
+        Route::get('/admin/colors/','adminColorController@index')->name("admin_colors");
+        Route::get('/admin/colors/confirm/{color_id}','adminColorController@deleteColor')->name('confirm_color');
+        Route::delete('/admin/colors/confirm/{color_id}','adminColorController@destroy')->name('delete_color');
+        Route::get('/admin/colors/new','adminColorController@newColors')->name('new_color');
+        Route::post('/admin/colors/new','adminColorController@newColors')->name('create_color');
+        Route::get('/admin/colors/edit/{color_id}','adminColorController@editColor')->name('edit_color');
+        Route::post('/admin/colors/edit/{color_id}','adminColorController@editColor')->name('save_color');
         //Admin Brands
         Route::get('/admin/brands/','adminBrandController@index')->name("admin_brands");
         Route::get('/admin/brands/confirm/{brand_id}','adminBrandController@deleteBrand')->name('confirm_brand');
