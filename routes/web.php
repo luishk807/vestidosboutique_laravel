@@ -64,6 +64,14 @@ Route::group(['middleware' => 'under-construction'], function () {
         Route::post('/admin/categories/new','categoriesController@newcategories')->name('create_category');
         Route::get('/admin/categories/edit/{category_id}','categoriesController@editcategory')->name('edit_category');
         Route::post('/admin/categories/edit/{category_id}','categoriesController@editcategory')->name('save_category');
+        //Admin Closures
+        Route::get('/admin/closures/','adminClosureController@index')->name("admin_closures");
+        Route::get('/admin/closures/confirm/{closure_id}','adminClosureController@deleteClosure')->name('confirm_closure');
+        Route::delete('/admin/closures/confirm/{closure_id}','adminClosureController@destroy')->name('delete_closure');
+        Route::get('/admin/closures/new','adminClosureController@newClosures')->name('new_closure');
+        Route::post('/admin/closures/new','adminClosureController@newClosures')->name('create_closure');
+        Route::get('/admin/closures/edit/{closure_id}','adminClosureController@editClosure')->name('edit_closure');
+        Route::post('/admin/closures/edit/{closure_id}','adminClosureController@editClosure')->name('save_closure');
          //Admin Vendor
          Route::get('/admin/vendors/','vendorsController@index')->name("admin_vendors");
          Route::get('/admin/vendors/confirm/{vendor_id}','vendorsController@deleteVendor')->name('confirm_vendor');

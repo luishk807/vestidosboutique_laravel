@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('brands') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_brands') }}">
                     Back To Brands
                 </a>
         </div>

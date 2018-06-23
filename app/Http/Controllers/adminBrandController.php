@@ -39,7 +39,7 @@ class adminBrandController extends Controller
             $data["created_at"]=carbon::now();
             $date["updated_at"]=carbon::now();
             $this->brand->insert($data);
-            return redirect()->route("brands");
+            return redirect()->route("admin_brands");
         }
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Brand";
@@ -49,6 +49,7 @@ class adminBrandController extends Controller
         $data=[];
         $brand =$this->brand->find($brand_id);
         $data["page_title"]="Edit Brand";
+        $data["brand"]=$brand;
         $data["brand_id"]=$brand_id;
         $data["name"]=$brand->name;
         $data["status"]=$brand->status;
@@ -64,7 +65,7 @@ class adminBrandController extends Controller
 
             $brand->save();
 
-            return redirect()->route("brands");
+            return redirect()->route("admin_brands");
         }
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Brand";

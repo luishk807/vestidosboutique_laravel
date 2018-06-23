@@ -11,7 +11,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{{ route('new_brand') }}" class="nav-link">Add Dress Type</a></li>
+                <li class="nav-item"><a href="{{ route('new_brand') }}" class="nav-link">Add Brand</a></li>
             </ul>
             </nav>
             

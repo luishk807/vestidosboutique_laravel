@@ -14,7 +14,7 @@
             <option>Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}"
-                @if($status==$status)
+                @if($brand->status==$status->id)
                     selected="selected"
                 @endif
                 >{{$status->name}} </option>
@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('brands') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_brands') }}">
                     Back To Brands
                 </a>
             </div>

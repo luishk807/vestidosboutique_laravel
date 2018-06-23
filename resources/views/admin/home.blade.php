@@ -21,6 +21,11 @@
                     </div>
                     <div class="row">
                         <div class="col">
+                            <a href="{{ route('admin_closures')}}">Closures</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <a href="{{ route('admin_category')}}">Category</a>
                         </div>
                     </div>
