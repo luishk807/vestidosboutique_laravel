@@ -39,47 +39,79 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get("/signin",'usersController@login')->name("signin");
     Route::post("/signin",'usersController@login')->name("login");
    // Route::middleware('auth')->group(function(){
-        Route::get('/admin','adminHomeController@home')->name("admin");
-        //Admin Color
-        Route::get('/admin/colors/','adminColorController@index')->name("admin_colors");
-        Route::get('/admin/colors/confirm/{color_id}','adminColorController@deleteColor')->name('confirm_color');
-        Route::delete('/admin/colors/confirm/{color_id}','adminColorController@destroy')->name('delete_color');
-        Route::get('/admin/colors/new','adminColorController@newColors')->name('new_color');
-        Route::post('/admin/colors/new','adminColorController@newColors')->name('create_color');
-        Route::get('/admin/colors/edit/{color_id}','adminColorController@editColor')->name('edit_color');
-        Route::post('/admin/colors/edit/{color_id}','adminColorController@editColor')->name('save_color');
-        //Admin Brands
-        Route::get('/admin/brands/','adminBrandController@index')->name("admin_brands");
-        Route::get('/admin/brands/confirm/{brand_id}','adminBrandController@deleteBrand')->name('confirm_brand');
-        Route::delete('/admin/brands/confirm/{brand_id}','adminBrandController@destroy')->name('delete_brand');
-        Route::get('/admin/brands/new','adminBrandController@newBrands')->name('new_brand');
-        Route::post('/admin/brands/new','adminBrandController@newBrands')->name('create_brand');
-        Route::get('/admin/brands/edit/{brand_id}','adminBrandController@editBrand')->name('edit_brand');
-        Route::post('/admin/brands/edit/{brand_id}','adminBrandController@editBrand')->name('save_brand');
-        //Admin Category
-        Route::get('/admin/categories/','categoriesController@index')->name("admin_category");
-        Route::get('/admin/categories/confirm/{category_id}','categoriesController@deletecategory')->name('confirm_category');
-        Route::delete('/admin/categories/confirm/{category_id}','categoriesController@destroy')->name('delete_category');
-        Route::get('/admin/categories/new','categoriesController@newcategories')->name('new_category');
-        Route::post('/admin/categories/new','categoriesController@newcategories')->name('create_category');
-        Route::get('/admin/categories/edit/{category_id}','categoriesController@editcategory')->name('edit_category');
-        Route::post('/admin/categories/edit/{category_id}','categoriesController@editcategory')->name('save_category');
-        //Admin Closures
-        Route::get('/admin/closures/','adminClosureController@index')->name("admin_closures");
-        Route::get('/admin/closures/confirm/{closure_id}','adminClosureController@deleteClosure')->name('confirm_closure');
-        Route::delete('/admin/closures/confirm/{closure_id}','adminClosureController@destroy')->name('delete_closure');
-        Route::get('/admin/closures/new','adminClosureController@newClosures')->name('new_closure');
-        Route::post('/admin/closures/new','adminClosureController@newClosures')->name('create_closure');
-        Route::get('/admin/closures/edit/{closure_id}','adminClosureController@editClosure')->name('edit_closure');
-        Route::post('/admin/closures/edit/{closure_id}','adminClosureController@editClosure')->name('save_closure');
-         //Admin Vendor
-         Route::get('/admin/vendors/','vendorsController@index')->name("admin_vendors");
-         Route::get('/admin/vendors/confirm/{vendor_id}','vendorsController@deleteVendor')->name('confirm_vendor');
-         Route::delete('/admin/vendors/confirm/{vendor_id}','vendorsController@destroy')->name('delete_vendor');
-         Route::get('/admin/vendors/new','vendorsController@newVendors')->name('new_vendor');
-         Route::post('/admin/vendors/new','vendorsController@newVendors')->name('create_vendor');
-         Route::get('/admin/vendors/edit/{vendor_id}','vendorsController@editVendor')->name('edit_vendor');
-         Route::post('/admin/vendors/edit/{vendor_id}','vendorsController@editVendor')->name('save_vendor');
+        Route::prefix("admin")->group(function(){
+            Route::get('/','adminHomeController@home')->name("admin");
+                    //Admin Color
+            Route::prefix("colors")->group(function(){
+                Route::get('/','adminColorController@index')->name("admin_colors");
+                Route::get('/confirm/{color_id}','adminColorController@deleteColor')->name('confirm_color');
+                Route::delete('/confirm/{color_id}','adminColorController@destroy')->name('delete_color');
+                Route::get('/new','adminColorController@newColors')->name('new_color');
+                Route::post('/new','adminColorController@newColors')->name('create_color');
+                Route::get('/edit/{color_id}','adminColorController@editColor')->name('edit_color');
+                Route::post('/edit/{color_id}','adminColorController@editColor')->name('save_color');
+            });
+            //Admin Brands
+            Route::prefix('brands')->group(function () {
+                Route::get('/','adminBrandController@index')->name("admin_brands");
+                Route::get('/confirm/{brand_id}','adminBrandController@deleteBrand')->name('confirm_brand');
+                Route::delete('/confirm/{brand_id}','adminBrandController@destroy')->name('delete_brand');
+                Route::get('/new','adminBrandController@newBrands')->name('new_brand');
+                Route::post('/new','adminBrandController@newBrands')->name('create_brand');
+                Route::get('/edit/{brand_id}','adminBrandController@editBrand')->name('edit_brand');
+                Route::post('/edit/{brand_id}','adminBrandController@editBrand')->name('save_brand');
+            });
+            //Admin Dress Types
+            Route::prefix("dress_type")->group(function(){
+                Route::get('/','adminDressTypesController@index')->name("admin_dresstypes");
+                Route::get('/confirm/{dresstype_id}','adminDressTypesController@deleteDressType')->name('confirm_dresstype');
+                Route::delete('/confirm/{dresstype_id}','adminDressTypesController@destroy')->name('delete_dresstype');
+                Route::get('/new','adminDressTypesController@newDressTypes')->name('new_dresstype');
+                Route::post('/new','adminDressTypesController@newDressTypes')->name('create_dresstype');
+                Route::get('/edit/{dresstype_id}','adminDressTypesController@editDressType')->name('edit_dresstype');
+                Route::post('/edit/{dresstype_id}','adminDressTypesController@editDressType')->name('save_dresstype');
+            });
+            //Admin Dress Style
+            Route::prefix("dress_style")->group(function(){
+                Route::get('/','adminDressStylesController@index')->name("admin_dressstyles");
+                Route::get('/confirm/{dressstyle_id}','adminDressStylesController@deleteDressStyle')->name('confirm_dressstyle');
+                Route::delete('/confirm/{dressstyle_id}','adminDressStylesController@destroy')->name('delete_dressstyle');
+                Route::get('/new','adminDressStylesController@newDressStyles')->name('new_dressstyle');
+                Route::post('/new','adminDressStylesController@newDressStyles')->name('create_dressstyle');
+                Route::get('/edit/{dressstyle_id}','adminDressStylesController@editDressStyle')->name('edit_dressstyle');
+                Route::post('/edit/{dressstyle_id}','adminDressStylesController@editDressStyle')->name('save_dressstyle');
+            });
+            //Admin Category
+            Route::prefix("categories")->group(function(){
+                Route::get('/','categoriesController@index')->name("admin_category");
+                Route::get('/confirm/{category_id}','categoriesController@deletecategory')->name('confirm_category');
+                Route::delete('/confirm/{category_id}','categoriesController@destroy')->name('delete_category');
+                Route::get('/new','categoriesController@newcategories')->name('new_category');
+                Route::post('/new','categoriesController@newcategories')->name('create_category');
+                Route::get('/edit/{category_id}','categoriesController@editcategory')->name('edit_category');
+                Route::post('/edit/{category_id}','categoriesController@editcategory')->name('save_category');
+            });
+            //Admin Closures
+            Route::prefix("closures")->group(function(){
+                Route::get('/','adminClosureController@index')->name("admin_closures");
+                Route::get('/confirm/{closure_id}','adminClosureController@deleteClosure')->name('confirm_closure');
+                Route::delete('/confirm/{closure_id}','adminClosureController@destroy')->name('delete_closure');
+                Route::get('/new','adminClosureController@newClosures')->name('new_closure');
+                Route::post('/new','adminClosureController@newClosures')->name('create_closure');
+                Route::get('/edit/{closure_id}','adminClosureController@editClosure')->name('edit_closure');
+                Route::post('/edit/{closure_id}','adminClosureController@editClosure')->name('save_closure');
+            });
+            //Admin Vendor
+            Route::prefix("vendors")->group(function(){
+                Route::get('/','vendorsController@index')->name("admin_vendors");
+                Route::get('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('confirm_vendor');
+                Route::delete('/confirm/{vendor_id}','vendorsController@destroy')->name('delete_vendor');
+                Route::get('/new','vendorsController@newVendors')->name('new_vendor');
+                Route::post('/new','vendorsController@newVendors')->name('create_vendor');
+                Route::get('/edit/{vendor_id}','vendorsController@editVendor')->name('edit_vendor');
+                Route::post('/edit/{vendor_id}','vendorsController@editVendor')->name('save_vendor');
+            });
+        });
 
         // //Users
         // Route::get("/account/new",'usersController@newUser')->name("newuser");
@@ -118,14 +150,6 @@ Route::group(['middleware' => 'under-construction'], function () {
         // Route::post('/admin/orders/new','ordersController@newOrders')->name('create_order');
         // Route::get('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('edit_order');
         // Route::post('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('save_order');
-        //  //Admin Vendor
-        //  Route::get('/admin/vendors/','vendorsController@index')->name("admin_vendors");
-        //  Route::get('/admin/vendors/confirm/{vendor_id}','vendorsController@deleteVendor')->name('confirm_vendor');
-        //  Route::delete('/admin/vendors/confirm/{vendor_id}','vendorsController@destroy')->name('delete_vendor');
-        //  Route::get('/admin/vendors/new','vendorsController@newVendors')->name('new_vendor');
-        //  Route::post('/admin/vendors/new','vendorsController@newVendors')->name('create_vendor');
-        //  Route::get('/admin/vendors/edit/{vendor_id}','vendorsController@editVendor')->name('edit_vendor');
-        //  Route::post('/admin/vendors/edit/{vendor_id}','vendorsController@editVendor')->name('save_vendor');
    // });
    // Auth::routes();
 });

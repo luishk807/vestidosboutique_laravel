@@ -11,7 +11,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{{ route('new_brand') }}" class="nav-link">Add Brand</a></li>
+                <li class="nav-item"><a href="{{ route('new_dressstyle') }}" class="nav-link">Add Dress Style</a></li>
             </ul>
             </nav>
             
@@ -23,14 +23,14 @@
         <div class="col-md-3">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($brands as $brand)
+    @foreach($dressstyles as $dressstyle)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-4">{{$brand->name}}</div>
-        <div class="col-md-3">{{ $brand->getStatusName->name }}</div>
+        <div class="col-md-4">{{$dressstyle->name}}</div>
+        <div class="col-md-3">{{ $dressstyle->getStatusName->name }}</div>
         <div class="col-md-3">
-            <a href="{{ route('confirm_brand',['brand_id'=>$brand->id])}}">delete</a>
-            <a href="{{ route('edit_brand',['brand_id'=>$brand->id])}}">edit</a>
+            <a href="{{ route('confirm_dressstyle',['dressstyle_id'=>$dressstyle->id])}}">delete</a>
+            <a href="{{ route('edit_dressstyle',['dressstyle_id'=>$dressstyle->id])}}">edit</a>
         </div>
     </div>
     @endforeach
