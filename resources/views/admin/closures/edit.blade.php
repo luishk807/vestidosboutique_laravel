@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="closureStatus">Status:</label>
         <select class="custom-select closureStatus" name="status" id="closureStatus">
-            <option>Select Status</option>
+            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}"
                 @if($closure->status==$status->id)

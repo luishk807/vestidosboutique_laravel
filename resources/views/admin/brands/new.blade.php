@@ -11,12 +11,12 @@
     <div class="form-group">
         <label for="brandStatus">Status:</label>
         <select class="custom-select D" name="status" id="brandStatus">
-            <option>Select Status</option>
+            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
             @endforeach
         </select>
-        <small class="error">{{$errors->first("first_name")}}</small>
+        <small class="error">{{$errors->first("status")}}</small>
     </div>
     
 

@@ -21,7 +21,7 @@
     <div class="form-group">
         <label for="colorStatus">Status:</label>
         <select class="custom-select D" name="status" id="colorStatus">
-            <option>Select Status</option>
+            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
             @endforeach

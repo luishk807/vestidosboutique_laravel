@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="sizeProducts">Products:</label>
         <select class="custom-select" name="product" id="sizeProducts">
-            <option>Select Product</option>
+            <option value="">Select Product</option>
             @foreach($products as $product)
                 <option value="{{ $product->id }}">{{$product->name}} </option>
             @endforeach

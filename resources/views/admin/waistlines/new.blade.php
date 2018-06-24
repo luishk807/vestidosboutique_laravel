@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="brandStatus">Status:</label>
         <select class="custom-select D" name="status" id="brandStatus">
-            <option>Select Status</option>
+            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
             @endforeach
@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Client"/>
+                <input type="submit" class="btn-block vesti_in_btn" value="Create Waistline"/>
             </div>
         </div>
     </div>
