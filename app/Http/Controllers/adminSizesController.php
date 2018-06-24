@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosSizes as Sizes;
+use Carbon\Carbon as carbon;
 use App\vestidosProducts as Products;
 use App\vestidosStatus as vestidosStatus;
 
@@ -72,16 +73,13 @@ class adminSizesController extends Controller
     }
     public function deleteDressType($size_id,Request $request){
         $data=[];
+        if($request->input("_method")=="DELETE"){
+            $size = $this->sizes->find($size_id);
+            $size->delete();
+            return redirect()->route("admin_sizes");
+        }
         $data["size"]=$this->sizes->find($size_id);
         $data["page_title"]="Delete Dress Sizes";
         return view("admin/sizes/confirm",$data);
-    }
-    public function destroy($size_id){
-        $data=[];
-        $size = $this->sizes->find($size_id);
-        $size->delete();
-        $data["sizes"]=$this->sizes->all();
-        $data["page_title"]="Dress Sizes";
-        return view("admin/sizes/home",$data);
     }
 }

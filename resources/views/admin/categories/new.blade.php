@@ -5,25 +5,25 @@
 {{ csrf_field() }}
     <div class="form-group">
         <label for="categoryName">Name:</label>
-        <input type="text" id="categoryName" class="form-control" name="name" value="" placeholder="Brand Name"/>
+        <input type="text" id="categoryName" class="form-control" name="name" value="{{ old('name')}}" placeholder="Category"/>
         <small class="error">{{$errors->first("name")}}</small>
     </div>
     <div class="form-group">
         <label for="categoryDressType">Dress Type:</label>
         <select class="custom-select" name="dress_type" id="categoryDressType">
-            <option>Select Dress Type</option>
+            <option value="">Select Dress Type</option>
             @foreach($dresstypes as $dresstype)
-                <option value="{{ $dresstype->id }}">{{$dresstype->getDressType->name}} </option>
+                <option value="{{ $dresstype->id }}">{{$dresstype->name}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("dress_type")}}</small>
     </div>
     <div class="form-group">
         <label for="categoryDressStyle">Dress Style:</label>
-        <select class="custom-select" name="dress_type" id="categoryDressStyle">
-            <option>Select Dress Style</option>
-            @foreach($vestidosstyles as $vestidosstyles)
-                <option value="{{ $dresstyle->id }}">{{$vestidosstyles->getDressStyle->name}} </option>
+        <select class="custom-select" name="dress_style" id="categoryDressStyle">
+            <option value="">Select Dress Style</option>
+            @foreach($dressstyles as $dressstyle)
+                <option value="{{ $dressstyle->id }}">{{$dressstyle->name}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("dress_style")}}</small>
@@ -31,7 +31,7 @@
     <div class="form-group">
         <label for="categoryStatus">Status:</label>
         <select class="custom-select" name="status" id="categoryStatus">
-            <option>Select Status</option>
+            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
             @endforeach

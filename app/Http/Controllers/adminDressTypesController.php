@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosDressTypes as DressTypes;
+use Carbon\Carbon as carbon;
 use App\vestidosStatus as vestidosStatus;
 
 class adminDressTypesController extends Controller
@@ -67,6 +68,11 @@ class adminDressTypesController extends Controller
     }
     public function deleteDressType($dresstype_id,Request $request){
         $data=[];
+        if($request->input("_method")=="DELETE"){
+            $dresstype = $this->dresstypes->find($dresstype_id);
+            $dresstype->delete();
+            return redirect()->route("admin_dresstypes");
+        }
         $data["dresstype"]=$this->dresstypes->find($dresstype_id);
         $data["page_title"]="Delete Dress Types";
         return view("admin/dress_types/confirm",$data);

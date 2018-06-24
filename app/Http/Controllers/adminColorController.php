@@ -44,16 +44,14 @@ class adminColorController extends Controller
     
     public function deleteColor($color_id){
         $data =[];
+        if($request->input("_method")=="DELETE"){
+            $color = $this->colors->find($color_id);
+            $color->delete();
+            return redirect()->route("admin_colors");
+        }
         $data["page_title"]="Colors";
         $data["statuses"]=$this->statuses->all();
         $data["products"]=$this->products->all();
         return view("admin/colors/confirm",$data);
-    }
-    public function destroy($color_id){
-        $data =[];
-        $data["page_title"]="Colors";
-        $data["statuses"]=$this->statuses->all();
-        $data["products"]=$this->products->all();
-        return view("admin/colors/home",$data);
     }
 }

@@ -68,16 +68,13 @@ class adminClosureController extends Controller
     }
     public function deleteClosure($closure_id,Request $request){
         $data=[];
+        if($request->input("_method")=="DELETE"){
+            $closure = $this->closures->find($closure_id);
+            $closure->delete();
+            return redirect()->route("admin_closures");
+        }
         $data["closure"]=$this->closures->find($closure_id);
         $data["page_title"]="Delete Closures";
         return view("admin/closures/confirm",$data);
-    }
-    public function destroy($closure_id){
-        $data=[];
-        $closure = $this->closures->find($closure_id);
-        $closure->delete();
-        $data["closures"]=$this->closures->all();
-        $data["page_title"]="Closures";
-        return view("admin/closures/home",$data);
     }
 }

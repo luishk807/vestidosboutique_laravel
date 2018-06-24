@@ -73,16 +73,13 @@ class adminBrandController extends Controller
     }
     public function deleteBrand($brand_id,Request $request){
         $data=[];
+        if($request->input("_method")=="DELETE"){
+            $brand = $this->brand->find($brand_id);
+            $brand->delete();
+            return redirect()->route("admin_brands");
+        }
         $data["brand"]=$this->brand->find($brand_id);
         $data["page_title"]="Delete Brands";
         return view("admin/brands/confirm",$data);
-    }
-    public function destroy($brand_id){
-        $data=[];
-        $brand = $this->brand->find($brand_id);
-        $brand->delete();
-        $data["brands"]=$this->brand->all();
-        $data["page_title"]="Brands";
-        return view("admin/brands/home",$data);
     }
 }
