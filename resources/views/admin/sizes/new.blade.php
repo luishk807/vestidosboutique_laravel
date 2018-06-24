@@ -5,8 +5,18 @@
 {{ csrf_field() }}
     <div class="form-group">
         <label for="sizeName">Name:</label>
-        <input type="text" id="sizeName" class="form-control" name="name" value="" placeholder="Size"/>
+        <input type="number" id="sizeName" class="form-control" name="name" value="" placeholder="Size"/>
         <small class="error">{{$errors->first("name")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="sizeProducts">Products:</label>
+        <select class="custom-select D" name="product" id="sizeProducts">
+            <option>Select Product</option>
+            @foreach($products as $product)
+                <option value="{{ $product->id }}">{{$product->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("product")}}</small>
     </div>
     <div class="form-group">
         <label for="sizeStatus">Status:</label>

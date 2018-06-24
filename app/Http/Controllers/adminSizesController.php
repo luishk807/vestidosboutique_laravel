@@ -23,10 +23,9 @@ class adminSizesController extends Controller
         $data["page_title"]="Dress Sizes";
         return view("admin/sizes/home",$data);
     }
-    public function newDressTypes(Request $request){
+    public function newSizes(Request $request){
         $data=[];
         $data["name"]=$request->input("name");
-        $data["products"]=$this->products->all();
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -35,16 +34,18 @@ class adminSizesController extends Controller
                 "status"=>"required",
             ]
             );
+            $data["product_id"]=(int)$request->input("product");
             $data["created_at"]=carbon::now();
-            $date["updated_at"]=carbon::now();
+            $data["updated_at"]=carbon::now();
             $this->sizes->insert($data);
             return redirect()->route("admin_sizes");
         }
+        $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Dress Size";
         return view("admin/sizes/new",$data);
     }
-    public function editDressType($size_id,Request $request){
+    public function editSize($size_id,Request $request){
         $data=[];
         $size =$this->sizes->find($size_id);
         $data["page_title"]="Edit Dress Size";
@@ -71,7 +72,7 @@ class adminSizesController extends Controller
         $data["page_title"]="Edit Dress Size";
         return view("admin/sizes/edit",$data);
     }
-    public function deleteDressType($size_id,Request $request){
+    public function deleteSize($size_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
             $size = $this->sizes->find($size_id);

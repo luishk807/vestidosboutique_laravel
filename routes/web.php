@@ -111,6 +111,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/edit/{fit_id}','adminFitController@editFit')->name('edit_fit');
                 Route::post('/edit/{fit_id}','adminFitController@editFit')->name('save_fit');
             });
+            //Admin Size
+            Route::prefix("sizes")->group(function(){
+                Route::get('/','adminSizesController@index')->name("admin_sizes");
+                Route::get('/confirm/{size_id}','adminSizesController@deleteSize')->name('confirm_size');
+                Route::delete('/confirm/{size_id}','adminSizesController@deleteSize')->name('delete_size');
+                Route::get('/new','adminSizesController@newSizes')->name('new_size');
+                Route::post('/new','adminSizesController@newSizes')->name('create_size');
+                Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
+                Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
+            });
             //Admin Vendor
             Route::prefix("vendors")->group(function(){
                 Route::get('/','vendorsController@index')->name("admin_vendors");

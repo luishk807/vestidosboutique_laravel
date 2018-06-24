@@ -1,20 +1,20 @@
 @extends('admin/layouts.app')
 @section('content')
 <h1>{{$page_title}}</h1>
-<form action="{{ route('edit_closure',['closure_id'=>$closure_id]) }}" method="post">
+<form action="{{ route('edit_size',['size_id'=>$size_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-        <label for="closureName">Name:</label>
-        <input type="text" id="closureName" class="form-control" name="name" value="{{ $name }}" placeholder="Brand Name"/>
+        <label for="sizeName">Name:</label>
+        <input type="text" id="sizeName" class="form-control" name="name" value="{{ $name }}" placeholder="Size Name"/>
         <small class="error">{{$errors->first("name")}}</small>
     </div>
     <div class="form-group">
-        <label for="closureStatus">Status:</label>
-        <select class="custom-select closureStatus" name="status" id="closureStatus">
+        <label for="sizeStatus">Status:</label>
+        <select class="custom-select sizeStatus" name="status" id="sizeStatus">
             <option>Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}"
-                @if($closure->status==$status->id)
+                @if($size->status==$status->id)
                     selected="selected"
                 @endif
                 >{{$status->name}} </option>
@@ -25,12 +25,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_closures') }}">
-                    Back To Closures
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_sizes') }}">
+                    Back To Sizes
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Closure"/>
+                <input type="submit" class="btn-block vesti_in_btn" value="Save Size"/>
             </div>
         </div>
     </div>

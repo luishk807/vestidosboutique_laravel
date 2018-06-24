@@ -41,6 +41,11 @@
                     </div>
                     <div class="row">
                         <div class="col">
+                            <a href="{{ route('admin_sizes')}}">Dress Sizes</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <a href="{{ route('admin_category')}}">Category</a>
                         </div>
                     </div>
