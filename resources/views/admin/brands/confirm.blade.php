@@ -15,7 +15,7 @@
                 </a>
         </div>
         <div class="col-md-6">
-            <input type="submit" class="btn-block vesti_in_btn" value="Delete Client"/>
+            <input type="submit" class="btn-block vesti_in_btn" value="Delete Brand"/>
         </div>
     </div>
 </div>

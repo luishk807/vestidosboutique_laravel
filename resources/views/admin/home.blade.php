@@ -46,6 +46,16 @@
                     </div>
                     <div class="row">
                         <div class="col">
+                            <a href="{{ route('admin_fabrics')}}">Fabric Type</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ route('admin_necklines')}}">Neckline Type</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <a href="{{ route('admin_category')}}">Category</a>
                         </div>
                     </div>

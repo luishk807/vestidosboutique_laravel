@@ -121,6 +121,26 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
                 Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
             });
+             //Admin Fabric
+             Route::prefix("fabrics")->group(function(){
+                Route::get('/','adminFabricController@index')->name("admin_fabrics");
+                Route::get('/confirm/{fabric_id}','adminFabricController@deleteFabric')->name('confirm_fabric');
+                Route::delete('/confirm/{fabric_id}','adminFabricController@deleteFabric')->name('delete_fabric');
+                Route::get('/new','adminFabricController@newFabric')->name('new_fabric');
+                Route::post('/new','adminFabricController@newFabric')->name('create_fabric');
+                Route::get('/edit/{fabric_id}','adminFabricController@editFabric')->name('edit_fabric');
+                Route::post('/edit/{fabric_id}','adminFabricController@editFabric')->name('save_fabric');
+            });
+             //Admin Neckline
+             Route::prefix("necklines")->group(function(){
+                Route::get('/','adminNecklineController@index')->name("admin_necklines");
+                Route::get('/confirm/{neckline_id}','adminNecklineController@deleteNeckline')->name('confirm_neckline');
+                Route::delete('/confirm/{neckline_id}','adminNecklineController@deleteNeckline')->name('delete_neckline');
+                Route::get('/new','adminNecklineController@newNeckline')->name('new_neckline');
+                Route::post('/new','adminNecklineController@newNeckline')->name('create_neckline');
+                Route::get('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('edit_neckline');
+                Route::post('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('save_neckline');
+            });
             //Admin Vendor
             Route::prefix("vendors")->group(function(){
                 Route::get('/','vendorsController@index')->name("admin_vendors");

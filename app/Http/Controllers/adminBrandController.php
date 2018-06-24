@@ -22,9 +22,6 @@ class adminBrandController extends Controller
         $data["page_title"]="Brands";
         return view("admin/brands/home",$data);
     }
-    public static function getStatusName($brand_status){
-        return $this->brand->getStatus($brand_status);
-    }
     public function newBrands(Request $request){
         $data=[];
         $data["name"]=$request->input("name");

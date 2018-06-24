@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Client"/>
+                <input type="submit" class="btn-block vesti_in_btn" value="Create Brand"/>
             </div>
         </div>
     </div>
