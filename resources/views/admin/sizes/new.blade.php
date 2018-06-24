@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
         <label for="sizeProducts">Products:</label>
-        <select class="custom-select D" name="product" id="sizeProducts">
+        <select class="custom-select" name="product" id="sizeProducts">
             <option>Select Product</option>
             @foreach($products as $product)
                 <option value="{{ $product->id }}">{{$product->name}} </option>
@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
         <label for="sizeStatus">Status:</label>
-        <select class="custom-select D" name="status" id="sizeStatus">
+        <select class="custom-select" name="status" id="sizeStatus">
             <option>Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
