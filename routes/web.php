@@ -101,6 +101,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/edit/{closure_id}','adminClosureController@editClosure')->name('edit_closure');
                 Route::post('/edit/{closure_id}','adminClosureController@editClosure')->name('save_closure');
             });
+            //Admin fit
+            Route::prefix("fits")->group(function(){
+                Route::get('/','adminFitController@index')->name("admin_fits");
+                Route::get('/confirm/{fit_id}','adminFitController@deleteFit')->name('confirm_fit');
+                Route::delete('/confirm/{fit_id}','adminFitController@deleteFit')->name('delete_fit');
+                Route::get('/new','adminFitController@newFits')->name('new_fit');
+                Route::post('/new','adminFitController@newFits')->name('create_fit');
+                Route::get('/edit/{fit_id}','adminFitController@editFit')->name('edit_fit');
+                Route::post('/edit/{fit_id}','adminFitController@editFit')->name('save_fit');
+            });
             //Admin Vendor
             Route::prefix("vendors")->group(function(){
                 Route::get('/','vendorsController@index')->name("admin_vendors");
