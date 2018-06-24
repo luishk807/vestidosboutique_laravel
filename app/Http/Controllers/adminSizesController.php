@@ -25,7 +25,7 @@ class adminSizesController extends Controller
     }
     public function newSizes(Request $request){
         $data=[];
-        $data["name"]=$request->input("name");
+        $data["name"]=(int)$request->input("name");
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
             $this->validate($request,[
