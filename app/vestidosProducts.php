@@ -39,4 +39,14 @@ class vestidosProducts extends Model
                                     ->get();
         return $products;
     }
+
+    public function getStatus(){
+        return $this->belongsTo('App\vestidosStatus',"status");
+    }
+    public function getBrand(){
+        return $this->belongsTo('App\vestidosBrands',"brand_id");
+    }
+    public function getCategory(){
+        return $this->belongsTo('App\vestidosCategories',"category_id");
+    }
 }

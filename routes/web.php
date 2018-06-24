@@ -141,6 +141,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('edit_neckline');
                 Route::post('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('save_neckline');
             });
+            // //Admin Products
+            Route::prefix("products")->group(function(){
+                Route::get('/','adminProductController@index')->name("admin_products");
+                Route::get('/confirm/{product_id}','adminProductController@deleteProduct')->name('confirm_product');
+                Route::delete('/confirm/{product_id}','adminProductController@destroy')->name('delete_product');
+                Route::get('/new','adminProductController@newProducts')->name('new_product');
+                Route::post('/new','adminProductController@newProducts')->name('create_product');
+                Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');
+                Route::post('/edit/{product_id}','adminProductController@editProduct')->name('save_product');
+            });
             //Admin Vendor
             Route::prefix("vendors")->group(function(){
                 Route::get('/','vendorsController@index')->name("admin_vendors");
@@ -174,14 +184,7 @@ Route::group(['middleware' => 'under-construction'], function () {
         //  Route::post('/admin/useraddress/new','userAddressController@newUsersAddress')->name('create_useraddress');
         //  Route::get('/admin/useraddress/edit/{useraddress_id}','userAddressController@editUserAddress')->name('edit_useraddress');
         //  Route::post('/admin/useraddress/edit/{useraddress_id}','userAddressController@editUserAddress')->name('save_useraddress');
-        // //Admin Products
-        // Route::get('/admin/products/','productController@index')->name("admin_products");
-        // Route::get('/admin/products/confirm/{product_id}','productController@deleteProduct')->name('confirm_product');
-        // Route::delete('/admin/products/confirm/{product_id}','productController@destroy')->name('delete_product');
-        // Route::get('/admin/products/new','productController@newProducts')->name('new_product');
-        // Route::post('/admin/products/new','productController@newProducts')->name('create_product');
-        // Route::get('/admin/products/edit/{product_id}','productController@editProduct')->name('edit_product');
-        // Route::post('/admin/products/edit/{product_id}','productController@editProduct')->name('save_product');
+        
         // //Admin Orders
         // Route::get('/admin/orders/','ordersController@index')->name("admin_orders");
         // Route::get('/admin/orders/confirm/{order_id}','ordersController@deleteOrder')->name('confirm_order');

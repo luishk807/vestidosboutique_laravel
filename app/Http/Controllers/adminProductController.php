@@ -3,29 +3,175 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\vestidosProducts as Products;
+use App\vestidosStatus as vestidosStatus;
+use App\vestidosCategories as Categories;
+use App\vestidosClosureTypes as Closures;
+use App\vestidosColors as Colors;
+use App\vestidosBrands as Brands;
+use App\vestidosFitTypes as Fits;
+use App\vestidosFabricTypes as Fabrics;
+use App\vestidosSizes as Sizes;
+use App\vestidosVendors as Vendors;
+use App\vestidosNecklineTypes as Necklines;
+use App\vestidosWaistlineTypes as Waistlines;
+use Carbon\Carbon as carbon;
 
 class adminProductController extends Controller
 {
     //
+    public function __construct(vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines){
+        $this->statuses=$vestidosStatus;
+        $this->products=$products;
+        $this->categories=$categories;
+        $this->closures=$closures;
+        $this->colors=$colors;
+        $this->brands=$brands;
+        $this->fits=$fits;
+        $this->fabrics=$fabrics;
+        $this->sizes=$sizes;
+        $this->vendors=$vendors;
+        $this->necklines=$necklines;
+        $this->waistlines=$waistlines;
+    }
     function index(){
         $data=[];
+        $data["products"]=$this->products->all();
         $data["page_title"]="Product Page";
-        return view("admin/products",$data);
+        return view("admin/products/home",$data);
     }
-    function createProducts(Request $request){
+    function newProducts(Request $request){
         $data=[];
+
+
+        $data["products_name"]=$request->input("products_name");
+        $data["brand_id"]=(int)$request->input("brand");
+        $data["vendor_id"]=(int)$request->input("vendor");
+        $data["category_id"]=(int)$request->input("category");
+        $data["product_closure_id"]=(int)$request->input("closure");
+        $data["product_fabric_id"]=(int)$request->input("fabric");
+        $data["product_fit_id"]=(int)$request->input("fit");
+        $data["product_neckline_id"]=(int)$request->input("neckline");
+        $data["product_waistline_id"]=(int)$request->input("waistline");
+        $data["product_total"]=$request->input("total");
+        $data["product_stock"]=$request->input("product_stock");
+        $data["search_labels"]=$request->input("search_labels");
+        $data["product_detail"]=$request->input("product_detail");
+        $data["products_description"]=$request->input("products_description");
+        $data["status"]=(int)$request->input("status");
+        if($request->isMethod("post")){
+            $this->validate($request,[
+                "products_name"=>"required",
+                "status"=>"required",
+                "brand"=>"required",
+                "category"=>"required",
+                "closure"=>"required",
+                "fabric"=>"required",
+                "fit"=>"required",
+                "neckline"=>"required",
+                "waistline"=>"required",
+                "products_description"=>"required",
+                "product_total"=>"required",
+                "product_stock"=>"required"
+            ]);
+            $data["updated_at"]=carbon::now();
+            $this->products->insert($data);
+            return redirect()->route("admin_products");
+        }
+        $data["brand"]=(int)$request->input("brand");
+        $data["vendor"]=(int)$request->input("vendor");
+        $data["category"]=(int)$request->input("category");
+        $data["closure"]=(int)$request->input("closure");
+        $data["fabric"]=(int)$request->input("fabric");
+        $data["fit"]=(int)$request->input("fit");
+        $data["neckline"]=(int)$request->input("neckline");
+        $data["waistline"]=(int)$request->input("waistline");
+
         $data["page_title"]="Create Products Page";
-        return view('admin/products/new',$data);
-    }
-    function newProducts(){
-        $data=[];
-        $data["page_title"]="Create Products Page";
+        $data["statuses"]=$this->statuses->all();
+        $data["categories"]=$this->categories->all();
+        $data["closures"]=$this->closures->all();
+        $data["brands"]=$this->brands->all();   
+        $data["fits"]=$this->fits->all();
+        $data["fabrics"]=$this->fabrics->all();
+        $data["vendors"]=$this->vendors->all();
+        $data["necklines"]=$this->necklines->all();
+        $data["waistlines"]=$this->waistlines->all();
         return view("admin/products/new",$data);
+    }
+    function editProduct($product_id, Request $request){
+        $data=[];
+        $data["products_name"]=$request->input("products_name");
+        $data["brand_id"]=(int)$request->input("brand");
+        $data["vendor_id"]=(int)$request->input("vendor");
+        $data["category_id"]=(int)$request->input("category");
+        $data["product_closure_id"]=(int)$request->input("closure");
+        $data["product_fabric_id"]=(int)$request->input("fabric");
+        $data["product_fit_id"]=(int)$request->input("fit");
+        $data["product_neckline_id"]=(int)$request->input("neckline");
+        $data["product_waistline_id"]=(int)$request->input("waistline");
+        $data["product_total"]=$request->input("total");
+        $data["product_stock"]=$request->input("product_stock");
+        $data["search_labels"]=$request->input("search_labels");
+        $data["product_detail"]=$request->input("product_detail");
+        $data["products_description"]=$request->input("products_description");
+        $data["status"]=(int)$request->input("status");
+        if($request->isMethod("post")){
+            $this->validate($request,[
+                "products_name"=>"required",
+                "status"=>"required",
+                "brand"=>"required",
+                "category"=>"required",
+                "closure"=>"required",
+                "fabric"=>"required",
+                "fit"=>"required",
+                "neckline"=>"required",
+                "waistline"=>"required",
+                "products_description"=>"required",
+                "product_total"=>"required",
+                "product_stock"=>"required"
+            ]);
+            $data["updated_at"]=carbon::now();
+            $this->products->insert($data);
+            return redirect()->route("admin_products");
+        }
+        $data["brand"]=(int)$request->input("brand");
+        $data["vendor"]=(int)$request->input("vendor");
+        $data["category"]=(int)$request->input("category");
+        $data["closure"]=(int)$request->input("closure");
+        $data["fabric"]=(int)$request->input("fabric");
+        $data["fit"]=(int)$request->input("fit");
+        $data["neckline"]=(int)$request->input("neckline");
+        $data["waistline"]=(int)$request->input("waistline");
+
+        $data["page_title"]="Create Products Page";
+        $data["statuses"]=$this->statuses->all();
+        $data["categories"]=$this->categories->all();
+        $data["closures"]=$this->closures->all();
+        $data["brands"]=$this->brands->all();   
+        $data["fits"]=$this->fits->all();
+        $data["fabrics"]=$this->fabrics->all();
+        $data["vendors"]=$this->vendors->all();
+        $data["necklines"]=$this->necklines->all();
+        $data["waistlines"]=$this->waistlines->all();
+        return view("admin/products/new",$data);
+    }
+    public function deleteProduct($product_id,Request $request){
+        $data=[];
+        if($request->input("_method")=="DELETE"){
+            $product = $this->product->find($product_id);
+            $product->delete();
+            return redirect()->route("admin_products");
+        }
+        $data["product"]=$this->product->find($product_id);
+        $data["page_title"]="Delete Product";
+        return view("admin/products/confirm",$data);
     }
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");
         $product = new Products();
         $data=[];
+        $data["status"]=(int)$request->input("status");
         $data["page_title"]="Search Product";
         $data["products"]=$product->searchProductsByLabels($filter);
         return view("admin/products/new",$data);

@@ -3,14 +3,13 @@
 <div class="container">
     <div class="row">
         <div class="col text-center">
-        <h1>{{$page_title}}</h1>
+        <h2>{{$page_title}}</h2>
         </div>
     </div>
     <div class="row">
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="{{ route('new_category') }}" class="nav-link">Add Category</a></li>
             </ul>
             </nav>
