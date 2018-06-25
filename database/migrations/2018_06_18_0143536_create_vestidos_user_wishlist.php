@@ -15,10 +15,10 @@ class CreateVestidosUserWishlist extends Migration
     {
         Schema::create('vestidos_user_wishlist', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->foreign("user_id")->references("id")->on("vestidos_users");
-            $table->integer('product_id')->unsigned();
-            $table->foreign("product_id")->references("id")->on("vestidos_products");
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign("user_id")->references("id")->onDelete('set null')->on("vestidos_users");
+            $table->integer('product_id')->unsigned()->nullable();
+            $table->foreign("product_id")->references("id")->onDelete('set null')->on("vestidos_products");
             $table->timestamps();
         });
     }

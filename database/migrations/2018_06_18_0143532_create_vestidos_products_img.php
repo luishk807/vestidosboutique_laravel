@@ -15,12 +15,12 @@ class CreateVestidosProductsImg extends Migration
     {
         Schema::create('vestidos_products_img', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->foreign("product_id")->references("id")->on("vestidos_products");
+            $table->integer('product_id')->unsigned()->nullable();
+            $table->foreign("product_id")->references("id")->onDelete('set null')->on("vestidos_products");
             $table->string('img_name');
             $table->text('img_url');
-            $table->integer('status')->unsigned();
-            $table->foreign("status")->references("id")->on("vestidos_statuses");
+            $table->integer('status')->unsigned()->nullable();
+            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
             $table->timestamps();
         });
     }

@@ -38,6 +38,12 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get("/signin",'usersController@login')->name("signin");
     Route::post("/signin",'usersController@login')->name("login");
+
+    //Users
+        Route::get("/account/new",'usersController@newUser')->name("newuser");
+        Route::post("/account/new",'usersController@newUser')->name("createuser");
+        Route::get("/account/edit",'usersController@updateUser')->name("edituser");
+        Route::post("/account/edit",'usersController@updateUser')->name("updateuser");
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
             Route::get('/','adminHomeController@home')->name("admin");

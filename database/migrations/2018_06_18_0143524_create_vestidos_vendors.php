@@ -16,21 +16,21 @@ class CreateVestidosVendors extends Migration
         Schema::create('vestidos_vendors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('phone_number_1');
-            $table->string('phone_number_2');
+            $table->string('phone_number_2')->nullable();
             $table->string('email');
             $table->string('address_1');
-            $table->string('address_2');
-            $table->string('city');
-            $table->string('state');
-            $table->integer('country_id')->unsigned();
-            $table->foreign("country_id")->references("id")->on("vestidos_countries");
-            $table->string('zip_code');
+            $table->string('address_2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->integer('country_id')->unsigned()->nullable();
+            $table->foreign("country_id")->references("id")->onDelete('set null')->on("vestidos_countries");
+            $table->string('zip_code')->nullable();
             $table->text('ip_address');
-            $table->integer('status')->unsigned();
-            $table->foreign("status")->references("id")->on("vestidos_statuses");
+            $table->integer('status')->unsigned()->nullable();
+            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
             $table->timestamps();
         });
     }

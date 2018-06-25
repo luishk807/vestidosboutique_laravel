@@ -16,8 +16,8 @@ class CreateVestidosGender extends Migration
         Schema::create('vestidos_genders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('status')->unsigned();
-            $table->foreign("status")->references("id")->on("vestidos_statuses");
+            $table->integer('status')->unsigned()->nullable();
+            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
             $table->timestamps();
         });
     }

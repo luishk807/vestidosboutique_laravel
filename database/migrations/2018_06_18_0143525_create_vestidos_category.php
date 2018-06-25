@@ -16,12 +16,12 @@ class CreateVestidosCategory extends Migration
         Schema::create('vestidos_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('dress_type_id')->unsigned();
-            $table->foreign('dress_type_id')->references("id")->on("vestidos_dress_types");
-            $table->integer('dress_style_id')->unsigned();
-            $table->foreign("dress_style_id")->references("id")->on("vestidos_styles");
-            $table->integer('status')->unsigned();
-            $table->foreign("status")->references("id")->on("vestidos_statuses");
+            $table->integer('dress_type_id')->unsigned()->nullable();
+            $table->foreign('dress_type_id')->references("id")->onDelete('set null')->on("vestidos_dress_types");
+            $table->integer('dress_style_id')->unsigned()->nullable();
+            $table->foreign("dress_style_id")->references("id")->onDelete('set null')->on("vestidos_styles");
+            $table->integer('status')->unsigned()->nullable();
+            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
             $table->timestamps();
         });
     }

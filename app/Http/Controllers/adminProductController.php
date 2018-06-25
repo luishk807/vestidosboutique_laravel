@@ -74,7 +74,7 @@ class adminProductController extends Controller
                 "product_total"=>"required",
                 "product_stock"=>"required"
             ]);
-            $data["updated_at"]=carbon::now();
+            $data["created_at"]=carbon::now();
             $this->products->insert($data);
             return redirect()->route("admin_products");
         }

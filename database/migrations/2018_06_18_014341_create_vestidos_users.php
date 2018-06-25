@@ -18,16 +18,16 @@ class CreateVestidosUsers extends Migration
             $table->string('user_name');
             $table->string('password');
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('email');
-            $table->string('phone_number');
-            $table->date('date_of_birth');
+            $table->string('phone_number')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->integer('gender');
             $table->text('ip');
             $table->integer('preferred_language');
-            $table->integer('status')->unsigned();
-            $table->foreign("status")->references("id")->on("vestidos_status_users");
+            $table->integer('status')->unsigned()->nullable();
+            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_status_users");
             $table->timestamps();
         });
     }
