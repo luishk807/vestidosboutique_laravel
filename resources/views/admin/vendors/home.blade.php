@@ -20,7 +20,7 @@
     @foreach($vendors as $vendor)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-4">{{$vendor->name}}</div>
+        <div class="col-md-4">{{$vendor->first_name}} {{$vendor->last_name}}</div>
         <div class="col-md-3">{{ $vendor->getStatusName->name }}</div>
         <div class="col-md-3">
             <a href="{{ route('confirm_vendor',['vendor_id'=>$vendor->id])}}">delete</a>

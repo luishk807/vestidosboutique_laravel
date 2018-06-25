@@ -37,6 +37,7 @@ class vendorsController extends Controller
         $data["state"]=$request->input("state");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
+        $data["ip_address"]=$request->ip();
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
