@@ -116,6 +116,7 @@ class adminProductController extends Controller
         $data["product_detail"]=$request->input("product_detail");
         $data["products_description"]=$request->input("products_description");
         $data["status"]=(int)$request->input("status");
+        $product = $this->products->find($product_id);
         if($request->isMethod("post")){
             $this->validate($request,[
                 "products_name"=>"required",
@@ -131,6 +132,7 @@ class adminProductController extends Controller
                 "product_total"=>"required",
                 "product_stock"=>"required"
             ]);
+            $product = $this->products->find($product_id);
             $product->products_name = $request->input("products_name");
             $product->brand_id = (int)$request->input("brand");
             $product->vendor_id = (int)$request->input("vendor");
@@ -158,7 +160,9 @@ class adminProductController extends Controller
         $data["fit"]=(int)$request->input("fit");
         $data["neckline"]=(int)$request->input("neckline");
         $data["waistline"]=(int)$request->input("waistline");
-
+        $data["product_id"]=$product_id;
+        $data["product"]=$product;
+        
         $data["page_title"]="Create Products Page";
         $data["statuses"]=$this->statuses->all();
         $data["categories"]=$this->categories->all();
