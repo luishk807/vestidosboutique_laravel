@@ -3,6 +3,7 @@
 <form action="{{ route('edit_vendor',['vendor_id'=>$vendor_id]) }}" method="post">
 {{ csrf_field() }}
 
+{{$vendor}}
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="vendorFirstName">First Name:</label>
