@@ -1,6 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<h1>{{$page_title}}</h1>
 <form action="{{ route('edit_dresstype',['dresstype_id'=>$dresstype_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">

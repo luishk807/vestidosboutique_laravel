@@ -1,6 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<h2>{{$page_title}}</h2>
 <form action="{{ route('create_size') }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">

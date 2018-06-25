@@ -1,16 +1,15 @@
 @extends('admin/layouts.app')
 @section('content')
-<h1>{{$page_title}}</h1>
-<form action="{{ route('create_brand') }}" method="post">
+<form action="{{ route('create_vendor') }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-        <label for="brandName">Name:</label>
-        <input type="text" id="brandName" class="form-control" name="name" value="" placeholder="Brand Name"/>
+        <label for="vendorName">Name:</label>
+        <input type="text" id="vendorName" class="form-control" name="name" value="" placeholder="Vendor Name"/>
         <small class="error">{{$errors->first("name")}}</small>
     </div>
     <div class="form-group">
-        <label for="brandStatus">Status:</label>
-        <select class="custom-select D" name="status" id="brandStatus">
+        <label for="vendorStatus">Status:</label>
+        <select class="custom-select D" name="status" id="vendorStatus">
             <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
@@ -23,12 +22,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_brands') }}">
-                    Back To Brands
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_vendors') }}">
+                    Back To Vendors
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Brand"/>
+                <input type="submit" class="btn-block vesti_in_btn" value="Create Vendor"/>
             </div>
         </div>
     </div>

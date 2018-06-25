@@ -49,6 +49,11 @@
         </nav>
         <div class="container">
             <div class="row">
+                <div class="col text-center">
+                <h2>{{$page_title}}</h2>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col">
                     @yield('content')
                 </div>

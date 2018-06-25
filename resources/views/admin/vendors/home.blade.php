@@ -3,14 +3,9 @@
 <div class="container">
     <div class="row">
         <div class="col text-center">
-        <h2>{{$page_title}}</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_brand') }}" class="nav-link">Add Brand</a></li>
+                <li class="nav-item"><a href="{{ route('new_vendor') }}" class="nav-link">Add Vendor</a></li>
             </ul>
             </nav>
             
@@ -22,14 +17,14 @@
         <div class="col-md-3">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($brands as $brand)
+    @foreach($vendors as $vendor)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-4">{{$brand->name}}</div>
-        <div class="col-md-3">{{ $brand->getStatusName->name }}</div>
+        <div class="col-md-4">{{$vendor->name}}</div>
+        <div class="col-md-3">{{ $vendor->getStatusName->name }}</div>
         <div class="col-md-3">
-            <a href="{{ route('confirm_brand',['brand_id'=>$brand->id])}}">delete</a>
-            <a href="{{ route('edit_brand',['brand_id'=>$brand->id])}}">edit</a>
+            <a href="{{ route('confirm_vendor',['vendor_id'=>$vendor->id])}}">delete</a>
+            <a href="{{ route('edit_vendor',['vendor_id'=>$vendor->id])}}">edit</a>
         </div>
     </div>
     @endforeach
