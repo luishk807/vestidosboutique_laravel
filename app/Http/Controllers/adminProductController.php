@@ -131,8 +131,23 @@ class adminProductController extends Controller
                 "product_total"=>"required",
                 "product_stock"=>"required"
             ]);
-            $data["updated_at"]=carbon::now();
-            $this->products->insert($data);
+            $product->products_name = $request->input("products_name");
+            $product->brand_id = (int)$request->input("brand");
+            $product->vendor_id = (int)$request->input("vendor");
+            $product->category_id = (int)$request->input("category");
+            $product->product_closure_id = (int)$request->input("closure");
+            $product->product_fabric_id = (int)$request->input("fabric");
+            $product->product_fit_id = (int)$request->input("fit");
+            $product->product_neckline_id = (int)$request->input("neckline");
+            $product->product_waistline_id = (int)$request->input("waistline");
+            $product->product_total = $request->input("total");
+            $product->product_stock = $request->input("product_stock");
+            $product->search_labels = $request->input("search_labels");
+            $product->product_detail = $request->input("product_detail");
+            $product->products_description = $request->input("products_description");
+            $product->status = (int)$request->input("status");
+            $product->updated_at = carbon::now();
+            $this->products->save();
             return redirect()->route("admin_products");
         }
         $data["brand"]=(int)$request->input("brand");
