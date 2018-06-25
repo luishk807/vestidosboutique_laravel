@@ -75,6 +75,7 @@ class vendorsController extends Controller
         $data["state"]=$request->input("state");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
+        $vendor = $this->vendors->find($vendor_id);
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
@@ -88,7 +89,7 @@ class vendorsController extends Controller
                 "zip_code"=>"required",
                 "status"=>"required",
             ]);
-            $vendor = $this->vendors->find($vendor_id);
+            
             $vendor->first_name = $request->input("first_name");
             $vendor->middle_name = $request->input("middle_name");
             $vendor->last_name = $request->input("last_name");
@@ -106,7 +107,7 @@ class vendorsController extends Controller
             return redirect()->route("admin_vendors");
         }
         $data["country"]=$request->input("country");
-
+        $data["vendor"]=$vendor;
         $data["page_title"]="Edit Vendors";
         $data["vendor_id"]=$vendor_id;
         $data["statuses"]=$this->statuses->all();
