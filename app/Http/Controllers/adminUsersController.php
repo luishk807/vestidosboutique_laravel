@@ -19,6 +19,12 @@ class adminUsersController extends Controller
         $this->languages=$languages;
         $this->genders = $genders;
     }
+    public function userAddress(){
+        $data=[];
+        $data["addresses"]=$this->users->getAddresses();
+        $data["page_title"]="Address Page";
+        return view("admin/users/addresses/home",$data);
+    }
     public function index(){
         $data = [];
         $data["page_title"]="Users";

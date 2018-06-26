@@ -177,7 +177,7 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adminuser');
                 Route::delete('/confirm/{user_id}','adminUsersController@destroy')->name('delete_adminuser');
                 Route::prefix("addresses")->group(function(){
-                    Route::get("/",'adminUsersAddressController@index')->name("admin_address");
+                    Route::get("/",'adminUsersController@userAddress')->name("admin_address");
                     Route::get("/new",'adminUsersAddressController@newAddress')->name("admin_newaddress");
                     Route::post("/new",'adminUsersAddressController@newAddress')->name("admin_createaddress");
                     Route::get("/edit/{address_id}",'adminUsersAddressController@updateAddress')->name("admin_editaddress");

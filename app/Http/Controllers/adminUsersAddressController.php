@@ -20,6 +20,7 @@ class adminUsersAddressController extends Controller
     }
     function index(){
         $data=[];
+
         $data["countries"]=$this->countries->all();
         $data["addresses"]=$this->addresses->all();
         $data["page_title"]="Address Page";
@@ -27,7 +28,6 @@ class adminUsersAddressController extends Controller
     }
     function newAddress(Request $request){
         $data=[];
-        $data["user_id"]=$request->input("user_id");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
         $data["last_name"]=$request->input("last_name");
@@ -59,7 +59,6 @@ class adminUsersAddressController extends Controller
             return redirect()->route("admin_addresses");
         }
         $data["country"]=$request->input("country");
-
         $data["page_title"]="Create Address Page";
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
