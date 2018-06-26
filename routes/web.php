@@ -168,6 +168,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                     Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
                     Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
                 });
+                //Admin Image
+                Route::prefix("images")->group(function(){
+                    Route::get('/{product_id}','adminProductImagesController@index')->name("admin_images");
+                    Route::get('/confirm/{image_id}','adminProductImagesController@deleteImage')->name('confirm_image');
+                    Route::delete('/confirm/{image_id}','adminProductImagesController@deleteImage')->name('delete_image');
+                    Route::get('/new/{product_id}','adminProductImagesController@newImages')->name('new_image');
+                    Route::post('/new/{product_id}','adminProductImagesController@newImages')->name('create_image');
+                    Route::get('/edit/{image_id}','adminProductImagesController@editImage')->name('edit_image');
+                    Route::post('/edit/{image_id}','adminProductImagesController@editImage')->name('save_image');
+                });
             });
             //Admin Vendor
             Route::prefix("vendors")->group(function(){

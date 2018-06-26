@@ -24,7 +24,7 @@
     @foreach($products as $product)
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-2">Image</div>
+        <div class="col-md-2"><img src="{{asset('images/products')}}/{{$product->images->first()->img_name}}" class="img-fluid"/></div>
         <div class="col-md-3">{{$product->products_name}}</div>
         <div class="col-md-1">{{$product->getBrand->name }}</div>
         <div class="col-md-1">{{$product->product_stock > 0 ? "In Stock" : "Out of Stock"}}</div>
