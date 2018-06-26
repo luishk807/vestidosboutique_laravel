@@ -61,22 +61,64 @@ class adminUsersController extends Controller
         $data["languages"]=$this->languages->all();
         return view("admin/users/new",$data);
     }
-    // public function updateUser(){
-    //     $data = [];
-    //     $data["page_title"]="Users";
-    //     $data["users"]=$this->users->all();
-    //     return view("admin/users/home",$data);
-    // }
-    // public function deleteUser(){
-    //     $data = [];
-    //     $data["page_title"]="Users";
-    //     $data["users"]=$this->users->all();
-    //     return view("admin/users/home",$data);
-    // }
-    // public function destroy(){
-    //     $data = [];
-    //     $data["page_title"]="Users";
-    //     $data["users"]=$this->users->all();
-    //     return view("admin/users/home",$data);
-    // }
+    function updateUser($user_id, Request $request){
+        $data=[];
+        $data["user_name"]=$request->input("user_name");
+        $data["password"]=$request->input("password");
+        $data["first_name"]=$request->input("first_name");
+        $data["middle_name"]=$request->input("middle_name");
+        $data["last_name"]=$request->input("last_name");
+        $data["phone_number"]=$request->input("phone_number");
+        $data["email"]=$request->input("email");
+        $data["gender"]=$request->input("gender");
+        $data["preferred_language"]=$request->input("preferred_language");
+        $data["date_of_birth"]=$request->input("date_of_birth");
+        $data["status"]=(int)$request->input("status");
+        $user = $this->users->find($user_id);
+        if($request->isMethod("post")){
+            $this->validate($request,[
+                "user_name"=>"required",
+                "first_name"=>"required",
+                "last_name"=>"required",
+                "phone_number"=>"required",
+                "email"=>"required",
+                "date_of_birth"=>"required",
+                "gender"=>"required",
+                "preferred_language"=>"required",
+                "status"=>"required",
+            ]);
+            $user->user_name = $request->input("user_name");
+            $user->password = $request->input("password");
+            $user->first_name = $request->input("first_name");
+            $user->middle_name = $request->input("middle_name");
+            $user->last_name = $request->input("last_name");
+            $user->phone_number = $request->input("phone_number");
+            $user->email = $request->input("email");
+            $user->date_of_birth = $request->input("date_of_birth");
+            $user->gender = (int)$request->input("gender");
+            $user->preferred_language = (int)$request->input("preferred_language");
+            $user->status = (int)$request->input("status");
+            $user->updated_at = carbon::now();
+            $this->users->save();
+            return redirect()->route("admin_users");
+        }
+        $data["user"]=$user;
+        $data["page_title"]="Edit Users";
+        $data["user_id"]=$user_id;
+        $data["statuses"]=$this->statuses->all();
+        $data["languages"]=$this->languages->all();
+        $data["genders"]=$this->genders->all();
+        return view("admin/users/edit",$data);
+    }
+    public function deleteUser($user_id,Request $request){
+        $data=[];
+        if($request->input("_method")=="DELETE"){
+            $product = $this->user->find($user_id);
+            $user->delete();
+            return redirect()->route("admin_users");
+        }
+        $data["user"]=$this->user->find($user_id);
+        $data["page_title"]="Delete User";
+        return view("admin/users/confirm",$data);
+    }
 }

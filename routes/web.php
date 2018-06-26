@@ -172,8 +172,8 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get("/",'adminUsersController@index')->name("admin_users");
                 Route::get("/new",'adminUsersController@newUser')->name("admin_newuser");
                 Route::post("/new",'adminUsersController@newUser')->name("admin_createuser");
-                Route::get("/edit",'adminUsersController@updateUser')->name("admin_edituser");
-                Route::post("/edit",'adminUsersController@updateUser')->name("admin_updateuser");
+                Route::get("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_edituser");
+                Route::post("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_updateuser");
                 Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adnminuser');
                 Route::delete('/confirm/{user_id}','adminUsersController@destroy')->name('delete_adminuser');
             });
