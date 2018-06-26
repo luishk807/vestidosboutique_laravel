@@ -23,7 +23,7 @@ class adminColorController extends Controller
         $product=$this->products->find($product_id);
         $data["page_title"]="Colors For Product: ".$product->products_name;
         $data["product_id"]=$product_id;
-        $data["colors"]=$this->colors->all();
+        $data["colors"]=$product->colors()->get();
         $data["statuses"]=$this->statuses->all();
         $data["products"]=$this->products->all();
         return view("admin/products/colors/home",$data);

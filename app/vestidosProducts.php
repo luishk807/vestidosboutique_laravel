@@ -9,16 +9,16 @@ class vestidosProducts extends Model
 {
     //
     public function images(){
-        return $this->hasMany('App\vestidosProductsImgs',"id");
+        return $this->hasMany('App\vestidosProductsImgs',"product_id");
     }
     public function colors(){
-        return $this->hasMany('App\vestidosColors',"id");
+        return $this->hasMany('App\vestidosColors',"product_id");
     }
     public function rates(){
-        return $this->hasMany('App\vestidosProductRates',"id");
+        return $this->hasMany('App\vestidosProductRates',"product_id");
     }
     public function sizes(){
-        return $this->hasMany('App\vestidosSizes',"id");
+        return $this->hasMany('App\vestidosSizes',"product_id");
     }
     public function vendor(){
         return $this->belongsTo('App\vestidosVendors',"vendor_id","id");

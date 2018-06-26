@@ -16,71 +16,72 @@ class adminSizesController extends Controller
         $this->sizes=$sizes;
         $this->products=$products;
     }
-    public function index(){
+    public function index($product_id){
         $data=[];
-        $data["sizes"]=$this->sizes->all();
+        $product = $this->products->find($product_id);
+        $data["sizes"]=$product->sizes()->get();
+        $data["product_id"]=$product_id;
         $data["products"]=$this->products->all();
         $data["page_title"]="Dress Sizes";
-        return view("admin/sizes/home",$data);
+        return view("admin/products/sizes/home",$data);
     }
-    public function newSizes(Request $request){
+    public function newSizes($product_id,Request $request){
         $data=[];
-        $data["name"]=(int)$request->input("name");
+        $data["name"]=$request->input("size");
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
             $this->validate($request,[
-        
-                "name"=>"required",
+                "size"=>"required",
                 "status"=>"required",
             ]
             );
-            $data["product_id"]=(int)$request->input("product");
+            $data["product_id"]=$product_id;
             $data["created_at"]=carbon::now();
-            $data["updated_at"]=carbon::now();
             $this->sizes->insert($data);
-            return redirect()->route("admin_sizes");
+            return redirect()->route("admin_sizes",["product_id"=>$product_id]);
         }
-        $data["products"]=$this->products->all();
+        $product=$this->products->find($product_id);
+        $data["size"]=(int)$request->input("size");
+        $data["product_id"]=$product_id;
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="New Dress Size";
-        return view("admin/sizes/new",$data);
+        $data["page_title"]="New Dress Size For: ".$product->products_name;
+        return view("admin/products/sizes/new",$data);
     }
     public function editSize($size_id,Request $request){
         $data=[];
         $size =$this->sizes->find($size_id);
-        $data["page_title"]="Edit Dress Size";
-        $data["products"]=$this->products->all();
+        $data["product_id"]=$size->product_id;
         $data["size"]=$size;
         $data["size_id"]=$size_id;
-        $data["name"]=$size->name;
-        $data["status"]=$size->status;
+        $data["status"]=$request->input("status");
+        $data["dress_size"]=$request->input("dress_size");
         if($request->isMethod("post")){
             $this->validate($request,[
-                "name"=>"required",
-                "status"=>"required",
+                "dress_size"=>"required",
+                "status"=>"required"
             ]);
-            $size =$this->sizes->find($size_id);
-            $size->name=$request->input("name");
+            $size->name=$request->input("dress_size");
             $size->status=(int)$request->input("status");
             $size->updated_at=carbon::now();
-
             $size->save();
 
-            return redirect()->route("admin_sizes");
+            return redirect()->route("admin_sizes",["product_id"=>$size->product_id]);
         }
+        
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Edit Dress Size";
-        return view("admin/sizes/edit",$data);
+        $product = $this->products->find($size->product_id);
+        $data["page_title"]="Edit Dress Size For ".$product->products_name;
+        return view("admin/products/sizes/edit",$data);
     }
     public function deleteSize($size_id,Request $request){
         $data=[];
+        $size = $this->sizes->find($size_id);
         if($request->input("_method")=="DELETE"){
-            $size = $this->sizes->find($size_id);
             $size->delete();
-            return redirect()->route("admin_sizes");
+            return redirect()->route("admin_sizes",["product_id"=>$size->product_id]);
         }
-        $data["size"]=$this->sizes->find($size_id);
-        $data["page_title"]="Delete Dress Sizes";
-        return view("admin/sizes/confirm",$data);
+        $data["size"]=$size;
+        $data["page_title"]="Delete Dress Sizes ".$size->name;
+        return view("admin/products/sizes/confirm",$data);
     }
 }

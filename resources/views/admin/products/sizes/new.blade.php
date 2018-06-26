@@ -1,21 +1,11 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('create_size') }}" method="post">
+<form action="{{ route('create_size',['product_id'=>$product_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="sizeName">Name:</label>
-        <input type="number" id="sizeName" class="form-control" name="name" value="" placeholder="Size"/>
-        <small class="error">{{$errors->first("name")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="sizeProducts">Products:</label>
-        <select class="custom-select" name="product" id="sizeProducts">
-            <option value="">Select Product</option>
-            @foreach($products as $product)
-                <option value="{{ $product->id }}">{{$product->name}} </option>
-            @endforeach
-        </select>
-        <small class="error">{{$errors->first("product")}}</small>
+        <input type="number" id="sizeName" class="form-control" name="size" value="" placeholder="Size"/>
+        <small class="error">{{$errors->first("size")}}</small>
     </div>
     <div class="form-group">
         <label for="sizeStatus">Status:</label>
@@ -32,7 +22,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_sizes') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_sizes',['product_id'=>$product_id]) }}">
                     Back To Sizes
                 </a>
             </div>

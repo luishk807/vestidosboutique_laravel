@@ -108,16 +108,7 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/edit/{fit_id}','adminFitController@editFit')->name('edit_fit');
                 Route::post('/edit/{fit_id}','adminFitController@editFit')->name('save_fit');
             });
-            //Admin Size
-            Route::prefix("sizes")->group(function(){
-                Route::get('/','adminSizesController@index')->name("admin_sizes");
-                Route::get('/confirm/{size_id}','adminSizesController@deleteSize')->name('confirm_size');
-                Route::delete('/confirm/{size_id}','adminSizesController@deleteSize')->name('delete_size');
-                Route::get('/new','adminSizesController@newSizes')->name('new_size');
-                Route::post('/new','adminSizesController@newSizes')->name('create_size');
-                Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
-                Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
-            });
+            
              //Admin Fabric
              Route::prefix("fabrics")->group(function(){
                 Route::get('/','adminFabricController@index')->name("admin_fabrics");
@@ -166,6 +157,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                     Route::post('/new/{product_id}','adminColorController@newColors')->name('create_color');
                     Route::get('/edit/{color_id}','adminColorController@editColor')->name('edit_color');
                     Route::post('/edit/{color_id}','adminColorController@editColor')->name('save_color');
+                });
+                //Admin Size
+                Route::prefix("sizes")->group(function(){
+                    Route::get('/{product_id}','adminSizesController@index')->name("admin_sizes");
+                    Route::get('/confirm/{size_id}','adminSizesController@deleteSize')->name('confirm_size');
+                    Route::delete('/confirm/{size_id}','adminSizesController@deleteSize')->name('delete_size');
+                    Route::get('/new/{product_id}','adminSizesController@newSizes')->name('new_size');
+                    Route::post('/new/{product_id}','adminSizesController@newSizes')->name('create_size');
+                    Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
+                    Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
                 });
             });
             //Admin Vendor

@@ -3,9 +3,9 @@
 <form action="{{ route('edit_size',['size_id'=>$size_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-        <label for="sizeName">Name:</label>
-        <input type="text" id="sizeName" class="form-control" name="name" value="{{ $name }}" placeholder="Size Name"/>
-        <small class="error">{{$errors->first("name")}}</small>
+        <label for="sizeName">Size:</label>
+        <input type="text" id="sizeName" class="form-control" name="dress_size" value="{{ old('dress_size') ? old('dress_size') : $size->name }}" placeholder="Size"/>
+        <small class="error">{{$errors->first("dress_size")}}</small>
     </div>
     <div class="form-group">
         <label for="sizeStatus">Status:</label>
@@ -24,7 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_sizes') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_sizes',['product_id'=>$product_id]) }}">
                     Back To Sizes
                 </a>
             </div>
