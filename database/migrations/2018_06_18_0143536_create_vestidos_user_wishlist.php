@@ -13,7 +13,7 @@ class CreateVestidosUserWishlist extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_user_wishlist', function (Blueprint $table) {
+        Schema::create('vestidos_user_wishlists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign("user_id")->references("id")->onDelete('set null')->on("vestidos_users");
@@ -30,6 +30,6 @@ class CreateVestidosUserWishlist extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_user_wishlist');
+        Schema::dropIfExists('vestidos_user_wishlists');
     }
 }

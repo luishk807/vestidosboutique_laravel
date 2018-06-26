@@ -13,7 +13,7 @@ class CreateVestidosTaxInfo extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_tax_info', function (Blueprint $table) {
+        Schema::create('vestidos_tax_infos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('country_id')->unsigned()->nullable();
             $table->foreign("country_id")->references("id")->onDelete('set null')->on("vestidos_countries");
@@ -32,6 +32,6 @@ class CreateVestidosTaxInfo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_tax_info');
+        Schema::dropIfExists('vestidos_tax_infos');
     }
 }

@@ -13,7 +13,7 @@ class CreateVestidosUserAddress extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_user_address', function (Blueprint $table) {
+        Schema::create('vestidos_user_addresses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign("user_id")->references("id")->onDelete('set null')->on("vestidos_users");
@@ -45,6 +45,6 @@ class CreateVestidosUserAddress extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_user_address');
+        Schema::dropIfExists('vestidos_user_addresses');
     }
 }
