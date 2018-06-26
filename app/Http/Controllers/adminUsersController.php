@@ -124,11 +124,11 @@ class adminUsersController extends Controller
     public function deleteUser($user_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
-            $product = $this->user->find($user_id);
+            $user = $this->users->find($user_id);
             $user->delete();
             return redirect()->route("admin_users");
         }
-        $data["user"]=$this->user->find($user_id);
+        $data["user"]=$this->users->find($user_id);
         $data["page_title"]="Delete User";
         return view("admin/users/confirm",$data);
     }

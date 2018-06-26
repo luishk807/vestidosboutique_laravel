@@ -151,7 +151,7 @@ Route::group(['middleware' => 'under-construction'], function () {
             Route::prefix("products")->group(function(){
                 Route::get('/','adminProductController@index')->name("admin_products");
                 Route::get('/confirm/{product_id}','adminProductController@deleteProduct')->name('confirm_product');
-                Route::delete('/confirm/{product_id}','adminProductController@destroy')->name('delete_product');
+                Route::delete('/confirm/{product_id}','adminProductController@deleteProduct')->name('delete_product');
                 Route::get('/new','adminProductController@newProducts')->name('new_product');
                 Route::post('/new','adminProductController@newProducts')->name('create_product');
                 Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');
@@ -175,7 +175,7 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_edituser");
                 Route::post("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_updateuser");
                 Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adminuser');
-                Route::delete('/confirm/{user_id}','adminUsersController@destroy')->name('delete_adminuser');
+                Route::delete('/confirm/{user_id}','adminUsersController@deleteUser')->name('delete_adminuser');
                 Route::prefix("addresses")->group(function(){
                     Route::get("/",'adminUsersController@userAddress')->name("admin_address");
                     Route::get("/new",'adminUsersAddressController@newAddress')->name("admin_newaddress");
@@ -183,7 +183,7 @@ Route::group(['middleware' => 'under-construction'], function () {
                     Route::get("/edit/{address_id}",'adminUsersAddressController@updateAddress')->name("admin_editaddress");
                     Route::post("/edit/{address_id}",'adminUsersAddressController@updateAddress')->name("admin_updateaddress");
                     Route::get('/confirm/{address_id}','adminUsersAddressController@deleteAddress')->name('confirm_adminaddress');
-                    Route::delete('/confirm/{address_id}','adminUsersAddressController@destroy')->name('delete_adminaddress');
+                    Route::delete('/confirm/{address_id}','adminUsersAddressController@deleteAddress')->name('delete_adminaddress');
                 });
             });
         });

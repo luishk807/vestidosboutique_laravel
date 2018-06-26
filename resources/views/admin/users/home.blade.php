@@ -27,7 +27,7 @@
         <div class="col-md-3">{{$user->email}}</div>
         <div class="col-md-2">{{ $user->getStatusName->name }}</div>
         <div class="col-md-2">
-            <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">delete</a>
+            <a href="{{ route('confirm_adminuser',['user_id'=>$user->id])}}">delete</a>
             <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">edit</a>
         </div>
     </div>
