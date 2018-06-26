@@ -13,7 +13,7 @@ class CreateVestidosProductsImg extends Migration
      */
     public function up()
     {
-        Schema::create('vestidos_products_img', function (Blueprint $table) {
+        Schema::create('vestidos_products_imgs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned()->nullable();
             $table->foreign("product_id")->references("id")->onDelete('set null')->on("vestidos_products");
@@ -32,6 +32,6 @@ class CreateVestidosProductsImg extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vestidos_products_img');
+        Schema::dropIfExists('vestidos_products_imgs');
     }
 }

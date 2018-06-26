@@ -1,5 +1,21 @@
 @extends('admin/layouts.app')
 @section('content')
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <nav class="navbar navbar navbar-expand-lg">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">[{{ $product->images()->count() }}] View Images</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_colors',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->colors()->count() }}] View Colors</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">[{{ $product->sizes()->count() }}] View Sizes</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">[{{ $product->rates()->count() }}] View Rates</a></li>
+                </ul>
+            </nav>
+            
+        </div>
+    </div>
+</div>
 <form action="{{ route('edit_product',['product_id'=>$product_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
@@ -30,7 +46,7 @@
                 @if($product->vendor_id==$vendor->id)
                     selected="selected"
                 @endif
-                >{{$vendor->name}} </option>
+                >{{$vendor->getFullVendorName()}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("vendor")}}</small>
@@ -111,7 +127,7 @@
             <option value="">Select Waistline</option>
             @foreach($waistlines as $waistline)
                 <option value="{{ $waistline->id }}"
-                @if($product->status==$status->id)
+                @if($product->product_waistline_id==$waistline->id)
                     selected="selected"
                 @endif
                 >{{$waistline->name}} </option>
@@ -126,7 +142,7 @@
     </div>
     <div class="form-group">
         <label for="productStock">Available Stock:</label>
-        <input type="text" id="productStock" class="form-control" name="product_stock" value="{{ old('products_stock') ? old('products_stock') : $product->products_stock }}" placeholder="Number of Stock Available"/>
+        <input type="text" id="productStock" class="form-control" name="product_stock" value="{{ old('product_stock') ? old('product_stock') : $product->product_stock }}" placeholder="Number of Stock Available"/>
         <small class="error">{{$errors->first("product_stock")}}</small>
     </div>
     <div class="form-group">

@@ -5,6 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
                 <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{{ route('admin_users') }}" class="nav-link">Back to Users</a></li>
                     <li class="nav-item"><a href="{{ route('admin_address',['user_id'=>$user_id]) }}" class="nav-link">[{{ $user->getAddresses()->count() }}] View Address</a></li>
                 </ul>
             </nav>

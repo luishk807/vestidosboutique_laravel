@@ -1,15 +1,15 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('edit_brand',['brand_id'=>$brand_id]) }}" method="post">
+<form action="{{ route('edit_waistline',['waistline_id'=>$waistline_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-        <label for="brandName">Name:</label>
-        <input type="text" id="brandName" class="form-control" name="name" value="{{ $name }}" placeholder="Brand Name"/>
+        <label for="waistlineName">Name:</label>
+        <input type="text" id="waistlineName" class="form-control" name="name" value="{{ $name }}" placeholder="Waistline Name"/>
         <small class="error">{{$errors->first("name")}}</small>
     </div>
     <div class="form-group">
-        <label for="brandStatus">Status:</label>
-        <select class="custom-select brandStatus" name="status" id="brandStatus">
+        <label for="waistlineStatus">Status:</label>
+        <select class="custom-select waistlineStatus" name="status" id="waistlineStatus">
             <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}"
@@ -19,17 +19,17 @@
                 >{{$status->name}} </option>
             @endforeach
         </select>
-        <small class="error">{{$errors->first("first_name")}}</small>
+        <small class="error">{{$errors->first("status")}}</small>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('brands') }}">
-                    Back To Brands
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_waistlines') }}">
+                    Back To Waistlines
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Brand"/>
+                <input type="submit" class="btn-block vesti_in_btn" value="Save Waistline"/>
             </div>
         </div>
     </div>

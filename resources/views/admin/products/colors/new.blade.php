@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('create_brand') }}" method="post">
+<form action="{{ route('create_color',['product_id'=>$product_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="colorName">Name:</label>
@@ -8,18 +8,13 @@
         <small class="error">{{$errors->first("name")}}</small>
     </div>
     <div class="form-group">
-        <label for="colorProducts">Product:</label>
-        <select class="custom-select D" name="status" id="colorProducts">
-            <option>Select Products</option>
-            @foreach($products as $product)
-                <option value="{{ $product->id }}">{{$product->name}} </option>
-            @endforeach
-        </select>
-        <small class="error">{{$errors->first("status")}}</small>
+        <label for="colorCode">Color:</label>
+        <input type="color" id="colorCode" name="color_code" value=""/>
+        <small class="error">{{$errors->first("color_code")}}</small>
     </div>
     <div class="form-group">
         <label for="colorStatus">Status:</label>
-        <select class="custom-select D" name="status" id="colorStatus">
+        <select class="custom-select" name="status" id="colorStatus">
             <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
@@ -32,7 +27,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_colors') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_colors',['product_id'=>$product_id]) }}">
                     Back To Colors
                 </a>
             </div>

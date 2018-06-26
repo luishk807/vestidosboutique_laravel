@@ -35,7 +35,6 @@
                 <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Basic</a>
                     <div class="dropdown-menu">
                         <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>
-                        <a href="{{ route('admin_colors')}}" class="nav-link">Colors</a>
                         <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>
                         <a href="{{ route('admin_dresstypes')}}" class="nav-link">Dress Types</a>
                         <a href="{{ route('admin_dressstyles')}}" class="nav-link">Dress Styles</a>
@@ -44,6 +43,7 @@
                         <a href="{{ route('admin_fabrics')}}" class="nav-link">Fabric Type</a>
                         <a href="{{ route('admin_necklines')}}" class="nav-link">Neckline Type</a>
                         <a href="{{ route('admin_category')}}" class="nav-link">Category</a>
+                        <a href="{{ route('admin_waistlines')}}" class="nav-link">Waistlines</a>
                     </div>
                 </li>
             </ul>

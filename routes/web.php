@@ -47,16 +47,7 @@ Route::group(['middleware' => 'under-construction'], function () {
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
             Route::get('/','adminHomeController@home')->name("admin");
-                    //Admin Color
-            Route::prefix("colors")->group(function(){
-                Route::get('/','adminColorController@index')->name("admin_colors");
-                Route::get('/confirm/{color_id}','adminColorController@deleteColor')->name('confirm_color');
-                Route::delete('/confirm/{color_id}','adminColorController@deleteColor')->name('delete_color');
-                Route::get('/new','adminColorController@newColors')->name('new_color');
-                Route::post('/new','adminColorController@newColors')->name('create_color');
-                Route::get('/edit/{color_id}','adminColorController@editColor')->name('edit_color');
-                Route::post('/edit/{color_id}','adminColorController@editColor')->name('save_color');
-            });
+
             //Admin Brands
             Route::prefix('brands')->group(function () {
                 Route::get('/','adminBrandController@index')->name("admin_brands");
@@ -147,6 +138,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('edit_neckline');
                 Route::post('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('save_neckline');
             });
+             //Admin Waistline
+             Route::prefix("waistlines")->group(function(){
+                Route::get('/','adminWaistlineController@index')->name("admin_waistlines");
+                Route::get('/confirm/{waistline_id}','adminWaistlineController@deleteWaistline')->name('confirm_waistline');
+                Route::delete('/confirm/{waistline_id}','adminWaistlineController@deleteWaistline')->name('delete_waistline');
+                Route::get('/new','adminWaistlineController@newWaistline')->name('new_waistline');
+                Route::post('/new','adminWaistlineController@newWaistline')->name('create_waistline');
+                Route::get('/edit/{waistline_id}','adminWaistlineController@editWaistline')->name('edit_waistline');
+                Route::post('/edit/{waistline_id}','adminWaistlineController@editWaistline')->name('save_waistline');
+            });
             // //Admin Products
             Route::prefix("products")->group(function(){
                 Route::get('/','adminProductController@index')->name("admin_products");
@@ -156,6 +157,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::post('/new','adminProductController@newProducts')->name('create_product');
                 Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');
                 Route::post('/edit/{product_id}','adminProductController@editProduct')->name('save_product');
+                //Admin Color
+                Route::prefix("colors")->group(function(){
+                    Route::get('/{product_id}','adminColorController@index')->name("admin_colors");
+                    Route::get('/confirm/{color_id}','adminColorController@deleteColor')->name('confirm_color');
+                    Route::delete('/confirm/{color_id}','adminColorController@deleteColor')->name('delete_color');
+                    Route::get('/new/{product_id}','adminColorController@newColors')->name('new_color');
+                    Route::post('/new/{product_id}','adminColorController@newColors')->name('create_color');
+                    Route::get('/edit/{color_id}','adminColorController@editColor')->name('edit_color');
+                    Route::post('/edit/{color_id}','adminColorController@editColor')->name('save_color');
+                });
             });
             //Admin Vendor
             Route::prefix("vendors")->group(function(){

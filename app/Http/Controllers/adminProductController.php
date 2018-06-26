@@ -53,7 +53,7 @@ class adminProductController extends Controller
         $data["product_fit_id"]=(int)$request->input("fit");
         $data["product_neckline_id"]=(int)$request->input("neckline");
         $data["product_waistline_id"]=(int)$request->input("waistline");
-        $data["product_total"]=$request->input("total");
+        $data["product_total"]=$request->input("product_total");
         $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
@@ -102,15 +102,7 @@ class adminProductController extends Controller
     function editProduct($product_id, Request $request){
         $data=[];
         $data["products_name"]=$request->input("products_name");
-        $data["brand_id"]=(int)$request->input("brand");
-        $data["vendor_id"]=(int)$request->input("vendor");
-        $data["category_id"]=(int)$request->input("category");
-        $data["product_closure_id"]=(int)$request->input("closure");
-        $data["product_fabric_id"]=(int)$request->input("fabric");
-        $data["product_fit_id"]=(int)$request->input("fit");
-        $data["product_neckline_id"]=(int)$request->input("neckline");
-        $data["product_waistline_id"]=(int)$request->input("waistline");
-        $data["product_total"]=$request->input("total");
+        $data["product_total"]=$request->input("product_total");
         $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
@@ -132,7 +124,6 @@ class adminProductController extends Controller
                 "product_total"=>"required",
                 "product_stock"=>"required"
             ]);
-            $product = $this->products->find($product_id);
             $product->products_name = $request->input("products_name");
             $product->brand_id = (int)$request->input("brand");
             $product->vendor_id = (int)$request->input("vendor");
@@ -142,14 +133,15 @@ class adminProductController extends Controller
             $product->product_fit_id = (int)$request->input("fit");
             $product->product_neckline_id = (int)$request->input("neckline");
             $product->product_waistline_id = (int)$request->input("waistline");
-            $product->product_total = $request->input("total");
+            $product->product_total = $request->input("product_total");
             $product->product_stock = $request->input("product_stock");
             $product->search_labels = $request->input("search_labels");
             $product->product_detail = $request->input("product_detail");
+            $product->product_waistline_id=(int)$request->input("waistline");
             $product->products_description = $request->input("products_description");
             $product->status = (int)$request->input("status");
             $product->updated_at = carbon::now();
-            $this->products->save();
+            $product->save();
             return redirect()->route("admin_products");
         }
         $data["brand"]=(int)$request->input("brand");
@@ -163,7 +155,7 @@ class adminProductController extends Controller
         $data["product_id"]=$product_id;
         $data["product"]=$product;
         
-        $data["page_title"]="Create Products Page";
+        $data["page_title"]="Edit Product: ".$product->products_name;
         $data["statuses"]=$this->statuses->all();
         $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
@@ -173,16 +165,16 @@ class adminProductController extends Controller
         $data["vendors"]=$this->vendors->all();
         $data["necklines"]=$this->necklines->all();
         $data["waistlines"]=$this->waistlines->all();
-        return view("admin/products/new",$data);
+        return view("admin/products/edit",$data);
     }
     public function deleteProduct($product_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
-            $product = $this->product->find($product_id);
+            $product = $this->products->find($product_id);
             $product->delete();
             return redirect()->route("admin_products");
         }
-        $data["product"]=$this->product->find($product_id);
+        $data["product"]=$this->products->find($product_id);
         $data["page_title"]="Delete Product";
         return view("admin/products/confirm",$data);
     }

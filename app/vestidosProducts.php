@@ -9,13 +9,16 @@ class vestidosProducts extends Model
 {
     //
     public function images(){
-        return $this->hasMany('App\vestidosProductsImg');
+        return $this->hasMany('App\vestidosProductsImgs',"id");
     }
     public function colors(){
-        return $this->hasMany('App\vestidosColors');
+        return $this->hasMany('App\vestidosColors',"id");
     }
     public function rates(){
-        return $this->hasMany('App\vestidosProductRates');
+        return $this->hasMany('App\vestidosProductRates',"id");
+    }
+    public function sizes(){
+        return $this->hasMany('App\vestidosSizes',"id");
     }
     public function vendor(){
         return $this->belongsTo('App\vestidosVendors',"vendor_id","id");
@@ -30,7 +33,7 @@ class vestidosProducts extends Model
                                         img.img_name,
                                         brand.name
                                     ")
-                                    ->join("vestidos_products_img as img","img.id","=","prod.products_img")
+                                    ->join("vestidos_products_imgs as img","img.id","=","prod.products_img")
                                     ->join("vestidos_brands as brand","brand.id","=","prod.brand_id")
                                     ->whereRaw("
                                         prod.search_labels like '%{$filter}%'
