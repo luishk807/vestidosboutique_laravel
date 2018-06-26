@@ -160,28 +160,26 @@ Route::group(['middleware' => 'under-construction'], function () {
             //Admin Vendor
             Route::prefix("vendors")->group(function(){
                 Route::get('/','vendorsController@index')->name("admin_vendors");
-                Route::get('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('confirm_vendor');
-                Route::delete('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('delete_vendor');
                 Route::get('/new','vendorsController@newVendors')->name('new_vendor');
                 Route::post('/new','vendorsController@newVendors')->name('create_vendor');
                 Route::get('/edit/{vendor_id}','vendorsController@editVendor')->name('edit_vendor');
                 Route::post('/edit/{vendor_id}','vendorsController@editVendor')->name('save_vendor');
+                Route::get('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('confirm_vendor');
+                Route::delete('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('delete_vendor');
+            });
+            //Admin Users
+            Route::prefix("users")->group(function(){
+                Route::get("/",'adminUsersController@index')->name("admin_users");
+                Route::get("/new",'adminUsersController@newUser')->name("admin_newuser");
+                Route::post("/new",'adminUsersController@newUser')->name("admin_createuser");
+                Route::get("/edit",'adminUsersController@updateUser')->name("admin_edituser");
+                Route::post("/edit",'adminUsersController@updateUser')->name("admin_updateuser");
+                Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adnminuser');
+                Route::delete('/confirm/{user_id}','adminUsersController@destroy')->name('delete_adminuser');
             });
         });
 
-        // //Users
-        // Route::get("/account/new",'usersController@newUser')->name("newuser");
-        // Route::post("/account/new",'usersController@newUser')->name("createuser");
-        // Route::get("/account/edit",'usersController@updateUser')->name("edituser");
-        // Route::post("/account/edit",'usersController@updateUser')->name("updateuser");
-        // //Admin Users
-        //  Route::post("/admin/users",'adminUsersController@index')->name("admin_users");
-        //  Route::get("/admin/users/new",'adminUsersController@newUser')->name("admin_newuser");
-        //  Route::get('/admin/users/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_user');
-        //  Route::delete('/admin/users/confirm/{user_id}','adminUsersController@destroy')->name('delete_user');
-        //  Route::post("/admin/users/new",'adminUsersController@newUser')->name("admin_createuser");
-        //  Route::get("/admin/users/edit",'adminUsersController@updateUser')->name("admin_edituser");
-        //  Route::post("/admin/users/edit",'adminUsersController@updateUser')->name("admin_updateuser");
+        
         //  //Admin Users Address
         //  Route::get('/admin/useraddress/','userAddressController@index')->name("admin_useraddress");
         //  Route::get('/admin/useraddress/confirm/{useraddress_id}','userAddressController@deleteUserAddress')->name('confirm_useraddress');

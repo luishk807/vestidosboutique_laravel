@@ -31,7 +31,7 @@
                 <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Products</a></li>
                 <li class="nav-item"><a href="{{ route('admin_vendors') }}" class="nav-link">Vendors</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Orders</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Users</a></li>
+                <li class="nav-item"><a href="{{route('admin_users')}}" class="nav-link">Users</a></li>
                 <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Basic</a>
                     <div class="dropdown-menu">
                         <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>

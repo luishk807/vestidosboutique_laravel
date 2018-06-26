@@ -5,7 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_user') }}" class="nav-link">Add User</a></li>
+                <li class="nav-item"><a href="{{ route('admin_newuser') }}" class="nav-link">Add User</a></li>
             </ul>
             </nav>
             
@@ -23,8 +23,8 @@
         <div class="col-md-4">{{$user->name}}</div>
         <div class="col-md-3">{{ $user->getStatusName->name }}</div>
         <div class="col-md-3">
-            <a href="{{ route('confirm_user',['user_id'=>$user->id])}}">delete</a>
-            <a href="{{ route('edit_user',['user_id'=>$user->id])}}">edit</a>
+            <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">delete</a>
+            <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">edit</a>
         </div>
     </div>
     @endforeach
