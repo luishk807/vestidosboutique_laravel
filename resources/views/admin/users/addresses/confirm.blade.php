@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('delete_address',['address_id'=>$address->id])}}" method="post">
+<form action="{{ route('delete_adminaddress',['address_id'=>$address->id])}}" method="post">
 {{ method_field('DELETE') }}
 <div class="container">
     <div class="row">
@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_addresses') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_address',['user_id'=>$user_id]) }}">
                     Back To Addresses
                 </a>
         </div>

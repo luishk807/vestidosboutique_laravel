@@ -180,8 +180,8 @@ Route::group(['middleware' => 'under-construction'], function () {
                     Route::get("/{user_id}",'adminUsersController@userAddress')->name("admin_address");
                     Route::get("/new/{user_id}",'adminUsersAddressController@newAddress')->name("admin_newaddress");
                     Route::post("/new/{user_id}",'adminUsersAddressController@newAddress')->name("admin_createaddress");
-                    Route::get("/edit/{address_id}",'adminUsersAddressController@updateAddress')->name("admin_editaddress");
-                    Route::post("/edit/{address_id}",'adminUsersAddressController@updateAddress')->name("admin_updateaddress");
+                    Route::get("/edit/{address_id}",'adminUsersAddressController@editAddress')->name("admin_editaddress");
+                    Route::post("/edit/{address_id}",'adminUsersAddressController@editAddress')->name("admin_updateaddress");
                     Route::get('/confirm/{address_id}','adminUsersAddressController@deleteAddress')->name('confirm_adminaddress');
                     Route::delete('/confirm/{address_id}','adminUsersAddressController@deleteAddress')->name('delete_adminaddress');
                 });

@@ -18,6 +18,7 @@ class CreateVestidosUserAddress extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign("user_id")->references("id")->onDelete('set null')->on("vestidos_users");
             $table->integer('address_type');
+            $table->string('nick_name')->nullable();
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');

@@ -30,6 +30,7 @@ class adminUsersAddressController extends Controller
     }
     function newAddress($user_id,Request $request){
         $data=[];
+        $data["user_id"]=$user_id;
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
         $data["last_name"]=$request->input("last_name");
@@ -60,9 +61,8 @@ class adminUsersAddressController extends Controller
             ]);
             $data["created_at"]=carbon::now();
             $this->addresses->insert($data);
-            return redirect()->route("admin_addresses");
+            return redirect()->route("admin_address",["user_id"=>$user_id]);
         }
-        $data["user_id"]=$user_id;
         $user = $this->users->find($user_id);
         $data["user"]=$user;
         $data["addresstypes"]=$this->addresstypes->all();
@@ -72,7 +72,7 @@ class adminUsersAddressController extends Controller
         $data["countries"]=$this->countries->all();
         return view("admin/users/addresses/new",$data);
     }
-    function editAddress($user_id, $address_id, Request $request){
+    function editAddress($address_id, Request $request){
         $data=[];
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
@@ -86,6 +86,7 @@ class adminUsersAddressController extends Controller
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
         $address = $this->addresses->find($address_id);
+        $user_id = $address->user_id;
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
@@ -101,6 +102,7 @@ class adminUsersAddressController extends Controller
             ]);
             
             $address->first_name = $request->input("first_name");
+            $address->address_type = $request->input("address_type");
             $address->middle_name = $request->input("middle_name");
             $address->last_name = $request->input("last_name");
             $address->phone_number_1 = $request->input("phone_number_1");
@@ -114,30 +116,30 @@ class adminUsersAddressController extends Controller
             $address->status = (int)$request->input("status");
             $address->updated_at = carbon::now();
             $address->save();
-            return redirect()->route("admin_addresses");
+            return redirect()->route("admin_address",['user_id'=>$user_id]);
         }
-
-
-        $data["user_id"]=$user_id;
         $user = $this->users->find($user_id);
         $data["user"]=$user;
-        $data["addresses"]=$this->addresses->all();
+        $data["user_id"]=$user_id;
         $data["country"]=$request->input("country");
+        $data["addresstypes"]=$this->addresstypes->all();
         $data["address"]=$address;
         $data["page_title"]="Edit Address ".$user->getFullName();
         $data["address_id"]=$address_id;
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
-        return view("admin/users/addresses/new",$data);
+        return view("admin/users/addresses/edit",$data);
     }
     public function deleteAddress($address_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
-            $product = $this->address->find($address_id);
+            $address = $this->addresses->find($address_id);
             $address->delete();
-            return redirect()->route("admin_addresses");
+            return redirect()->route("admin_address",["user_id"=>$address->user_id]);
         }
-        $data["address"]=$this->address->find($address_id);
+        $address = $this->addresses->find($address_id);
+        $data["address"]=$address;
+        $data["user_id"] = $address->user_id;
         $data["page_title"]="Delete Address";
         return view("admin/users/addresses/confirm",$data);
     }

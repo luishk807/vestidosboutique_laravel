@@ -17,6 +17,6 @@ class vestidosUsers extends Model
         return "{$this->first_name} {$this->middle_name} {$this->last_name}";
     }
     public function getAddresses(){
-        return $this->hasMany('App\vestidosUserAddresses');
+        return $this->hasMany('App\vestidosUserAddresses',"user_id");
     }
 }

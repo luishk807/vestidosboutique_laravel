@@ -21,10 +21,11 @@ class adminUsersController extends Controller
     }
     public function userAddress($user_id){
         $data=[];
-        $data["addresses"]=$this->users->getAddresses();
-        $data["user"]=$this->users->find($user_id);
+        $user = $this->users->find($user_id);
+        $data["addresses"]=$user->getAddresses()->get();
+        $data["user"]=$user;
         $data["user_id"]=$user_id;
-        $data["page_title"]="Address Page";
+        $data["page_title"]="Address Page For ".$user->getFullName();
         return view("admin/users/addresses/home",$data);
     }
     public function index(){
@@ -62,7 +63,7 @@ class adminUsersController extends Controller
             $data["created_at"]=carbon::now();
             $data["password"]=Hash::make($request->input("password"));
             $this->users->insert($data);
-            return redirect()->route("admin_users");
+            return redirect()->route("admin_address");
         }
         $data["page_title"]="New Users";
         $data["genders"] = $this->genders->all();
