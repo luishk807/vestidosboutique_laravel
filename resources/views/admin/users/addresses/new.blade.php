@@ -3,7 +3,12 @@
 
 <form action="{{ route('admin_createaddress',['user_id'=>$user_id]) }}" method="post">
 {{ csrf_field() }}
-<div class="form-row">
+    <div class="form-group">
+        <label for="addressNickName">NickName:</label>
+        <input type="text" id="addressNickName" class="form-control" name="nick_name" value="" placeholder="NickName"/>
+        <small class="error">{{$errors->first("nick_name")}}</small>
+    </div>
+    <div class="form-row">
         <div class="form-group col-md-4">
             <label for="addressFirstName">First Name:</label>
             <input type="text" id="addressFirstName" class="form-control" name="first_name" value="" placeholder="First Name"/>
@@ -22,7 +27,7 @@
     </div>
     <div class="form-group">
         <label for="addressEmail">Email:</label>
-        <input type="text" id="addressEmail" class="form-control" name="email" value="" placeholder="Email"/>
+        <input type="email" id="addressEmail" class="form-control" name="email" value="" placeholder="Email"/>
         <small class="error">{{$errors->first("email")}}</small>
     </div>
     <div class="form-row">

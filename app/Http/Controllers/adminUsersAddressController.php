@@ -31,6 +31,7 @@ class adminUsersAddressController extends Controller
     function newAddress($user_id,Request $request){
         $data=[];
         $data["user_id"]=$user_id;
+        $data["nick_name"]=$request->input("nick_name");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
         $data["last_name"]=$request->input("last_name");
@@ -47,6 +48,7 @@ class adminUsersAddressController extends Controller
         $data["ip_address"]=$request->ip();
         if($request->isMethod("post")){
             $this->validate($request,[
+                "nick_name"=>"required",
                 "first_name"=>"required",
                 "last_name"=>"required",
                 "phone_number_1"=>"required",
@@ -74,6 +76,7 @@ class adminUsersAddressController extends Controller
     }
     function editAddress($address_id, Request $request){
         $data=[];
+        $data["nick_name"]=$request->input("nick_name");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
         $data["last_name"]=$request->input("last_name");
@@ -89,6 +92,7 @@ class adminUsersAddressController extends Controller
         $user_id = $address->user_id;
         if($request->isMethod("post")){
             $this->validate($request,[
+                "nick_name"=>"required",
                 "first_name"=>"required",
                 "last_name"=>"required",
                 "phone_number_1"=>"required",
@@ -100,7 +104,7 @@ class adminUsersAddressController extends Controller
                 "zip_code"=>"required",
                 "status"=>"required",
             ]);
-            
+            $address->nick_name = $request->input("nick_name");
             $address->first_name = $request->input("first_name");
             $address->address_type = $request->input("address_type");
             $address->middle_name = $request->input("middle_name");

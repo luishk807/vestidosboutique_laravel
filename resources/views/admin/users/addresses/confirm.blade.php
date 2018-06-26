@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col text-center">
-            are you sure want to delete {{ $address->name }}
+            are you sure want to delete {{ $address->nick_name }}
         </div>
     </div>
     <div class="row">

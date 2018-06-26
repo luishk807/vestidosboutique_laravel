@@ -14,10 +14,10 @@
     </div>
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-2">NickName</div>
-        <div class="col-md-3">Name</div>
         <div class="col-md-1">Type</div>
-        <div class="col-md-1">Country</div>
+        <div class="col-md-2">NickName</div>
+        <div class="col-md-2">Name</div>
+        <div class="col-md-2">Country</div>
         <div class="col-md-1">Zip Code</div>
         <div class="col-md-1">Status</div>
         <div class="col-md-2">Action</div>
@@ -25,10 +25,10 @@
     @foreach($addresses as $address)
     <div class="row">
         <div class="col-md-1"></div>
+        <div class="col-md-1">{{ $address->getAddressType->name }}</div>
         <div class="col-md-2">{{$address->nick_name }}</div>
-        <div class="col-md-3">{{$address->getFullName() }}</div>
-        <div class="col-md-1">{{ $address->getAddressType()->name }}</div>
-        <div class="col-md-1">{{ $address->getCountry()->name }}</div>
+        <div class="col-md-2">{{ $address->getFullName() }}</div>
+        <div class="col-md-2">{{ $address->getCountry->countryName }}</div>
         <div class="col-md-1">{{ $address->zip_code }}</div>
         <div class="col-md-1">{{ $address->getStatusName->name }}</div>
         <div class="col-md-2">

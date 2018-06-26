@@ -2,6 +2,11 @@
 @section('content')
 <form action="{{ route('admin_updateaddress',['address_id'=>$address_id]) }}" method="post">
 {{ csrf_field() }}
+    <div class="form-group">
+        <label for="addressNickName">NickName:</label>
+        <input type="text" id="addressNickName" class="form-control" name="nick_name" value="{{ old('nick_name') ? old('nick_name') : $address->nick_name }}" placeholder="NickName"/>
+        <small class="error">{{$errors->first("nick_name")}}</small>
+    </div>
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="addressFirstName">First Name:</label>
@@ -21,7 +26,7 @@
     </div>
     <div class="form-group">
         <label for="addressEmail">Email:</label>
-        <input type="text" id="addressEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $address->email }}" placeholder="Email"/>
+        <input type="email" id="addressEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $address->email }}" placeholder="Email"/>
         <small class="error">{{$errors->first("email")}}</small>
     </div>
     <div class="form-row">
