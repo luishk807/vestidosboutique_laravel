@@ -40,7 +40,7 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::post("/signin",'usersController@login')->name("login");
 
     //Users
-        Route::get("/account/new",'usersController@newUser')->name("newuser");
+        Route::get("/account/new",'usersController@newUser')->name("newuser_address");
         Route::post("/account/new",'usersController@newUser')->name("createuser");
         Route::get("/account/edit",'usersController@updateUser')->name("edituser");
         Route::post("/account/edit",'usersController@updateUser')->name("updateuser");
@@ -174,8 +174,17 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::post("/new",'adminUsersController@newUser')->name("admin_createuser");
                 Route::get("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_edituser");
                 Route::post("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_updateuser");
-                Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adnminuser');
+                Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adminuser');
                 Route::delete('/confirm/{user_id}','adminUsersController@destroy')->name('delete_adminuser');
+                Route::prefix("addresses")->group(function(){
+                    Route::get("/",'adminUsersAddressController@index')->name("admin_address");
+                    Route::get("/new",'adminUsersAddressController@newAddress')->name("admin_newaddress");
+                    Route::post("/new",'adminUsersAddressController@newAddress')->name("admin_createaddress");
+                    Route::get("/edit/{address_id}",'adminUsersAddressController@updateAddress')->name("admin_editaddress");
+                    Route::post("/edit/{address_id}",'adminUsersAddressController@updateAddress')->name("admin_updateaddress");
+                    Route::get('/confirm/{address_id}','adminUsersAddressController@deleteAddress')->name('confirm_adminaddress');
+                    Route::delete('/confirm/{address_id}','adminUsersAddressController@destroy')->name('delete_adminaddress');
+                });
             });
         });
 

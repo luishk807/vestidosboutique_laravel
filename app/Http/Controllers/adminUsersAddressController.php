@@ -4,27 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosStatus as Statuses;
-use App\vestidosVendors as Vendors;
+use App\vestidosUserAddresses as Addresses;
 use App\vestidosCountries as Countries;
+use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
 
 class adminUsersAddressController extends Controller
 {
     //
-    public function __construct(Statuses $statuses, Vendors $vendors, Countries $countries){
+    public function __construct(Users $users, Statuses $statuses,Addresses $addresses, Countries $countries){
         $this->statuses=$statuses;
-        $this->vendors=$vendors;
+        $this->addresses=$addresses;
         $this->countries=$countries;
+        $this->$users = $users;
     }
     function index(){
         $data=[];
         $data["countries"]=$this->countries->all();
-        $data["vendors"]=$this->vendors->all();
-        $data["page_title"]="VendorPage";
-        return view("admin/vendors/home",$data);
+        $data["addresses"]=$this->addresses->all();
+        $data["page_title"]="Address Page";
+        return view("admin/users/addresses/home",$data);
     }
-    function newVendors(Request $request){
+    function newAddress(Request $request){
         $data=[];
+        $data["user_id"]=$request->input("user_id");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
         $data["last_name"]=$request->input("last_name");
@@ -52,17 +55,17 @@ class adminUsersAddressController extends Controller
                 "status"=>"required",
             ]);
             $data["created_at"]=carbon::now();
-            $this->vendors->insert($data);
-            return redirect()->route("admin_vendors");
+            $this->addresses->insert($data);
+            return redirect()->route("admin_addresses");
         }
         $data["country"]=$request->input("country");
 
-        $data["page_title"]="Create Vendors Page";
+        $data["page_title"]="Create Address Page";
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
-        return view("admin/vendors/new",$data);
+        return view("admin/users/addresses/new",$data);
     }
-    function editVendor($vendor_id, Request $request){
+    function editAddress($address_id, Request $request){
         $data=[];
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
@@ -75,7 +78,7 @@ class adminUsersAddressController extends Controller
         $data["state"]=$request->input("state");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
-        $vendor = $this->vendors->find($vendor_id);
+        $address = $this->addresses->find($address_id);
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
@@ -90,39 +93,39 @@ class adminUsersAddressController extends Controller
                 "status"=>"required",
             ]);
             
-            $vendor->first_name = $request->input("first_name");
-            $vendor->middle_name = $request->input("middle_name");
-            $vendor->last_name = $request->input("last_name");
-            $vendor->phone_number_1 = $request->input("phone_number_1");
-            $vendor->email = $request->input("email");
-            $vendor->address_1 = $request->input("address_1");
-            $vendor->address_2 = $request->input("address_2");
-            $vendor->city = $request->input("city");
-            $vendor->country_id = (int)$request->input("country");
-            $vendor->state = $request->input("state");
-            $vendor->zip_code = $request->input("zip_code");
-            $vendor->status = (int)$request->input("status");
-            $vendor->updated_at = carbon::now();
-            $vendor->save();
-            return redirect()->route("admin_vendors");
+            $address->first_name = $request->input("first_name");
+            $address->middle_name = $request->input("middle_name");
+            $address->last_name = $request->input("last_name");
+            $address->phone_number_1 = $request->input("phone_number_1");
+            $address->email = $request->input("email");
+            $address->address_1 = $request->input("address_1");
+            $address->address_2 = $request->input("address_2");
+            $address->city = $request->input("city");
+            $address->country_id = (int)$request->input("country");
+            $address->state = $request->input("state");
+            $address->zip_code = $request->input("zip_code");
+            $address->status = (int)$request->input("status");
+            $address->updated_at = carbon::now();
+            $address->save();
+            return redirect()->route("admin_addresses");
         }
         $data["country"]=$request->input("country");
-        $data["vendor"]=$vendor;
-        $data["page_title"]="Edit Vendors";
-        $data["vendor_id"]=$vendor_id;
+        $data["address"]=$address;
+        $data["page_title"]="Edit Address";
+        $data["address_id"]=$address_id;
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
-        return view("admin/vendors/new",$data);
+        return view("admin/users/addresses/new",$data);
     }
-    public function deleteVendor($vendor_id,Request $request){
+    public function deleteAddress($address_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
-            $product = $this->vendor->find($vendor_id);
-            $vendor->delete();
-            return redirect()->route("admin_vendors");
+            $product = $this->address->find($address_id);
+            $address->delete();
+            return redirect()->route("admin_addresses");
         }
-        $data["vendor"]=$this->vendor->find($vendor_id);
-        $data["page_title"]="Delete Vendor";
-        return view("admin/vendors/confirm",$data);
+        $data["address"]=$this->address->find($address_id);
+        $data["page_title"]="Delete Address";
+        return view("admin/users/addresses/confirm",$data);
     }
 }

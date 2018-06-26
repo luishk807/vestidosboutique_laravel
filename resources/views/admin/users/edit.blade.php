@@ -5,7 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('admin_newuser') }}" class="nav-link">View Address</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_address') }}" class="nav-link">View Address</a></li>
                 </ul>
             </nav>
             

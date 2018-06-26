@@ -5,7 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_address') }}" class="nav-link">Add Address</a></li>
+                <li class="nav-item"><a href="{{ route('admin_newaddress') }}" class="nav-link">Add Address</a></li>
             </ul>
             </nav>
             
@@ -17,7 +17,7 @@
         <div class="col-md-3">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($addresss as $address)
+    @foreach($addresses as $address)
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-4">{{$address->name}}</div>

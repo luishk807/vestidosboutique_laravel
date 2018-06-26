@@ -1,5 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
+Add Address For {{$user->getFullName()}}
 <form action="{{ route('create_brand') }}" method="post">
 {{ csrf_field() }}
 <div class="form-row">
@@ -90,12 +91,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_brands') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_address') }}">
                     Back To Brands
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Brand"/>
+                <input type="submit" class="btn-block vesti_in_btn" value="Create Address"/>
             </div>
         </div>
     </div>
