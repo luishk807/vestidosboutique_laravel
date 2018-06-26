@@ -122,6 +122,7 @@ class adminProductImagesController extends Controller
             return redirect()->route("admin_images",['product_id'=>$image->product_id]);
         }
         $data["image"]=$image;
+        $data["image_id"]=$image->id;
         $data["product_id"]=$image->product_id;
         $data["page_title"]="Delete Images";
         return view("admin/products/images/confirm",$data);

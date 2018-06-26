@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('delete_image',['product_id'=>$product_id])}}" method="post">
+<form action="{{ route('delete_image',['image_id'=>$image_id])}}" method="post">
 {{ method_field('DELETE') }}
 <div class="container">
     <div class="row">
@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_images',['product_id'=>$product_id]) }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_images',['product_id'=>$image->product_id]) }}">
                     Back To Images
                 </a>
         </div>
