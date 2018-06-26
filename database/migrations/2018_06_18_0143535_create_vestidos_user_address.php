@@ -19,12 +19,12 @@ class CreateVestidosUserAddress extends Migration
             $table->foreign("user_id")->references("id")->onDelete('set null')->on("vestidos_users");
             $table->integer('address_type');
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('address_1');
-            $table->string('address_2');
-            $table->string('city');
-            $table->string('state');
+            $table->string('address_2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
             $table->integer('country_id')->unsigned()->nullable();
             $table->foreign("country_id")->references("id")->onDelete('set null')->on("vestidos_countries");
             $table->string('zip_code');

@@ -22,7 +22,7 @@
         <select class="custom-select" name="vendor" id="productVendor">
             <option value="">Select Vendor</option>
             @foreach($vendors as $vendor)
-                <option value="{{ $vendor->id }}">{{$vendor->name}} </option>
+                <option value="{{ $vendor->id }}">{{$vendor->getFullVendorName()}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("vendor")}}</small>

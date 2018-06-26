@@ -1,7 +1,7 @@
 @extends('admin/layouts.app')
 @section('content')
 
-<form action="{{ route('create_brand') }}" method="post">
+<form action="{{ route('admin_createaddress',['user_id'=>$user_id]) }}" method="post">
 {{ csrf_field() }}
 <div class="form-row">
         <div class="form-group col-md-4">
@@ -77,6 +77,16 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="addressAddressType">Address Type:</label>
+        <select class="custom-select" name="address_type" id="addressAddressType">
+            <option value="">Select Address Type</option>
+            @foreach($addresstypes as $addresstype)
+                <option value="{{ $addresstype->id }}">{{$addresstype->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("address_type")}}</small>
+    </div>
+    <div class="form-group">
         <label for="addressStatus">Status:</label>
         <select class="custom-select" name="status" id="addressStatus">
             <option value="">Select Status</option>
@@ -91,7 +101,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_address') }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_address',['user_id'=>$user_id]) }}">
                     Back To Brands
                 </a>
             </div>

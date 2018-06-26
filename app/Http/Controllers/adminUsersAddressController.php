@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\vestidosStatus as Statuses;
 use App\vestidosUserAddresses as Addresses;
+use App\vestidosAddressTypes as AddressTypes;
 use App\vestidosCountries as Countries;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
@@ -12,11 +13,12 @@ use Carbon\Carbon as carbon;
 class adminUsersAddressController extends Controller
 {
     //
-    public function __construct(Users $users, Statuses $statuses,Addresses $addresses, Countries $countries){
+    public function __construct(AddressTypes $addresstypes, Users $users, Statuses $statuses,Addresses $addresses, Countries $countries){
         $this->statuses=$statuses;
         $this->addresses=$addresses;
         $this->countries=$countries;
-        $this->$users = $users;
+        $this->users = $users;
+        $this->addresstypes = $addresstypes;
     }
     function index(){
         $data=[];
@@ -26,7 +28,7 @@ class adminUsersAddressController extends Controller
         $data["page_title"]="Address Page";
         return view("admin/users/addresses/home",$data);
     }
-    function newAddress(Request $request){
+    function newAddress($user_id,Request $request){
         $data=[];
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
@@ -40,6 +42,7 @@ class adminUsersAddressController extends Controller
         $data["state"]=$request->input("state");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
+        $data["address_type"]=(int)$request->input("address_type");
         $data["ip_address"]=$request->ip();
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -52,19 +55,24 @@ class adminUsersAddressController extends Controller
                 "city"=>"required",
                 "state"=>"required",
                 "zip_code"=>"required",
+                "address_type"=>"required",
                 "status"=>"required",
             ]);
             $data["created_at"]=carbon::now();
             $this->addresses->insert($data);
             return redirect()->route("admin_addresses");
         }
+        $data["user_id"]=$user_id;
+        $user = $this->users->find($user_id);
+        $data["user"]=$user;
+        $data["addresstypes"]=$this->addresstypes->all();
         $data["country"]=$request->input("country");
-        $data["page_title"]="Create Address Page";
+        $data["page_title"]="Create Address Page For ".$user->getFullName();
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
         return view("admin/users/addresses/new",$data);
     }
-    function editAddress($address_id, Request $request){
+    function editAddress($user_id, $address_id, Request $request){
         $data=[];
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
@@ -108,9 +116,15 @@ class adminUsersAddressController extends Controller
             $address->save();
             return redirect()->route("admin_addresses");
         }
+
+
+        $data["user_id"]=$user_id;
+        $user = $this->users->find($user_id);
+        $data["user"]=$user;
+        $data["addresses"]=$this->addresses->all();
         $data["country"]=$request->input("country");
         $data["address"]=$address;
-        $data["page_title"]="Edit Address";
+        $data["page_title"]="Edit Address ".$user->getFullName();
         $data["address_id"]=$address_id;
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
