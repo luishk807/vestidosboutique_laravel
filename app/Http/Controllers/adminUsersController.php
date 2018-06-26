@@ -7,6 +7,7 @@ use App\vestidosUsers as Users;
 use App\vestidosStatus as Statuses;
 use App\vestidosGenders as Genders;
 use Carbon\Carbon as carbon;
+use Illuminate\Support\Facades\Hash;
 use App\vestidosLanguages as Languages;
 
 class adminUsersController extends Controller
@@ -41,7 +42,7 @@ class adminUsersController extends Controller
         if($request->isMethod("post")){
             $this->validate($request,[
                 "user_name"=>"required",
-                "password"=>"required",
+                "password"=>"required | same:re-type_password",
                 "first_name"=>"required",
                 "last_name"=>"required",
                 "gender"=>"required",
@@ -51,6 +52,7 @@ class adminUsersController extends Controller
                 "status"=>"required",
             ]);
             $data["created_at"]=carbon::now();
+            $data["password"]=Hash::make($request->input("password"));
             $this->users->insert($data);
             return redirect()->route("admin_users");
         }
@@ -79,16 +81,19 @@ class adminUsersController extends Controller
             $this->validate($request,[
                 "user_name"=>"required",
                 "first_name"=>"required",
+                "password" => "same:re-type_password",
                 "last_name"=>"required",
                 "phone_number"=>"required",
                 "email"=>"required",
                 "date_of_birth"=>"required",
                 "gender"=>"required",
                 "preferred_language"=>"required",
-                "status"=>"required",
+                "status"=>"required"
             ]);
             $user->user_name = $request->input("user_name");
-            $user->password = $request->input("password");
+            if(!empty($request->input("password"))){
+                $user->password = Hash::make($request->input("password"));
+            }
             $user->first_name = $request->input("first_name");
             $user->middle_name = $request->input("middle_name");
             $user->last_name = $request->input("last_name");
@@ -99,7 +104,7 @@ class adminUsersController extends Controller
             $user->preferred_language = (int)$request->input("preferred_language");
             $user->status = (int)$request->input("status");
             $user->updated_at = carbon::now();
-            $this->users->save();
+            $user->save();
             return redirect()->route("admin_users");
         }
         $data["user"]=$user;

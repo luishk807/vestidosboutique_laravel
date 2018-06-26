@@ -103,7 +103,7 @@ class vendorsController extends Controller
             $vendor->zip_code = $request->input("zip_code");
             $vendor->status = (int)$request->input("status");
             $vendor->updated_at = carbon::now();
-            $this->vendors->save();
+            $vendor->save();
             return redirect()->route("admin_vendors");
         }
         $data["country"]=$request->input("country");

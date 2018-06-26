@@ -4,13 +4,18 @@
 {{ csrf_field() }}
     <div class="form-group">
         <label for="userUserName">User Name:</label>
-        <input type="text" id="userUserName" class="form-control" name="user_name" value="{{ old('iser_name') ? old('iser_name') : $user->iser_name }}" placeholder="UserName"/>
+        <input type="text" id="userUserName" class="form-control" name="user_name" value="{{ old('user_name') ? old('user_name') : $user->user_name }}" placeholder="UserName"/>
         <small class="error">{{$errors->first("user_name")}}</small>
     </div>
     <div class="form-group">
         <label for="userPassword">Password:</label>
-        <input type="password" id="userPassword" class="form-control" name="password" value="{{ old('password') ? old('password') : $user->password }}" placeholder="Password"/>
+        <input type="password" id="userPassword" class="form-control" name="password" value="" placeholder="Password"/>
         <small class="error">{{$errors->first("password")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="userRePassword">Re-Type Password:</label>
+        <input type="password" id="userRePassword" class="form-control" name="re-type_password" value="" placeholder="Re-Type Password"/>
+        <small class="error">{{$errors->first("re-type_password")}}</small>
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">

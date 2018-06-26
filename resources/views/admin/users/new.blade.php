@@ -4,7 +4,7 @@
 {{ csrf_field() }}
     <div class="form-group">
         <label for="userUserName">User Name:</label>
-        <input type="text" id="userUserName" class="form-control" name="user_name" value="" placeholder="UserName"/>
+        <input type="text" id="userUserName" class="form-control" name="user_name" value="{{ old('user_name')}}" placeholder="UserName"/>
         <small class="error">{{$errors->first("user_name")}}</small>
     </div>
     <div class="form-group">
@@ -12,36 +12,41 @@
         <input type="password" id="userPassword" class="form-control" name="password" value="" placeholder="Password"/>
         <small class="error">{{$errors->first("password")}}</small>
     </div>
+    <div class="form-group">
+        <label for="userRePassword">Re-Type Password:</label>
+        <input type="password" id="userRePassword" class="form-control" name="re-type_password" value="" placeholder="Re-Type Password"/>
+        <small class="error">{{$errors->first("re-type_password")}}</small>
+    </div>
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="userFirstName">First Name:</label>
-            <input type="text" id="userFirstName" class="form-control" name="first_name" value="" placeholder="First Name"/>
+            <input type="text" id="userFirstName" class="form-control" name="first_name" value="{{ old('first_name')}}" placeholder="First Name"/>
             <small class="error">{{$errors->first("first_name")}}</small>
         </div>
         <div class="form-group col-md-4">
             <label for="userMiddleName">Middle Name:</label>
-            <input type="text" id="userMiddleName" class="form-control" name="middle_name" value="" placeholder="Middle Name"/>
+            <input type="text" id="userMiddleName" class="form-control" name="middle_name" value="{{ old('middle_name')}}" placeholder="Middle Name"/>
             <small class="error">{{$errors->first("middle_name")}}</small>
         </div>
         <div class="form-group col-md-4">
             <label for="userLastName">Last Name:</label>
-            <input type="text" id="userLastName" class="form-control" name="last_name" value="" placeholder="Last Name"/>
+            <input type="text" id="userLastName" class="form-control" name="last_name" value="{{ old('last_name')}}" placeholder="Last Name"/>
             <small class="error">{{$errors->first("last_name")}}</small>
         </div>
     </div>
     <div class="form-group">
         <label for="userEmail">Email:</label>
-        <input type="text" id="userEmail" class="form-control" name="email" value="" placeholder="Email"/>
+        <input type="text" id="userEmail" class="form-control" name="email" value="{{ old('email')}}" placeholder="Email"/>
         <small class="error">{{$errors->first("email")}}</small>
     </div>
     <div class="form-group">
         <label for="userDob">Date of Birth:</label>
-        <input type="date" id="userDob" min="1950-01-01" class="form-control" name="date_of_birth" value="" placeholder="Date of Birth"/>
+        <input type="date" id="userDob" min="1950-01-01" class="form-control" name="date_of_birth" value="{{ old('date_of_birth')}}" placeholder="Date of Birth"/>
         <small class="error">{{$errors->first("date_of_birth")}}</small>
     </div>
     <div class="form-group">
         <label for="userPhone">Telephone:</label>
-        <input type="text" id="userPhone" class="form-control" name="phone_number" value="" placeholder="Phone"/>
+        <input type="text" id="userPhone" class="form-control" name="phone_number" value="{{ old('phone_number')}}" placeholder="Phone"/>
         <small class="error">{{$errors->first("phone_number")}}</small>
     </div>
     <div class="form-group">
