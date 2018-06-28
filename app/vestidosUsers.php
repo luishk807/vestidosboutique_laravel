@@ -8,7 +8,7 @@ class vestidosUsers extends Model
 {
     //
     public function orders(){
-        return $this->hasMany('App\vestidosOrders');
+        return $this->hasMany('App\vestidosOrders',"user_id");
     }
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
