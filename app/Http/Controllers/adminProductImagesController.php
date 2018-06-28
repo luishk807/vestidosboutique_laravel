@@ -7,6 +7,7 @@ use App\vestidosProductsImgs as Images;
 use App\vestidosStatus as vestidosStatus;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
+use Illuminate\Support\Str;
 
 class adminProductImagesController extends Controller
 {
@@ -24,9 +25,23 @@ class adminProductImagesController extends Controller
         $data["page_title"]="Images For ".$product->products_name;
         return view("admin/products/images/home",$data);
     }
+    public function getImageName($file,$product_id){
+        $picture="";
+        $date = carbon::now();
+        $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
+        $filename = Str::lower($file->getClientOriginalName());
+        $filename = pathinfo($filename, PATHINFO_FILENAME); // file
+        $extension = $file->getClientOriginalExtension();
+        $filename = preg_replace("![^a-z0-9]+!i", "-", $filename);
+        $filename = $filename.".".$extension;
+        $picture = $time_converted.'-'.$product_id."-".$filename;
+
+        return $picture;
+    }
     public function newImages($product_id,Request $request){
         $data=[];
         $data["status"]=(int)$request->input("status");
+        $product = $this->products->find($product_id);
         if($request->isMethod("post")){
             $this->validate($request,[
                 'image' => 'required',
@@ -34,21 +49,16 @@ class adminProductImagesController extends Controller
                 "status"=>"required"
              ]
             );
-
-
-            $picture = '';
             $files = $request->file('image');
             if ($request->hasFile('image')) {
                 foreach($files as $file){
                     if(!empty($file)){
-                        $filename = $file->getClientOriginalName();
-                        $extension = $file->getClientOriginalExtension();
-                        $picture = time().'.'.$filename;
+                        $picture =$this->getImageName($file,$product_id);
                         $destinationPath = public_path().'/images/products/';
                         $file->move($destinationPath, $picture);
                         $data["product_id"]=$product_id;
-                        $data["img_name"]=$picture;
-                        $data["img_url"]=$destinationPath;
+                        $data["img_name"]=$request->input("img_name");
+                        $data["img_url"]=$picture;
                         $data["created_at"]=carbon::now();
                         $this->images->insert($data);
                     }
@@ -57,7 +67,6 @@ class adminProductImagesController extends Controller
             return redirect()->route("admin_images",['product_id'=>$product_id]);
         }
         $data["product_id"]=$product_id;
-        $product = $this->products->find($product_id);
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Image For Product: ".$product->products_name;
         return view("admin/products/images/new",$data);
@@ -78,23 +87,16 @@ class adminProductImagesController extends Controller
                 "status"=>"required"
              ]
             );
-
-
-            $picture = '';
             $file = $request->file('image');
             if ($request->hasFile('image')) {
                 $img_path =public_path().'/images/products/'.$image->img_name;
                 if(file_exists($img_path)){
                     @unlink($img_path);
                 }
-
-
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $picture = time().'.'.$filename;
+                $picture =$this->getImageName($file,$product_id);
                 $destinationPath = public_path().'/images/products/';
                 $file->move($destinationPath, $picture);
-                $image->img_name=$picture;
+                $image->img_name=$request->input("img_name");
                 $image->img_url=$destinationPath;
             }
             

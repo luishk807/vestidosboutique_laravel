@@ -17,7 +17,7 @@ class CreateVestidosProductsImg extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned()->nullable();
             $table->foreign("product_id")->references("id")->onDelete('set null')->on("vestidos_products");
-            $table->string('img_name');
+            $table->string('img_name')->nullable();
             $table->text('img_url');
             $table->integer('status')->unsigned()->nullable();
             $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");

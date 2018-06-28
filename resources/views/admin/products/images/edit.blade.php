@@ -10,7 +10,7 @@
         </small>
     </div>
     <div class="form-group">
-        <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_name}}" class="img-fluid"/></div>
+        <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_url}}" alt="{{$image->img_name}}" class="img-fluid"/></div>
     </div>
     <div class="form-group">
         <label for="imageLabels">Replace Image</label>

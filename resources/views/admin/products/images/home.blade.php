@@ -26,7 +26,7 @@
     @foreach($images as $image)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_name}}" class="img-fluid"/></div>
+        <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_url}}" alt="{{$image->img_name}}" class="img-fluid"/></div>
         <div class="col-md-3">{{$image->img_name}}</div>
         <div class="col-md-2">{{ $image->getStatusName->name }}</div>
         <div class="col-md-3">
