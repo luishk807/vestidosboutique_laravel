@@ -16,7 +16,7 @@ class CreateVestidosColors extends Migration
         Schema::create('vestidos_colors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned()->nullable();
-            $table->foreign("product_id")->references("id")->onDelete('set null')->on("vestidos_products");
+            $table->foreign("product_id")->references("id")->onDelete('cascade')->on("vestidos_products");
             $table->string('name');
             $table->string('color_code');
             $table->integer('status')->unsigned()->nullable();

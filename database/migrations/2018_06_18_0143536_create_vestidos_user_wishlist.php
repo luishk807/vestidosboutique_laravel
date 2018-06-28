@@ -16,9 +16,9 @@ class CreateVestidosUserWishlist extends Migration
         Schema::create('vestidos_user_wishlists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign("user_id")->references("id")->onDelete('set null')->on("vestidos_users");
+            $table->foreign("user_id")->references("id")->onDelete('cascade')->on("vestidos_users");
             $table->integer('product_id')->unsigned()->nullable();
-            $table->foreign("product_id")->references("id")->onDelete('set null')->on("vestidos_products");
+            $table->foreign("product_id")->references("id")->onDelete('cascade')->on("vestidos_products");
             $table->timestamps();
         });
     }
