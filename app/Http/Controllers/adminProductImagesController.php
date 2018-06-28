@@ -57,7 +57,6 @@ class adminProductImagesController extends Controller
                         $destinationPath = public_path().'/images/products/';
                         $file->move($destinationPath, $picture);
                         $data["product_id"]=$product_id;
-                        $data["img_name"]=$request->input("img_name");
                         $data["img_url"]=$picture;
                         $data["created_at"]=carbon::now();
                         $this->images->insert($data);
@@ -82,8 +81,7 @@ class adminProductImagesController extends Controller
         if($request->isMethod("post")){
 
             $this->validate($request,[
-                'image' => 'required',
-                'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'img_name' => 'required',
                 "status"=>"required"
              ]
             );
@@ -93,13 +91,12 @@ class adminProductImagesController extends Controller
                 if(file_exists($img_path)){
                     @unlink($img_path);
                 }
-                $picture =$this->getImageName($file,$product_id);
+                $picture =$this->getImageName($file,$image->product_id);
                 $destinationPath = public_path().'/images/products/';
                 $file->move($destinationPath, $picture);
-                $image->img_name=$request->input("img_name");
-                $image->img_url=$destinationPath;
+                $image->img_url=$picture;
             }
-            
+            $image->img_name=$request->input("img_name");
             $image->status=(int)$request->input("status");
             $image->updated_at=carbon::now();
 
@@ -115,7 +112,7 @@ class adminProductImagesController extends Controller
     public function deleteImage($image_id,Request $request){
         $data=[];
         $image = $this->images->find($image_id);
-        $img_path =public_path().'/images/products/'.$image->img_name;
+        $img_path =public_path().'/images/products/'.$image->img_url;
         if($request->input("_method")=="DELETE"){
             if(file_exists($img_path)){
                 @unlink($img_path);

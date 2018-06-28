@@ -13,6 +13,11 @@
         <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_url}}" alt="{{$image->img_name}}" class="img-fluid"/></div>
     </div>
     <div class="form-group">
+        <label for="imageName">Name:</label>
+        <input type="text" id="imageName" class="form-control" name="img_name" value="{{ old('img_name') ? old('img_name') : $image->img_name }}" placeholder="Product Name"/>
+        <small class="error">{{$errors->first("img_name")}}</small>
+    </div>
+    <div class="form-group">
         <label for="imageLabels">Replace Image</label>
         <input type="file" name="image" class="form-control-file" id="imageLabels">
     </div>
