@@ -87,7 +87,7 @@ class adminProductImagesController extends Controller
             );
             $file = $request->file('image');
             if ($request->hasFile('image')) {
-                $img_path =public_path().'/images/products/'.$image->img_name;
+                $img_path =public_path().'/images/products/'.$image->img_url;
                 if(file_exists($img_path)){
                     @unlink($img_path);
                 }
