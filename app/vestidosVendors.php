@@ -8,7 +8,7 @@ class vestidosVendors extends Model
 {
     //
     public function products(){
-        return $this->hasMany('App\vestidosProducts');
+        return $this->hasMany('App\vestidosProducts',"vendor_id");
     }
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
