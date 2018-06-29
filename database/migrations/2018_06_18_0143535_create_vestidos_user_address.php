@@ -16,7 +16,7 @@ class CreateVestidosUserAddress extends Migration
         Schema::create('vestidos_user_addresses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign("user_id")->references("id")->onDelete('cascade')->on("vestidos_users");
+            $table->foreign("user_id")->references("id")->on("vestidos_users")->onDelete('set null');
             $table->integer('address_type');
             $table->string('nick_name')->nullable();
             $table->string('first_name');
@@ -27,14 +27,14 @@ class CreateVestidosUserAddress extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->integer('country_id')->unsigned()->nullable();
-            $table->foreign("country_id")->references("id")->onDelete('set null')->on("vestidos_countries");
+            $table->foreign("country_id")->references("id")->on("vestidos_countries");
             $table->string('zip_code');
             $table->string('phone_number_1');
             $table->string('phone_number_2');
             $table->string('email');
             $table->text('ip_address');
             $table->integer('status')->unsigned()->nullable();
-            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
+            $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
     }

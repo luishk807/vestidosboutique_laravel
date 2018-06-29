@@ -27,7 +27,7 @@ class CreateVestidosUsers extends Migration
             $table->text('ip');
             $table->integer('preferred_language');
             $table->integer('status')->unsigned()->nullable();
-            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_status_users");
+            $table->foreign("status")->references("id")->on("vestidos_status_users")->onDelete('set null');
             $table->timestamps();
         });
     }

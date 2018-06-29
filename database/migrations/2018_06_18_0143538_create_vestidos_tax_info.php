@@ -16,11 +16,11 @@ class CreateVestidosTaxInfo extends Migration
         Schema::create('vestidos_tax_infos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('country_id')->unsigned()->nullable();
-            $table->foreign("country_id")->references("id")->onDelete('set null')->on("vestidos_countries");
+            $table->foreign("country_id")->references("id")->on("vestidos_countries")->onDelete('set null');
             $table->string('code');
             $table->decimal('tax',10,2);
             $table->integer('status')->unsigned()->nullable();
-            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
+            $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });
     }

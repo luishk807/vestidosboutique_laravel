@@ -26,11 +26,11 @@ class CreateVestidosVendors extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->integer('country_id')->unsigned()->nullable();
-            $table->foreign("country_id")->references("id")->onDelete('set null')->on("vestidos_countries");
+            $table->foreign("country_id")->references("id")->on("vestidos_countries")->onDelete('set null');
             $table->string('zip_code')->nullable();
             $table->text('ip_address');
             $table->integer('status')->unsigned()->nullable();
-            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
+            $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });
     }

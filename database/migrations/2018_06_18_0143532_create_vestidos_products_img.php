@@ -20,7 +20,7 @@ class CreateVestidosProductsImg extends Migration
             $table->string('img_name')->nullable();
             $table->text('img_url');
             $table->integer('status')->unsigned()->nullable();
-            $table->foreign("status")->references("id")->onDelete('set null')->on("vestidos_statuses");
+            $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });
     }
