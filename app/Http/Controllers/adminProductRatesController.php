@@ -29,17 +29,17 @@ class adminProductRatesController extends Controller
     }
     public function newRates($product_id,Request $request){
         $data=[];
-        $data["user_id"]=$request->input("user");
+        $data["user_id"]=(int)$request->input("user");
         $data["user_rate"]=$request->input("user_rate");
         $data["status"]=(int)$request->input("status");
         $data["product_id"]=$product_id;
-        $data["user_comment"]=(int)$request->input("user_comment");
+        $data["user_comment"]=$request->input("user_comment");
         if($request->isMethod("post")){
             $this->validate($request,[
         
                 "user"=>"required",
                 "user_rate"=>"required",
-                "status"=>"required",
+                "status"=>"required"
             ]
             );
             $data["created_at"]=carbon::now();
@@ -60,16 +60,22 @@ class adminProductRatesController extends Controller
         $rate =$this->rates->find($rate_id);
         $data["page_title"]="Edit Rate";
         $data["rate"]=$rate;
+        $data["user_rate"] = $request->input("user_rate");
+        $data["user"] =(int)$request->input("user");
+        $data["user_comment"] = $request->input("user_comment");
         $data["rate_id"]=$rate_id;
-        $data["name"]=$rate->name;
-        $data["status"]=$rate->status;
+        $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
             $this->validate($request,[
-                "name"=>"required",
-                "status"=>"required",
+                "user"=>"required",
+                "user_rate"=>"required",
+                "status"=>"required"
             ]);
             $rate =$this->rates->find($rate_id);
-            $rate->name=$request->input("name");
+            $rate->user_id=$request->input("user");
+            $rate->product_id=$rate->product_id;
+            $rate->user_comment = $request->input("user_comment");
+            $rate->user_rate = (int)$request->input("user_rate");
             $rate->status=(int)$request->input("status");
             $rate->updated_at=carbon::now();
 
@@ -77,6 +83,7 @@ class adminProductRatesController extends Controller
 
             return redirect()->route("admin_rates",["product_id"=>$rate->product_id]);
         }
+        $data["users"]=$this->users->all();
         $data["rate_nums"]=$this->rate_numbers;
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Rate";
