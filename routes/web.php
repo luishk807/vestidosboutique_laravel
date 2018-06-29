@@ -219,7 +219,15 @@ Route::group(['middleware' => 'under-construction'], function () {
                 });
             });
         });
-
+                //Admin Orders
+        Route::get('/admin/orders/','ordersController@index')->name("admin_orders");
+        Route::get('/admin/orders/confirm/{order_id}','ordersController@deleteOrder')->name('confirm_order');
+        Route::delete('/admin/orders/confirm/{order_id}','ordersController@destroy')->name('delete_order');
+        Route::get('/admin/orders/new','ordersController@newOrders')->name('new_order');
+        Route::post('/admin/orders/new','ordersController@newOrders')->name('create_order');
+        Route::get('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('edit_order');
+        Route::post('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('save_order');
+        Route::get('api/addressDropDown','ordersController@getAddressDropdown');
         
         //  //Admin Users Address
         //  Route::get('/admin/useraddress/','userAddressController@index')->name("admin_useraddress");
@@ -230,14 +238,7 @@ Route::group(['middleware' => 'under-construction'], function () {
         //  Route::get('/admin/useraddress/edit/{useraddress_id}','userAddressController@editUserAddress')->name('edit_useraddress');
         //  Route::post('/admin/useraddress/edit/{useraddress_id}','userAddressController@editUserAddress')->name('save_useraddress');
         
-        // //Admin Orders
-        // Route::get('/admin/orders/','ordersController@index')->name("admin_orders");
-        // Route::get('/admin/orders/confirm/{order_id}','ordersController@deleteOrder')->name('confirm_order');
-        // Route::delete('/admin/orders/confirm/{order_id}','ordersController@destroy')->name('delete_order');
-        // Route::get('/admin/orders/new','ordersController@newOrders')->name('new_order');
-        // Route::post('/admin/orders/new','ordersController@newOrders')->name('create_order');
-        // Route::get('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('edit_order');
-        // Route::post('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('save_order');
+
    // });
    // Auth::routes();
 });
