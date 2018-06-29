@@ -227,7 +227,11 @@ Route::group(['middleware' => 'under-construction'], function () {
         Route::post('/admin/orders/new','ordersController@newOrders')->name('create_order');
         Route::get('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('edit_order');
         Route::post('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('save_order');
-        Route::get('api/addressDropDown','ordersController@getAddressDropdown');
+        
+
+        //API
+        Route::get('api/getAddress','ordersController@getAddressDropdown');
+        Route::get('api/getProduct','ordersController@getProductDropdown');
         
         //  //Admin Users Address
         //  Route::get('/admin/useraddress/','userAddressController@index')->name("admin_useraddress");

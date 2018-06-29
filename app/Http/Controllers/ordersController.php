@@ -32,14 +32,28 @@ class ordersController extends Controller
         $users = $this->users->find($user_id);
         return response()->json($users->getAddresses()->get());
     }
+    public function getProductDropdown(){
+        $product_id=Input::get('data');
+        $product = $this->products->find($product_id);
+        return response()->json($product);
+    }
     public function newOrders(Request $request){
         $data=[];
-        $data["name"]=$request->input("name");
+        $data["user_id"]=$request->input("user");
+        $data["product_id"]=$request->input("product");
+        $data["purchase_date"]=$request->input("purchase_date");
+        $data["shipping_date"]=$request->input("shipping_date");
+        $data["ship_address_id"]=$request->input("ship_address_id");
+        $data["bill_address_id"]=$request->input("bill_address_id");
+        $data["order_quantity"]=$request->input("bill_address_id");
+        $data["order_total"]=$request->input("order_total");
+        $data["order_tax"]=$request->input("order_tax");
+        $data["order_shipping"]=$request->input("order_shipping");
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
             $this->validate($request,[
         
-                "name"=>"required",
+                "user"=>"required",
                 "status"=>"required",
             ]
             );

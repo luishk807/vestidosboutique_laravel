@@ -5,7 +5,7 @@ $(document).ready(function(){
     $("#orderUser").change(function(){
          $.ajax({
             type: "GET",
-            url: "{{ url('api/addressDropDown') }}",
+            url: "{{ url('api/getAddress') }}",
             data: {
                 data:$(this).val()
             },
@@ -21,11 +21,23 @@ $(document).ready(function(){
                     orderShipAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
                     orderBillingAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
                 });
-                console.log("THISS",data);
             }
-        });
+        }); 
+    });
 
-        
+    $("#orderProduct").change(function(){
+         $.ajax({
+            type: "GET",
+            url: "{{ url('api/getProduct') }}",
+            data: {
+                data:$(this).val()
+            },
+            success: function(data) {
+                var orderShipAddress = $("#orderTax");
+                orderShipAddress.val("");
+                orderShipAddress.val(data.product_total);
+            }
+        }); 
     });
 });
 </script>
