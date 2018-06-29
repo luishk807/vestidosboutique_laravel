@@ -12,15 +12,17 @@ use App\vestidosBrands as Brands;
 use App\vestidosFitTypes as Fits;
 use App\vestidosFabricTypes as Fabrics;
 use App\vestidosSizes as Sizes;
+use App\vestidosProductsImgs as Images;
 use App\vestidosVendors as Vendors;
 use App\vestidosNecklineTypes as Necklines;
 use App\vestidosWaistlineTypes as Waistlines;
 use Carbon\Carbon as carbon;
+use File;
 
 class adminProductController extends Controller
 {
     //
-    public function __construct(vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines){
+    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines){
         $this->statuses=$vestidosStatus;
         $this->products=$products;
         $this->categories=$categories;
@@ -33,6 +35,7 @@ class adminProductController extends Controller
         $this->vendors=$vendors;
         $this->necklines=$necklines;
         $this->waistlines=$waistlines;
+        $this->images = $images;
     }
     function index(){
         $data=[];
@@ -170,7 +173,13 @@ class adminProductController extends Controller
     public function deleteProduct($product_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
-            $product = $this->products->find($product_id);
+           $product = $this->products->find($product_id);
+           foreach($product->images as $image){
+                $img_path =public_path().'/images/products/'.$image->img_url;
+                if(file_exists($img_path)){
+                    @unlink($img_path);
+                }
+            }
             $product->delete();
             return redirect()->route("admin_products");
         }
