@@ -15,8 +15,8 @@ class CreateVestidosUserAddress extends Migration
     {
         Schema::create('vestidos_user_addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign("user_id")->references("id")->on("vestidos_users")->onDelete('set null');
+            $table->integer('user_id')->unsigned();
+            $table->foreign("user_id")->references("id")->on("vestidos_users")->onDelete('cascade');
             $table->integer('address_type');
             $table->string('nick_name')->nullable();
             $table->string('first_name');

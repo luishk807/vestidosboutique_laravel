@@ -15,7 +15,7 @@ class CreateVestidosProductsImg extends Migration
     {
         Schema::create('vestidos_products_imgs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned()->nullable();
+            $table->integer('product_id')->unsigned();
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete('cascade');
             $table->string('img_name')->nullable();
             $table->text('img_url');
