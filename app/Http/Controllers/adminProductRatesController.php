@@ -27,6 +27,7 @@ class adminProductRatesController extends Controller
         $data["product_id"]=$product_id;
         return view("admin/products/rates/home",$data);
     }
+
     public function newRates($product_id,Request $request){
         $data=[];
         $data["user_id"]=(int)$request->input("user");
@@ -48,11 +49,17 @@ class adminProductRatesController extends Controller
         }
         $product=$this->products->find($product_id);
         $data["user"]=$request->input("user");
-        $data["users"]=$this->users->all();
+        $users =$this->users->doesnthave('rates')->get();
+        $data["users"]=$users;
         $data["product"]=$product;
         $data["rate_nums"]=$this->rate_numbers;
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Rate For Product: ".$product->products_name;
+        // if(!$users->count()){
+        //     $data["product_id"]=$product_id;
+        //     $data["error_message"]="No User To Add";
+        //     return redirect()->route("admin_rates",$data);
+        // }
         return view("admin/products/rates/new",$data);
     }
     public function editRate($rate_id,Request $request){
@@ -91,13 +98,14 @@ class adminProductRatesController extends Controller
     }
     public function deleteRate($rate_id,Request $request){
         $data=[];
+        $rate = $this->rates->find($rate_id);
         if($request->input("_method")=="DELETE"){
-            $rate = $this->rates->find($rate_id);
             $rate->delete();
             return redirect()->route("admin_rates");
         }
-        $data["rate"]=$this->rates->find($rate_id);
+        $data["rate"]=$rate;
         $data["page_title"]="Delete Rates";
+        $data["product_id"]=$rate->product_id;
         return view("admin/products/rates/confirm",$data);
     }
 }
