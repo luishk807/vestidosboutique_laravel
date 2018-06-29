@@ -65,6 +65,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="{{ asset('js/vestidos_admin.js') }}"></script>
+    <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
+<script>
+	$(document).ready(function(){
+		$(".rate-view").rate({
+			readonly:true
+		});
+	})
+</script>
     <div id="footer" class="vestidos-footer-abs">
         <div class="container">
             footer

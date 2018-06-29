@@ -178,6 +178,16 @@ Route::group(['middleware' => 'under-construction'], function () {
                     Route::get('/edit/{image_id}','adminProductImagesController@editImage')->name('edit_image');
                     Route::post('/edit/{image_id}','adminProductImagesController@editImage')->name('save_image');
                 });
+                //Admin Rate
+                Route::prefix("rates")->group(function(){
+                    Route::get('/{product_id}','adminProductRatesController@index')->name("admin_rates");
+                    Route::get('/confirm/{rate_id}','adminProductRatesController@deleteRate')->name('confirm_rate');
+                    Route::delete('/confirm/{rate_id}','adminProductRatesController@deleteRate')->name('delete_rate');
+                    Route::get('/new/{product_id}','adminProductRatesController@newRates')->name('new_rate');
+                    Route::post('/new/{product_id}','adminProductRatesController@newRates')->name('create_rate');
+                    Route::get('/edit/{rate_id}','adminProductRatesController@editRate')->name('edit_rate');
+                    Route::post('/edit/{rate_id}','adminProductRatesController@editRate')->name('save_rate');
+                });
             });
             //Admin Vendor
             Route::prefix("vendors")->group(function(){

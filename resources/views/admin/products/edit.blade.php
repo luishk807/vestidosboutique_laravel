@@ -9,7 +9,7 @@
                     <li class="nav-item"><a href="{{ route('admin_images',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->images()->count() }}] View Images</a></li>
                     <li class="nav-item"><a href="{{ route('admin_colors',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->colors()->count() }}] View Colors</a></li>
                     <li class="nav-item"><a href="{{ route('admin_sizes',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->sizes()->count() }}] View Sizes</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">[{{ $product->rates()->count() }}] View Rates</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_rates',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->rates()->count() }}] View Rates</a></li>
                 </ul>
             </nav>
             
