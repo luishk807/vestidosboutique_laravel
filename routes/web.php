@@ -40,7 +40,7 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::post("/signin",'usersController@login')->name("login");
 
     //Users
-        Route::get("/account/new",'usersController@newUser')->name("newuser_address");
+        Route::get("/account/new",'usersController@newUser')->name("newuser");
         Route::post("/account/new",'usersController@newUser')->name("createuser");
         Route::get("/account/edit",'usersController@updateUser')->name("edituser");
         Route::post("/account/edit",'usersController@updateUser')->name("updateuser");

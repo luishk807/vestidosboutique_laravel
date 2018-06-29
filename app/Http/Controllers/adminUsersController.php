@@ -63,7 +63,7 @@ class adminUsersController extends Controller
             $data["created_at"]=carbon::now();
             $data["password"]=Hash::make($request->input("password"));
             $this->users->insert($data);
-            return redirect()->route("admin_address");
+            return redirect()->route("admin_users");
         }
         $data["page_title"]="New Users";
         $data["genders"] = $this->genders->all();
