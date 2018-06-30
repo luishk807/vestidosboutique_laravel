@@ -41,11 +41,11 @@ Route::group(['middleware' => 'under-construction'], function () {
 
     //Users
         Route::prefix("account")->group(function(){
-            Route::get("/",'usersController@index')->name("user_account");
+            Route::get("/{user_id}",'usersController@index')->name("user_account");
             Route::get("/new",'usersController@newUser')->name("newuser");
             Route::post("/new",'usersController@newUser')->name("createuser");
-            Route::get("/edit",'usersController@updateUser')->name("edituser");
-            Route::post("/edit",'usersController@updateUser')->name("updateuser");
+            Route::get("/edit/{user_id}",'usersController@updateUser')->name("edituser");
+            Route::post("/edit/{user_id}",'usersController@updateUser')->name("updateuser");
         });
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){

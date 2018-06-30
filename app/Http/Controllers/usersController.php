@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\vestidosUsers as vestidosUsers;
+use App\vestidosUsers as Users;
 use App\vestidosCountries as vestidosCountries;
 
 class usersController extends Controller
 {
     //
-    public function __construct(vestidosCountries $countries){
+    public function __construct(Users $users, vestidosCountries $countries){
         $this->country=$countries->all();
+        $this->users = $users;
+    }
+    public function index($user_id){
+        $user=$this->users->find($user_id);
+        $data["page_title"]="Welcome ".$user->getFullName();
+        $data["user"]=$user;
+        return view("account/home",$data);
     }
     public function login(Request $request){
         $data["page_title"]="Login";
