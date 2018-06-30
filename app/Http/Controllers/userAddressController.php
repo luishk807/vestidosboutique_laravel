@@ -140,8 +140,9 @@ class userAddressController extends Controller
         }
         $address = $this->addresses->find($address_id);
         $data["address"]=$address;
+        $data["user"]=$this->users->find($address->user_id);
         $data["user_id"] = $address->user_id;
         $data["page_title"]="Delete Address";
-        return view("admin/users/addresses/confirm",$data);
+        return view("account/address/confirm",$data);
     }
 }

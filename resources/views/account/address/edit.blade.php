@@ -118,6 +118,9 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <a href="{{ route('confirmaddress',['address_id'=>$address->id])}}" class="btn-block vesti_in_btn">Delete</a>
+            </div>
+            <div class="col">
                 <input type="submit" class="btn-block vesti_in_btn" value="Save Address"/>
             </div>
         </div>
