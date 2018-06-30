@@ -15,6 +15,7 @@
 }
 .vestidos-simple-link:hover{
     color:black;
+    text-decoration:none;
 }
 .vesti_in_btn_link{
 
@@ -44,16 +45,16 @@
                 <div class="container-in-space white-md-bg-in">
                     <ul class="list-group">
                         <li class="vestidos-list-group-item">
-                            <a class="btn-block vesti_in_btn_link">Profile</a>
+                            <a href="{{ route('user_account',['user_id'=>$user->id]) }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Profile</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a class="btn-block vesti_in_btn_link">Orders</a>
+                            <a class="btn-block vesti_in_btn_link vestidos-simple-link">Orders</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a class="btn-block vesti_in_btn_link">Wishlist</a>
+                            <a class="btn-block vesti_in_btn_link vestidos-simple-link">Wishlist</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a class="btn-block vesti_in_btn_link">Log Out</a>
+                            <a class="btn-block vesti_in_btn_link vestidos-simple-link">Log Out</a>
                         </li>
                     </ul>
                 </div>

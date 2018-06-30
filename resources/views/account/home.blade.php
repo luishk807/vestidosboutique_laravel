@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="text-right"><a class="vestidos-simple-link" href="">Edit</a></td>
+                        <td class="text-right"><a href="{{ route('edituser',['user_id'=>$user->id]) }}" class="vestidos-simple-link" href="">Edit</a></td>
                     </tr>
                 </tbody>
             </table>

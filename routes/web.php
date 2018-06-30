@@ -38,15 +38,25 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get("/signin",'usersController@login')->name("signin");
     Route::post("/signin",'usersController@login')->name("login");
-
     //Users
-        Route::prefix("account")->group(function(){
-            Route::get("/{user_id}",'usersController@index')->name("user_account");
-            Route::get("/new",'usersController@newUser')->name("newuser");
-            Route::post("/new",'usersController@newUser')->name("createuser");
-            Route::get("/edit/{user_id}",'usersController@updateUser')->name("edituser");
-            Route::post("/edit/{user_id}",'usersController@updateUser')->name("updateuser");
+    Route::get("/account/new",'usersController@newUser')->name("newuser");
+    Route::post("/account/new",'usersController@newUser')->name("createuser");
+    Route::prefix("account")->group(function(){
+        Route::get("/{user_id}",'usersController@index')->name("user_account");
+        
+        Route::get("/edit/{user_id}",'usersController@updateUser')->name("edituser");
+        Route::post("/edit/{user_id}",'usersController@updateUser')->name("updateuser");
+
+        Route::prefix("addresses")->group(function(){
+            Route::get("/{user_id}",'usersAddressController@userAddress')->name("address");
+            Route::get("/new/{user_id}",'usersAddressController@newAddress')->name("newaddress");
+            Route::post("/new/{user_id}",'usersAddressController@newAddress')->name("createaddress");
+            Route::get("/edit/{address_id}",'usersAddressController@editAddress')->name("editaddress");
+            Route::post("/edit/{address_id}",'usersAddressController@editAddress')->name("updateaddress");
+            Route::get('/confirm/{address_id}','usersAddressController@deleteAddress')->name('confirmaddress');
+            Route::delete('/confirm/{address_id}','usersAddressController@deleteAddress')->name('deleteaddress');
         });
+    });
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
             Route::get('/','adminHomeController@home')->name("admin");

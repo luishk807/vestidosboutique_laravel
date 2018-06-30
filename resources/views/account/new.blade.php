@@ -11,36 +11,48 @@
                             <div class="col-md-8 account-form-section">
                                 <h2>{{$page_title}}</h2>
                                 <form action="{{ route('createuser')}}" method="post">
+                                {{ csrf_field() }}
                                 <div class="form-group">
-                                        <label class="accountTitleSelect" for="accountTitle">Select Title:</label>
-                                        <select class="custom-select accountTitleSelect" name="title" id="accountTitle">
-                                            <option selected>Select Title</option>
-                                            @for($i=0;$i<sizeof($titles);$i++)
-                                                <option value="{{$titles[$i]}}">{{$titles[$i]}}</option>
-                                            @endfor
+                                        <label class="accountTitleSelect" for="accountLanguage">Select Language:</label>
+                                        <select class="custom-select accountTitleSelect" name="preferred_language" id="accountLanguage">
+                                            <option selected value="">Select Language</option>
+                                            @foreach($languages as $language)
+                                                <option value="{{$language->id}}">{{$language->name}}</option>
+                                            @endforeach
                                         </select>
+                                        <small class="error">{{$errors->first("preferred_language")}}</small>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="accountFirstName">First Name:</label>
-                                        <input type="text" id="accountFirstName" class="form-control" name="first_name" value="" placeholder="First Name"/>
+                                        <input type="text" id="accountFirstName" class="form-control" name="first_name" value="{{ old('first_name')}}" placeholder="First Name"/>
                                         <small class="error">{{$errors->first("first_name")}}</small>
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label for="accountMiddleName">Middle Name:</label>
+                                        <input type="text" id="accountMiddleName" class="form-control" name="middle_name" value="{{ old('middle_name')}}" placeholder="Middle Name"/>
+                                        <small class="error">{{$errors->first("middle_name")}}</small>
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label for="accountLastName">Last Name:</label>
-                                        <input type="text" id="accountLastName" class="form-control" name="last_name" value="" placeholder="Last Name"/>
+                                        <input type="text" id="accountLastName" class="form-control" name="last_name" value="{{ old('last_name')}}" placeholder="Last Name"/>
                                         <small class="error">{{$errors->first("last_name")}}</small>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                         <label for="accountEmail">Email:</label>
-                                        <input type="email" id="accountEmail" class="form-control" name="email" value="" placeholder="Email"/>
+                                        <input type="email" id="accountEmail" class="form-control" name="email" value="{{ old('email')}}" placeholder="Email"/>
                                         <small class="error">{{$errors->first("email")}}</small>
                                 </div>
                                 <div class="form-group">
                                         <label for="accountPhone">Phone:</label>
-                                        <input type="tel" id="accountPhone" class="form-control" name="phone" value="" placeholder="Phone Number"/>
+                                        <input type="tel" id="accountPhone" class="form-control" name="phone" value="{{ old('phone')}}" placeholder="Phone Number"/>
                                         <small class="error">{{$errors->first("phone")}}</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountDob">Date of Birth:</label>
+                                    <input type="date" id="accountDob" min="1950-01-01" class="form-control" name="date_of_birth" value="{{ old('date_of_birth')}}" placeholder="Date of Birth"/>
+                                    <small class="error">{{$errors->first("date_of_birth")}}</small>
                                 </div>
                                 <div class="form-group">
                                         <label for="accountPassword">Password:</label>
@@ -52,26 +64,18 @@
                                         <input type="password" id="accountRePassword" class="form-control" name="repassword" value="" placeholder="Re-Type Password"/>
                                 </div>
                                 <div class="form-group">
-                                        <label class="accountCountrySelect" for="accountCountry">Select Country:</label>
-                                        <select class="custom-select accountCountrySelect" name="country" id="accountCountry">
-                                            <option selected>Select Country</option>
-                                            @foreach($countries as $country)
-                                                    <option vale="{{ $country->id }}">{{$country->countryName}} </option>
-                                                @endforeach
+                                        <label class="accountTitleSelect" for="accountGender">Select Gender:</label>
+                                        <select class="custom-select accountTitleSelect" name="gender" id="accountGender">
+                                            <option selected value="">Select Gender</option>
+                                            @foreach($genders as $gender)
+                                                <option value="{{$gender->id}}"
+                                                @if(old('gender')==$gender->id)
+                                                    selected="selected"
+                                                @endif
+                                                >{{$gender->name}}</option>
+                                            @endforeach
                                         </select>
-                                        <small class="error">{{$errors->first("country")}}</small>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                            <label for="accountCity">City:</label>
-                                            <input type="text" id="accountCity" class="form-control" name="city" value="" placeholder="City"/>
-                                            <small class="error">{{$errors->first("city")}}</small>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                            <label for="accountPostal">Zip Code:</label>
-                                            <input type="text" id="accountPostal" class="form-control" name="postal_code" value="" placeholder="Postal Code"/>
-                                            <small class="error">{{$errors->first("postal_code")}}</small>
-                                    </div>
+                                        <small class="error">{{$errors->first("gender")}}</small>
                                 </div>
                                 <div class="vesti_in_btn_pnl">
                                     <input type="submit" class="btn-block vesti_in_btn" value="Sign Up"/>
