@@ -1,46 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<script>
-$(document).ready(function(){
-    $("#orderUser").change(function(){
-         $.ajax({
-            type: "GET",
-            url: "{{ url('api/getAddress') }}",
-            data: {
-                data:$(this).val()
-            },
-            success: function(data) {
-                var orderShipAddress = $("#orderShipAddress");
-                var orderBillingAddress = $("#orderBillingAddress");
-                orderShipAddress.empty();
-                orderBillingAddress.empty();
-                orderShipAddress.append("<option value=''>Select Shipping Address</option>");
-                orderBillingAddress.append("<option value=''>Select Billing Address</option>");
-                $.each(data, function(index,element){
-                    console.log(index+" and "+element);
-                    orderShipAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
-                    orderBillingAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
-                });
-            }
-        }); 
-    });
-
-    $("#orderProduct").change(function(){
-         $.ajax({
-            type: "GET",
-            url: "{{ url('api/getProduct') }}",
-            data: {
-                data:$(this).val()
-            },
-            success: function(data) {
-                var orderShipAddress = $("#orderTax");
-                orderShipAddress.val("");
-                orderShipAddress.val(data.product_total);
-            }
-        }); 
-    });
-});
-</script>
 <form action="{{ route('create_order') }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
@@ -82,7 +41,7 @@ $(document).ready(function(){
     </div>
     <div class="form-group">
         <label for="orderBillingAddress">Billing Address:</label>
-        <select class="custom-select" name="billing_address" id="orderBillingAddress">
+        <select class="custom-select" name="bill_address" id="orderBillingAddress">
             <option value="">Select Billing Address</option>
         </select>
         <small class="error">{{$errors->first("bill_address")}}</small>

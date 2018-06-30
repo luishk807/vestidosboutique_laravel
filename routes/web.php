@@ -222,7 +222,7 @@ Route::group(['middleware' => 'under-construction'], function () {
                 //Admin Orders
         Route::get('/admin/orders/','ordersController@index')->name("admin_orders");
         Route::get('/admin/orders/confirm/{order_id}','ordersController@deleteOrder')->name('confirm_order');
-        Route::delete('/admin/orders/confirm/{order_id}','ordersController@destroy')->name('delete_order');
+        Route::delete('/admin/orders/confirm/{order_id}','ordersController@deleteOrder')->name('delete_order');
         Route::get('/admin/orders/new','ordersController@newOrders')->name('new_order');
         Route::post('/admin/orders/new','ordersController@newOrders')->name('create_order');
         Route::get('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('edit_order');

@@ -39,22 +39,31 @@ class ordersController extends Controller
     }
     public function newOrders(Request $request){
         $data=[];
-        $data["user_id"]=$request->input("user");
-        $data["product_id"]=$request->input("product");
+        $data["user_id"]=(int)$request->input("user");
+        $data["product_id"]=(int)$request->input("product");
         $data["purchase_date"]=$request->input("purchase_date");
         $data["shipping_date"]=$request->input("shipping_date");
-        $data["ship_address_id"]=$request->input("ship_address_id");
-        $data["bill_address_id"]=$request->input("bill_address_id");
-        $data["order_quantity"]=$request->input("bill_address_id");
+        $data["ship_address_id"]=(int)$request->input("ship_address");
+        $data["bill_address_id"]=(int)$request->input("bill_address");
+        $data["order_quantity"]=(int)$request->input("order_quantity");
         $data["order_total"]=$request->input("order_total");
         $data["order_tax"]=$request->input("order_tax");
         $data["order_shipping"]=$request->input("order_shipping");
         $data["status"]=(int)$request->input("status");
+        $data["ip"]=$request->ip();
         if($request->isMethod("post")){
             $this->validate($request,[
-        
                 "user"=>"required",
-                "status"=>"required",
+                "product"=>"required",
+                "purchase_date"=>"required",
+                "shipping_date"=>"required",
+                "ship_address"=>"required",
+                "bill_address"=>"required",
+                "order_quantity"=>"required",
+                "order_total"=>"required",
+                "order_tax"=>"required",
+                "order_shipping"=>"required",
+                "status"=>"required"
             ]
             );
             $data["created_at"]=carbon::now();
@@ -75,22 +84,56 @@ class ordersController extends Controller
         $data["page_title"]="Edit Order";
         $data["order"]=$order;
         $data["order_id"]=$order_id;
-        $data["name"]=$order->name;
-        $data["status"]=$order->status;
+        $data["user"]=(int)$request->input("user");
+        $data["product"]=(int)$request->input("product");
+        $data["purchase_date"]=$request->input("purchase_date");
+        $data["shipping_date"]=$request->input("shipping_date");
+        $data["ship_address"]=(int)$request->input("ship_address");
+        $data["bill_address"]=(int)$request->input("ship_address");
+        $data["order_quantity"]=(int)$request->input("order_quantity");
+        $data["order_total"]=$request->input("order_total");
+        $data["order_tax"]=$request->input("order_tax");
+        $data["order_shipping"]=$request->input("order_shipping");
+        $data["status"]=(int)$request->input("status");
+        $data["ip"]=$request->ip();
         if($request->isMethod("post")){
             $this->validate($request,[
-                "name"=>"required",
+                "user"=>"required",
+                "product"=>"required",
+                "purchase_date"=>"required",
+                "shipping_date"=>"required",
+                "ship_address"=>"required",
+                "bill_address"=>"required",
+                "order_quantity"=>"required",
+                "order_total"=>"required",
+                "order_tax"=>"required",
+                "order_shipping"=>"required",
                 "status"=>"required",
             ]);
-            $order =$this->orders->find($order_id);
-            $order->name=$request->input("name");
-            $order->status=(int)$request->input("status");
             $order->updated_at=carbon::now();
+            $order->user_id=(int)$request->input("user");
+            $order->product_id=(int)$request->input("product");
+            $order->purchase_date=$request->input("purchase_date");
+            $order->shipping_date=$request->input("shipping_date");
+            $order->ship_address_id=(int)$request->input("ship_address");
+            $order->bill_address_id=(int)$request->input("bill_address");
+            $order->order_quantity=(int)$request->input("order_quantity");
+            $order->order_total=$request->input("order_total");
+            $order->order_tax=$request->input("order_tax");
+            $order->order_shipping=$request->input("order_shipping");
+            $order->status=(int)$request->input("status");
+            $order->ip=$request->ip();
+
 
             $order->save();
 
             return redirect()->route("admin_orders");
         }
+        $user=$this->users->find($order->user_id);
+        $data["users"]=$this->users->all();
+        $data["products"]=$this->products->all();
+        $data["ship_addresses"] =$user->getAddresses()->get();
+        $data["bill_addresses"] =$user->getAddresses()->get();
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Order";
         return view("admin/orders/edit",$data);
