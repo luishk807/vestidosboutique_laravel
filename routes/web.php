@@ -48,13 +48,12 @@ Route::group(['middleware' => 'under-construction'], function () {
         Route::post("/edit/{user_id}",'usersController@updateUser')->name("updateuser");
 
         Route::prefix("addresses")->group(function(){
-            Route::get("/{user_id}",'usersAddressController@userAddress')->name("address");
-            Route::get("/new/{user_id}",'usersAddressController@newAddress')->name("newaddress");
-            Route::post("/new/{user_id}",'usersAddressController@newAddress')->name("createaddress");
-            Route::get("/edit/{address_id}",'usersAddressController@editAddress')->name("editaddress");
-            Route::post("/edit/{address_id}",'usersAddressController@editAddress')->name("updateaddress");
-            Route::get('/confirm/{address_id}','usersAddressController@deleteAddress')->name('confirmaddress');
-            Route::delete('/confirm/{address_id}','usersAddressController@deleteAddress')->name('deleteaddress');
+            Route::get("/new/{user_id}",'userAddressController@newAddress')->name("newaddress");
+            Route::post("/new/{user_id}",'userAddressController@newAddress')->name("createaddress");
+            Route::get("/edit/{address_id}",'userAddressController@editAddress')->name("editaddress");
+            Route::post("/edit/{address_id}",'userAddressController@editAddress')->name("updateaddress");
+            Route::get('/confirm/{address_id}','userAddressController@deleteAddress')->name('confirmaddress');
+            Route::delete('/confirm/{address_id}','userAddressController@deleteAddress')->name('deleteaddress');
         });
     });
    // Route::middleware('auth')->group(function(){

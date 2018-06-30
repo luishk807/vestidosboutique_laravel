@@ -37,22 +37,29 @@
             </table>
         </div>
     </div>
-
     <div class="row">
         <div class="col">
-            <table class="table no-top-border">
+            <table class="table">
                 <tbody>
+                    
                     <tr>
                         <th scope="row">Address</th>
-                        <td></td>
+                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress',['user_id'=>$user->id])}}">Add Address</a></td>
                     </tr>
+                    @foreach($user->getAddresses as $address)
                     <tr>
                         <td>
-                            Luis Ho Ku<br/>
-                            368 61st street Apt 1R
+                           {{ $address->nick_name}}<br/>
+                           {{ $address->first_name}} {{ $address->middle_name}} {{ $address->last_name}}<br/>
+                           {{ $address->address_1}} {{ $address->address_2}}<br/>
+                           
+                           {{ $address->phone_number}}<br/>
+                           {{ $address->email}}<br/>
+                           {{ $address->city}} {{ $address->state}} {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
                         </td>
-                        <td class="text-right"><a class="vestidos-simple-link" href="">Edit</a></td>
+                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">Edit</a></td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

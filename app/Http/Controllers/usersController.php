@@ -8,15 +8,17 @@ use Carbon\Carbon as carbon;
 use App\vestidosCountries as Countries;
 use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
+use App\vestidosUserAddresses as Addresses;
 
 class usersController extends Controller
 {
     //
-    public function __construct(Genders $genders, Languages $languages, Users $users, Countries $countries){
+    public function __construct(Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries){
         $this->country=$countries->all();
         $this->users = $users;
         $this->genders=$genders;
         $this->languages=$languages;
+        $this->addresses=$addresses;
     }
     public function index($user_id){
         $user=$this->users->find($user_id);
