@@ -60,6 +60,7 @@ class adminProductController extends Controller
         $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
+        $data["product_model"]=$request->input("product_model");
         $data["products_description"]=$request->input("products_description");
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
@@ -109,6 +110,7 @@ class adminProductController extends Controller
         $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
+        $data["product_model"]=$request->input("product_model");
         $data["products_description"]=$request->input("products_description");
         $data["status"]=(int)$request->input("status");
         $product = $this->products->find($product_id);
@@ -140,6 +142,7 @@ class adminProductController extends Controller
             $product->product_stock = $request->input("product_stock");
             $product->search_labels = $request->input("search_labels");
             $product->product_detail = $request->input("product_detail");
+            $product->product_model = $request->input("product_model");
             $product->product_waistline_id=(int)$request->input("waistline");
             $product->products_description = $request->input("products_description");
             $product->status = (int)$request->input("status");
