@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class vestidosUserType extends Model
+class vestidosUserTypes extends Model
 {
     //
     public function getUsers(){

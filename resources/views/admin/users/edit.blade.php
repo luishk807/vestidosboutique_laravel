@@ -77,6 +77,20 @@
         <small class="error">{{$errors->first("gender")}}</small>
     </div>
     <div class="form-group">
+        <label for="userType">User Type:</label>
+        <select class="custom-select" name="user_type" id="userType">
+            <option value="">Select Type</option>
+            @foreach($user_types as $user_type)
+                <option value="{{ $user_type->id }}"
+                @if($user->user_type==$user_type->id)
+                    selected="selected"
+                @endif
+                >{{$user_type->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("user_type")}}</small>
+    </div>
+    <div class="form-group">
         <label for="userLanguage">Languages:</label>
         <select class="custom-select" name="preferred_language" id="userLanguage">
             <option value="">Select Language</option>

@@ -40,10 +40,13 @@ Route::group(['middleware' => 'under-construction'], function () {
     Route::post("/signin",'usersController@login')->name("login");
 
     //Users
-        Route::get("/account/new",'usersController@newUser')->name("newuser");
-        Route::post("/account/new",'usersController@newUser')->name("createuser");
-        Route::get("/account/edit",'usersController@updateUser')->name("edituser");
-        Route::post("/account/edit",'usersController@updateUser')->name("updateuser");
+        Route::prefix("account")->group(function(){
+            Route::get("/",'usersController@index')->name("user_account");
+            Route::get("/new",'usersController@newUser')->name("newuser");
+            Route::post("/new",'usersController@newUser')->name("createuser");
+            Route::get("/edit",'usersController@updateUser')->name("edituser");
+            Route::post("/edit",'usersController@updateUser')->name("updateuser");
+        });
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
             Route::get('/','adminHomeController@home')->name("admin");
