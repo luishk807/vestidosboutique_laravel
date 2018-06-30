@@ -22,4 +22,7 @@ class vestidosUsers extends Model
     public function getAddresses(){
         return $this->hasMany('App\vestidosUserAddresses',"user_id");
     }
+    public function getType(){
+        return $this->hasOne('App\vestidosUserTypes',"user_type");
+    }
 }

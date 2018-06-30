@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosUsers as Users;
+use App\vestidosUserTypes as UserTypes;
 use App\vestidosStatus as Statuses;
 use App\vestidosGenders as Genders;
 use Carbon\Carbon as carbon;
@@ -13,10 +14,11 @@ use App\vestidosLanguages as Languages;
 class adminUsersController extends Controller
 {
     //
-    public function __construct(Genders $genders, Users $users, Statuses $statuses,Languages $languages){
+    public function __construct(UserTypes $user_types, Genders $genders, Users $users, Statuses $statuses,Languages $languages){
         $this->users = $users;
         $this->statuses=$statuses;
         $this->languages=$languages;
+        $this->user_types=$user_types;
         $this->genders = $genders;
     }
     public function userAddress($user_id){
@@ -47,6 +49,7 @@ class adminUsersController extends Controller
         $data["gender"]=$request->input("gender");
         $data["preferred_language"]=$request->input("preferred_language");
         $data["status"]=(int)$request->input("status");
+        $data["user_type"]=(int)$request->input("user_type");
         $data["ip"]=$request->ip();
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -67,6 +70,7 @@ class adminUsersController extends Controller
         }
         $data["page_title"]="New Users";
         $data["genders"] = $this->genders->all();
+        $data["user_types"]=$this->user_types->all();
         $data["statuses"]=$this->statuses->all();
         $data["users"]=$this->users->all();
         $data["languages"]=$this->languages->all();
@@ -85,6 +89,7 @@ class adminUsersController extends Controller
         $data["preferred_language"]=$request->input("preferred_language");
         $data["date_of_birth"]=$request->input("date_of_birth");
         $data["status"]=(int)$request->input("status");
+        $data["user_type"]=(int)$request->input("user_type");
         $user = $this->users->find($user_id);
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -110,6 +115,7 @@ class adminUsersController extends Controller
             $user->email = $request->input("email");
             $user->date_of_birth = $request->input("date_of_birth");
             $user->gender = (int)$request->input("gender");
+            $user->user_type = (int)$request->input("user_type");
             $user->preferred_language = (int)$request->input("preferred_language");
             $user->status = (int)$request->input("status");
             $user->updated_at = carbon::now();
@@ -119,6 +125,7 @@ class adminUsersController extends Controller
         $data["user"]=$user;
         $data["page_title"]="Edit Users";
         $data["user_id"]=$user_id;
+        $data["user_types"]=$this->user_types->all();
         $data["statuses"]=$this->statuses->all();
         $data["languages"]=$this->languages->all();
         $data["genders"]=$this->genders->all();

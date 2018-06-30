@@ -17,6 +17,7 @@ class CreateVestidosOrders extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign("user_id")->references("id")->on("vestidos_users")->onDelete('cascade');
+            $table->integer('order_number')->nullable();
             $table->integer('product_id')->unsigned()->nullable();
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete('set null');
             $table->date('purchase_date')->nullable();
