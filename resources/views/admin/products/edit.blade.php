@@ -24,6 +24,11 @@
         <small class="error">{{$errors->first("products_name")}}</small>
     </div>
     <div class="form-group">
+        <label for="productModel">Model No.:</label>
+        <input type="text" id="productModel" class="form-control" name="product_model" value="{{ old('product_model') ? old('product_model') : $product->product_model }}" placeholder="Model No"/>
+        <small class="error">{{$errors->first("product_model")}}</small>
+    </div>
+    <div class="form-group">
         <label for="productBrand">Brand:</label>
         <select class="custom-select" name="brand" id="productBrand">
             <option value="">Select Brand</option>
