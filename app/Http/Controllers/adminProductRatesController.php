@@ -49,7 +49,7 @@ class adminProductRatesController extends Controller
         }
         $product=$this->products->find($product_id);
         $data["user"]=$request->input("user");
-        $users =$this->users->doesnthave('rates')->get();
+        $users =$this->users->all();
         $data["users"]=$users;
         $data["product"]=$product;
         $data["rate_nums"]=$this->rate_numbers;
