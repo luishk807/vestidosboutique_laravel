@@ -20,14 +20,6 @@ class userAddressController extends Controller
         $this->users = $users;
         $this->addresstypes = $addresstypes;
     }
-    function index(){
-        $data=[];
-
-        $data["countries"]=$this->countries->all();
-        $data["addresses"]=$this->addresses->all();
-        $data["page_title"]="Address Page";
-        return view("account/addresses/home",$data);
-    }
     function newAddress($user_id,Request $request){
         $data=[];
         $data["user_id"]=$user_id;

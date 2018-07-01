@@ -69,7 +69,7 @@ class ordersController extends Controller
             $date = carbon::now();
             $data["created_at"]=$date;
             $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
-            $order_number = "VB".$time_converted."-".md5($user_id);
+            $order_number = "VB".$time_converted."-".md5($request->input("user"));
             $this->orders->insert($data);
             return redirect()->route("admin_orders");
         }

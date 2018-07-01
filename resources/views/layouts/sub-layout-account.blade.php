@@ -48,7 +48,7 @@
                             <a href="{{ route('user_account',['user_id'=>$user->id]) }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Profile</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a class="btn-block vesti_in_btn_link vestidos-simple-link">Orders</a>
+                            <a href="{{ route('user_orders',['user_id'=>$user->id]) }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Orders</a>
                         </li>
                         <li class="vestidos-list-group-item">
                             <a class="btn-block vesti_in_btn_link vestidos-simple-link">Wishlist</a>

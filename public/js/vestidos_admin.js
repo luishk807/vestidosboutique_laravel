@@ -4,10 +4,11 @@ $(document).ready(function() {
         e.preventDefault();
         return false;
     });
+    
     $("#orderUser").change(function(){
         $.ajax({
            type: "GET",
-           url: "{{ url('api/getAddress') }}",
+           url: getAddressUrl,
            data: {
                data:$(this).val()
            },
@@ -30,7 +31,7 @@ $(document).ready(function() {
    $("#orderProduct").change(function(){
         $.ajax({
            type: "GET",
-           url: "{{ url('api/getProduct') }}",
+           url: getProductUrl,
            data: {
                data:$(this).val()
            },

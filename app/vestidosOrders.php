@@ -14,6 +14,6 @@ class vestidosOrders extends Model
         return $this->belongsTo('App\vestidosStatus',"status");
     }
     public function getProducts(){
-        return $this->hasMany('App\vestidosProducts',"product_id");
+        return $this->hasMany('App\vestidosProducts',"id");
     }
 }

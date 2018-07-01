@@ -55,6 +55,13 @@ Route::group(['middleware' => 'under-construction'], function () {
             Route::get('/confirm/{address_id}','userAddressController@deleteAddress')->name('confirmaddress');
             Route::delete('/confirm/{address_id}','userAddressController@deleteAddress')->name('deleteaddress');
         });
+
+        Route::prefix("orders")->group(function(){
+            Route::get("/{user_id}",'userOrderController@index')->name("user_orders");
+            Route::get("/view/{order_id}",'userOrderController@viewOrder')->name("view_order");
+            Route::get('/confirm/{order_id}','userOrderController@deleteOrder')->name('confirmorder');
+            Route::delete('/confirm/{order_id}','userOrderController@deleteOrder')->name('deleteorder');
+        });
     });
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
