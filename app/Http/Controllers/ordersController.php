@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosOrders as Orders;
+use App\vestidosOrdersProducts as OrdersProducts;
 use App\vestidosStatus as vestidosStatus;
 use App\vestidosUsers as Users;
 use App\vestidosProducts as Products;
@@ -14,9 +15,10 @@ use App\vestidosUserAddresses as Addresses;
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
+        $this->order_products=$order_products;
         $this->users=$users;
         $this->products=$products;
         $this->addresses=$addresses;
@@ -40,7 +42,6 @@ class ordersController extends Controller
     public function newOrders(Request $request){
         $data=[];
         $data["user_id"]=(int)$request->input("user");
-        $data["product_id"]=(int)$request->input("product");
         $data["purchase_date"]=$request->input("purchase_date");
         $data["shipping_date"]=$request->input("shipping_date");
         $data["ship_address_id"]=(int)$request->input("ship_address");
@@ -50,7 +51,8 @@ class ordersController extends Controller
         $data["order_tax"]=$request->input("order_tax");
         $data["order_shipping"]=$request->input("order_shipping");
         $data["status"]=(int)$request->input("status");
-        $data["ip"]=$request->ip();
+        $ip=$request->ip();
+        $data["ip"]=$ip;
         if($request->isMethod("post")){
             $this->validate($request,[
                 "user"=>"required",
@@ -69,15 +71,18 @@ class ordersController extends Controller
             $date = carbon::now();
             $data["created_at"]=$date;
             $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
-            $order_number = "VB".$time_converted."-".md5($request->input("user"));
+            $order_number = "VB".$time_converted."-".$user_id;
             $this->orders->insert($data);
-            return redirect()->route("admin_orders");
+            $data["product_id"]=(int)$request->input("product");
+
+            $order_id= $this->orders->lastInsertId();
+
+
+            return redirect()->route("admin_order_products",['order_id'=>$order_id]);
         }
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
-        // $data["ship_addresses"] =$this->addresses->all();
-        // $data["bill_addresses"] =$this->addresses->all();
         $data["page_title"]="New Order";
         return view("admin/orders/new",$data);
     }

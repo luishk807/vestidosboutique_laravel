@@ -17,16 +17,6 @@ var getAddressUrl = "{{ url('api/getAddress') }}";
         <small class="error">{{$errors->first("user")}}</small>
     </div>
     <div class="form-group">
-        <label for="orderProduct">Product:</label>
-        <select class="custom-select" name="product" id="orderProduct">
-            <option value="">Select Product</option>
-            @foreach($products as $product)
-                <option value="{{ $product->id }}">{{$product->products_name}} </option>
-            @endforeach
-        </select>
-        <small class="error">{{$errors->first("product")}}</small>
-    </div>
-    <div class="form-group">
         <label for="orderDoo">Date of Purchase:</label>
         <input type="date" id="orderDoo" min="1950-01-01" class="form-control" name="purchase_date" value="{{ old('purchase_date')}}" placeholder="Date of Purchase"/>
         <small class="error">{{$errors->first("purchase_date")}}</small>
@@ -93,7 +83,7 @@ var getAddressUrl = "{{ url('api/getAddress') }}";
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Order"/>
+                <input type="submit" class="btn-block vesti_in_btn" value="Create Order and Choose Products"/>
             </div>
         </div>
     </div>

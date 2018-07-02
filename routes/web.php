@@ -237,15 +237,27 @@ Route::group(['middleware' => 'under-construction'], function () {
                     Route::delete('/confirm/{address_id}','adminUsersAddressController@deleteAddress')->name('delete_adminaddress');
                 });
             });
+
+            //Admin Orders
+            Route::prefix("orders")->group(function(){
+                Route::get('/','ordersController@index')->name("admin_orders");
+                Route::get('/confirm/{order_id}','ordersController@deleteOrder')->name('confirm_order');
+                Route::delete('/confirm/{order_id}','ordersController@deleteOrder')->name('delete_order');
+                Route::get('/new','ordersController@newOrders')->name('new_order');
+                Route::post('/new','ordersController@newOrders')->name('create_order');
+                Route::get('/edit/{order_id}','ordersController@editOrder')->name('edit_order');
+                Route::post('/edit/{order_id}','ordersController@editOrder')->name('save_order');
+                Route::prefix("products")->group(function(){
+                    Route::get('/','ordersProductsController@index')->name("admin_order_products");
+                    Route::get('/new','ordersProductsController@newOrderProducts')->name('new_order_products');
+                    Route::post('/new','ordersProductsController@newOrderProducts')->name('create_order_products');
+                    Route::get('/edit/{order_product_id}','ordersProductsController@editOrderProduct')->name('edit_order_products');
+                    Route::post('/edit/{order_product_id}','ordersProductsController@editOrderProduct')->name('save_order_products');
+                    Route::get('/confirm/{order_product_id}','ordersProductsController@deleteOrderProduct')->name('confirm_order_products');
+                    Route::delete('/confirm/{order_product_id}','ordersProductsController@deleteOrderProduct')->name('delete_order_products');
+                });
+            });
         });
-                //Admin Orders
-        Route::get('/admin/orders/','ordersController@index')->name("admin_orders");
-        Route::get('/admin/orders/confirm/{order_id}','ordersController@deleteOrder')->name('confirm_order');
-        Route::delete('/admin/orders/confirm/{order_id}','ordersController@deleteOrder')->name('delete_order');
-        Route::get('/admin/orders/new','ordersController@newOrders')->name('new_order');
-        Route::post('/admin/orders/new','ordersController@newOrders')->name('create_order');
-        Route::get('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('edit_order');
-        Route::post('/admin/orders/edit/{order_id}','ordersController@editOrder')->name('save_order');
         
 
         //API
