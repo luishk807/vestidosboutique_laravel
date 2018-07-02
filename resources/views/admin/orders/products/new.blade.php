@@ -10,6 +10,7 @@
 </style>
 <form action="{{ route('create_order_products') }}" method="post">
 {{ csrf_field() }}
+
     <table class="table order-product-list">
         <thead>
             <tr>
@@ -30,7 +31,11 @@
                 <td class="item"><img src="{{asset('images/products')}}/{{$product->images->first()->img_url}}" alt="" class="img-fluid"></td>
                 <td class="item">{{$product->products_name}}</td>
                 <td class="item">{{$product->product_total}}</td>
-                <td class="item"><input type="number" name="order_products[{{$indexKey}}][quantity]" value=""/></td>
+                <td class="item">
+                    <select name="order_products[{{$indexKey}}][quantity]">
+                        <option>1</option>
+                    </select>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -35,18 +35,27 @@ class ordersProductsController extends Controller
         $data["status"]=(int)$request->input("status");
         $data["ip"]=$request->ip();
         $order_products=$request->input("order_products");
-        if($request->isMethod("post")){
-            
-            $this->validate($request,[
-                "status"=>"required",
-                "order_products.*.product_id"=>"min:1"
-            ]
-            );
-            // $data["created_at"]=carbon::now();
-            // $this->order_products->insert($data);
+        $order_p=[];
+        $data["order_products"]=$order_products;
+        // if($request->isMethod("post")){
+        //   // dd($order_products);
 
-            // return redirect()->route("admin_orders");
-        }
+
+        //     for($i=0;$i < count($order_products); $i++){
+        //         $order_p[]=[
+        //             "product_id"=>$order_products['product_id'][$i],
+        //             "order_id"=>1,
+        //             "quantity"=>$order_products['quantity'][$i],
+        //             "created_at"=>carbon::now()
+        //         ];
+        //     }
+        //     // dd($order_p);
+        //     if(count($order_p)>0){
+        //         $this->order_products->insert($order_p);
+        //     }
+
+        //     // return redirect()->route("admin_orders");
+        // }
         // $order=$this->orders->find($order_id);
         // $data["order"]=$order;
         $data["products"]=$this->products->all();

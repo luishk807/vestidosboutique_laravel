@@ -20,7 +20,6 @@ class CreateVestidosOrderProducts extends Migration
             $table->integer('product_id')->unsigned()->nullable();
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete('cascade');
             $table->integer('quantity');
-            $table->text('ip');
             $table->integer('status')->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
