@@ -39,7 +39,7 @@ class ordersProductsController extends Controller
         $data["order_products"]=$order_products;
         if($request->isMethod("post")){
             foreach($order_products as $product){
-                if(!empty($product["id"])){
+                if(!empty($product["product_id"])){
                     $order_p[]=[
                         "product_id"=>$product['product_id'],
                         "order_id"=>$order_id,
@@ -49,7 +49,7 @@ class ordersProductsController extends Controller
                     ];
                 }
             }
-            $this->order_products->insert($order_p);
+           $this->order_products->insert($order_p);
            return redirect()->route("admin_orders");
         }
         $order=$this->orders->find($order_id);
