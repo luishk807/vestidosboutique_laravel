@@ -11,6 +11,7 @@ use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
+use Illuminate\Support\Facades\DB;
 
 class ordersController extends Controller
 {
@@ -41,12 +42,12 @@ class ordersController extends Controller
     }
     public function newOrders(Request $request){
         $data=[];
-        $data["user_id"]=(int)$request->input("user");
+        $user_id=(int)$request->input("user");
+        $data["user_id"]=$user_id;
         $data["purchase_date"]=$request->input("purchase_date");
         $data["shipping_date"]=$request->input("shipping_date");
         $data["ship_address_id"]=(int)$request->input("ship_address");
         $data["bill_address_id"]=(int)$request->input("bill_address");
-        $data["order_quantity"]=(int)$request->input("order_quantity");
         $data["order_total"]=$request->input("order_total");
         $data["order_tax"]=$request->input("order_tax");
         $data["order_shipping"]=$request->input("order_shipping");
@@ -56,12 +57,9 @@ class ordersController extends Controller
         if($request->isMethod("post")){
             $this->validate($request,[
                 "user"=>"required",
-                "product"=>"required",
                 "purchase_date"=>"required",
-                "shipping_date"=>"required",
                 "ship_address"=>"required",
                 "bill_address"=>"required",
-                "order_quantity"=>"required",
                 "order_total"=>"required",
                 "order_tax"=>"required",
                 "order_shipping"=>"required",
@@ -72,13 +70,10 @@ class ordersController extends Controller
             $data["created_at"]=$date;
             $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
             $order_number = "VB".$time_converted."-".$user_id;
-            $this->orders->insert($data);
-            $data["product_id"]=(int)$request->input("product");
-
-            $order_id= $this->orders->lastInsertId();
-
-
-            return redirect()->route("admin_order_products",['order_id'=>$order_id]);
+            $data["order_number"]=$order_number;
+            $order = new Orders();
+            $order_id=$order->insertGetId($data);
+            return redirect()->route("new_order_products",['order_id'=>$order_id]);
         }
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();

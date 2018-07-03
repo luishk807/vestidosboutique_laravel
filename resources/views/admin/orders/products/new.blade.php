@@ -8,7 +8,7 @@
     width:20%;
 }
 </style>
-<form action="{{ route('create_order_products') }}" method="post">
+<form action="{{ route('create_order_products',['order_id'=>$order_id]) }}" method="post">
 {{ csrf_field() }}
 
     <table class="table order-product-list">

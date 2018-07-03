@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class vestidosOrders extends Model
 {
     //
+    protected $fillable = ['user_id'];
+    
     public function client(){
         return $this->belongsTo('App\vestidosUsers',"user_id");
     }

@@ -47,11 +47,6 @@ var getAddressUrl = "{{ url('api/getAddress') }}";
         <small class="error">{{$errors->first("order_total")}}</small>
     </div>
     <div class="form-group">
-        <label for="orderQuantity">Quantity:</label>
-        <input type="text" id="orderQuantity" class="form-control" name="order_quantity" value="" placeholder="Quantity"/>
-        <small class="error">{{$errors->first("order_quantity")}}</small>
-    </div>
-    <div class="form-group">
         <label for="orderTax">Total Tax:</label>
         <input type="number" id="orderTax" class="form-control" name="order_tax" min="0" step="0.01" value="" placeholder="0.00"/>
         <small class="error">{{$errors->first("order_tax")}}</small>

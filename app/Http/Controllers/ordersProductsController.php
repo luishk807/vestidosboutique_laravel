@@ -29,35 +29,31 @@ class ordersProductsController extends Controller
         $data["page_title"]="Orders";
         return view("admin/orders/products/home",$data);
     }
-    public function newOrderProducts(Request $request){
+    public function newOrderProducts($order_id,Request $request){
         $data=[];
-        // $data["order_id"]=$order_id;
+        $data["order_id"]=$order_id;
         $data["status"]=(int)$request->input("status");
         $data["ip"]=$request->ip();
         $order_products=$request->input("order_products");
         $order_p=[];
         $data["order_products"]=$order_products;
-        // if($request->isMethod("post")){
-        //   // dd($order_products);
-
-
-        //     for($i=0;$i < count($order_products); $i++){
-        //         $order_p[]=[
-        //             "product_id"=>$order_products['product_id'][$i],
-        //             "order_id"=>1,
-        //             "quantity"=>$order_products['quantity'][$i],
-        //             "created_at"=>carbon::now()
-        //         ];
-        //     }
-        //     // dd($order_p);
-        //     if(count($order_p)>0){
-        //         $this->order_products->insert($order_p);
-        //     }
-
-        //     // return redirect()->route("admin_orders");
-        // }
-        // $order=$this->orders->find($order_id);
-        // $data["order"]=$order;
+        if($request->isMethod("post")){
+            foreach($order_products as $product){
+                if(!empty($product["id"])){
+                    $order_p[]=[
+                        "product_id"=>$product['product_id'],
+                        "order_id"=>$order_id,
+                        "quantity"=>$product['quantity'],
+                        "status"=>"1",
+                        "created_at"=>carbon::now()
+                    ];
+                }
+            }
+            $this->order_products->insert($order_p);
+           return redirect()->route("admin_orders");
+        }
+        $order=$this->orders->find($order_id);
+        $data["order"]=$order;
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Add Products To Order: ";
