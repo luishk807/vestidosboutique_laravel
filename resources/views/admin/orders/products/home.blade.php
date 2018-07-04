@@ -23,11 +23,21 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-3">{{$order_product->getProduct->products_name}}</div>
-        <div class="col-md-2">{{ $order_product->quantity }}</div>
+        <div class="col-md-2">
+            <select name="quantity">
+                @for ($i = 1; $i < 10; $i++)
+                <option value="{{$i}}"
+                    @if($i==$order_product->quantity)
+                    selected=selected
+                    @endif
+                    >{{$i}}</option>
+                @endfor
+            </select>
+        </div>
         <div class="col-md-2">{{$order_product->getProduct->product_total}}</div>
         <div class="col-md-2">{{ $order_product->getStatusName->name }}</div>
         <div class="col-md-2">
-            <a href="{{ route('confirm_order',['order_id'=>$order->id])}}">delete</a>
+            <a href="{{ route('confirm_order_products',['order_product_id'=>$order_product->id])}}">delete</a>
         </div>
     </div>
     @endforeach

@@ -1,11 +1,11 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('delete_order',['order_id'=>$order->id])}}" method="post">
+<form action="{{ route('delete_order_products',['order_product_id'=>$order_product->id])}}" method="post">
 {{ method_field('DELETE') }}
 <div class="container">
     <div class="row">
         <div class="col text-center">
-            are you sure want to delete {{ $order->name }}
+            are you sure want to delete {{ $order_product->getProduct->products_name }}
         </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
                 </a>
         </div>
         <div class="col-md-6">
-            <input type="submit" class="btn-block vesti_in_btn" value="Delete Order"/>
+            <input type="submit" class="btn-block vesti_in_btn" value="Delete Product"/>
         </div>
     </div>
 </div>

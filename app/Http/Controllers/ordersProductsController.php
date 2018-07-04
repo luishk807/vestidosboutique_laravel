@@ -89,15 +89,16 @@ class ordersProductsController extends Controller
         $data["page_title"]="Edit Order";
         return view("admin/orders/products/edit",$data);
     }
-    public function deleteOrderProduct($order_id,Request $request){
+    public function deleteOrderProduct($order_product_id,Request $request){
         $data=[];
+        $order_product = $this->order_products->find($order_product_id);
         if($request->input("_method")=="DELETE"){
-            $order = $this->orders->find($order_id);
-            $order->delete();
+            $order_product->delete();
             return redirect()->route("admin_orders");
         }
-        $data["order"]=$this->orders->find($order_id);
-        $data["page_title"]="Delete Orders";
+        $data["order"]=$this->orders->find($order_product->order_id);
+        $data["order_product"]=$order_product;
+        $data["page_title"]="Delete Product ".$order_product->getProduct->products_name." From Orders";
         return view("admin/orders/products/confirm",$data);
     }
 }

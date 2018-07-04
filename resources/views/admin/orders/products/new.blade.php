@@ -33,7 +33,9 @@
                 <td class="item">{{$product->product_total}}</td>
                 <td class="item">
                     <select name="order_products[{{$indexKey}}][quantity]">
-                        <option>1</option>
+                        @for ($i = 1; $i < 10; $i++)
+                        <option value="{{$i}}">{{$i}}</option>
+                        @endfor
                     </select>
                 </td>
             </tr>
