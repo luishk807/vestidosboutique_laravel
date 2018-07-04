@@ -18,4 +18,7 @@ class vestidosOrders extends Model
     public function products(){
         return $this->hasMany('App\vestidosOrdersProducts',"order_id");
     }
+    public function getShippingAddress(){
+        return $this->hasOne('App\vestidosUserAddresses','id','ship_address_id');
+    }
 }

@@ -20,6 +20,7 @@ class CreateVestidosOrders extends Migration
             $table->text('order_number')->nullable();
             $table->date('purchase_date')->nullable();
             $table->date('shipping_date')->nullable();
+            $table->date('delivered_date')->nullable();
             $table->integer('ship_address_id')->unsigned()->nullable();
             $table->foreign("ship_address_id")->references("id")->on("vestidos_user_addresses")->onDelete('set null');
             $table->integer('bill_address_id')->unsigned()->nullable();

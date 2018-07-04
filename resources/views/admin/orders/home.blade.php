@@ -1,5 +1,23 @@
 @extends('admin/layouts.app')
 @section('content')
+<style>
+.admin_orders_row{
+    margin-bottom:20px;
+}
+.order_action_label span:not(:first-child){
+    border-left:1px solid rgba(0,0,0,.1);
+    padding-left:5px;
+}
+.order_admin_header{
+    background-color:#ddd;
+}
+.order_admin_grid{
+    border-left:1px #ddd solid;
+    border-right:1px #ddd solid;
+    border-bottom:1px #ddd solid;
+    padding:10px 0px;
+}
+</style>
 <div class="container">
     <div class="row">
         <div class="col text-center">
@@ -11,29 +29,78 @@
             
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-2">Name</div>
-        <div class="col-md-2">Order Date</div>
-        <div class="col-md-2">Ship Date</div>
-        <div class="col-md-2">Grand Total</div>
-        <div class="col-md-1">Status</div>
-        <div class="col-md-2">Action</div>
-    </div>
+    <!--start of orders-->
     @foreach($orders as $order)
-    <div class="row">
-
-        <div class="col-md-1"></div>
-        <div class="col-md-2">{{$order->client->getFullName()}}</div>
-        <div class="col-md-2">{{$order->purchase_date}}</div>
-        <div class="col-md-2">{{$order->shipping_date}}</div>
-        <div class="col-md-2">{{ $order->order_quantity * $order->order_total }}</div>
-        <div class="col-md-1">{{ $order->getStatusName->name }}</div>
-        <div class="col-md-2">
-            <a href="{{ route('confirm_order',['order_id'=>$order->id])}}">delete</a>
-            <a href="{{ route('edit_order',['order_id'=>$order->id])}}">edit</a>
+    <div class="row admin_orders_row">
+        <div class="col">
+            <div class="row py-3 order_admin_header">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-md-2">Client</div>
+                        <div class="col-md-2">Order Placed</div>
+                        <div class="col-md-2">Total</div>
+                        <div class="col-md-2">Ship To</div>
+                        <div class="col-md-4 text-right">Order Number:{{$order->order_number}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">{{$order->client->getFullName()}}</div>
+                        <div class="col-md-2">{{$order->purchase_date}}</div>
+                        <div class="col-md-2">${{$order->order_total}}</div>
+                        <div class="col-md-2">{{$order->getShippingAddress->nick_name}}</div>
+                        <div class="col-md-4 order_action_label text-right">
+                            <!--actions go here-->
+                            <span><a href="{{ route('confirm_order',['order_id'=>$order->id])}}">delete</a></span>
+                            <span><a href="{{ route('edit_order',['order_id'=>$order->id])}}">edit</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end of row for order header-->
+            <!--starts list of products-->
+            @foreach($order->products()->get() as $order_product)
+            <!--product info-->
+            <div class="row order_admin_grid">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col">
+                            <!--delivered date-->
+                            Delivered {{$order->delivered_date}}
+                            <!--noticed if product was dilvered-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <!--image-->
+                                    <img class="img-fluid" src="{{asset('images/products')}}/{{$order_product->getProduct->images->first()->img_url}}"/>
+                                </div>
+                                <div class="col">
+                                    <!--product info-->
+                                    <h4>{{$order_product->getProduct->products_name}}</h4><br/>
+                                    <small>by {{$order_product->getProduct->getBrand->name}}</small><br/>
+                                    <small>{{$order_product->getProduct->product_model}}</small><br/>
+                                    {{$order_product->getProduct->product_detail}}<br/>
+                                    {{$order_product->getProduct->product_total}}<br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-md-2">
+                    <!--buttons for actions-->
+                    <a href="" class="btn-block vesti_in_btn">Remove</a>
+                    <a href="" class="btn-block vesti_in_btn">Edit</a>
+                    <!--remove-->
+                </div>
+            </div>
+            <!--end of product info-->
+            @endforeach
+            <!--end of list of products-->
         </div>
-    </div>
+    </div><!--end of order detail-->
     @endforeach
+    <!--end of row orders-->
+
+
 </div>
 @endsection
