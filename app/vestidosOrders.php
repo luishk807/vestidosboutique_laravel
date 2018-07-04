@@ -15,7 +15,7 @@ class vestidosOrders extends Model
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }
-    public function getProducts(){
-        return $this->hasMany('App\vestidosOrdersProducts',"product_id");
+    public function products(){
+        return $this->hasMany('App\vestidosOrdersProducts',"order_id");
     }
 }

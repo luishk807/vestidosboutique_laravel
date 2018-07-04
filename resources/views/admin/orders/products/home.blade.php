@@ -5,7 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_order') }}" class="nav-link">Add Order</a></li>
+                <li class="nav-item"><a href="{{ route('new_order_products',['order_id'=>$order->id]) }}" class="nav-link">Add Products</a></li>
             </ul>
             </nav>
             
@@ -13,25 +13,21 @@
     </div>
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-2">Name</div>
-        <div class="col-md-2">Order Date</div>
-        <div class="col-md-2">Ship Date</div>
-        <div class="col-md-2">Grand Total</div>
-        <div class="col-md-1">Status</div>
+        <div class="col-md-3">Name</div>
+        <div class="col-md-2">Quantity</div>
+        <div class="col-md-2">Total</div>
+        <div class="col-md-2">Status</div>
         <div class="col-md-2">Action</div>
     </div>
-    @foreach($orders as $order)
+    @foreach($order->products()->get() as $order_product)
     <div class="row">
-
         <div class="col-md-1"></div>
-        <div class="col-md-2">{{$order->client->getFullName()}}</div>
-        <div class="col-md-2">{{$order->purchase_date}}</div>
-        <div class="col-md-2">{{$order->shipping_date}}</div>
-        <div class="col-md-2">{{ $order->order_quantity * $order->order_total }}</div>
-        <div class="col-md-1">{{ $order->getStatusName->name }}</div>
+        <div class="col-md-3">{{$order_product->getProduct->products_name}}</div>
+        <div class="col-md-2">{{ $order_product->quantity }}</div>
+        <div class="col-md-2">{{$order_product->getProduct->product_total}}</div>
+        <div class="col-md-2">{{ $order_product->getStatusName->name }}</div>
         <div class="col-md-2">
             <a href="{{ route('confirm_order',['order_id'=>$order->id])}}">delete</a>
-            <a href="{{ route('edit_order',['order_id'=>$order->id])}}">edit</a>
         </div>
     </div>
     @endforeach

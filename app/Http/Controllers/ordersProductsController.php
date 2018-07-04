@@ -23,8 +23,9 @@ class ordersProductsController extends Controller
         $this->products=$products;
         $this->addresses=$addresses;
     }
-    public function index(){
+    public function index($order_id){
         $data=[];
+        $data["order"]=$this->orders->find($order_id);
         $data["orders"]=$this->orders->all();
         $data["page_title"]="Orders";
         return view("admin/orders/products/home",$data);

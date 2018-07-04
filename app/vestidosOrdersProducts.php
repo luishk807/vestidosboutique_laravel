@@ -11,4 +11,10 @@ class vestidosOrdersProducts extends Model
     public function getOrderInfo(){
         return $this->belongsTo('App\vestidosOrders',"order_id");
     }
+    public function getProduct(){
+        return $this->belongsTo('App\vestidosProducts',"product_id");
+    }
+    public function getStatusName(){
+        return $this->belongsTo('App\vestidosStatus',"status");
+    }
 }

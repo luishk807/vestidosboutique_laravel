@@ -248,7 +248,7 @@ Route::group(['middleware' => 'under-construction'], function () {
                 Route::get('/edit/{order_id}','ordersController@editOrder')->name('edit_order');
                 Route::post('/edit/{order_id}','ordersController@editOrder')->name('save_order');
                 Route::prefix("products")->group(function(){
-                    Route::get('/','ordersProductsController@index')->name("admin_order_products");
+                    Route::get('/{order_id}','ordersProductsController@index')->name("admin_order_products");
                     Route::get('/new/{order_id}','ordersProductsController@newOrderProducts')->name('new_order_products');
                     Route::post('/new/{order_id}','ordersProductsController@newOrderProducts')->name('create_order_products');
                     Route::get('/edit/{order_product_id}','ordersProductsController@editOrderProduct')->name('edit_order_products');
