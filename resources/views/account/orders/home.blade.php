@@ -30,11 +30,11 @@
                                             <tr>
                                                 <td>Order Placed</td>
                                                 <td>Total</td>
-                                                <td>Order #:</td>
+                                                <td>Order #:{{$order->order_number}}</td>
                                             </tr>
                                             <tr>
-                                                <td>{{$order->purchased_date}}</td>
-                                                <td>{{$order->order_total}}<</td>
+                                                <td>{{$order->purchase_date}}</td>
+                                                <td>{{$order->order_total}}</td>
                                                 <td><a href="">Order Detail</a></td>
                                             </tr>
                                         </tbody>
@@ -42,7 +42,7 @@
                                 </td>
                             </tr>
                             <!--list all products of order-->
-                            @foreach($order->getProducts as $product)
+                            @foreach($order->products as $product)
                             <tr>
                                 <td>
                                     <table class="table">
@@ -56,12 +56,16 @@
                                                     <table class="table">
                                                         <tbody>
                                                             <tr>
-                                                                <td><img src="{{asset('images/products')}}/{{$product->images->first()->img_url}}"/></td>
+                                                                <td><img src="
+                                                                @if($product->getProduct->images->count()>0)
+                                                                {{asset('images/products')}}/{{$product->images->first()->img_url}}
+                                                                @endif
+                                                                "/></td>
                                                                 <td>
-                                                                    {{ $product->products_name}}<br/>
-                                                                    {{ $product->product_model}}<br/>
-                                                                    {{ $product->vendor}}<br/>
-                                                                    {{ $product->product_total}}
+                                                                    {{ $product->getProduct->products_name}}<br/>
+                                                                    {{ $product->getProduct->product_model}}<br/>
+                                                                    {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
+                                                                    {{ $product->getProduct->product_total}}
                                                                 </td>
                                                             </tr>
                                                         </tbody>
