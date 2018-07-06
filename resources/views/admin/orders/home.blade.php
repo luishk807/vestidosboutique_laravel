@@ -72,7 +72,12 @@
                             <div class="row">
                                 <div class="col">
                                     <!--image-->
-                                    <img class="img-fluid" src="{{asset('images/products')}}/{{$order_product->getProduct->images->first()->img_url}}"/>
+                                    <img class="img-fluid" src="
+
+                                    @if($order_product->getProduct->images->count())
+                                    {{asset('images/products')}}/{{$order_product->getProduct->images->first()->img_url}}
+                                    @endif
+                                    "/>
                                 </div>
                                 <div class="col">
                                     <!--product info-->

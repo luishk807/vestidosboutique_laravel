@@ -28,7 +28,11 @@
                     <label class="form-check-label" for="productcheck{{$indexKey}}" class="label-table"></label>
                     <input type="checkbox" name="order_products[{{$indexKey}}][product_id]" id="productcheck{{$indexKey}}" value="{{ $product->id }}">
                 </td>
-                <td class="item"><img src="{{asset('images/products')}}/{{$product->images->first()->img_url}}" alt="" class="img-fluid"></td>
+                <td class="item"><img src="
+                @if($product->images->count()>0)
+                {{asset('images/products')}}/{{$product->images->first()->img_url}}
+                @endif
+                " alt="" class="img-fluid"></td>
                 <td class="item">{{$product->products_name}}</td>
                 <td class="item">{{$product->product_total}}</td>
                 <td class="item">

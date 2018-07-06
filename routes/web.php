@@ -14,7 +14,7 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::group(['middleware' => 'under-construction'], function () {
+//Route::group(['middleware' => 'under-construction'], function () {
     // Route::get('/live-site', function() {
     //     echo 'content!';
     // });
@@ -276,7 +276,7 @@ Route::group(['middleware' => 'under-construction'], function () {
 
    // });
    // Auth::routes();
-});
+//});
 Route::get('/generate/password',function(){
     return bcrypt("123456789");
 });
