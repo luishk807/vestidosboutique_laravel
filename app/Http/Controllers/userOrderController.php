@@ -33,6 +33,7 @@ class userOrderController extends Controller
         $order =$this->orders->find($order_id);
         $data["page_title"]="Order: ".$order->order_number;
         $data["order"]=$order;
+        $data["user"]=$this->users->find($order->user_id);
         return view("account/orders/view",$data);
     }
     public function deleteOrder($order_id,Request $request){

@@ -16,16 +16,14 @@
     <div class="container account-container">
 
 
-<form action="{{ route('updateorder',['order_id'=>$order_id]) }}" method="post">
-
     <table class="table">
         <tbody>
                 <tr>
-                    <th scope="row">Order Detail/th>
+                    <th scope="row">Order Detail</th>
                     <td></td>
                 </tr>
                 <tr>
-                    <td><span>Ordered Date: {{ $order->purchased Date }}</span> <span>Order# {{ $order->order_number }}</span></td>
+                    <td><span>Ordered Date: {{ $order->purchase_date }}</span> <span>Order# {{ $order->order_number }}</span></td>
                     <td class="text-right"></td>
                 </tr>
                 <tr>
@@ -41,12 +39,12 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        {{$order->getAddress->getFullName()}}<br/>
-                                        {{$order->getAddress->address_1}} {{$order->getAddress->address_2}}<br/>
-                                        {{$order->getAddress->phone_number_1}}<br/>
-                                        {{$order->getAddress->phone_number_2}}<br/>
-                                        {{$order->getAddress->email}}<br/>
-                                        {{$order->getAddress->city}} {{$order->getAddress->state}} {{$order->getAddress->getCountry->countryName}} {{$order->getAddress->zip_code}}<br/>
+                                        {{$order->getShippingAddress->getFullName()}}<br/>
+                                        {{$order->getShippingAddress->address_1}} {{$order->getShippingAddress->address_2}}<br/>
+                                        {{$order->getShippingAddress->phone_number_1}}<br/>
+                                        {{$order->getShippingAddress->phone_number_2}}<br/>
+                                        {{$order->getShippingAddress->email}}<br/>
+                                        {{$order->getShippingAddress->city}} {{$order->getShippingAddress->state}} {{$order->getShippingAddress->getCountry->countryName}} {{$order->getShippingAddress->zip_code}}<br/>
                                     </td>
                                     <td></td>
                                     <td>
@@ -88,12 +86,10 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{ route('confirmorders',['order_id'=>$order->id])}}" class="btn-block vesti_in_btn">Delete Order</a>
+                <a href="{{ route('confirmorder',['order_id'=>$order->id])}}" class="btn-block vesti_in_btn">Delete Order</a>
             </div>
         </div>
     </div>
-
-</form>
 
     </div>
 </div><!--end of main container-->
