@@ -61,6 +61,7 @@ class adminProductController extends Controller
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
         $data["product_model"]=$request->input("product_model");
+        $data["purchase_date"]=$request->input("purchase_date");
         $data["products_description"]=$request->input("products_description");
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
@@ -72,6 +73,7 @@ class adminProductController extends Controller
                 "closure"=>"required",
                 "fabric"=>"required",
                 "fit"=>"required",
+                'purchase_date'=>"required",
                 "neckline"=>"required",
                 "waistline"=>"required",
                 "products_description"=>"required",
@@ -112,6 +114,7 @@ class adminProductController extends Controller
         $data["product_detail"]=$request->input("product_detail");
         $data["product_model"]=$request->input("product_model");
         $data["products_description"]=$request->input("products_description");
+        $data["purchase_date"]=$request->input("purchase_date");
         $data["status"]=(int)$request->input("status");
         $product = $this->products->find($product_id);
         if($request->isMethod("post")){
@@ -122,6 +125,7 @@ class adminProductController extends Controller
                 "category"=>"required",
                 "closure"=>"required",
                 "fabric"=>"required",
+                "purchase_date"=>"required",
                 "fit"=>"required",
                 "neckline"=>"required",
                 "waistline"=>"required",
@@ -141,6 +145,7 @@ class adminProductController extends Controller
             $product->product_total = $request->input("product_total");
             $product->product_stock = $request->input("product_stock");
             $product->search_labels = $request->input("search_labels");
+            $product->purchase_date=$request->input("purchase_date");
             $product->product_detail = $request->input("product_detail");
             $product->product_model = $request->input("product_model");
             $product->product_waistline_id=(int)$request->input("waistline");

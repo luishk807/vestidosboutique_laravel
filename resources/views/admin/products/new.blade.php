@@ -98,6 +98,11 @@
         <small class="error">{{$errors->first("product_total")}}</small>
     </div>
     <div class="form-group">
+        <label for="productDop">Date of Purchase:</label>
+        <input type="date" id="productDop" min="1950-01-01" class="form-control" name="purchase_date" value="{{ old('purchase_date')}}" placeholder="Date of Purchase"/>
+        <small class="error">{{$errors->first("purchase_date")}}</small>
+    </div>
+    <div class="form-group">
         <label for="productStock">Available Stock:</label>
         <input type="text" id="productStock" class="form-control" name="product_stock" value="" placeholder="Number of Stock Available"/>
         <small class="error">{{$errors->first("product_stock")}}</small>
