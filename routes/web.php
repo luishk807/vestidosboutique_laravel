@@ -37,7 +37,7 @@
         return view("cart",['page_title'=>"Cart"]);
     });
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get("/signin",'usersController@login')->name("signin");
+    Route::get("/signin",'usersController@login')->name("login_page");
     Route::post("/signin",'usersController@login')->name("login");
     //Users
     Route::get("/account/new",'usersController@newUser')->name("newuser");

@@ -36,6 +36,7 @@ class CreateVestidosProducts extends Migration
             $table->integer('product_waistline_id')->unsigned()->nullable();
             $table->foreign("product_waistline_id")->references("id")->on("vestidos_waistline_types")->onDelete('set null');
             $table->decimal('product_total',10,2);
+            $table->date('purchase_date')->nullable();
             $table->text('search_labels')->nullable();
             $table->integer('vendor_id')->unsigned()->nullable();
             $table->foreign("vendor_id")->references("id")->on("vestidos_vendors")->onDelete('set null');
