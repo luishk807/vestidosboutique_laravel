@@ -27,6 +27,8 @@
         <div class="col-md-2"><img src="
         @if($product->images->count()>0)
             {{asset('images/products')}}/{{$product->images->first()->img_url}}
+        @else
+           {{asset('images/no-image.jpg')}}
         @endif
         " class="img-fluid"/></div>
         <div class="col-md-3">{{$product->products_name}}</div>

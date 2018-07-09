@@ -76,6 +76,8 @@
 
                                     @if($order_product->getProduct->images->count())
                                     {{asset('images/products')}}/{{$order_product->getProduct->images->first()->img_url}}
+                                    @else
+                                    {{asset('images/products/no-image.jpg')}}
                                     @endif
                                     "/>
                                 </div>

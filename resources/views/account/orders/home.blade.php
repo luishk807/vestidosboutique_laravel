@@ -59,6 +59,8 @@
                                                                 <td><img src="
                                                                 @if($product->getProduct->images->count()>0)
                                                                 {{asset('images/products')}}/{{$product->images->first()->img_url}}
+                                                                @else
+                                                                {{asset('images/no-image.jpg')}}
                                                                 @endif
                                                                 "/></td>
                                                                 <td>

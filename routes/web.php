@@ -18,6 +18,7 @@
     // Route::get('/live-site', function() {
     //     echo 'content!';
     // });
+    
     Route::get("/",function(){
         return view("home",['page_title'=>"Welcome Page"]);
     });
@@ -72,6 +73,9 @@
     });
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
+            Route::get("/login","adminUserLoginController@login")->name("admin_show_login");
+            Route::post("/login","adminUserLoginController@login")->name("admin_login");
+
             Route::get('/','adminHomeController@home')->name("admin");
 
             //Admin Brands

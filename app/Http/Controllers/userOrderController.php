@@ -21,6 +21,7 @@ class userOrderController extends Controller
         $this->products=$products;
         $this->addresses=$addresses;
     }
+
     public function index($user_id){
         $data=[];
         $data["orders"]=$this->orders->all();
