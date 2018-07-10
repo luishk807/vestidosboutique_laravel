@@ -74,8 +74,9 @@
     });
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
-            Route::get("/login","adminUserLoginController@login")->name("admin_show_login");
+            Route::get("/login","adminUserLoginController@index")->name("admin_show_login");
             Route::post("/login","adminUserLoginController@login")->name("admin_login");
+            Route::get("/logout",'adminUserLoginController@logout')->name("admin_logout_user");
 
             Route::get('/','adminHomeController@home')->name("admin");
 
