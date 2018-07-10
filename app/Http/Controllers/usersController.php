@@ -9,6 +9,7 @@ use App\vestidosCountries as Countries;
 use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
+use Auth;
 
 class usersController extends Controller
 {
@@ -22,10 +23,16 @@ class usersController extends Controller
         $this->middleware("auth:vestidosUsers");
     }
     public function index($user_id){
-        $user=$this->users->find($user_id);
-        $data["page_title"]="Welcome ".$user->getFullName();
-        $data["user"]=$user;
-        return view("account/home",$data);
+        $data=[];
+        if(Auth::guard("vestidosUsers")->check()){
+            $user=$this->users->find($user_id);
+            $data["page_title"]="Welcome ".$user->getFullName();
+            $data["user"]=$user;
+            return view("account/home",$data);
+        }else{
+            $data["page_title"]="Login";
+            return redirect()->route('login_page',$data);
+        }
     }
     public function newUser(Request $request){
         $data=[];
@@ -100,4 +107,5 @@ class usersController extends Controller
         }
         return view("account/edit",$data);
     }
+
 }

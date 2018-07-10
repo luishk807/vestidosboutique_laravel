@@ -26,6 +26,7 @@ class CreateVestidosUsers extends Migration
             $table->integer('gender');
             $table->text('ip');
             $table->integer('preferred_language');
+            $table->rememberToken();
             $table->integer('user_type')->unsigned()->nullable();
             $table->foreign("user_type")->references("id")->on("vestidos_user_types")->onDelete('set null');
             $table->integer('status')->unsigned()->nullable();

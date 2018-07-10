@@ -54,7 +54,7 @@
                             <a href="{{ route('user_wishlists',['user_id'=>$user->id])}}" class="btn-block vesti_in_btn_link vestidos-simple-link">Wishlist</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a class="btn-block vesti_in_btn_link vestidos-simple-link">Log Out</a>
+                            <a href="{{ route('logout_user') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Log Out</a>
                         </li>
                     </ul>
                 </div>

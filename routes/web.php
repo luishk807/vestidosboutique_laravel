@@ -39,6 +39,7 @@
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get("/signin",'userLoginController@index')->name("login_page");
     Route::post("/signin",'userLoginController@login')->name("login_user");
+    Route::get("/logout",'userLoginController@logout')->name("logout_user");
     //Users
     Route::get("/account/new",'usersController@newUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");

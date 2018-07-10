@@ -11,7 +11,7 @@ use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use Illuminate\Support\Facades\Auth;
 
-class userLoginController extends Controller
+class adminUserLoginController extends Controller
 {
     //
     public function __construct(Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries){
@@ -24,7 +24,7 @@ class userLoginController extends Controller
     public function index(){
         $data["page_title"]="Login";
         $data["users"]=$this->users->all();
-        return view("/signin",$data);
+        return view("/admin/login",$data);
     }
     public function login(Request $request){
         $data["page_title"]="Login";
@@ -37,23 +37,23 @@ class userLoginController extends Controller
             if(Auth::guard("vestidosUsers")->attempt([
                 "email"=>$request->input("email"),
                 "password"=>$request->input("password"),
-                "user_type"=>2
+                "user_type"=>1
                 ])){
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
-                return redirect('account/'.$user_id);
+                return redirect('admin/'.$user_id);
             }else{
                 return redirect()->back()->withInput($data)->with("msg","Invalid User");
             }
         }
-        return view("/signin",$data);
+        return view("/admin/login",$data);
     }
     public function logout(){
         $data=[];
         $data["page_title"]="Login";
         if(Auth::guard("vestidosUsers")->check()){
             Auth::guard("vestidosUsers")->logout();
-            return redirect()->route('login_page',$data);
+            return redirect()->route('admin_show_login',$data);
         }
         return redirect()->back();
     }

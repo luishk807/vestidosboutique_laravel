@@ -27,6 +27,13 @@
                                         <div class="col"><h2>Log In</h2></div>
                                     </div>
                                     <div class="row">
+                                        <div class="col"><small class="error">
+                                        @if(Session::has("msg"))
+                                    {{Session::get("msg")}}
+                                    @endif
+                                        </small></div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col">
                                             
                                             <div class="form-group">
