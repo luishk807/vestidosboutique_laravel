@@ -40,7 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'vestidosUsers' => [
+            'driver' => 'session',
+            'provider' => 'vestidosUsers',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -65,14 +68,14 @@ return [
     */
 
     'providers' => [
-        // 'users' => [
-        //     'driver' => 'eloquent',
-        //     'model' => App\User::class,
-        // ],
-
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\VestidosUsers::class,
+            'model' => App\User::class,
+        ],
+
+        'vestidosUsers' => [
+            'driver' => 'eloquent',
+            'model' => App\vestidosUsers::class,
         ],
         // 'users' => [
         //     'driver' => 'database',
@@ -98,6 +101,11 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'vestidosUsers' => [
+            'provider' => 'vestidosUsers',
             'table' => 'password_resets',
             'expire' => 60,
         ],

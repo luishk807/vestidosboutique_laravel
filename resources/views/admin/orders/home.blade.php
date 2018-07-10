@@ -95,8 +95,8 @@
                 </div>  
                 <div class="col-md-2">
                     <!--buttons for actions-->
-                    <a href="" class="btn-block vesti_in_btn">Remove</a>
-                    <a href="" class="btn-block vesti_in_btn">Edit</a>
+                    <a href="{{ route('confirm_order',['order_id'=>$order->id])}}" class="btn-block vesti_in_btn">Remove</a>
+                    <a href="{{ route('edit_order',['order_id'=>$order->id])}}" class="btn-block vesti_in_btn">Edit</a>
                     <!--remove-->
                 </div>
             </div>

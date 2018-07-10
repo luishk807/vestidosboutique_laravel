@@ -21,7 +21,8 @@
                             <div class="col-md-6 signin-login-section">
                                 
                                 <div class="container">
-                                    <form action="{{ route('login') }}" method="post">
+                                    <form action="{{ route('login_user') }}" method="post">
+                                    {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col"><h2>Log In</h2></div>
                                     </div>

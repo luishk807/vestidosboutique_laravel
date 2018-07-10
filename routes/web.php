@@ -37,8 +37,8 @@
         return view("cart",['page_title'=>"Cart"]);
     });
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get("/signin",'usersController@login')->name("login_page");
-    Route::post("/signin",'usersController@login')->name("login");
+    Route::get("/signin",'userLoginController@index')->name("login_page");
+    Route::post("/signin",'userLoginController@login')->name("login_user");
     //Users
     Route::get("/account/new",'usersController@newUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
@@ -286,7 +286,7 @@
         
 
    // });
-   // Auth::routes();
+   Auth::routes();
 //});
 Route::get('/generate/password',function(){
     return bcrypt("123456789");

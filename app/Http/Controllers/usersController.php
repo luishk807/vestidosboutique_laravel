@@ -19,23 +19,13 @@ class usersController extends Controller
         $this->genders=$genders;
         $this->languages=$languages;
         $this->addresses=$addresses;
+        $this->middleware("auth:vestidosUsers");
     }
     public function index($user_id){
         $user=$this->users->find($user_id);
         $data["page_title"]="Welcome ".$user->getFullName();
         $data["user"]=$user;
         return view("account/home",$data);
-    }
-    public function login(Request $request){
-        $data["page_title"]="Login";
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "email"=>"required",
-                "password"=>"required"
-            ]);
-            return redirect("signin");
-        }
-        return view("/signin",$data);
     }
     public function newUser(Request $request){
         $data=[];
