@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="vest-maincolor-left navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="/about">About</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="events-submenu" href="#">Events</a>
@@ -48,10 +48,10 @@
                         <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="brands-submenu" href="#">Brands</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="/contact">Contact Us</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('viewContactPage') }}">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="/shop">Shop</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">Shop</a>
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
@@ -131,15 +131,15 @@
             <div class="vesti-custom-bg">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="/about">About Us</a>
+                        <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">About Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Events</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
-                                <li><a href="#">Submenu2.1</a></li>
-                                <li><a href="#">Submenu2.2</a></li>
-                                <li><a href="#">Submenu2.3</a></li>
+                                @foreach($categories as $category)
+                                <li><a href="#">{{$category->name}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </li>
@@ -147,17 +147,17 @@
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#" data-toggle="collapse" class="collapsed" data-target="#toggle-brands">Brands</a>
                         <div class="collapse vesti-collapse" id="toggle-brands" style="height: 0px;">
                             <ul class="nav-list">
-                                <li><a href="#">Submenu2.1</a></li>
-                                <li><a href="#">Submenu2.2</a></li>
-                                <li><a href="#">Submenu2.3</a></li>
+                                @foreach($brands as $brand)
+                                <li><a href="#">{{$brand->name}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="/shop">Shop</a>
+                        <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="/contact">Contact Us</a>
+                        <a class="nav-link text-white collapse-link" href="{{ route('viewContactPage') }}">Contact Us</a>
                     </li>
                 </ul>
 
