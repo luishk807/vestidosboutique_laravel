@@ -64,6 +64,7 @@ class adminProductController extends Controller
         $data["purchase_date"]=$request->input("purchase_date");
         $data["products_description"]=$request->input("products_description");
         $data["status"]=(int)$request->input("status");
+        $data["is_new"]=(int)$request->input("is_new");
         if($request->isMethod("post")){
             $this->validate($request,[
                 "products_name"=>"required",
@@ -84,6 +85,7 @@ class adminProductController extends Controller
             $this->products->insert($data);
             return redirect()->route("admin_products");
         }
+        $data["is_news"]=[0,1];
         $data["brand"]=(int)$request->input("brand");
         $data["vendor"]=(int)$request->input("vendor");
         $data["category"]=(int)$request->input("category");
@@ -116,6 +118,7 @@ class adminProductController extends Controller
         $data["products_description"]=$request->input("products_description");
         $data["purchase_date"]=$request->input("purchase_date");
         $data["status"]=(int)$request->input("status");
+        $data["is_new"]=(int)$request->input("is_new");
         $product = $this->products->find($product_id);
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -152,9 +155,14 @@ class adminProductController extends Controller
             $product->products_description = $request->input("products_description");
             $product->status = (int)$request->input("status");
             $product->updated_at = carbon::now();
+            $product->is_new=(int)$request->input("is_new");
+            if($product->product_total != $request->input("product_total")){
+                $product->product_total_old=$request->input("product_total");
+            }
             $product->save();
             return redirect()->route("admin_products");
         }
+        $data["is_news"]=[0,1];
         $data["brand"]=(int)$request->input("brand");
         $data["vendor"]=(int)$request->input("vendor");
         $data["category"]=(int)$request->input("category");

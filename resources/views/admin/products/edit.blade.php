@@ -171,6 +171,19 @@
         <small class="error">{{$errors->first("purchase_date")}}</small>
     </div>
     <div class="form-group">
+        <label for="productisNew">Is New?:</label>
+        <select class="custom-select" name="is_new" id="productisNew">
+            @for($i=0;$i<sizeof($is_news); $i++)
+                <option value="{{ $is_news[$i] }}"
+                @if($product->is_new==$is_news[$i])
+                    selected="selected"
+                @endif
+                >{{ ($is_news[$i])?"Yes":"No"}} </option>
+            @endfor
+        </select>
+        <small class="error">{{$errors->first("is_new")}}</small>
+    </div>
+    <div class="form-group">
         <label for="productStatus">Status:</label>
         <select class="custom-select" name="status" id="productStatus">
             <option value="">Select Status</option>

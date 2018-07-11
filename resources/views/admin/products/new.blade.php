@@ -123,6 +123,19 @@
         <small class="error">{{$errors->first("products_description")}}</small>
     </div>
     <div class="form-group">
+        <label for="productisNew">Is New?:</label>
+        <select class="custom-select" name="is_new" id="productisNew">
+            @for($i=0;$i<sizeof($is_news); $i++)
+                <option value="{{ $is_news[$i] }}"
+                @if($is_news[$i]==0)
+                    selected="selected"
+                @endif
+                >{{ ($is_news[$i])?"Yes":"No"}} </option>
+            @endfor
+        </select>
+        <small class="error">{{$errors->first("is_new")}}</small>
+    </div>
+    <div class="form-group">
         <label for="productStatus">Status:</label>
         <select class="custom-select" name="status" id="productStatus">
             <option value="">Select Status</option>
