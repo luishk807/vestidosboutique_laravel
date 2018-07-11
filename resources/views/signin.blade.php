@@ -27,11 +27,11 @@
                                         <div class="col"><h2>Log In</h2></div>
                                     </div>
                                     <div class="row">
-                                        <div class="col"><small class="error">
+                                        <div class="col error py-2">
                                         @if(Session::has("msg"))
-                                    {{Session::get("msg")}}
-                                    @endif
-                                        </small></div>
+                                        {{Session::get("msg")}}
+                                        @endif
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">

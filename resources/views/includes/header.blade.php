@@ -55,7 +55,13 @@
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
-                    <li class="nav-item"><a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">Login</a></li>
+                    <li class="nav-item">
+                    @if(Auth::check())
+                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account',['user_id'=>Auth::user()->getId()])}}">My Account</a>
+                    @else
+                    <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">Login</a>
+                    @endif
+                    </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
                         Cart<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
                         <!-- <div id="vesti-cart-top-cont">
