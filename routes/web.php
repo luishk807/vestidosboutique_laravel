@@ -22,10 +22,11 @@
     Route::get("/",'homeController@index')->name("home_page");
     Route::get("/about",'homeController@about')->name("about_page");
     Route::get("/shop",'homeController@shop')->name("shop_page");
-    Route::get("/product",'homeController@product')->name("product_page");
-    Route::get("/cart",'homeController@cart')->name("cart_page");
+    Route::get("/product/{product_id}",'homeController@product')->name("product_page");
     Route::get("/contact","homeController@contact")->name("viewContactPage");
     Route::post("/contact","homeController@sendEmail")->name("sendEmail");
+
+    Route::get("/cart",'userCartControlller@index')->name("cart_page");
 
    //Route::get('/home', 'HomeController@index')->name('home');
     Route::get("/signin",'homeController@signin')->name("login_page");

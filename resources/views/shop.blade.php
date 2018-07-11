@@ -160,15 +160,12 @@
                                 <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
                                 <div class="shoplist-search-cont vesti-search-cont">
                             <div class="shoplist-search-type-cont">
-                                <h3>Category</h3>
+                                <h3>Events</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    @foreach($categories as $category)
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $category->id }}"/><label for="vestidos_cat_3" class="vestidos-label"/>{{ $category->name }}</label></li>
+                                    @endforeach
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
@@ -183,38 +180,22 @@
                     <div class="col-md-3" id="desktop-sort-nav">   
                         <div class="shoplist-search-cont vesti-search-cont">
                             <div class="shoplist-search-type-cont">
-                                <h3>Category</h3>
+                                <h3>Events</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                        <li><input id="vestidos_cat_1" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_1" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_2" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_2" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_4" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_4" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_5" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_5" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_6" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_6" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                        <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                        @foreach($categories as $category)
+                                        <li><input id="vestidos_cat_1" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $category->id }}"/><label for="vestidos_cat_1" class="vestidos-label"/>{{ $category->name }}</label></li>
+                                        @endforeach
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
                             <div class="shoplist-search-type-cont">
-                                <h3>    Events</h3>
+                                <h3>Brands</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]"/><label for="vestidos_cat_3" class="vestidos-label"/>Test</label></li>
+                                    @foreach($brands as $brand)
+                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $brand->id }}"/><label for="vestidos_cat_3" class="vestidos-label"/>{{ $brand->name }}</label></li>
+                                    @endforeach
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
@@ -239,150 +220,40 @@
                         <div>
                             
                             <ul class="shoplist-cont">
+                                @foreach($products as $product)
                                 <!--each pod-->
                                 <li class="shoplist-list">
                                     <div>
+
                                         <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='/product' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                                        
+                                        <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail"><img class="img-fluid" src="
+                                        @if($product->images->count()>0)
+                                            {{asset('images/products')}}/{{$product->images->first()->img_url}}
+                                        @else
+                                             {{asset('images/no-image.jpg')}}
+                                        @endif
+                                        " alt/></a>
                                         <div class="container shoplist-list-cont-in">
                                             <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/><span class="shoplist-thumb-auth">By {{ $product->vendor->getFullVendorName() }}</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">${{ $product->product_total }}</span></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <div class='rate-shop' data-rate-value="4"></div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
+                                                    @foreach($product->colors as $color)
+                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:{{ $color->color_code }}"></span>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
                                 <!--end pod-->
-                                 <!--each pod-->
-                                 <li class="shoplist-list">
-                                    <div>
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='/product' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                                        <div class="container shoplist-list-cont-in">
-                                            <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class='rate-shop' data-rate-value="4"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!--end pod-->
-                                 <!--each pod-->
-                                 <li class="shoplist-list">
-                                    <div>
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='/product' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                                        <div class="container shoplist-list-cont-in">
-                                            <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class='rate-shop' data-rate-value="4"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!--end pod-->
-                                <!--each pod-->
-                                <li class="shoplist-list">
-                                    <div>
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='/product' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                                        <div class="container shoplist-list-cont-in">
-                                            <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class='rate-shop' data-rate-value="4"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!--end pod-->
-                                <!--each pod-->
-                                <li class="shoplist-list">
-                                    <div>
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='/product' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                                        <div class="container shoplist-list-cont-in">
-                                            <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class='rate-shop' data-rate-value="4"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!--end pod-->
-                                <!--each pod-->
-                                <li class="shoplist-list">
-                                    <div>
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        <a href='/product' class="flash_hover_link thumbnail"><img class="img-fluid" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                                        <div class="container shoplist-list-cont-in">
-                                            <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">Long Organaza Sweetheart</span><br/><span class="shoplist-thumb-auth">By Joanna</span></div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">$578.00</span></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class='rate-shop' data-rate-value="4"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:red"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:pink"></span>
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:green"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!--end pod-->
+                                @endforeach
                             </ul>
                         </div><!--end of product list container-->
                         <div class="shoplist-nav">

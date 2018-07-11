@@ -88,7 +88,7 @@
                                    <div class="col">Subtotal: $40.00</div>
                                </div>
                                <div class="row cart-top-buttons">
-                                   <div class="col"><button class="btn-block vesti_in_btn_b" onclick="location.href='/cart'">View Cart</button></div>
+                                   <div class="col"><button class="btn-block vesti_in_btn_b" onclick="location.href='{{ route('cart_page') }}'">View Cart</button></div>
                                    <div class="col"><button class="btn-block vesti_in_btn_b" onclick="">Checkout</button></div>
                                </div>
                            </div>
