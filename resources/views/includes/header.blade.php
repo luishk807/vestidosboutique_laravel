@@ -105,22 +105,9 @@
                 <div class="row">
                     <div class="col">
                         <ul>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
-                            <li><a href="">events</a></li>
+                            @foreach($categories as $category)
+                            <li><a href="{{ $category->id }}">{{$category->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -131,22 +118,9 @@
                 <div class="row">
                     <div class="col">
                         <ul>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
-                            <li><a href="">Brands</a></li>
+                            @foreach($brands as $brand)
+                            <li><a href="{{ $brand->id }}">{{$brand->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

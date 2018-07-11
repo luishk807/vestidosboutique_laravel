@@ -19,27 +19,18 @@
     //     echo 'content!';
     // });
     
-    Route::get("/",function(){
-        return view("home",['page_title'=>"Welcome Page"]);
-    });
-    Route::get("/about",function(){
-        return view("about",['page_title'=>"About Us"]);
-    });
-    Route::get("/shop",function(){
-        return view("/shop",['page_title'=>"Shop"]);
-    });
-    Route::get("/contact","contactController@index")->name("viewContactPage");
-    Route::post("/contact","contactController@sendEmail")->name("sendEmail");
-    Route::get("/product",function(){
-        return view("product",['page_title'=>"Product"]);
-    });
-    Route::get("/cart",function(){
-        return view("cart",['page_title'=>"Cart"]);
-    });
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get("/signin",'userLoginController@index')->name("login_page");
-    Route::post("/signin",'userLoginController@login')->name("login_user");
-    Route::get("/logout",'userLoginController@logout')->name("logout_user");
+    Route::get("/",'homeController@index')->name("home_page");
+    Route::get("/about",'homeController@about')->name("about_page");
+    Route::get("/shop",'homeController@shop')->name("shop_page");
+    Route::get("/product",'homeController@product')->name("product_page");
+    Route::get("/cart",'homeController@cart')->name("cart_page");
+    Route::get("/contact","homeController@contact")->name("viewContactPage");
+    Route::post("/contact","homeController@sendEmail")->name("sendEmail");
+
+   //Route::get('/home', 'HomeController@index')->name('home');
+    Route::get("/signin",'homeController@signin')->name("login_page");
+    Route::post("/signin",'homeController@login')->name("login_user");
+    Route::get("/logout",'homeController@logout')->name("logout_user");
     //Users
     Route::get("/account/new",'usersController@newUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
