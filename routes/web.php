@@ -71,6 +71,7 @@
             Route::get('/confirm/{order_id}','userOrderController@deleteOrder')->name('confirmorder');
             Route::delete('/confirm/{order_id}','userOrderController@deleteOrder')->name('deleteorder');
         });
+
     });
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){

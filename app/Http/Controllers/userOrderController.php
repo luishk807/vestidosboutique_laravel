@@ -24,8 +24,9 @@ class userOrderController extends Controller
 
     public function index($user_id){
         $data=[];
-        $data["orders"]=$this->orders->all();
-        $data["user"]=$this->users->find($user_id);
+        $user = $this->users->find($user_id);
+        $data["orders"]=$user->orders()->get();
+        $data["user"]=$user;
         $data["page_title"]="Orders";
         return view("account/orders/home",$data);
     }

@@ -23,11 +23,11 @@
                     </tr>
                     <tr>
                         <td>Name</td>
-                        <td>Luis Ho Ku</td>
+                        <td>{{$user->getFullName()}}</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td>evil_luis@hotmail.com</td>
+                        <td>{{$user->email}}</td>
                     </tr>
                     <tr>
                         <td></td>
