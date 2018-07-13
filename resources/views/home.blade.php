@@ -1,5 +1,22 @@
 @extends("layouts.app")
 @section('content')
+<script>
+ function saveWishlist(product_id){
+    var saveWishlistUrl = "{{ url('api/saveWishlist') }}";
+     alert(product_id);
+        $.ajax({
+            type: "GET",
+            url: saveWishlistUrl,
+            data: {
+                data:product_id
+            },
+            success: function(data) {
+               alert(data);
+            }
+        }); 
+    }
+
+</script>
    <div id="fullpage">
         <div class="section" id="home_main_slider">
             <div id="main_slider_arrow_cont">
@@ -79,19 +96,19 @@
                     <div id="top_middle_sec_row" class="row">
                         <div id="top_middle_img1" class="col-sm-6 col-md-4">
                             <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="javascript:saveWishlist('1')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="/product" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
                             </a>
                         </div>
                         <div id="top_middle_img2" class="col-sm-6 col-md-4">
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="javascript:saveWishlist('1')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="/product" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_2.jpg')}}" alt="model1">
                             </a>
                         </div>
                         <div id="top_middle_img3" class="col-sm-6 col-md-4">
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="javascript:saveWishlist('1')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="/product" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/middle_3.jpg')}}" alt="model1">
                             </a>

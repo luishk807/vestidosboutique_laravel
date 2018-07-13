@@ -6,15 +6,23 @@ use Illuminate\Http\Request;
 use App\vestidosStatus as Statuses;
 use App\vestidosUsers as Users;
 use App\vestidosUserWishlists as Wishlists;
+use App\vestidosBrands as Brands;
+use App\vestidosCountries as Countries;
+use App\vestidosCategories as Categories;
 use Carbon\Carbon as carbon;
+use Illuminate\Support\Facades\Input;
+use Auth;
 
 class userWishlistController extends Controller
 {
     //
-    public function __construct(Statuses $statuses, Wishlists $wishlists, Users $users){
+    public function __construct(Countries $countries,Brands $brands, Statuses $statuses, Wishlists $wishlists, Users $users, Categories $categories){
         $this->users = $users;
         $this->statuses=$statuses;
+        $this->countries = $countries;
         $this->wishlists=$wishlists;
+        $this->brands=$brands;
+        $this->categories = $categories;
     }
     public function index($user_id){
         $data=[];
@@ -23,6 +31,19 @@ class userWishlistController extends Controller
         $data["user_id"]=$user_id;
         $data["wishlists"]=$this->wishlists->all();
         return view("/account/wishlists/home",$data);
+    }
+    public function addWishlist(){
+        $data=[];
+        $product_id=Input::get('data');
+        if(Auth::guard("vestidosUsers")->check()){
+            $data["user_id"]=Auth::guard("vestidosUsers")->user()->getId();
+            $data["product_id"]=$product_id;
+            $data["created_at"]=carbon::now();
+            $this->wishlists->insert($data);
+            return "Good";
+        }else{
+           return "error:";
+        }
     }
     public function deleteWishlist($wishlist_id,Request $request){
         $data=[];

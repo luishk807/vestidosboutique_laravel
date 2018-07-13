@@ -4,7 +4,6 @@ $(document).ready(function() {
         e.preventDefault();
         return false;
     });
-    
     $("#orderUser").change(function(){
         $.ajax({
            type: "GET",

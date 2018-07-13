@@ -266,6 +266,7 @@
         
 
         //API
+        Route::get("api/saveWishlist",'userWishlistController@addWishlist');
         Route::get('api/getAddress','ordersController@getAddressDropdown');
         Route::get('api/getProduct','ordersController@getProductDropdown');
         

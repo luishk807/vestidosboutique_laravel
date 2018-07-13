@@ -2,7 +2,7 @@
 @section('content')
 <script>
 var getAddressUrl = "{{ url('api/getAddress') }}";
-    var getProductUrl = "{{ url('api/getProduct') }}";
+var getProductUrl = "{{ url('api/getProduct') }}";
 </script>
 <form action="{{ route('create_order') }}" method="post">
 {{ csrf_field() }}

@@ -37,7 +37,6 @@ class usersController extends Controller
             return view("account/home",$data);
         }
         $data["page_title"]="Login";
-
         return view('/signin',$data);
     }
     public function newUser(Request $request){

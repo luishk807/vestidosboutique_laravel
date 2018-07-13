@@ -34,6 +34,7 @@ class HomeController extends Controller
       $this->genders=$genders;
       $this->languages=$languages;
       $this->addresses=$addresses;
+      $this->middleware("auth:vestidosUsers");
     }
 
     /**
