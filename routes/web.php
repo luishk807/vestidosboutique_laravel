@@ -28,7 +28,6 @@
 
     Route::get("/cart",'userCartControlller@index')->name("cart_page");
 
-   //Route::get('/home', 'HomeController@index')->name('home');
     Route::get("/signin",'homeController@signin')->name("login_page");
     Route::post("/signin",'homeController@login')->name("login_user");
     Route::get("/logout",'homeController@logout')->name("logout_user");
@@ -68,8 +67,8 @@
    // Route::middleware('auth')->group(function(){
         Route::prefix("admin")->group(function(){
             Route::get("/login","adminUserLoginController@index")->name("admin_show_login");
-            Route::post("/login","adminUserLoginController@login")->name("admin_login");
-            Route::get("/logout",'adminUserLoginController@logout')->name("admin_logout_user");
+            // Route::post("/login","adminUserLoginController@login")->name("admin_login");
+            // Route::get("/logout",'adminUserLoginController@logout')->name("admin_logout_user");
 
             Route::get('/','adminHomeController@home')->name("admin");
 

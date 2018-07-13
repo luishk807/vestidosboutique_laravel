@@ -112,43 +112,43 @@ $(document).ready(function(){
             <div class="container-fluid container-in-space">
                 <div class="row">
                     <div class="col-md-2 product_thumnnail">
-                            <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail"/></a>
-                            <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
-                            <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="float-left img-thumbnail" /></a>
+                            @foreach($product->images as $image)
+                            <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/') }}/{{ $image->img_url }}" alt="{{ $image->img_name }}" class="float-left img-thumbnail"/></a>
+                            @endforeach
                     </div>
                     <div class="col-md-6 product_main_img">
                         <div class="product_main_img_in">
                             <a href="#" class="vesti-heart-link-b"><span class="vesti-svg"></span></a>
-                            <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" class="img-fluid" alt /></a>
+                            <a href=""><img src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
                         </div>
                     </div>
                     <div class="col-md-4 product_main_txt">
                         <div>
                             <div class="product_in_txt">
-                                    <h2 class="product_in_title">Long Organaza Sweetheart Mori Lee Quinceanera Dress</h2>
-                                    <div class="product_in_vendor">By Joanna</div>
+                                    <h2 class="product_in_title">{{ $product->products_name }}</h2>
+                                    <div class="product_in_vendor">By {{ $product->vendor->getFullVendorName() }}</div>
                                     <div class="product_in_rate">
                                         <div class='rate-view' data-rate-value="4"></div>
                                     </div>
                                     <div class="product_in_detail crimson-txt">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris iaculis elementum lacus ac condimentum. In eget tincidunt sem. Morbi aliquam justo at posuere lobortis. Sed id ex euismod, scelerisque tortor imperdiet, pharetra purus. Proin sed velit non dui ullamcorper tincidunt. Aliquam sed est diam.
+                                    {{ $product->product_detail }}
                                     </div>
-                                    <div class="product_in_price">$578.00</div>
+                                    <div class="product_in_price">${{ $product->product_total }}</div>
                                     <div class="product_in_colors">
                                         <div class="product_in_sub_title">
                                             Select Colors
                                         </div>
-                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:red"></button>
-                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:pink"></button>
-                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:blue"></button>
+                                        @foreach($product->colors as $color)
+                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:{{ $color->color_code }}"></button>
+                                        @endforeach
                                     </div>
                                     <div class="product_in_size">
                                         <div class="product_in_sub_title">
                                             Select Size
                                         </div>
-                                        <button class="size_spheres">9</button>
-                                        <button class="size_spheres">10</button>
-                                        <button class="size_spheres">13</button>
+                                        @foreach($product->sizes as $size)
+                                        <button class="size_spheres">{{ $size->name }}</button>
+                                        @endforeach
                                     </div>
                                     <div class="product_in_detail_drop">
                                         <div id="accordion">
@@ -161,7 +161,7 @@ $(document).ready(function(){
                                                     </h5>
                                                 </div>
                                                 <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                {{ $product->product_detail }}
 
                                                 </div>
                                             </div>
@@ -174,7 +174,7 @@ $(document).ready(function(){
                                                     </h5>
                                                 </div>
                                                 <div id="collapseTwo" class="collapse" aria-labelleby="headingTwo" data-parent="#accordion">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                               {{ $product->products_description }}
 
                                                 </div>
                                             </div>

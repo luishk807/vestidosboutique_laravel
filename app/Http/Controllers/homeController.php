@@ -137,7 +137,6 @@ class HomeController extends Controller
     }
     public function logout(){
         $data=[];
-        $data["page_title"]="Login";
         if(Auth::guard("vestidosUsers")->check()){
             Auth::guard("vestidosUsers")->logout();
             return redirect()->route('login_page',$data);

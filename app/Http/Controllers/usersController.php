@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
+use App\vestidosBrands as Brands;
+use App\vestidosCategories as Categories;
 use App\vestidosCountries as Countries;
 use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
@@ -14,25 +16,29 @@ use Auth;
 class usersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries){
+    public function __construct(Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories){
         $this->country=$countries->all();
         $this->users = $users;
         $this->genders=$genders;
         $this->languages=$languages;
         $this->addresses=$addresses;
+        $this->brands=$brands;
+        $this->categories = $categories;
         $this->middleware("auth:vestidosUsers");
     }
     public function index($user_id){
         $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
         if(Auth::guard("vestidosUsers")->check()){
             $user=$this->users->find($user_id);
             $data["page_title"]="Welcome ".$user->getFullName();
             $data["user"]=$user;
             return view("account/home",$data);
-        }else{
-            $data["page_title"]="Login";
-            return redirect()->route('login_page',$data);
         }
+        $data["page_title"]="Login";
+
+        return view('/signin',$data);
     }
     public function newUser(Request $request){
         $data=[];
@@ -71,6 +77,8 @@ class usersController extends Controller
             $data["user"]=$user;
             return redirect()->route("user_account",['user_id'=>$user->id]);
         }
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
         $data["languages"]=$this->languages->all();
         $data["genders"]=$this->genders->all();
         $data["page_title"]="New Account";
@@ -83,6 +91,8 @@ class usersController extends Controller
         $data["languages"]=$this->languages->all();
         $data["countries"]=$this->country->all();
         $data["user"]=$user;
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
         $data["user_id"]=$user->id;
         if($request->isMethod("post")){
             $this->validate($request,[
