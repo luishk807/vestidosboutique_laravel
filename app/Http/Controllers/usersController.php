@@ -24,7 +24,6 @@ class usersController extends Controller
         $this->addresses=$addresses;
         $this->brands=$brands;
         $this->categories = $categories;
-        $this->middleware("auth:vestidosUsers");
     }
     public function index($user_id){
         $data=[];

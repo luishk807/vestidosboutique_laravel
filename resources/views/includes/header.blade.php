@@ -56,8 +56,8 @@
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item">
-                    @if(Auth::check())
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account',['user_id'=>Auth::user()->getId()])}}">My Account</a>
+                    @if(Auth::guard('vestidosUsers')->check())
+                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account',['user_id'=>Auth::guard('vestidosUsers')->user()->getId()])}}">My Account</a>
                     @else
                     <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">Login</a>
                     @endif

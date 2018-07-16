@@ -36,11 +36,19 @@ class userWishlistController extends Controller
         $data=[];
         $product_id=Input::get('data');
         if(Auth::guard("vestidosUsers")->check()){
-            $data["user_id"]=Auth::guard("vestidosUsers")->user()->getId();
+            $user_id = Auth::guard("vestidosUsers")->user()->getId();
+            $data["user_id"]=$user_id;
             $data["product_id"]=$product_id;
             $data["created_at"]=carbon::now();
-            $this->wishlists->insert($data);
-            return "Good";
+
+            $wishlist = $this->wishlists::where('product_id',$product_id)->where('user_id',$user_id)->get();
+            if($wishlist->first()){
+                $wishlist->first()->delete();
+                return "Deleted";
+            }else{
+                $this->wishlists->insert($data);
+                return "Insert";
+            }
         }else{
            return "error:";
         }

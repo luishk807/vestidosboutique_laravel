@@ -11,9 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 //Route::group(['middleware' => 'under-construction'], function () {
     // Route::get('/live-site', function() {
     //     echo 'content!';
@@ -34,7 +31,7 @@
     //Users
     Route::get("/account/new",'usersController@newUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
-    Route::prefix("account")->group(function(){
+    Route::prefix("account")->middleware("auth:vestidosUsers")->group(function(){
         Route::get("/{user_id}",'usersController@index')->name("user_account");
         
         Route::get("/edit/{user_id}",'usersController@updateUser')->name("edituser");
@@ -269,17 +266,6 @@
         Route::get("api/saveWishlist",'userWishlistController@addWishlist');
         Route::get('api/getAddress','ordersController@getAddressDropdown');
         Route::get('api/getProduct','ordersController@getProductDropdown');
-        
-        //  //Admin Users Address
-        //  Route::get('/admin/useraddress/','userAddressController@index')->name("admin_useraddress");
-        //  Route::get('/admin/useraddress/confirm/{useraddress_id}','userAddressController@deleteUserAddress')->name('confirm_useraddress');
-        //  Route::delete('/admin/useraddress/confirm/{useraddress_id}','userAddressController@destroy')->name('delete_useraddress');
-        //  Route::get('/admin/useraddress/new','userAddressController@newUsersAddress')->name('new_useraddress');
-        //  Route::post('/admin/useraddress/new','userAddressController@newUsersAddress')->name('create_useraddress');
-        //  Route::get('/admin/useraddress/edit/{useraddress_id}','userAddressController@editUserAddress')->name('edit_useraddress');
-        //  Route::post('/admin/useraddress/edit/{useraddress_id}','userAddressController@editUserAddress')->name('save_useraddress');
-        
-
    // });
    Auth::routes();
 //});

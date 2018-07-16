@@ -14,7 +14,7 @@ use App\vestidosCountries as Countries;
 use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,9 +23,15 @@ class HomeController extends Controller
      *
      * @return void
      */
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
     public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users)
     {
-      //  $this->middleware('auth');
       $this->brands=$brands;
       $this->country=$countries->all();
       $this->categories = $categories;
@@ -34,14 +40,7 @@ class HomeController extends Controller
       $this->genders=$genders;
       $this->languages=$languages;
       $this->addresses=$addresses;
-      $this->middleware("auth:vestidosUsers");
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data=[];
