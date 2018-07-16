@@ -7,7 +7,7 @@ function addWishlist(product_id){
         type: "GET",
         url: addWishlistUrl,
         data: {
-            data:$product_id
+            data:product_id
         },
         success: function(data) {
             alert(data);
