@@ -16,7 +16,7 @@ class CreateVestidosBrands extends Migration
         Schema::create('vestidos_brands', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->unsigned()->default('1')->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });
