@@ -68,7 +68,19 @@
             // Route::get("/logout",'adminUserLoginController@logout')->name("admin_logout_user");
 
             Route::get('/','adminHomeController@home')->name("admin");
-
+            
+            //Admin Main Sliders
+            Route::prefix('home_config')->group(function(){
+                Route::prefix('main_sliders')->group(function(){
+                    Route::get('/','adminConfigSectionMainSliders@index')->name('main_sliders_page');
+                    Route::get('/new','adminConfigSectionMainSliders@newMainSlider')->name('new_main_slider');
+                    Route::post('/new','adminConfigSectionMainSliders@newMainSlider')->name('create_main_slider');
+                    Route::get('/edit/{slider_image_id}','adminConfigSectionMainSliders@editMainSlider')->name('edit_main_slider');
+                    Route::post('/edit/{slider_image_id}','adminConfigSectionMainSliders@editMainSlider')->name('save_main_slider');
+                    Route::get('/confirm/{slider_image_id}','adminConfigSectionMainSliders@deleteMainSlider')->name('confirm_main_slider');
+                    Route::delete('/confirm/{slider_image_id}','adminConfigSectionMainSliders@deleteMainSlider')->name('delete_main_slider');
+                });
+            });
             //Admin Brands
             Route::prefix('brands')->group(function () {
                 Route::get('/','adminBrandController@index')->name("admin_brands");

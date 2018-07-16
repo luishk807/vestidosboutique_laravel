@@ -15,9 +15,9 @@ class CreateMainSlider extends Migration
     {
         Schema::create('vestidos_config_section_main_sliders', function (Blueprint $table) {
             $table->increments('id');
-            $table->text("slider_img");
-            $table->string("slider_name")->nullable();
-            $table->text("slider_url")->nullable();
+            $table->text("image_url");
+            $table->string("image_name")->nullable();
+            $table->text("image_destination")->nullable();
             $table->timestamps();
         });
     }
