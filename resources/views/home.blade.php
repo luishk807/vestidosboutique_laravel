@@ -11,6 +11,9 @@ function addWishlist(product_id){
         },
         success: function(data) {
             alert(data);
+            if(data=="login"){
+                window.location.href="/signin";
+            }
         }
     }); 
 }
