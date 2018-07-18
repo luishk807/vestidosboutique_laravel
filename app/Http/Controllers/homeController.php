@@ -124,7 +124,7 @@ class HomeController extends Controller
             if(Auth::guard("vestidosUsers")->attempt([
                 "email"=>$request->input("email"),
                 "password"=>$request->input("password"),
-                "user_type"=>2
+                "user_type"=>1
                 ])){
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
