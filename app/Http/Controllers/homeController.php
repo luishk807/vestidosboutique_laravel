@@ -121,11 +121,18 @@ class HomeController extends Controller
                 "email"=>"required | email",
                 "password"=>"required"
             ]);
-            if(Auth::guard("vestidosUsers")->attempt([
-                "email"=>$request->input("email"),
-                "password"=>$request->input("password"),
-                "user_type"=>1
-                ])){
+            // if(Auth::guard("vestidosUsers")->attempt([
+            //     "email"=>$request->input("email"),
+            //     "password"=>$request->input("password"),
+            //     "user_type"=>1
+            //     ])){
+            //     $user_id=Auth::guard("vestidosUsers")->user()->getId();
+            //     $data["user_id"]=$user_id;
+            //     return redirect('account/'.$user_id);
+            // }else{
+            //     return redirect()->back()->withInput($data)->with("msg","Invalid User");
+            // }
+            if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 1])) {
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
                 return redirect('account/'.$user_id);
@@ -134,6 +141,9 @@ class HomeController extends Controller
             }
         }
         return view("/signin",$data);
+    }
+    protected function guard(){
+        return auth()->guard('vestidosUsers');
     }
     public function logout(){
         $data=[];

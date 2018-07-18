@@ -62,10 +62,11 @@
 
     });
    // Route::middleware('auth')->group(function(){
-        Route::prefix("admin")->group(function(){
-            Route::get("/login","adminUserLoginController@index")->name("admin_show_login");
-            // Route::post("/login","adminUserLoginController@login")->name("admin_login");
-            // Route::get("/logout",'adminUserLoginController@logout')->name("admin_logout_user");
+        Route::get("/admin/login","adminHomeController@signin")->name("admin_show_login");
+        Route::post("/admin/login","adminHomeController@login")->name("admin_login");
+        Route::get("/admin/logout",'adminHomeController@logout')->name("admin_logout_user");
+        Route::prefix("admin")->middleware("auth:vestidosAdmins")->group(function(){
+        
 
             Route::get('/','adminHomeController@home')->name("admin");
             

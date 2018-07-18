@@ -7,16 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('admin_login') }}" method="post">
+
+<form action="{{ route('admin_login') }}" method="post">
     {{ csrf_field() }}
+        <div class="row">
+            <div class="col error py-2">
+            @if(Session::has("msg"))
+            {{Session::get("msg")}}
+            @endif
+            </div>
+        </div>
         <div class="form-group">
             <label for="loginName">Name:</label>
-            <input type="text" id="loginName" class="form-control" name="name" value="" placeholder="login Type Name"/>
-            <small class="error">{{$errors->first("name")}}</small>
+            <input type="email" id="loginName" class="form-control" name="email" value="" placeholder="login Type Name"/>
+            <small class="error">{{$errors->first("email")}}</small>
         </div>
         <div class="form-group">
             <label for="loginPassword">Password:</label>
-            <input type="password" id="loginPassword" class="form-control" name="passsword" value="" placeholder=""/>
+            <input type="password" id="loginPassword" class="form-control" name="password" value="" placeholder=""/>
             <small class="error">{{$errors->first("password")}}</small>
         </div>
 
