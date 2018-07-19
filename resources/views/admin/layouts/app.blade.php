@@ -46,6 +46,13 @@
                         <a href="{{ route('admin_waistlines')}}" class="nav-link">Waistlines</a>
                     </div>
                 </li>
+                <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Home Config</a>
+                    <div class="dropdown-menu">
+                        <a href="{{ route('main_sliders_page')}}" class="nav-link">Main Sliders</a>
+                        <a href="{{ route('top_quinces_page')}}" class="nav-link">Top Quince</a>
+                        <a href="{{ route('top_dresses_page')}}" class="nav-link">Top Dresses</a>
+                    </div>
+                </li>
             </ul>
         </nav>
         <div class="container">

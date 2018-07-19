@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('delete_main_slider',['main_slider_id'=>$main_slider_id->id])}}" method="post">
+<form action="{{ route('delete_main_slider',['main_slider_id'=>$main_slider->id])}}" method="post">
 {{ method_field('DELETE') }}
 <div class="container">
     <div class="row">

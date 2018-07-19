@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="imageLabels">Choose Slider</label>
-        <input type="file" name="main_slider[]" class="form-control-file" id="imageLabels" multiple>
+        <input type="file" name="image" class="form-control-file" id="imageLabels">
     </div>
     <div class="container">
         <div class="row">

@@ -76,10 +76,28 @@
                     Route::get('/','adminConfigSectionMainSliders@index')->name('main_sliders_page');
                     Route::get('/new','adminConfigSectionMainSliders@newMainSlider')->name('new_main_slider');
                     Route::post('/new','adminConfigSectionMainSliders@newMainSlider')->name('create_main_slider');
-                    Route::get('/edit/{slider_image_id}','adminConfigSectionMainSliders@editMainSlider')->name('edit_main_slider');
-                    Route::post('/edit/{slider_image_id}','adminConfigSectionMainSliders@editMainSlider')->name('save_main_slider');
-                    Route::get('/confirm/{slider_image_id}','adminConfigSectionMainSliders@deleteMainSlider')->name('confirm_main_slider');
-                    Route::delete('/confirm/{slider_image_id}','adminConfigSectionMainSliders@deleteMainSlider')->name('delete_main_slider');
+                    Route::get('/edit/{main_slider_id}','adminConfigSectionMainSliders@editMainSlider')->name('edit_main_slider');
+                    Route::post('/edit/{main_slider_id}','adminConfigSectionMainSliders@editMainSlider')->name('save_main_slider');
+                    Route::get('/confirm/{main_slider_id}','adminConfigSectionMainSliders@deleteMainSlider')->name('confirm_main_slider');
+                    Route::delete('/confirm/{main_slider_id}','adminConfigSectionMainSliders@deleteMainSlider')->name('delete_main_slider');
+                });
+                Route::prefix('top_dresses')->group(function(){
+                    Route::get('/','adminConfigSectionTopDresses@index')->name('top_dresses_page');
+                    Route::get('/new','adminConfigSectionTopDresses@newTopDress')->name('new_top_dress');
+                    Route::post('/new','adminConfigSectionTopDresses@newTopDress')->name('create_top_dress');
+                    Route::get('/edit/{top_dress_id}','adminConfigSectionTopDresses@editTopDress')->name('edit_top_dress');
+                    Route::post('/edit/{top_dress_id}','adminConfigSectionTopDresses@editTopDress')->name('save_top_dress');
+                    Route::get('/confirm/{top_dress_id}','adminConfigSectionTopDresses@deleteTopDress')->name('confirm_top_dress');
+                    Route::delete('/confirm/{top_dress_id}','adminConfigSectionTopDresses@deleteTopDress')->name('delete_top_dress');
+                });
+                Route::prefix('top_quinces')->group(function(){
+                    Route::get('/','adminConfigSectionTopQuince@index')->name('top_quinces_page');
+                    Route::get('/new','adminConfigSectionTopQuince@newTopQuince')->name('new_top_quince');
+                    Route::post('/new','adminConfigSectionTopQuince@newTopQuince')->name('create_top_quince');
+                    Route::get('/edit/{top_quince_id}','adminConfigSectionTopQuince@editTopQuince')->name('edit_top_quince');
+                    Route::post('/edit/{top_quince_id}','adminConfigSectionTopQuince@editTopQuince')->name('save_top_quince');
+                    Route::get('/confirm/{top_quince_id}','adminConfigSectionTopQuince@deleteTopQuince')->name('confirm_top_quince');
+                    Route::delete('/confirm/{top_quince_id}','adminConfigSectionTopQuince@deleteTopQuince')->name('delete_top_quince');
                 });
             });
             //Admin Brands

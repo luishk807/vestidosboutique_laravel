@@ -7,6 +7,7 @@ use App\vestidosConfigSectionMainSliders as MainSliders;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use App\vestidosStatus as vestidosStatus;
+use Illuminate\Support\Str;
 
 class adminConfigSectionMainSliders extends Controller
 {
@@ -20,7 +21,7 @@ class adminConfigSectionMainSliders extends Controller
         $data=[];
         $data["main_sliders"]=$this->main_sliders->all();
         $data["page_title"]="Main Slider";
-        return route("main_sliders_page",$data);
+        return view("/admin/home_config/main_sliders/home",$data);
     }
     public function getMainSliderName($file){
         $picture="";
@@ -39,27 +40,22 @@ class adminConfigSectionMainSliders extends Controller
         $data=[];
         if($request->isMethod("post")){
             $this->validate($request,[
-                'main_slider' => 'required',
-                'main_slider.*' => 'main_slider|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'image' => 'required|image|mimes:jpeg,jpg|max:2048'
              ]
             );
-            $files = $request->file('main_slider');
-            if ($request->hasFile('main_slider')) {
-                foreach($files as $file){
-                    if(!empty($file)){
-                        $picture =$this->getMainSliderName($file);
-                        $destinationPath = public_path().'/images/main_sliders/';
-                        $file->move($destinationPath, $picture);
-                        $data["image_url"]=$picture;
-                        $data["created_at"]=carbon::now();
-                        $this->main_sliders->insert($data);
-                    }
-                 }
+            $file = $request->file('image');
+            if ($request->hasFile('image')) {
+                $picture =$this->getMainSliderName($file);
+                $destinationPath = public_path().'/images/main_sliders/';
+                $file->move($destinationPath, $picture);
+                $data["image_url"]=$picture;
+                $data["created_at"]=carbon::now();
+                $this->main_sliders->insert($data);
             }
             return redirect()->route("main_sliders_page");
         }
         $data["page_title"]="New Slider";
-        return route("new_main_slider",$data);
+        return view("/admin/home_config/main_sliders/new",$data);
     }
     public function editMainSlider($main_slider_id,Request $request){
         $data=[];
@@ -68,11 +64,12 @@ class adminConfigSectionMainSliders extends Controller
         $data["main_slider"]=$main_slider;
         $data["image_name"]=$request->input("image_name");
         $data["image_destination"]=$request->input("image_destination");
+        $regex='"/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/"';
         if($request->isMethod("post")){
 
             $this->validate($request,[
                 'image_name' => 'required',
-                'image_destination'=>'required'
+                'image_destination'=>'required | regex:'.$regex,
              ]
             );
             $file = $request->file('main_slider');
@@ -95,7 +92,7 @@ class adminConfigSectionMainSliders extends Controller
             return redirect()->route("main_sliders_page",['product_id'=>$main_slider->product_id]);
         }
         $data["page_title"]="Edit Slider";
-        return route("edit_main_slider",$data);
+        return view("/admin/home_config/main_sliders/edit",$data);
     }
     public function deleteMainSlider($main_slider_id,Request $request){
         $data=[];
@@ -110,6 +107,6 @@ class adminConfigSectionMainSliders extends Controller
         }
         $data["main_slider"]=$main_slider;
         $data["page_title"]="Delete Slider";
-        return route("confirm_main_slider",$data);
+        return view("/admin/home_config/main_sliders/confirm",$data);
     }
 }

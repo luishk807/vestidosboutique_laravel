@@ -18,6 +18,11 @@
         <small class="error">{{$errors->first("image_name")}}</small>
     </div>
     <div class="form-group">
+        <label for="imageDestination">Destination:</label>
+        <input type="text" id="imageDestination" class="form-control" name="image_destination" value="{{ old('image_destination') ? old('image_destination') : $main_slider->image_destination }}" placeholder="image destination"/>
+        <small class="error">{{$errors->first("image_destination")}}</small>
+    </div>
+    <div class="form-group">
         <label for="imageLabels">Replace Slider</label>
         <input type="file" name="main_slider" class="form-control-file" id="imageLabels">
     </div>
