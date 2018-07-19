@@ -10549,18 +10549,6 @@ html {
   background-position: center center;
 }
 
-#slide1 {
-  background-image: url(/images/vestidos_slide1.jpg);
-}
-
-#slide2 {
-  background-image: url(/images/vestidos_slide3.jpg);
-}
-
-#slide3 {
-  background-image: url(/images/vestidos_slide2.jpg);
-}
-
 .section {
   background-size: cover;
 }

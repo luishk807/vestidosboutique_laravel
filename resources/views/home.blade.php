@@ -26,7 +26,8 @@ function addWishlist(product_id){
                         <a class="vesti-svg vesti-down-arrow" href=''></a>
                     </div>
             </div>
-            <div class="slide playfair-display-black-italic" id="slide2">
+            @foreach($main_sliders as $main_slider)
+            <div class="slide playfair-display-black-italic" id="slide1" image="{{ asset('images/main_sliders/')}} {{ $main_slider->image_url }}">
                
                 <div class="intro">
                     <div class="container">
@@ -39,7 +40,7 @@ function addWishlist(product_id){
                             </div>
                             <div class="col main_slider_btn">
                                 <div>
-                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
+                                    <a href="{{ $main_slider->image_destination }}" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
                                 </div>
                             </div>
                         </div>
@@ -47,44 +48,7 @@ function addWishlist(product_id){
                 </div>
 
             </div>
-            <div class="slide playfair-display-black-italic" id="slide1">
-            <div class="intro">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col main_slider_txt">
-                                    <div class="vesti_font_color_a main_slider_in">
-                                        <span>Lorem Ipsum has?</span><br/>
-                                        <span>2018</span>
-                                    </div>
-                            </div>
-                            <div class="col main_slider_btn">
-                                <div>
-                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slide playfair-display-black-italic" id="slide3">
-                <div class="intro">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col main_slider_txt">
-                                    <div class="vesti_font_color_a main_slider_in">
-                                        <span>Lorem Ipsum has?</span><br/>
-                                        <span>2018</span>
-                                    </div>
-                            </div>
-                            <div class="col main_slider_btn">
-                                <div>
-                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="section" id="top_middle_sec">
         <div class="intro">
