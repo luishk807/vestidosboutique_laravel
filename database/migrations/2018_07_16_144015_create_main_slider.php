@@ -17,6 +17,7 @@ class CreateMainSlider extends Migration
             $table->increments('id');
             $table->text("image_url");
             $table->string("image_name")->nullable();
+            $table->string("image_name_2")->nullable();
             $table->text("image_destination")->nullable();
             $table->timestamps();
         });
