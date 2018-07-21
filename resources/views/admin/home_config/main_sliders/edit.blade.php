@@ -18,6 +18,11 @@
         <small class="error">{{$errors->first("image_name")}}</small>
     </div>
     <div class="form-group">
+        <label for="imageName_2">Name_2:</label>
+        <input type="text" id="imageName_2" class="form-control" name="image_name_2" value="{{ old('image_name_2') ? old('image_name_2') : $main_slider->image_name_2 }}" placeholder="Product Name"/>
+        <small class="error">{{$errors->first("image_name_2")}}</small>
+    </div>
+    <div class="form-group">
         <label for="imageDestination">Destination:</label>
         <input type="text" id="imageDestination" class="form-control" name="image_destination" value="{{ old('image_destination') ? old('image_destination') : $main_slider->image_destination }}" placeholder="image destination"/>
         <small class="error">{{$errors->first("image_destination")}}</small>

@@ -3,25 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\vestidosConfigSectionMainSliders as MainSliders;
+use App\vestidosConfigSectionTopDresses as TopDresses;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use App\vestidosStatus as vestidosStatus;
 use Illuminate\Support\Str;
 
-class adminConfigSectionMainSliders extends Controller
+class adminConfigTopDresses extends Controller
 {
     //
-    public function __construct(Products $products, vestidosStatus $vestidosStatus, MainSliders $main_sliders){
+    public function __construct(Products $products, vestidosStatus $vestidosStatus, TopDresses $top_dresses){
         $this->statuses=$vestidosStatus;
-        $this->main_sliders=$main_sliders;
+        $this->top_dresses=$top_dresses;
         $this->products=$products;
     }
     public function index(){
         $data=[];
-        $data["main_sliders"]=$this->main_sliders->all();
-        $data["page_title"]="Main Slider";
-        return view("/admin/home_config/main_sliders/home",$data);
+        $data["top_dresses"]=$this->top_dresses->all();
+        $data["page_title"]="Top Dresses";
+        return view("/admin/home_config/top_dresses/home",$data);
     }
     public function getMainSliderName($file){
         $picture="";
@@ -52,10 +52,10 @@ class adminConfigSectionMainSliders extends Controller
                 $data["created_at"]=carbon::now();
                 $this->main_sliders->insert($data);
             }
-            return redirect()->route("main_sliders_page");
+            return redirect()->route("top_dresses_page");
         }
         $data["page_title"]="New Slider";
-        return view("/admin/home_config/main_sliders/new",$data);
+        return view("/admin/home_config/top_dresses/new",$data);
     }
     public function editMainSlider($main_slider_id,Request $request){
         $data=[];
@@ -92,12 +92,12 @@ class adminConfigSectionMainSliders extends Controller
 
             $main_slider->save();
 
-            return redirect()->route("main_sliders_page",['product_id'=>$main_slider->product_id]);
+            return redirect()->route("top_dresses_page",['product_id'=>$main_slider->product_id]);
         }
-        $data["page_title"]="Edit Slider";
-        return view("/admin/home_config/main_sliders/edit",$data);
+        $data["page_title"]="Edit Top Dress";
+        return view("/admin/home_config/top_dresses/edit",$data);
     }
-    public function deleteMainSlider($main_slider_id,Request $request){
+    public function deleteMainTopDress($main_slider_id,Request $request){
         $data=[];
         $main_slider = $this->main_sliders->find($main_slider_id);
         $img_path =public_path().'/images/main_sliders/'.$main_slider->image_url;
@@ -106,10 +106,10 @@ class adminConfigSectionMainSliders extends Controller
                 @unlink($img_path);
                 $main_slider->delete();
             }
-            return redirect()->route("main_sliders_page");
+            return redirect()->route("top_dresses_page");
         }
         $data["main_slider"]=$main_slider;
-        $data["page_title"]="Delete Slider";
-        return view("/admin/home_config/main_sliders/confirm",$data);
+        $data["page_title"]="Delete Top Dress";
+        return view("/admin/home_config/top_dresses/confirm",$data);
     }
 }

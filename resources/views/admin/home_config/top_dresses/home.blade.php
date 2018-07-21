@@ -23,15 +23,15 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($images as $image)
+    @foreach($products as $product)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_url}}" alt="{{$image->img_name}}" class="img-fluid"/></div>
-        <div class="col-md-3">{{$image->img_name}}</div>
-        <div class="col-md-2">{{ $image->getStatusName->name }}</div>
+        <div class="col-md-2"><img src="{{asset('products/products')}}/{{$product->img_url}}" alt="{{$product->img_name}}" class="img-fluid"/></div>
+        <div class="col-md-3">{{$product->img_name}}</div>
+        <div class="col-md-2">{{ $product->getStatusName->name }}</div>
         <div class="col-md-3">
-            <a href="{{ route('confirm_image',['image_id'=>$image->id])}}">delete</a>
-            <a href="{{ route('edit_image',['image_id'=>$image->id])}}">edit</a>
+            <a href="{{ route('confirm_product',['product_id'=>$product->id])}}">delete</a>
+            <a href="{{ route('edit_product',['product_id'=>$product->id])}}">edit</a>
         </div>
     </div>
     @endforeach
