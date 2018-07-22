@@ -66,25 +66,18 @@ function addWishlist(product_id){
                         </div>
                     </div>
                     <div id="top_middle_sec_row" class="row">
-                        <div id="top_middle_img1" class="col-sm-6 col-md-4">
-                            <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
-                            <a href="javascript:addWishlist('1')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                        @foreach($top_dresses as $keyIndex=>$top_dress)
+                        <div id="top_middle_img{{ $keyIndex+1 }}" class="col-sm-6 col-md-4">
+                            @if($top_dress->is_new)
+                            <div class="vesti-new-txt vesti-new-txt-a">NEW</div>
+                            <div class="vesti-new-border vesti-new-border-a"></div>
+                            @endif
+                            <a href="javascript:addWishlist('{{ $top_dress->id }}')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
                             <a href="/product" class="flash_hover_link thumbnail">
-                                <img src="{{asset('images/middle_1.jpg')}}" alt="model1">
+                                <img src="{{asset('images/products')}}/{{ $top_dress->images->first()->img_url }}"  class="img-fluid" alt="model1">
                             </a>
                         </div>
-                        <div id="top_middle_img2" class="col-sm-6 col-md-4">
-                            <a href="javascript:addWishlist('1')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                            <a href="/product" class="flash_hover_link thumbnail">
-                                <img src="{{asset('images/middle_2.jpg')}}" alt="model1">
-                            </a>
-                        </div>
-                        <div id="top_middle_img3" class="col-sm-6 col-md-4">
-                            <a href="javascript:addWishlist('1')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                            <a href="/product" class="flash_hover_link thumbnail">
-                                <img src="{{asset('images/middle_3.jpg')}}" alt="model1">
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="row">
                         <div class="col-md-2">

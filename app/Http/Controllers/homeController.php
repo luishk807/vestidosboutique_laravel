@@ -15,7 +15,6 @@ use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosConfigSectionMainSliders as MainSliders;
-use App\vestidosConfigSectionTopDresses as TopDresses;
 use App\vestidosConfigSectionTopQuincesses as TopQuincesses;
 
 use Auth;
@@ -34,7 +33,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders, TopDresses $top_dresses, TopQuincesses $top_quincesses)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders, TopQuincesses $top_quincesses)
     {
       $this->brands=$brands;
       $this->country=$countries->all();
@@ -45,7 +44,6 @@ class HomeController extends Controller
       $this->languages=$languages;
       $this->addresses=$addresses;
       $this->main_sliders = $main_sliders;
-      $this->top_dresses = $top_dresses;
       $this->top_quincesses = $top_quincesses;
     }
     public function index()
@@ -55,6 +53,7 @@ class HomeController extends Controller
         $data["categories"]=$this->categories->all();
         $data["page_title"]="Welcome Page";
         $data["main_sliders"] = $this->main_sliders->all();
+        $data["top_dresses"] = $this->products->where("top_dress","=",1)->get();
         return view("home",$data);
     }
     public function about(){
