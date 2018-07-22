@@ -15,6 +15,9 @@
 <script type="text/javascript" src="{{ asset('js/vendor/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
+<script>
+    var addWishlistUrl = "{{ url('api/saveWishlist') }}";
+</script>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >

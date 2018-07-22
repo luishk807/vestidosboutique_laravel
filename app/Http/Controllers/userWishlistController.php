@@ -29,6 +29,8 @@ class userWishlistController extends Controller
         $data["page_title"]="Wishlists";
         $data["user"]=$this->users->find($user_id);
         $data["user_id"]=$user_id;
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
         $data["wishlists"]=$this->wishlists->all();
         return view("/account/wishlists/home",$data);
     }
@@ -66,6 +68,8 @@ class userWishlistController extends Controller
             $wishlist->delete();
             return redirect()->route("admin_wishlists");
         }
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
         $data["wishlist"]=$this->wishlists->find($wishlist_id);
         $data["page_title"]="Delete wishlist";
         return view("admin/wishlists/confirm",$data);

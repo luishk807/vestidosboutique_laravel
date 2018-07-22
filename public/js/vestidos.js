@@ -151,3 +151,18 @@ $(document).ready(function() {
         $(this).select();
     });
 });
+function addWishlist(product_id){
+    $.ajax({
+        type: "GET",
+        url: addWishlistUrl,
+        data: {
+            data:product_id
+        },
+        success: function(data) {
+            alert(data);
+            if(data=="login"){
+                window.location.href="/signin";
+            }
+        }
+    }); 
+}

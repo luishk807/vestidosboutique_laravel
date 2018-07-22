@@ -1,23 +1,5 @@
 @extends("layouts.app")
 @section('content')
-<script>
-var addWishlistUrl = "{{ url('api/saveWishlist') }}"
-function addWishlist(product_id){
-    $.ajax({
-        type: "GET",
-        url: addWishlistUrl,
-        data: {
-            data:product_id
-        },
-        success: function(data) {
-            alert(data);
-            if(data=="login"){
-                window.location.href="/signin";
-            }
-        }
-    }); 
-}
-</script>
 @foreach($main_sliders as $indexKey => $main_slider)
 <style>
 #slide{{$indexKey}}{
@@ -73,7 +55,7 @@ function addWishlist(product_id){
                             <div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="javascript:addWishlist('{{ $top_dress->id }}')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                            <a href="/product" class="flash_hover_link thumbnail">
+                            <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/products')}}/{{ $top_dress->images->first()->img_url }}"  class="img-fluid" alt="model1">
                             </a>
                         </div>
@@ -144,7 +126,7 @@ function addWishlist(product_id){
                             <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}" alt/></a>
+                           <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}" alt/></a>
                         </div>
                         @endforeach
                     </div>

@@ -118,13 +118,13 @@ $(document).ready(function(){
                     </div>
                     <div class="col-md-6 product_main_img">
                         <div class="product_main_img_in">
-                            <a href="#" class="vesti-heart-link-b"><span class="vesti-svg"></span></a>
+                            <a href="javascript:addWishlist('{{ $product->id }}')" class="vesti-heart-link-b"><span class="vesti-svg"></span></a>
                             <a href=""><img src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
                         </div>
                     </div>
                     <div class="col-md-4 product_main_txt">
                         <div>
-                            <div class="product_in_txt">
+                            <div class="col">
                                     <h2 class="product_in_title">{{ $product->products_name }}</h2>
                                     <div class="product_in_vendor">By {{ $product->vendor->getFullVendorName() }}</div>
                                     <div class="product_in_rate">
