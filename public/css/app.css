@@ -10739,7 +10739,7 @@ html {
 
 .brands_txt > div {
   max-width: 600px;
-  margin-left: 200px;
+  margin-left: 400px;
   -webkit-transition: margin-left 2s;
   transition: margin-left 2s;
 }

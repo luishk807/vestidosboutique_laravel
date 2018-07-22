@@ -269,7 +269,8 @@ background-size: cover;
 }
 .brands_txt > div{
   max-width:600px;
-  margin-left: 200px;
+  // margin-left: 200px;
+  margin-left: 400px;
  @include transition(margin-left 2s);
 }
 .brands_txt > div.active{

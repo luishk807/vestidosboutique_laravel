@@ -85,9 +85,9 @@ $(document).ready(function() {
                 if(index == 2 && !isReponsive){
                     $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').addClass('active');
                 }
-                if(index == 3 && !isReponsive){
-                    $('.brands_txt > div').addClass('active');
-                }
+                // if(index == 3 && !isReponsive){
+                //     $('.brands_txt > div').addClass('active');
+                // }
                 if(index == 5 && !isReponsive){
                     $('#quince_thumb_1').addClass('active');
                     var divs = $('.quince_thumb');
