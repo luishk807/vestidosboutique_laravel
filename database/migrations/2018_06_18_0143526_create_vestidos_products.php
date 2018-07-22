@@ -40,6 +40,8 @@ class CreateVestidosProducts extends Migration
             $table->boolean('is_new')->nullable();
             $table->date('purchase_date')->nullable();
             $table->text('search_labels')->nullable();
+            $table->boolean('top_dress')->nullable();
+            $table->boolean('top_quince')->nullable();
             $table->integer('vendor_id')->unsigned()->nullable();
             $table->foreign("vendor_id")->references("id")->on("vestidos_vendors")->onDelete('set null');
             $table->integer('status')->unsigned()->nullable();
