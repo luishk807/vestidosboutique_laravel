@@ -83,12 +83,26 @@ class HomeController extends Controller
         $data["categories"]=$this->categories->all();
         $data["product"]=$this->products->find($product_id);
         $data["page_title"]="Cart";
-        $session=[];
-        $session["product_id"]=$product_id;
-        $session["product_color"]=$request->input("product_color");
-        $session["product_size"]=$request->input("product_size");
-        session(["vestidos_shop"=>$session]);
-        dd(session('key'));
+        $session=array();
+        $dat=[
+            "id"=>$product_id,
+            "quantity"=>$request->input("product_quantity"),
+            "color"=>$request->input("product_color"),
+            "size"=>$request->input("product_size")
+        ];
+        if($request->session()->has("vestidos_shop")){
+            $session = $request->session()->get("vestidos_shop");
+            $session[]=$dat;
+            $request->session()->forget("vestidos_shop");
+            session(["vestidos_shop"=>$session]);
+        }
+        else{
+            $session[]=$dat;
+            $request->session()->forget("vestidos_shop");
+            session(["vestidos_shop"=>$session]);
+        }
+
+        dd($session);
        // return view("cart",$data);
     }
     public function contact(){
