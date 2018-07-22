@@ -212,4 +212,33 @@ class adminProductController extends Controller
         $data["products"]=$product->searchProductsByLabels($filter);
         return view("admin/products/new",$data);
     }
+
+    public function showTopDress(){
+        $data=[];
+        $data["products"]=$this->products->where("top_dress","=","1")->get();
+        $data["page_title"]="Top Dresses";
+        return view("/admin/home_config/top_dresses/home",$data);
+    }
+    public function newTopDress(Request $request){
+        $data=[];
+        if($request->isMethod("post")){
+            $top_dresses=$request->input("top_dresses");
+            $this->validate($request,[
+                'top_dresses' => 'required'
+             ]
+            );
+            $this->products->where('top_dress','=',1)->update(array('top_dress'=>null));
+            foreach($top_dresses as $product){
+                if(!empty($product["product_id"])){
+                    $p=$this->products->find($product["product_id"]);
+                    $p->top_dress=1;
+                    $p->save();
+                }
+            }
+            return redirect()->route("top_dresses_page");
+        }
+        $data["products"]=$this->products->all();
+        $data["page_title"]="New Top Dresses";
+        return view("/admin/home_config/top_dresses/new",$data);
+    }
 }

@@ -82,13 +82,9 @@
                     Route::delete('/confirm/{main_slider_id}','adminConfigSectionMainSliders@deleteMainSlider')->name('delete_main_slider');
                 });
                 Route::prefix('top_dresses')->group(function(){
-                    Route::get('/','adminConfigSectionTopDresses@index')->name('top_dresses_page');
-                    Route::get('/new','adminConfigSectionTopDresses@newTopDress')->name('new_top_dress');
-                    Route::post('/new','adminConfigSectionTopDresses@newTopDress')->name('create_top_dress');
-                    Route::get('/edit/{top_dress_id}','adminConfigSectionTopDresses@editTopDress')->name('edit_top_dress');
-                    Route::post('/edit/{top_dress_id}','adminConfigSectionTopDresses@editTopDress')->name('save_top_dress');
-                    Route::get('/confirm/{top_dress_id}','adminConfigSectionTopDresses@deleteTopDress')->name('confirm_top_dress');
-                    Route::delete('/confirm/{top_dress_id}','adminConfigSectionTopDresses@deleteTopDress')->name('delete_top_dress');
+                    Route::get('/','adminProductController@showTopDress')->name('top_dresses_page');
+                    Route::get('/new','adminProductController@newTopDress')->name('new_top_dress');
+                    Route::post('/new','adminProductController@newTopDress')->name('create_top_dress');
                 });
                 Route::prefix('top_quinces')->group(function(){
                     Route::get('/','adminConfigSectionTopQuince@index')->name('top_quinces_page');
