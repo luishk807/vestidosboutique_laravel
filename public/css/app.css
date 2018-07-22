@@ -11180,6 +11180,7 @@ html {
 }
 
 .color_cubes_btn_a {
+  border: 2px transparent solid;
   cursor: pointer;
   width: 33px;
   height: 20px;

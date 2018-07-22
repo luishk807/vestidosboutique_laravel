@@ -15,7 +15,6 @@ use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosConfigSectionMainSliders as MainSliders;
-
 use Auth;
 
 class HomeController extends Controller
@@ -77,6 +76,20 @@ class HomeController extends Controller
         $data["product"]=$this->products->find($product_id);
         $data["page_title"]="Product";
         return view("product",$data);
+    }
+    public function addToCart($product_id,Request $request){
+        $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["product"]=$this->products->find($product_id);
+        $data["page_title"]="Cart";
+        $session=[];
+        $session["product_id"]=$product_id;
+        $session["product_color"]=$request->input("product_color");
+        $session["product_size"]=$request->input("product_size");
+        session(["vestidos_shop"=>$session]);
+        dd(session('key'));
+       // return view("cart",$data);
     }
     public function contact(){
         $data=[];

@@ -75,6 +75,13 @@ button.size_spheres:hover {
     background: black;
     color: white;
 }
+button.size_spheres.selected {
+    background: black;
+    color: white;
+}
+button.colors_cubes.selected{
+    border:2px gray solid;
+}
 .product_in_detail_drop{
     margin: 25px 0px;
 }
@@ -95,6 +102,30 @@ button.size_spheres:hover {
     font-size:1rem;
     padding-bottom: 0px !important;
 }
+#popup_bgOverlay{
+    display:none;
+    background-color:rgba(0,0,0,0.8);
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:99999;
+}
+#popup_text{
+    background-color: white;
+    padding:40px 80px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    top:30%;
+    position: absolute;
+    color:black;
+}
+.popup_close_btn_pnl{
+    text-align:center;
+}
+.popup_close_btn{
+    margin-top:30px;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -102,9 +133,49 @@ $(document).ready(function(){
         e.preventDefault();
        var getImg = $($(e.target).closest("img")).attr("src");
        $(".product_main_img_in").find("img").attr("src",getImg);
+    });
+    $("#popup_bgOverlay").click(function(){
+        closeCartPopUp();
     })
 })
+function closeCartPopUp(){
+    $("#popup_bgOverlay").css("display","none");
+    var div = document.getElementById('popup_text_in');
+    div.innerHTML = '';
+    $('body').css('overflow','auto');
+}
+function openCartPopUp(txt){
+    $("#popup_bgOverlay").css("display","block");
+    var div = document.getElementById('popup_text_in');
+    div.innerHTML += txt;
+    $('body').css('overflow','hidden');
+}
+function addCart(event){
+    event.preventDefault();
+    var dataValue=$(event.target).attr("data-value");
+    var hiddenInput=$(event.target).attr("data-input");
+    var dataClass=$(event.target).attr("data-class");
+    $("."+dataClass).removeClass("selected");
+    $(event.target).addClass("selected");
+    $("#"+hiddenInput).val(dataValue);
+}
+function checkCartSubmit(){
+    if(!$("#product_color").val()){
+        openCartPopUp("Please Select Color");
+        return false;
+    }else if(!$("#product_size").val()){
+        openCartPopUp("Please Select Size");
+        return false;
+    }
+    return true;
+}
 </script>
+<div id="popup_bgOverlay">
+    <div id="popup_text">
+        <div id="popup_text_in"></div>
+        <div class="popup_close_btn_pnl"><button onclick="closeCartPopUp()" class="popup_close_btn">Close</button></div>
+    </div>
+</div>
 <div class="main_sub_body main_body_height">
 <div class="container">
     <div class="row">
@@ -125,10 +196,13 @@ $(document).ready(function(){
                     <div class="col-md-4 product_main_txt">
                         <div>
                             <div class="col">
+                                    <form action="{{ route('add_cart',['product_id'=>$product->id]) }}" method="post" onsubmit="return checkCartSubmit()">
+                                    <input type="hidden" id="product_color" name="product_color" value=""/>
+                                    <input type="hidden" id="product_size" name="product_size" value=""/>
                                     <h2 class="product_in_title">{{ $product->products_name }}</h2>
                                     <div class="product_in_vendor">By {{ $product->vendor->getFullVendorName() }}</div>
                                     <div class="product_in_rate">
-                                        <div class='rate-view' data-rate-value="4"></div>
+                                        <div class='rate-view' data-rate-value="{{ $product->rates->sum('user_rate') }}"></div>
                                     </div>
                                     <div class="product_in_detail crimson-txt">
                                     {{ $product->product_detail }}
@@ -139,16 +213,32 @@ $(document).ready(function(){
                                             Select Colors
                                         </div>
                                         @foreach($product->colors as $color)
-                                        <button class="colors_cubes color_cubes_btn_a" style="background-color:{{ $color->color_code }}"></button>
+                                        <button class="colors_cubes color_cubes_btn_a" data-class="colors_cubes" data-input="product_color" data-value="{{ $color->id }}" onclick="addCart(event)" style="background-color:{{ $color->color_code }}"></button>
                                         @endforeach
                                     </div>
-                                    <div class="product_in_size">
-                                        <div class="product_in_sub_title">
-                                            Select Size
+                                   <div class="product_in_size">
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="product_in_sub_title">
+                                                Select Size
+                                            </div>
+                                            @foreach($product->sizes as $size)
+                                            <button class="size_spheres" onclick="addCart(event)" data-class="size_spheres" data-input="product_size" data-value="{{ $size->id }}">{{ $size->name }}</button>
+                                            @endforeach
                                         </div>
-                                        @foreach($product->sizes as $size)
-                                        <button class="size_spheres">{{ $size->name }}</button>
-                                        @endforeach
+                                        <div class="col-md-6">
+                                            <div class="product_in_sub_title">
+                                               Quantity
+                                            </div>
+                                            <select class="custom-select" name="product_quantity">
+                                            @for ($i = 1; $i < 10; $i++)
+                                            <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                            </select>
+                                        </div>
+                                        </div>
+
+                                        
                                     </div>
                                     <div class="product_in_detail_drop">
                                         <div id="accordion">
@@ -180,11 +270,13 @@ $(document).ready(function(){
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="vesti_in_btn_pnl"><button class="btn-block vesti_in_btn" onclick="location.href='/cart'">ADD TO CART</button></div>
+                                    <div class="vesti_in_btn_pnl">
+                                        <input class="btn-block vesti_in_btn"  type="submit" value="ADD TO CART"/>
+                                    </div>
                                     <div class="product_in_social">
                                         
                                     </div>
-
+                                    </form>
                             </div>
                         </div>
                     </div>

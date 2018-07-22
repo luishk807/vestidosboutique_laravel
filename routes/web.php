@@ -20,6 +20,7 @@
     Route::get("/about",'homeController@about')->name("about_page");
     Route::get("/shop",'homeController@shop')->name("shop_page");
     Route::get("/product/{product_id}",'homeController@product')->name("product_page");
+    Route::post("/product/{product_id}",'homeController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");
     Route::post("/contact","homeController@sendEmail")->name("sendEmail");
 
