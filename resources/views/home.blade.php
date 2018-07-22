@@ -138,31 +138,15 @@ function addWishlist(product_id){
                          <div class="col quince-select-title vesti_font_color_b text-center">Top Quinceanera Dresses</div>
                     </div>
                     <div class="row">
-                        <div id="quince_thumb_1" class="quince_thumb col-sm-6 mt-4 col-md-4">
+                        @foreach($top_quinces as $keyIndex=>$top_quince)
+                        <div id="quince_thumb_{{ $keyIndex+1 }}" class="quince_thumb col-sm-6 mt-4 col-md-4">
+                            @if($top_quince->is_new)
                             <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
+                            @endif
                             <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
+                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}" alt/></a>
                         </div>
-                        <div id="quince_thumb_2" class="quince_thumb col-sm-6 mt-4 col-md-4">
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                        </div>
-                        <div id="quince_thumb_3" class="quince_thumb col-sm-6 mt-4 col-md-4">
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                        </div>
-                        <div id="quince_thumb_4" class="quince_thumb col-sm-6 mt-4 col-md-4">
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                        </div>
-                        <div id="quince_thumb_5" class="quince_thumb col-sm-6 mt-4 col-md-4">
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                        </div>
-                        <div id="quince_thumb_6" class="quince_thumb col-sm-6 mt-4 col-md-4">
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
-                           <a href='' class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/home_main_img4.jpg')}}" alt/></a>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

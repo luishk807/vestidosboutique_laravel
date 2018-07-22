@@ -87,13 +87,9 @@
                     Route::post('/new','adminProductController@newTopDress')->name('create_top_dress');
                 });
                 Route::prefix('top_quinces')->group(function(){
-                    Route::get('/','adminConfigSectionTopQuince@index')->name('top_quinces_page');
-                    Route::get('/new','adminConfigSectionTopQuince@newTopQuince')->name('new_top_quince');
-                    Route::post('/new','adminConfigSectionTopQuince@newTopQuince')->name('create_top_quince');
-                    Route::get('/edit/{top_quince_id}','adminConfigSectionTopQuince@editTopQuince')->name('edit_top_quince');
-                    Route::post('/edit/{top_quince_id}','adminConfigSectionTopQuince@editTopQuince')->name('save_top_quince');
-                    Route::get('/confirm/{top_quince_id}','adminConfigSectionTopQuince@deleteTopQuince')->name('confirm_top_quince');
-                    Route::delete('/confirm/{top_quince_id}','adminConfigSectionTopQuince@deleteTopQuince')->name('delete_top_quince');
+                    Route::get('/','adminProductController@showTopQuince')->name('top_quinces_page');
+                    Route::get('/new','adminProductController@newTopQuince')->name('new_top_quince');
+                    Route::post('/new','adminProductController@newTopQuince')->name('create_top_quince');
                 });
             });
             //Admin Brands

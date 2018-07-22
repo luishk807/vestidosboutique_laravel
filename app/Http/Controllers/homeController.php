@@ -54,6 +54,7 @@ class HomeController extends Controller
         $data["page_title"]="Welcome Page";
         $data["main_sliders"] = $this->main_sliders->all();
         $data["top_dresses"] = $this->products->where("top_dress","=",1)->get();
+        $data["top_quinces"] = $this->products->where("top_quince","=",1)->get();
         return view("home",$data);
     }
     public function about(){

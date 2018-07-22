@@ -241,4 +241,32 @@ class adminProductController extends Controller
         $data["page_title"]="New Top Dresses";
         return view("/admin/home_config/top_dresses/new",$data);
     }
+    public function showTopQuince(){
+        $data=[];
+        $data["products"]=$this->products->where("top_quince","=","1")->get();
+        $data["page_title"]="Top Quince";
+        return view("/admin/home_config/top_quince/home",$data);
+    }
+    public function newTopQuince(Request $request){
+        $data=[];
+        if($request->isMethod("post")){
+            $top_quince=$request->input("top_quince");
+            $this->validate($request,[
+                'top_quince' => 'required'
+             ]
+            );
+            $this->products->where('top_quince','=',1)->update(array('top_quince'=>null));
+            foreach($top_quince as $product){
+                if(!empty($product["product_id"])){
+                    $p=$this->products->find($product["product_id"]);
+                    $p->top_quince=1;
+                    $p->save();
+                }
+            }
+            return redirect()->route("top_quinces_page");
+        }
+        $data["products"]=$this->products->all();
+        $data["page_title"]="New Top Quince";
+        return view("/admin/home_config/top_quince/new",$data);
+    }
 }
