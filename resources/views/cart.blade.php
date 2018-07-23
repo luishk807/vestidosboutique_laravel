@@ -1,5 +1,8 @@
 @extends("layouts.sub-layout")
 @section('content')
+@foreach(Session::get("vestidos_shop") as $test)
+{{ $test->id }}
+@endforeach
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">

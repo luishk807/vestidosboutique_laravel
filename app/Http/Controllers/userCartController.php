@@ -15,6 +15,7 @@ use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use Illuminate\Support\Facades\Auth;
+use Session; 
 
 class userCartController extends Controller
 {
@@ -35,8 +36,9 @@ class userCartController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Cart";
-        return view("cart",$data);
+        $data["page_title"]="Cart This";
+        dd(Session::get("vestidos_shop"));
+        // return view("cart",$data);
     }
     public function cart_save(){
 

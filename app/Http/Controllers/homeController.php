@@ -16,6 +16,7 @@ use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosConfigSectionMainSliders as MainSliders;
 use Auth;
+use Session;
 
 class HomeController extends Controller
 {
@@ -83,27 +84,25 @@ class HomeController extends Controller
         $data["categories"]=$this->categories->all();
         $data["product"]=$this->products->find($product_id);
         $data["page_title"]="Cart";
-        $session=array();
-        $dat=[
-            "id"=>$product_id,
-            "quantity"=>$request->input("product_quantity"),
-            "color"=>$request->input("product_color"),
-            "size"=>$request->input("product_size")
-        ];
-        if($request->session()->has("vestidos_shop")){
-            $session = $request->session()->get("vestidos_shop");
-            $session[]=$dat;
-            $request->session()->forget("vestidos_shop");
-            session(["vestidos_shop"=>$session]);
+        $cart = Session::get("vestidos_shop");
+        $product = $this->products->find($product_id);        
+        if(Session::has("vestidos_shop")){
+            $cart=Session::get("vestidos_shop");
+            $cart[$product->id]["quantity"]=$request->input("product_quantity");
+        }else{
+            $cart[$product->id]=array(
+                "id"=>$product->id,
+                "name"=>$product->products_name,
+                "image"=>$product->images->first()->img_url,
+                "detail"=>$product->product_detail,
+                "quantity"=>$request->input("product_quantity"),
+                "color"=>$request->input("product_color"),
+                "size"=>$request->input("product_size")
+            );
         }
-        else{
-            $session[]=$dat;
-            $request->session()->forget("vestidos_shop");
-            session(["vestidos_shop"=>$session]);
-        }
-
-        dd($session);
-       // return view("cart",$data);
+        Session::put("vestidos_shop",$cart);
+        Session::flash("success","Item Added");
+        return redirect()->back();
     }
     public function contact(){
         $data=[];
