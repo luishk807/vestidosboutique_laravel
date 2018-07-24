@@ -16,8 +16,8 @@ class adminProductImagesController extends Controller
         $this->statuses=$vestidosStatus;
         $this->images=$images;
         $this->products=$products;
-        $this->maxHeight=1600;
-        $this->maxWidth=1067;
+        $this->maxHeight=627;
+        $this->maxWidth=480;
     }
     public function index($product_id){
         $data=[];
@@ -58,7 +58,6 @@ class adminProductImagesController extends Controller
                         $maxHeight=$this->maxHeight;
                         $maxWidth=$this->maxWidth;
                         list($width,$height) = getimagesize($file);
-                        $picture =$this->getMainSliderName($file);
                         if(($width ==$maxWidth) && ($height == $maxHeight)){
                             $picture =$this->getImageName($file,$product_id);
                             $destinationPath = public_path().'/images/products/';
@@ -98,7 +97,6 @@ class adminProductImagesController extends Controller
                 $maxHeight=$this->maxHeight;
                 $maxWidth=$this->maxWidth;
                 list($width,$height) = getimagesize($file);
-                $picture =$this->getMainSliderName($file);
                 if(($width ==$maxWidth) && ($height == $maxHeight)){
                     $img_path =public_path().'/images/products/'.$image->img_url;
                     if(file_exists($img_path)){
