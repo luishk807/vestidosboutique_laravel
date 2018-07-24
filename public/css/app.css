@@ -11323,6 +11323,22 @@ html {
   font-size: .9rem;
 }
 
+#session_msg {
+  font-weight: bold;
+}
+
+#session_msg.success {
+  color: green;
+}
+
+#session_msg.error {
+  color: green;
+}
+
+#session_msg.alert {
+  color: #9e9406;
+}
+
 .account-form-section {
   margin: 0px auto;
 }

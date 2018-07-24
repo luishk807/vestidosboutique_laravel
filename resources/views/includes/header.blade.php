@@ -73,27 +73,34 @@
                         <div class="vesti-cart-top">
                            
                            <div class="container">
+                                @php( $header_cart_total=0 )
+                                @foreach(Session::get('vestidos_shop') as $header_cart_key=>$header_cart)
                                <div class="row cart-top-items"> <!--item-->
-                                   <div class="col-md-4"><span><a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt width="100%"/></a></span></div>
+                                   <div class="col-md-4"><span><a href=""><img src="{{ asset('/images/products') }}/{{ $header_cart['image']}}" alt width="100%"/></a></span></div>
                                    <div class="col-md-8 cart-top-item-txt">
                                        <div>
-                                       <p><a href="/product">Don't Bow Breaking My Heart Spot Dress</a></p>
-                                       <p>Unit Price: $150.00</p>
-                                       <p>Size: 4</p>
-                                       <p>Color: Red</p>
+                                       <p><a href="/product/{{ $header_cart['id']}}">{{ $header_cart["name"] }}</a></p>
+                                       <p>Unit Price: ${{ number_format($header_cart["total"],2) }}</p>
+                                       <p>Size: {{ $header_cart["size"] }}</p>
+                                       <p>Color: {{ $header_cart["color"] }}</p>
+                                       <p>Quantity: {{ $header_cart["quantity"] }}</p>
                                         </div>
                                         <div>
-                                            <a href="">Remove</a>
+                                            <a href="javascript:deleteCart('{{ $header_cart_key }}')">Remove</a>
                                         </div>
                                    </div>
                                </div><!--end of item-->
+                               
+                               @php( $header_cart_total +=$header_cart["total"] * $header_cart["quantity"] )
+                               @endforeach
                                <div class="row cart-top-totals">
-                                   <div class="col">Subtotal: $40.00</div>
+                                   <div class="col">Subtotal: ${{ number_format($header_cart_total,2) }}</div>
                                </div>
                                <div class="row cart-top-buttons">
                                    <div class="col"><button class="btn-block vesti_in_btn_b" onclick="location.href='{{ route('cart_page') }}'">View Cart</button></div>
                                    <div class="col"><button class="btn-block vesti_in_btn_b" onclick="">Checkout</button></div>
                                </div>
+                               
                            </div>
                         </div><!--end of hover menu-->
                         <!-- </div> -->

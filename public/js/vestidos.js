@@ -164,5 +164,11 @@ function addWishlist(product_id){
                 window.location.href="/signin";
             }
         }
-    }); 
+    });
+}
+function updateCart(index,quant){
+    document.location='api/updateCart?key='+index+"&quantity="+quant;
+}
+function deleteCart(index){
+    document.location='api/deleteCart?key='+index;
 }

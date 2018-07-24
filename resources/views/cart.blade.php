@@ -1,27 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<script>
-function updateCart(index,quant){
-    document.location='api/updateCart?key='+index+"&quantity="+quant;
-}
-function deleteCart(index){
-    document.location='api/deleteCart?key='+index;
-}
-</script>
-<style>
-#session_msg{
-    font-weight:bold;
-}
-#session_msg.success{
-    color:green;
-}
-#session_msg.error{
-    color:red;
-}
-#session_msg.alert{
-    color:#9e9406;
-}
-</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
