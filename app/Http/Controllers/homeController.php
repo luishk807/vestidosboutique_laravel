@@ -87,10 +87,25 @@ class HomeController extends Controller
         $cart = Session::get("vestidos_shop");
         $product = $this->products->find($product_id);        
         if(Session::has("vestidos_shop")){
-            $cart=Session::get("vestidos_shop");
-            $cart[$product->id]["quantity"]=$request->input("product_quantity");
+          $cart=Session::get("vestidos_shop");
+            //run loop to check if value match with colors and size
+            
+        //    if(isset($cart[$product->id])){
+        //         if($cart[$product->id]["color"]==$request->input("product_color") &&  )
+        //         $cart[$product->id]["quantity"]=$request->input("product_quantity");
+        //    }else{
+        //         $cart[]=array(
+        //             "id"=>$product->id,
+        //             "name"=>$product->products_name,
+        //             "image"=>$product->images->first()->img_url,
+        //             "detail"=>$product->product_detail,
+        //             "quantity"=>$request->input("product_quantity"),
+        //             "color"=>$request->input("product_color"),
+        //             "size"=>$request->input("product_size")
+        //         );
+        //    }
         }else{
-            $cart[$product->id]=array(
+            $cart[]=array(
                 "id"=>$product->id,
                 "name"=>$product->products_name,
                 "image"=>$product->images->first()->img_url,
