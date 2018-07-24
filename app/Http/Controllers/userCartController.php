@@ -86,7 +86,7 @@ class userCartController extends Controller
         if(Session::has("vestidos_shop")){
           $cart=Session::get("vestidos_shop");
           for($i=0;$i<sizeof($cart);$i++){
-             if($cart[$i]["id"]==$product_id && $cart[$i]["color"]==$request->input("product_color") && $cart[$i]["size"]==$request->input("product_size")){
+             if($cart[$i]["id"]==$product_id && $cart[$i]["color"]==$color->name && $cart[$i]["size"]==$size->name){
                  $cart[$i]["quantity"] =$cart[$i]["quantity"] + $quantity;
                  Session::flash("success","Item Updated");
                  $found=true;
