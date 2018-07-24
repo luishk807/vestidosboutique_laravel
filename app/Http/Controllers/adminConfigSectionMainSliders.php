@@ -36,6 +36,12 @@ class adminConfigSectionMainSliders extends Controller
 
         return $picture;
     }
+    public function checkCorrectSize($photo){
+        $maxHeight=842;
+        $maxWidth=1552;
+        list($width,$height) = getimagesize($photo);
+        return (($width ==$maxWidth) && ($height == $maxHeight));
+    }
     public function newMainSlider(Request $request){
         $data=[];
         if($request->isMethod("post")){
@@ -45,12 +51,19 @@ class adminConfigSectionMainSliders extends Controller
             );
             $file = $request->file('image');
             if ($request->hasFile('image')) {
+
+                $maxHeight=842;
+                $maxWidth=1552;
+                list($width,$height) = getimagesize($file);
                 $picture =$this->getMainSliderName($file);
-                $destinationPath = public_path().'/images/main_sliders/';
-                $file->move($destinationPath, $picture);
-                $data["image_url"]=$picture;
-                $data["created_at"]=carbon::now();
-                $this->main_sliders->insert($data);
+                if(($width ==$maxWidth) && ($height == $maxHeight)){
+                    $destinationPath = public_path().'/images/main_sliders/';
+                    $file->move($destinationPath, $picture);
+                    $data["image_url"]=$picture;
+                    $data["created_at"]=carbon::now();
+                    $this->main_sliders->insert($data);
+                }
+                
             }
             return redirect()->route("main_sliders_page");
         }

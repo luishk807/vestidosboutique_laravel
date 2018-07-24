@@ -9,7 +9,6 @@
 </script>
 <style>
 .product_in{
-  
   padding:50px 0px;
   margin: 100px auto 50px auto;
 }
