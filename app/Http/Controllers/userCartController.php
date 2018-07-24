@@ -45,13 +45,10 @@ class userCartController extends Controller
         $data["categories"]=$this->categories->all();
         $data["page_title"]="Cart This";
         $cart = Session::get("vestidos_shop");
-        $cart_subtotal=0;
         $tax = $this->taxes->find(1);
         $tax_amt = (float) $tax->tax;
         $cart_remove="";
         for($i=0;$i<sizeof($cart);$i++){
-            $total = $cart[$i]["quantity"] * $cart[$i]["total"];
-            $cart_subtotal += (int) $total;
             $product = $this->products->find($cart[$i]["id"]);
             if($product->product_stock < 1){
                 $cart_remove .= empty($cart_remove) ? $cart[$i]["name"]:" ,".$cart[$i]["name"];
@@ -66,8 +63,8 @@ class userCartController extends Controller
         }
         Session::forget("vestidos_shop");
         Session::put("vestidos_shop",$cart);
-        $data["subtotal"]=$cart_subtotal;
-        $data["tax"]=$tax_amt * $cart_subtotal;
+        $data["subtotal"]=0;
+        $data["tax"]=$tax_amt;
         return view("cart",$data);
     }
     public function addToCart($product_id,Request $request){
@@ -83,6 +80,8 @@ class userCartController extends Controller
         $color = $this->colors->find($color_id);
         $size_id = (int)$request->input("product_size");
         $size = $this->sizes->find($size_id);
+        $tax = $this->taxes->find(1);
+        $tax_amt = (float) $tax->tax;
         $found=false;
         if(Session::has("vestidos_shop")){
           $cart=Session::get("vestidos_shop");
@@ -111,8 +110,10 @@ class userCartController extends Controller
             ); 
             Session::flash("success","Item Added");
         }
+        $data["subtotal"]=0;
+        $data["tax"]=$tax_amt;
         Session::put("vestidos_shop",$cart);
-        return redirect()->back();
+        return redirect()->route("cart_page");
     }
     public function cart_save(){
         $key=(int) Input::get('key');
@@ -123,28 +124,32 @@ class userCartController extends Controller
                 $cart[$key]["quantity"]=$quantity;
                 Session::forget("vestidos_shop");
                 Session::put("vestidos_shop",$cart);
-                echo "success";
+                Session::flash("success","Cart Updated");
+                
             }else{
-                echo "error:".$key." and ".$quantity;
+                Session::flash("error","Ops!, Something happened!");
             }
         }else{
-            echo "empty";
+            Session::flash("error","Ops!, Something happened!");
         }
+        return redirect()->route("cart_page");
     }
     public function cart_delete(){
         $key=(int) Input::get('key');
         if(Session::has("vestidos_shop")){
             $cart = Session::get("vestidos_shop");
             if(isset($cart[$key])){
+                Session::flash("success",$cart[$key]["name"]." Deleted");
                 array_splice($cart,$key,1);
                 Session::forget("vestidos_shop");
                 Session::put("vestidos_shop",$cart);
-                echo "success";
+                return redirect()->route("cart_page");
             }else{
-                echo "error";
+                Session::flash("error","Ops!, Something happened!");
             }
         }else{
-            echo "empty";
+            Session::flash("error","Ops!, Something happened!");
         }
+        return redirect()->route("cart_page");
     }
 }

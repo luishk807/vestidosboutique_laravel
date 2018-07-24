@@ -289,7 +289,7 @@
         //API
         Route::get("api/saveWishlist",'userWishlistController@addWishlist');
         Route::get("api/updateCart",'userCartController@cart_save');
-        Route::get("api/deleteCart",'userCartControllerr@cart_delete');
+        Route::get("api/deleteCart",'userCartController@cart_delete');
         Route::get('api/getAddress','ordersController@getAddressDropdown');
         Route::get('api/getProduct','ordersController@getProductDropdown');
    // });

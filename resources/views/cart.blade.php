@@ -2,10 +2,26 @@
 @section('content')
 <script>
 function updateCart(index,quant){
-    console.log(index," ",quant);
-    document.location.href={{ url('api/updateCart') }}."/".$index."/".$quant;
+    document.location='api/updateCart?key='+index+"&quantity="+quant;
+}
+function deleteCart(index){
+    document.location='api/deleteCart?key='+index;
 }
 </script>
+<style>
+#session_msg{
+    font-weight:bold;
+}
+#session_msg.success{
+    color:green;
+}
+#session_msg.error{
+    color:red;
+}
+#session_msg.alert{
+    color:#9e9406;
+}
+</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -15,7 +31,15 @@ function updateCart(index,quant){
                     <div class="container cart-container-in">
                         <div class="row" >
                             <div class="col-md-12 text-center">
-                               <h4 id="session_msg">Updated</h4>
+                               <span id="session_msg"
+                               @if(Session::has("success"))
+                               class="success">{{Session::get("success")}}
+                               @elseif(Session::has("error"))
+                               class="error">{{Session::get("error")}}
+                               @elseif(Session::has("alert"))
+                               class="alert">{{Session::get("alert")}}
+                               @endif
+                               </span>
                             </div>
                         </div>
                         <div class="row">
@@ -66,7 +90,7 @@ function updateCart(index,quant){
                                                 <p><span class="cart-item-subtitle">Size:</span>{{ $item["size"] }}</p>
                                             </div>
                                             <div>
-                                               <a href="">Remove</a>
+                                               <a href="javascript:deleteCart({{$keyIndex}})">Remove</a>
                                             </div>
                                         </div>
                                     </div>
@@ -88,6 +112,7 @@ function updateCart(index,quant){
                             </div>
                             <div class="col cart-item-4">
                                 ${{ number_format($item["quantity"] * $item["total"],2) }}
+                                @php($subtotal += $item["quantity"] * $item["total"] )
                             </div>
                         </div><!--end of cart items-->
                         @endforeach
@@ -100,7 +125,7 @@ function updateCart(index,quant){
                             </div>
                             <div class="col-md-4 cart-footer-totals">
                                 <!-- total info-->
-
+                                @php($taxtotal = $tax * $subtotal)
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
@@ -115,7 +140,7 @@ function updateCart(index,quant){
                                             Tax
                                         </div>
                                         <div class="col">
-                                            ${{ number_format($tax,2) }}
+                                            ${{ number_format($taxtotal,2) }}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -123,7 +148,7 @@ function updateCart(index,quant){
                                             Subtotal
                                         </div>
                                         <div class="col">
-                                            ${{ number_format(($subtotal + $tax),2) }}
+                                            ${{ number_format(($subtotal + $taxtotal),2) }}
                                         </div>
                                     </div>
                                 </div>
