@@ -16,6 +16,8 @@ class adminProductImagesController extends Controller
         $this->statuses=$vestidosStatus;
         $this->images=$images;
         $this->products=$products;
+        $this->maxHeight=1600;
+        $this->maxWidth=1067;
     }
     public function index($product_id){
         $data=[];
@@ -53,13 +55,19 @@ class adminProductImagesController extends Controller
             if ($request->hasFile('image')) {
                 foreach($files as $file){
                     if(!empty($file)){
-                        $picture =$this->getImageName($file,$product_id);
-                        $destinationPath = public_path().'/images/products/';
-                        $file->move($destinationPath, $picture);
-                        $data["product_id"]=$product_id;
-                        $data["img_url"]=$picture;
-                        $data["created_at"]=carbon::now();
-                        $this->images->insert($data);
+                        $maxHeight=$this->maxHeight;
+                        $maxWidth=$this->maxWidth;
+                        list($width,$height) = getimagesize($file);
+                        $picture =$this->getMainSliderName($file);
+                        if(($width ==$maxWidth) && ($height == $maxHeight)){
+                            $picture =$this->getImageName($file,$product_id);
+                            $destinationPath = public_path().'/images/products/';
+                            $file->move($destinationPath, $picture);
+                            $data["product_id"]=$product_id;
+                            $data["img_url"]=$picture;
+                            $data["created_at"]=carbon::now();
+                            $this->images->insert($data);
+                        }
                     }
                  }
             }
@@ -87,14 +95,20 @@ class adminProductImagesController extends Controller
             );
             $file = $request->file('image');
             if ($request->hasFile('image')) {
-                $img_path =public_path().'/images/products/'.$image->img_url;
-                if(file_exists($img_path)){
-                    @unlink($img_path);
+                $maxHeight=$this->maxHeight;
+                $maxWidth=$this->maxWidth;
+                list($width,$height) = getimagesize($file);
+                $picture =$this->getMainSliderName($file);
+                if(($width ==$maxWidth) && ($height == $maxHeight)){
+                    $img_path =public_path().'/images/products/'.$image->img_url;
+                    if(file_exists($img_path)){
+                        @unlink($img_path);
+                    }
+                    $picture =$this->getImageName($file,$image->product_id);
+                    $destinationPath = public_path().'/images/products/';
+                    $file->move($destinationPath, $picture);
+                    $image->img_url=$picture;
                 }
-                $picture =$this->getImageName($file,$image->product_id);
-                $destinationPath = public_path().'/images/products/';
-                $file->move($destinationPath, $picture);
-                $image->img_url=$picture;
             }
             $image->img_name=$request->input("img_name");
             $image->status=(int)$request->input("status");

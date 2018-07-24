@@ -36,12 +36,6 @@ class adminConfigSectionMainSliders extends Controller
 
         return $picture;
     }
-    public function checkCorrectSize($photo){
-        $maxHeight=842;
-        $maxWidth=1552;
-        list($width,$height) = getimagesize($photo);
-        return (($width ==$maxWidth) && ($height == $maxHeight));
-    }
     public function newMainSlider(Request $request){
         $data=[];
         if($request->isMethod("post")){
