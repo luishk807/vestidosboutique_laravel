@@ -39,7 +39,7 @@
         <div class="col-md-3">{{$product->products_name}}</div>
         <div class="col-md-2">{{ $product->getStatus->name }}</div>
         <div class="col-md-3">
-            {{ $product->rates->sum('user_rate') }}
+            {{ $product->rates->avg('user_rate') }}
         </div>
     </div>
     @endforeach

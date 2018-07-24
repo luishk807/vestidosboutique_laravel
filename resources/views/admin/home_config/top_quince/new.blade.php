@@ -54,7 +54,7 @@ function checkSubmit(){
                 <td class="item">{{$product->products_name}}</td>
                 <td class="item">{{$product->getStatus->name}}</td>
                 <td class="item">
-                    {{ $product->rates->sum("user_rate") }}
+                    {{ $product->rates->avg("user_rate") }}
                 </td>
             </tr>
             @endforeach

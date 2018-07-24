@@ -202,7 +202,7 @@ function checkCartSubmit(){
                                     <h2 class="product_in_title">{{ $product->products_name }}</h2>
                                     <div class="product_in_vendor">By {{ $product->vendor->getFullVendorName() }}</div>
                                     <div class="product_in_rate">
-                                        <div class='rate-view' data-rate-value="{{ $product->rates->sum('user_rate') }}"></div>
+                                        <div class='rate-view' data-rate-value="{{ $product->rates->avg('user_rate') }}"></div>
                                     </div>
                                     <div class="product_in_detail crimson-txt">
                                     {{ $product->product_detail }}
