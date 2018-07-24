@@ -70,6 +70,7 @@
                         <!-- <div id="vesti-cart-top-cont">
                         <div class="vesti-cart-arrow"></div>
                         <div class="vesti-cart-arrow-b"></div> -->
+                        @if(Session::has('vestidos_shop'))
                         <div class="vesti-cart-top">
                            
                            <div class="container">
@@ -103,6 +104,7 @@
                                
                            </div>
                         </div><!--end of hover menu-->
+                        @endif
                         <!-- </div> -->
                         
                     </li>
