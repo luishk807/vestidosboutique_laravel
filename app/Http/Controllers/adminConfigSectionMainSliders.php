@@ -16,6 +16,8 @@ class adminConfigSectionMainSliders extends Controller
         $this->statuses=$vestidosStatus;
         $this->main_sliders=$main_sliders;
         $this->products=$products;
+        $this->maxHeight=842;
+        $this->maxWidth=1552;
     }
     public function index(){
         $data=[];
@@ -46,8 +48,8 @@ class adminConfigSectionMainSliders extends Controller
             $file = $request->file('image');
             if ($request->hasFile('image')) {
 
-                $maxHeight=842;
-                $maxWidth=1552;
+                $maxHeight=$this->maxHeight;
+                $maxWidth=$this->maxWidth;
                 list($width,$height) = getimagesize($file);
                 $picture =$this->getMainSliderName($file);
                 if(($width ==$maxWidth) && ($height == $maxHeight)){
@@ -57,7 +59,9 @@ class adminConfigSectionMainSliders extends Controller
                     $data["created_at"]=carbon::now();
                     $this->main_sliders->insert($data);
                 }
-                
+                else{
+                    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+                }
             }
             return redirect()->route("main_sliders_page");
         }
@@ -82,24 +86,33 @@ class adminConfigSectionMainSliders extends Controller
              ]
             );
             $file = $request->file('main_slider');
-            if ($request->hasFile('main_slider')) {
-                $img_path =public_path().'/images/main_sliders/'.$main_slider->slider_img;
-                if(file_exists($img_path)){
-                    @unlink($img_path);
+            $maxHeight=$this->maxHeight;
+            $maxWidth=$this->maxWidth;
+            list($width,$height) = getimagesize($file);
+            $picture =$this->getMainSliderName($file);
+            if(($width ==$maxWidth) && ($height == $maxHeight)){
+                if ($request->hasFile('main_slider')) {
+                    $img_path =public_path().'/images/main_sliders/'.$main_slider->slider_img;
+                    if(file_exists($img_path)){
+                        @unlink($img_path);
+                    }
+                    $picture =$this->getMainSliderName($file);
+                    $destinationPath = public_path().'/images/main_sliders/';
+                    $file->move($destinationPath, $picture);
+                    $main_slider->image_url=$picture;
                 }
-                $picture =$this->getMainSliderName($file);
-                $destinationPath = public_path().'/images/main_sliders/';
-                $file->move($destinationPath, $picture);
-                $main_slider->image_url=$picture;
+                $main_slider->image_name=$request->input("image_name");
+                $main_slider->image_name_2=$request->input("image_name_2");
+                $main_slider->image_destination = $request->input("image_destination");
+                $main_slider->updated_at=carbon::now();
+    
+                $main_slider->save();
+    
+                return redirect()->route("main_sliders_page",['product_id'=>$main_slider->product_id]);
             }
-            $main_slider->image_name=$request->input("image_name");
-            $main_slider->image_name_2=$request->input("image_name_2");
-            $main_slider->image_destination = $request->input("image_destination");
-            $main_slider->updated_at=carbon::now();
-
-            $main_slider->save();
-
-            return redirect()->route("main_sliders_page",['product_id'=>$main_slider->product_id]);
+            else{
+                return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+            }
         }
         $data["page_title"]="Edit Slider";
         return view("/admin/home_config/main_sliders/edit",$data);
