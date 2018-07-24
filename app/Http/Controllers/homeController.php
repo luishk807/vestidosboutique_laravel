@@ -78,47 +78,6 @@ class HomeController extends Controller
         $data["page_title"]="Product";
         return view("product",$data);
     }
-    public function addToCart($product_id,Request $request){
-        $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["product"]=$this->products->find($product_id);
-        $data["page_title"]="Cart";
-        $cart = Session::get("vestidos_shop");
-        $product = $this->products->find($product_id);        
-        if(Session::has("vestidos_shop")){
-          $cart=Session::get("vestidos_shop");
-            //run loop to check if value match with colors and size
-            
-        //    if(isset($cart[$product->id])){
-        //         if($cart[$product->id]["color"]==$request->input("product_color") &&  )
-        //         $cart[$product->id]["quantity"]=$request->input("product_quantity");
-        //    }else{
-        //         $cart[]=array(
-        //             "id"=>$product->id,
-        //             "name"=>$product->products_name,
-        //             "image"=>$product->images->first()->img_url,
-        //             "detail"=>$product->product_detail,
-        //             "quantity"=>$request->input("product_quantity"),
-        //             "color"=>$request->input("product_color"),
-        //             "size"=>$request->input("product_size")
-        //         );
-        //    }
-        }else{
-            $cart[]=array(
-                "id"=>$product->id,
-                "name"=>$product->products_name,
-                "image"=>$product->images->first()->img_url,
-                "detail"=>$product->product_detail,
-                "quantity"=>$request->input("product_quantity"),
-                "color"=>$request->input("product_color"),
-                "size"=>$request->input("product_size")
-            );
-        }
-        Session::put("vestidos_shop",$cart);
-        Session::flash("success","Item Added");
-        return redirect()->back();
-    }
     public function contact(){
         $data=[];
         $data["brands"]=$this->brands->all();
@@ -168,17 +127,6 @@ class HomeController extends Controller
                 "email"=>"required | email",
                 "password"=>"required"
             ]);
-            // if(Auth::guard("vestidosUsers")->attempt([
-            //     "email"=>$request->input("email"),
-            //     "password"=>$request->input("password"),
-            //     "user_type"=>1
-            //     ])){
-            //     $user_id=Auth::guard("vestidosUsers")->user()->getId();
-            //     $data["user_id"]=$user_id;
-            //     return redirect('account/'.$user_id);
-            // }else{
-            //     return redirect()->back()->withInput($data)->with("msg","Invalid User");
-            // }
             if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 1])) {
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
