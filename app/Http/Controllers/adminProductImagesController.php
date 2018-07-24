@@ -67,7 +67,7 @@ class adminProductImagesController extends Controller
                             $data["created_at"]=carbon::now();
                             $this->images->insert($data);
                         }else{
-                            return redirect()->back()->withErrsos(["msg","Incorrect Image"]);
+                            return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
                         }
                     }
                  }
@@ -109,7 +109,7 @@ class adminProductImagesController extends Controller
                     $file->move($destinationPath, $picture);
                     $image->img_url=$picture;
                 }else{
-                    return redirect()->back()->withErrsos(["msg","Incorrect Image"]);
+                    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
                 }
             }
             $image->img_name=$request->input("img_name");

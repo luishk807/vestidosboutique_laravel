@@ -11,7 +11,6 @@
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
-         
         </small>
     </div>
     <div class="form-group">
