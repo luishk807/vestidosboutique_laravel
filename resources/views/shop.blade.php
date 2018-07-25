@@ -151,6 +151,7 @@
                         <div id="accordion">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
+                                
                                     <h5 class="mb-0">
                                         <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             +Optimize Search
@@ -204,7 +205,7 @@
 
                     </div>
                     <div class="col-md-9">
-                        <div><img src="{{ asset('images/ad_testing.jpg') }}" class="img-fluid" alt/></div>
+                        <div><img src="{{ asset('images/shop_banners') }}/{{$shop_banners->image_url}}" class="img-fluid" alt/></div>
                         <div class="shoplist-nav">
                             <ul>
                                 <li>312 Products</li>

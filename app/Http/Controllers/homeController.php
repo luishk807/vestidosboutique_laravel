@@ -62,14 +62,6 @@ class HomeController extends Controller
         $data["page_title"]="About Us";
         return view("about",$data);
     }
-    public function shop(){
-        $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["page_title"]="Shop";
-        $data["products"]=$this->products->all();
-        return view("/shop",$data);
-    }
     public function product($product_id){
         $data=[];
         $data["brands"]=$this->brands->all();
