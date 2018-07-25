@@ -16,8 +16,8 @@ class CreateShopBanner extends Migration
         Schema::create('vestidos_config_section_shop_banners', function (Blueprint $table) {
             $table->increments('id');
             $table->text('image_url');
-            $table->string('image_name');
-            $table->text('image_destination');
+            $table->string('image_name')->nullable();
+            $table->text('image_destination')->nullable();
             $table->timestamps();
         });
     }
