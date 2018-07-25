@@ -39,7 +39,7 @@ class userShopController extends Controller
         $data["categories"]=$this->categories->all();
         $data["page_title"]="Shop";
         $data["shop_banners"]=$this->shop_banners->first();
-        $data["products"]=$this->products->all();
+        $data["products"]=$this->products->paginate(15);
         return view("shop",$data);
     }
 }

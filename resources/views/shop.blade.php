@@ -214,13 +214,18 @@
                                         <option>Name</option>
                                     </select>
                                 </li>
-                                <li>1 of 3</li>
-                                <li><a href="">Next ></a></li>
+                                @if(!empty($products->previousPageUrl()))
+                                <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
+                                @endif
+                                <li>{{ $products->currentPage()}} of {{ $products->total() }}</li>
+                                @if($products->nextPageUrl())
+                                <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
+                                @endif
                             </ul>
                         </div>
                         <div>
-                            
                             <ul class="shoplist-cont">
+                            
                                 @foreach($products as $product)
                                 <!--each pod-->
                                 <li class="shoplist-list">
@@ -259,8 +264,13 @@
                         </div><!--end of product list container-->
                         <div class="shoplist-nav">
                             <ul>
-                                <li>1 of 3</li>
-                                <li><a href="">Next ></a></li>
+                                 @if(!empty($products->previousPageUrl()))
+                                <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
+                                @endif
+                                <li>{{ $products->currentPage()}} of {{ $products->total() }}</li>
+                                @if($products->nextPageUrl())
+                                <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
+                                @endif
                             </ul>
                         </div><!--end of nav container-->
                     </div><!--end of main product list container-->
