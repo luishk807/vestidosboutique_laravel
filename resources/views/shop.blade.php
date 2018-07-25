@@ -208,7 +208,7 @@
                         <div><img src="{{ asset('images/shop_banners') }}/{{$shop_banners->image_url}}" class="img-fluid" alt/></div>
                         <div class="shoplist-nav">
                             <ul>
-                                <li>312 Products</li>
+                                <li>{{ $products->total() }} Products</li>
                                 <li>Sort By 
                                     <select>
                                         <option>Name</option>
@@ -217,7 +217,7 @@
                                 @if(!empty($products->previousPageUrl()))
                                 <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
                                 @endif
-                                <li>{{ $products->currentPage()}} of {{ $products->total() }}</li>
+                                <li>{{ $products->currentPage()}} of {{ $products->count() }}</li>
                                 @if($products->nextPageUrl())
                                 <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
                                 @endif
@@ -267,7 +267,7 @@
                                  @if(!empty($products->previousPageUrl()))
                                 <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
                                 @endif
-                                <li>{{ $products->currentPage()}} of {{ $products->total() }}</li>
+                                <li>{{ $products->currentPage()}} of {{ $products->count() }}</li>
                                 @if($products->nextPageUrl())
                                 <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
                                 @endif
