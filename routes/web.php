@@ -92,6 +92,16 @@
                     Route::get('/new','adminProductController@newTopQuince')->name('new_top_quince');
                     Route::post('/new','adminProductController@newTopQuince')->name('create_top_quince');
                 });
+
+                Route::prefix('shop_banner')->group(function(){
+                    Route::get('/','adminConfigShopBannerController@index')->name('shop_banners_page');
+                    Route::get('/new','adminConfigShopBannerController@newShopBanner')->name('new_shop_banner');
+                    Route::post('/new','adminConfigShopBannerController@newShopBanner')->name('create_shop_banner');
+                    Route::get('/edit/{shop_banner_id}','adminConfigShopBannerController@editShopBanner')->name('edit_shop_banner');
+                    Route::post('/edit/{shop_banner_id}','adminConfigShopBannerController@editShopBanner')->name('save_shop_banner');
+                    Route::get('/confirm/{shop_banner_id}','adminConfigShopBannerController@deleteShopBanner')->name('confirm_shop_banner');
+                    Route::delete('/confirm/{shop_banner_id}','adminConfigShopBannerController@deleteShopBanner')->name('delete_shop_banner');
+                });
             });
             //Admin Brands
             Route::prefix('brands')->group(function () {

@@ -150,6 +150,17 @@ $(document).ready(function() {
     $(".vesti-cart-quantity-input").click(function () {
         $(this).select();
     });
+    $(".product_thumnb_link").click(function(e){
+        e.preventDefault();
+       var getImg = $($(e.target).closest("img")).attr("src");
+       $(".product_main_img_in").find("img").attr("src",getImg);
+    });
+    $("#popup_bgOverlay").click(function(){
+        closeCartPopUp();
+    })
+    $(".rate-view").rate({
+        readonly:true
+    });
 });
 function addWishlist(product_id){
     $.ajax({
@@ -171,4 +182,35 @@ function updateCart(index,quant){
 }
 function deleteCart(index){
     document.location='api/deleteCart?key='+index;
+}
+function addCart(event){
+    event.preventDefault();
+    var dataValue=$(event.target).attr("data-value");
+    var hiddenInput=$(event.target).attr("data-input");
+    var dataClass=$(event.target).attr("data-class");
+    $("."+dataClass).removeClass("selected");
+    $(event.target).addClass("selected");
+    $("#"+hiddenInput).val(dataValue);
+}
+function checkCartSubmit(){
+    if(!$("#product_color").val()){
+        openCartPopUp("Please Select Color");
+        return false;
+    }else if(!$("#product_size").val()){
+        openCartPopUp("Please Select Size");
+        return false;
+    }
+    return true;
+}
+function closeCartPopUp(){
+    $("#popup_bgOverlay").css("display","none");
+    var div = document.getElementById('popup_text_in');
+    div.innerHTML = '';
+    $('body').css('overflow','auto');
+}
+function openCartPopUp(txt){
+    $("#popup_bgOverlay").css("display","block");
+    var div = document.getElementById('popup_text_in');
+    div.innerHTML += txt;
+    $('body').css('overflow','hidden');
 }
