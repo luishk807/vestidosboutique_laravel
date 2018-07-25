@@ -102,7 +102,7 @@ class adminConfigShopBannerController extends Controller
                     }
                     else{
                         return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
-                    }
+                    }W
                 }
                 $shop_banner->image_name=$request->input("image_name");
                 $shop_banner->image_destination = $request->input("image_destination");
