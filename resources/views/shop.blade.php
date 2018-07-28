@@ -142,6 +142,10 @@
         $("#shopPage_select").change(function(){
             window.location.href=shop_sort+"?sort="+$(this).val();
         });
+        $(".vestidos-check").on("click",function(){
+            $("#shopPage_select_input").val($("#shopPage_select").val());
+            $("#shop_sort_form").submit();
+        })
     })
 </script>
 <div class="main_sub_body main_body_height">
@@ -182,14 +186,16 @@
                         </div>
                                       <!--hiding mobile menu-->   
                     </div><!--end of mobile search-->
-                    <div class="col-md-3" id="desktop-sort-nav">   
+                    <div class="col-md-3" id="desktop-sort-nav">
+                        <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
+                        <input type="hidden" name="shopPage_select_input" id="shopPage_select_input">
                         <div class="shoplist-search-cont vesti-search-cont">
                             <div class="shoplist-search-type-cont">
                                 <h3>Events</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                        @foreach($categories as $category)
-                                        <li><input id="vestidos_cat_1" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $category->id }}"/><label for="vestidos_cat_1" class="vestidos-label"/>{{ $category->name }}</label></li>
+                                        @foreach($categories as $keyCat=>$category)
+                                        <li><input id="vestidos_cat_{{$keyCat}}" type="checkbox" class="vestidos-check" name="vestidos_categories[]" value="{{ $category->id }}"/><label for="vestidos_cat_{{$keyCat}}" class="vestidos-label"/>{{ $category->name }}</label></li>
                                         @endforeach
                                     </ul>
                                 </div>   
@@ -198,14 +204,14 @@
                                 <h3>Brands</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
-                                    @foreach($brands as $brand)
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $brand->id }}"/><label for="vestidos_cat_3" class="vestidos-label"/>{{ $brand->name }}</label></li>
+                                    @foreach($brands as $keyBrand=>$brand)
+                                    <li><input id="vestidos_cat_{{$keyBrand}}" type="checkbox" class="vestidos-check" name="vestidos_brands[]" value="{{ $brand->id }}"/><label for="vestidos_cat_{{$keyBrand}}" class="vestidos-label"/>{{ $brand->name }}</label></li>
                                     @endforeach
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
                         </div>
-
+                        </form>
 
                     </div>
                     <div class="col-md-9">
@@ -214,7 +220,7 @@
                             <ul>
                                 <li>{{ $products->total() }} Products</li>
                                 <li>Sort By 
-                                    <select id="shopPage_select">
+                                    <select id="shopPage_select" name="shopPage_select">
                                         @foreach($sort_ops as $sort_op)
                                         <option value='{{ $sort_op }}'
                                         @if($sort_op==$sort)
