@@ -134,11 +134,15 @@
 }
 </style>
 <script>
+    var shop_sort = "{{ route('shop_sort') }}";
 	$(document).ready(function(){
 		$(".rate-shop").rate({
 			readonly:true
-		});
-	})
+        });
+        $("#shopPage_select").change(function(){
+            window.location.href=shop_sort+"?sort="+$(this).val();
+        });
+    })
 </script>
 <div class="main_sub_body main_body_height">
 <div class="container">
@@ -210,8 +214,14 @@
                             <ul>
                                 <li>{{ $products->total() }} Products</li>
                                 <li>Sort By 
-                                    <select>
-                                        <option>Name</option>
+                                    <select id="shopPage_select">
+                                        @foreach($sort_ops as $sort_op)
+                                        <option value='{{ $sort_op }}'
+                                        @if($sort_op==$sort)
+                                        selected='selected'
+                                        @endif
+                                        >{{ ucfirst(trans($sort_op)) }}</option>
+                                        @endforeach
                                     </select>
                                 </li>
                                 @if(!empty($products->previousPageUrl()))
@@ -247,7 +257,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <div class='rate-shop' data-rate-value="4"></div>
+                                                    <div class='rate-shop' data-rate-value="{{ $product->rates->avg('user_rate') }}"></div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     @foreach($product->colors as $color)

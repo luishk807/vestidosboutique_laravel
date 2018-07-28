@@ -19,6 +19,7 @@
     Route::get("/",'homeController@index')->name("home_page");
     Route::get("/about",'homeController@about')->name("about_page");
     Route::get("/shop",'userShopController@index')->name("shop_page");
+    Route::get("/shop_sort",'userShopController@sort_page')->name("shop_sort");
     Route::get("/product/{product_id}",'homeController@product')->name("product_page");
     Route::post("/product/{product_id}",'userCartController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");

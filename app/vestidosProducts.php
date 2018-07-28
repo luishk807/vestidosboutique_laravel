@@ -42,6 +42,11 @@ class vestidosProducts extends Model
                                     ->get();
         return $products;
     }
+    public function sortByRates(){
+        $products = DB::table("vestidos_products as prod")
+                    ->get();
+        return $products;
+    }
     public function getStatus(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }
