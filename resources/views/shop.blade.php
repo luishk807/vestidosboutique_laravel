@@ -134,22 +134,21 @@
 }
 </style>
 <script>
-    var shop_sort = "{{ route('shop_sort') }}";
 	$(document).ready(function(){
 		$(".rate-shop").rate({
 			readonly:true
         });
         $("#shopPage_select").change(function(){
-            window.location.href=shop_sort+"?sort="+$(this).val();
+            $("#shop_sort_form").submit();
         });
         $(".vestidos-check").on("click",function(){
-            $("#shopPage_select_input").val($("#shopPage_select").val());
             $("#shop_sort_form").submit();
         })
     })
 </script>
 <div class="main_sub_body main_body_height">
 <div class="container">
+    <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
     <div class="row">
         <div class="col container-in-center">
             <div class="container container-in-space">
@@ -187,7 +186,6 @@
                                       <!--hiding mobile menu-->   
                     </div><!--end of mobile search-->
                     <div class="col-md-3" id="desktop-sort-nav">
-                        <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
                         <input type="hidden" name="shopPage_select_input" id="shopPage_select_input">
                         <div class="shoplist-search-cont vesti-search-cont">
                             <div class="shoplist-search-type-cont">
@@ -195,7 +193,13 @@
                                 <div class="shoplist-search-list-cont">
                                     <ul>
                                         @foreach($categories as $keyCat=>$category)
-                                        <li><input id="vestidos_cat_{{$keyCat}}" type="checkbox" class="vestidos-check" name="vestidos_categories[]" value="{{ $category->id }}"/><label for="vestidos_cat_{{$keyCat}}" class="vestidos-label"/>{{ $category->name }}</label></li>
+                                        <li><input id="vestidos_cat_{{$keyCat}}" type="checkbox" class="vestidos-check" name="vestidos_categories[]" 
+                                        @foreach($categoryids as $catid)
+                                        @if($catid==$category->id)
+                                        checked
+                                        @endif
+                                        @endforeach
+                                         value="{{ $category->id }}"/><label for="vestidos_cat_{{$keyCat}}" class="vestidos-label"/>{{ $category->name }}</label></li>
                                         @endforeach
                                     </ul>
                                 </div>   
@@ -205,13 +209,18 @@
                                 <div class="shoplist-search-list-cont">
                                     <ul>
                                     @foreach($brands as $keyBrand=>$brand)
-                                    <li><input id="vestidos_cat_{{$keyBrand}}" type="checkbox" class="vestidos-check" name="vestidos_brands[]" value="{{ $brand->id }}"/><label for="vestidos_cat_{{$keyBrand}}" class="vestidos-label"/>{{ $brand->name }}</label></li>
+                                    <li><input id="vestidos_cat_{{$keyBrand}}" type="checkbox" class="vestidos-check" name="vestidos_brands[]" 
+                                    @foreach($brandids as $branid)
+                                        @if($branid==$brand->id)
+                                        checked
+                                        @endif
+                                        @endforeach
+                                    value="{{ $brand->id }}"/><label for="vestidos_cat_{{$keyBrand}}" class="vestidos-label"/>{{ $brand->name }}</label></li>
                                     @endforeach
                                     </ul>
                                 </div>   
                             </div><!--end of search type-->
                         </div>
-                        </form>
 
                     </div>
                     <div class="col-md-9">
@@ -294,6 +303,7 @@
             </div>
         </div>
     </div>
+    </form>
 </div>
 </div>
 @endsection
