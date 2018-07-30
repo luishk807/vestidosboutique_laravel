@@ -170,9 +170,13 @@ function addWishlist(product_id){
             data:product_id
         },
         success: function(data) {
-            alert(data);
-            if(data=="login"){
+            if(data["status"]=="login"){
                 window.location.href="/signin";
+            }
+            else if(data["status"]=="insert"){
+                $(".product_main_img_in a >.vesti-svg").addClass("active");
+            }else if(data["status"]=="deleted"){
+                $(".product_main_img_in a > .vesti-svg").removeClass("active");
             }
         }
     });

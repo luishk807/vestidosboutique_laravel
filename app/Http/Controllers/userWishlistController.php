@@ -46,13 +46,17 @@ class userWishlistController extends Controller
             $wishlist = $this->wishlists::where('product_id',$product_id)->where('user_id',$user_id)->get();
             if($wishlist->first()){
                 $wishlist->first()->delete();
-                return "deleted";
+                // return "deleted";
+                return ["status"=>"deleted","product_id"=>$product_id];
             }else{
                 $this->wishlists->insert($data);
-                return "insert";
+                
+                // return "insert";
+                return ["status"=>"insert","product_id"=>$product_id];
             }
         }else{
-           return "login";
+        //    return "login";
+            return ["status"=>"login","product_id"=>null];
         }
     }
     public function deleteWishlist($wishlist_id,Request $request){

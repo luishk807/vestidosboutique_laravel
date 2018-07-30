@@ -376,14 +376,14 @@ background-size: cover;
   background-image:url("/images/ves-heart.svg");
 }
 .vesti-heart-link:hover span,
-.vesti-heart-link-c:hover span{
+.vesti-heart-link-c:hover span,
+.vesti-heart-link-c span.active,
+.vesti-heart-link span.active{
   height:30px;
   background-size:30px 30px;
   width:30px;
   background-image:url("/images/ves-heart-b.svg");
 }
-
-
 .vesti-heart-link-b{
   left:23px;
   top:0;
@@ -394,7 +394,8 @@ background-size: cover;
   width:50px;
   background-image:url("/images/ves-heart.svg");
 }
-.vesti-heart-link-b:hover span{
+.vesti-heart-link-b:hover span,
+.vesti-heart-link-b span.active{
   height:50px;
   background-size:50px 50px;
   width:50px;

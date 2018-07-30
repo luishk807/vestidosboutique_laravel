@@ -19,7 +19,14 @@
                     </div>
                     <div class="col-md-6 product_main_img">
                         <div class="product_main_img_in">
-                            <a href="javascript:addWishlist('{{ $product->id }}')" class="vesti-heart-link-b"><span class="vesti-svg"></span></a>
+                            <a href="javascript:addWishlist('{{ $product->id }}')" class="vesti-heart-link-b">
+                            <span class="vesti-svg
+                            @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
+                            @if($wishuser->product_id==$product->id)
+                                active
+                            @endif
+                            @endforeach
+                            "></span></a>
                             <a href=""><img src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
                         </div>
                     </div>
@@ -116,30 +123,12 @@
                         <h2 class="product_in_title_loved">People Also Loved</h2>
                         <div class="container-fluid">
                             <div class="row">
+                                @foreach($products_cat as $product_cat)
                                 <div class="col-xs-6 col-md-2  col-md-offset-1">
-                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
-                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
+                                    <a href="{{ route('product_page',['product_id'=>$product_cat->id])}}" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href=""><a href="{{ route('product_page',['product_id'=>$product_cat->id])}}"><img src="{{ asset('/images/products/') }}/{{ $product_cat->image_url }}" alt="{{ $product_cat->image_name }}" class="img-responsive"/></a></a>
                                 </div>
-                                <div class="col-xs-6 col-md-2">
-                                     <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
-                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
-                                </div>
-                                <div class="col-xs-6 col-md-2">
-                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
-                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
-                                </div>
-                                <div class="col-xs-6 col-md-2">
-                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
-                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
-                                </div>
-                                <div class="col-xs-6 col-md-2">
-                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
-                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
-                                </div>
-                                <div class="col-xs-6 col-md-2">
-                                    <a href="#" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
-                                    <a href=""><img src="{{ asset('/images/products/product_test.jpg') }}" alt class="img-responsive"/></a>
-                                </div>
+                                @endforeach
                             </div>
                             
                         </div>

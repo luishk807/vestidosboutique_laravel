@@ -54,7 +54,13 @@
                             <div class="vesti-new-txt vesti-new-txt-a">NEW</div>
                             <div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
-                            <a href="javascript:addWishlist('{{ $top_dress->id }}')" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="vesti-heart-link"><span class="vesti-svg
+                            @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
+                            @if($wishuser->product_id==$top_dress->id)
+                                active
+                            @endif
+                            @endforeach
+                            "></span></a>
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/products')}}/{{ $top_dress->images->first()->img_url }}"  class="img-fluid" alt="model1">
                             </a>
@@ -125,7 +131,13 @@
                             @if($top_quince->is_new)
                             <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
-                            <a href="#" class="vesti-heart-link"><span class="vesti-svg"></span></a>
+                            <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="vesti-heart-link"><span class="vesti-svg
+                            @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
+                            @if($wishuser->product_id==$top_quince->id)
+                                active
+                            @endif
+                            @endforeach
+                            "></span></a>
                            <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}" alt/></a>
                         </div>
                         @endforeach

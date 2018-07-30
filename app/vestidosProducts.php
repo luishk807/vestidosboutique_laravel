@@ -23,6 +23,15 @@ class vestidosProducts extends Model
     public function vendor(){
         return $this->belongsTo('App\vestidosVendors',"vendor_id","id");
     }
+    public function getProductByCat($cat_id){
+        $products = DB::table("vestidos_products")
+        ->select("vestidos_products.*",
+        DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_url'),
+        DB::raw('(select img_name from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_name')
+        )
+        ->where("vestidos_products.category_id",$cat_id)->get();
+        return $products;
+    }
     public function searchProductsByLabels($filter){
         $products = DB::table("vestidos_products as prod")
                                     ->select("
