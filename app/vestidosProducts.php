@@ -29,7 +29,7 @@ class vestidosProducts extends Model
         DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_url'),
         DB::raw('(select img_name from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_name')
         )
-        ->where("vestidos_products.category_id",$cat_id)->get();
+        ->where("vestidos_products.category_id",$cat_id)->take(5)->get();
         return $products;
     }
     public function searchProductsByLabels($filter){
