@@ -818,6 +818,10 @@ button.colors_cubes.selected{
     height: 30px;
     background-size: 30px 30px;
 }
+.vestidos-icons-tear-dress{
+  width: 270px;
+  background-size: 270px 270px;
+}
 .product_in_loved{
     padding-top:100px;
 }
@@ -853,6 +857,19 @@ button.colors_cubes.selected{
 }
 .popup_close_btn{
     margin-top:30px;
+}
+//ERROR PAGE 1
+.missing-col{
+  width:644px;
+}
+.missing-col h3{
+  font-size:7rem;
+}
+.missing-col .error_msg{
+  font-size:2rem;
+}
+.missing-col .col{
+  text-align:center;
 }
 // ACCOUNT SECTION
 .account-form-section{
