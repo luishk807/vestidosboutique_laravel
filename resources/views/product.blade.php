@@ -21,11 +21,13 @@
                         <div class="product_main_img_in">
                             <a href="javascript:addWishlist('{{ $product->id }}')" class="vesti-heart-link-b">
                             <span class="vesti-svg
+                            @if(Auth::guard('vestidosUsers')->check())
                             @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
                             @if($wishuser->product_id==$product->id)
                                 active
                             @endif
                             @endforeach
+                            @endif
                             "></span></a>
                             <a href=""><img src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
                         </div>

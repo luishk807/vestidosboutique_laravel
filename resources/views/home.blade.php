@@ -55,11 +55,13 @@
                             <div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="vesti-heart-link"><span class="vesti-svg
+                            @if(Auth::guard('vestidosUsers')->check())
                             @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
                             @if($wishuser->product_id==$top_dress->id)
                                 active
                             @endif
                             @endforeach
+                            @endif
                             "></span></a>
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="flash_hover_link thumbnail">
                                 <img src="{{asset('images/products')}}/{{ $top_dress->images->first()->img_url }}"  class="img-fluid" alt="model1">
@@ -132,11 +134,13 @@
                             <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="vesti-heart-link"><span class="vesti-svg
+                            @if(Auth::guard('vestidosUsers')->check())
                             @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
                             @if($wishuser->product_id==$top_quince->id)
                                 active
                             @endif
                             @endforeach
+                            @endif
                             "></span></a>
                            <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}" alt/></a>
                         </div>

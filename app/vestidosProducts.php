@@ -33,21 +33,13 @@ class vestidosProducts extends Model
         return $products;
     }
     public function searchProductsByLabels($filter){
-        $products = DB::table("vestidos_products as prod")
-                                    ->select("
-                                        prod.products_name as name,
-                                        prod.product_stock,
-                                        prod.products_description as description, 
-                                        img.img_url,
-                                        img.img_name,
-                                        brand.name
-                                    ")
-                                    ->join("vestidos_products_imgs as img","img.id","=","prod.products_img")
-                                    ->join("vestidos_brands as brand","brand.id","=","prod.brand_id")
-                                    ->whereRaw("
-                                        prod.search_labels like '%{$filter}%'
-                                    ")
-                                    ->orderBy("prod.products_name")
+        $products = DB::table("vestidos_products")
+                                    ->select("vestidos_products.*",
+                                    DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_url'),
+                                    DB::raw('(select img_name from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_name')
+                                    )
+                                    ->whereRaw("vestidos_products.search_labels like '%{$filter}%'")
+                                    ->orderBy("vestidos_products.products_name")
                                     ->get();
         return $products;
     }
