@@ -6,6 +6,18 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\AuthenticationException;
 
+
+use App\vestidosBrands as Brands;
+use App\vestidosCategories as Categories;
+use App\vestidosCountries as vestidosCountries;
+use App\vestidosUsers as Users;
+use App\vestidosProducts as Products;
+use App\vestidosCountries as Countries;
+use App\vestidosGenders as Genders;
+use App\vestidosLanguages as Languages;
+use App\vestidosUserAddresses as Addresses;
+
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -47,6 +59,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
+        if ($exception instanceof ModelNotFoundException) 
+        {
+            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
+        }
+
+        //insert this snippet
+        if ($this->isHttpException($exception)) 
+        {   
+            $data=[];
+            $data["brands"]=Brands::all();
+            $data["categories"]=Categories::all();
+            $data["page_title"]="Error Page";
+            $statusCode = $exception->getStatusCode();
+            switch($statusCode){
+                case '404': return response()->view('errors.missing',$data, 404);
+            }
+        }
+
+
         return parent::render($request, $exception);
     }
 
