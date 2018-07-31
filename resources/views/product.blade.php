@@ -22,11 +22,9 @@
                             <a href="javascript:addWishlist('{{ $product->id }}')" class="vesti-heart-link-b">
                             <span class="vesti-svg
                             @if(Auth::guard('vestidosUsers')->check())
-                            @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
-                            @if($wishuser->product_id==$product->id)
+                            @if(!($product->isWishlist(Auth::guard('vestidosUsers')->user()->id,$product->id))->isEmpty())
                                 active
                             @endif
-                            @endforeach
                             @endif
                             "></span></a>
                             <a href=""><img src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
@@ -127,7 +125,13 @@
                             <div class="row">
                                 @foreach($products_cat as $product_cat)
                                 <div class="col-xs-6 col-md-2  col-md-offset-1">
-                                    <a href="{{ route('product_page',['product_id'=>$product_cat->id])}}" class="vesti-heart-link-c"><span class="vesti-svg"></span></a>
+                                    <a href="{{ route('product_page',['product_id'=>$product_cat->id])}}" class="vesti-heart-link-c"><span class="vesti-svg
+                                    @if(Auth::guard('vestidosUsers')->check())
+                                    @if(!($product->isWishlist(Auth::guard('vestidosUsers')->user()->id, $product_cat->id))->isEmpty())
+                                        active
+                                    @endif
+                                    @endif
+                                    "></span></a>
                                     <a href=""><a href="{{ route('product_page',['product_id'=>$product_cat->id])}}"><img src="{{ asset('/images/products/') }}/{{ $product_cat->image_url }}" alt="{{ $product_cat->image_name }}" class="img-responsive"/></a></a>
                                 </div>
                                 @endforeach

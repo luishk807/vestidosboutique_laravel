@@ -56,11 +56,9 @@
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="vesti-heart-link"><span class="vesti-svg
                             @if(Auth::guard('vestidosUsers')->check())
-                            @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
-                            @if($wishuser->product_id==$top_dress->id)
+                            @if(!($products->isWishlist(Auth::guard('vestidosUsers')->user()->id, $top_dress->id))->isEmpty())
                                 active
                             @endif
-                            @endforeach
                             @endif
                             "></span></a>
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="flash_hover_link thumbnail">
@@ -135,11 +133,9 @@
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="vesti-heart-link"><span class="vesti-svg
                             @if(Auth::guard('vestidosUsers')->check())
-                            @foreach(Auth::guard('vestidosUsers')->user()->wishlists as $wishuser)
-                            @if($wishuser->product_id==$top_quince->id)
+                            @if(!($products->isWishlist(Auth::guard('vestidosUsers')->user()->id, $top_quince->id))->isEmpty())
                                 active
                             @endif
-                            @endforeach
                             @endif
                             "></span></a>
                            <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}" alt/></a>

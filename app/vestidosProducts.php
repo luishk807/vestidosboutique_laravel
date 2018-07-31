@@ -20,6 +20,12 @@ class vestidosProducts extends Model
     public function sizes(){
         return $this->hasMany('App\vestidosSizes',"product_id");
     }
+    public function isWishList($user_id,$product_id){
+        $wishlist = DB::table("vestidos_user_wishlists")
+                    ->whereRaw("user_id = {$user_id} and product_id={$product_id}")
+                    ->get();
+        return $wishlist;
+    }
     public function vendor(){
         return $this->belongsTo('App\vestidosVendors',"vendor_id","id");
     }

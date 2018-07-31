@@ -16,6 +16,7 @@ use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosConfigSectionMainSliders as MainSliders;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class HomeController extends Controller
@@ -53,6 +54,7 @@ class HomeController extends Controller
         $data["main_sliders"] = $this->main_sliders->all();
         $data["top_dresses"] = $this->products->where("top_dress","=",1)->get();
         $data["top_quinces"] = $this->products->where("top_quince","=",1)->get();
+        $data["products"]=$this->products;
         return view("home",$data);
     }
     public function about(){
@@ -68,7 +70,7 @@ class HomeController extends Controller
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["products_cat"]=$this->products->getProductByCat($product->category_id);
-        $data["products"]=$this->products->all();
+        $data["products"]=$this->products;
         $data["product"]=$product;
         $data["page_title"]="Product";
         return view("product",$data);
