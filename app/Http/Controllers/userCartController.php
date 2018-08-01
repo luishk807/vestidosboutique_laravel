@@ -48,15 +48,18 @@ class userCartController extends Controller
         $tax = $this->taxes->find(1);
         $tax_amt = (float) $tax->tax;
         $cart_remove="";
-        for($i=0;$i<sizeof($cart);$i++){
-            $product = $this->products->find($cart[$i]["id"]);
-            if($product->product_stock < 1){
-                $cart_remove .= empty($cart_remove) ? $cart[$i]["name"]:" ,".$cart[$i]["name"];
-               array_splice($cart,$i,1);
-            }else{
-                $cart[$i]["stock"]=$product->product_stock;
+        if(!empty($cart)){
+            for($i=0;$i<sizeof($cart);$i++){
+                $product = $this->products->find($cart[$i]["id"]);
+                if($product->product_stock < 1){
+                    $cart_remove .= empty($cart_remove) ? $cart[$i]["name"]:" ,".$cart[$i]["name"];
+                   array_splice($cart,$i,1);
+                }else{
+                    $cart[$i]["stock"]=$product->product_stock;
+                }
             }
         }
+        
         if(!empty($cart_remove)){
             $cart_remove .=" removed";
             Session::flash("alert",$cart_remove);

@@ -51,6 +51,7 @@
                             </div>
                         </div><!--end of cart header-->
                         <!--start of cart items-->
+                        @if(!empty(Session::get("vestidos_shop")))
                         @foreach(Session::get("vestidos_shop") as $keyIndex=>$item)
                         <div class="row cart-item-items">
                             <div class="col-md-5 cart-item-1">
@@ -94,7 +95,7 @@
                             </div>
                         </div><!--end of cart items-->
                         @endforeach
-
+                        @endif
 
 
                         <div class="row cart-footer-section">
