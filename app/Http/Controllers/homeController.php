@@ -16,6 +16,7 @@ use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosConfigSectionMainSliders as MainSliders;
 use Auth;
+use Mail;
 use Illuminate\Support\Facades\DB;
 use Session;
 
@@ -94,16 +95,27 @@ class HomeController extends Controller
                 "country"=>"required",
                 "question"=>"required"
             ]);
-            $data = [
-                'first_name'=>$request->input("first_name"),
-                'last_name'=>$request->input("last_name"),
-                'email'=>$request->input("email"),
-                'phone'=>$request->input("phone"),
-                'country'=>$request->input("country"),
-                'message'=>$request->input("quesction")
-            ];
-            Mail::to('info@vestidosboutique.com')->send(new TestEmail($data));
-           // return view("thankyou",["page_title"=>"Thank You"]);
+            $first_name=$request->input("first_name");
+            $last_name=$request->input("last_name");
+            $email=$request->input("email");
+            $phone=$request->input("phone");
+            $country=$request->input("country");
+            $message=$request->input("question");
+            // $body_message = "Name: ".$first_name." ".$last_name."<br/>";
+            // $body_message .= "Email: ".$email."<br/>";
+            // $body_message .= "Phone: ".$phone."<br/>";
+            // $body_message .= "Country: ".$country."<br/>";
+            // $body_message .= "Message:<br/>";
+            // $body_message .= $message;
+            if($message != null)
+             {   $datax = array('bodyMessage'=>"test");}
+            else
+            {$datax[]='';}
+            Mail::send('email',$datax,function($message){
+                $message->from('info@vestidosboutique.com','Just Laravel');
+                $message->to("luishk807@hotmail.com")->subject('Just Laravel demo email using SendGrid');
+            });
+            return redirect()->route("viewContactPage")->withErrors(['Your email has been sent successfully']);
         }
         return view("contact");
     }

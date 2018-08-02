@@ -19,7 +19,15 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-7">
-                                <form action="{{ route('sendEmail') }}" method="post">
+                                @if(isset($bodyMessage))
+                                <div class="w3-container w3-orange">
+                                    <p>
+                                        <b>The data you have entered is :</b><span style="color: #e36c39; background: #EEE">{{ $bodyMessage }}</span>
+                                    </p>
+                                </div>
+                                @endif
+                                <form action="{{ route('sendEmail') }}" method="post" role="email">
+                                {{ csrf_field() }}
                                     <h2>Contact</h2>
                                     <div class="form-group">
                                             <label for="accountFirstName">First Name:</label>

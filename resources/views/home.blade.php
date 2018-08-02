@@ -16,7 +16,7 @@
                     </div>
             </div>
             @foreach($main_sliders as $indexKey => $main_slider)
-            <div class="slide playfair-display-black-italic" id="slide{{$indexKey}}">
+            <div class="slide slide-slide playfair-display-black-italic" id="slide{{$indexKey}}">
                
                 <div class="intro">
                     <div class="container">
