@@ -25,7 +25,6 @@
     Route::post("/product/{product_id}",'userCartController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");
     Route::post("/contact","homeController@sendEmail")->name("sendEmail");
-
     Route::get("/cart",'userCartController@index')->name("cart_page");
 
     Route::get("/signin",'homeController@signin')->name("login_page");

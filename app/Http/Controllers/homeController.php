@@ -10,7 +10,6 @@ use App\vestidosCountries as vestidosCountries;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
 use App\vestidosProducts as Products;
-use App\vestidosCountries as Countries;
 use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
@@ -37,7 +36,7 @@ class HomeController extends Controller
     public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders)
     {
       $this->brands=$brands;
-      $this->country=$countries->all();
+      $this->country=$countries;
       $this->categories = $categories;
       $this->users = $users;
       $this->products=$products;
@@ -86,6 +85,10 @@ class HomeController extends Controller
     }
     public function sendEmail(Request $request){
         $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["page_title"]="Contact Us";
+        $data["countries"]=$this->country->all();
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
@@ -95,29 +98,24 @@ class HomeController extends Controller
                 "country"=>"required",
                 "question"=>"required"
             ]);
-            $first_name=$request->input("first_name");
-            $last_name=$request->input("last_name");
-            $email=$request->input("email");
-            $phone=$request->input("phone");
-            $country=$request->input("country");
-            $message=$request->input("question");
-            // $body_message = "Name: ".$first_name." ".$last_name."<br/>";
-            // $body_message .= "Email: ".$email."<br/>";
-            // $body_message .= "Phone: ".$phone."<br/>";
-            // $body_message .= "Country: ".$country."<br/>";
-            // $body_message .= "Message:<br/>";
-            // $body_message .= $message;
-            if($message != null)
-             {   $datax = array('bodyMessage'=>"test");}
-            else
-            {$datax[]='';}
-            Mail::send('email',$datax,function($message){
-                $message->from('info@vestidosboutique.com','Just Laravel');
-                $message->to("luishk807@hotmail.com")->subject('Just Laravel demo email using SendGrid');
+            $client = [
+                'first_name'=>$request->input("first_name"),
+                'last_name'=>$request->input("last_name"),
+                'email'=>$request->input("email"),
+                'phone'=>$request->input("phone"),
+                'country'=>$request->input("country"),
+                'message'=>$request->input("question")
+            ];
+           Mail::send('emails.emailcontent',["client"=>$client],function($message) use($client){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->to($client["email"],$client['first_name']." ".$client["last_name"])->subject('Thank you for your email');
             });
-            return redirect()->route("viewContactPage")->withErrors(['Your email has been sent successfully']);
+            Mail::send('emails.adminemail',["client"=>$client],function($message) use($client){
+                $message->from($client["email"],$client['first_name']." ".$client["last_name"]);
+                $message->to("luishk807@gmail.com")->subject('New Email Received');
+            });
+            return view("emails.thankyou",$data);
         }
-        return view("contact");
     }
     public function signin(){
         $data=[];
