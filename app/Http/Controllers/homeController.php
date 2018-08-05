@@ -108,13 +108,17 @@ class HomeController extends Controller
             ];
            Mail::send('emails.emailcontent',["client"=>$client],function($message) use($client){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
-                $message->to($client["email"],$client['first_name']." ".$client["last_name"])->subject('Thank you for your email');
+                $client_name = $client['first_name']." ".$client["last_name"];
+                $subject = 'Hello '.$client_name.', thank you for your email';
+                $message->to($client["email"],$client_name)->subject($subject);
             });
             Mail::send('emails.adminemail',["client"=>$client],function($message) use($client){
-                $message->from($client["email"],$client['first_name']." ".$client["last_name"]);
-                $message->to("luishk807@gmail.com")->subject('New Email Received');
+                $client_name = $client['first_name']." ".$client["last_name"];
+                $message->from($client["email"],$client_name);
+                $subject = 'New Email From '.$client_name.' Received';
+                $message->to("info@vestidosboutique.com")->subject($subject);
             });
-            return view("emails.thankyou",$data);
+            return view("thankyou.contact",$data);
         }
     }
     public function signin(){
