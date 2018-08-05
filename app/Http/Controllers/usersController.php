@@ -41,7 +41,6 @@ class usersController extends Controller
     public function newUser(Request $request){
         $data=[];
         $data["preferred_language"]=$request->input("preferred_language");
-        $data["user_name"]=$request->input("user_name");
         $data["password"]=$request->input("password");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
@@ -52,7 +51,6 @@ class usersController extends Controller
         $data["date_of_birth"]=$request->input("date_of_birth");
         if($request->isMethod("post")){
             $this->validate($request,[
-                "user_name"=>"required",
                 "preferred_language"=>"required",
                 "first_name"=>"required",
                 "last_name"=>"required",
@@ -67,13 +65,21 @@ class usersController extends Controller
             $data["status"]=6;
             $data["user_type"]=1;
             $data["created_at"]=carbon::now();
-            $this->users->insert($data);
-            $last_id=$this->users->lastInsertId();
-            $user = $this->users->find($last_id);
-            $data["page_title"]="Welcome ".$user->getFullName();
-            $data["user_id"]=$last_id;
-            $data["user"]=$user;
-            return redirect()->route("user_account",['user_id'=>$user->id]);
+            $data["page_title"]="thank You";
+            $data["brands"]=$this->brands->all();
+            $data["categories"]=$this->categories->all();
+            $data["thankyou_title"]="";
+            $data["thankyou_msg"]="";
+            $data["thankyou_img"]="";
+            $data["thankyou_status"]=true;
+            // $this->users->insert($data);
+            // $last_id=$this->users->lastInsertId();
+            // $user = $this->users->find($last_id);
+            // $data["user_id"]=$last_id;
+            // $data["user"]=$user;
+            //return redirect()->route("user_account",['user_id'=>$user->id]);
+            // return view("thankyou.account",$data);
+            dd($data);
         }
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
@@ -94,7 +100,6 @@ class usersController extends Controller
         $data["user_id"]=$user->id;
         if($request->isMethod("post")){
             $this->validate($request,[
-                "user_name"=>"required",
                 "preferred_language"=>"required",
                 "first_name"=>"required",
                 "last_name"=>"required",
@@ -103,7 +108,6 @@ class usersController extends Controller
                 "phone_number"=>"required",
             ]);
             $user->preferred_language=$request->input("preferred_language");
-            $user->user_name=$request->input("user_name");
             $user->first_name=$request->input("first_name");
             $user->middle_name=$request->input("middle_name");
             $user->last_name=$request->input("last_name");

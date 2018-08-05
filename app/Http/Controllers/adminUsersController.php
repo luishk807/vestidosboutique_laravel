@@ -38,7 +38,6 @@ class adminUsersController extends Controller
     }
     public function newUser(Request $request){
         $data = [];
-        $data["user_name"]=$request->input("user_name");
         $data["password"]=$request->input("password");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
@@ -53,7 +52,6 @@ class adminUsersController extends Controller
         $data["ip"]=$request->ip();
         if($request->isMethod("post")){
             $this->validate($request,[
-                "user_name"=>"required",
                 "password"=>"required | same:re-type_password",
                 "first_name"=>"required",
                 "last_name"=>"required",
@@ -78,7 +76,6 @@ class adminUsersController extends Controller
     }
     function updateUser($user_id, Request $request){
         $data=[];
-        $data["user_name"]=$request->input("user_name");
         $data["password"]=$request->input("password");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
@@ -93,7 +90,6 @@ class adminUsersController extends Controller
         $user = $this->users->find($user_id);
         if($request->isMethod("post")){
             $this->validate($request,[
-                "user_name"=>"required",
                 "first_name"=>"required",
                 "password" => "same:re-type_password",
                 "last_name"=>"required",
@@ -104,7 +100,6 @@ class adminUsersController extends Controller
                 "preferred_language"=>"required",
                 "status"=>"required"
             ]);
-            $user->user_name = $request->input("user_name");
             if(!empty($request->input("password"))){
                 $user->password = Hash::make($request->input("password"));
             }

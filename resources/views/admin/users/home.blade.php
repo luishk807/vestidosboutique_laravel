@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-2">Username</div>
+        <div class="col-md-2"></div>
         <div class="col-md-2">Name</div>
         <div class="col-md-3">Email</div>
         <div class="col-md-2">Status</div>
@@ -22,7 +22,7 @@
     @foreach($users as $user)
     <div class="row">
         <div class="col-md-1"></div>
-        <div class="col-md-2">{{$user->user_name}}</div>
+        <div class="col-md-2"></div>
         <div class="col-md-2">{{$user->getFullName()}}</div>
         <div class="col-md-3">{{$user->email}}</div>
         <div class="col-md-2">{{ $user->getStatusName->name }}</div>

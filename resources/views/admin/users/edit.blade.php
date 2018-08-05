@@ -16,9 +16,9 @@
 <form action="{{ route('admin_updateuser',['user_id'=>$user_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-        <label for="userUserName">User Name:</label>
-        <input type="text" id="userUserName" class="form-control" name="user_name" value="{{ old('user_name') ? old('user_name') : $user->user_name }}" placeholder="UserName"/>
-        <small class="error">{{$errors->first("user_name")}}</small>
+        <label for="userEmail">Email:</label>
+        <input type="text" id="userEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $user->email }}" placeholder="Email"/>
+        <small class="error">{{$errors->first("email")}}</small>
     </div>
     <div class="form-group">
         <label for="userPassword">Password:</label>
@@ -46,11 +46,6 @@
             <input type="text" id="userLastName" class="form-control" name="last_name" value="{{ old('last_name') ? old('last_name') : $user->last_name }}" placeholder="Last Name"/>
             <small class="error">{{$errors->first("last_name")}}</small>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="userEmail">Email:</label>
-        <input type="text" id="userEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $user->email }}" placeholder="Email"/>
-        <small class="error">{{$errors->first("email")}}</small>
     </div>
     <div class="form-group">
         <label for="userDob">Date of Birth:</label>

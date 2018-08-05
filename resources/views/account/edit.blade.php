@@ -59,11 +59,6 @@
                         <small class="error">{{$errors->first("phone_number")}}</small>
                 </div>
                 <div class="form-group">
-                        <label for="accountUsername">Username:</label>
-                        <input type="text" id="accountUsername" class="form-control" name="user_name" value="{{ old('user_name') ? old('user_name') : $user->user_name }}" placeholder="Username"/>
-                        <small class="error">{{$errors->first("user_name")}}</small>
-                </div>
-                <div class="form-group">
                         <label for="accountPassword">Password:</label>
                         <input type="password" id="accountPassword" class="form-control" name="password" value="" placeholder="Password"/>
                         <small class="error">{{$errors->first("password")}}</small>

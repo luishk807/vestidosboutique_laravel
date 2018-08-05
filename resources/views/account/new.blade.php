@@ -46,8 +46,8 @@
                                 </div>
                                 <div class="form-group">
                                         <label for="accountPhone">Phone:</label>
-                                        <input type="tel" id="accountPhone" class="form-control" name="phone" value="{{ old('phone')}}" placeholder="Phone Number"/>
-                                        <small class="error">{{$errors->first("phone")}}</small>
+                                        <input type="tel" id="accountPhone" class="form-control" name="phone_number" value="{{ old('phone')}}" placeholder="Phone Number"/>
+                                        <small class="error">{{$errors->first("phone_number")}}</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="accountDob">Date of Birth:</label>
