@@ -11,7 +11,9 @@ use App\vestidosCountries as Countries;
 use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
+use Illuminate\Support\Facades\Hash;
 use Auth;
+use Redirect;
 
 class usersController extends Controller
 {
@@ -38,8 +40,30 @@ class usersController extends Controller
         $data["page_title"]="Login";
         return view('/signin',$data);
     }
+    public function viewNewUser(Request $request){
+        $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["languages"]=$this->languages->all();
+        $data["genders"]=$this->genders->all();
+        $data["page_title"]="New Account";
+        $data["countries"]=$this->country->all();
+        return view("account/new",$data);
+    }
     public function newUser(Request $request){
         $data=[];
+        $this->validate($request,[
+            "preferred_language"=>"required",
+            "first_name"=>"required",
+            "last_name"=>"required",
+            "gender"=>"required",
+            "password"=>"required | same:repassword",
+            "repassword"=>"required | same:password",
+            "date_of_birth"=>"required",
+            "email"=>"required",
+            "phone_number"=>"required",
+        ]);
+        
         $data["preferred_language"]=$request->input("preferred_language");
         $data["password"]=$request->input("password");
         $data["first_name"]=$request->input("first_name");
@@ -49,46 +73,19 @@ class usersController extends Controller
         $data["phone_number"]=$request->input("phone_number");
         $data["gender"]=$request->input("gender");
         $data["date_of_birth"]=$request->input("date_of_birth");
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "preferred_language"=>"required",
-                "first_name"=>"required",
-                "last_name"=>"required",
-                "gender"=>"required",
-                "password"=>"required | same:repassword",
-                "repassword"=>"required | same:password",
-                "date_of_birth"=>"required",
-                "email"=>"required",
-                "phone_number"=>"required",
-            ]);
-            $data["ip"]=$request->ip();
-            $data["status"]=6;
-            $data["user_type"]=1;
-            $data["created_at"]=carbon::now();
-            $data["page_title"]="thank You";
-            $data["brands"]=$this->brands->all();
-            $data["categories"]=$this->categories->all();
-            $data["thankyou_title"]="";
-            $data["thankyou_msg"]="";
-            $data["thankyou_img"]="";
-            $data["thankyou_status"]=true;
-            // $this->users->insert($data);
-            // $last_id=$this->users->lastInsertId();
-            // $user = $this->users->find($last_id);
-            // $data["user_id"]=$last_id;
-            // $data["user"]=$user;
-            //return redirect()->route("user_account",['user_id'=>$user->id]);
-            // return view("thankyou.account",$data);
-            dd($data);
+        
+        $data["ip"]=$request->ip();
+        $data["status"]=6;
+        $data["user_type"]=1;
+        $data["created_at"]=carbon::now();
+        $data["password"]=Hash::make($request->input("password"));
+        if($this->users->insert($data)){
+            return redirect()->route('account_create_confirmed');
+        }else{
+            return redirect()->back();
         }
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["languages"]=$this->languages->all();
-        $data["genders"]=$this->genders->all();
-        $data["page_title"]="New Account";
-        $data["countries"]=$this->country->all();
-        return view("account/new",$data);
     }
+    
     public function updateUser($user_id, Request $request){
         $user=$this->users->find($user_id);
         $data["page_title"]="Edit Account";
@@ -107,6 +104,9 @@ class usersController extends Controller
                 "email"=>"required",
                 "phone_number"=>"required",
             ]);
+            if(!empty($request->input("password"))){
+                $user->password = Hash::make($request->input("password"));
+            }
             $user->preferred_language=$request->input("preferred_language");
             $user->first_name=$request->input("first_name");
             $user->middle_name=$request->input("middle_name");

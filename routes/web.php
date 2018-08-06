@@ -30,13 +30,18 @@
     Route::get("/signin",'homeController@signin')->name("login_page");
     Route::post("/signin",'homeController@login')->name("login_user");
     Route::get("/logout",'homeController@logout')->name("logout_user");
+
+    //confirmation pages for redirections
+    Route::get("/thankyou/account","userConfirmationController@accountCreationConfirm")->name("account_create_confirmed");
+    Route::get("/thankyou/logout","userConfirmationController@logoutConfirm")->name("logout_confirmation");
+    Route::get("/thankyou/orderreceived","userConfirmationController@orderCreationCreated")->name("order_received_confirmation");
     //Users
-    Route::get("/account/new",'usersController@newUser')->name("newuser");
+    Route::get("/account/new",'usersController@viewNewUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
     Route::prefix("account")->middleware("auth:vestidosUsers")->group(function(){
         Route::get("/{user_id}",'usersController@index')->name("user_account");
         
-        Route::get("/edit/{user_id}",'usersController@updateUser')->name("edituser");
+        Route::get("/edit/{user_id}",'usersController@showUpdateUser')->name("edituser");
         Route::post("/edit/{user_id}",'usersController@updateUser')->name("updateuser");
 
         Route::prefix("addresses")->group(function(){

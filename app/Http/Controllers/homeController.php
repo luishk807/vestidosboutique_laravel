@@ -155,8 +155,13 @@ class HomeController extends Controller
         $data=[];
         if(Auth::guard("vestidosUsers")->check()){
             Auth::guard("vestidosUsers")->logout();
-            return redirect()->route('login_page',$data);
+            return redirect()->route('logout_confirmation');
+        }else{
+            $data["brands"]=$this->brands->all();
+            $data["categories"]=$this->categories->all();
+            $data["page_title"]="Login";
+            $data["users"]=$this->users->all();
+            return redirect("/signin")->with($data);
         }
-        return redirect()->back();
     }
 }

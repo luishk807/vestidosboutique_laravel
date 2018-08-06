@@ -878,5 +878,23 @@ button.colors_cubes.selected{
 .account-form-section{
   margin:0px auto;
 }
+// CONFIRMATION PAGES
+.vestidos-icons-confirm{
+  width: 100px;
+  background-size: 100px 100px;
+}
+.confirm-col h3{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.confirm-col .error_msg {
+    font-size: 1.5rem;
+}
+.confirm-col {
+    width: 644px;
+}
+.confirm-col .col:nth-child(1){
+    text-align:center;
+}
 //custom vestidos mobile scss
 @import "vestidos_mobile";

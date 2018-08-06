@@ -74,6 +74,17 @@ class adminUsersController extends Controller
         $data["languages"]=$this->languages->all();
         return view("admin/users/new",$data);
     }
+    function showUpdateUser($user_id, Request $request){
+        $data=[];
+        $data["user"]=$user;
+        $data["page_title"]="Edit Users";
+        $data["user_id"]=$user_id;
+        $data["user_types"]=$this->user_types->all();
+        $data["statuses"]=$this->statuses->all();
+        $data["languages"]=$this->languages->all();
+        $data["genders"]=$this->genders->all();
+        return view("admin/users/edit",$data);
+    }
     function updateUser($user_id, Request $request){
         $data=[];
         $data["password"]=$request->input("password");
@@ -117,14 +128,14 @@ class adminUsersController extends Controller
             $user->save();
             return redirect()->route("admin_users");
         }
-        $data["user"]=$user;
-        $data["page_title"]="Edit Users";
-        $data["user_id"]=$user_id;
-        $data["user_types"]=$this->user_types->all();
-        $data["statuses"]=$this->statuses->all();
-        $data["languages"]=$this->languages->all();
-        $data["genders"]=$this->genders->all();
-        return view("admin/users/edit",$data);
+        // $data["user"]=$user;
+        // $data["page_title"]="Edit Users";
+        // $data["user_id"]=$user_id;
+        // $data["user_types"]=$this->user_types->all();
+        // $data["statuses"]=$this->statuses->all();
+        // $data["languages"]=$this->languages->all();
+        // $data["genders"]=$this->genders->all();
+        // return view("admin/users/edit",$data);
     }
     public function deleteUser($user_id,Request $request){
         $data=[];
