@@ -1,5 +1,43 @@
 @extends("layouts.sub-layout")
 @section('content')
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+paypal.Button.render({
+  // Configure environment
+  env: 'sandbox',
+  client: {
+    sandbox: 'AfD6fcfryfoNYZyjOvk1gm9eYwIX-BdW3wceY6lqz0-JOeoAiotUVdFSercsvgkiUxR_I2NTh5cpje-g',
+    production: 'demo_production_client_id'
+  },
+  // Customize button (optional)
+  locale: 'en_US',
+  style: {
+    size: 'small',
+    color: 'gold',
+    shape: 'pill',
+  },
+  // Set up a payment
+  payment: function (data, actions) {
+    return actions.payment.create({
+      transactions: [{
+        amount: {
+          total: '0.01',
+          currency: 'USD'
+        }
+      }]
+    });
+  },
+  // Execute the payment
+  onAuthorize: function (data, actions) {
+    return actions.payment.execute()
+      .then(function () {
+        // Show a confirmation message to the buyer
+        window.alert('Thank you for your purchase!');
+      });
+  }
+}, '#paypal-button-test');
+</script>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -26,7 +64,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="vesti_in_btn_pnl">
-                                    <button class="btn-block vesti_in_btn" onclick="location.href='/cart'">CHECKOUT</button>
+                                    <button id="paypal-button-test" class="btn-block vesti_in_btn" onclick="location.href='/cart'">CHECKOUT</button>
                                 </div>
                             </div>
                         </div>

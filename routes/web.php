@@ -34,7 +34,7 @@
     //confirmation pages for redirections
     Route::get("/thankyou/account","userConfirmationController@accountCreationConfirm")->name("account_create_confirmed");
     Route::get("/thankyou/logout","userConfirmationController@logoutConfirm")->name("logout_confirmation");
-    Route::get("/thankyou/orderreceived","userConfirmationController@orderCreationCreated")->name("order_received_confirmation");
+    Route::get("/orderreceived","userConfirmationController@orderCreationCreated")->name("order_received_confirmation");
     //Users
     Route::get("/account/new",'usersController@viewNewUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
