@@ -22,6 +22,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "braintree": "^2.12.0",
         "font-face-mixin": "^1.1.0"
     }
 }

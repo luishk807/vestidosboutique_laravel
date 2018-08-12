@@ -35,4 +35,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'braintree' => [
+        'environment' => env('sandbox'),
+        'merchant_id' => env('jfqgz3b6qszzdzcp'),
+        'public_key' => env('3zdhh766wfcyh228'),
+        'private_key' => env('43436fb92253d96585ffc360d8382a22'),
+    ],
+
 ];

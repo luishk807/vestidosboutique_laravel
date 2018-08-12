@@ -26,6 +26,7 @@
     Route::get("/contact","homeController@contact")->name("viewContactPage");
     Route::post("/contact","homeController@sendEmail")->name("sendEmail");
     Route::get("/cart",'userCartController@index')->name("cart_page");
+    Route::get("/checkout",'userCartController@showCheckout')->name("checkout_page");
 
     Route::get("/signin",'homeController@signin')->name("login_page");
     Route::post("/signin",'homeController@login')->name("login_user");

@@ -1,8 +1,15 @@
 @extends("layouts.sub-layout")
 @section('content')
-
+<script>
+var returnUrl = "{{ url('/orderreceived')}}";
+</script>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
+$(document).ready(function(){
+    setTimeout(function(){
+        $('#paypal-button-test .paypal-button-logo').remove();
+    },25);
+});
 paypal.Button.render({
   // Configure environment
   env: 'sandbox',
@@ -14,8 +21,11 @@ paypal.Button.render({
   locale: 'en_US',
   style: {
     size: 'small',
-    color: 'gold',
+    color: 'blue',
     shape: 'pill',
+    label: 'checkout',
+    branding: true,
+    tagline:false
   },
   // Set up a payment
   payment: function (data, actions) {
@@ -33,7 +43,7 @@ paypal.Button.render({
     return actions.payment.execute()
       .then(function () {
         // Show a confirmation message to the buyer
-        window.alert('Thank you for your purchase!');
+        window.location.href=returnUrl;
       });
   }
 }, '#paypal-button-test');
