@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\vestidosStatus as Statuses;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosAddressTypes as AddressTypes;
+use App\vestidosBrands as Brands;
+use App\vestidosCategories as Categories;
 use App\vestidosCountries as Countries;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
@@ -13,11 +15,13 @@ use Carbon\Carbon as carbon;
 class userAddressController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Users $users, Statuses $statuses,Addresses $addresses, Countries $countries){
+    public function __construct(AddressTypes $addresstypes, Users $users, Statuses $statuses,Addresses $addresses, Countries $countries,Brands $brands, Categories $categories){
         $this->statuses=$statuses;
         $this->addresses=$addresses;
         $this->countries=$countries;
         $this->users = $users;
+        $this->brands=$brands;
+        $this->categories = $categories;
         $this->addresstypes = $addresstypes;
     }
     function newAddress($user_id,Request $request){
@@ -50,9 +54,9 @@ class userAddressController extends Controller
                 "city"=>"required",
                 "state"=>"required",
                 "zip_code"=>"required",
-                "address_type"=>"required",
-                "status"=>"required",
+                "address_type"=>"required"
             ]);
+            $data["status"]=1;
             $data["created_at"]=carbon::now();
             $this->addresses->insert($data);
             return redirect()->route("user_account",['user_id'=>$user_id]);
@@ -64,6 +68,8 @@ class userAddressController extends Controller
         $data["page_title"]="Create Address";
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
         return view("account/address/new",$data);
     }
     function editAddress($address_id, Request $request){
@@ -121,6 +127,8 @@ class userAddressController extends Controller
         $data["address_id"]=$address_id;
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
         return view("account/address/edit",$data);
     }
     public function deleteAddress($address_id,Request $request){

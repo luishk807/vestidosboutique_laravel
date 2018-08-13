@@ -25,9 +25,16 @@
     Route::post("/product/{product_id}",'userCartController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");
     Route::post("/contact","homeController@sendEmail")->name("sendEmail");
+
     Route::get("/cart",'userCartController@index')->name("cart_page");
-    Route::get("/checkout",'userPaymentController@showCheckout')->name("checkout_page");
-    Route::get("/payment/process",'userPaymentController@process')->name("payment.process");
+    Route::prefix("checkout")->middleware("auth:vestidosUsers")->group(function(){
+        Route::get("/checkout",'userPaymentController@showBilling')->name("checkout_checkout_page");
+        Route::get("/payment/process",'userPaymentController@process')->name("checkoout_payment_process");
+        Route::get("/shipping",'userPaymentController@showShipping')->name("checkout_show_shipping");
+        Route::get("/save_shipping",'userPaymentController@saveShipping')->name("checkout_save_shipping");
+        Route::get("/billing",'userPaymentController@showBilling')->name("checkout_show_billing");
+        Route::get("/save_billing",'userPaymentController@saveBilling')->name("checkout_save_billing");
+    });
 
 
     Route::get("/signin",'homeController@signin')->name("login_page");

@@ -626,7 +626,7 @@ background-size: cover;
 .vesti_in_btn{
   background-color:$main_vest_color_b;
   border:1px solid $main_vest_color_b;
-  color: white;
+  color: white !important;
   padding: 10px 0px;
   font-family:$playfair_display;
   text-align:center;
@@ -636,7 +636,7 @@ background-size: cover;
 }
 .vesti_in_btn:hover{
   background-color: transparent;
-  color: $main_vest_color_b;
+  color: $main_vest_color_b !important;
 }
 //cart page
 .cart-container-in{

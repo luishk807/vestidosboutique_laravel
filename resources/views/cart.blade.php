@@ -1,53 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<script>
-var returnUrl = "{{ url('/orderreceived')}}";
-</script>
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
-<script>
-$(document).ready(function(){
-    setTimeout(function(){
-        $('#paypal-button-test .paypal-button-logo').remove();
-    },25);
-});
-paypal.Button.render({
-  // Configure environment
-  env: 'sandbox',
-  client: {
-    sandbox: 'AfD6fcfryfoNYZyjOvk1gm9eYwIX-BdW3wceY6lqz0-JOeoAiotUVdFSercsvgkiUxR_I2NTh5cpje-g',
-    production: 'demo_production_client_id'
-  },
-  // Customize button (optional)
-  locale: 'en_US',
-  style: {
-    size: 'small',
-    color: 'blue',
-    shape: 'pill',
-    label: 'checkout',
-    branding: true,
-    tagline:false
-  },
-  // Set up a payment
-  payment: function (data, actions) {
-    return actions.payment.create({
-      transactions: [{
-        amount: {
-          total: '0.01',
-          currency: 'USD'
-        }
-      }]
-    });
-  },
-  // Execute the payment
-  onAuthorize: function (data, actions) {
-    return actions.payment.execute()
-      .then(function () {
-        // Show a confirmation message to the buyer
-        window.location.href=returnUrl;
-      });
-  }
-}, '#paypal-button-test');
-</script>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -74,7 +26,7 @@ paypal.Button.render({
                             </div>
                             <div class="col-md-4">
                                 <div class="vesti_in_btn_pnl">
-                                    <button id="paypal-button-test" class="btn-block vesti_in_btn" onclick="location.href='/cart'">CHECKOUT</button>
+                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">CHECKOUT</a>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +139,7 @@ paypal.Button.render({
                             <div class="col-md-8"><!-- maybe continue shopping--></div>
                             <div class="col-md-4">
                                 <div class="vesti_in_btn_pnl">
-                                    <button class="btn-block vesti_in_btn" onclick="location.href='/cart'">CHECKOUT</button>
+                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">CHECKOUT</a>
                                 </div>
                             </div>
                         </div>
