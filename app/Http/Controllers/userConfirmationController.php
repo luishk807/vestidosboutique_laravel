@@ -66,23 +66,4 @@ class userConfirmationController extends Controller
         $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
-
-    public function showCheckout(){
-        $data["page_title"]="Checkout";
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        return view("/checkout",$data);
-    }
-    public function checkout(Request $request){
-        $data["page_title"]="Checkout";
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $gateway = new Braintree_Gateway([
-            'environment' => 'sandbox',
-            'merchantId' => 'jfqgz3b6qszzdzcp',
-            'publicKey' => '3zdhh766wfcyh228',
-            'privateKey' => '43436fb92253d96585ffc360d8382a22'
-        ]);
-        dd($request);
-    }
 }
