@@ -1,5 +1,10 @@
 @extends("layouts.sub-layout")
 @section('content')
+<style>
+.cart-text-cont{
+    margin:50px auto;
+}
+</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -20,6 +25,7 @@
                                </span>
                             </div>
                         </div>
+                        @if(!empty(Session::get("vestidos_shop")))
                         <div class="row">
                             <div class="col-md-8">
                                 <h2>Cart</h2>
@@ -51,7 +57,6 @@
                             </div>
                         </div><!--end of cart header-->
                         <!--start of cart items-->
-                        @if(!empty(Session::get("vestidos_shop")))
                         @foreach(Session::get("vestidos_shop") as $keyIndex=>$item)
                         <div class="row cart-item-items">
                             <div class="col-md-5 cart-item-1">
@@ -95,9 +100,6 @@
                             </div>
                         </div><!--end of cart items-->
                         @endforeach
-                        @endif
-
-
                         <div class="row cart-footer-section">
                             <div class="col-md-8">
                                 <!--maybe payment acceptable or payment portal-->
@@ -143,6 +145,23 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <div class="row">
+                            <div class="col">
+                                <h2>Cart</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="col-md-7 text-center cart-text-cont">
+                                    <p>Your Shopping Cart is Empty</p>
+                                    <div class="vesti_in_btn_pnl">
+                                        <a class="btn-block vesti_in_btn" href="{{ route('shop_page') }}">Continue Shopping</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div><!--end of cart container-->
 
                </div><!--end of container-in-space-->

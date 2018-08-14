@@ -82,9 +82,9 @@
                                             <div class="card">
                                                 <div class="card-header" id="headingOne">
                                                     <h5 class="mb-0">
-                                                        <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        <a class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                            + Detail
-                                                        </button>
+                                                        </a>
                                                     </h5>
                                                 </div>
                                                 <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
@@ -95,9 +95,9 @@
                                             <div class="card">
                                                 <div class="card-header" id="headingTwo">
                                                     <h5 class="mb-0">
-                                                        <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                        <a class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                                                            + Description
-                                                        </button>
+                                                        </a>
                                                     </h5>
                                                 </div>
                                                 <div id="collapseTwo" class="collapse" aria-labelleby="headingTwo" data-parent="#accordion">
