@@ -1,18 +1,43 @@
 @extends("layouts.sub-layout")
 @section('content')
+<!-- <script>
+var nextUrl="{{ route('checkout_save_shipping') }}";
+function checkoutNext(inputVar){
+        var address= $("input[name='"+inputVar+"']:checked").val();
+        window.location.href=nextUrl+"?address="+address;
+
+}
+</script> -->
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-9 container-in-center">
             <div>
                <div class="container-in-space">
+                        <form action="{{ route('checkout_save_shipping') }}" method="post">
                         <!--content-->
                         <div class="row">
                         @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
                             <div class="col">
-                               {{$checkoutKey+1}}. {{$checkout_menu}}
+                               {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
                             </div>
                         @endforeach
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{$page_title}}
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-md-12 text-center">
+                               <span id="session_msg">
+                               @if(count($errors) > 0)
+                                    @foreach ($errors->all() as $error)
+                                    {{ $error }}
+                                    @endforeach
+                                @endif
+                               </span>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-7">
@@ -27,7 +52,7 @@
                                         @foreach($user->getAddresses as $address)
                                         <tr>
                                             <td>
-                                                <input type="radio" value="{{ $address->id }}" name="address_id" >
+                                                <input type="radio" value="{{ $address->id }}" name="shipping_address" >
                                             </td>
                                             <td>
                                             {{ $address->nick_name}}<br/>
@@ -68,9 +93,11 @@
                         </div>`
                         <div class="row">
                             <div class="col">
-                            <a class="btn-block vesti_in_btn" href="{{ route('checkout_save_shipping') }}">Continue</a>
+                            <!-- <a class="btn-block vesti_in_btn checkout_next" href="javascript:checkoutNext('shipping_address')">Continue</a> -->
+                            <input type="submit" class="btn-block vesti_in_btn checkout_next" value="Continue"/>
                             </div>
                         </div>
+                        </form>
                         <!--end of content-->
                </div>
             </div>

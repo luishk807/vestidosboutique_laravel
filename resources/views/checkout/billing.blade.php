@@ -7,12 +7,18 @@
         <div class="col-lg-9 container-in-center">
             <div>
                <div class="container-in-space">
-                  <div class="row">
+                  <form action="{{ route('checkout_save_billing') }}" id="vestidos-checkout-form" method="post">
+                    <div class="row">
                         @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
                             <div class="col">
-                               {{$checkoutKey+1}}. {{$checkout_menu}}
+                            {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
                             </div>
                         @endforeach
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{$page_title}}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-7">
@@ -48,7 +54,8 @@
                             <div id="dropin-wrapper">
                                 <div id="checkout-message"></div>
                                 <div id="dropin-container"></div>
-                                <button class="btn-block vesti_in_btn" id="submit-button">Submit payment</button>
+                                <input id="nonce" name="payment_method_nonce" type="hidden" />
+                                <button class="btn-block vesti_in_btn" type="submit" id="submit-button">Submit payment</button>
                             </div>
 
                         </div>
@@ -84,6 +91,7 @@
                           </table>
                         </div>
                     </div>
+                  </form>
                </div>
             </div>
         </div>
@@ -91,24 +99,43 @@
 </div>
 </div>
 <script>
-    var button = document.querySelector('#submit-button');
-
+    // var button = document.querySelector('#submit-button');
+    var form = document.querySelector("#vestidos-checkout-form");
     braintree.dropin.create({
       authorization: "{{ Braintree_ClientToken::generate() }}",
-      container: '#dropin-container'
+      selector: '#dropin-container',
+      paypal:{
+          flow:'vault'
+      }
     }, function (createErr, instance) {
-      button.addEventListener('click', function () {
-        instance.requestPaymentMethod(function (err, payload) {
-          $.get("{{ route('checkoout_payment_process') }}", {payload}, function (response) {
-            if (response.success) {
-              console.log(response);
-              alert('Payment successfull!');
-            } else {
-              alert('Payment failed');
-            }
-          }, 'json');
+        if(createErr){
+            console.log(createErr);
+            return;
+        }
+        form.addEventListener('submit',function(event){
+            event.preventDefault();
+            instance.requestPaymentMethod(function (err, payload) {
+                if(err){
+                    console.log(err);
+                    return;
+                }
+                document.querySelector("#nonce").value=payload.nonce;
+                form.submit();
+            });
         });
-      });
+    //   button.addEventListener('click', function () {
+    //     instance.requestPaymentMethod(function (err, payload) {
+    //       $.get("{{ route('checkout_payment_process') }}", {payload}, function (response) {
+    //         if (response.success) {
+    //           console.log(response);
+    //           alert('Payment successfull!');
+    //         } else {
+    //           alert('Payment failed');
+    //         }
+    //       }, 'json');
+    //     });
+    //   });
+        
     });
   </script>
 @endsection
