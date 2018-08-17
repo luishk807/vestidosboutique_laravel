@@ -33,7 +33,7 @@
         Route::get("/shipping",'userPaymentController@showShipping')->name("checkout_show_shipping");
         Route::post("/save_shipping",'userPaymentController@saveShipping')->name("checkout_save_shipping");
         Route::get("/billing",'userPaymentController@showBilling')->name("checkout_show_billing");
-        Route::post("/save_billing",'userPaymentController@saveBilling')->name("checkout_save_billing");
+        Route::post("/save_billing",'userPaymentController@processPayment')->name("checkout_save_billing");
     });
 
 

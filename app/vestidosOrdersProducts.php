@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 class vestidosOrdersProducts extends Model
 {
     //
+    protected $fillable = [
+        "order_id",
+        "product_id",
+        "quantity",
+        "status",
+        "created_at",
+        "updated_at"
+    ];
     public function getOrderInfo(){
         return $this->belongsTo('App\vestidosOrders',"order_id");
     }

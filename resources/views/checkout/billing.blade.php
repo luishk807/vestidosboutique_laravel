@@ -20,10 +20,21 @@
                             {{$page_title}}
                         </div>
                     </div>
+                    <div class="row" >
+                            <div class="col-md-12 text-center">
+                               <span id="session_msg">
+                               @if(count($errors) > 0)
+                                    @foreach ($errors->all() as $error)
+                                    {{ $error }}
+                                    @endforeach
+                                @endif
+                               </span>
+                            </div>
+                        </div>
                     <div class="row">
                         <div class="col-md-7">
                             <div>
-                            <table class="table">
+                                <table class="table">
                                     <tbody>
                                         
                                         <tr>
@@ -51,10 +62,33 @@
                                 </table>
 
                             </div>
+
+                            <div>
+                                <table class="table">
+                                    <tbody>
+                                        
+                                        <tr>
+                                            <th scope="row" colspan="3">Choose Delivery Method</th>
+                                        </tr>
+                                        @foreach($shipping_lists as $shipping_info)
+                                        <tr>
+                                            <td>
+                                                <input type="radio" value="{{ $shipping_info->id }}" name="shipping_method" >
+                                            </td>
+                                            <td>
+                                            {{ $shipping_info->total}} - {{ $shipping_info->name}}<br/>
+                                            {{ $shipping_info->description}}<br/>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <div id="dropin-wrapper">
                                 <div id="checkout-message"></div>
                                 <div id="dropin-container"></div>
-                                <input id="nonce" name="payment_method_nonce" type="hidden" />
+                                <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" />
                                 <button class="btn-block vesti_in_btn" type="submit" id="submit-button">Submit payment</button>
                             </div>
 
@@ -103,10 +137,12 @@
     var form = document.querySelector("#vestidos-checkout-form");
     braintree.dropin.create({
       authorization: "{{ Braintree_ClientToken::generate() }}",
-      selector: '#dropin-container',
-      paypal:{
-          flow:'vault'
-      }
+      selector: '#dropin-container'
+    //   ,
+    //   paypal:{
+
+    //       flow:'vault'
+    //   }
     }, function (createErr, instance) {
         if(createErr){
             console.log(createErr);
@@ -115,10 +151,10 @@
         form.addEventListener('submit',function(event){
             event.preventDefault();
             instance.requestPaymentMethod(function (err, payload) {
-                if(err){
-                    console.log(err);
-                    return;
-                }
+                // if(err){
+                //     console.log(err);
+                //     return;
+                // }
                 document.querySelector("#nonce").value=payload.nonce;
                 form.submit();
             });

@@ -28,6 +28,11 @@ class CreateVestidosOrders extends Migration
             $table->decimal('order_total')->nullable();
             $table->decimal('order_tax')->nullable();
             $table->decimal('order_shipping')->nullable();
+            $table->text('transaction_id')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->string('credit_card_type')->nullable();
+            $table->integer('credit_card_number')->nullable();
+            $table->string('payment_status')->nullable();
             $table->text('ip');
             $table->integer('status')->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
