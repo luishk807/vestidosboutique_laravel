@@ -192,6 +192,9 @@ class userPaymentController extends Controller
                         $get_order->payment_status=$status->transaction->processorResponseText;
                         $get_order->save();
                         
+                        $request->session()->forget('cart_session');
+                        $request->session()->forget('vestidos_shop');
+                        
                         $data["thankyou_title"]="Order Received";
                         $data["thankyou_msg"]="Success: Your order has been created";
                         $data["thankyou_img"]="checked.svg";
