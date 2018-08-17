@@ -27,6 +27,8 @@ class CreateVestidosOrders extends Migration
             $table->foreign("bill_address_id")->references("id")->on("vestidos_user_addresses")->onDelete('set null');
             $table->decimal('order_total')->nullable();
             $table->decimal('order_tax')->nullable();
+            $table->decimal('order_shipping_type')->nullable();
+            $table->foreign("order_shipping_type")->references("id")->on("vestidos_shipping_lists")->onDelete('set null');
             $table->decimal('order_shipping')->nullable();
             $table->text('transaction_id')->nullable();
             $table->string('payment_method')->nullable();

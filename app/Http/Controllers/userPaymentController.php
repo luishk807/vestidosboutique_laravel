@@ -147,6 +147,7 @@ class userPaymentController extends Controller
         $data["bill_address_id"]=$billing;
         $data["order_total"]=$total;
         $data["order_tax"]=$tax;
+        $data["order_shipping_type"]=$shipping_list->id;
         $data["order_shipping"]=$shipping_list->total;
         $data["ip"]=$request->ip();
         $data["status"]=9;
