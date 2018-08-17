@@ -33,7 +33,7 @@
                                         @foreach($user->getAddresses as $address)
                                         <tr>
                                             <td>
-                                                <input type="radio" value="{{ $address->id }}" name="address_id" >
+                                                <input type="radio" value="{{ $address->id }}" name="billing_address" >
                                             </td>
                                             <td>
                                             {{ $address->nick_name}}<br/>
