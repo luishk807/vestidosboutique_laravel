@@ -63,28 +63,6 @@
 
                             </div>
 
-                            <div>
-                                <table class="table">
-                                    <tbody>
-                                        
-                                        <tr>
-                                            <th scope="row" colspan="3">Choose Delivery Method</th>
-                                        </tr>
-                                        @foreach($shipping_lists as $shipping_info)
-                                        <tr>
-                                            <td>
-                                                <input type="radio" value="{{ $shipping_info->id }}" name="shipping_method" >
-                                            </td>
-                                            <td>
-                                            {{ $shipping_info->total}} - {{ $shipping_info->name}}<br/>
-                                            {{ $shipping_info->description}}<br/>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-
                             <div id="dropin-wrapper">
                                 <div id="checkout-message"></div>
                                 <div id="dropin-container"></div>

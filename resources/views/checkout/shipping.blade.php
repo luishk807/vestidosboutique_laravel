@@ -9,13 +9,21 @@ function checkoutNext(inputVar){
 }
 </script> -->
 <style>
+    .checkout-btn-pnl{
+        margin:40px auto 20px auto;
+    }
+    .checkout-subtitle{
+        font-weight:bold;
+        border-top:none !important;
+        background-color:rgba(0,0,0,.1);
+    }
     .checkout-header ul,
     .checkout-cart-list-cell .info-data ul{
         list-style-type: none;
         padding: 0px;
         margin: 0px;
     }
-    .checkout-header ul li{
+    .checkout-header ul li.active{
         float: left;
         width: 33.33%;
         text-align: center;
@@ -25,6 +33,25 @@ function checkoutNext(inputVar){
         border-left:1px solid rgba(0,0,0,.1);
         padding: 10px 0px;
         background-color:white;
+        position: relative;
+    }
+    .checkout-header ul li{
+        float: left;
+        width: 33.33%;
+        text-align: center;
+        margin: 10px 0px 30px 0px;
+        padding: 10px 0px;
+        background-color:rgba(0,0,0,.1);
+        position: relative;
+    }
+    .checkout-header .checkout-arrow-down{
+        width: 0px;
+        height: 0px;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid rgba(0,0,0,.1);
+        left: 48%;
+        top:43px;
     }
     .checkout-header ul li:last-child{
         border-right:1px solid rgba(0,0,0,.1);
@@ -53,7 +80,13 @@ function checkoutNext(inputVar){
         border-left:1px solid rgba(0,0,0,.1);
         padding:0px 5px;
     }
-
+    .checkout-shipping-method-list{
+        margin-top:60px;
+    }
+    .checkout-header .checkout-arrow-down,
+    .checkout-header .checkout-arrow-down-b{
+        position: absolute;
+    }
 </style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
@@ -67,8 +100,9 @@ function checkoutNext(inputVar){
                             <div class="col checkout-header">
                                 <ul>
                                 @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
-                                    <li>
+                                    <li class="active">
                                     {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
+                                    <div class="checkout-arrow-down"></div>
                                     </li>
                                 @endforeach
                                 </ul>
@@ -79,7 +113,7 @@ function checkoutNext(inputVar){
                                <span id="session_msg">
                                @if(count($errors) > 0)
                                     @foreach ($errors->all() as $error)
-                                    {{ $error }}
+                                    {{ $error }}<br/>
                                     @endforeach
                                 @endif
                                </span>
@@ -87,12 +121,10 @@ function checkoutNext(inputVar){
                         </div>
                         <div class="row">
                             <div class="col-md-7">
-                                    
-                                <table class="table">
+                                <table class="table checkout-shipping-address-list">
                                     <tbody>
-                                        
                                         <tr>
-                                            <td colspan="3">{{$page_title}}</td>
+                                            <th class="checkout-subtitle" colspan="3">{{$page_title}}</th>
                                         </tr>
                                         @foreach($user->getAddresses as $address)
                                         <tr>
@@ -112,15 +144,37 @@ function checkoutNext(inputVar){
                                         </tr>
                                         @endforeach
                                     </tbody>
+                                </table><!--end of address listing-->
+
+                                
+                                <table class="table checkout-shipping-method-list">
+                                    <tbody>
+                                        
+                                        <tr>
+                                            <th class="checkout-subtitle" scope="row" colspan="3">Choose Delivery Method</th>
+                                        </tr>
+                                        @foreach($shipping_lists as $shipping_info)
+                                        <tr>
+                                            <td>
+                                                <input type="radio" value="{{ $shipping_info->id }}" name="shipping_method" >
+                                            </td>
+                                            <td>
+                                            {{ $shipping_info->total}} - {{ $shipping_info->name}}<br/>
+                                            {{ $shipping_info->description}}<br/>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
+
+
                             </div><!--end of form-->
                             <div class="col-md-5"><!--load session-->
-
                                 <table class="table">
                                     <tbody>
                                         <tr class="checkout-cart-list-header">
-                                            <td>Order Summary</td>
-                                            <td><a href="{{ route('cart_page') }}">Edit Cart</a></td>
+                                            <th class="checkout-subtitle">Order Summary</td>
+                                            <th class="checkout-subtitle"><a href="{{ route('cart_page') }}">Edit Cart</a></th>
                                         </tr>
                                         <tr class="checkout-cart-list">
                                             <td class="checkout-cart-list-cell" colspan="2">
@@ -148,8 +202,8 @@ function checkoutNext(inputVar){
                                                     </tbody>
                                                 </table>
                                             </td>
-                                        </tr>
-                                       
+                                        </tr><!--end of cart session listing-->
+                                       <!--start of total-->
                                         @php( $cart_checkout_tax = $cart_checkout_total * $tax_info->tax )
                                         <tr class="subtotal">
                                             <td>
@@ -185,15 +239,14 @@ function checkoutNext(inputVar){
                                                 ${{number_format(($cart_checkout_total + $cart_checkout_tax),'2','.',',')}}
                                             </td>
                                         </tr>
+                                    <!--end of total-->
                                     </tbody>
                                 </table>
-
-                            </div><!-- end of load session-->
-                        </div>`
+                            </div><!--end of right side-->
+                        </div>
                         <div class="row">
-                            <div class="col">
-                            <!-- <a class="btn-block vesti_in_btn checkout_next" href="javascript:checkoutNext('shipping_address')">Continue</a> -->
-                            <input type="submit" class="btn-block vesti_in_btn checkout_next" value="Continue"/>
+                            <div class="col-md-4 checkout-btn-pnl">
+                                <input type="submit" class="btn-block vesti_in_btn checkout_next" value="Continue"/>
                             </div>
                         </div>
                         </form>

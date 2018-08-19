@@ -45,7 +45,7 @@ class userPaymentController extends Controller
                 "url"=>route("checkout_show_shipping")
             ),
             array(
-                "name"=>"Payment & Billing",
+                "name"=>"Payment",
                 "url"=>route("checkout_show_shipping")
             ),
             array(
@@ -65,11 +65,13 @@ class userPaymentController extends Controller
         $data["countries"]=$this->country->all();
         $data["checkout_menus"]=$this->checkout_menus;
         $data["tax_info"]=$this->tax_info;
+        $data["shipping_lists"]=$this->shipping_lists->all();
         return view("/checkout/shipping",$data);
     }
     public function saveShipping(Request $request){
         $this->validate($request,[
-            "shipping_address"=>"required"
+            "shipping_address"=>"required",
+            "shipping_method"=>"required"
             ]
         );
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
@@ -79,11 +81,12 @@ class userPaymentController extends Controller
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
-        // $data["address_id"]=$request->input("shipping_address");
-        $cart_data = array("shipping"=>$request->input("shipping_address"));
+        $cart_data = array(
+            "shipping"=>$request->input("shipping_address"),
+            "shipping_method"=>$request->input("shipping_method")
+        );
         $request->session()->put("cart_session",$cart_data);
         $data["checkout_menus"]=$this->checkout_menus;
-        // return view("/checkout/billing",$data);
         return redirect()->route("checkout_show_billing")->with($data);
     }
     public function showBilling(Request $request){
@@ -103,8 +106,7 @@ class userPaymentController extends Controller
     }
     public function processPayment(Request $request){
         $rules = [
-            "billing_address"=>"required",
-            "shipping_method"=>"required"
+            "billing_address"=>"required"
         ];
         $this->validate($request,$rules);
 
@@ -115,11 +117,11 @@ class userPaymentController extends Controller
         }
         
         $cart = $request->session()->get('cart_session');
-        $shipping = $cart=$cart["shipping"];
+        $shipping =$cart["shipping"];
         $billing = $request->input("billing_address");
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
-        $shipping_list = $this->shipping_lists->find($request->input("shipping_method"));
+        $shipping_list = $this->shipping_lists->find($cart["shipping_method"]);
 
         $nonce = $request->input('nonce', false);
         $today = carbon::now();
