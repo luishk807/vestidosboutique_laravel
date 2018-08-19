@@ -1,12 +1,12 @@
 <table>
     <tr>
         <td><img src="{{ asset('/images/vestidos_boutique_image.jpg') }}" class="img-fluid" alt=""></td>
-        <td>{{ $status }}</td>
+        <td>{{ $order_detail["status"] }}</td>
     </tr>
     <tr>
         <td colspan='2'>
-            Hello {{ $name }}, <br/><br/>
-            Thank you for shopping with us.  Your order has been received. We will send you a confirmation when your item ships.
+            Hello {{ $client_name }}, <br/><br/>
+            Thank you for shopping with us.  Your order placed {{ $order_detail["order"]["purchase_date"] }} has been received. We will send you a confirmation when your item ships.
         </td>
     </tr>
     <tr>
@@ -14,7 +14,7 @@
             Order Number:
         </td>
         <td>
-            {{ $order_number }}
+            {{ $order_detail["order"]["order_number"] }}
         </td>
     </tr>
     <tr>
@@ -27,10 +27,10 @@
     </tr>
     <tr>
         <td>
-            {{ $billing["name"] }}
+            {{ $order_detail["order"]["ship_address"]["name"] }}
         </td>
         <td>
-            {{ $shipping["name"] }}
+            {{ $order_detail["order"]["bill_address"]["name"] }}
         </td>
     </tr>
     <tr>
@@ -54,13 +54,15 @@
                         Total
                     </th>
                 </tr>
-                @foreach($orders->products as $product)
+                @foreach($order_detail["products"] as $product)
                 <tr>
                     <td>
                         <img src="{{ asset('/images/products')}} / {{ $product->getProduct->first()->img_url }}" alt class="img-fluid"/>
                     </td>
                     <td>
-                        {{ $product->getProduct->products_name }}
+                        {{ $product->getProduct->products_name }}<br/>
+                        {{ $product->getSize->name }}<br/>
+                        {{ $product->getColor->name }}
                     </td>
                     <td>
                         {{ $product->quantity }}
@@ -71,26 +73,5 @@
                 </tr>
             </table>
         </td>
-    </tr>
-
-    <tr>
-        <td>Name:</td>
-        <td>{{$client["first_name"]." ".$client["last_name"]}}</td>
-    </tr>
-    <tr>
-        <td>Email:</td>
-        <td>{{$client["email"]}}</td>
-    </tr>
-    <tr>
-        <td>Phone:</td>
-        <td>{{$client["phone"]}}</td>
-    </tr>
-    <tr>
-        <td>Country</td>
-        <td>{{$client["country"]}}</td>
-    </tr>
-    <tr>
-        <td>Message:</td>
-        <td>{{$client["message"]}}</td>
     </tr>
 </table>

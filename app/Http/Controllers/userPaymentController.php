@@ -27,7 +27,7 @@ class userPaymentController extends Controller
 {
     //
     public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders){
-        $this->country=$countries->all();
+        $this->country=$countries;
         $this->users = $users;
         $this->order_products = $order_products;
         $this->genders=$genders;
@@ -235,14 +235,63 @@ class userPaymentController extends Controller
                         $get_order->payment_status=$status->transaction->processorResponseText;
                         $get_order->save();
                         
+                        //SEND EMAIL
+                        $ship_d = $this->addresses->find($shipping);
+                        $bill_d = $this->addresses->find($billing);
+
+                        $order_detail=[
+                            "user"=>$this->users->find($user_id),
+                            "order"=>array(                        
+                                "order_number"=>$order_number,
+                                "purchase_date"=>$today,
+                                "ship_address"=>array(
+                                    "name"=>$ship_d->first_name." ".$ship_d->middle_name." ".$ship_d->last_name,
+                                    "address_1"=>$ship_d->address_1,
+                                    "address_2"=>$ship_d->address_2,
+                                    "city"=>$ship_d->city,
+                                    "state"=>$ship_d->state,
+                                    "country"=>$this->country->find($ship_d->country_id),
+                                    "zip_code"=>$ship_d->zip_code,
+                                    "phone_1"=>$ship_d->phone_number_1,
+                                    "phone_2"=>$ship_d->phone_number_2,
+                                    "email"=>$ship_d->email
+                                ),
+                                "bill_address"=>array(
+                                    "name"=>$bill_d->first_name." ".$bill_d->middle_name." ".$bill_d->last_name,
+                                    "address_1"=>$bill_d->address_1,
+                                    "address_2"=>$bill_d->address_2,
+                                    "city"=>$bill_d->city,
+                                    "state"=>$bill_d->state,
+                                    "country"=>$this->country->find($bill_d->country_id),
+                                    "zip_code"=>$bill_d->zip_code,
+                                    "phone_1"=>$bill_d->phone_number_1,
+                                    "phone_2"=>$bill_d->phone_number_2,
+                                    "email"=>$bill_d->email
+                                ),
+                                "products"=>$data_products,
+                                "order_total"=>$total,
+                                "order_tax"=>$tax,
+                                "status"=>$get_order->getStatusName->name,
+                                "order_shipping"=>array(
+                                    "name"=>$shipping_list->name,
+                                    "total"=>$shipping_list->total,
+                                    "description"=>$shipping_list->description
+                                )
+                            )
+                        ];
+                        
+                        Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
+                            $message->from("evil_luis@hotmail.com","Vestidos Boutique");
+                            $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
+                            $subject = 'Hello '.$client_name.', thank you for your order';
+                            $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                        });
+
+
+                       // DESTROY SESSION
                         $request->session()->forget('cart_session');
                         $request->session()->forget('vestidos_shop');
-                        
-                        // $data["thankyou_title"]="Order Received";
-                        // $data["thankyou_msg"]="Success: Your order has been created";
-                        // $data["thankyou_img"]="checked.svg";
-                        // $data["thankyou_status"]=true;
-                        // return redirect()->route("order_received_confirmation")->with($data);
+
                         $request->session()->flash('alert-success', 'User was successful added!');
                         return redirect()->route("checkout_order_received");
                     }else{
