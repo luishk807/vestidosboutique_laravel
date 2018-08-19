@@ -24,6 +24,7 @@ function checkoutNext(inputVar){
         border-bottom: 1px solid rgba(0,0,0,.1);
         border-left:1px solid rgba(0,0,0,.1);
         padding: 10px 0px;
+        background-color:white;
     }
     .checkout-header ul li:last-child{
         border-right:1px solid rgba(0,0,0,.1);
@@ -119,7 +120,7 @@ function checkoutNext(inputVar){
                                     <tbody>
                                         <tr class="checkout-cart-list-header">
                                             <td>Order Summary</td>
-                                            <td>Edit Cart</td>
+                                            <td><a href="{{ route('cart_page') }}">Edit Cart</a></td>
                                         </tr>
                                         <tr class="checkout-cart-list">
                                             <td class="checkout-cart-list-cell" colspan="2">
