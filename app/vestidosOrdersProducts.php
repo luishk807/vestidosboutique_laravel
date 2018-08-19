@@ -25,4 +25,10 @@ class vestidosOrdersProducts extends Model
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }
+    public function getColor(){
+        return $this->belongsTo('App\vestidosColors',"color_id");
+    }
+    public function getSize(){
+        return $this->belongsTo('App\vestidosSizes',"size_id");
+    }
 }

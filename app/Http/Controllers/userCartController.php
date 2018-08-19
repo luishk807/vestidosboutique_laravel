@@ -106,7 +106,9 @@ class userCartController extends Controller
                 "detail"=>$product->product_detail,
                 "quantity"=>$quantity,
                 "color"=>$color->name,
+                "color_id"=>$color_id,
                 "size"=>$size->name,
+                "size_id"=>$size_id,
                 "stock"=>0,
                 "total"=>$product->product_total,
                 "total_old"=>$product->total_old

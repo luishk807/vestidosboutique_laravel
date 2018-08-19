@@ -210,6 +210,8 @@ class userPaymentController extends Controller
                     "product_id"=>$cart[$i]["id"],
                     "quantity"=>$cart[$i]["quantity"],
                     "total"=>$cart[$i]["total"],
+                    "color_id"=>$cart[$i]["color_id"],
+                    "size_id"=>$cart[$i]["size_id"],
                     "status"=>1,
                     "created_at"=>carbon::now()
                 );
