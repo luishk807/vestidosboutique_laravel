@@ -71,7 +71,8 @@
                                                                     <span class="product-subtitle">Model No.</span>: {{ $product->getProduct->product_model}}<br/>
                                                                     <span class="product-subtitle">By</span>: {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
                                                                     <span class="product-subtitle">Quantity</span>: {{ $product->quantity}}<br/>
-                                                                    <span class="product-total">${{ $product->getProduct->product_total}}</span>
+                                                                    <span class="product-total">${{number_format($product->getProduct->product_total,'2','.',',')}}
+                                                                    </span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>

@@ -64,6 +64,7 @@ class userPaymentController extends Controller
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
         $data["checkout_menus"]=$this->checkout_menus;
+        $data["tax_info"]=$this->tax_info;
         return view("/checkout/shipping",$data);
     }
     public function saveShipping(Request $request){
