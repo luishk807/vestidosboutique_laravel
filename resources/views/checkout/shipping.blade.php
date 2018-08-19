@@ -1,93 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<!-- <script>
-var nextUrl="{{ route('checkout_save_shipping') }}";
-function checkoutNext(inputVar){
-        var address= $("input[name='"+inputVar+"']:checked").val();
-        window.location.href=nextUrl+"?address="+address;
-
-}
-</script> -->
-<style>
-    .checkout-btn-pnl{
-        margin:40px auto 20px auto;
-    }
-    .checkout-subtitle{
-        font-weight:bold;
-        border-top:none !important;
-        background-color:rgba(0,0,0,.1);
-    }
-    .checkout-header ul,
-    .checkout-cart-list-cell .info-data ul{
-        list-style-type: none;
-        padding: 0px;
-        margin: 0px;
-    }
-    .checkout-header ul li.active{
-        float: left;
-        width: 33.33%;
-        text-align: center;
-        margin: 10px 0px 30px 0px;
-        border-top: 1px solid rgba(0,0,0,.1);
-        border-bottom: 1px solid rgba(0,0,0,.1);
-        border-left:1px solid rgba(0,0,0,.1);
-        padding: 10px 0px;
-        background-color:white;
-        position: relative;
-    }
-    .checkout-header ul li{
-        float: left;
-        width: 33.33%;
-        text-align: center;
-        margin: 10px 0px 30px 0px;
-        padding: 10px 0px;
-        background-color:rgba(0,0,0,.1);
-        position: relative;
-    }
-    .checkout-header .checkout-arrow-down{
-        width: 0px;
-        height: 0px;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid rgba(0,0,0,.1);
-        left: 48%;
-        top:43px;
-    }
-    .checkout-header ul li:last-child{
-        border-right:1px solid rgba(0,0,0,.1);
-    }
-    .checkout-cart-list-cell .info-data ul li{
-       display:inline-block;
-       float:left;
-    }
-    .checkout-cart-list-cell .info-data ul li:first-child{
-        padding-right:5px;
-    }
-    .checkout-cart-list-cell .info-data p{
-        clear:left;
-    }
-    .checkout-cart-list-cell{
-        padding:0px !important;
-        border-top:none !important;
-    }
-    .checkout-cart-list-cell .img-data{
-        width:30%;
-    }
-    .checkout-cart-list-cell .info-data{
-        width:80%;
-    }
-    .checkout-cart-list-cell .info-data ul li:not(:first-child){
-        border-left:1px solid rgba(0,0,0,.1);
-        padding:0px 5px;
-    }
-    .checkout-shipping-method-list{
-        margin-top:60px;
-    }
-    .checkout-header .checkout-arrow-down,
-    .checkout-header .checkout-arrow-down-b{
-        position: absolute;
-    }
-</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -100,9 +12,19 @@ function checkoutNext(inputVar){
                             <div class="col checkout-header">
                                 <ul>
                                 @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
+                                    @if($checkout_menu["name"]==$checkout_header_key)
                                     <li class="active">
-                                    {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
-                                    <div class="checkout-arrow-down"></div>
+                                        <div class="checkout-arrow-down"></div>
+                                    @else
+                                    <li>
+                                    @endif
+                                    @if($checkout_menu_prev_link && $checkout_menu["name"]==$checkout_header_key)
+                                    <a href="{{ $checkout_menu_prev_link }}">
+                                        {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
+                                    </a>
+                                    @else
+                                        {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
+                                    @endif
                                     </li>
                                 @endforeach
                                 </ul>
@@ -110,7 +32,7 @@ function checkoutNext(inputVar){
                         </div>
                         <div class="row" >
                             <div class="col-md-12 text-center">
-                               <span id="session_msg">
+                               <span id="session_msg" class="error">
                                @if(count($errors) > 0)
                                     @foreach ($errors->all() as $error)
                                     {{ $error }}<br/>
@@ -178,7 +100,8 @@ function checkoutNext(inputVar){
                                         </tr>
                                         <tr class="checkout-cart-list">
                                             <td class="checkout-cart-list-cell" colspan="2">
-                                                <table class="table">
+                                                <div class="checkout-cart-list-cell-panel">
+                                                <table class="table checkout-lists-panel">
                                                     <tbody>
                                                     @php( $cart_checkout_total=0 )
                                                     @php( $cart_checkout_tax=0 )
@@ -201,6 +124,7 @@ function checkoutNext(inputVar){
                                                      @endforeach
                                                     </tbody>
                                                 </table>
+                                                </div>
                                             </td>
                                         </tr><!--end of cart session listing-->
                                        <!--start of total-->
@@ -246,7 +170,7 @@ function checkoutNext(inputVar){
                         </div>
                         <div class="row">
                             <div class="col-md-4 checkout-btn-pnl">
-                                <input type="submit" class="btn-block vesti_in_btn checkout_next" value="Continue"/>
+                                <input type="submit" class="btn-block vesti_in_btn checkout_next" value="{{$checkout_btn_name}}"/>
                             </div>
                         </div>
                         </form>

@@ -45,7 +45,7 @@ class userPaymentController extends Controller
                 "url"=>route("checkout_show_shipping")
             ),
             array(
-                "name"=>"Payment",
+                "name"=>"Billing",
                 "url"=>route("checkout_show_shipping")
             ),
             array(
@@ -59,12 +59,15 @@ class userPaymentController extends Controller
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $data["user"]=$user;
+        $data["checkout_menu_prev_link"]="";
         $data["page_title"]="Select Shipping Address";
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
         $data["checkout_menus"]=$this->checkout_menus;
         $data["tax_info"]=$this->tax_info;
+        $data["checkout_header_key"]="Shipping";
+        $data["checkout_btn_name"]="Proceed to Billing";
         $data["shipping_lists"]=$this->shipping_lists->all();
         return view("/checkout/shipping",$data);
     }
@@ -95,14 +98,43 @@ class userPaymentController extends Controller
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $data["user"]=$user;
-
+        $data["checkout_menu_prev_link"]=route('checkout_show_shipping');
         $data["page_title"]="Choose Billing and Payment Method";
         $data["checkout_menus"]=$this->checkout_menus;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
+        $data["tax_info"]=$this->tax_info;
         $data["address_id"]=$request->input("address_id");
+        $data["checkout_header_key"]="Billing";
+        $data["checkout_btn_name"]="Complete Payment";
         $data["shipping_lists"]=$this->shipping_lists->all();
         return view("/checkout/billing",$data);
+    }
+    public function showOrderReceived(){
+        $data=[];
+        $user_id=Auth::guard("vestidosUsers")->user()->getId();
+        $user = $this->users->find($user_id);
+        $data["user"]=$user;
+        $last_order=$user->orders()->orderBy('created_at','desc')->first();
+        $data["last_order"]=$last_order;
+        $data["checkout_menu_prev_link"]="";
+        $data["page_title"]="Success: Your order has been received";
+        $data["checkout_menus"]=$this->checkout_menus;
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["tax_info"]=$this->tax_info;
+        $data["checkout_header_key"]="Confirmation";
+        $data["checkout_btn_name"]="Return Home Page";
+        $data["thankyou_msg"]="Thank you for your order! we are processing your order, once your order is update you will notify you right away!.";
+        $data["thankyou_img"]="checked.svg";
+        $data["thankyou_status"]=true;
+        if(empty(Session::has("alert-success"))){
+            $data["page_title"]="Ops!";
+            $data["thankyou_msg"]="Access Denied.";
+            $data["thankyou_img"]="close_2.svg";
+            $data["thankyou_status"]=false;
+        }
+        return view("/checkout/confirmation",$data);
     }
     public function processPayment(Request $request){
         $rules = [
@@ -198,11 +230,13 @@ class userPaymentController extends Controller
                         $request->session()->forget('cart_session');
                         $request->session()->forget('vestidos_shop');
                         
-                        $data["thankyou_title"]="Order Received";
-                        $data["thankyou_msg"]="Success: Your order has been created";
-                        $data["thankyou_img"]="checked.svg";
-                        $data["thankyou_status"]=true;
-                        return redirect()->route("order_received_confirmation")->with($data);
+                        // $data["thankyou_title"]="Order Received";
+                        // $data["thankyou_msg"]="Success: Your order has been created";
+                        // $data["thankyou_img"]="checked.svg";
+                        // $data["thankyou_status"]=true;
+                        // return redirect()->route("order_received_confirmation")->with($data);
+                        $request->session()->flash('alert-success', 'User was successful added!');
+                        return redirect()->route("checkout_order_received");
                     }else{
                         $get_order = $this->orders->find($order->id);
                         $get_order->delete();
@@ -213,10 +247,11 @@ class userPaymentController extends Controller
                 }
             }
         }
-        $data["thankyou_title"]="Ops! there was a problem with your order";
-        $data["thankyou_msg"]="An unexpected issue ocurred, please try again later";
-        $data["thankyou_img"]="close_2.svg";
-        $data["thankyou_status"]=false;
-        return redirect()->route("order_received_confirmation")->with($data);
+        // $data["thankyou_title"]="Ops! there was a problem with your order";
+        // $data["thankyou_msg"]="An unexpected issue ocurred, please try again later";
+        // $data["thankyou_img"]="close_2.svg";
+        // $data["thankyou_status"]=false;
+        // return redirect()->route("order_received_confirmation")->with($data);
+        return redirect()->route("checkout_order_received");
     }
 }

@@ -34,6 +34,7 @@
         Route::post("/save_shipping",'userPaymentController@saveShipping')->name("checkout_save_shipping");
         Route::get("/billing",'userPaymentController@showBilling')->name("checkout_show_billing");
         Route::post("/save_billing",'userPaymentController@processPayment')->name("checkout_save_billing");
+        Route::get("/orderconfirmed",'userPaymentController@showOrderReceived')->name("checkout_order_received");
     });
 
 

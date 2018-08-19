@@ -9,37 +9,45 @@
                <div class="container-in-space">
                   <form action="{{ route('checkout_save_billing') }}" id="vestidos-checkout-form" method="post">
                     <div class="row">
-                        @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
-                            <div class="col">
-                            {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            {{$page_title}}
+                        <div class="col checkout-header">
+                            <ul>
+                            @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
+                                @if($checkout_menu["name"]==$checkout_header_key)
+                                <li class="active">
+                                    <div class="checkout-arrow-down"></div>
+                                @else
+                                <li>
+                                @endif
+                                @if($checkout_menu_prev_link && $checkout_menu["name"]==$checkout_header_key)
+                                <a href="{{ $checkout_menu_prev_link }}">
+                                    {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
+                                </a>
+                                @else
+                                    {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
+                                @endif
+                                </li>
+                            @endforeach
+                            </ul>
                         </div>
                     </div>
                     <div class="row" >
-                            <div class="col-md-12 text-center">
-                               <span id="session_msg">
-                               @if(count($errors) > 0)
-                                    @foreach ($errors->all() as $error)
-                                    {{ $error }}
-                                    @endforeach
-                                @endif
-                               </span>
-                            </div>
+                        <div class="col-md-12 text-center">
+                            <span id="session_msg" class="error">
+                            @if(count($errors) > 0)
+                                @foreach ($errors->all() as $error)
+                                {{ $error }}<br/>
+                                @endforeach
+                            @endif
+                            </span>
                         </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-7">
                             <div>
                                 <table class="table">
                                     <tbody>
-                                        
                                         <tr>
-                                            <th scope="row">Address</th>
-                                            <td class="text-right" colspan='2' ><a class="vestidos-simple-link" href="{{ route('newaddress',['user_id'=>$user->id])}}">Add Address</a></td>
+                                            <th class="checkout-subtitle" colspan="3">{{$page_title}}</th>
                                         </tr>
                                         @foreach($user->getAddresses as $address)
                                         <tr>
@@ -72,25 +80,80 @@
 
                         </div>
                         <div class="col-md-5"><!--load session-->
-                            @php( $header_cart_total=0 )
-                            @foreach(Session::get('vestidos_shop') as $header_cart_key=>$header_cart)
-                            <div class="row cart-top-items"> <!--item-->
-                                <div class="col-md-3"><span><a href=""><img src="{{ asset('/images/products') }}/{{ $header_cart['image']}}" alt width="100%"/></a></span></div>
-                                <div class="col-md-9 cart-top-item-txt">
-                                    <div>
-                                    <p><a href="/product/{{ $header_cart['id']}}">{{ $header_cart["name"] }}</a></p>
-                                    <span>Size: {{ $header_cart["size"] }}</span>
-                                    <span>Color: {{ $header_cart["color"] }}</span>
-                                    <span>Quantity: {{ $header_cart["quantity"] }}</span>
-                                    <p>Unit Price: ${{ number_format($header_cart["total"],2) }}</p>
-                                    </div>
-                                </div>
-                            </div><!--end of item-->
-                            @php( $header_cart_total +=$header_cart["total"] * $header_cart["quantity"] )
-                            @endforeach
-                            <div class="row">
-                                {{$header_cart_total}}
-                            </div>
+                        <table class="table">
+                                    <tbody>
+                                        <tr class="checkout-cart-list-header">
+                                            <th class="checkout-subtitle">Order Summary</td>
+                                            <th class="checkout-subtitle"><a href="{{ route('cart_page') }}">Edit Cart</a></th>
+                                        </tr>
+                                        <tr class="checkout-cart-list">
+                                            <td class="checkout-cart-list-cell" colspan="2">
+                                                <div class="checkout-cart-list-cell-panel">
+                                                <table class="table checkout-lists-panel">
+                                                    <tbody>
+                                                    @php( $cart_checkout_total=0 )
+                                                    @php( $cart_checkout_tax=0 )
+                                                    @foreach(Session::get('vestidos_shop') as $cart_checkout_key=>$cart_checkout)
+                                                    <tr>
+                                                        <td class="img-data">
+                                                            <img class="img-fluid" src="{{ asset('/images/products') }}/{{ $cart_checkout['image']}}" alt width="100%"/>
+                                                        </td>
+                                                        <td class="info-data">
+                                                            <a href="/product/{{ $cart_checkout['id']}}">{{ $cart_checkout["name"] }}</a><br/>
+                                                            <ul>
+                                                                <li >Size: {{ $cart_checkout["size"] }}</li>
+                                                                <li >Color: {{ $cart_checkout["color"] }}</li>
+                                                                <li >Qty: {{ $cart_checkout["quantity"] }}</li>
+                                                            </ul>
+                                                            <p>Unit Price: ${{ number_format($cart_checkout["total"],2) }}</p>
+                                                        </td>
+                                                    </tr>
+                                                     @php( $cart_checkout_total +=$cart_checkout["total"] * $cart_checkout["quantity"] )
+                                                     @endforeach
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </td>
+                                        </tr><!--end of cart session listing-->
+                                       <!--start of total-->
+                                        @php( $cart_checkout_tax = $cart_checkout_total * $tax_info->tax )
+                                        <tr class="subtotal">
+                                            <td>
+                                                Subtotal
+                                            </td>
+                                            <td>
+                                                ${{number_format($cart_checkout_total,'2','.',',')}}
+                                            </td>
+                                        </tr>
+                                        <tr class="subtotal">
+                                            <td>
+                                                Tax
+                                            </td>
+                                            <td>
+                                                ${{number_format($cart_checkout_tax,'2','.',',')}}
+                                            </td>
+                                        </tr>
+                                        @if(isset($shipping_cost))
+                                        <tr class="subtotal">
+                                            <td>
+                                                Shipping
+                                            </td>
+                                            <td>
+                                                ${{number_format($shipping_cost,'2','.',',')}}
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        <tr class="grand-total">
+                                            <td>
+                                                Order Total
+                                            </td>
+                                            <td>
+                                                ${{number_format(($cart_checkout_total + $cart_checkout_tax),'2','.',',')}}
+                                            </td>
+                                        </tr>
+                                    <!--end of total-->
+                                    </tbody>
+                                </table>
                         </div><!-- end of load session-->
                     </div>
                     <div class="row">
