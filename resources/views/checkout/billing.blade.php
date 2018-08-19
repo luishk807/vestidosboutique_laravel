@@ -18,8 +18,8 @@
                                 @else
                                 <li>
                                 @endif
-                                @if($checkout_menu_prev_link && $checkout_menu["name"]==$checkout_header_key)
-                                <a href="{{ $checkout_menu_prev_link }}">
+                                @if(count($checkout_menu_prev_link)>0 && $checkout_menu_prev_link["name"]==$checkout_menu["name"])
+                                <a href="{{ $checkout_menu_prev_link['url'] }}">
                                     {{$checkoutKey+1}}. {{$checkout_menu["name"]}}
                                 </a>
                                 @else

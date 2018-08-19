@@ -98,10 +98,15 @@ class userPaymentController extends Controller
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $data["user"]=$user;
-        $data["checkout_menu_prev_link"]=route('checkout_show_shipping');
+        $data["checkout_menu_prev_link"]=array("name"=>"Shipping","url"=>route('checkout_show_shipping'));
         $data["page_title"]="Choose Billing and Payment Method";
         $data["checkout_menus"]=$this->checkout_menus;
         $data["brands"]=$this->brands->all();
+
+        $cart = $request->session()->get('cart_session');
+        $shipping_cost=$this->shipping_lists->find($cart["shipping_method"]);
+
+        $data["shipping_cost"]=$shipping_cost->total;
         $data["categories"]=$this->categories->all();
         $data["tax_info"]=$this->tax_info;
         $data["address_id"]=$request->input("address_id");
