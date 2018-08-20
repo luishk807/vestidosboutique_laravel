@@ -36,7 +36,7 @@
                                             <tr>
                                                 <td>{{$order->purchase_date}}</td>
                                                 <td>{{$order->order_total}}</td>
-                                                <td><a href="">{{$order->getShippingAddress->nick_name}}</a></td>
+                                                <td><a href="">...{{$order->shipping_zip_code}}</a></td>
                                                 <td><a href="">Order Detail</a></td>
                                             </tr>
                                         </tbody>

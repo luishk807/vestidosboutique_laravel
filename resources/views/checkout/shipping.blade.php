@@ -242,7 +242,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4 checkout-btn-pnl">
-                                <input type="submit" class="btn-block vesti_in_btn checkout_next" value="{{$checkout_btn_name}}"/>
+                                <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
+                                <input type="submit" class="btn-block vesti_in_btn checkout_next checkout-button" value="{{$checkout_btn_name}}"/>
                             </div>
                         </div>
                         </form>

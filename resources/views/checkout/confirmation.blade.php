@@ -1,12 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-.checkout-confirm-order-details .header1 th{
-    text-align: left;
-    font-size: 1.2rem;
-    padding-bottom: 36px;
-}
-</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">

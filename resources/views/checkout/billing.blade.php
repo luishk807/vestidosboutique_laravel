@@ -146,7 +146,8 @@
                                 <div id="checkout-message"></div>
                                 <div id="dropin-container"></div>
                                 <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" />
-                                <button class="btn-block vesti_in_btn" type="submit" id="submit-button">Submit payment</button>
+                                <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
+                                <button class="btn-block vesti_in_btn checkout-button" type="submit" id="submit-button">Submit payment</button>
                             </div>
 
                         </div>

@@ -61,6 +61,9 @@ class userPaymentController extends Controller
         );
     }
     public function showShipping(){
+        if(empty(Session::has("vestidos_shop"))){
+            return redirect()->route("home_page");
+        }
         $data=[];
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
@@ -152,6 +155,9 @@ class userPaymentController extends Controller
         return redirect()->route("checkout_show_billing")->with($data);
     }
     public function showBilling(Request $request){
+        if(empty(Session::has("vestidos_shop"))){
+            return redirect()->route("home_page");
+        }
         $data=[];
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
@@ -408,8 +414,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = 'Hello '.$client_name.', thank you for your order';
-                            $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                            // $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                            //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                            $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
                         });
                         
                         //send email to admin
@@ -417,8 +423,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = 'Hello Admin, new order received from '.$client_name;
-                            $message->to("info@vestidosboutique.com","Admin")->subject($subject);
-                            // $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                            //$message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                            $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
                         });
 
 

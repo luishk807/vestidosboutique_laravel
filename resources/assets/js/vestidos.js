@@ -161,6 +161,12 @@ $(document).ready(function() {
     $(".rate-view").rate({
         readonly:true
     });
+    //checkout
+    $(".checkout-button,.loader-button").on("click",function(){
+        $(this).css("display","none");
+        // $(this).prop('disabled', true);
+        $("#vesti-load").css("display","block");
+    });
 });
 function addWishlist(product_id){
     $.ajax({

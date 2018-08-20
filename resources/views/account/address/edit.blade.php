@@ -121,7 +121,8 @@
                 <a href="{{ route('confirmaddress',['address_id'=>$address->id])}}" class="btn-block vesti_in_btn">Delete</a>
             </div>
             <div class="col">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Address"/>
+                <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
+                <input type="submit" class="btn-block vesti_in_btn loader-button" value="Save Address"/>
             </div>
         </div>
     </div>

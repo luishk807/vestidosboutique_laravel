@@ -66,7 +66,8 @@
                                             <small class="error">{{$errors->first("question")}}</small>
                                     </div>
                                     <div class="vesti_in_btn_pnl">
-                                        <input type="submit" class="btn-block vesti_in_btn" value="Send">
+                                        <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
+                                        <input type="submit" class="btn-block vesti_in_btn loader-button" value="Send">
                                     </div>
                                 </form>
 
