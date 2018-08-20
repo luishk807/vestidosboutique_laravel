@@ -93,8 +93,8 @@
                     </td>
                     <td valign="top" align="center">
                         {{ $product["name"] }}<br/>
-                        {{ $product["size"] }}<br/>
-                        {{ $product["color"] }}
+                        Size: {{ $product["size"] }}<br/>
+                        Color: {{ $product["color"] }}
                     </td>
                     <td valign="top" align="center">
                         {{ $product["quantity"] }}

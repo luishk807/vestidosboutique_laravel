@@ -66,6 +66,77 @@
                                             <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">Edit</a></td>
                                         </tr>
                                         @endforeach
+
+                                         @if(empty($user->getAddresses->first()))
+                                        <tr>
+                                            <td colspan="3">
+                                                    {{ csrf_field() }}
+                                                    <div class="form-row">
+                                                        <label for="addressName">Name:</label>
+                                                        <input type="text" id="addressName" class="form-control" name="billing_name" value="{{ old('billing_name') }}" placeholder="Name"/>
+                                                        <small class="error">{{$errors->first("billing_name")}}</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="addressEmail">Email:</label>
+                                                        <input type="email" id="addressEmail" class="form-control" name="billing_email" value="{{ old('billing_email') }}" placeholder="Email"/>
+                                                        <small class="error">{{$errors->first("billing_email")}}</small>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="addressPhone1">Telephone 1:</label>
+                                                            <input type="text" id="addressPhone1" class="form-control" name="billing_phone_number_1" value="{{ old('billing_phone_number_1') }}" placeholder="Phone 1"/>
+                                                            <small class="error">{{$errors->first("billing_phone_number_1")}}</small>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="addressPhone2">Telephone 2:</label>
+                                                            <input type="text" id="addressPhone2" class="form-control" name="billing_phone_number_2" value="{{ old('billing_phone_number_2') }}" placeholder="Phone 2"/>
+                                                            <small class="error">{{$errors->first("billing_phone_number_2")}}</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="addressAddress1">Address 1:</label>
+                                                        <input type="text" id="addressAddress1" class="form-control" name="billing_address_1" value="{{ old('billing_address_1')  }}" placeholder="Address 1"/>
+                                                        <small class="error">{{$errors->first("billing_address_1")}}</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="addressAddress2">Address 2:</label>
+                                                        <input type="text" id="addressAddress2" class="form-control" name="billing_address_2" value="{{ old('billing_address_2') }}" placeholder="Address 2"/>
+                                                        <small class="error">{{$errors->first("billing_address_2")}}</small>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="addressCity">City:</label>
+                                                            <input type="text" id="addressCity" class="form-control" name="billing_city" value="{{ old('billing_city') }}" placeholder="City"/>
+                                                            <small class="error">{{$errors->first("billing_city")}}</small>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="addressState">State:</label>
+                                                            <input type="text" id="addressState" class="form-control" name="billing_state" value="{{ old('billing_state') }}" placeholder="State"/>
+                                                            <small class="error">{{$errors->first("billing_state")}}</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="addressCountry">Country:</label>
+                                                            <select class="custom-select" name="billing_country" id="addressCountry">
+                                                                <option value="">Select Country</option>
+                                                                @foreach($countries as $country)
+                                                                    <option value="{{ $country->id }}">{{$country->countryName}} </option>
+                                                                @endforeach
+                                                            </select>
+                                                            <small class="error">{{$errors->first("billing_country")}}</small>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="addressZip">Zip Code:</label>
+                                                            <input type="text" id="addressZip" class="form-control" name="billing_zip_code" value="{{ old('billing_zip_code') }}" placeholder="Zip Code"/>
+                                                            <small class="error">{{$errors->first("billing_zip_code")}}</small>
+                                                        </div>
+                                                    </div>
+                                            <!--end of address-->
+                                            </td>
+                                        </tr>
+                                        @endif
+
                                     </tbody>
                                 </table>
 

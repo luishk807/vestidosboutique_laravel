@@ -66,12 +66,9 @@ class userPaymentController extends Controller
         $user = $this->users->find($user_id);
         $data["user"]=$user;
         $data["checkout_menu_prev_link"]="";
-        if(empty($user->getAddresses->first())){
-            $data["page_title"]="Provide Shipping Address";
-        }
-        else{
-            $data["page_title"]="Select Shipping Address";
-        }
+        $has_address = $user->getAddresses->first() ? true : false; 
+
+        $data["page_title"] = $has_address ? "Select Shipping Address" : "Provide Shipping Address";
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
@@ -83,55 +80,75 @@ class userPaymentController extends Controller
         return view("/checkout/shipping",$data);
     }
     public function saveShipping(Request $request){
-        $this->validate($request,[
-            "shipping_address"=>"required",
-            "shipping_method"=>"required"
-            ]
-        );
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
-        $data["user"]=$user;
-        $data["page_title"]="Choose Billing and Payment Method";
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["countries"]=$this->country->all();
-        $data["first_name"]=$request->input("first_name");
-        $data["middle_name"]=$request->input("middle_name");
-        $data["last_name"]=$request->input("last_name");
-        $data["address_1"]=$request->input("address_1");
-        $data["address_2"]=$request->input("address_2");
-        $data["city"]=$request->input("city");
-        $data["state"]=$request->input("state");
-        $data["country"]=$request->input("country");
-        $data["zip_code"]=$request->input("zip_code");
-        $data["phone_number_1"]=$request->input("phone_number_1");
-        $data["phone_number_2"]=$request->input("phone_number_2");
-        $data["email"]=$request->input("email");
-
-        $shipping = $this->addresses->find($request->input("shipping_address"));
-
-        $shipping_name = $shipping->first_name;
-        if(!empty($shipping->middle_name)){
-            $shipping_name .= " ".$shipping->middle_name;
+        $has_address = $user->getAddresses->first() ? true : false; 
+        $rule=[];
+        if($has_address){
+            $this->validate($request,[
+                "shipping_address"=>"required",
+                "shipping_method"=>"required"
+            ]);
+            $shipping = $this->addresses->find($request->input("shipping_address"));
+            $shipping_name = $shipping->first_name;
+            if(!empty($shipping->middle_name)){
+                $shipping_name .= " ".$shipping->middle_name;
+            }
+            $shipping_name .= " ".$shipping->last_name;
+            $shipping_country = $this->country->find($shipping->country_id);
+            $cart_data = array(
+                "shipping_name"=>$shipping_name,
+                "shipping_address_1"=>$shipping->address_1,
+                "shipping_address_2"=>$shipping->address_2,
+                "shipping_city"=>$shipping->city,
+                "shipping_state"=>$shipping->state,
+                "shipping_country"=>$shipping_country->countryCode,
+                "shipping_zip_code"=>$shipping->zip_code,
+                "shipping_phone_number_1"=>$shipping->phone_number_1,
+                "shipping_phone_number_2"=>$shipping->phone_number_2,
+                "shipping_email"=>$shipping->email,
+                "shipping_method"=>$request->input("shipping_method")
+            );
         }
-        $shipping_name .= " ".$shipping->last_name;
-        $shipping_country = $this->country->find($shipping->country_id);
+        else{
+            $this->validate($request,[
+                "shipping_name"=>"required",
+                "shipping_address_1"=>"required",
+                "shipping_city"=>"required",
+                "shipping_state"=>"required",
+                "shipping_country"=>"required",
+                "shipping_zip_code"=>"required",
+                "shipping_phone_number_1"=>"required",
+                "shipping_email"=>"required",
+                "shipping_method"=>"required"
+            ]);
+            $data["shipping_name"]=$request->input("shipping_name");
+            $data["shipping_address_1"]=$request->input("shipping_address_1");
+            $data["shipping_address_2"]=$request->input("shipping_address_2");
+            $data["shipping_city"]=$request->input("shipping_city");
+            $data["shipping_state"]=$request->input("shipping_state");
+            $data["shipping_country"]=$request->input("shipping_country");
+            $data["shipping_zip_code"]=$request->input("shipping_zip_code");
+            $data["shipping_phone_number_1"]=$request->input("shipping_phone_number_1");
+            $data["shipping_phone_number_2"]=$request->input("shipping_phone_number_1");
+            $data["shipping_email"]=$request->input("shipping_email");
+            $shipping_country = $this->country->find($request->input("shipping_country"));
 
-        $cart_data = array(
-            "shipping_name"=>$shipping_name,
-            "shipping_address_1"=>$shipping->address_1,
-            "shipping_address_2"=>$shipping->address_2,
-            "shipping_city"=>$shipping->city,
-            "shipping_state"=>$shipping->state,
-            "shipping_country"=>$shipping_country->countryCode,
-            "shipping_zip_code"=>$shipping->zip_code,
-            "shipping_phone_number_1"=>$shipping->phone_number_1,
-            "shipping_phone_number_2"=>$shipping->phone_number_2,
-            "shipping_email"=>$shipping->email,
-            "shipping_method"=>$request->input("shipping_method")
-        );
+            $cart_data = array(
+                "shipping_name"=>$request->input("shipping_name"),
+                "shipping_address_1"=>$request->input("shipping_address_1"),
+                "shipping_address_2"=>$request->input("shipping_address_2"),
+                "shipping_city"=>$request->input("shipping_city"),
+                "shipping_state"=>$request->input("shipping_state"),
+                "shipping_country"=>$shipping_country->countryCode,
+                "shipping_zip_code"=>$request->input("shipping_zip_code"),
+                "shipping_phone_number_1"=>$request->input("shipping_phone_number_1"),
+                "shipping_phone_number_2"=>$request->input("shipping_phone_number_2"),
+                "shipping_email"=>$request->input("shipping_email"),
+                "shipping_method"=>$request->input("shipping_method")
+            );
+        }
         $request->session()->put("cart_session",$cart_data);
-        $data["checkout_menus"]=$this->checkout_menus;
         return redirect()->route("checkout_show_billing")->with($data);
     }
     public function showBilling(Request $request){
@@ -140,7 +157,11 @@ class userPaymentController extends Controller
         $user = $this->users->find($user_id);
         $data["user"]=$user;
         $data["checkout_menu_prev_link"]=array("name"=>"Shipping","url"=>route('checkout_show_shipping'));
-        $data["page_title"]="Choose Billing and Payment Method";
+
+        $has_address = $user->getAddresses->first() ? true : false; 
+
+        $data["page_title"] = $has_address ? "Choose Billing and Payment Method" : "Please Provide Billing and Payment Method";
+
         $data["checkout_menus"]=$this->checkout_menus;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
@@ -149,60 +170,111 @@ class userPaymentController extends Controller
 
         $data["shipping_cost"]=$shipping_cost->total;
         $data["tax_info"]=$this->tax_info;
+        $data["countries"]=$this->country->all();
         $data["address_id"]=$request->input("address_id");
         $data["checkout_header_key"]="Billing";
         $data["checkout_btn_name"]="Complete Payment";
         $data["shipping_lists"]=$this->shipping_lists->all();
         return view("/checkout/billing",$data);
     }
-    public function showOrderReceived(){
-        $data=[];
-        $user_id=Auth::guard("vestidosUsers")->user()->getId();
-        $user = $this->users->find($user_id);
-        $data["user"]=$user;
-        $last_order=$user->orders()->orderBy('created_at','desc')->first();
-        $data["last_order"]=$last_order;
-        $data["checkout_menu_prev_link"]="";
-        $data["page_title"]="Success: Your order has been received";
-        $data["checkout_menus"]=$this->checkout_menus;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["tax_info"]=$this->tax_info;
-        $data["checkout_header_key"]="Confirmation";
-        $data["checkout_btn_name"]="Return Home Page";
-        $data["thankyou_msg"]="Thank you for your order! we are processing your order, once your order is update you will notify you right away!.";
-        $data["thankyou_img"]="checked.svg";
-        $data["thankyou_status"]=true;
-        if(empty(Session::has("alert-success"))){
-            $data["page_title"]="Ops!";
-            $data["thankyou_msg"]="Access Denied.";
-            $data["thankyou_img"]="close_2.svg";
-            $data["thankyou_status"]=false;
-        }
-        return view("/checkout/confirmation",$data);
-    }
     public function processPayment(Request $request){
-        $rules = [
-            "billing_address"=>"required"
-        ];
-        $this->validate($request,$rules);
-
+        //if no session is available, redirect
         if(empty($request->session()->has('cart_session'))){
             return redirect()->back()->withErrors([
                 'required' => "Cart is Empty"
             ]);
         }
-        
-        $cart = $request->session()->get('cart_session');
-        $shipping_id=$cart["shipping"];
-        $billing_id= $request->input("billing_address");
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
-        $shipping_list = $this->shipping_lists->find($cart["shipping_method"]);
+        $has_address = $user->getAddresses->first() ? true : false; 
 
-        $shipping= $this->addresses->find($shipping_id);
-        $billing = $this->addresses->find($billing_id);
+        $cart_address = $request->session()->get('cart_session');
+        $shipping_list = $this->shipping_lists->find($cart_address["shipping_method"]);
 
+        if($has_address){
+            $this->validate($request,[
+                "billing_address"=>"required"
+            ]);
+            $billing_id= $request->input("billing_address");
+            $shipping_id=$cart_address["shipping"];
+
+            $shipping= $this->addresses->find($shipping_id);
+            $billing = $this->addresses->find($billing_id);
+
+            $shipping_name = $shipping->first_name;
+            if(!empty($shipping->middle_name)){
+                $shipping_name .= " ".$shipping->middle_name;
+            }
+            $shipping_name .= " ".$shipping->last_name;
+            $shipping_country = $this->country->find($shipping->country_id);
+            $data["shipping_name"]=$shipping_name;
+            $data["shipping_address_1"]=$shipping->address_1;
+            $data["shipping_address_2"]=$shipping->address_2;
+            $data["shipping_city"]=$shipping->city;
+            $data["shipping_state"]=$shipping->state;
+            $data["shipping_country"]=$shipping_country->countryCode;
+            $data["shipping_zip_code"]=$shipping->zip_code;
+            $data["shipping_phone_number_1"]=$shipping->phone_number_1;
+            $data["shipping_phone_number_2"]=$shipping->phone_number_2;
+            $data["shipping_email"]=$shipping->email;
+            
+
+            $billing_name = $billing->first_name;
+            if(!empty($billing->middle_name)){
+                $billing_name .= " ".$billing->middle_name;
+            }
+            $billing_name .= " ".$billing->last_name;
+            $billing_country = $this->country->find($billing->country_id);
+            $data["billing_name"]=$billing_name;
+            $data["billing_address_1"]=$billing->address_1;
+            $data["billing_address_2"]=$billing->address_2;
+            $data["billing_city"]=$billing->city;
+            $data["billing_state"]=$billing->state;
+            $data["billing_country"]=$billing_country->countryCode;
+            $data["billing_zip_code"]=$billing->zip_code;
+            $data["billing_phone_number_1"]=$billing->phone_number_1;
+            $data["billing_phone_number_2"]=$billing->phone_number_2;
+            $data["billing_email"]=$billing->email;
+        
+        }else{
+            $this->validate($request,[
+                "billing_name"=>"required",
+                "billing_address_1"=>"required",
+                "billing_city"=>"required",
+                "billing_state"=>"required",
+                "billing_country"=>"required",
+                "billing_zip_code"=>"required",
+                "billing_phone_number_1"=>"required",
+                "billing_email"=>"required"
+            ]);
+
+            $data["shipping_name"]=$cart_address["shipping_name"];
+            $data["shipping_address_1"]=$cart_address["shipping_address_1"];
+            $data["shipping_address_2"]=$cart_address["shipping_address_2"];
+            $data["shipping_city"]=$cart_address["shipping_city"];
+            $data["shipping_state"]=$cart_address["shipping_state"];
+            $data["shipping_country"]=$cart_address["shipping_country"];
+            $data["shipping_zip_code"]=$cart_address["shipping_zip_code"];
+            $data["shipping_phone_number_1"]=$cart_address["shipping_phone_number_1"];
+            $data["shipping_phone_number_2"]=$cart_address["shipping_phone_number_2"];
+            $data["shipping_email"]=$cart_address["shipping_email"];
+            
+
+            $billing_name = $request->input("billing_name");
+            $billing_country = $this->country->find($request->input("billing_country"));
+            $data["billing_name"]=$billing_name;
+            $data["billing_address_1"]=$request->input("billing_address_1");
+            $data["billing_address_2"]=$request->input("billing_address_2");
+            $data["billing_city"]=$request->input("billing_city");
+            $data["billing_state"]=$request->input("billing_state");
+            $data["billing_country"]=$billing_country->countryCode;
+            $data["billing_zip_code"]=$request->input("billing_zip_code");
+            $data["billing_phone_number_1"]=$request->input("billing_phone_number_1");
+            $data["billing_phone_number_2"]=$request->input("billing_phone_number_2");
+            $data["billing_email"]=$request->input("billing_email");
+
+        }
+        
         $nonce = $request->input('nonce', false);
         $today = carbon::now();
         $todayf = $today->format("dmY");
@@ -227,40 +299,7 @@ class userPaymentController extends Controller
         $data["user_id"]=$user_id;
         $data["order_number"]=$order_number;
         $data["purchase_date"]=$today;
-        $shipping_name = $shipping->first_name;
-        if(!empty($shipping->middle_name)){
-            $shipping_name .= " ".$shipping->middle_name;
-        }
-        $shipping_name .= " ".$shipping->last_name;
-        $shipping_country = $this->country->find($shipping->country_id);
-        $data["shipping_name"]=$shipping_name;
-        $data["shipping_address_1"]=$shipping->address_1;
-        $data["shipping_address_2"]=$shipping->address_2;
-        $data["shipping_city"]=$shipping->city;
-        $data["shipping_state"]=$shipping->state;
-        $data["shipping_country"]=$shipping_country->countryCode;
-        $data["shipping_zip_code"]=$shipping->zip_code;
-        $data["shipping_phone_number_1"]=$shipping->phone_number_1;
-        $data["shipping_phone_number_2"]=$shipping->phone_number_2;
-        $data["shipping_email"]=$shipping->email;
         
-
-        $billing_name = $billing->first_name;
-        if(!empty($billing->middle_name)){
-            $billing_name .= " ".$billing->middle_name;
-        }
-        $billing_name .= " ".$billing->last_name;
-        $billing_country = $this->country->find($billing->country_id);
-        $data["billing_name"]=$billing_name;
-        $data["billing_address_1"]=$billing->address_1;
-        $data["billing_address_2"]=$billing->address_2;
-        $data["billing_city"]=$billing->city;
-        $data["billing_state"]=$billing->state;
-        $data["billing_country"]=$billing_country->countryCode;
-        $data["billing_zip_code"]=$billing->zip_code;
-        $data["billing_phone_number_1"]=$billing->phone_number_1;
-        $data["billing_phone_number_2"]=$billing->phone_number_2;
-        $data["billing_email"]=$billing->email;
 
 
         $data["order_total"]=$total;
@@ -336,26 +375,26 @@ class userPaymentController extends Controller
                             "order"=>array(                        
                                 "order_number"=>$order_number,
                                 "purchase_date"=>$today,
-                                "shipping_name"=>$shipping_name,
-                                "shipping_address_1"=>$shipping->address_1,
-                                "shipping_address_2"=>$shipping->address_2,
-                                "shipping_city"=>$shipping->city,
-                                "shipping_state"=>$shipping->state,
-                                "shipping_country"=>$shipping_country->countryCode,
-                                "shipping_zip_code"=>$shipping->zip_code,
-                                "shipping_phone_number_1"=>$shipping->phone_number_1,
-                                "shipping_phone_number_2"=>$shipping->phone_number_2,
-                                "shipping_email"=>$shipping->email,
-                                "billing_name"=>$billing_name,
-                                "billing_address_1"=>$billing->address_1,
-                                "billing_address_2"=>$billing->address_2,
-                                "billing_city"=>$billing->city,
-                                "billing_state"=>$billing->state,
-                                "billing_country"=>$billing_country->countryCode,
-                                "billing_zip_code"=>$billing->zip_code,
-                                "billing_phone_number_1"=>$billing->phone_number_1,
-                                "billing_phone_number_2"=>$billing->phone_number_2,
-                                "billing_email"=>$billing->email,
+                                "shipping_name"=>$cart_address["shipping_name"],
+                                "shipping_address_1"=>$cart_address["shipping_address_1"],
+                                "shipping_address_2"=>$cart_address["shipping_address_2"],
+                                "shipping_city"=>$cart_address["shipping_city"],
+                                "shipping_state"=>$cart_address["shipping_state"],
+                                "shipping_country"=>$cart_address["shipping_country"],
+                                "shipping_zip_code"=>$cart_address["shipping_zip_code"],
+                                "shipping_phone_number_1"=>$cart_address["shipping_phone_number_1"],
+                                "shipping_phone_number_2"=>$cart_address["shipping_phone_number_2"],
+                                "shipping_email"=>$cart_address["shipping_email"],
+                                "billing_name"=>$request->input("billing_name"),
+                                "billing_address_1"=>$request->input("billing_address_1"),
+                                "billing_address_2"=>$request->input("billing_address_2"),
+                                "billing_city"=>$request->input("billing_city"),
+                                "billing_state"=>$request->input("billing_state"),
+                                "billing_country"=>$request->input("billing_country"),
+                                "billing_zip_code"=>$request->input("billing_zip_code"),
+                                "billing_phone_number_1"=>$request->input("billing_phone_number_1"),
+                                "billing_phone_number_2"=>$request->input("billing_phone_number_2"),
+                                "billing_email"=>$request->input("billing_email"),
                                 "products"=>$data_products_email,
                                 "order_total"=>$total,
                                 "order_tax"=>$tax,
@@ -364,18 +403,22 @@ class userPaymentController extends Controller
                             )
                         ];
                         
+                        //send email to client
                         Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = 'Hello '.$client_name.', thank you for your order';
                             $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                            // $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
                         });
-
+                        
+                        //send email to admin
                         Mail::send('emails.admin_orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = 'Hello Admin, new order received from '.$client_name;
                             $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                            // $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
                         });
 
 
@@ -398,4 +441,31 @@ class userPaymentController extends Controller
 
         return redirect()->route("checkout_order_received");
     }
+    public function showOrderReceived(){
+        $data=[];
+        $user_id=Auth::guard("vestidosUsers")->user()->getId();
+        $user = $this->users->find($user_id);
+        $data["user"]=$user;
+        $last_order=$user->orders()->orderBy('created_at','desc')->first();
+        $data["last_order"]=$last_order;
+        $data["checkout_menu_prev_link"]="";
+        $data["page_title"]="Success: Your order has been received";
+        $data["checkout_menus"]=$this->checkout_menus;
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["tax_info"]=$this->tax_info;
+        $data["checkout_header_key"]="Confirmation";
+        $data["checkout_btn_name"]="Return Home Page";
+        $data["thankyou_msg"]="Thank you for your order! we are processing your order, once your order is update you will notify you right away!.";
+        $data["thankyou_img"]="checked.svg";
+        $data["thankyou_status"]=true;
+        if(empty(Session::has("alert-success"))){
+            $data["page_title"]="Ops!";
+            $data["thankyou_msg"]="Access Denied.";
+            $data["thankyou_img"]="close_2.svg";
+            $data["thankyou_status"]=false;
+        }
+        return view("/checkout/confirmation",$data);
+    }
+    
 }
