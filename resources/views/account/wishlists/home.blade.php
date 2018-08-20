@@ -20,26 +20,40 @@
             <tr>
                 <td class="col">
                     <!--wishlist list begins-->
-                    @foreach($wishlists as $wishlist)
-                    <table class="table">
+                    <table class="table account-wishlist-table">
+
+                        @if($wishlists->count() > 0)
                         <thead>
                             <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th class="image"></th>
+                                <th clas="desc">Description</th>
+                                <th class="action">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($wishlists as $wishlist)
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td width="15%" class="image"><img class="img-fluid" src="{{ asset('images/products')}}/{{$wishlist->getProduct->images->first()->img_url}}" alt="{{$wishlist->getProduct->images->first()->img_name}}"></td>
+                                <td width="65%"class="desc">
+                                    <strong><a href="{{ route('product_page',['product_id'=>$wishlist->getProduct->id])}}">{{$wishlist->getProduct->products_name}}</a></strong><br/>
+                                    <div class='rate-view' data-rate-value="{{ $wishlist->getProduct->rates->avg('user_rate') }}"></div>
+                                    ${{ number_format($wishlist->getProduct->product_total,'2','.',',') }}
+                                </td>
+                                <td width="20%"class="action"><a href='{{ route("deletewishlist",["wishlist_id"=>$wishlist->id])}}'>Remove</a></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        @else
+                        <tbody>
+                            <tr>
+                                <td class="no-wishlist">
+                                <strong>Your Wishlist is empty</strong>
+                                </td>
                             </tr>
                         </tbody>
+                        @endif
+
                     </table>
-                    @endforeach
                     <!--wishlist list ends-->
                 </td>
             </tr>

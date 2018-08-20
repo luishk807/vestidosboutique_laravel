@@ -35,7 +35,7 @@
                                             </tr>
                                             <tr>
                                                 <td>{{$order->purchase_date}}</td>
-                                                <td>{{$order->order_total}}</td>
+                                                <td>${{ number_format($order->order_total,'2','.',',') }}</td>
                                                 <td><a href="">...{{$order->shipping_zip_code}}</a></td>
                                                 <td><a href="">Order Detail</a></td>
                                             </tr>

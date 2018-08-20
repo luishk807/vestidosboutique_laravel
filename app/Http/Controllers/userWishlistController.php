@@ -59,23 +59,11 @@ class userWishlistController extends Controller
             return ["status"=>"login","product_id"=>null];
         }
     }
-    public function deleteWishlist($wishlist_id,Request $request){
+    public function deleteWishlist($wishlist_id){
         $data=[];
-        if($request->input("_method")=="DELETE"){
-           $wishlist = $this->wishlists->find($wishlist_id);
-           foreach($wishlist->images as $image){
-                $img_path =public_path().'/images/wishlists/'.$image->img_url;
-                if(file_exists($img_path)){
-                    @unlink($img_path);
-                }
-            }
-            $wishlist->delete();
-            return redirect()->route("admin_wishlists");
-        }
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["wishlist"]=$this->wishlists->find($wishlist_id);
-        $data["page_title"]="Delete wishlist";
-        return view("admin/wishlists/confirm",$data);
+        $data["user_id"] = Auth::guard("vestidosUsers")->user()->getId();
+        $wishlist = $this->wishlists->find($wishlist_id);
+        $wishlist->delete();
+        return redirect()->route('user_wishlists',$data);
     }
 }
