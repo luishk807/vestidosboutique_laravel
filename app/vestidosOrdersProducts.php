@@ -12,6 +12,9 @@ class vestidosOrdersProducts extends Model
         "order_id",
         "product_id",
         "quantity",
+        "total",
+        "color_id",
+        "size_id",
         "status",
         "created_at",
         "updated_at"

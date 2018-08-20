@@ -68,6 +68,7 @@ class Handler extends ExceptionHandler
             switch($statusCode){
                 case '404': return response()->view('errors.missing',$data, 404);
                 case '403': return response()->view('errors.missing',$data, 403);
+                case '405': return response()->view('errors.missing',$data, 405);
             }
         }
 

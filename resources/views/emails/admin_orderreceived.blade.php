@@ -1,12 +1,12 @@
 <table>
     <tr>
         <td align="left"><img width="200" src="{{ asset('/images/vestidos_boutique_image.jpg') }}" class="img-fluid" alt=""></td>
-        <td align="right" valign="bottom"><strong>{{ $order_detail["order"]["status"] }}</strong></td>
+        <td align="right" valign="bottom"></td>
     </tr>
     <tr>
         <td colspan='2'>
-            Hello {{ $order_detail["user"]["first_name"]}}, <br/><br/>
-            Thank you for shopping with us.  Your order placed {{ $order_detail["order"]["purchase_date"] }} has been received. We will send you a confirmation when your item ships.
+            Hello Admin, <br/><br/>
+            A new order placed {{ $order_detail["order"]["purchase_date"] }} by {{ $order_detail["user"]["first_name"]}} and has been received.
         </td>
     </tr>
     <tr>
