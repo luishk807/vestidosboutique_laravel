@@ -1161,5 +1161,79 @@ width:30%;
 .account-wishlist-table .no-wishlist{ 
   border-top:none;
 }
+//VIEW ORDER PAGE
+.view-order-main td,
+.view-order-main th{
+    border-top:none !important;
+    border-bottom:none !important;
+}
+.account-container,
+.view-order-main,
+.view-order-main td{
+    padding:0px;
+}
+.view-order-header-info td{
+    padding: 6px 10px;
+    font-size: .8rem;
+    font-family: Arial;
+}
+.view-order-header-info td:nth-child(2){
+    text-align:center;
+}
+.view-order-header-total tr:first-child td{
+    border-top:none !important;
+}
+.view-order-header-total td:nth-child(1),
+.view-order-header-total th:nth-child(1){
+    text-align:left;
+}
+.view-order-header-total td:nth-child(2),
+.view-order-header-total th:nth-child(2){
+    text-align:right;
+}
+.view-order-top,
+.view-order-items,
+.view-order-header-total{
+    background-color:white !important;
+}
+
+.view-order-top-list{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.view-order-top-list li{
+    float: left;
+padding: 5px 10px;
+font-weight:bold;
+
+}
+.view-order-top-list li:not(:first-child){
+    border-left:$vesti-light-bars
+}
+.view-order-items .data .desc{
+    padding:5px;
+}
+.view-order-items .data .action{
+    padding:4px;
+}
+.view-order-items .data .action .btn-block{
+    font-size: .8rem;
+}
+.view-order-list{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.view-order-list li{
+    border-top:$vesti-light-bars;
+padding: 15px 0px;
+    margin: 10px 0px;
+}
+.view-order-list .header{
+  font-size: 1.1rem;
+margin: 5px 0px;
+text-align:left;
+}
 //custom vestidos mobile scss
 @import "vestidos_mobile";

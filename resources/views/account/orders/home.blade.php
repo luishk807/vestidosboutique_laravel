@@ -37,7 +37,7 @@
                                                 <td>{{$order->purchase_date}}</td>
                                                 <td>${{ number_format($order->order_total,'2','.',',') }}</td>
                                                 <td><a href="">...{{$order->shipping_zip_code}}</a></td>
-                                                <td><a href="">Order Detail</a></td>
+                                                <td><a href="{{ route('view_order',['order_id'=>$order->id]) }}">Order Detail</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -41,7 +41,7 @@ class userOrderController extends Controller
         $order =$this->orders->find($order_id);
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Order: ".$order->order_number;
+        $data["page_title"]="Order Detail";
         $data["order"]=$order;
         $data["user"]=$this->users->find($order->user_id);
         return view("account/orders/view",$data);
