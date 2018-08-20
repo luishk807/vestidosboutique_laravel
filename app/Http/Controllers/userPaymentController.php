@@ -182,7 +182,7 @@ class userPaymentController extends Controller
         $data["countries"]=$this->country->all();
         $data["address_id"]=$request->input("address_id");
         $data["checkout_header_key"]="Billing";
-        $data["checkout_btn_name"]="Complete Payment";
+        $data["checkout_btn_name"]="Process Payment";
         $data["shipping_lists"]=$this->shipping_lists->all();
         return view("/checkout/billing",$data);
     }

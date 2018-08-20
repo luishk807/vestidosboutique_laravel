@@ -175,6 +175,7 @@
                                 <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" />
                                 <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
                                 <button class="btn-block vesti_in_btn checkout-button" type="submit" id="submit-button">Submit payment</button>
+                                <p><strong><center>This is the final step for your order</center></strong></p>
                             </div>
 
                         </div>
