@@ -66,7 +66,12 @@ class userPaymentController extends Controller
         $user = $this->users->find($user_id);
         $data["user"]=$user;
         $data["checkout_menu_prev_link"]="";
-        $data["page_title"]="Select Shipping Address";
+        if(empty($user->getAddresses->first())){
+            $data["page_title"]="Provide Shipping Address";
+        }
+        else{
+            $data["page_title"]="Select Shipping Address";
+        }
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
@@ -90,8 +95,39 @@ class userPaymentController extends Controller
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
+        $data["first_name"]=$request->input("first_name");
+        $data["middle_name"]=$request->input("middle_name");
+        $data["last_name"]=$request->input("last_name");
+        $data["address_1"]=$request->input("address_1");
+        $data["address_2"]=$request->input("address_2");
+        $data["city"]=$request->input("city");
+        $data["state"]=$request->input("state");
+        $data["country"]=$request->input("country");
+        $data["zip_code"]=$request->input("zip_code");
+        $data["phone_number_1"]=$request->input("phone_number_1");
+        $data["phone_number_2"]=$request->input("phone_number_2");
+        $data["email"]=$request->input("email");
+
+        $shipping = $this->addresses->find($request->input("shipping_address"));
+
+        $shipping_name = $shipping->first_name;
+        if(!empty($shipping->middle_name)){
+            $shipping_name .= " ".$shipping->middle_name;
+        }
+        $shipping_name .= " ".$shipping->last_name;
+        $shipping_country = $this->country->find($shipping->country_id);
+
         $cart_data = array(
-            "shipping"=>$request->input("shipping_address"),
+            "shipping_name"=>$shipping_name,
+            "shipping_address_1"=>$shipping->address_1,
+            "shipping_address_2"=>$shipping->address_2,
+            "shipping_city"=>$shipping->city,
+            "shipping_state"=>$shipping->state,
+            "shipping_country"=>$shipping_country->countryCode,
+            "shipping_zip_code"=>$shipping->zip_code,
+            "shipping_phone_number_1"=>$shipping->phone_number_1,
+            "shipping_phone_number_2"=>$shipping->phone_number_2,
+            "shipping_email"=>$shipping->email,
             "shipping_method"=>$request->input("shipping_method")
         );
         $request->session()->put("cart_session",$cart_data);
