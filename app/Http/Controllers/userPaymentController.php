@@ -87,6 +87,7 @@ class userPaymentController extends Controller
         $user = $this->users->find($user_id);
         $has_address = $user->getAddresses->first() ? true : false; 
         $rule=[];
+        $data=[];
         if($has_address){
             $this->validate($request,[
                 "shipping_address"=>"required",
@@ -176,6 +177,8 @@ class userPaymentController extends Controller
 
         $data["shipping_cost"]=$shipping_cost->total;
         $data["tax_info"]=$this->tax_info;
+        $data["shipping_info"] = $cart;
+        $data["shipping_method"]=$this->shipping_lists->find($cart["shipping_method"]);
         $data["countries"]=$this->country->all();
         $data["address_id"]=$request->input("address_id");
         $data["checkout_header_key"]="Billing";
@@ -202,7 +205,7 @@ class userPaymentController extends Controller
                 "billing_address"=>"required"
             ]);
             $billing_id= $request->input("billing_address");
-            $shipping_id=$cart_address["shipping"];
+            $shipping_id=$cart_address["shipping_method"];
 
             $shipping= $this->addresses->find($shipping_id);
             $billing = $this->addresses->find($billing_id);

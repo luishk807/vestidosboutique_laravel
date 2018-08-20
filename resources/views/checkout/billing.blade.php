@@ -41,6 +41,33 @@
                             </span>
                         </div>
                     </div>
+                    <div class="row" >
+                        <div class="col text-center">
+                            <table width="100%" class="shipping-info">
+                                <tr>
+                                    <th class="checkout-subtitle" colspan="2">Shipping Info</th>
+                                </tr>
+                                <tr>
+                                    <td align="left" width="50%">
+                                        <div>
+                                        <strong>Shipping Address</strong><br/>
+                                        {{$shipping_info["shipping_name"]}}<br/>
+                                        {{$shipping_info["shipping_address_1"]}} {{$shipping_info["shipping_address_2"]}}<br/>
+                                        {{$shipping_info["shipping_city"]}} {{$shipping_info["shipping_state"]}}, {{$shipping_info["shipping_country"]}} {{$shipping_info["shipping_zip_code"]}}<br/>
+                                        Email: {{$shipping_info["shipping_email"]}}
+                                        </div>
+                                    </td>
+                                    <td align="left" width="50%">
+                                        <div>
+                                        <strong>Shipping Method</strong><br/>
+                                        {{$shipping_method["name"]}}<br/>
+                                        {{$shipping_method["total"]}} ({{$shipping_method["description"]}})<br/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-7">
                             <div>

@@ -1054,6 +1054,22 @@ width:30%;
   font-size:1rem;
 }
 //CHECKOUT CONFIRMATION
+.shipping-info div{
+  display: inline-block;
+  padding: 20px 50px;
+  margin-bottom: 13px;
+}
+.shipping-info td{
+ vertical-align:top;
+}
+.shipping-info strong{
+  border-bottom:$vesti-light-bars;
+}
+.shipping-info th{
+  padding: 10px 0px;
+  border-top:$vesti-light-bars;
+  border-bottom:$vesti-light-bars;
+}
 #vesti-load{
   background-color:$main_vest_color_b;
   padding: 11px 0px;
