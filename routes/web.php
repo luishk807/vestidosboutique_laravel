@@ -66,10 +66,15 @@
 
         Route::prefix("wishlists")->group(function(){
             Route::get("/{user_id}",'userwishlistController@index')->name("user_wishlists");
-            // Route::get("/view/{wishlist_id}",'userwishlistController@viewwishlist')->name("view_wishlist");
-            // Route::get('/confirm/{wishlist_id}','userwishlistController@deletewishlist')->name('confirmwishlist');
-            // Route::delete('/confirm/{wishlist_id}','userwishlistController@deletewishlist')->name('deletewishlist');
             Route::get('/delete/{wishlist_id}','userwishlistController@deleteWishlist')->name('deletewishlist');
+        });
+
+        Route::prefix("reviews")->group(function(){
+            Route::get("/",'userProductRateController@index')->name("user_review");
+            Route::get('/new','userProductRateController@newReview')->name('user_create_review');
+            Route::post('/create','userProductRateController@saveReview')->name('user_save_review');
+            Route::get('/edit/{review_id}','userProductRateController@editReview')->name('user_edit_review');
+            Route::post('/save/{review_id}','userProductRateController@saveReview')->name('user_save_review');
         });
 
         Route::prefix("orders")->group(function(){

@@ -26,8 +26,9 @@ class userWishlistController extends Controller
     }
     public function index($user_id){
         $data=[];
+        $user = $this->users->find($user_id);
         $data["page_title"]="Wishlists";
-        $data["user"]=$this->users->find($user_id);
+        $data["user"]=$user;
         $data["user_id"]=$user_id;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
@@ -64,6 +65,6 @@ class userWishlistController extends Controller
         $data["user_id"] = Auth::guard("vestidosUsers")->user()->getId();
         $wishlist = $this->wishlists->find($wishlist_id);
         $wishlist->delete();
-        return redirect()->route('user_wishlists',$data);
+        return redirect()->route('user_wishlists');
     }
 }
