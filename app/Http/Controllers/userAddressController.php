@@ -136,10 +136,13 @@ class userAddressController extends Controller
         if($request->input("_method")=="DELETE"){
             $address = $this->addresses->find($address_id);
             $address->delete();
-            return redirect()->route("admin_address",["user_id"=>$address->user_id]);
+            return redirect()->route("user_account",["user_id"=>$address->user_id]);
         }
         $address = $this->addresses->find($address_id);
         $data["address"]=$address;
+        $data["country"]=$request->input("country");
+        $data["categories"]=$this->categories->all();
+        $data["brands"]=$this->brands->all();
         $data["user"]=$this->users->find($address->user_id);
         $data["user_id"] = $address->user_id;
         $data["page_title"]="Delete Address";

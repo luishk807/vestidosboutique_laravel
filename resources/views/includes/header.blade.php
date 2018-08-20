@@ -98,8 +98,8 @@
                                    <div class="col">Subtotal: ${{ number_format($header_cart_total,2) }}</div>
                                </div>
                                <div class="row cart-top-buttons">
-                                   <div class="col"><button class="btn-block vesti_in_btn_b" onclick="location.href='{{ route('cart_page') }}'">View Cart</button></div>
-                                   <div class="col"><button class="btn-block vesti_in_btn_b" onclick="">Checkout</button></div>
+                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('cart_page') }}">View Cart</a></div>
+                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('checkout_show_shipping') }}">Checkout</a></div>
                                </div>
                                
                            </div>
