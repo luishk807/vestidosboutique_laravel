@@ -19,6 +19,7 @@ class CreateVestidosProductRate extends Migration
             $table->foreign("user_id")->references("id")->on("vestidos_users")->onDelete('cascade');
             $table->integer('product_id')->unsigned();
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete('cascade');
+            $table->string('user_headline')->nullable();
             $table->text('user_comment')->nullable();
             $table->integer('user_rate');
             $table->integer('status')->unsigned()->nullable();

@@ -71,8 +71,8 @@
 
         Route::prefix("reviews")->group(function(){
             Route::get("/",'userProductRateController@index')->name("user_review");
-            Route::get('/new','userProductRateController@newReview')->name('user_create_review');
-            Route::post('/create','userProductRateController@saveReview')->name('user_save_review');
+            Route::get('/new/{product_id}','userProductRateController@newReview')->name('user_new_review');
+            Route::post('/create/{product_id}','userProductRateController@createReview')->name('user_create_review');
             Route::get('/edit/{review_id}','userProductRateController@editReview')->name('user_edit_review');
             Route::post('/save/{review_id}','userProductRateController@saveReview')->name('user_save_review');
         });
