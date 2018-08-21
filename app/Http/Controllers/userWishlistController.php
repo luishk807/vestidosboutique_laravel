@@ -24,8 +24,9 @@ class userWishlistController extends Controller
         $this->brands=$brands;
         $this->categories = $categories;
     }
-    public function index($user_id){
+    public function index(){
         $data=[];
+        $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $data["page_title"]="Wishlists";
         $data["user"]=$user;

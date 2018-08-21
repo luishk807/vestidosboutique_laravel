@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="text-right"><a href="{{ route('edituser',['user_id'=>$user->id]) }}" class="vestidos-simple-link" href="">Edit</a></td>
+                        <td class="text-right"><a href="{{ route('edituser') }}" class="vestidos-simple-link" href="">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -44,7 +44,7 @@
                     
                     <tr>
                         <th scope="row">Address</th>
-                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress',['user_id'=>$user->id])}}">Add Address</a></td>
+                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress')}}">Add Address</a></td>
                     </tr>
                     @foreach($user->getAddresses as $address)
                     <tr>

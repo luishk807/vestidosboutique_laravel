@@ -50,14 +50,14 @@
     Route::get("/account/new",'usersController@viewNewUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
     Route::prefix("account")->middleware("auth:vestidosUsers")->group(function(){
-        Route::get("/{user_id}",'usersController@index')->name("user_account");
+        Route::get("/",'usersController@index')->name("user_account");
         
-        Route::get("/edit/{user_id}",'usersController@showUpdateUser')->name("edituser");
-        Route::post("/edit/{user_id}",'usersController@updateUser')->name("updateuser");
+        Route::get("/edit",'usersController@updateUser')->name("edituser");
+        Route::post("/edit",'usersController@updateUser')->name("updateuser");
 
         Route::prefix("addresses")->group(function(){
-            Route::get("/new/{user_id}",'userAddressController@newAddress')->name("newaddress");
-            Route::post("/new/{user_id}",'userAddressController@newAddress')->name("createaddress");
+            Route::get("/new",'userAddressController@newAddress')->name("newaddress");
+            Route::post("/new",'userAddressController@newAddress')->name("createaddress");
             Route::get("/edit/{address_id}",'userAddressController@editAddress')->name("editaddress");
             Route::post("/edit/{address_id}",'userAddressController@editAddress')->name("updateaddress");
             Route::get('/confirm/{address_id}','userAddressController@deleteAddress')->name('confirmaddress');
@@ -65,8 +65,8 @@
         });
 
         Route::prefix("wishlists")->group(function(){
-            Route::get("/{user_id}",'userwishlistController@index')->name("user_wishlists");
-            Route::get('/delete/{wishlist_id}','userwishlistController@deleteWishlist')->name('deletewishlist');
+            Route::get("/",'userWishlistController@index')->name("user_wishlists");
+            Route::get('/delete/{wishlist_id}','userWishlistController@deleteWishlist')->name('deletewishlist');
         });
 
         Route::prefix("reviews")->group(function(){
@@ -78,7 +78,7 @@
         });
 
         Route::prefix("orders")->group(function(){
-            Route::get("/{user_id}",'userOrderController@index')->name("user_orders");
+            Route::get("/",'userOrderController@index')->name("user_orders");
             Route::get("/view/{order_id}",'userOrderController@viewOrder')->name("view_order");
             Route::get('/confirm/{order_id}','userOrderController@deleteOrder')->name('confirmorder');
             Route::delete('/confirm/{order_id}','userOrderController@deleteOrder')->name('deleteorder');

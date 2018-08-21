@@ -10,6 +10,7 @@ use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
+use Auth;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
 
@@ -26,8 +27,9 @@ class userOrderController extends Controller
         $this->categories = $categories;
     }
 
-    public function index($user_id){
+    public function index(){
         $data=[];
+        $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $data["orders"]=$user->orders()->get();
         $data["user"]=$user;

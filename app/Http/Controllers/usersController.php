@@ -27,8 +27,9 @@ class usersController extends Controller
         $this->brands=$brands;
         $this->categories = $categories;
     }
-    public function index($user_id){
+    public function index(){
         $data=[];
+        $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         if(Auth::guard("vestidosUsers")->check()){
@@ -86,7 +87,8 @@ class usersController extends Controller
         }
     }
     
-    public function updateUser($user_id, Request $request){
+    public function updateUser(Request $request){
+        $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user=$this->users->find($user_id);
         $data["page_title"]="Edit Account";
         $data["languages"]=$this->languages->all();

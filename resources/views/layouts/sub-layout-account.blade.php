@@ -45,13 +45,13 @@
                 <div class="container-in-space white-md-bg-in">
                     <ul class="list-group">
                         <li class="vestidos-list-group-item">
-                            <a href="{{ route('user_account',['user_id'=>$user->id]) }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Profile</a>
+                            <a href="{{ route('user_account') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Profile</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a href="{{ route('user_orders',['user_id'=>$user->id]) }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Orders</a>
+                            <a href="{{ route('user_orders') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Orders</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a href="{{ route('user_wishlists',['user_id'=>$user->id])}}" class="btn-block vesti_in_btn_link vestidos-simple-link">Wishlist</a>
+                            <a href="{{ route('user_wishlists')}}" class="btn-block vesti_in_btn_link vestidos-simple-link">Wishlist</a>
                         </li>
                         <li class="vestidos-list-group-item">
                             <a href="{{ route('logout_user') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Log Out</a>

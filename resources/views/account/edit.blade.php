@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="container account-container">
-                <form action="{{ route('updateuser',['user_id'=>$user->id]) }}" method="post">
+                <form action="{{ route('updateuser') }}" method="post">
                 {{ csrf_field() }}
 
                 <div class="form-group">

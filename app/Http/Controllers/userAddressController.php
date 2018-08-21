@@ -11,6 +11,7 @@ use App\vestidosCategories as Categories;
 use App\vestidosCountries as Countries;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
+use Auth;
 
 class userAddressController extends Controller
 {
@@ -24,8 +25,9 @@ class userAddressController extends Controller
         $this->categories = $categories;
         $this->addresstypes = $addresstypes;
     }
-    function newAddress($user_id,Request $request){
+    function newAddress(Request $request){
         $data=[];
+        $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $data["user_id"]=$user_id;
         $data["nick_name"]=$request->input("nick_name");
         $data["first_name"]=$request->input("first_name");
