@@ -1,5 +1,7 @@
 @media only screen and (max-width: 600px) {
-
+    #user-account-menu{
+        display:none;
+    }
     #top_middle_img1 img,
     #top_middle_img2 img,
     #top_middle_img3 img{
@@ -169,6 +171,9 @@
     }
 }
 @media only screen and (max-device-width: 812px) and (orientation: landscape) {
+    #user-account-menu{
+        display:none;
+    }
     .vestidos-footer{
      padding-top: 50px;
     }

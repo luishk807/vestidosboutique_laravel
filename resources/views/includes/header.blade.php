@@ -142,6 +142,17 @@
         <div class="collapse vestidos-main-nav-top" id="navbarToggleExternalContent">
             <div class="vesti-custom-bg">
                 <ul class="navbar-nav mr-auto">
+                     @if(Auth::guard('vestidosUsers')->check())
+                    <li class="nav-item">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">My Account</a>
+                        <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
+                            <ul class="nav-list">
+                                <li><a href="{{ route('user_orders') }}">Orders</a></li>
+                                <li><a href="{{ route('user_wishlists') }}">Wishlists</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">About Us</a>
                     </li>
@@ -178,7 +189,11 @@
                 <div id="vesti-custom-bottom" class="container">
                     <div class="row">
                         <div class="col text-white">
+                            @if(Auth::guard('vestidosUsers')->check())
+                            <a href="{{route('logout_user')}}">Logout</a>
+                            @else
                             <a href="{{route('login_page')}}">Login</a>
+                            @endif
                         </div>
                         <div class="col text-white">
                             <a href="/cart">Cart</a>
