@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class vestidosOrderReasons extends Model
+class vestidosOrderCancelReasons extends Model
 {
     //
     public function getStatusName(){
