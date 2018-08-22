@@ -1,5 +1,21 @@
 @extends("layouts.sub-layout-account")
 @section('content')
+<style>
+.order-nav-list{
+    text-align:right;
+}
+.order-nav-list ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    
+}
+.order-nav-list li{
+
+    display: inline-block;
+    padding: 5px;
+}
+</style>
 <div class="container container-in-space white-md-bg-in">
     <div class="row">
         <div class="col">
@@ -17,6 +33,21 @@
 
     <table class="table orders">
         <tbody>
+            <tr>
+                <td>
+                    <div class="order-nav-list">
+                        <ul>
+                            @if(!empty($orders->previousPageUrl()))
+                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
+                            @endif
+                            <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                            @if($orders->nextPageUrl())
+                            <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
+                            @endif
+                        </ul>
+                    </div><!--end of nav container-->
+                </td>
+            </tr><!--end of navigator-->
             <tr>
                 <td class="col orders-main-col">
                     @foreach($orders as $order)
@@ -97,6 +128,21 @@
                     <!--product list ends-->
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <div class="order-nav-list">
+                        <ul>
+                            @if(!empty($orders->previousPageUrl()))
+                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
+                            @endif
+                            <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                            @if($orders->nextPageUrl())
+                            <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
+                            @endif
+                        </ul>
+                    </div><!--end of nav container-->
+                </td>
+            </tr><!--end of navigator-->
         </tbody>
     </table>
 

@@ -31,7 +31,7 @@ class userOrderController extends Controller
         $data=[];
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
-        $data["orders"]=$user->orders()->get();
+        $data["orders"]=$user->orders()->paginate(2);
         $data["user"]=$user;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
