@@ -22,7 +22,7 @@ class CreateVestidosProductRate extends Migration
             $table->string('user_headline')->nullable();
             $table->text('user_comment')->nullable();
             $table->integer('user_rate');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });

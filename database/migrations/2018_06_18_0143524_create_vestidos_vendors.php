@@ -29,7 +29,7 @@ class CreateVestidosVendors extends Migration
             $table->foreign("country_id")->references("id")->on("vestidos_countries")->onDelete('set null');
             $table->string('zip_code')->nullable();
             $table->text('ip_address');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });

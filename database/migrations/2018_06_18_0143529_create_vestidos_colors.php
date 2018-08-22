@@ -19,7 +19,7 @@ class CreateVestidosColors extends Migration
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete('cascade');
             $table->string('name');
             $table->string('color_code');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });

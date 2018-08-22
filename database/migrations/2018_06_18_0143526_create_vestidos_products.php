@@ -44,7 +44,7 @@ class CreateVestidosProducts extends Migration
             $table->boolean('top_quince')->nullable();
             $table->integer('vendor_id')->unsigned()->nullable();
             $table->foreign("vendor_id")->references("id")->on("vestidos_vendors")->onDelete('set null');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });

@@ -52,7 +52,7 @@ class CreateVestidosOrders extends Migration
             $table->integer('credit_card_number')->nullable();
             $table->string('payment_status')->nullable();
             $table->text('ip');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });

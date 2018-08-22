@@ -18,7 +18,7 @@ class CreateVestidosSize extends Migration
             $table->integer('product_id')->unsigned();
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete('cascade');
             $table->string('name');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });

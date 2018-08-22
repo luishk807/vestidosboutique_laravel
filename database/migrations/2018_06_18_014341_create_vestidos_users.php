@@ -28,7 +28,7 @@ class CreateVestidosUsers extends Migration
             $table->rememberToken();
             $table->integer('user_type')->unsigned()->nullable();
             $table->foreign("user_type")->references("id")->on("vestidos_user_types")->onDelete('set null');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_status_users")->onDelete('set null');
             $table->timestamps();
         });

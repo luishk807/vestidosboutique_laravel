@@ -33,7 +33,7 @@ class CreateVestidosUserAddress extends Migration
             $table->string('phone_number_2')->nullable();
             $table->string('email');
             $table->text('ip_address');
-            $table->integer('status')->unsigned()->nullable();
+            $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses");
             $table->timestamps();
         });
