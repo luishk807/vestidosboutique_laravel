@@ -115,7 +115,7 @@
                                                         <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">Write Review</a>
                                                     </div>
                                                     <div class="vesti_in_user_btn_pnl">
-                                                        <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">Cancel Order</a>
+                                                        <a class="btn-block vesti_in_btn_b" href="{{ route('confirm_order_cancel',['order_id'=>$order->$order_id])}}">Cancel Order</a>
                                                     </div>
                                                 </td>
                                             </tr>

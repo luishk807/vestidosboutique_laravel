@@ -54,6 +54,8 @@ class CreateVestidosOrders extends Migration
             $table->text('ip');
             $table->integer('cancel_reason')->unsigned()->nullable();
             $table->foreign("cancel_reason")->references("id")->on("vestidos_order_cancel_reasons")->onDelete('set null');
+            $table->integer('cancel_user')->unsigned()->nullable();
+            $table->foreign("cancel_user")->references("id")->on("vestidos_users")->onDelete('set null');
             $table->integer('status')->default(9)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();

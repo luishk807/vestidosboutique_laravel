@@ -80,8 +80,8 @@
         Route::prefix("orders")->group(function(){
             Route::get("/",'userOrderController@index')->name("user_orders");
             Route::get("/view/{order_id}",'userOrderController@viewOrder')->name("view_order");
-            Route::get('/confirm/{order_id}','userOrderController@deleteOrder')->name('confirmorder');
-            Route::delete('/confirm/{order_id}','userOrderController@deleteOrder')->name('deleteorder');
+            Route::get('/confirm/{order_id}','userOrderController@showCancelIndex')->name('confirm_order_cancel');
+            Route::delete('/confirm/{order_id}','userOrderController@deleteOrder')->name('delete_order');
         });
 
     });

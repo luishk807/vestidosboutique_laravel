@@ -1,0 +1,143 @@
+<table>
+    <tr>
+        <td align="left"><img width="200" src="{{ asset('/images/vestidos_boutique_image.jpg') }}" class="img-fluid" alt=""></td>
+        <td align="right" valign="bottom"><strong>{{ $order_detail["order"]["status"] }}</strong></td>
+    </tr>
+    <tr>
+        <td colspan='2'>
+            Hello {{ $order_detail["user"]["first_name"]}}, <br/><br/>
+            Your request for order cancellation is sent. Please allow 48 hours to complete the process.<br/><br/>
+            We will determine if the cancellation is allowed.  We will send you another email for confirmation.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table width="100%">
+                <tr>
+                    <td width="30%" align="left" valign="top">
+                        <strong>Order Number:</strong>
+                    </td>
+                    <td width="70%" align="left" valign="top">
+                        {{ $order_detail["order"]["order_number"] }}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table width="100%">
+                <tr>
+                    <td width="50%" align="left" valign="top">
+                        <strong>Billing Address</strong>
+                    </td>
+                    <td width="50%" align="left" valign="top">
+                        <strong>Shipping Address</strong>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table width="100%">
+                <tr>
+                    <td width="50%" align="left" valign="top">
+                        {{ $order_detail["order"]["shipping_name"] }}<br/>
+                        {{ $order_detail["order"]["shipping_address_1"] }}<br/>
+                        {{ $order_detail["order"]["shipping_address_2"] }}<br/>
+                        {{ $order_detail["order"]["shipping_city"] }}, {{ $order_detail["order"]["shipping_state"] }} {{ $order_detail["order"]["shipping_zip_code"] }}<br/>
+                        {{ $order_detail["order"]["shipping_country"] }}<br/>
+                    </td>
+                    <td width="50%" align="left" valign="top">
+                        {{ $order_detail["order"]["billing_name"] }}<br/>
+                        {{ $order_detail["order"]["billing_address_1"] }}<br/>
+                        {{ $order_detail["order"]["billing_address_2"] }}<br/>
+                        {{ $order_detail["order"]["billing_city"] }}, {{ $order_detail["order"]["billing_state"] }} {{ $order_detail["order"]["billing_zip_code"] }}<br/>
+                        {{ $order_detail["order"]["billing_country"] }}<br/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan='2'><strong>Item Purchased</strong></td>
+    </tr>
+
+    <tr>
+        <td colspan='2' width="100%">
+            <table width="100%">
+                <tr>
+                    <th width="30%" align="center">
+
+                    </th>
+                    <th width="40%" align="center">
+                        Item
+                    </th>
+                    <th width="10%" align="center">
+                        Quant
+                    </th>
+                    <th width="20%" align="right">
+                        Total
+                    </th>
+                </tr>
+                @foreach($order_detail["order"]["products"] as $product)
+                <tr>
+                    <td valign="top"  align="center">
+                        <img width="100" src="{{ asset('/images/products')}}/{{ $product['img'] }}" alt class="img-fluid"/>
+                    </td>
+                    <td valign="top" align="center">
+                        {{ $product["name"] }}<br/>
+                        Size: {{ $product["size"] }}<br/>
+                        Color: {{ $product["color"] }}
+                    </td>
+                    <td valign="top" align="center">
+                        {{ $product["quantity"] }}
+                    </td>
+                    <td valign="top" align="right">
+                        {{ $product["total"] }}
+                    </td>
+                </tr>
+                @endforeach
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>Subtotal</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["order_total"],'2','.',',') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>Tax</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"],'2','.',',') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>Shipping</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["shipping_total"],'2','.',',') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>Grandtotal</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["order_total"] + ($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"]) + $order_detail["order"]["shipping_total"],'2','.',',') }}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

@@ -15,7 +15,7 @@
     </div>
     <div class="container account-container">
 
-        <form action="{{ route('deleteorder',['order_id'=>$order->id])}}" method="post">
+        <form action="{{ route('delete_order',['order_id'=>$order->id])}}" method="post">
         <div class="container">
             <div class="row">
                 <div class="col text-center">
