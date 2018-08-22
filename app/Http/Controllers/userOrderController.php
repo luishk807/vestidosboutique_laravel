@@ -48,6 +48,14 @@ class userOrderController extends Controller
         $data["user"]=$this->users->find($order->user_id);
         return view("account/orders/view",$data);
     }
+    public function showCancelIndex(){
+        $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["order"]=$this->orders->find($order_id);
+        $data["page_title"]="Delete Orders";
+        return view("account/orders/confirm",$data);
+    }
     public function deleteOrder($order_id,Request $request){
         $data=[];
         if($request->isMethod("post")){

@@ -47,6 +47,9 @@ class vestidosOrders extends Model
         "updated_at"
     ];
     
+    public function cancelOrder(){
+        return $this->hasOne('App\vestidoOrderReason','id','cancel_reason');
+    }
     public function client(){
         return $this->belongsTo('App\vestidosUsers',"user_id");
     }
