@@ -15,8 +15,8 @@ class CreateOrderCancellationStatus extends Migration
     {
         Schema::create('vestidos_order_reasons', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("name");
-            $table->integer('status')->default(1)->unsigned();
+            $table->string("name");
+            $table->integer('status')->default('1')->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
         });
