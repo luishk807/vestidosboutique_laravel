@@ -198,6 +198,19 @@ class userPaymentController extends Controller
         $has_address = $user->getAddresses->first() ? true : false; 
 
         $cart_address = $request->session()->get('cart_session');
+
+        $data["shipping_name"]=$cart_address["shipping_name"];
+        $data["shipping_address_1"]=$cart_address["shipping_address_1"];
+        $data["shipping_address_2"]=$cart_address["shipping_address_2"];
+        $data["shipping_city"]=$cart_address["shipping_city"];
+        $data["shipping_state"]=$cart_address["shipping_state"];
+        $data["shipping_country"]=$cart_address["shipping_country"];
+        $data["shipping_zip_code"]=$cart_address["shipping_zip_code"];
+        $data["shipping_phone_number_1"]=$cart_address["shipping_phone_number_1"];
+        $data["shipping_phone_number_2"]=$cart_address["shipping_phone_number_2"];
+        $data["shipping_email"]=$cart_address["shipping_email"];
+
+
         $shipping_list = $this->shipping_lists->find($cart_address["shipping_method"]);
 
         if($has_address){
@@ -205,27 +218,10 @@ class userPaymentController extends Controller
                 "billing_address"=>"required"
             ]);
             $billing_id= $request->input("billing_address");
-            $shipping_id=$cart_address["shipping_method"];
+           // $shipping_id=$cart_address["shipping_method"];
 
-            $shipping= $this->addresses->find($shipping_id);
+           // $shipping= $this->addresses->find($shipping_id);
             $billing = $this->addresses->find($billing_id);
-
-            $shipping_name = $shipping->first_name;
-            if(!empty($shipping->middle_name)){
-                $shipping_name .= " ".$shipping->middle_name;
-            }
-            $shipping_name .= " ".$shipping->last_name;
-            $shipping_country = $this->country->find($shipping->country_id);
-            $data["shipping_name"]=$shipping_name;
-            $data["shipping_address_1"]=$shipping->address_1;
-            $data["shipping_address_2"]=$shipping->address_2;
-            $data["shipping_city"]=$shipping->city;
-            $data["shipping_state"]=$shipping->state;
-            $data["shipping_country"]=$shipping_country->countryCode;
-            $data["shipping_zip_code"]=$shipping->zip_code;
-            $data["shipping_phone_number_1"]=$shipping->phone_number_1;
-            $data["shipping_phone_number_2"]=$shipping->phone_number_2;
-            $data["shipping_email"]=$shipping->email;
             
 
             $billing_name = $billing->first_name;
@@ -256,18 +252,6 @@ class userPaymentController extends Controller
                 "billing_phone_number_1"=>"required",
                 "billing_email"=>"required"
             ]);
-
-            $data["shipping_name"]=$cart_address["shipping_name"];
-            $data["shipping_address_1"]=$cart_address["shipping_address_1"];
-            $data["shipping_address_2"]=$cart_address["shipping_address_2"];
-            $data["shipping_city"]=$cart_address["shipping_city"];
-            $data["shipping_state"]=$cart_address["shipping_state"];
-            $data["shipping_country"]=$cart_address["shipping_country"];
-            $data["shipping_zip_code"]=$cart_address["shipping_zip_code"];
-            $data["shipping_phone_number_1"]=$cart_address["shipping_phone_number_1"];
-            $data["shipping_phone_number_2"]=$cart_address["shipping_phone_number_2"];
-            $data["shipping_email"]=$cart_address["shipping_email"];
-            
 
             $billing_name = $request->input("billing_name");
             $billing_country = $this->country->find($request->input("billing_country"));
