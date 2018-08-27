@@ -50,7 +50,7 @@
         <ul class="custom-ul">
             @foreach($categories as $catIndex => $category)
             <li>
-                <input value="{{ $category->id }}" id="category_{{$catIndex}}" class="custom-checkbox" type="checkbox" name="productCategory[]">
+                <input value="{{ $category->id }}" id="category_{{$catIndex}}" class="custom-checkbox" type="checkbox" name="categories[]">
                 <label for="category_{{$catIndex}}" >{{$category->name}} </label>
             </li>
             @endforeach

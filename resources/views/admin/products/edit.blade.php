@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-<form action="{{ route('edit_product',['product_id'=>$product_id]) }}" method="post">
+<form action="{{ route('save_product',['product_id'=>$product_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="productName">Name:</label>
@@ -67,7 +67,7 @@
                         checked='checked'
                     @endif
                 @endforeach
-                value="{{ $category->id }}" id="category_{{$catIndex}}" class="custom-checkbox" type="checkbox" name="productCategory[]">
+                value="{{ $category->id }}" id="category_{{$catIndex}}" class="custom-checkbox" type="checkbox" name="categories[]">
                 <label for="category_{{$catIndex}}" >{{$category->name}} </label>
             </li>
             @endforeach

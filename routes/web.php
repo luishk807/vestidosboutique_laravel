@@ -226,6 +226,15 @@
                 Route::post('/create','adminProductController@createProduct')->name('create_product');
                 Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');
                 Route::post('/save/{product_id}','adminProductController@saveProduct')->name('save_product');
+                Route::prefix("restock")->group(function(){
+                    Route::get('/','adminProductController@showRestock')->name("restock_product");
+                    Route::get('/new','adminProductController@newRestock')->name("new_restock_product");
+                    Route::post('/create','adminProductController@createRestock')->name("create_restock_product");
+                    Route::get('/edit/{restock_id}','adminProductController@editRestock')->name("edit_restock_product");
+                    Route::post('/save/{restock_id}','adminProductController@saveRestock')->name("save_restock_product");
+                    Route::get('/confirm/{restock_id}','adminProductController@confirmRestock')->name("confirm_restock_product");
+                    Route::delete('/delete/{restock_id}','adminProductController@deleteRestock')->name("delete_restock_product");
+                });
                 //Admin Color
                 Route::prefix("colors")->group(function(){
                     Route::get('/{product_id}','adminColorController@index')->name("admin_colors");
