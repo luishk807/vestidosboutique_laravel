@@ -223,9 +223,9 @@
                 Route::get('/confirm/{product_id}','adminProductController@deleteProduct')->name('confirm_product');
                 Route::delete('/confirm/{product_id}','adminProductController@deleteProduct')->name('delete_product');
                 Route::get('/new','adminProductController@newProducts')->name('new_product');
-                Route::post('/new','adminProductController@newProducts')->name('create_product');
+                Route::post('/create','adminProductController@createProduct')->name('create_product');
                 Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');
-                Route::post('/edit/{product_id}','adminProductController@editProduct')->name('save_product');
+                Route::post('/save/{product_id}','adminProductController@saveProduct')->name('save_product');
                 //Admin Color
                 Route::prefix("colors")->group(function(){
                     Route::get('/{product_id}','adminColorController@index')->name("admin_colors");

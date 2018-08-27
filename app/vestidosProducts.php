@@ -8,6 +8,35 @@ use Illuminate\Support\Facades\DB;
 class vestidosProducts extends Model
 {
     //
+    protected $fillable = [
+        "products_name",
+        "product_model",
+        "products_description",
+        "brand_id",
+        "product_stock",
+        "product_closure_id",
+        "product_detail",
+        "product_fabric_id",
+        "product_fit_id",
+        "product_length",
+        "product_neckline_id",
+        "product_waistline_id",
+        "total_rent",
+        "total_rent_old",
+        "total_sale",
+        "total_sale_old",
+        "is_rent",
+        "is_sell",
+        "is_new",
+        "purchase_date",
+        "search_labels",
+        "top_dress",
+        "top_quince",
+        "vendor_id",
+        "status",
+        "created_at",
+        "updated_at"
+    ];
     public function images(){
         return $this->hasMany('App\vestidosProductsImgs',"product_id");
     }
@@ -55,7 +84,7 @@ class vestidosProducts extends Model
     public function getBrand(){
         return $this->belongsTo('App\vestidosBrands',"brand_id");
     }
-    public function getCategory(){
-        return $this->belongsTo('App\vestidosCategories',"category_id");
+    public function categories(){
+        return $this->hasMany('App\vestidosProductCategories',"product_id");
     }
 }

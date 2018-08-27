@@ -57,18 +57,21 @@
         <small class="error">{{$errors->first("vendor")}}</small>
     </div>
     <div class="form-group">
-        <label for="productCategory">Category:</label>
-        <select class="custom-select" name="category" id="productCategory">
-            <option value="">Select Category</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}"
-                @if($product->category_id==$category->id)
-                    selected="selected"
-                @endif
-                >{{$category->name}} </option>
+        Choose Category:<br/>
+        <ul class="custom-ul">
+            @foreach($categories as $catIndex => $category)
+            <li>
+                <input 
+                @foreach($product->categories as $p_cat)
+                    @if($p_cat->category_id==$category->id)
+                        checked='checked'
+                    @endif
+                @endforeach
+                value="{{ $category->id }}" id="category_{{$catIndex}}" class="custom-checkbox" type="checkbox" name="productCategory[]">
+                <label for="category_{{$catIndex}}" >{{$category->name}} </label>
+            </li>
             @endforeach
-        </select>
-        <small class="error">{{$errors->first("category")}}</small>
+        </ul>
     </div>
     <div class="form-group">
         <label for="productClosure">Closure Type:</label>
@@ -141,9 +144,24 @@
         <small class="error">{{$errors->first("waistline")}}</small>
     </div>
     <div class="form-group">
-        <label for="productTotal">Total:</label>
-        <input type="number" id="productTotal" class="form-control" name="product_total" min="0" step="0.01" value="{{ old('product_total') ? old('product_total') : $product->product_total }}" placeholder="0.00"/>
-        <small class="error">{{$errors->first("product_total")}}</small>
+        <label for="productRent">
+        <input type="checkbox" 
+        @if($product->is_rent)
+        echo checked='checked'
+        @endif
+        name="is_for_rent" value="true"/>&nbsp;For Rent?:</label>
+        <input type="number" id="productRent" class="form-control" name="total_rent" min="0" step="0.01" value="{{ old('total_rent') ? old('total_rent') : $product->total_rent }}" placeholder="0.00"/>
+        <small class="error">{{$errors->first("total_rent")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="productSell">
+        <input type="checkbox" 
+        @if($product->is_sell)
+        echo checked='checked'
+        @endif
+         name="is_for_sale" value="true"/>&nbsp;For Sale?:</label>
+        <input type="number" id="productSell" class="form-control" name="total_sale" min="0" step="0.01" value="{{ old('total_sale') ? old('total_sale') : $product->total_sale }}" placeholder="0.00"/>
+        <small class="error">{{$errors->first("total_sale")}}</small>
     </div>
     <div class="form-group">
         <label for="productStock">Available Stock:</label>

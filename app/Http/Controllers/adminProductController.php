@@ -16,13 +16,14 @@ use App\vestidosProductsImgs as Images;
 use App\vestidosVendors as Vendors;
 use App\vestidosNecklineTypes as Necklines;
 use App\vestidosWaistlineTypes as Waistlines;
+use App\vestidosProductCategories as ProductCategories;
 use Carbon\Carbon as carbon;
 use File;
 
 class adminProductController extends Controller
 {
     //
-    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines){
+    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines, ProductCategories $product_categories){
         $this->statuses=$vestidosStatus;
         $this->products=$products;
         $this->categories=$categories;
@@ -36,6 +37,7 @@ class adminProductController extends Controller
         $this->necklines=$necklines;
         $this->waistlines=$waistlines;
         $this->images = $images;
+        $this->product_categories = $product_categories;
     }
     function index(){
         $data=[];
@@ -43,57 +45,11 @@ class adminProductController extends Controller
         $data["page_title"]="Product Page";
         return view("admin/products/home",$data);
     }
-    function newProducts(Request $request){
+    function newProducts(){
         $data=[];
 
 
-        $data["products_name"]=$request->input("products_name");
-        $data["brand_id"]=(int)$request->input("brand");
-        $data["vendor_id"]=(int)$request->input("vendor");
-        $data["category_id"]=(int)$request->input("category");
-        $data["product_closure_id"]=(int)$request->input("closure");
-        $data["product_fabric_id"]=(int)$request->input("fabric");
-        $data["product_fit_id"]=(int)$request->input("fit");
-        $data["product_neckline_id"]=(int)$request->input("neckline");
-        $data["product_waistline_id"]=(int)$request->input("waistline");
-        $data["total_rent"]=$request->input("total_rent");
-        $data["product_stock"]=$request->input("product_stock");
-        $data["search_labels"]=$request->input("search_labels");
-        $data["product_detail"]=$request->input("product_detail");
-        $data["product_model"]=$request->input("product_model");
-        $data["purchase_date"]=$request->input("purchase_date");
-        $data["products_description"]=$request->input("products_description");
-        $data["status"]=(int)$request->input("status");
-        $data["is_new"]=(int)$request->input("is_new");
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "products_name"=>"required",
-                "status"=>"required",
-                "brand"=>"required",
-                "category"=>"required",
-                "closure"=>"required",
-                "fabric"=>"required",
-                "fit"=>"required",
-                'purchase_date'=>"required",
-                "neckline"=>"required",
-                "waistline"=>"required",
-                "products_description"=>"required",
-                "total_rent"=>"required",
-                "product_stock"=>"required"
-            ]);
-            $data["created_at"]=carbon::now();
-            $this->products->insert($data);
-            return redirect()->route("admin_products");
-        }
         $data["is_news"]=[0,1];
-        $data["brand"]=(int)$request->input("brand");
-        $data["vendor"]=(int)$request->input("vendor");
-        $data["category"]=(int)$request->input("category");
-        $data["closure"]=(int)$request->input("closure");
-        $data["fabric"]=(int)$request->input("fabric");
-        $data["fit"]=(int)$request->input("fit");
-        $data["neckline"]=(int)$request->input("neckline");
-        $data["waistline"]=(int)$request->input("waistline");
 
         $data["page_title"]="Create Products Page";
         $data["statuses"]=$this->statuses->all();
@@ -107,70 +63,81 @@ class adminProductController extends Controller
         $data["waistlines"]=$this->waistlines->all();
         return view("admin/products/new",$data);
     }
-    function editProduct($product_id, Request $request){
+    public function createProduct(Request $request){
         $data=[];
+        $this->validate($request,[
+            "products_name"=>"required",
+            "status"=>"required",
+            "brand"=>"required",
+            "closure"=>"required",
+            "fabric"=>"required",
+            "fit"=>"required",
+            'purchase_date'=>"required",
+            "neckline"=>"required",
+            "waistline"=>"required",
+            "products_description"=>"required",
+            "total_rent"=>"required",
+            "product_stock"=>"required"
+        ]);
+        
+        $categories = $request->input("productCategory");
+
         $data["products_name"]=$request->input("products_name");
-        $data["total_rent"]=$request->input("total_rent");
-        $data["product_stock"]=$request->input("product_stock");
-        $data["search_labels"]=$request->input("search_labels");
-        $data["product_detail"]=$request->input("product_detail");
-        $data["product_model"]=$request->input("product_model");
-        $data["products_description"]=$request->input("products_description");
-        $data["purchase_date"]=$request->input("purchase_date");
-        $data["status"]=(int)$request->input("status");
-        $data["is_new"]=(int)$request->input("is_new");
-        $product = $this->products->find($product_id);
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "products_name"=>"required",
-                "status"=>"required",
-                "brand"=>"required",
-                "category"=>"required",
-                "closure"=>"required",
-                "fabric"=>"required",
-                "purchase_date"=>"required",
-                "fit"=>"required",
-                "neckline"=>"required",
-                "waistline"=>"required",
-                "products_description"=>"required",
-                "total_rent"=>"required",
-                "product_stock"=>"required"
-            ]);
-            $product->products_name = $request->input("products_name");
-            $product->brand_id = (int)$request->input("brand");
-            $product->vendor_id = (int)$request->input("vendor");
-            $product->category_id = (int)$request->input("category");
-            $product->product_closure_id = (int)$request->input("closure");
-            $product->product_fabric_id = (int)$request->input("fabric");
-            $product->product_fit_id = (int)$request->input("fit");
-            $product->product_neckline_id = (int)$request->input("neckline");
-            $product->product_waistline_id = (int)$request->input("waistline");
-            $product->total_rent = $request->input("total_rent");
-            $product->product_stock = $request->input("product_stock");
-            $product->search_labels = $request->input("search_labels");
-            $product->purchase_date=$request->input("purchase_date");
-            $product->product_detail = $request->input("product_detail");
-            $product->product_model = $request->input("product_model");
-            $product->product_waistline_id=(int)$request->input("waistline");
-            $product->products_description = $request->input("products_description");
-            $product->status = (int)$request->input("status");
-            $product->updated_at = carbon::now();
-            $product->is_new=(int)$request->input("is_new");
-            if($product->total_rent != $request->input("total_rent")){
-                $product->total_rent_old=$request->input("total_rent");
-            }
-            $product->save();
-            return redirect()->route("admin_products");
-        }
-        $data["is_news"]=[0,1];
         $data["brand"]=(int)$request->input("brand");
         $data["vendor"]=(int)$request->input("vendor");
-        $data["category"]=(int)$request->input("category");
         $data["closure"]=(int)$request->input("closure");
         $data["fabric"]=(int)$request->input("fabric");
         $data["fit"]=(int)$request->input("fit");
         $data["neckline"]=(int)$request->input("neckline");
         $data["waistline"]=(int)$request->input("waistline");
+        $data["brand_id"]=(int)$request->input("brand");
+        $data["vendor_id"]=(int)$request->input("vendor");
+        $data["category_id"]=(int)$request->input("category");
+        $data["product_closure_id"]=(int)$request->input("closure");
+        $data["product_fabric_id"]=(int)$request->input("fabric");
+        $data["product_fit_id"]=(int)$request->input("fit");
+        $data["product_neckline_id"]=(int)$request->input("neckline");
+        $data["product_waistline_id"]=(int)$request->input("waistline");
+
+        $is_for_rent = $request->input("is_for_rent")?true:false;
+        $data["is_rent"]=$is_for_rent;
+        $data["total_rent"] = $is_for_rent?$request->input("total_rent"):0;
+
+        $is_for_sell = $request->input("is_for_sale")?true:false;
+        $data["is_sell"] = $is_for_sell;
+        $data["total_sale"] = $is_for_sell?$request->input("total_sale"):0;
+
+        
+        $data["product_stock"]=$request->input("product_stock");
+        $data["search_labels"]=$request->input("search_labels");
+        $data["product_detail"]=$request->input("product_detail");
+        $data["product_model"]=$request->input("product_model");
+        $data["purchase_date"]=$request->input("purchase_date");
+        $data["products_description"]=$request->input("products_description");
+        $data["status"]=(int)$request->input("status");
+        $data["is_new"]=(int)$request->input("is_new");
+        $data["created_at"]=carbon::now();
+        $product = Products::create($data);
+        if($product->id){
+            $catData = [];
+            if(count($categories)>0){
+                foreach($categories as $category){
+                    $this->product_categories->insert([
+                        "product_id"=>$product->id,
+                        "category_id"=>$category,
+                        "created_at"=>carbon::now()
+                    ]);
+                }
+            }
+            return redirect()->route("admin_products");   
+        }
+        return redirect()->back();
+    }
+    function editProduct($product_id, Request $request){
+        $data=[];
+        
+        $product = $this->products->find($product_id);
+        $data["is_news"]=[0,1];
         $data["product_id"]=$product_id;
         $data["product"]=$product;
         
@@ -185,6 +152,99 @@ class adminProductController extends Controller
         $data["necklines"]=$this->necklines->all();
         $data["waistlines"]=$this->waistlines->all();
         return view("admin/products/edit",$data);
+    }
+    public function saveProduct(Request $request,$product_id){
+        $data=[];
+        $product = $this->products->find($product_id);
+        $data["products_name"]=$request->input("products_name");
+        $data["total_rent"]=$request->input("total_rent");
+        $data["product_stock"]=$request->input("product_stock");
+        $data["search_labels"]=$request->input("search_labels");
+        $data["product_detail"]=$request->input("product_detail");
+        $data["product_model"]=$request->input("product_model");
+        $data["products_description"]=$request->input("products_description");
+        $data["purchase_date"]=$request->input("purchase_date");
+        $data["status"]=(int)$request->input("status");
+        $data["is_new"]=(int)$request->input("is_new");
+        
+        $categories = $request->input("productCategory");
+
+        $data["brand"]=(int)$request->input("brand");
+        $data["vendor"]=(int)$request->input("vendor");
+        $data["category"]=(int)$request->input("category");
+        $data["closure"]=(int)$request->input("closure");
+        $data["fabric"]=(int)$request->input("fabric");
+        $data["fit"]=(int)$request->input("fit");
+        $data["neckline"]=(int)$request->input("neckline");
+        $data["waistline"]=(int)$request->input("waistline");
+
+        $this->validate($request,[
+            "products_name"=>"required",
+            "status"=>"required",
+            "brand"=>"required",
+            "category"=>"required",
+            "closure"=>"required",
+            "fabric"=>"required",
+            "purchase_date"=>"required",
+            "fit"=>"required",
+            "neckline"=>"required",
+            "waistline"=>"required",
+            "products_description"=>"required",
+            "total_rent"=>"required",
+            "product_stock"=>"required"
+        ]);
+        $product->products_name = $request->input("products_name");
+        $product->brand_id = (int)$request->input("brand");
+        $product->vendor_id = (int)$request->input("vendor");
+        $product->category_id = (int)$request->input("category");
+        $product->product_closure_id = (int)$request->input("closure");
+        $product->product_fabric_id = (int)$request->input("fabric");
+        $product->product_fit_id = (int)$request->input("fit");
+        $product->product_neckline_id = (int)$request->input("neckline");
+        $product->product_waistline_id = (int)$request->input("waistline");
+        
+        $is_for_rent = $request->input("is_for_rent")?true:false;
+        $data->is_rent=$is_for_rent;
+        $data->total_rent = $is_for_rent?$request->input("total_rent"):0;
+
+        $is_for_sell = $request->input("is_for_sale")?true:false;
+        $data->is_sell = $is_for_sell;
+        $data->total_sale = $is_for_sell?$request->input("total_sale"):0;
+
+
+        $product->product_stock = $request->input("product_stock");
+        $product->search_labels = $request->input("search_labels");
+        $product->purchase_date=$request->input("purchase_date");
+        $product->product_detail = $request->input("product_detail");
+        $product->product_model = $request->input("product_model");
+        $product->product_waistline_id=(int)$request->input("waistline");
+        $product->products_description = $request->input("products_description");
+        $product->status = (int)$request->input("status");
+        $product->updated_at = carbon::now();
+        $product->is_new=(int)$request->input("is_new");
+        if($product->total_rent != $request->input("total_rent")){
+            $product->total_rent_old=$request->input("total_rent");
+        }
+        if($product->total_sale != $request->input("total_sale")){
+            $product->total_sale_old=$request->input("total_sale");
+        }
+        // if($product->save()){
+        //     $catData = [];
+        //     //delete all categories for the products
+
+        //     //insert new categories
+        //     if(count($categories)>0){
+        //         foreach($categories as $category){
+        //             $this->product_categories->insert([
+        //                 "product_id"=>$product->id,
+        //                 "category_id"=>$category,
+        //                 "created_at"=>carbon::now()
+        //             ]);
+        //         }
+        //     }
+        //     return redirect()->route("admin_products");
+        // }
+        // return redirect()->back();
     }
     public function deleteProduct($product_id,Request $request){
         $data=[];

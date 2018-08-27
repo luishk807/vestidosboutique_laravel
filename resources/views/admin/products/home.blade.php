@@ -15,9 +15,8 @@
         <div class="col-md-1"></div>
         <div class="col-md-2">Image</div>
         <div class="col-md-3">Name</div>
-        <div class="col-md-1">Brand</div>
+        <div class="col-md-2">Brand</div>
         <div class="col-md-1">Stock</div>
-        <div class="col-md-1">Category</div>
         <div class="col-md-1">Status</div>
         <div class="col-md-2">Action</div>
     </div>
@@ -32,9 +31,8 @@
         @endif
         " class="img-fluid"/></div>
         <div class="col-md-3">{{$product->products_name}}</div>
-        <div class="col-md-1">{{$product->getBrand->name }}</div>
+        <div class="col-md-2">{{$product->getBrand->name }}</div>
         <div class="col-md-1">{{$product->product_stock > 0 ? "In Stock" : "Out of Stock"}}</div>
-        <div class="col-md-1">{{$product->getCategory->name}}</div>
         <div class="col-md-1">{{ $product->getStatus->name }}</div>
         <div class="col-md-2">
             <a href="{{ route('confirm_product',['product_id'=>$product->id])}}">delete</a>
