@@ -85,7 +85,7 @@
                                                 <strong><a href="{{ route('product_page',['product_id'=>$product->getProduct->id]) }}">{{ $product->getProduct->products_name }}</a></strong><br/>
                                             {{ $product->getProduct->products_description }}<br/>
                                             By:{{ $product->getProduct->vendor->first_name }} {{ $product->getProduct->vendor->last_name }}<br/>
-                                            <span>${{ number_format($product->getProduct->product_total,'2','.',',') }}</span>
+                                            <span>${{ number_format($product->getProduct->total_rent,'2','.',',') }}</span>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="vesti_in_btn_pnl">

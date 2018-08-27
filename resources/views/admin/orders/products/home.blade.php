@@ -34,7 +34,7 @@
                 @endfor
             </select>
         </div>
-        <div class="col-md-2">{{$order_product->getProduct->product_total}}</div>
+        <div class="col-md-2">{{$order_product->getProduct->total_rent}}</div>
         <div class="col-md-2">{{ $order_product->getStatusName->name }}</div>
         <div class="col-md-2">
             <a href="{{ route('confirm_order_products',['order_product_id'=>$order_product->id])}}">delete</a>

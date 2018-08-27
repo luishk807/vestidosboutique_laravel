@@ -37,7 +37,7 @@
                                 <td width="65%"class="desc">
                                     <strong><a href="{{ route('product_page',['product_id'=>$wishlist->getProduct->id])}}">{{$wishlist->getProduct->products_name}}</a></strong><br/>
                                     <div class='rate-view' data-rate-value="{{ $wishlist->getProduct->rates->avg('user_rate') }}"></div>
-                                    ${{ number_format($wishlist->getProduct->product_total,'2','.',',') }}
+                                    ${{ number_format($wishlist->getProduct->total_rent,'2','.',',') }}
                                 </td>
                                 <td width="20%"class="action"><a href='{{ route("deletewishlist",["wishlist_id"=>$wishlist->id])}}'>Remove</a></td>
                             </tr>

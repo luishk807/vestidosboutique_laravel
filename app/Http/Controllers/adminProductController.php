@@ -56,7 +56,7 @@ class adminProductController extends Controller
         $data["product_fit_id"]=(int)$request->input("fit");
         $data["product_neckline_id"]=(int)$request->input("neckline");
         $data["product_waistline_id"]=(int)$request->input("waistline");
-        $data["product_total"]=$request->input("product_total");
+        $data["total_rent"]=$request->input("total_rent");
         $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
@@ -78,7 +78,7 @@ class adminProductController extends Controller
                 "neckline"=>"required",
                 "waistline"=>"required",
                 "products_description"=>"required",
-                "product_total"=>"required",
+                "total_rent"=>"required",
                 "product_stock"=>"required"
             ]);
             $data["created_at"]=carbon::now();
@@ -110,7 +110,7 @@ class adminProductController extends Controller
     function editProduct($product_id, Request $request){
         $data=[];
         $data["products_name"]=$request->input("products_name");
-        $data["product_total"]=$request->input("product_total");
+        $data["total_rent"]=$request->input("total_rent");
         $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
@@ -133,7 +133,7 @@ class adminProductController extends Controller
                 "neckline"=>"required",
                 "waistline"=>"required",
                 "products_description"=>"required",
-                "product_total"=>"required",
+                "total_rent"=>"required",
                 "product_stock"=>"required"
             ]);
             $product->products_name = $request->input("products_name");
@@ -145,7 +145,7 @@ class adminProductController extends Controller
             $product->product_fit_id = (int)$request->input("fit");
             $product->product_neckline_id = (int)$request->input("neckline");
             $product->product_waistline_id = (int)$request->input("waistline");
-            $product->product_total = $request->input("product_total");
+            $product->total_rent = $request->input("total_rent");
             $product->product_stock = $request->input("product_stock");
             $product->search_labels = $request->input("search_labels");
             $product->purchase_date=$request->input("purchase_date");
@@ -156,8 +156,8 @@ class adminProductController extends Controller
             $product->status = (int)$request->input("status");
             $product->updated_at = carbon::now();
             $product->is_new=(int)$request->input("is_new");
-            if($product->product_total != $request->input("product_total")){
-                $product->product_total_old=$request->input("product_total");
+            if($product->total_rent != $request->input("total_rent")){
+                $product->total_rent_old=$request->input("total_rent");
             }
             $product->save();
             return redirect()->route("admin_products");

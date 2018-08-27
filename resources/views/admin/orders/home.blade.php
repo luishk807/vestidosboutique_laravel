@@ -87,7 +87,7 @@
                                     <small>by {{$order_product->getProduct->getBrand->name}}</small><br/>
                                     <small>{{$order_product->getProduct->product_model}}</small><br/>
                                     {{$order_product->getProduct->product_detail}}<br/>
-                                    {{$order_product->getProduct->product_total}}<br/>
+                                    {{$order_product->getProduct->total_rent}}<br/>
                                 </div>
                             </div>
                         </div>

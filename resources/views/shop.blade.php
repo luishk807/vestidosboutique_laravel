@@ -268,7 +268,7 @@
                                         <div class="container shoplist-list-cont-in">
                                             <div class="row">
                                                 <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/><span class="shoplist-thumb-auth">By {{ $product->vendor->getFullVendorName() }}</span></div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">${{ $product->product_total }}</span></div>
+                                                <div class="col-md-4"><span  class="shoplist-thumb-price">${{ $product->total_rent }}</span></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-8">

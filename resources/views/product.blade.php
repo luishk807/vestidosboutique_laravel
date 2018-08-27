@@ -44,7 +44,7 @@
                                     <div class="product_in_detail crimson-txt">
                                     {{ $product->product_detail }}
                                     </div>
-                                    <div class="product_in_price">${{ $product->product_total }}</div>
+                                    <div class="product_in_price">${{ $product->total_rent }}</div>
                                     <div class="product_in_colors">
                                         <div class="product_in_sub_title">
                                             Select Colors

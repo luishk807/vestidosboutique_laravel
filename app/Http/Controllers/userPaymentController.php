@@ -335,7 +335,7 @@ class userPaymentController extends Controller
                     "color"=>$color_detail->name,
                     "size"=>$size_detail->name,
                     "name"=>$product_detail->products_name,
-                    "total"=>$product_detail->product_total,
+                    "total"=>$product_detail->total_rent,
                     "model"=>$product_detail->product_model,
                     "img"=>$product_detail->images()->first()->img_url,
                     "id"=>$product_detail->id

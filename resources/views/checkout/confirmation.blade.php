@@ -109,7 +109,7 @@
                                                                  Vendor:{{ $product->getProduct->vendor->first_name." ".$product->getProduct->vendor->last_name}}
                                                             </td>
                                                             <td width="20%">
-                                                                ${{number_format($product->getProduct->product_total,'2','.',',')}}
+                                                                ${{number_format($product->getProduct->total_rent,'2','.',',')}}
                                                                  
                                                             </td>
                                                         </tr>

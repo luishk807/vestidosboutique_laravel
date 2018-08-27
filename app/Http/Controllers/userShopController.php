@@ -61,10 +61,10 @@ class userShopController extends Controller
             $products = $products->orderBy("brand_id");
             break;
             case "low":
-            $products = $products->orderBy("product_total","asc");
+            $products = $products->orderBy("total_rent","asc");
             break;
             case "high":
-            $products = $products->orderBy("product_total","desc");
+            $products = $products->orderBy("total_rent","desc");
             break;
             default:
             $products = $products->orderBy("products_name");

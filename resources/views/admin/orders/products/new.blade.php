@@ -36,7 +36,7 @@
                 @endif
                 " alt="" class="img-fluid"></td>
                 <td class="item">{{$product->products_name}}</td>
-                <td class="item">{{$product->product_total}}</td>
+                <td class="item">{{$product->total_rent}}</td>
                 <td class="item">
                     <select name="order_products[{{$indexKey}}][quantity]">
                         @for ($i = 1; $i < 10; $i++)

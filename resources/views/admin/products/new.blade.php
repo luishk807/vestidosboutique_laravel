@@ -94,8 +94,8 @@
     </div>
     <div class="form-group">
         <label for="productTotal">Total:</label>
-        <input type="number" id="productTotal" class="form-control" name="product_total" min="0" step="0.01" value="" placeholder="0.00"/>
-        <small class="error">{{$errors->first("product_total")}}</small>
+        <input type="number" id="productTotal" class="form-control" name="total_rent" min="0" step="0.01" value="" placeholder="0.00"/>
+        <small class="error">{{$errors->first("total_rent")}}</small>
     </div>
     <div class="form-group">
         <label for="productDop">Date of Purchase:</label>
