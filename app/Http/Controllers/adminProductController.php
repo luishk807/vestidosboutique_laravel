@@ -273,28 +273,32 @@ class adminProductController extends Controller
         $data=[];
         $product = $this->products->find($product_id);
         $data["restocks"]=$this->restocks->all();
+        $data["product"]=$this->products->find($product_id);
         $data["page_title"]="Restock Data for Product ".$product->products_name;
         return view("admin/products/restocks/home",$data);
     }
     public function newRestock($product_id){
         $data=[];
         $data["product"]=$this->products->find($product_id);
+        $data["vendors"]=$this->vendors->all();
         $data["page_title"]="Create New Restock";
-        return view("admin/products/restocks/home",$data);
+        return view("admin/products/restocks/new",$data);
     }
     public function createRestock(Request $request, $product_id){
         $data=[];
-        $data["product"]=$this->products->find($product_id);
+        $data["product_id"]=$product_id;
         $data["restock_date"]=$request->input("restock_date");
-        $data["vendor"]=$request->input("vendor");
+        $data["vendor_id"]=$request->input("vendor");
         $data["quantity"]=$request->input("quantity");
+        $data["created_at"]=carbon::now();
         $this->validate($request,[
             "restock_date"=>"required",
             "vendor"=>"required",
             "quantity"=>"required",
         ]);
         if($this->restocks->insert($data)){
-            return redirect()->route("admin_restocks");
+            $data["product_id"]=$product_id;
+            return redirect()->route("edit_product",$data);
         }
         return redirect()->back()->withErrors([
             "required"=>"Error Saving Restock"
@@ -302,7 +306,9 @@ class adminProductController extends Controller
     }
     public function editRestock($restock_id){
         $data=[];
+
         $data["restock"]=$this->restocks->find($restock_id);
+        $data["vendors"]=$this->vendors->all();
         $data["page_title"]="Edit Restock";
         return view("admin/products/restocks/edit",$data);
     }
@@ -327,7 +333,7 @@ class adminProductController extends Controller
         }
         return redirect()->back();
     }
-    public function confirmRestock(){
+    public function confirmRestock($restock_id){
         $data=[];
         $data["restock"]=$this->restocks->find($restock_id);
         $data["page_title"]="Delete Restock Info";
@@ -337,7 +343,7 @@ class adminProductController extends Controller
         $data=[];
         $restock = $this->restocks->find($restock_id);
         $restock->delete();
-        return redirect()->route("admin_restocks");
+        return redirect()->route("admin_restocks",["product_id"=>$restock->product_id]);
     }
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");

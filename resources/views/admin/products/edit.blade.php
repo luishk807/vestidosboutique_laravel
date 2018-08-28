@@ -10,6 +10,7 @@
                     <li class="nav-item"><a href="{{ route('admin_colors',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->colors()->count() }}] View Colors</a></li>
                     <li class="nav-item"><a href="{{ route('admin_sizes',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->sizes()->count() }}] View Sizes</a></li>
                     <li class="nav-item"><a href="{{ route('admin_rates',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->rates()->count() }}] View Rates</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_restocks',['product_id'=>$product_id]) }}" class="nav-link">Restock</a></li>
                 </ul>
             </nav>
             

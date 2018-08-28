@@ -894,6 +894,17 @@ button.colors_cubes.selected{
   margin:0px auto;
 }
 // ACCOUNT ORDER
+.result-mg{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.result-mg.success{
+  color: green;
+}
+.result-mg.error{
+  color: red;
+}
 .order-product-status td{
   background-color:white;
   font-weight:bold;
@@ -1237,6 +1248,16 @@ padding: 15px 0px;
   font-size: 1.1rem;
 margin: 5px 0px;
 text-align:left;
+}
+//cancel confirm
+.cancel-container .row{
+  margin:20px 0px;
+}
+.cancel-container .row h3{
+  font-size:1.5rem;
+}
+.cancel-container .row:last-child{
+  margin-top:40px;
 }
 //custom vestidos mobile scss
 @import "vestidos_mobile";

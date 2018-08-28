@@ -73,6 +73,7 @@ class ordersController extends Controller
             $data["order_number"]=$order_number;
             $order = new Orders();
             $order_id=$order->insertGetId($data);
+
             return redirect()->route("new_order_products",['order_id'=>$order_id]);
         }
         $data["users"]=$this->users->all();

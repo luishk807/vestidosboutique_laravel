@@ -16,6 +16,11 @@
                         <ul class="view-order-top-list">
                             <li>Ordered Date: {{ $order->purchase_date }}</li>
                             <li>Order# {{ $order->order_number }}</li>
+                            @if(empty($order->cancel_reason))
+                            <li>
+                                <a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">Cancel Order</a>
+                            </li>
+                            @endif
                         </ul>
                     </td>
                     <td class="text-right"></td>
@@ -89,7 +94,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <div class="vesti_in_btn_pnl">
-                                                <a class="btn-block vesti_in_btn_b" href="">Write Review</a>
+                                                <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">Write Review</a>
                                             </div>
                                         </div>
                                     </div>

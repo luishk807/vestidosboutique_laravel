@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class vestidosProductsRestocks extends Model
 {
     //
+    protected $fillable = [
+        "product_id",
+        "vendor_id",
+        "quantity",
+        "restock_date",
+        "created_at",
+    ];
     public function product(){
         return $this->belongsTo('App\vestidosProducts',"product_id");
     }

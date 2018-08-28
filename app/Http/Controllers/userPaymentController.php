@@ -325,10 +325,18 @@ class userPaymentController extends Controller
                     "status"=>1,
                     "created_at"=>$today
                 );
+
                 //for email
                 $product_detail = $this->products->find($cart[$i]["id"]);
                 $size_detail = $this->sizes->find($cart[$i]["size_id"]);
                 $color_detail = $this->colors->find($cart[$i]["color_id"]);
+                
+                //decrease stock number
+                $newstock_quant = (int)$cart[$i]["quantity"];
+                $newstock = $product_detail->product_stock - $newstock_quant;
+                $product_detail->product_stock = $newstock;
+                $product_detail->save();
+
                 $data_products_email[] = array(
                     "quantity"=>$cart[$i]["quantity"],
                     "total"=>$cart[$i]["total"],
@@ -418,7 +426,7 @@ class userPaymentController extends Controller
                        // DESTROY SESSION
                         $request->session()->forget('cart_session');
                         $request->session()->forget('vestidos_shop');
-
+                        
                         $request->session()->flash('alert-success', 'User was successful added!');
                         return redirect()->route("checkout_order_received");
                     }else{

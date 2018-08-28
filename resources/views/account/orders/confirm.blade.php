@@ -16,16 +16,27 @@
     <div class="container account-container">
 
         <form action="{{ route('delete_order',['order_id'=>$order->id])}}" method="post">
-        <div class="container">
+        <div class="container cancel-container">
             <div class="row">
                 <div class="col text-center">
-                    are you sure want to delete order {{ $order->order_number }}
+                    <h3>Are you sure want to delete order {{ $order->order_number }}?</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label class="cancelReasonSelect" for="cancelRason">Please choose reason for cancellation:</label>
+                    <select class="custom-select cancelReasonSelect" name="cancel_reason" id="cancelRason">
+                        @foreach($cancel_reasons as $cancel_reason)
+                            <option value="{{$cancel_reason->id}}">{{$cancel_reason->name}}</option>
+                        @endforeach
+                    </select>
+                    <small class="error">{{$errors->first("cancel_reason")}}</small>
                 </div>
             </div>
             <div class="row">
                 <div class="col text-center">
                     <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                    <input type="submit" class="btn-block vesti_in_btn loader-button" value="Delete Oder"/>
+                    <input type="submit" class="btn-block vesti_in_btn loader-button" value="Submit Cancel Request"/>
                 </div>
             </div>
         </div>

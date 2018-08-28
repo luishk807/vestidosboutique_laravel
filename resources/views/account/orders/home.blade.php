@@ -75,7 +75,11 @@
                                 </td>
                             </tr>
                             <tr class="order-product-status">
-                                <td>{{$order->getStatusName->name}}</td>
+                                <td>{{$order->getStatusName->name}} 
+                                @if(empty($order->cancel_reason))
+                                &nbsp; &nbsp; &lbrack;<a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">Cancel Order</a>&rbrack;
+                                @endif
+                                </td>
                             </tr>
                             <!--list all products of order-->
                             @foreach($order->products as $product)
@@ -113,9 +117,6 @@
                                                 <td class="order-product-actions">
                                                     <div class="vesti_in_user_btn_pnl">
                                                         <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">Write Review</a>
-                                                    </div>
-                                                    <div class="vesti_in_user_btn_pnl">
-                                                        <a class="btn-block vesti_in_btn_b" href="{{ route('confirm_order_cancel',['order_id'=>$order->$order_id])}}">Cancel Order</a>
                                                     </div>
                                                 </td>
                                             </tr>

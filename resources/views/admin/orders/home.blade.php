@@ -46,7 +46,7 @@
                         <div class="col-md-2">{{$order->client->getFullName()}}</div>
                         <div class="col-md-2">{{$order->purchase_date}}</div>
                         <div class="col-md-2">${{$order->order_total}}</div>
-                        <div class="col-md-2">{{$order->getShippingAddress->nick_name}}</div>
+                        <div class="col-md-2"></div>
                         <div class="col-md-4 order_action_label text-right">
                             <!--actions go here-->
                             <span><a href="{{ route('confirm_order',['order_id'=>$order->id])}}">delete</a></span>

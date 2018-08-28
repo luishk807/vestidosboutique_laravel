@@ -81,7 +81,7 @@
             Route::get("/",'userOrderController@index')->name("user_orders");
             Route::get("/view/{order_id}",'userOrderController@viewOrder')->name("view_order");
             Route::get('/confirm/{order_id}','userOrderController@showCancelIndex')->name('confirm_order_cancel');
-            Route::delete('/confirm/{order_id}','userOrderController@deleteOrder')->name('delete_order');
+            Route::post('/confirm/{order_id}','userOrderController@deleteOrder')->name('delete_order');
         });
 
     });
@@ -309,8 +309,8 @@
             //Admin Orders
             Route::prefix("orders")->group(function(){
                 Route::get('/','ordersController@index')->name("admin_orders");
-                Route::get('/confirm/{order_id}','ordersController@deleteOrder')->name('confirm_order');
-                Route::delete('/confirm/{order_id}','ordersController@deleteOrder')->name('delete_order');
+                Route::get('/confirm/{order_id}','ordersController@deleteOrder')->name('admin_confirm_order');
+                Route::delete('/confirm/{order_id}','ordersController@deleteOrder')->name('admin_delete_order');
                 Route::get('/new','ordersController@newOrders')->name('new_order');
                 Route::post('/new','ordersController@newOrders')->name('create_order');
                 Route::get('/edit/{order_id}','ordersController@editOrder')->name('edit_order');

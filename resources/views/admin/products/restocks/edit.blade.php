@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('edit_restock',['restock_id'=>$restock_id]) }}" method="post">
+<form action="{{ route('edit_restock',['restock_id'=>$restock->id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="restockDate">Order Date:</label>
@@ -29,7 +29,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_restocks',['product_id'=>$product_id]) }}">
+                <a class="btn-block vesti_in_btn" href="{{ route('admin_restocks',['product_id'=>$restock->product_id]) }}">
                     Back To Restocks
                 </a>
             </div>

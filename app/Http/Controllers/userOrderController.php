@@ -9,8 +9,11 @@ use App\vestidosUsers as Users;
 use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
 use App\vestidosProducts as Products;
+use App\vestidosColors as Colors;
+use App\vestidosSizes as Sizes;
 use App\vestidosOrderCancelReasons as CancelReasons;
 use Carbon\Carbon as carbon;
+use App\vestidosTaxInfos as Tax;
 use Auth;
 use Mail;
 use Illuminate\Support\Facades\Input;
@@ -19,8 +22,9 @@ use App\vestidosUserAddresses as Addresses;
 class userOrderController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax){
         $this->statuses=$vestidosStatus;
+        $this->tax_info = $tax->find(1);
         $this->orders=$orders;
         $this->users=$users;
         $this->products=$products;
@@ -28,6 +32,8 @@ class userOrderController extends Controller
         $this->brands=$brands;
         $this->cancel_reasons=$cancel_reasons;
         $this->categories = $categories;
+        $this->sizes=$sizes;
+        $this->colors=$colors;
     }
 
     public function index(){
@@ -51,12 +57,12 @@ class userOrderController extends Controller
         $data["user"]=$this->users->find($order->user_id);
         return view("account/orders/view",$data);
     }
-    public function showCancelIndex(){
+    public function showCancelIndex($order_id){
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["order"]=$this->orders->find($order_id);
-        $data["cancel_reasons"]=$this->cancel_reasosn->all();
+        $data["cancel_reasons"]=$this->cancel_reasons->all();
         $data["page_title"]="Delete Orders";
         return view("account/orders/confirm",$data);
     }
@@ -68,12 +74,12 @@ class userOrderController extends Controller
         $today = carbon::now();
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $order = $this->orders->find($order_id);
-        $order->status=2;
+        $order->status=11;
         $order->cancel_reason = $request->input("cancel_reason");
         $order->cancel_user=$user_id;
         if($order->save()){
             //send email to user
-            foreach($this->order->products as $product){
+            foreach($order->products as $product){
                 $product_detail = $this->products->find($product->getProduct->id);
                 $size_detail = $this->sizes->find($product->size_id);
                 $color_detail = $this->colors->find($product->color_id);
@@ -116,7 +122,7 @@ class userOrderController extends Controller
                     "billing_email"=>$order->billing_email,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
-                    "order_tax"=>$order->$order_tax,
+                    "order_tax"=>$order->order_tax,
                     "status"=>$order->getStatusName->name,
                     "shipping_total"=>$order->order_shipping
                 )
@@ -133,10 +139,11 @@ class userOrderController extends Controller
                 $subject = 'Hello Admin, new order cancellation from '.$client_name;
                 $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
             });
-            return redirect()->route("user_account",["user_id"=>$order->user_id]);
+            return redirect()->route("user_account",["user_id"=>$order->user_id])->flash(
+                "success","Cancellation Request Sent");
         }
-        return redirect()->route("user_account")->withError([
-            "required"=>"Unable to Delete Order"
+        return redirect()->route("user_account")->flash([
+            "error"=>"Unable to Delete Order"
         ]);
  
     }
