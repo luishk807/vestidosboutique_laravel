@@ -16,8 +16,8 @@ class adminProductImagesController extends Controller
         $this->statuses=$vestidosStatus;
         $this->images=$images;
         $this->products=$products;
-        $this->maxHeight=627;
-        $this->maxWidth=480;
+        $this->maxHeight=1666;
+        $this->maxWidth=1000;
     }
     public function index($product_id){
         $data=[];

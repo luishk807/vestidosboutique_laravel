@@ -24,7 +24,6 @@
     <div class="form-group">
         <label for="imageStatus">Status:</label>
         <select class="custom-select imageStatus" name="status" id="imageStatus">
-            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}"
                 @if($image->status==$status->id)

@@ -185,6 +185,7 @@ class adminProductController extends Controller
             "status"=>"required",
             "brand"=>"required",
             "categories"=>"required",
+            "vendor"=>"required",
             "closure"=>"required",
             "fabric"=>"required",
             "purchase_date"=>"required",
@@ -249,7 +250,7 @@ class adminProductController extends Controller
             }
             return redirect()->route("admin_products");
         }
-        return redirect()->back();
+        return redirect()->back()->width($data);
     }
     public function deleteProduct($product_id,Request $request){
         $data=[];
