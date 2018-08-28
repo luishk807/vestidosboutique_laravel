@@ -227,13 +227,13 @@
                 Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');
                 Route::post('/save/{product_id}','adminProductController@saveProduct')->name('save_product');
                 Route::prefix("restock")->group(function(){
-                    Route::get('/','adminProductController@showRestock')->name("restock_product");
-                    Route::get('/new','adminProductController@newRestock')->name("new_restock_product");
-                    Route::post('/create','adminProductController@createRestock')->name("create_restock_product");
-                    Route::get('/edit/{restock_id}','adminProductController@editRestock')->name("edit_restock_product");
-                    Route::post('/save/{restock_id}','adminProductController@saveRestock')->name("save_restock_product");
-                    Route::get('/confirm/{restock_id}','adminProductController@confirmRestock')->name("confirm_restock_product");
-                    Route::delete('/delete/{restock_id}','adminProductController@deleteRestock')->name("delete_restock_product");
+                    Route::get('/{product_id}','adminProductController@showRestock')->name("admin_restocks");
+                    Route::get('/new/{product_id}','adminProductController@newRestock')->name("new_restock");
+                    Route::post('/create/{product_id}','adminProductController@createRestock')->name("create_restock");
+                    Route::get('/edit/{restock_id}','adminProductController@editRestock')->name("edit_restock");
+                    Route::post('/save/{restock_id}','adminProductController@saveRestock')->name("save_restock");
+                    Route::get('/confirm/{restock_id}','adminProductController@confirmRestock')->name("confirm_restock");
+                    Route::delete('/delete/{restock_id}','adminProductController@deleteRestock')->name("delete_restock");
                 });
                 //Admin Color
                 Route::prefix("colors")->group(function(){
