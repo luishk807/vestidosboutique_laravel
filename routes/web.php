@@ -113,7 +113,7 @@
                 Route::prefix('top_quinces')->group(function(){
                     Route::get('/','adminProductController@showTopQuince')->name('top_quinces_page');
                     Route::get('/new','adminProductController@newTopQuince')->name('new_top_quince');
-                    Route::post('/new','adminProductController@newTopQuince')->name('create_top_quince');
+                    Route::post('/new','adminProductController@saveTopQuince')->name('create_top_quince');
                 });
 
                 Route::prefix('shop_banner')->group(function(){

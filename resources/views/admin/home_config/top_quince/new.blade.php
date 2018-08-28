@@ -15,7 +15,7 @@ function checkSubmit(){
     if($("input[name*='top_quince']:checked").length==4){
         $(form).submit();
     }else{
-        $(".error > ul").append("<li>Must Be 6</li>");
+        $(".error > ul").append("<li>Must Be 4</li>");
     }
     return false;
 }

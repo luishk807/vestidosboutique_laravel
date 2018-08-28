@@ -385,7 +385,12 @@ class adminProductController extends Controller
     }
     public function newTopQuince(Request $request){
         $data=[];
-        if($request->isMethod("post")){
+        $data["products"]=$this->products->all();
+        $data["page_title"]="New Top Quince";
+        return view("/admin/home_config/top_quince/new",$data);
+    }
+    public function saveTopQuince(Request $request){
+
             $top_quince=$request->input("top_quince");
             $this->validate($request,[
                 'top_quince' => 'required'
@@ -400,9 +405,5 @@ class adminProductController extends Controller
                 }
             }
             return redirect()->route("top_quinces_page");
-        }
-        $data["products"]=$this->products->all();
-        $data["page_title"]="New Top Quince";
-        return view("/admin/home_config/top_quince/new",$data);
     }
 }

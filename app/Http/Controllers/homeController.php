@@ -65,11 +65,12 @@ class HomeController extends Controller
         return view("about",$data);
     }
     public function product($product_id){
-        $data=[];
+        // $data=[];
         $product = $this->products->find($product_id);
+        $product_cat = $this->products->getProductByCat($product->categories()->get()->first()->category_id);
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["products_cat"]=$this->products->getProductByCat($product->category_id);
+        $data["products_cat"]=$product_cat;
         $data["products"]=$this->products;
         $data["product"]=$product;
         $data["page_title"]="Product";
