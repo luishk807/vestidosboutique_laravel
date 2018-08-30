@@ -23,7 +23,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_order') }}" class="nav-link">Add Order</a></li>
+                <li class="nav-item"><a href="{{ route('admin_new_order') }}" class="nav-link">Add Order</a></li>
             </ul>
             </nav>
             
@@ -46,11 +46,11 @@
                         <div class="col-md-2">{{$order->client->getFullName()}}</div>
                         <div class="col-md-2">{{$order->purchase_date}}</div>
                         <div class="col-md-2">${{$order->order_total}}</div>
-                        <div class="col-md-2"></div>
+                        <div class="col-md-2">{{ $order->shipping_zip_code }}</div>
                         <div class="col-md-4 order_action_label text-right">
                             <!--actions go here-->
-                            <span><a href="{{ route('confirm_order',['order_id'=>$order->id])}}">delete</a></span>
-                            <span><a href="{{ route('edit_order',['order_id'=>$order->id])}}">edit</a></span>
+                            <span><a href="{{ route('admin_confirm_order',['order_id'=>$order->id])}}">delete</a></span>
+                            <span><a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">edit</a></span>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,14 @@
                     <div class="row">
                         <div class="col">
                             <!--delivered date-->
-                            Delivered {{$order->delivered_date}}
+                            {{ $order->getStatusName->name }}
+                            @if($order->status==3 || $order->status==12)
+                                {{$order->delivered_date}}
+                            @elseif($order->status==10)
+                                {{$order->shipped_date}}
+                            @elseif($order->status==2)
+                                {{$order->cancelled_date}}
+                            @endif
                             <!--noticed if product was dilvered-->
                         </div>
                     </div>
@@ -95,8 +102,7 @@
                 </div>  
                 <div class="col-md-2">
                     <!--buttons for actions-->
-                    <a href="{{ route('confirm_order',['order_id'=>$order->id])}}" class="btn-block vesti_in_btn">Remove</a>
-                    <a href="{{ route('edit_order',['order_id'=>$order->id])}}" class="btn-block vesti_in_btn">Edit</a>
+                    <a href="{{ route('admin_confirm_order',['order_id'=>$order->id])}}" class="btn-block vesti_in_btn">Remove</a>
                     <!--remove-->
                 </div>
             </div>

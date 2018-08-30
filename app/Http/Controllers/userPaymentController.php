@@ -322,7 +322,7 @@ class userPaymentController extends Controller
                     "total"=>$cart[$i]["total"],
                     "color_id"=>$cart[$i]["color_id"],
                     "size_id"=>$cart[$i]["size_id"],
-                    "status"=>1,
+                    "status"=>9,
                     "created_at"=>$today
                 );
 

@@ -27,6 +27,9 @@ class CreateVestidosOrderProducts extends Migration
             $table->foreign("size_id")->references("id")->on("vestidos_sizes")->onDelete('set null');
             $table->integer('status')->unsigned()->default(1)->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
+            $table->date('shipped_date')->nullable();
+            $table->date('delivered_date')->nullable();
+            $table->date('cancelled_date')->nullable();
             $table->timestamps();
         });
     }

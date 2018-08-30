@@ -4,7 +4,7 @@
 var getAddressUrl = "{{ url('api/getAddress') }}";
 var getProductUrl = "{{ url('api/getProduct') }}";
 </script>
-<form action="{{ route('create_order') }}" method="post">
+<form action="{{ route('admin_create_order') }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="orderUser">User:</label>

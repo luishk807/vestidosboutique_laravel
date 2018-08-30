@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('edit_order',['order_id'=>$order_id]) }}" method="post">
+<form action="{{ route('admin_edit_order',['order_id'=>$order_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="orderUser">User:</label>

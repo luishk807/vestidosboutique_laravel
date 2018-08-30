@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('delete_order',['order_id'=>$order->id])}}" method="post">
+<form action="{{ route('admin_delete_order',['order_id'=>$order->id])}}" method="post">
 {{ method_field('DELETE') }}
 <div class="container">
     <div class="row">

@@ -5,7 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_order_products',['order_id'=>$order->id]) }}" class="nav-link">Add Products</a></li>
+                <li class="nav-item"><a href="{{ route('admin_new_order_products',['order_id'=>$order->id]) }}" class="nav-link">Add Products</a></li>
             </ul>
             </nav>
             
@@ -37,7 +37,7 @@
         <div class="col-md-2">{{$order_product->getProduct->total_rent}}</div>
         <div class="col-md-2">{{ $order_product->getStatusName->name }}</div>
         <div class="col-md-2">
-            <a href="{{ route('confirm_order_products',['order_product_id'=>$order_product->id])}}">delete</a>
+            <a href="{{ route('admin_confirm_order_products',['order_product_id'=>$order_product->id])}}">delete</a>
         </div>
     </div>
     @endforeach

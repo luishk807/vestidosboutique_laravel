@@ -74,7 +74,7 @@ class ordersController extends Controller
             $order = new Orders();
             $order_id=$order->insertGetId($data);
 
-            return redirect()->route("new_order_products",['order_id'=>$order_id]);
+            return redirect()->route("admin_new_order_products",['order_id'=>$order_id]);
         }
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
@@ -142,15 +142,16 @@ class ordersController extends Controller
         $data["page_title"]="Edit Order";
         return view("admin/orders/edit",$data);
     }
+    public function confirmDelete($order_id){
+        $data=[];
+        $data["order"]=$this->orders->find($order_id);
+        $data["page_title"]="Confirm Order Delete";
+        return view("admin/orders/confirm",$data);
+    }
     public function deleteOrder($order_id,Request $request){
         $data=[];
-        if($request->input("_method")=="DELETE"){
-            $order = $this->orders->find($order_id);
-            $order->delete();
-            return redirect()->route("admin_orders");
-        }
-        $data["order"]=$this->orders->find($order_id);
-        $data["page_title"]="Delete Orders";
-        return view("admin/orders/confirm",$data);
+        $order = $this->orders->find($order_id);
+        $order->delete();
+        return redirect()->route("admin_orders");
     }
 }
