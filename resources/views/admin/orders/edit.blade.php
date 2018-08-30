@@ -16,7 +16,7 @@
 <form action="{{ route('admin_edit_order',['order_id'=>$order_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-        <label for="orderUser">User:</label>
+        <label for="orderUser">Client:</label>
         <select class="custom-select" name="user" id="orderUser">
             <option value="">Select User</option>
             @foreach($users as $user)
@@ -40,43 +40,23 @@
         <small class="error">{{$errors->first("shipping_date")}}</small>
     </div>
     <div class="form-group">
-        <label for="orderShipAddress">Shipping Address:</label>
-        <select class="custom-select" name="ship_address" id="orderShipAddress">
+        <label for="orderShipAddress">Shipping Method:</label>
+        <select class="custom-select" name="shipping_method" id="orderShipAddress">
             <option value="">Select Shipping Address</option>
-            @foreach($ship_addresses as $ship_address)
-                <option value="{{ $ship_address->id }}"
-                @if($order->ship_address_id==$ship_address->id)
+            @foreach($shipping_lists as $shipping_info)
+                <option value="{{ $shipping_info->id }}"
+                @if($order->order_shipping_type==$shipping_info->id)
                     selected="selected"
                 @endif
-                >{{$ship_address->nick_name}} [ {{ $ship_address->zip_code }} ] </option>
+                >{{ $shipping_info->total}} - {{ $shipping_info->name}} [ {{ $shipping_info->description }} ] </option>
             @endforeach
         </select>
-        <small class="error">{{$errors->first("ship_address")}}</small>
+        <small class="error">{{$errors->first("shipping_method")}}</small>
     </div>
-    <div class="form-group">
-        <label for="orderBillingAddress">Billing Address:</label>
-        <select class="custom-select" name="bill_address" id="orderBillingAddress">
-            <option value="">Select Billing Address</option>
-            @foreach($bill_addresses as $bill_address)
-                <option value="{{ $bill_address->id }}"
-                @if($order->bill_address_id==$bill_address->id)
-                    selected="selected"
-                @endif
-                >{{$bill_address->nick_name}} [ {{ $bill_address->zip_code }} ] </option>
-            @endforeach
-        </select>
-        <small class="error">{{$errors->first("bill_address")}}</small>
-    </div>
-
     <div class="form-group">
         <label for="orderTotal">Total:</label>
         <input type="number" id="orderTotal" class="form-control" name="order_total" min="0" step="0.01" value="{{ old('order_total') ? old('order_total') : $order->order_total }}" placeholder="0.00"/>
         <small class="error">{{$errors->first("order_total")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="orderQuantity">Quantity:</label>
-        <input type="text" id="orderQuantity" class="form-control" name="order_quantity" value="{{ old('order_quantity') ? old('order_quantity') : $order->order_quantity }}" placeholder="Quantity"/>
-        <small class="error">{{$errors->first("order_quantity")}}</small>
     </div>
     <div class="form-group">
         <label for="orderTax">Total Tax:</label>

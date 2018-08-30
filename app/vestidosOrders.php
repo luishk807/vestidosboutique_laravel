@@ -36,6 +36,7 @@ class vestidosOrders extends Model
         "order_total",
         "order_tax",
         "order_shipping",
+        "order_shipping_type",
         "transaction_id",
         "payment_method",
         "credit_card",

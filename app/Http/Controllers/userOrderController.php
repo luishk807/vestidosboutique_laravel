@@ -139,10 +139,10 @@ class userOrderController extends Controller
                 $subject = 'Hello Admin, new order cancellation from '.$client_name;
                 $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
             });
-            return redirect()->route("user_account",["user_id"=>$order->user_id])->flash(
+            return redirect()->route("user_account",["user_id"=>$order->user_id])->with(
                 "success","Cancellation Request Sent");
         }
-        return redirect()->route("user_account")->flash("error","Unable to Delete Order");
+        return redirect()->route("user_account")->with("error","Unable to Delete Order");
  
     }
 }

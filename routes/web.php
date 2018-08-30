@@ -314,7 +314,7 @@
                 Route::get('/new','ordersController@newOrders')->name('admin_new_order');
                 Route::post('/new','ordersController@newOrders')->name('admin_create_order');
                 Route::get('/edit/{order_id}','ordersController@editOrder')->name('admin_edit_order');
-                Route::post('/edit/{order_id}','ordersController@editOrder')->name('admin_save_order');
+                Route::post('/edit/{order_id}','ordersController@saveOrder')->name('admin_save_order');
                 Route::prefix("products")->group(function(){
                     Route::get('/{order_id}','ordersProductsController@index')->name("admin_order_products");
                     Route::get('/new/{order_id}','ordersProductsController@newOrderProducts')->name('admin_new_order_products');

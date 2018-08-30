@@ -2,7 +2,7 @@
 @section('content')
 <form action="{{ route('admin_delete_order_products',['order_product_id'=>$order_product->id])}}" method="post">
 {{ method_field('DELETE') }}
-<div class="container">
+<div class="container cancel-container">
     <div class="row">
         <div class="col text-center">
             are you sure want to delete {{ $order_product->getProduct->products_name }}

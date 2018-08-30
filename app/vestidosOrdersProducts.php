@@ -16,6 +16,10 @@ class vestidosOrdersProducts extends Model
         "color_id",
         "size_id",
         "status",
+        "shipped_date",
+        "delivered_date",
+        "cancelled_date",
+        "returned_date",
         "created_at",
         "updated_at"
     ];
