@@ -318,10 +318,10 @@
                 Route::prefix("products")->group(function(){
                     Route::get('/{order_id}','ordersProductsController@index')->name("admin_order_products");
                     Route::get('/new/{order_id}','ordersProductsController@newOrderProducts')->name('admin_new_order_products');
-                    Route::post('/new/{order_id}','ordersProductsController@newOrderProducts')->name('admin_create_order_products');
+                    Route::post('/new/{order_id}','ordersProductsController@createOrderProducts')->name('admin_create_order_products');
                     Route::get('/edit/{order_product_id}','ordersProductsController@editOrderProduct')->name('admin_edit_order_products');
-                    Route::post('/edit/{order_product_id}','ordersProductsController@editOrderProduct')->name('admin_save_order_products');
-                    Route::get('/confirm/{order_product_id}','ordersProductsController@deleteOrderProduct')->name('admin_confirm_order_products');
+                    Route::post('/edit/{order_product_id}','ordersProductsController@saveOrderProduct')->name('admin_save_order_products');
+                    Route::get('/confirm/{order_product_id}','ordersProductsController@confirmDeleteOrderProduct')->name('admin_confirm_order_products');
                     Route::delete('/confirm/{order_product_id}','ordersProductsController@deleteOrderProduct')->name('admin_delete_order_products');
                 });
             });
