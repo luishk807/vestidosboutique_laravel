@@ -30,6 +30,7 @@ class CreateVestidosOrderProducts extends Migration
             $table->date('shipped_date')->nullable();
             $table->date('delivered_date')->nullable();
             $table->date('cancelled_date')->nullable();
+            $table->date('returned_date')->nullable();
             $table->timestamps();
         });
     }

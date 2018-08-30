@@ -12,6 +12,7 @@ use Carbon\Carbon as carbon;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class ordersController extends Controller
 {
@@ -151,7 +152,66 @@ class ordersController extends Controller
     public function deleteOrder($order_id,Request $request){
         $data=[];
         $order = $this->orders->find($order_id);
-        $order->delete();
-        return redirect()->route("admin_orders");
+        $order->status=2;
+        if($order->save()){
+            DB::table('vestidos_orders_products')->where("id",$order->id)->update(["status"=>2]);
+            //send email to user
+            foreach($order->products as $product){
+                $product_detail = $this->products->find($product->getProduct->id);
+                $size_detail = $this->sizes->find($product->size_id);
+                $color_detail = $this->colors->find($product->color_id);
+                $data_products_email[] = array(
+                    "quantity"=>$product->quantity,
+                    "total"=>$product->total,
+                    "color"=>$color_detail->name,
+                    "size"=>$size_detail->name,
+                    "name"=>$product_detail->products_name,
+                    "total"=>$product_detail->total_rent,
+                    "model"=>$product_detail->product_model,
+                    "img"=>$product_detail->images()->first()->img_url,
+                    "id"=>$product_detail->id
+                );
+            }
+            $order_detail=[
+                "user"=>$this->users->find($user_id),
+                "order"=>array(                        
+                    "order_number"=>$order->order_number,
+                    "purchase_date"=>$today,
+                    "shipping_name"=>$order->shipping_name,
+                    "shipping_address_1"=>$order->shipping_address_1,
+                    "shipping_address_2"=>$order->shipping_address_2,
+                    "shipping_city"=>$order->shipping_city,
+                    "shipping_state"=>$order->shipping_state,
+                    "shipping_country"=>$order->shipping_country,
+                    "shipping_zip_code"=>$order->shipping_zip_code,
+                    "shipping_phone_number_1"=>$order->shipping_phone_number_1,
+                    "shipping_phone_number_2"=>$order->shipping_phone_number_2,
+                    "shipping_email"=>$order->shipping_email,
+                    "billing_name"=>$order->billing_name,
+                    "billing_address_1"=>$order->billing_address_1,
+                    "billing_address_2"=>$order->billing_address_2,
+                    "billing_city"=>$order->billing_city,
+                    "billing_state"=>$order->billing_state,
+                    "billing_country"=>$order->billing_country,
+                    "billing_zip_code"=>$order->billing_zip_code,
+                    "billing_phone_number_1"=>$order->billing_phone_number_1,
+                    "billing_phone_number_2"=>$order->billing_phone_number_2,
+                    "billing_email"=>$order->billing_email,
+                    "products"=>$data_products_email,
+                    "order_total"=>$order->order_total,
+                    "order_tax"=>$order->order_tax,
+                    "order_grand_total"=>$order->order_total + $order->order_tax + $order_shipping,
+                    "status"=>$order->getStatusName->name,
+                    "shipping_total"=>$order->order_shipping
+                )
+            ];
+            Mail::send('emails.ordercancel_confirm',["order_detail"=>$order_detail],function($message) use($order_detail){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
+                $subject = 'Hello '.$client_name.', your order is cancelled';
+                $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+            });
+        }
+        return redirect()->route("admin_orders")->flash('success',"order successfully cancelled");
     }
 }

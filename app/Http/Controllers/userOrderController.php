@@ -142,9 +142,7 @@ class userOrderController extends Controller
             return redirect()->route("user_account",["user_id"=>$order->user_id])->flash(
                 "success","Cancellation Request Sent");
         }
-        return redirect()->route("user_account")->flash([
-            "error"=>"Unable to Delete Order"
-        ]);
+        return redirect()->route("user_account")->flash("error","Unable to Delete Order");
  
     }
 }
