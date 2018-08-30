@@ -29,6 +29,24 @@
             
         </div>
     </div>
+    @if(session('success'))
+    <div class="row result-mg success">
+        <div class="col">
+            <P>
+                {{ session('success') }}
+            </P>
+        </div>
+    </div>
+    @endif
+    @if(session('error'))
+    <div class="row result-mg error">
+        <div class="col">
+            <P>
+                {{ session('error') }}
+            </P>
+        </div>
+    </div>
+    @endif
     <!--start of orders-->
     @foreach($orders as $order)
     <div class="row admin_orders_row">

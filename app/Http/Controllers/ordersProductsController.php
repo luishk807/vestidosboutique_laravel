@@ -9,17 +9,20 @@ use App\vestidosStatus as vestidosStatus;
 use App\vestidosUsers as Users;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
+use App\vestidosCountries as Countries;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
 
 class ordersProductsController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products){
+    public function __construct(Countries $countries, Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
         $this->users=$users;
+        $this->countries=$countries;
         $this->products=$products;
         $this->addresses=$addresses;
     }
@@ -27,6 +30,7 @@ class ordersProductsController extends Controller
         $data=[];
         $data["order"]=$this->orders->find($order_id);
         $data["orders"]=$this->orders->all();
+        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Orders";
         return view("admin/orders/products/home",$data);
     }
@@ -75,21 +79,24 @@ class ordersProductsController extends Controller
     }
     public function saveOrderProduct($order_id,Request $request){
         $data=[];
-        $order =$this->orders->find($order_id);
-        $data["page_title"]="Edit Order";
-        $data["order"]=$order;
-        $data["order_id"]=$order_id;
-        $data["status"]=(int)$request->input("status");
-        $data["ip"]=$request->ip();
+        $valid_array=false;
         $this->validate($request,[
-            "status"=>"required",
+            "order_product"=>"required"
         ]);
-        $order->updated_at=carbon::now();
-        $order->user_id=(int)$request->input("user");
-        $order->status=(int)$request->input("status");
-        $order->ip=$request->ip();
-        $order->save();
-        return redirect()->route("admin_orders");
+        $order_product = $request->input("order_product");
+        foreach($order_product as $product){
+            if(Arr::exists($product,"id")){
+                $valid_array=true;
+                $order_p = $this->order_products->find($product["id"]);
+                $order_p->status=$product["status"];
+                $order_p->save();
+            }
+        }
+        if(!$valid_array){
+            return redirect()->back()->withErrors(["required"=>"You must select a product"]);
+        }else{
+            return redirect()->route("admin_orders")->with("success","order updated");
+        }
     }
     public function confirmDeleteOrderProduct($order_product_id){
         $data=[];
@@ -103,5 +110,21 @@ class ordersProductsController extends Controller
         $order_product = $this->order_products->find($order_product_id);
         $order_product->delete();
         return redirect()->route("admin_orders"); 
+    }
+    public function editOrderAddress($order_id,$address_type){
+        $data["order"]=$this->orders->find($order_id);
+        $data["orders"]=$this->orders->all();
+        $data["statuses"]=$this->statuses->all();
+        $data["countries"]=$this->countries->all();
+        $data["address_type"]=$address_type;
+        $data["page_title"]="Orders Address";
+        return view("admin/orders/addresses/new",$data);
+    }
+    public function saveOrderAddress($order_id,Request $request){
+        $data=[];
+        $order=$this->orders->find($order_id);
+        $data["order"]=$order;
+        $data["order_id"]=$order_id;
+        return redirect()->route("admin_edit_order",$data);
     }
 }

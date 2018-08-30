@@ -12,6 +12,39 @@
             
         </div>
     </div>
+    <div class="row">
+        <div class="col text-center">
+            <nav class="navbar navbar navbar-expand-lg">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="text-left order-address-panels">
+                            <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type'=>1]) }}">Edit</a>]</p>
+                            {{$order->shipping_name}}<br/>
+                            {{$order->shipping_address_1}} {{$order->shipping_address_2}}<br/>
+                            {{$order->shipping_city}}, {{$order->shipping_state}} {{$order->shipping_country}} {{$order->shipping_zip_code}}<br/>
+                            <br/>
+                            Email: {{$order->shipping_email}}<br/>
+                            Phone 1:{{$order->shipping_phone_number_1}}<br/>
+                            Phone 2:{{$order->shipping_phone_number_2}}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="text-left order-address-panels">
+                            <p><span class="title">Billing Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type'=>2]) }}">Edit</a>]</p>
+                            {{$order->billing_name}}<br/>
+                            {{$order->billing_address_1}} {{$order->billing_address_2}}<br/>
+                            {{$order->billing_city}}, {{$order->billing_state}} {{$order->billing_country}} {{$order->billing_zip_code}}<br/>
+                            <br/>
+                            Email: {{$order->billing_email}}<br/>
+                            Phone 1:{{$order->billing_phone_number_1}}<br/>
+                            Phone 2:{{$order->billing_phone_number_2}}
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            
+        </div>
+    </div>
 </div>
 <form action="{{ route('admin_edit_order',['order_id'=>$order_id]) }}" method="post">
 {{ csrf_field() }}
@@ -62,11 +95,6 @@
         <label for="orderTax">Total Tax:</label>
         <input type="number" id="orderTax" class="form-control" name="order_tax" min="0" step="0.01" value="{{ old('order_tax') ? old('order_tax') : $order->order_tax }}" placeholder="0.00"/>
         <small class="error">{{$errors->first("order_tax")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="orderShipping">Total Shipping:</label>
-        <input type="number" id="orderShipping" class="form-control" name="order_shipping" min="0" step="0.01" value="{{ old('order_shipping') ? old('order_shipping') : $order->order_shipping }}" placeholder="0.00"/>
-        <small class="error">{{$errors->first("order_shipping")}}</small>
     </div>
     <div class="form-group">
         <label for="orderStatus">Status:</label>

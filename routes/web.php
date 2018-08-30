@@ -324,6 +324,12 @@
                     Route::get('/confirm/{order_product_id}','ordersProductsController@confirmDeleteOrderProduct')->name('admin_confirm_order_products');
                     Route::delete('/confirm/{order_product_id}','ordersProductsController@deleteOrderProduct')->name('admin_delete_order_products');
                 });
+                Route::prefix("address")->group(function(){
+                    Route::get('/new/{order_id}','ordersProductsController@newOrderAddress')->name('admin_new_order_address');
+                    Route::post('/new/{order_id}','ordersProductsController@createOrderAddress')->name('admin_create_order_address');
+                    Route::get('/edit/{order_id}/{address_type_id}','ordersProductsController@editOrderAddress')->name('admin_edit_order_address');
+                    Route::post('/edit/{order_id}/{address_type_id}','ordersProductsController@saveOrderAddress')->name('admin_save_order_address');
+                });
             });
         });
         

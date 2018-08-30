@@ -1,0 +1,22 @@
+.admin-btn{
+    background-color: white;
+    border: 1px solid black;
+    padding: 8px 40px;
+    margin: 20px;
+    color: black;
+    cursor:pointer;
+}
+.admin-btn:hover{
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+}
+.order-address-panels{
+    border:1px solid rgba(0,0,0,.1);
+    padding: 15px 25px;
+    margin:10px 20px;
+    font-size: .9rem;
+}
+.order-address-panels .title{
+    text-decoration:underline;
+}

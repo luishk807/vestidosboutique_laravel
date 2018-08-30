@@ -105,36 +105,32 @@ class ordersController extends Controller
     public function saveOrder($order_id,Request $request){
         $data=[];
         $order =$this->orders->find($order_id);
+        $shipping_list = $this->shipping_lists->find($request->input("shipping_method"));
         $data["order_id"]=$order_id;
         $data["purchase_date"]=$request->input("purchase_date");
         $data["shipping_date"]=$request->input("shipping_date");
         $data["order_quantity"]=(int)$request->input("order_quantity");
         $data["order_total"]=$request->input("order_total");
         $data["order_tax"]=$request->input("order_tax");
-        $data["order_shipping"]=$request->input("order_shipping");
+        $data["shipping_method"]=$request->input("shipping_method");
         $data["status"]=(int)$request->input("status");
         $data["ip"]=$request->ip();
         $this->validate($request,[
             "user"=>"required",
             "purchase_date"=>"required",
-            "bill_address"=>"required",
-            "order_quantity"=>"required",
             "order_total"=>"required",
             "order_tax"=>"required",
-            "order_shipping"=>"required",
+            "shipping_method"=>"required",
             "status"=>"required",
         ]);
         $order->updated_at=carbon::now();
         $order->user_id=(int)$request->input("user");
-        $order->product_id=(int)$request->input("product");
         $order->purchase_date=$request->input("purchase_date");
         $order->shipping_date=$request->input("shipping_date");
-        $order->ship_address_id=(int)$request->input("ship_address");
-        $order->bill_address_id=(int)$request->input("bill_address");
-        $order->order_quantity=(int)$request->input("order_quantity");
+        $order->order_shipping_type=(int)$request->input("shipping_method");
+        $order->order_shipping = $shipping_list->total;
         $order->order_total=$request->input("order_total");
         $order->order_tax=$request->input("order_tax");
-        $order->order_shipping=$request->input("order_shipping");
         $order->status=(int)$request->input("status");
         $order->ip=$request->ip();
         $order->save();
