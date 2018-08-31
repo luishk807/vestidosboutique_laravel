@@ -26,7 +26,7 @@
                 </a>
         </div>
         <div class="col-md-6">
-            <input type="submit" class="btn-block vesti_in_btn" value="Delete Order"/>
+            <input type="submit" class="btn-block vesti_in_btn" value="Cancel Order"/>
         </div>
     </div>
 </div>

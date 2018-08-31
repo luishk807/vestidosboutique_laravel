@@ -117,6 +117,7 @@ class ordersProductsController extends Controller
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
         $data["address_type"]=$address_type;
+        $data["name"] = $request->input('address_name');
         $data["page_title"]="Orders Address";
         return view("admin/orders/addresses/new",$data);
     }
