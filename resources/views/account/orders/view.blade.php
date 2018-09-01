@@ -40,7 +40,7 @@
                                     <td>
                                         {{$order->shipping_name}}<br/>
                                         {{$order->shipping_address_1}} {{$order->shipping_address_2}}<br/>
-                                        {{$order->shipping_city}} {{$order->shipping_state}} {{$order->shipping_country}} {{$order->shipping_zip_code}}<br/>
+                                        {{$order->shipping_city}} {{$order->shipping_state}} {{$order->getShippingCountry->countryCode}} {{$order->shipping_zip_code}}<br/>
                                         {{$order->shipping_phone_number_1}}<br/>
                                         {{$order->shipping_phone_number_2}}<br/>
                                         {{$order->shipping_email}}<br/>

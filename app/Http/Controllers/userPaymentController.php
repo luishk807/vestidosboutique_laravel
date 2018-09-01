@@ -19,6 +19,7 @@ use App\vestidosOrders as Orders;
 use App\vestidosColors as Colors;
 use App\vestidosSizes as Sizes;
 use App\vestidosProducts as Products;
+use App\vestidosPaymentHistories as PaymentHistories;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -29,7 +30,7 @@ use Auth;
 class userPaymentController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes){
+    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories){
         $this->country=$countries;
         $this->users = $users;
         $this->order_products = $order_products;
@@ -43,6 +44,7 @@ class userPaymentController extends Controller
         $this->products=$products;
         $this->categories = $categories;
         $this->addresstypes = $addresstypes;
+        $this->payment_histories = $payment_histories;
         $this->shipping_lists = $shippingLists;
         $this->tax_info = $tax->find(1);
         $this->checkout_menus=array(
@@ -106,6 +108,7 @@ class userPaymentController extends Controller
                 "shipping_address_2"=>$shipping->address_2,
                 "shipping_city"=>$shipping->city,
                 "shipping_state"=>$shipping->state,
+                "shipping_country_id"=>$shipping_country->id,
                 "shipping_country"=>$shipping_country->countryCode,
                 "shipping_zip_code"=>$shipping->zip_code,
                 "shipping_phone_number_1"=>$shipping->phone_number_1,
@@ -144,6 +147,7 @@ class userPaymentController extends Controller
                 "shipping_address_2"=>$request->input("shipping_address_2"),
                 "shipping_city"=>$request->input("shipping_city"),
                 "shipping_state"=>$request->input("shipping_state"),
+                "shipping_country_id"=>$shipping_country->id,
                 "shipping_country"=>$shipping_country->countryCode,
                 "shipping_zip_code"=>$request->input("shipping_zip_code"),
                 "shipping_phone_number_1"=>$request->input("shipping_phone_number_1"),
@@ -204,7 +208,7 @@ class userPaymentController extends Controller
         $data["shipping_address_2"]=$cart_address["shipping_address_2"];
         $data["shipping_city"]=$cart_address["shipping_city"];
         $data["shipping_state"]=$cart_address["shipping_state"];
-        $data["shipping_country"]=$cart_address["shipping_country"];
+        $data["shipping_country"]=$cart_address["shipping_country_id"];
         $data["shipping_zip_code"]=$cart_address["shipping_zip_code"];
         $data["shipping_phone_number_1"]=$cart_address["shipping_phone_number_1"];
         $data["shipping_phone_number_2"]=$cart_address["shipping_phone_number_2"];
@@ -230,12 +234,13 @@ class userPaymentController extends Controller
             }
             $billing_name .= " ".$billing->last_name;
             $billing_country = $this->country->find($billing->country_id);
+            $billing_country_id = $billing_country->id;
             $data["billing_name"]=$billing_name;
             $data["billing_address_1"]=$billing->address_1;
             $data["billing_address_2"]=$billing->address_2;
             $data["billing_city"]=$billing->city;
             $data["billing_state"]=$billing->state;
-            $data["billing_country"]=$billing_country->countryCode;
+            $data["billing_country"]=$billing_country->id;
             $data["billing_zip_code"]=$billing->zip_code;
             $data["billing_phone_number_1"]=$billing->phone_number_1;
             $data["billing_phone_number_2"]=$billing->phone_number_2;
@@ -255,12 +260,13 @@ class userPaymentController extends Controller
 
             $billing_name = $request->input("billing_name");
             $billing_country = $this->country->find($request->input("billing_country"));
+            $billing_country_id = $billing_country->id;
             $data["billing_name"]=$billing_name;
             $data["billing_address_1"]=$request->input("billing_address_1");
             $data["billing_address_2"]=$request->input("billing_address_2");
             $data["billing_city"]=$request->input("billing_city");
             $data["billing_state"]=$request->input("billing_state");
-            $data["billing_country"]=$billing_country->countryCode;
+            $data["billing_country"]=$billing_country->id;
             $data["billing_zip_code"]=$request->input("billing_zip_code");
             $data["billing_phone_number_1"]=$request->input("billing_phone_number_1");
             $data["billing_phone_number_2"]=$request->input("billing_phone_number_2");
@@ -367,11 +373,23 @@ class userPaymentController extends Controller
                         $get_order->credit_card_number=$status->transaction->creditCard["last4"];
                         $get_order->payment_status=$status->transaction->processorResponseText;
                         $get_order->save();
+
+                        //SAVE PAYMENT HISTORIES
+                        $new_payment=[];
+                        $new_payment["order_id"]=$get_order->id;
+                        $new_payment["user_id"]=$get_order->user_id;
+                        $new_payment["transaction_id"]=$status->transaction->id;
+                        $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
+                        $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
+                        $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
+                        $new_payment["payment_status"]=$status->transaction->processorResponseText;
+                        $new_payment["ip"]=$request->ip();
+                        $new_payment["created_at"]=$today;
+                        $this->payment_histories->insert($new_payment);
                         
                         //SEND EMAIL
-                        
-                        $ds_country = $this->countries->find($cart_address["shipping_country"]);
-                        $db_country = $this->countries->find($request->input("billing_country"));
+                        $ds_country = $this->country->find($cart_address["shipping_country_id"]);
+                        $db_country = $this->country->find($billing_country_id);
                         $order_detail=[
                             "user"=>$this->users->find($user_id),
                             "order"=>array(                        

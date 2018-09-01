@@ -47,12 +47,20 @@ class vestidosOrders extends Model
         "created_at",
         "updated_at"
     ];
-    
+    public function paymentHistories(){
+        return $this->hasMany('App\vestidosPaymentHistories','order_id');
+    }
     public function cancelOrder(){
         return $this->hasOne('App\vestidoOrderCancelReason','id','cancel_reason');
     }
     public function client(){
         return $this->belongsTo('App\vestidosUsers',"user_id");
+    }
+    public function getShippingCountry(){
+        return $this->belongsTo('App\vestidosCountries',"shipping_country");
+    }
+    public function getBillingCountry(){
+        return $this->belongsTo('App\vestidosCountries',"billing_country");
     }
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");

@@ -48,13 +48,6 @@
             @endforeach
         </tbody>
     </table>
-    <small class="error">
-    <ul>
-    @foreach($errors->all() as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-    </ul>
-    </small>
     <div class="container">
         <div class="row">
             <div class="col-md-6">

@@ -17,18 +17,21 @@ use Illuminate\Support\Facades\DB;
 use App\vestidosShippingLists as ShippingLists;
 use App\vestidosSizes as Sizes;
 use App\vestidosColors as Colors;
+use App\vestidosPaymentHistories as PaymentHistories;
+use Braintree_Transaction;
 use Mail;
 use Auth;
 
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
         $this->users=$users;
         $this->countries = $countries;
+        $this->payment_histories = $payment_histories;
         $this->shipping_lists = $shippingLists;
         $this->cancel_reasons=$cancel_reasons;
         $this->products=$products;
@@ -259,6 +262,58 @@ class ordersController extends Controller
         $data["page_title"]="Confirm Order Cancellation";
         return view("admin/orders/confirm",$data);
     }
+    public function showAdminOrderPayment($order_id){
+        $data=[];
+        $data["order"]=$this->orders->find($order_id);
+        $data["page_title"]="Process Order Payment";
+        return view("admin/orders/payments/new",$data);
+    }
+    public function orderAdminProcessPayment(Request $request,$order_id){
+
+        $this->validate($request,[
+            'order_total' => "required"
+        ]);
+        $grand_total = $request->input("order_total");
+        $order=$this->orders->find($order_id);
+        $nonce = $request->input('nonce', false);
+        $today = carbon::now();
+        $status = Braintree_Transaction::sale([
+            'amount' => $grand_total,
+            'paymentMethodNonce' => $nonce,
+            'options' => [
+                'submitForSettlement' => True
+            ]
+        ]);
+        if($status->success){
+            $order->order_total = $request->input('order_total');
+            $order->updated_at=$today;
+
+            $order->transaction_id=$status->transaction->id;
+            $order->payment_method=$status->transaction->paymentInstrumentType;
+            $order->credit_card_type=$status->transaction->creditCard["cardType"];
+            $order->credit_card_number=$status->transaction->creditCard["last4"];
+            $order->payment_status=$status->transaction->processorResponseText;
+            $order->save();
+
+            //SAVE PAYMENT HISTORIES
+            $new_payment=[];
+            $new_payment["order_id"]=$order->id;
+            $new_payment["user_id"]=$order->user_id;
+            $new_payment["transaction_id"]=$status->transaction->id;
+            $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
+            $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
+            $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
+            $new_payment["payment_status"]=$status->transaction->processorResponseText;
+            $new_payment["ip"]=$request->ip();
+            $new_payment["created_at"]=carbon::now();
+            $this->payment_histories->insert($new_payment);
+
+            return redirect()->route('admin_edit_order',["order_id"=>$order_id])->with("success","payment completed");
+        }
+        return redirect()->back()->withErrors([
+            "required"=>$status->message
+        ]);
+    }
     public function cancelOrder($order_id,Request $request){
         $data=[];
         $order = $this->orders->find($order_id);
@@ -313,7 +368,7 @@ class ordersController extends Controller
                 "shipping_address_2"=>$order->shipping_address_2,
                 "shipping_city"=>$order->shipping_city,
                 "shipping_state"=>$order->shipping_state,
-                "shipping_country"=>$order->shipping_country,
+                "shipping_country"=>$order->getShippingCountry->countryCode,
                 "shipping_zip_code"=>$order->shipping_zip_code,
                 "shipping_phone_number_1"=>$order->shipping_phone_number_1,
                 "shipping_phone_number_2"=>$order->shipping_phone_number_2,
@@ -323,7 +378,7 @@ class ordersController extends Controller
                 "billing_address_2"=>$order->billing_address_2,
                 "billing_city"=>$order->billing_city,
                 "billing_state"=>$order->billing_state,
-                "billing_country"=>$order->billing_country,
+                "billing_country"=>$order->getBillingCountry->countryCode,
                 "billing_zip_code"=>$order->billing_zip_code,
                 "billing_phone_number_1"=>$order->billing_phone_number_1,
                 "billing_phone_number_2"=>$order->billing_phone_number_2,

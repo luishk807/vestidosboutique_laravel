@@ -7,6 +7,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="{{ route('admin_orders') }}" class="nav-link">Back to Orders</a></li>
                     <li class="nav-item"><a href="{{ route('admin_order_products',['order_id'=>$order_id]) }}" class="nav-link">[{{ $order->products()->count()}}] View products</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_show_order_payment',['order_id'=>$order_id]) }}" class="nav-link">Re-process Payment</a></li>
                 </ul>
             </nav>
             
@@ -21,7 +22,7 @@
                             <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>1]) }}">Edit</a>]</p>
                             {{$order->shipping_name}}<br/>
                             {{$order->shipping_address_1}} {{$order->shipping_address_2}}<br/>
-                            {{$order->shipping_city}}, {{$order->shipping_state}} {{$order->shipping_country}} {{$order->shipping_zip_code}}<br/>
+                            {{$order->shipping_city}}, {{$order->shipping_state}} {{$order->getShippingCountry->countryCode}} {{$order->shipping_zip_code}}<br/>
                             <br/>
                             Email: {{$order->shipping_email}}<br/>
                             Phone 1:{{$order->shipping_phone_number_1}}<br/>
@@ -33,7 +34,7 @@
                             <p><span class="title">Billing Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>2]) }}">Edit</a>]</p>
                             {{$order->billing_name}}<br/>
                             {{$order->billing_address_1}} {{$order->billing_address_2}}<br/>
-                            {{$order->billing_city}}, {{$order->billing_state}} {{$order->billing_country}} {{$order->billing_zip_code}}<br/>
+                            {{$order->billing_city}}, {{$order->billing_state}} {{$order->getBillingCountry->countryCode}} {{$order->billing_zip_code}}<br/>
                             <br/>
                             Email: {{$order->billing_email}}<br/>
                             Phone 1:{{$order->billing_phone_number_1}}<br/>
