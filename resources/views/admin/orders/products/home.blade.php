@@ -8,17 +8,6 @@
 <div class="container">
     <form action="{{ route('admin_save_order_products',['order_id'=>$order->id]) }}" method="post">
     <div class="row">
-        <div class="col text-center">
-            <span id="session_msg" class="error">
-            @if(count($errors) > 0)
-                @foreach ($errors->all() as $error)
-                {{ $error }}<br/>
-                @endforeach
-            @endif
-            </span>
-        </div>
-    </div>
-    <div class="row">
         <div class="col text-left">
             <a href="{{ route('admin_edit_order',['order_id'=>$order->id]) }}" >Back to Previous</a>
         </div>

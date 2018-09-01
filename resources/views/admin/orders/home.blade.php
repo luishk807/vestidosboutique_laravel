@@ -29,24 +29,6 @@
             
         </div>
     </div>
-    @if(session('success'))
-    <div class="row result-mg success">
-        <div class="col">
-            <P>
-                {{ session('success') }}
-            </P>
-        </div>
-    </div>
-    @endif
-    @if(session('error'))
-    <div class="row result-mg error">
-        <div class="col">
-            <P>
-                {{ session('error') }}
-            </P>
-        </div>
-    </div>
-    @endif
     <div class="row">
         <div class="col">
             <div class="shoplist-nav">

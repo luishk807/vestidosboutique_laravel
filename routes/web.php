@@ -330,7 +330,7 @@
                     Route::get('/new/{order_id}','ordersControlle@newOrderAddress')->name('admin_new_order_address');
                     Route::post('/new/{order_id}','ordersControlle@createOrderAddress')->name('admin_create_order_address');
                     Route::get('/edit/{order_id}/{address_type_id}','ordersController@editOrderAddress')->name('admin_edit_order_address');
-                    Route::post('/edit/{order_id}/{address_type_id}','ordersController@saveOrderAddress')->name('admin_save_order_address');
+                    Route::post('/edit','ordersController@saveOrderAddress')->name('admin_save_order_address');
                 });
             });
         });

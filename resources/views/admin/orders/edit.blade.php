@@ -18,7 +18,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
-                            <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type'=>1]) }}">Edit</a>]</p>
+                            <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>1]) }}">Edit</a>]</p>
                             {{$order->shipping_name}}<br/>
                             {{$order->shipping_address_1}} {{$order->shipping_address_2}}<br/>
                             {{$order->shipping_city}}, {{$order->shipping_state}} {{$order->shipping_country}} {{$order->shipping_zip_code}}<br/>
@@ -30,7 +30,7 @@
                     </li>
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
-                            <p><span class="title">Billing Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type'=>2]) }}">Edit</a>]</p>
+                            <p><span class="title">Billing Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>2]) }}">Edit</a>]</p>
                             {{$order->billing_name}}<br/>
                             {{$order->billing_address_1}} {{$order->billing_address_2}}<br/>
                             {{$order->billing_city}}, {{$order->billing_state}} {{$order->billing_country}} {{$order->billing_zip_code}}<br/>
@@ -110,7 +110,10 @@
         </select>
         <small class="error">{{$errors->first("status")}}</small>
     </div>
-
+    <div class="form-group">
+        <label for="orderRefund">Total Refund:</label>
+        <input type="number" id="orderRefund" class="form-control" name="order_total_refund" min="0" step="0.01" value="{{ $order->order_total_refund }}" placeholder="0.00"/>
+    </div>
 
     <div class="container">
         <div class="row">

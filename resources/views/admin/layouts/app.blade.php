@@ -68,6 +68,35 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col text-center">
+                    <span id="session_msg" class="error">
+                    @if(count($errors) > 0)
+                        @foreach ($errors->all() as $error)
+                        {{ $error }}<br/>
+                        @endforeach
+                    @endif
+                    </span>
+                </div>
+            </div>
+            @if(session('success'))
+            <div class="row result-mg success">
+                <div class="col">
+                    <P>
+                        {{ session('success') }}
+                    </P>
+                </div>
+            </div>
+            @endif
+            @if(session('error'))
+            <div class="row result-mg error">
+                <div class="col">
+                    <P>
+                        {{ session('error') }}
+                    </P>
+                </div>
+            </div>
+            @endif
+            <div class="row">
                 <div class="col">
                     @yield('content')
                 </div>

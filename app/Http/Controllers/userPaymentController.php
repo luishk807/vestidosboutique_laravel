@@ -370,7 +370,8 @@ class userPaymentController extends Controller
                         
                         //SEND EMAIL
                         
-
+                        $ds_country = $this->countries->find($cart_address["shipping_country"]);
+                        $db_country = $this->countries->find($request->input("billing_country"));
                         $order_detail=[
                             "user"=>$this->users->find($user_id),
                             "order"=>array(                        
@@ -381,7 +382,7 @@ class userPaymentController extends Controller
                                 "shipping_address_2"=>$cart_address["shipping_address_2"],
                                 "shipping_city"=>$cart_address["shipping_city"],
                                 "shipping_state"=>$cart_address["shipping_state"],
-                                "shipping_country"=>$cart_address["shipping_country"],
+                                "shipping_country"=>$ds_country->countryCode,
                                 "shipping_zip_code"=>$cart_address["shipping_zip_code"],
                                 "shipping_phone_number_1"=>$cart_address["shipping_phone_number_1"],
                                 "shipping_phone_number_2"=>$cart_address["shipping_phone_number_2"],
@@ -391,7 +392,7 @@ class userPaymentController extends Controller
                                 "billing_address_2"=>$request->input("billing_address_2"),
                                 "billing_city"=>$request->input("billing_city"),
                                 "billing_state"=>$request->input("billing_state"),
-                                "billing_country"=>$request->input("billing_country"),
+                                "billing_country"=>$db_country->countryCode,
                                 "billing_zip_code"=>$request->input("billing_zip_code"),
                                 "billing_phone_number_1"=>$request->input("billing_phone_number_1"),
                                 "billing_phone_number_2"=>$request->input("billing_phone_number_2"),

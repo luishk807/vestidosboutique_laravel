@@ -26,7 +26,7 @@ class CreateVestidosOrders extends Migration
             $table->string('shipping_address_2')->nullable();
             $table->string('shipping_city')->nullable();
             $table->string('shipping_state')->nullable();
-            $table->string('shipping_country')->nullable();
+            $table->integer('shipping_country')->nullable();
             $table->string('shipping_zip_code')->nullable();
             $table->string('shipping_phone_number_1')->nullable();
             $table->string('shipping_phone_number_2')->nullable();
@@ -36,12 +36,14 @@ class CreateVestidosOrders extends Migration
             $table->string('billing_address_2')->nullable();
             $table->string('billing_city')->nullable();
             $table->string('billing_state')->nullable();
-            $table->string('billing_country')->nullable();
+            $table->integer('billing_country')->nullable();
             $table->string('billing_zip_code')->nullable();
             $table->string('billing_phone_number_1')->nullable();
             $table->string('billing_phone_number_2')->nullable();
             $table->string('billing_email')->nullable();
             $table->decimal('order_total')->nullable();
+            $table->decimal('order_total_refund')->nullable();
+            $table->date('order_refund_date')->nullable();
             $table->decimal('order_tax')->nullable();
             $table->integer('order_shipping_type')->unsigned()->nullable();
             $table->foreign("order_shipping_type")->references("id")->on("vestidos_shipping_lists")->onDelete('set null');

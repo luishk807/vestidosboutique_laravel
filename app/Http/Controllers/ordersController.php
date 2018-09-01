@@ -9,26 +9,32 @@ use App\vestidosStatus as vestidosStatus;
 use App\vestidosUsers as Users;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
+use App\vestidosCountries as Countries;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosOrderCancelReasons as CancelReasons;
 use Illuminate\Support\Facades\DB;
 use App\vestidosShippingLists as ShippingLists;
+use App\vestidosSizes as Sizes;
+use App\vestidosColors as Colors;
 use Mail;
 use Auth;
 
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
         $this->users=$users;
+        $this->countries = $countries;
         $this->shipping_lists = $shippingLists;
         $this->cancel_reasons=$cancel_reasons;
         $this->products=$products;
         $this->addresses=$addresses;
+        $this->colors=$colors;
+        $this->sizes=$sizes;
     }
     public function index(){
         $data=[];
@@ -102,18 +108,100 @@ class ordersController extends Controller
         $data["page_title"]="Edit Order";
         return view("admin/orders/edit",$data);
     }
-    public function editOrderAddress($order_id,$address_type){
+    public function editOrderAddress(Request $request, $order_id,$address_type_id){
         $data=[];
         $order =$this->orders->find($order_id);
         $data["order"]=$order;
-        $data["address_type"]=$address_type;
+        $address_var = $address_type_id==1? "Shipping" : "Billing";
         $data["order_id"]=$order_id;
-        $user=$this->users->find($order->user_id);
-        $data["products"]=$this->products->all();
-        $data["shipping_lists"]=$this->shipping_lists->all();
-        $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Edit Order";
+        $data["address_var"]=$address_var;
+        $data["page_title"]="Edit Order ".$address_var." Address";
+        $data["address_type_id"]=$address_type_id;
+        $data["countries"]= $this->countries->all();
+        $data["address_name"]=$request->input("address_name");
+        $data["address_email"]=$request->input("address_email");
+        $data["address_phone_number_1"]=$request->input("address_phone_number_1");
+        $data["address_phone_number_2"]=$request->input("address_phone_number_2");
+        $data["address_address_1"]=$request->input("address_address_1");
+        $data["address_address_2"]=$request->input("address_address_2");
+        $data["address_city"]=$request->input("address_city");
+        $data["address_state"]=$request->input("address_phone_state");
+        $data["address_country"]=$request->input("address_country");
+        $data["address_zip_code"]=$request->input("address_zip_code");
+        if($address_type_id==1){
+            $data["order_address_name"]=$order->shipping_name;
+            $data["order_address_email"]=$order->shipping_email;
+            $data["order_address_phone_number_1"]=$order->shipping_phone_number_1;
+            $data["order_address_phone_number_2"]=$order->shipping_phone_number_2;
+            $data["order_address_address_1"]=$order->shipping_address_1;
+            $data["order_address_address_2"]=$order->shipping_address_2;
+            $data["order_address_city"]=$order->shipping_city;
+            $data["order_address_state"]=$order->shipping_state;
+            $data["order_address_country"]=$order->shipping_country;
+            $data["order_address_zip_code"]=$order->shipping_zip_code;
+        }else if($address_type_id==2){
+            $data["order_address_name"]=$order->billing_name;
+            $data["order_address_email"]=$order->billing_email;
+            $data["order_address_phone_number_1"]=$order->billing_phone_number_1;
+            $data["order_address_phone_number_2"]=$order->billing_phone_number_2;
+            $data["order_address_address_1"]=$order->billing_address_1;
+            $data["order_address_address_2"]=$order->billing_address_2;
+            $data["order_address_city"]=$order->billing_city;
+            $data["order_address_state"]=$order->billing_state;
+            $data["order_address_country"]=$order->billing_country;
+            $data["order_address_zip_code"]=$order->billing_zip_code;
+        }
         return view("admin/orders/addresses/edit",$data);
+    }
+    public function saveOrderAddress(Request $request){
+        $data=[];
+        $this->validate($request,[
+            "address_name"=>"required",
+            "address_email"=>"required",
+            "address_phone_number_1"=>"required",
+            "address_address_1"=>"required",
+            "address_city"=>"required",
+            "address_state"=>"required",
+            "address_country"=>"required",
+            "address_zip_code"=>"required"
+        ]);
+        $order_id=$request->input("order_id");
+        $address_type_id=$request->input("address_type_id");
+        $order =$this->orders->find($order_id);
+        $address_var = $address_type_id==1? "shipping" : "billing";
+        $data["order_id"]=$order_id;
+        $data["address_var"]=$address_var;
+        $data["page_title"]="Edit Order ".$address_var." Address";
+
+        if($address_type_id==1){
+            $order->shipping_name=$request->input("address_name");
+            $order->shipping_email=$request->input("address_email");
+            $order->shipping_phone_number_1=$request->input("address_phone_number_1");
+            $order->shipping_phone_number_2=$request->input("address_phone_number_2");
+            $order->shipping_address_1=$request->input("address_address_1");
+            $order->shipping_address_2=$request->input("address_address_2");
+            $order->shipping_city=$request->input("address_city");
+            $order->shipping_state=$request->input("address_state");
+            $order->shipping_country=$request->input("address_country");
+            $order->shipping_zip_code=$request->input("address_zip_code");
+        }else if($address_type_id==2){
+            $order->billing_name=$request->input("address_name");
+            $order->billing_email=$request->input("address_email");
+            $order->billing_phone_number_1=$request->input("address_phone_number_1");
+            $order->billing_phone_number_2=$request->input("address_phone_number_2");
+            $order->billing_address_1=$request->input("address_address_1");
+            $order->billing_address_2=$request->input("address_address_2");
+            $order->billing_city=$request->input("address_city");
+            $order->billing_state=$request->input("address_state");
+            $order->billing_country=$request->input("address_country");
+            $order->billing_zip_code=$request->input("address_zip_code");
+        }
+        if($order->save()){
+            return redirect()->route("admin_edit_order",["order_id"=>$order_id])->with("success","address successfully saved");
+        }
+        return redirect()->back()->withErrors([
+            "required"=>"unable to save"
+        ]);
     }
     public function saveOrder($order_id,Request $request){
         $data=[];
@@ -136,6 +224,7 @@ class ordersController extends Controller
             "shipping_method"=>"required",
             "status"=>"required",
         ]);
+        $current_status=$order->status;
         $order->updated_at=carbon::now();
         $order->user_id=(int)$request->input("user");
         $order->purchase_date=$request->input("purchase_date");
@@ -147,6 +236,16 @@ class ordersController extends Controller
         $order->status=(int)$request->input("status");
         $order->ip=$request->ip();
         $order->save();
+        if($current_status != $request->input("status")){
+            $order_detail = $this->sendEmail($order_id);
+
+            Mail::send('emails.orderstatus_update',["order_detail"=>$order_detail],function($message) use($order_detail){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
+                $subject = 'Hello '.$client_name.', your order has been updated';
+                $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+            });
+        }
         return redirect()->route("admin_orders");
     }
     public function confirmCancel($order_id){
@@ -169,55 +268,8 @@ class ordersController extends Controller
         if($order->save()){
             DB::table('vestidos_orders_products')->where("id",$order->id)->update(["status"=>2]);
             //send email to user
-            foreach($order->products as $product){
-                $product_detail = $this->products->find($product->getProduct->id);
-                $size_detail = $this->sizes->find($product->size_id);
-                $color_detail = $this->colors->find($product->color_id);
-                $data_products_email[] = array(
-                    "quantity"=>$product->quantity,
-                    "total"=>$product->total,
-                    "color"=>$color_detail->name,
-                    "size"=>$size_detail->name,
-                    "name"=>$product_detail->products_name,
-                    "total"=>$product_detail->total_rent,
-                    "model"=>$product_detail->product_model,
-                    "img"=>$product_detail->images()->first()->img_url,
-                    "id"=>$product_detail->id
-                );
-            }
-            $order_detail=[
-                "user"=>$this->users->find($user_id),
-                "order"=>array(                        
-                    "order_number"=>$order->order_number,
-                    "purchase_date"=>$today,
-                    "shipping_name"=>$order->shipping_name,
-                    "shipping_address_1"=>$order->shipping_address_1,
-                    "shipping_address_2"=>$order->shipping_address_2,
-                    "shipping_city"=>$order->shipping_city,
-                    "shipping_state"=>$order->shipping_state,
-                    "shipping_country"=>$order->shipping_country,
-                    "shipping_zip_code"=>$order->shipping_zip_code,
-                    "shipping_phone_number_1"=>$order->shipping_phone_number_1,
-                    "shipping_phone_number_2"=>$order->shipping_phone_number_2,
-                    "shipping_email"=>$order->shipping_email,
-                    "billing_name"=>$order->billing_name,
-                    "billing_address_1"=>$order->billing_address_1,
-                    "billing_address_2"=>$order->billing_address_2,
-                    "billing_city"=>$order->billing_city,
-                    "billing_state"=>$order->billing_state,
-                    "billing_country"=>$order->billing_country,
-                    "billing_zip_code"=>$order->billing_zip_code,
-                    "billing_phone_number_1"=>$order->billing_phone_number_1,
-                    "billing_phone_number_2"=>$order->billing_phone_number_2,
-                    "billing_email"=>$order->billing_email,
-                    "products"=>$data_products_email,
-                    "order_total"=>$order->order_total,
-                    "order_tax"=>$order->order_tax,
-                    "status"=>$order->getStatusName->name,
-                    "shipping_total"=>$order->order_shipping,
-                    "order_grand_total"=>$order->order_total + $order->order_tax + $order->order_shipping,
-                )
-            ];
+            $order_detail = $this->sendEmail($order_id);
+
             Mail::send('emails.ordercancel_confirm',["order_detail"=>$order_detail],function($message) use($order_detail){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
@@ -227,7 +279,61 @@ class ordersController extends Controller
         }
         return redirect()->route("admin_orders")->with('success',"order successfully cancelled");
     }
-
+    public function sendEmail($order_id){
+        $order=$this->orders->find($order_id);
+        $user_id = $order->user_id;
+        $today = carbon::now();
+        foreach($order->products as $product){
+            $product_detail = $this->products->find($product->getProduct->id);
+            $size_detail = $this->sizes->find($product->size_id);
+            $color_detail = $this->colors->find($product->color_id);
+            $data_products_email[] = array(
+                "quantity"=>$product->quantity,
+                "total"=>$product->total,
+                "color"=>$color_detail->name,
+                "size"=>$size_detail->name,
+                "name"=>$product_detail->products_name,
+                "total"=>$product_detail->total_rent,
+                "model"=>$product_detail->product_model,
+                "img"=>$product_detail->images()->first()->img_url,
+                "id"=>$product_detail->id
+            );
+        }
+        $order_detail=[
+            "user"=>$this->users->find($user_id),
+            "order"=>array(                        
+                "order_number"=>$order->order_number,
+                "purchase_date"=>$today,
+                "shipping_name"=>$order->shipping_name,
+                "shipping_address_1"=>$order->shipping_address_1,
+                "shipping_address_2"=>$order->shipping_address_2,
+                "shipping_city"=>$order->shipping_city,
+                "shipping_state"=>$order->shipping_state,
+                "shipping_country"=>$order->shipping_country,
+                "shipping_zip_code"=>$order->shipping_zip_code,
+                "shipping_phone_number_1"=>$order->shipping_phone_number_1,
+                "shipping_phone_number_2"=>$order->shipping_phone_number_2,
+                "shipping_email"=>$order->shipping_email,
+                "billing_name"=>$order->billing_name,
+                "billing_address_1"=>$order->billing_address_1,
+                "billing_address_2"=>$order->billing_address_2,
+                "billing_city"=>$order->billing_city,
+                "billing_state"=>$order->billing_state,
+                "billing_country"=>$order->billing_country,
+                "billing_zip_code"=>$order->billing_zip_code,
+                "billing_phone_number_1"=>$order->billing_phone_number_1,
+                "billing_phone_number_2"=>$order->billing_phone_number_2,
+                "billing_email"=>$order->billing_email,
+                "products"=>$data_products_email,
+                "order_total"=>$order->order_total,
+                "order_tax"=>$order->order_tax,
+                "status"=>$order->getStatusName->name,
+                "shipping_total"=>$order->order_shipping,
+                "order_grand_total"=>$order->order_total + $order->order_tax + $order->order_shipping,
+            )
+        ];
+        return $order_detail;
+    }
     public function confirmDelete($order_id){
         $data=[];
         $data["order"]=$this->orders->find($order_id);
