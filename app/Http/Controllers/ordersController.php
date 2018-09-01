@@ -234,6 +234,10 @@ class ordersController extends Controller
         $order->order_total=$request->input("order_total");
         $order->order_tax=$request->input("order_tax");
         $order->status=(int)$request->input("status");
+        if($order->status==2){
+            $order->order_total_refund=$request->input("order_total_refund");
+            $order->order_refund_date=$request->input("order_refund_date");
+        }
         $order->ip=$request->ip();
         $order->save();
         if($current_status != $request->input("status")){

@@ -110,11 +110,18 @@
         </select>
         <small class="error">{{$errors->first("status")}}</small>
     </div>
+    @if($order->status=='2')
     <div class="form-group">
         <label for="orderRefund">Total Refund:</label>
         <input type="number" id="orderRefund" class="form-control" name="order_total_refund" min="0" step="0.01" value="{{ $order->order_total_refund }}" placeholder="0.00"/>
+        <small class="error">{{$errors->first("order_total_refund")}}</small>
     </div>
-
+    <div class="form-group">
+        <label for="orderDor">Date of Refund Issued:</label>
+        <input type="date" id="orderDor" min="2017-01-01" class="form-control" name="order_refund_date" value="{{ $order->order_refund_date }}" placeholder="Date of Refund"/>
+        <small class="error">{{$errors->first("order_refund_date")}}</small>
+    </div>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-md-6">
