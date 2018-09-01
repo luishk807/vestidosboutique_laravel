@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <title>Vestidos Boutique Admin</title>
     <style>
     .vestidos-footer-abs{
         width: 100%;
         background-color: #f5f5f5;
     }
-    #wrap{
+    #admin-wrap{
         min-height: 100%;
         height: auto !important;
         height: 100%;
@@ -25,38 +24,44 @@
 </style>
 </head>
 <body>
-    <div id="wrap">
-        <nav class="navbar navbar-expand-md bg-light">
+    <div id="admin-wrap">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ route('admin') }}">Vestidos Boutique Admin</a>
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Products</a></li>
-                <li class="nav-item"><a href="{{ route('admin_vendors') }}" class="nav-link">Vendors</a></li>
-                <li class="nav-item"><a href="{{route('admin_orders')}}" class="nav-link">Orders</a></li>
-                <li class="nav-item"><a href="{{route('admin_users')}}" class="nav-link">Users</a></li>
-                <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Basic</a>
-                    <div class="dropdown-menu">
-                        <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>
-                        <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>
-                        <a href="{{ route('admin_dresstypes')}}" class="nav-link">Dress Types</a>
-                        <a href="{{ route('admin_dressstyles')}}" class="nav-link">Dress Styles</a>
-                        <a href="{{ route('admin_fits')}}" class="nav-link">Dress Fit Types</a>
-                        <a href="{{ route('admin_fabrics')}}" class="nav-link">Fabric Type</a>
-                        <a href="{{ route('admin_necklines')}}" class="nav-link">Neckline Type</a>
-                        <a href="{{ route('admin_category')}}" class="nav-link">Category</a>
-                        <a href="{{ route('admin_waistlines')}}" class="nav-link">Waistlines</a>
-                    </div>
-                </li>
-                <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Home Config</a>
-                    <div class="dropdown-menu">
-                        <a href="{{ route('main_sliders_page')}}" class="nav-link">Main Sliders</a>
-                        <a href="{{ route('shop_banners_page')}}" class="nav-link">Shop Banners</a>
-                        <a href="{{ route('top_quinces_page')}}" class="nav-link">Top Quince</a>
-                        <a href="{{ route('top_dresses_page')}}" class="nav-link">Top Dresses</a>
-                    </div>
-                </li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="{{ route('admin_logout_user') }}" class="nav-link">Sign Out</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Products</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_vendors') }}" class="nav-link">Vendors</a></li>
+                    <li class="nav-item"><a href="{{route('admin_orders')}}" class="nav-link">Orders</a></li>
+                    <li class="nav-item"><a href="{{route('admin_users')}}" class="nav-link">Users</a></li>
+                    <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Basic</a>
+                        <div class="dropdown-menu  navbar-dark bg-dark">
+                            <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>
+                            <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>
+                            <a href="{{ route('admin_dresstypes')}}" class="nav-link">Dress Types</a>
+                            <a href="{{ route('admin_dressstyles')}}" class="nav-link">Dress Styles</a>
+                            <a href="{{ route('admin_fits')}}" class="nav-link">Dress Fit Types</a>
+                            <a href="{{ route('admin_fabrics')}}" class="nav-link">Fabric Type</a>
+                            <a href="{{ route('admin_necklines')}}" class="nav-link">Neckline Type</a>
+                            <a href="{{ route('admin_category')}}" class="nav-link">Category</a>
+                            <a href="{{ route('admin_waistlines')}}" class="nav-link">Waistlines</a>
+                        </div>
+                    </li>
+                    <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Home Config</a>
+                        <div class="dropdown-menu  navbar-dark bg-dark">
+                            <a href="{{ route('main_sliders_page')}}" class="nav-link">Main Sliders</a>
+                            <a href="{{ route('shop_banners_page')}}" class="nav-link">Shop Banners</a>
+                            <a href="{{ route('top_quinces_page')}}" class="nav-link">Top Quince</a>
+                            <a href="{{ route('top_dresses_page')}}" class="nav-link">Top Dresses</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </nav>
-        <div class="container">
+        <div class="container my-5">
             <div class="row">
                 <div class="col text-center">
                 <h2>{{$page_title}}</h2>
@@ -74,13 +79,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="{{ asset('js/vestidos_admin.js') }}"></script>
     <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
-<script>
-	$(document).ready(function(){
-		$(".rate-view").rate({
-			readonly:true
-		});
-	})
-</script>
     <div id="footer" class="vestidos-footer-abs">
         <div class="container">
             footer

@@ -14,7 +14,7 @@ class adminHomeController extends Controller
     }
     public function signin(){
         $data=[];
-        $data["page_title"]="Login";
+        $data["page_title"]="Admin Login";
         return view("admin/login",$data);
     }
     public function login(Request $request){
@@ -54,7 +54,7 @@ class adminHomeController extends Controller
         $data=[];
         if(Auth::guard("vestidosAdmins")->check()){
             Auth::guard("vestidosAdmins")->logout();
-            return redirect()->route('login_page',$data);
+            return redirect()->route('admin_show_login',$data)->with("msg","you are succefully logout");
         }
         return redirect()->back();
     }
