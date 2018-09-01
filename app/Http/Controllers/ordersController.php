@@ -32,7 +32,7 @@ class ordersController extends Controller
     }
     public function index(){
         $data=[];
-        $data["orders"]=$this->orders->all();
+        $data["orders"]=$this->orders->paginate(10);
         $data["page_title"]="Orders";
         return view("admin/orders/home",$data);
     }

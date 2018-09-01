@@ -47,6 +47,21 @@
         </div>
     </div>
     @endif
+    <div class="row">
+        <div class="col">
+            <div class="shoplist-nav">
+                <ul>
+                        @if(!empty($orders->previousPageUrl()))
+                    <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
+                    @endif
+                    <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                    @if($orders->nextPageUrl())
+                    <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
+                    @endif
+                </ul>
+            </div><!--end of nav container-->
+        </div>
+    </div>
     <!--start of orders-->
     @foreach($orders as $order)
     <div class="row admin_orders_row">
@@ -123,7 +138,21 @@
     </div><!--end of order detail-->
     @endforeach
     <!--end of row orders-->
-
+    <div class="row">
+        <div class="col">
+            <div class="shoplist-nav">
+                <ul>
+                        @if(!empty($orders->previousPageUrl()))
+                    <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
+                    @endif
+                    <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                    @if($orders->nextPageUrl())
+                    <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
+                    @endif
+                </ul>
+            </div><!--end of nav container-->
+        </div>
+    </div>
 
 </div>
 @endsection

@@ -43,7 +43,7 @@ class adminProductController extends Controller
     }
     function index(){
         $data=[];
-        $data["products"]=$this->products->all();
+        $data["products"]=$this->products->paginate(10);
         $data["page_title"]="Product Page";
         return view("admin/products/home",$data);
     }
