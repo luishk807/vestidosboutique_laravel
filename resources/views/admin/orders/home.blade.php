@@ -67,8 +67,9 @@
                         <div class="col-md-2">{{ $order->shipping_zip_code }}</div>
                         <div class="col-md-4 order_action_label text-right">
                             <!--actions go here-->
-                            <span><a href="{{ route('admin_confirm_order',['order_id'=>$order->id])}}">cancel</a></span>
-                            <span><a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">edit</a></span>
+                            <span><a href="{{ route('admin_confirm_delete_order',['order_id'=>$order->id])}}">Delete</a></span>
+                            <span><a href="{{ route('admin_confirm_order',['order_id'=>$order->id])}}">Cancel</a></span>
+                            <span><a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">Edit</a></span>
                         </div>
                     </div>
                 </div>

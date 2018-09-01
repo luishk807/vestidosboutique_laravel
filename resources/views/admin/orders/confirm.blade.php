@@ -1,11 +1,11 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('admin_delete_order',['order_id'=>$order->id])}}" method="post">
+<form action="{{ route('admin_cancel_order',['order_id'=>$order->id])}}" method="post">
 {{ method_field('DELETE') }}
 <div class="container cancel-container">
     <div class="row">
         <div class="col text-center">
-            are you sure want to delete {{ $order->order_number }}
+            are you sure want to cancel {{ $order->order_number }}
         </div>
     </div>
     <div class="row">

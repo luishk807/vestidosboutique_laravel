@@ -102,6 +102,19 @@ class ordersController extends Controller
         $data["page_title"]="Edit Order";
         return view("admin/orders/edit",$data);
     }
+    public function editOrderAddress($order_id,$address_type){
+        $data=[];
+        $order =$this->orders->find($order_id);
+        $data["order"]=$order;
+        $data["address_type"]=$address_type;
+        $data["order_id"]=$order_id;
+        $user=$this->users->find($order->user_id);
+        $data["products"]=$this->products->all();
+        $data["shipping_lists"]=$this->shipping_lists->all();
+        $data["statuses"]=$this->statuses->all();
+        $data["page_title"]="Edit Order";
+        return view("admin/orders/addresses/edit",$data);
+    }
     public function saveOrder($order_id,Request $request){
         $data=[];
         $order =$this->orders->find($order_id);
@@ -136,14 +149,14 @@ class ordersController extends Controller
         $order->save();
         return redirect()->route("admin_orders");
     }
-    public function confirmDelete($order_id){
+    public function confirmCancel($order_id){
         $data=[];
         $data["order"]=$this->orders->find($order_id);
         $data["cancel_reasons"]=$this->cancel_reasons->all();
-        $data["page_title"]="Confirm Order Delete";
+        $data["page_title"]="Confirm Order Cancellation";
         return view("admin/orders/confirm",$data);
     }
-    public function deleteOrder($order_id,Request $request){
+    public function cancelOrder($order_id,Request $request){
         $data=[];
         $order = $this->orders->find($order_id);
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
@@ -213,5 +226,22 @@ class ordersController extends Controller
             });
         }
         return redirect()->route("admin_orders")->with('success',"order successfully cancelled");
+    }
+
+    public function confirmDelete($order_id){
+        $data=[];
+        $data["order"]=$this->orders->find($order_id);
+        $data["page_title"]="Confirm Order Delete";
+        return view("admin/orders/confirm_delete",$data);
+    }
+    public function deleteOrder($order_id,Request $request){
+        $data=[];
+        $order = $this->orders->find($order_id);
+        $user_id = Auth::guard("vestidosUsers")->user()->getId();
+        $user_id=$order->user_id;
+        if($order->delete()){
+            return redirect()->route("admin_orders")->with('success',"order successfully deleted");
+        }
+        return redirect()->route("admin_orders")->with('error',"order can't be deleted");
     }
 }

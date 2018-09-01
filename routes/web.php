@@ -309,8 +309,10 @@
             //Admin Orders
             Route::prefix("orders")->group(function(){
                 Route::get('/','ordersController@index')->name("admin_orders");
-                Route::get('/confirm/{order_id}','ordersController@confirmDelete')->name('admin_confirm_order');
-                Route::delete('/confirm/{order_id}','ordersController@deleteOrder')->name('admin_delete_order');
+                Route::get('/confirm/{order_id}','ordersController@confirmCancel')->name('admin_confirm_order');
+                Route::delete('/confirm/{order_id}','ordersController@cancelOrder')->name('admin_cancel_order');
+                Route::get('/confirm_delete/{order_id}','ordersController@confirmDelete')->name('admin_confirm_delete_order');
+                Route::delete('/confirm_delete/{order_id}','ordersController@deleteOrder')->name('admin_delete_order');
                 Route::get('/new','ordersController@newOrders')->name('admin_new_order');
                 Route::post('/new','ordersController@newOrders')->name('admin_create_order');
                 Route::get('/edit/{order_id}','ordersController@editOrder')->name('admin_edit_order');
@@ -327,8 +329,8 @@
                 Route::prefix("address")->group(function(){
                     Route::get('/new/{order_id}','ordersControlle@newOrderAddress')->name('admin_new_order_address');
                     Route::post('/new/{order_id}','ordersControlle@createOrderAddress')->name('admin_create_order_address');
-                    Route::get('/edit/{order_id}/{address_type_id}','ordersControlle@editOrderAddress')->name('admin_edit_order_address');
-                    Route::post('/edit/{order_id}/{address_type_id}','ordersControlle@saveOrderAddress')->name('admin_save_order_address');
+                    Route::get('/edit/{order_id}/{address_type_id}','ordersController@editOrderAddress')->name('admin_edit_order_address');
+                    Route::post('/edit/{order_id}/{address_type_id}','ordersController@saveOrderAddress')->name('admin_save_order_address');
                 });
             });
         });
