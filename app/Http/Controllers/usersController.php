@@ -13,6 +13,7 @@ use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use Mail;
 use Redirect;
 
 class usersController extends Controller
@@ -81,6 +82,12 @@ class usersController extends Controller
         $data["created_at"]=carbon::now();
         $data["password"]=Hash::make($request->input("password"));
         if($this->users->insert($data)){
+            Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $client_name = $data['first_name']." ".$data["last_name"];
+                $subject = 'Hello '.$client_name.', your account registration is completed';
+                $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+            });
             return redirect()->route('account_create_confirmed');
         }else{
             return redirect()->back();

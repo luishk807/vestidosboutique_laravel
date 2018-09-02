@@ -110,7 +110,11 @@
     <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
     <div id="footer" class="vestidos-footer-abs">
         <div class="container">
-            footer
+            <div class="row">
+                <div class="col text-center my-4">
+                    Vestidos Boutique &copy; 2018
+                </div>
+            </div>
         </div>
     </div>
 </body>

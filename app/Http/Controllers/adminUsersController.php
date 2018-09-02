@@ -10,6 +10,7 @@ use App\vestidosGenders as Genders;
 use Carbon\Carbon as carbon;
 use Illuminate\Support\Facades\Hash;
 use App\vestidosLanguages as Languages;
+use Mail;
 
 class adminUsersController extends Controller
 {
@@ -36,7 +37,17 @@ class adminUsersController extends Controller
         $data["users"]=$this->users->all();
         return view("admin/users/home",$data);
     }
-    public function newUser(Request $request){
+    public function showNewUserForm(){
+        $data = [];
+        $data["page_title"]="New Users";
+        $data["genders"] = $this->genders->all();
+        $data["user_types"]=$this->user_types->all();
+        $data["statuses"]=$this->statuses->all();
+        $data["users"]=$this->users->all();
+        $data["languages"]=$this->languages->all();
+        return view("admin/users/new",$data);
+    }
+    function createUserForm(Request $request){
         $data = [];
         $data["password"]=$request->input("password");
         $data["first_name"]=$request->input("first_name");
@@ -49,30 +60,32 @@ class adminUsersController extends Controller
         $data["preferred_language"]=$request->input("preferred_language");
         $data["status"]=(int)$request->input("status");
         $data["user_type"]=(int)$request->input("user_type");
+
+        $this->validate($request,[
+            "password"=>"required | same:re-type_password",
+            "first_name"=>"required",
+            "last_name"=>"required",
+            "gender"=>"required",
+            "email"=>"required",
+            "date_of_birth"=>"required",
+            "preferred_language"=>"required",
+            "status"=>"required",
+        ]);
         $data["ip"]=$request->ip();
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "password"=>"required | same:re-type_password",
-                "first_name"=>"required",
-                "last_name"=>"required",
-                "gender"=>"required",
-                "email"=>"required",
-                "date_of_birth"=>"required",
-                "preferred_language"=>"required",
-                "status"=>"required",
-            ]);
-            $data["created_at"]=carbon::now();
-            $data["password"]=Hash::make($request->input("password"));
-            $this->users->insert($data);
+
+        $data["created_at"]=carbon::now();
+        $data["password"]=Hash::make($request->input("password"));
+
+        if($this->users->insert($data)){
+            Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $client_name = $data['first_name']." ".$data["last_name"];
+                $subject = 'Hello '.$client_name.', your account registration is completed';
+                $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+            });
             return redirect()->route("admin_users");
         }
-        $data["page_title"]="New Users";
-        $data["genders"] = $this->genders->all();
-        $data["user_types"]=$this->user_types->all();
-        $data["statuses"]=$this->statuses->all();
-        $data["users"]=$this->users->all();
-        $data["languages"]=$this->languages->all();
-        return view("admin/users/new",$data);
+        return redirect()->back();
     }
     function showUpdateUser($user_id, Request $request){
         $data=[];
