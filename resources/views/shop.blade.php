@@ -1,10 +1,6 @@
 @extends("layouts.sub-layout")
 @section('content')
 <style>
-.vesti-new-border-b{
-  border-top: 60px solid #87124a;
-  border-right: 60px solid transparent;
-}
 .vesti-new-txt-b{
   font-size: .7rem;
   margin-top: 10px;

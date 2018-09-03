@@ -730,6 +730,11 @@ background-size: cover;
 #session_msg.alert{
   color:$vesti-msg-color-alert;
 }
+//SHOP PAGE
+.vesti-new-border-b{
+  border-top: 60px solid $main_vest_color_b;
+  border-right: 60px solid transparent;
+}
 // PRODUCT PAGE
 .product_in{
   padding:50px 0px;
