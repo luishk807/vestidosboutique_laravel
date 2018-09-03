@@ -318,15 +318,17 @@
                 Route::get('/edit/{order_id}','ordersController@editOrder')->name('admin_edit_order');
                 Route::post('/edit/{order_id}','ordersController@saveOrder')->name('admin_save_order');
                 Route::prefix("products")->group(function(){
-                    Route::get('/{order_id}','ordersProductsController@index')->name("admin_order_products");
-                    Route::get('/new/{order_id}','ordersProductsController@newOrderProducts')->name('admin_new_order_products');
-                    Route::post('/new/{order_id}','ordersProductsController@createOrderProducts')->name('admin_create_order_products');
+                    Route::get('/new','ordersProductsController@newOrderProducts')->name('admin_new_order_products');
+                    Route::post('/new','ordersProductsController@createOrderProducts')->name('admin_create_order_products');
                     Route::get('/edit/{order_product_id}','ordersProductsController@editOrderProduct')->name('admin_edit_order_products');
                     Route::post('/edit/{order_product_id}','ordersProductsController@saveOrderProduct')->name('admin_save_order_products');
                     Route::get('/confirm/{order_product_id}','ordersProductsController@confirmDeleteOrderProduct')->name('admin_confirm_order_products');
                     Route::delete('/confirm/{order_product_id}','ordersProductsController@deleteOrderProduct')->name('admin_delete_order_products');
+                    Route::get('/{order_id}','ordersProductsController@index')->name("admin_order_products");
                 });
                 Route::prefix("address")->group(function(){
+                    Route::get('/new','ordersController@showOrderAddress')->name('admin_show_new_order_address');
+                    Route::post('/new','ordersController@createOrderAddress')->name('admin_create_new_order_address');
                     Route::get('/edit/{order_id}/{address_type_id}','ordersController@editOrderAddress')->name('admin_edit_order_address');
                     Route::post('/edit','ordersController@saveOrderAddress')->name('admin_save_order_address');
                 });

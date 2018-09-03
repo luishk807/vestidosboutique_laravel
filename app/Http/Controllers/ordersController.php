@@ -18,14 +18,16 @@ use App\vestidosShippingLists as ShippingLists;
 use App\vestidosSizes as Sizes;
 use App\vestidosColors as Colors;
 use App\vestidosPaymentHistories as PaymentHistories;
+use App\vestidosAddressTypes as AddressTypes;
 use Braintree_Transaction;
 use Mail;
 use Auth;
+use Session;
 
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -38,10 +40,11 @@ class ordersController extends Controller
         $this->addresses=$addresses;
         $this->colors=$colors;
         $this->sizes=$sizes;
+        $this->address_types = $address_types;
     }
     public function index(){
         $data=[];
-        $data["orders"]=$this->orders->paginate(10);
+        $data["orders"]=$this->orders->orderBy('created_at','desc')->paginate(10);
         $data["page_title"]="Orders";
         return view("admin/orders/home",$data);
     }
@@ -68,33 +71,26 @@ class ordersController extends Controller
         $user_id=(int)$request->input("user");
         $data["user_id"]=$user_id;
         $data["purchase_date"]=$request->input("purchase_date");
-        $data["shipping_date"]=$request->input("shipping_date");
-        $data["order_total"]=$request->input("order_total");
-        $data["order_tax"]=$request->input("order_tax");
         $data["status"]=(int)$request->input("status");
         $ip=$request->ip();
         $data["ip"]=$ip;
         $this->validate($request,[
             "user"=>"required",
             "purchase_date"=>"required",
-            "order_total"=>"required",
-            "order_tax"=>"required",
             "status"=>"required"
         ]
         );
-        $date = carbon::now();
-        $data["created_at"]=$date;
-        $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
-        $order_number = "VB".$time_converted."-".$user_id;
-        $data["order_number"]=$order_number;
-        $order = new Orders();
+        // $date = carbon::now();
+        // $data["created_at"]=$date;
+        // $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
+        // $order_number = "VB".$time_converted."-".$user_id;
+        // $data["order_number"]=$order_number;
 
-        if($order_id=$order->insertGetId($data)){
-            return redirect()->route("admin_new_order_products",['order_id'=>$order_id]);
+        if(Session::has("vestidos_admin_shop")){
+            Session::forget("vestidos_admin_shop");
         }
-        else{
-            return redirect()->back();
-        }
+        Session::put("vestidos_admin_shop",$data);
+        return redirect()->route("admin_show_new_order_address");
         
     }
     public function editOrder($order_id){
@@ -110,6 +106,103 @@ class ordersController extends Controller
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Order";
         return view("admin/orders/edit",$data);
+    }
+    public function showOrderAddress(){
+        $data=[];
+        $user=[];
+        if(Session::has("vestidos_admin_shop")){
+            $session=Session::get("vestidos_admin_shop");
+            $user = $this->users->find($session["user_id"]);
+        }
+        $data["user"]=$user;
+        $data["address_types"]=$this->address_types->all();
+        $data["countries"]=$this->countries->all();
+        $data["user_adresses"]=$this->addresses->all();
+        $data["page_title"]="New Order | Address";
+        return view("admin/orders/addresses/new",$data);
+    }
+    public function createOrderAddress(Request $request){
+        $data=[];
+        if(Session::has("vestidos_admin_shop")){
+            $data=Session::get("vestidos_admin_shop");
+            $user = $this->users->find($data["user_id"]);
+        }else{
+            return redirect()->route('admin_orders')->with("error","Invalid access");
+        }
+        $addresses=$request->input("addresses");
+        if(count($addresses) < 1){
+            $this->validate($request,[
+                "name"=>"required",
+                "address_1"=>"required",
+                "city"=>"required",
+                "state"=>"required",
+                "country"=>"required",
+                "zip_code"=>"required",
+                "phone_number_1"=>"required",
+                "email"=>"required"
+            ]);
+        }
+        foreach($addresses as $address){
+            $address_type = $this->address_types->find($address["address_type"]);
+            if($address["address_type"]==1){
+                if($address["user_address_id"]){
+                    $user_address=$this->addresses->find($address["user_address_id"]);
+                    $data["shipping_name"]=$user_address->getFullName();
+                    $data["shipping_address_1"]=$user_address->address_1;
+                    $data["shipping_address_2"]=$user_address->address_2;
+                    $data["shipping_city"]=$user_address->city;
+                    $data["shipping_state"]=$user_address->state;
+                    $data["shipping_country"]=$user_address->country_id;
+                    $data["shipping_zip_code"]=$user_address->zip_code;
+                    $data["shipping_phone_number_1"]=$user_address->phone_number_1;
+                    $data["shipping_phone_number_2"]=$user_address->phone_number_2;
+                    $data["shipping_email"]=$user_address->email;
+                }else{
+                    $data["shipping_name"]=$request->input("name");
+                    $data["shipping_address_1"]=$request->input("address_1");
+                    $data["shipping_address_2"]=$request->input("address_2");
+                    $data["shipping_city"]=$request->input("city");
+                    $data["shipping_state"]=$request->input("state");
+                    $data["shipping_country"]=$request->input("country");
+                    $data["shipping_zip_code"]=$request->input("zip_code");
+                    $data["shipping_phone_number_1"]=$request->input("phone_number_1");
+                    $data["shipping_phone_number_2"]=$request->input("phone_number_2");
+                    $data["shipping_email"]=$request->input("email");
+                }
+            }
+            elseif($address["address_type"]==2){
+                if($address["user_address_id"]){
+                    $address=$this->addresses->find($address["user_address_id"]);
+                    $data["billing_name"]=$user_address->getFullName();
+                    $data["billing_address_1"]=$user_address->address_1;
+                    $data["billing_address_2"]=$user_address->address_2;
+                    $data["billing_city"]=$user_address->city;
+                    $data["billing_state"]=$user_address->state;
+                    $data["billing_country"]=$user_address->country_id;
+                    $data["billing_zip_code"]=$user_address->zip_code;
+                    $data["billing_phone_number_1"]=$user_address->phone_number_1;
+                    $data["billing_phone_number_2"]=$user_address->phone_number_2;
+                    $data["billing_email"]=$user_address->email;
+                }else{
+                    $data["billing_name"]=$request->input("name");
+                    $data["billing_address_1"]=$request->input("address_1");
+                    $data["billing_address_2"]=$request->input("address_2");
+                    $data["billing_city"]=$request->input("city");
+                    $data["billing_state"]=$request->input("state");
+                    $data["billing_country"]=$request->input("country");
+                    $data["billing_zip_code"]=$request->input("zip_code");
+                    $data["billing_phone_number_1"]=$request->input("phone_number_1");
+                    $data["billing_phone_number_2"]=$request->input("phone_number_2");
+                    $data["billing_email"]=$request->input("email");
+                }
+            }else{
+                return redirect()->back()->with("error","Invalid Address");
+            }
+        }
+
+        Session::put("vestidos_admin_shop",$data);
+        return redirect()->route("admin_new_order_products");
+        
     }
     public function editOrderAddress(Request $request, $order_id,$address_type_id){
         $data=[];

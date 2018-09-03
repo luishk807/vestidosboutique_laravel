@@ -13,6 +13,7 @@ use App\vestidosCountries as Countries;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
+use Session;
 
 class ordersProductsController extends Controller
 {
@@ -34,37 +35,36 @@ class ordersProductsController extends Controller
         $data["page_title"]="Orders";
         return view("admin/orders/products/home",$data);
     }
-    public function newOrderProducts($order_id){
+    public function newOrderProducts(){
         $data=[];
-        $data["order_id"]=$order_id;
-        $order=$this->orders->find($order_id);
-        $data["order"]=$order;
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Add Products To Order: ";
         return view("admin/orders/products/new",$data);
     }
-    public function createOrderProducts($order_id,Request $request){
+    public function createOrderProducts(Request $request){
         $data=[];
-        $data["order_id"]=$order_id;
-        $data["status"]=(int)$request->input("status");
-        $data["ip"]=$request->ip();
+        if(Session::has("vestidos_admin_shop")){
+            $data=Session::get("vestidos_admin_shop");
+            $user = $this->users->find($data["user_id"]);
+        }else{
+            return redirect()->route('admin_orders')->with("error","Invalid access");
+        }
         $order_products=$request->input("order_products");
         $order_p=[];
-        $data["order_products"]=$order_products;
         foreach($order_products as $product){
             if(!empty($product["product_id"])){
                 $order_p[]=[
                     "product_id"=>$product['product_id'],
-                    "order_id"=>$order_id,
-                    "quantity"=>$product['quantity'],
-                    "status"=>"1",
-                    "created_at"=>carbon::now()
+                    "quantity"=>$product['quantity']
                 ];
             }
         }
-        $this->order_products->insert($order_p);
-        return redirect()->route("admin_orders");
+        $data["products"]=$order_p;
+        // $this->order_products->insert($order_p);
+        // return redirect()->route("admin_orders");
+
+        dd($data);
     }
     public function editOrderProduct($order_id,Request $request){
         $data=[];

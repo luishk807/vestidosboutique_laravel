@@ -21,23 +21,6 @@ var getProductUrl = "{{ url('api/getProduct') }}";
         <input type="date" id="orderDoo" min="1950-01-01" class="form-control" name="purchase_date" value="{{ old('purchase_date')}}" placeholder="Date of Purchase"/>
         <small class="error">{{$errors->first("purchase_date")}}</small>
     </div>
-    <div class="form-group">
-        <label for="orderDos">Date of Shipping:</label>
-        <input type="date" id="orderDos" min="1950-01-01" class="form-control" name="shipping_date" value="{{ old('shipping_date')}}" placeholder="Date of Shipping"/>
-        <small class="error">{{$errors->first("shipping_date")}}</small>
-    </div>
-
-    <div class="form-group">
-        <label for="orderTotal">Total:</label>
-        <input type="number" id="orderTotal" class="form-control" name="order_total" min="0" step="0.01" value="" placeholder="0.00"/>
-        <small class="error">{{$errors->first("order_total")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="orderTax">Total Tax:</label>
-        <input type="number" id="orderTax" class="form-control" name="order_tax" min="0" step="0.01" value="" placeholder="0.00"/>
-        <small class="error">{{$errors->first("order_tax")}}</small>
-    </div>
-
 
     <div class="form-group">
         <label for="orderStatus">Status:</label>
@@ -54,12 +37,12 @@ var getProductUrl = "{{ url('api/getProduct') }}";
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_orders') }}">
+                <a class="admin-btn" href="{{ route('admin_orders') }}">
                     Back To Orders
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Order and Choose Products"/>
+                <input type="submit" class="admin-btn" value="Proceed To Address"/>
             </div>
         </div>
     </div>

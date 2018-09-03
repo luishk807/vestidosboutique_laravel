@@ -74,14 +74,14 @@
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row text-center">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_edit_order',['order_id'=>$order->id]) }}">
+                <a class="admin-new" href="{{ route('admin_edit_order',['order_id'=>$order->id]) }}">
                     Back To Product
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save {{$address_var}} Address"/>
+                <input type="submit" class="admin-new" value="Save {{$address_var}} Address"/>
             </div>
         </div>
     </div>

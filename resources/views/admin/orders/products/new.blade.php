@@ -8,7 +8,7 @@
     width:20%;
 }
 </style>
-<form action="{{ route('admin_create_order_products',['order_id'=>$order_id]) }}" method="post">
+<form action="{{ route('admin_create_order_products') }}" method="post">
 {{ csrf_field() }}
 
     <table class="table order-product-list">
@@ -49,9 +49,12 @@
         </tbody>
     </table>
     <div class="container">
-        <div class="row">
+        <div class="row text-center">
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Order"/>
+                <a href="{{ route('admin_show_new_order_address') }}" class="admin-btn">Back To Addresses</a>
+            </div>
+            <div class="col-md-6">
+                <input type="submit" class="admin-btn" value="Continue To Payment"/>
             </div>
         </div>
     </div>
