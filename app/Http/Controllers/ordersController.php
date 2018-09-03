@@ -55,47 +55,47 @@ class ordersController extends Controller
         $product = $this->products->find($product_id);
         return response()->json($product);
     }
-    public function newOrders(Request $request){
+    public function newOrders(){
         $data=[];
-        $user_id=(int)$request->input("user");
-        $data["user_id"]=$user_id;
-        $data["purchase_date"]=$request->input("purchase_date");
-        $data["shipping_date"]=$request->input("shipping_date");
-        $data["ship_address_id"]=(int)$request->input("ship_address");
-        $data["bill_address_id"]=(int)$request->input("bill_address");
-        $data["order_total"]=$request->input("order_total");
-        $data["order_tax"]=$request->input("order_tax");
-        $data["order_shipping"]=$request->input("order_shipping");
-        $data["status"]=(int)$request->input("status");
-        $ip=$request->ip();
-        $data["ip"]=$ip;
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "user"=>"required",
-                "purchase_date"=>"required",
-                "ship_address"=>"required",
-                "bill_address"=>"required",
-                "order_total"=>"required",
-                "order_tax"=>"required",
-                "order_shipping"=>"required",
-                "status"=>"required"
-            ]
-            );
-            $date = carbon::now();
-            $data["created_at"]=$date;
-            $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
-            $order_number = "VB".$time_converted."-".$user_id;
-            $data["order_number"]=$order_number;
-            $order = new Orders();
-            $order_id=$order->insertGetId($data);
-
-            return redirect()->route("admin_new_order_products",['order_id'=>$order_id]);
-        }
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Order";
         return view("admin/orders/new",$data);
+    }
+    public function createOrder(Request $request){
+        $data=[];
+        $user_id=(int)$request->input("user");
+        $data["user_id"]=$user_id;
+        $data["purchase_date"]=$request->input("purchase_date");
+        $data["shipping_date"]=$request->input("shipping_date");
+        $data["order_total"]=$request->input("order_total");
+        $data["order_tax"]=$request->input("order_tax");
+        $data["status"]=(int)$request->input("status");
+        $ip=$request->ip();
+        $data["ip"]=$ip;
+        $this->validate($request,[
+            "user"=>"required",
+            "purchase_date"=>"required",
+            "order_total"=>"required",
+            "order_tax"=>"required",
+            "status"=>"required"
+        ]
+        );
+        $date = carbon::now();
+        $data["created_at"]=$date;
+        $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
+        $order_number = "VB".$time_converted."-".$user_id;
+        $data["order_number"]=$order_number;
+        $order = new Orders();
+
+        if($order_id=$order->insertGetId($data)){
+            return redirect()->route("admin_new_order_products",['order_id'=>$order_id]);
+        }
+        else{
+            return redirect()->back();
+        }
+        
     }
     public function editOrder($order_id){
         $data=[];

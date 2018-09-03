@@ -26,20 +26,6 @@ var getProductUrl = "{{ url('api/getProduct') }}";
         <input type="date" id="orderDos" min="1950-01-01" class="form-control" name="shipping_date" value="{{ old('shipping_date')}}" placeholder="Date of Shipping"/>
         <small class="error">{{$errors->first("shipping_date")}}</small>
     </div>
-    <div class="form-group">
-        <label for="orderShipAddress">Shipping Address:</label>
-        <select class="custom-select" name="ship_address" id="orderShipAddress">
-            <option value="">Select Shipping Address</option>
-        </select>
-        <small class="error">{{$errors->first("ship_address")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="orderBillingAddress">Billing Address:</label>
-        <select class="custom-select" name="bill_address" id="orderBillingAddress">
-            <option value="">Select Billing Address</option>
-        </select>
-        <small class="error">{{$errors->first("bill_address")}}</small>
-    </div>
 
     <div class="form-group">
         <label for="orderTotal">Total:</label>
@@ -50,11 +36,6 @@ var getProductUrl = "{{ url('api/getProduct') }}";
         <label for="orderTax">Total Tax:</label>
         <input type="number" id="orderTax" class="form-control" name="order_tax" min="0" step="0.01" value="" placeholder="0.00"/>
         <small class="error">{{$errors->first("order_tax")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="orderShipping">Total Shipping:</label>
-        <input type="number" id="orderShipping" class="form-control" name="order_shipping" min="0" step="0.01" value="" placeholder="0.00"/>
-        <small class="error">{{$errors->first("order_shipping")}}</small>
     </div>
 
 

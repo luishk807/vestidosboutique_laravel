@@ -314,7 +314,7 @@
                 Route::get('/confirm_delete/{order_id}','ordersController@confirmDelete')->name('admin_confirm_delete_order');
                 Route::delete('/confirm_delete/{order_id}','ordersController@deleteOrder')->name('admin_delete_order');
                 Route::get('/new','ordersController@newOrders')->name('admin_new_order');
-                Route::post('/new','ordersController@newOrders')->name('admin_create_order');
+                Route::post('/new','ordersController@createOrder')->name('admin_create_order');
                 Route::get('/edit/{order_id}','ordersController@editOrder')->name('admin_edit_order');
                 Route::post('/edit/{order_id}','ordersController@saveOrder')->name('admin_save_order');
                 Route::prefix("products")->group(function(){

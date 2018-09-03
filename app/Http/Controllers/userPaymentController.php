@@ -277,8 +277,8 @@ class userPaymentController extends Controller
         $nonce = $request->input('nonce', false);
         $today = carbon::now();
         $todayf = $today->format("dmY");
-        $random = rand(0,9999);
-        $order_number = "VES-".$todayf.$random;
+        $random = rand(0,99);
+        $order_number = "VES-".$todayf.$user_id.$random;
 
         //GET TOTAL
         $data_products = [];
