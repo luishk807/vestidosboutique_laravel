@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row vesti-footer-section-1">
         <div class="col-md-4  text-center">
-            Vestidos Boutique
+            <img src="{{ asset('images/logo_white.svg') }}" class="vesti-svg vestidos-logo-b"/>
         </div>
 
         <div class="col-md-8  text-center">

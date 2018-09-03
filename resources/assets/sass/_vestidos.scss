@@ -86,12 +86,6 @@ body,html{
 .navbar-vesti-cart{
   position: relative;
 }
-.vestidos-main-nav{
-  position: absolute;
-  width: 100%;
-  height: 50px;
-  z-index: 9999;
-}
 .vest-maincolor{
 	background-color:$main_vest_color;
 	color:white;
@@ -317,24 +311,6 @@ background-size: cover;
 /* .section > div{
   vertical-align:top;
 } */
-.vestidos-footer{
-  padding-top:150px;
-  padding-bottom:50px;
-  font-family:Arial;
-}
-
-
-.vesti-footer-section-2{
-  border-top:$main-vesti-color-light 1px solid;
-}
-.vesti-footer-section-2 div:first-child{
-  border-right:$main-vesti-color-light 1px solid;
-}
-
-.vesti-footer-section-2 .text-right img{
-  margin:10px 0px;
-}
-
 .quince-select-title{
   font-size:3rem;
   font-family:'Playfair Display';

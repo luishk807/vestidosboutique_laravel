@@ -20,20 +20,47 @@
 <script>
     var addWishlistUrl = "{{ url('api/saveWishlist') }}";
 </script>
+<style>
+.vestidos-logo{
+    width: 160px;
+    height: 70px;
+    background-size: 160px 70px;
+}
+.vestidos-main-nav{
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    z-index: 9999;
+}
+.container-fluid{
+    padding-right:0px;
+    padding-left: 0px;
+}
+.vestidos-logo-b{
+    width: 170px;
+    height: 130px;
+    background-size: 170px 130px;
+}
+.vestidos-footer .vesti-footer-section-1{
+    padding: 10px 0px;
+}
+</style>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >
-     <div id="vestidos-top-news" class="container-fluid navbar-fixed-top">
+     <!-- <div id="vestidos-top-news" class="container-fluid navbar-fixed-top">
         <div class="row">
             <div class="col">
               Order Now for Free Shipping
             </div>
         </div>
-     </div>
+     </div> -->
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-lg navbar-light">
         <div class="vest-maincolor-container container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand text-white" href="/" >Vestidos</a>
+                <a class="navbar-brand text-white" href="/" >
+                    <img src="{{ asset('images/logo_text_only_white.svg') }}" class="vesti-svg vestidos-logo"/>
+                </a>
             </div>
             <button id='vesti-main-nav-btn' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span></span>

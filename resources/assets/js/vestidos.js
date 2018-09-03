@@ -59,8 +59,10 @@ $(document).ready(function() {
     function initialization(){
         $('#fullpage').fullpage({
             // scrollOverflow: true,
-            navigation: true,
+            navigation: false,
+            autoScrolling: false,
             responsiveWidth: 900,
+            scrollBar: true,
             menu: '.navbar',
             afterRender: function () {
                 //on page load, start the slideshow
