@@ -93,9 +93,11 @@
                                             <span>${{ number_format($product->getProduct->total_rent,'2','.',',') }}</span>
                                         </div>
                                         <div class="col-md-3">
+                                            @if(!$product->getProduct->is_rated())
                                             <div class="vesti_in_btn_pnl">
                                                 <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">Write Review</a>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

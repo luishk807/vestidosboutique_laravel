@@ -19,7 +19,7 @@
         <div class="container cancel-container">
             <div class="row">
                 <div class="col text-center">
-                    <h3>Are you sure want to delete order {{ $order->order_number }}?</h3>
+                    <h3>Are you sure want to cancel order {{ $order->order_number }}?</h3>
                 </div>
             </div>
             <div class="row">
