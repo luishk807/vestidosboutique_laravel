@@ -1,5 +1,23 @@
 @extends('admin/layouts.app')
 @section('content')
+<style>
+.admin-user-list .row:not(:first-child){
+    border-top:1px solid rgba(0,0,0,.2);
+}
+.admin-user-list .row:first-child{
+    background-color:black;
+    color:white;
+}
+.admin-user-list .row{
+   padding:5px 0px;
+}
+.admin-user-list .row .action a{
+  padding:0px 2px;
+}
+.admin-user-list .row .action a:not(:first-child){
+    border-left:1px solid rgba(0,0,0,.2);
+}
+</style>
 <div class="container">
     <div class="row">
         <div class="col text-center">
@@ -11,6 +29,8 @@
             
         </div>
     </div>
+</div>
+<div class="container admin-user-list">
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-2">Name</div>
@@ -26,7 +46,7 @@
         <div class="col-md-3">{{$user->email}}</div>
         <div class="col-md-2">{{ $user->getStatusName->name }}</div>
         <div class="col-md-2">{{ $user->getType->name }}</div>
-        <div class="col-md-2">
+        <div class="col-md-2 action">
             <a href="{{ route('confirm_adminuser',['user_id'=>$user->id])}}">delete</a>
             <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">edit</a>
         </div>
