@@ -6,11 +6,11 @@
         <div class="col-lg-9 container-in-center">
             <div>
                <div class="container-in-space confirm-col">
-                    <div class="row">
-                        <div class="col">
+                    <div class="row text-center">
+                        <div class="col-md-4">
                             <img src="{{ asset('images') }}/{{ $thankyou_img }}" class="vesti-svg vestidos-icons-confirm"/>
                         </div>
-                        <div class="col">
+                        <div class="col-md-8">
                             <h3>{{$thankyou_title}}</h3>
                             <div class="error_msg">{{ $thankyou_msg }}</div>
                             <div class="vesti_in_btn_pnl">

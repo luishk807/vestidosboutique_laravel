@@ -23,17 +23,17 @@
                                         <small class="error">{{$errors->first("preferred_language")}}</small>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="accountFirstName">First Name:</label>
                                         <input type="text" id="accountFirstName" class="form-control" name="first_name" value="{{ old('first_name')}}" placeholder="First Name"/>
                                         <small class="error">{{$errors->first("first_name")}}</small>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="accountMiddleName">Middle Name:</label>
                                         <input type="text" id="accountMiddleName" class="form-control" name="middle_name" value="{{ old('middle_name')}}" placeholder="Middle Name"/>
                                         <small class="error">{{$errors->first("middle_name")}}</small>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="accountLastName">Last Name:</label>
                                         <input type="text" id="accountLastName" class="form-control" name="last_name" value="{{ old('last_name')}}" placeholder="Last Name"/>
                                         <small class="error">{{$errors->first("last_name")}}</small>
