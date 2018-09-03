@@ -20,31 +20,6 @@
 <script>
     var addWishlistUrl = "{{ url('api/saveWishlist') }}";
 </script>
-<style>
-.vestidos-logo{
-    width: 160px;
-    height: 70px;
-    background-size: 160px 70px;
-}
-.vestidos-main-nav{
-    position: absolute;
-    width: 100%;
-    height: 70px;
-    z-index: 9999;
-}
-.container-fluid{
-    padding-right:0px;
-    padding-left: 0px;
-}
-.vestidos-logo-b{
-    width: 170px;
-    height: 130px;
-    background-size: 170px 130px;
-}
-.vestidos-footer .vesti-footer-section-1{
-    padding: 10px 0px;
-}
-</style>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >

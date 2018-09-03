@@ -2,6 +2,20 @@
     @include colum-gab(4,20px);
     list-style-type:none;
 }
+.vestidos-main-nav .container-fluid{
+    padding-right:0px;
+    padding-left: 0px;
+}
+.vestidos-logo{
+    width: 160px;
+    height: 70px;
+    background-size: 160px 70px;
+}
+.vestidos-logo-b{
+    width: 242px;
+    height: 190px;
+    background-size: 170px 130px;
+}
 div.submenu-panel .col{
     margin:20px 0px;
 }
@@ -71,7 +85,22 @@ margin:10px 0px;
 .vesti-custom-bg .navbar-nav{
     border-top:1px solid rgba(255, 255, 255, .5);
     font-family:Arial;
-    margin-top:50px;
+    margin-top:69px;
+}
+.vestidos-footer .vesti-footer-section-1{
+    padding: 10px 0px;
+}
+.vesti-footer-section-1 .footer-top-col:not(:last-child){
+    text-align:left !important;
+}
+.vesti-footer-section-1 .footer-top-col:last-child{
+    text-align:right !important;
+}
+.vesti-footer-section-2 .footer-bottom-col:first-child{
+    text-align:center !important;
+}
+.vesti-footer-section-2 .footer-bottom-col:last-child{
+    text-align:right !important;
 }
 .nav-list{
     padding-left: 0;
@@ -113,10 +142,10 @@ margin:10px 0px;
     padding:0px .9rem;
 }
 .vest-maincolor-left .nav-item{
-    padding:4px .9rem;
+    padding:14px .9rem;
 }
 .vest-maincolor-right .nav-item{
-    padding:9px .9rem;
+    padding:19px .9rem;
 }
 .vest-maincolor-left > .nav-item:hover,
 .vest-maincolor-right > .nav-item:hover{
@@ -153,7 +182,7 @@ margin:10px 0px;
     position: absolute;
     min-width: 400px;
     right: 0;
-    top: 47px;
+    top: 67px;
     z-index:-1;
     border-left: $main_vest_color 1px solid;
     border-bottom: $main_vest_color 1px solid;
