@@ -89,6 +89,7 @@ class adminUsersController extends Controller
     }
     function showUpdateUser($user_id, Request $request){
         $data=[];
+        $user = $this->users->find($user_id);
         $data["user"]=$user;
         $data["page_title"]="Edit Users";
         $data["user_id"]=$user_id;
@@ -112,43 +113,65 @@ class adminUsersController extends Controller
         $data["status"]=(int)$request->input("status");
         $data["user_type"]=(int)$request->input("user_type");
         $user = $this->users->find($user_id);
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "first_name"=>"required",
-                "password" => "same:re-type_password",
-                "last_name"=>"required",
-                "phone_number"=>"required",
-                "email"=>"required",
-                "date_of_birth"=>"required",
-                "gender"=>"required",
-                "preferred_language"=>"required",
-                "status"=>"required"
-            ]);
-            if(!empty($request->input("password"))){
-                $user->password = Hash::make($request->input("password"));
-            }
-            $user->first_name = $request->input("first_name");
-            $user->middle_name = $request->input("middle_name");
-            $user->last_name = $request->input("last_name");
-            $user->phone_number = $request->input("phone_number");
-            $user->email = $request->input("email");
-            $user->date_of_birth = $request->input("date_of_birth");
-            $user->gender = (int)$request->input("gender");
-            $user->user_type = (int)$request->input("user_type");
-            $user->preferred_language = (int)$request->input("preferred_language");
-            $user->status = (int)$request->input("status");
-            $user->updated_at = carbon::now();
-            $user->save();
-            return redirect()->route("admin_users");
+        $this->validate($request,[
+            "first_name"=>"required",
+            "password" => "same:re-type_password",
+            "last_name"=>"required",
+            "phone_number"=>"required",
+            "email"=>"required",
+            "date_of_birth"=>"required",
+            "gender"=>"required",
+            "preferred_language"=>"required",
+            "status"=>"required"
+        ]);
+        if(!empty($request->input("password"))){
+            $user->password = Hash::make($request->input("password"));
         }
-        // $data["user"]=$user;
-        // $data["page_title"]="Edit Users";
-        // $data["user_id"]=$user_id;
-        // $data["user_types"]=$this->user_types->all();
-        // $data["statuses"]=$this->statuses->all();
-        // $data["languages"]=$this->languages->all();
-        // $data["genders"]=$this->genders->all();
-        // return view("admin/users/edit",$data);
+        //CHECK STATUS
+        $old_status=(int)$request->input("status");
+        $sendEmail = ($user->status != $old_status) ? true : false;
+
+        $user->first_name = $request->input("first_name");
+        $user->middle_name = $request->input("middle_name");
+        $user->last_name = $request->input("last_name");
+        $user->phone_number = $request->input("phone_number");
+        $user->email = $request->input("email");
+        $user->date_of_birth = $request->input("date_of_birth");
+        $user->gender = (int)$request->input("gender");
+        $user->user_type = (int)$request->input("user_type");
+        $user->preferred_language = (int)$request->input("preferred_language");
+        $user->status = (int)$request->input("status");
+        $user->updated_at = carbon::now();
+        if($user->save()){
+            if($sendEmail){
+                switch($user->status){
+                    case 1:
+                        $data["message"]="Congratulations! Your account has been activated.";
+                    break;
+                    case 2:
+                        $data["message"]="Your account has been cancelled";
+                    break;
+                    case 4:
+                        $data["message"]="Your account has been placed on hold until further notice.";
+                    break;
+                    case 7:
+                        $data["message"]="This email is to notify you that your account required notification before activation.";
+                    break;
+                    default:
+                        $data["message"]="Your account has been updated!.";
+                }
+                $data["status"]=$user->getStatusName->name;
+                Mail::send('emails.adminuser_update',["data"=>$data],function($message) use($data){
+                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $client_name = $data['first_name']." ".$data["last_name"];
+                    $subject = 'Hello '.$client_name.', your account is updated';
+                    $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                });
+            }
+            return redirect()->route("admin_users")->with("success","User Updated");
+        }else{
+            redirect()->back();
+        }
     }
     public function deleteUser($user_id,Request $request){
         $data=[];

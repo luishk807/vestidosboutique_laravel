@@ -291,7 +291,7 @@
                 Route::get("/",'adminUsersController@index')->name("admin_users");
                 Route::get("/new",'adminUsersController@showNewUserForm')->name("admin_newuser");
                 Route::post("/new",'adminUsersController@createUserForm')->name("admin_createuser");
-                Route::get("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_edituser");
+                Route::get("/edit/{user_id}",'adminUsersController@showUpdateUser')->name("admin_edituser");
                 Route::post("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_updateuser");
                 Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adminuser');
                 Route::delete('/confirm/{user_id}','adminUsersController@deleteUser')->name('delete_adminuser');

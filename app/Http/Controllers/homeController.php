@@ -139,7 +139,7 @@ class HomeController extends Controller
                 "email"=>"required | email",
                 "password"=>"required"
             ]);
-            if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 1])) {
+            if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 1,'status'=>1])) {
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
                 return redirect()->route('user_account');
