@@ -140,7 +140,7 @@ class adminUsersController extends Controller
         $user->gender = (int)$request->input("gender");
         $user->user_type = (int)$request->input("user_type");
         $user->preferred_language = (int)$request->input("preferred_language");
-        $user->status = (int)$request->input("status");
+        $user->status =$old_status;
         $user->updated_at = carbon::now();
         if($user->save()){
             if($sendEmail){
@@ -160,7 +160,7 @@ class adminUsersController extends Controller
                     default:
                         $data["message"]="Your account has been updated!.";
                 }
-                $data["status"]=$user->getStatusName->name;
+                $data["status_name"]=$user->getStatusName->name;
                 Mail::send('emails.adminuser_update',["data"=>$data],function($message) use($data){
                     $message->from("info@vestidosboutique.com","Vestidos Boutique");
                     $client_name = $data['first_name']." ".$data["last_name"];

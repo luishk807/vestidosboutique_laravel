@@ -17,7 +17,19 @@ class vestidosUsers extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','middle_name','last_name', 'email', 'password',
+        'first_name',
+        'middle_name',
+        'last_name', 
+        'email', 
+        'password',
+        'status',
+        'user_type',
+        'gender',
+        'phone_number',
+        'date_of_birth',
+        'ip',
+        'created_at',
+        'updated_at'
     ];
 
     /**

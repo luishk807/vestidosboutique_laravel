@@ -1,7 +1,7 @@
 <table>
     <tr>
         <td align="left"><img width="200" src="{{ asset('/images/vestidos_boutique_image.jpg') }}" class="img-fluid" alt=""></td>
-        <td align="right" valign="bottom"><strong>{{ $data["status"] }}</strong></td>
+        <td align="right" valign="bottom"><strong>{{ $data["status_name"] }}</strong></td>
     </tr>
     <tr>
         <td colspan='2'>
