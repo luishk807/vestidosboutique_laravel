@@ -91,7 +91,7 @@ class adminUsersController extends Controller
         $data=[];
         $user = $this->users->find($user_id);
         $data["user"]=$user;
-        $data["page_title"]="Edit Users";
+        $data["page_title"]="Edit Info For ".$user->first_name;
         $data["user_id"]=$user_id;
         $data["user_types"]=$this->user_types->all();
         $data["statuses"]=$this->statuses->all();

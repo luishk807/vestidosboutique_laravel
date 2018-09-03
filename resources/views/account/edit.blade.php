@@ -32,17 +32,17 @@
                         <small class="error">{{$errors->first("preferred_language")}}</small>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="accountFirstName">First Name:</label>
                         <input type="text" id="accountFirstName" class="form-control" name="first_name" value="{{ old('first_name') ? old('first_name') : $user->first_name }}" placeholder="First Name"/>
                         <small class="error">{{$errors->first("first_name")}}</small>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="accountMiddleName">Middle Name:</label>
                         <input type="text" id="accountMiddleName" class="form-control" name="middle_name" value="{{ old('middle_name') ? old('middle_name') : $user->middle_name }}" placeholder="Last Name"/>
                         <small class="error">{{$errors->first("middle_name")}}</small>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="accountLastName">Last Name:</label>
                         <input type="text" id="accountLastName" class="form-control" name="last_name" value="{{ old('last_name') ? old('last_name') : $user->last_name }}" placeholder="Last Name"/>
                         <small class="error">{{$errors->first("last_name")}}</small>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                         <label for="accountEmail">Email:</label>
-                        <input type="email" id="accountEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $user->email }}" placeholder="Email"/>
+                        <input type="email" readonly id="accountEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $user->email }}" placeholder="Email"/>
                         <small class="error">{{$errors->first("email")}}</small>
                 </div>
                 <div class="form-group">

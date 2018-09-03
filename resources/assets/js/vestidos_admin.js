@@ -4,6 +4,9 @@ $(document).ready(function() {
         e.preventDefault();
         return false;
     });
+    $(".rate-view").rate({
+        readonly:true
+    });
     $("#orderUser").change(function(){
         $.ajax({
            type: "GET",

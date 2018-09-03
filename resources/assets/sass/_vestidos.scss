@@ -736,6 +736,19 @@ background-size: cover;
   border-right: 60px solid transparent;
 }
 // PRODUCT PAGE
+.product_in_rate{
+  font-size:1.3rem;
+}
+.product_in_rate .rate-view{
+  color:$main_vest_color_b;
+}
+.product_in_rate .rate-count{
+  display: inline-block;
+  vertical-align: top;
+}
+.product_in_rate .rate-view{
+  display:inline-block;
+}
 .product_in{
   padding:50px 0px;
   margin: 100px auto 50px auto;

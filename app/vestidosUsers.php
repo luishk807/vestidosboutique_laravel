@@ -51,6 +51,6 @@ class vestidosUsers extends Authenticatable
         return $this->hasMany('App\vestidosUserAddresses',"user_id");
     }
     public function getType(){
-        return $this->hasOne('App\vestidosUserTypes',"user_type");
+        return $this->hasOne('App\vestidosUserTypes',"id","user_type");
     }
 }

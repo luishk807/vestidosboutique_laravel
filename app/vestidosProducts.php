@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class vestidosProducts extends Model
 {
@@ -57,6 +58,31 @@ class vestidosProducts extends Model
     }
     public function vendor(){
         return $this->belongsTo('App\vestidosVendors',"vendor_id","id");
+    }
+    public function getRatesByStatus($status){
+        $products = DB::table("vestidos_product_rates")
+                    ->select("vestidos_product_rates.*")
+                    ->where("status",$status)
+                    ->where("product_id",$this->getKey())
+                    ->get();
+        return $products;
+    }
+    public function is_rated(){
+        $user_id = Auth::guard("vestidosUsers")->user()->getId();
+        $products = DB::table("vestidos_product_rates")
+                    ->select("vestidos_product_rates.*")
+                    ->where("product_id",$this->getKey())
+                    ->where("user_id",$user_id)
+                    ->exists();
+        return $products;
+    }
+    public function getRateCountApproved(){
+        $products = DB::table("vestidos_product_rates")
+                    ->select("vestidos_product_rates.*")
+                    ->where("product_id",$this->getKey())
+                    ->where("status",1)
+                    ->get();
+        return $products;
     }
     public function getProductByCat($cat_id){
         $products = DB::table("vestidos_products")

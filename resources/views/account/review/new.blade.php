@@ -14,8 +14,6 @@ $(document).ready(function(){
     $(".review-rate-view").on("change", function(ev, data){
     document.getElementById("user_rate").value=data.to;
     });
-
-
 })
 
 </script>

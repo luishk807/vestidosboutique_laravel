@@ -63,7 +63,7 @@ class userProductRateController extends Controller
             "user_headline"=>"required"
         ]
         );
-        $data["status"]=11;
+        $data["status"]=13;
         $data["created_at"]=carbon::now();
         if($this->rates->insert($data)){
             return redirect()->route("user_account");
