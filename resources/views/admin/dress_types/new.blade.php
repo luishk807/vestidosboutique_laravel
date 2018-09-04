@@ -10,7 +10,6 @@
     <div class="form-group">
         <label for="dresstypeStatus">Status:</label>
         <select class="custom-select D" name="status" id="dresstypeStatus">
-            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
             @endforeach

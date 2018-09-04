@@ -30,7 +30,6 @@
     <div class="form-group">
         <label for="categoryStatus">Status:</label>
         <select class="custom-select" name="status" id="categoryStatus">
-            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
             @endforeach

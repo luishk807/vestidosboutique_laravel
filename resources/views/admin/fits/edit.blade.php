@@ -10,7 +10,6 @@
     <div class="form-group">
         <label for="fitStatus">Status:</label>
         <select class="custom-select fitStatus" name="status" id="fitStatus">
-            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}"
                 @if($status==$status)
