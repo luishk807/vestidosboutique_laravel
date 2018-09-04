@@ -24,6 +24,7 @@ class CreatePaymentHistory extends Migration
             $table->string("credit_card_type");
             $table->integer("credit_card_number");
             $table->string("payment_status");
+            $table->decimal('total')->nullable();
             $table->text("ip");
             $table->timestamps();
         });
