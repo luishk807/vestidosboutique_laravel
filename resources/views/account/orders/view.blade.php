@@ -1,5 +1,22 @@
 @extends("layouts.sub-layout-account")
 @section('content')
+<style>
+.dates-ul{
+    list-style-type: none;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+.dates-ul .dates-cont{
+    border:none;
+    padding:0px;
+    margin: 1px 0;
+}
+.dates-ul .dates-cont .dates .title{
+   font-weight:bold;
+   font-size:.8rem;
+}
+</style>
 <div class="container container-in-space white-md-bg-in">
     <div class="row">
         <div class="col">
@@ -16,7 +33,7 @@
                         <ul class="view-order-top-list">
                             <li>Ordered Date: {{ $order->purchase_date }}</li>
                             <li>Order# {{ $order->order_number }}</li>
-                            @if(empty($order->cancel_reason))
+                            @if(empty($order->cancel_reason) && $order->status != 3)
                             <li>
                                 <a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">Cancel Order</a>
                             </li>
@@ -91,6 +108,27 @@
                                             {{ $product->getProduct->products_description }}<br/>
                                             By:{{ $product->getProduct->vendor->first_name }} {{ $product->getProduct->vendor->last_name }}<br/>
                                             <span>${{ number_format($product->getProduct->total_rent,'2','.',',') }}</span>
+                                            <br/>
+                                            <ul class="dates-ul">
+                                                @if(!empty($product->cancelled_date))
+                                                <li class="dates-cont">
+                                                    <span class="dates"><span class="title">Cancelled Date:</span>{{ $product->cancelled_date }}</span>
+                                                </li>
+                                                @elseif(!empty($product->returned_date))
+                                                <li class="dates-cont">
+                                                    <span class="dates"><span class="title">Returned Date:</span>{{ $product->returned_date }}</span>
+                                                </li>
+                                                @elseif(!empty($product->delivered_date))
+                                                <li class="dates-cont">
+                                                    <span class="dates"><span class="title">Delivered Date:</span>{{ $product->delivered_date }}</span>
+                                                </li>
+                                                @elseif(!empty($product->shipped_date))
+                                                <li class="dates-cont">
+                                                    <span class="dates"><span class="title">Shipped Date:</span>{{ $product->shipped_date }}</span>
+                                                </li>
+                                                @endif
+                                            </ul>
+                                           
                                         </div>
                                         <div class="col-md-3">
                                             @if(!$product->getProduct->is_rated())

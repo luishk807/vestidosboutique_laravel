@@ -76,7 +76,7 @@
                             </tr>
                             <tr class="order-product-status">
                                 <td>{{$order->getStatusName->name}} 
-                                @if(empty($order->cancel_reason))
+                                @if(empty($order->cancel_reason) && $order->status != 3 )
                                 &nbsp; &nbsp; &lbrack;<a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">Cancel Order</a>&rbrack;
                                 @endif
                                 </td>
