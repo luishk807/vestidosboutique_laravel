@@ -34,12 +34,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('main_sliders_page') }}">
+                <a class="admin-btn" href="{{ route('main_sliders_page') }}">
                     Back To Sliders
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Slider"/>
+                <input type="submit" class="admin-btn" value="Save Slider"/>
             </div>
         </div>
     </div>

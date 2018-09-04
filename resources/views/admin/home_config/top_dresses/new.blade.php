@@ -70,7 +70,7 @@ function checkSubmit(){
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Select Top Dresses"/>
+                <input type="submit" class="admin-btn" value="Select Top Dresses"/>
             </div>
         </div>
     </div>

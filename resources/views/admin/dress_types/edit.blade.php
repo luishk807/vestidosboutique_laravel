@@ -24,12 +24,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_dresstypes') }}">
+                <a class="admin-btn" href="{{ route('admin_dresstypes') }}">
                     Back To Dress Types
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Dress Type"/>
+                <input type="submit" class="admin-btn" value="Save Dress Type"/>
             </div>
         </div>
     </div>

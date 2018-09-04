@@ -24,12 +24,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_waistlines') }}">
+                <a class="admin-btn" href="{{ route('admin_waistlines') }}">
                     Back To Waistlines
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Waistline"/>
+                <input type="submit" class="admin-btn" value="Save Waistline"/>
             </div>
         </div>
     </div>

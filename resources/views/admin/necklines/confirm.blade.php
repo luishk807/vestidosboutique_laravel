@@ -10,12 +10,12 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_necklines') }}">
+                <a class="admin-btn" href="{{ route('admin_necklines') }}">
                     Back To Neckline Type
                 </a>
         </div>
         <div class="col-md-6">
-            <input type="submit" class="btn-block vesti_in_btn" value="Delete Neckline"/>
+            <input type="submit" class="admin-btn" value="Delete Neckline"/>
         </div>
     </div>
 </div>

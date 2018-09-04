@@ -21,12 +21,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_sizes',['product_id'=>$product_id]) }}">
+                <a class="admin-btn" href="{{ route('admin_sizes',['product_id'=>$product_id]) }}">
                     Back To Sizes
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Size"/>
+                <input type="submit" class="admin-btn" value="Create Size"/>
             </div>
         </div>
     </div>

@@ -54,12 +54,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_category') }}">
+                <a class="admin-btn" href="{{ route('admin_category') }}">
                     Back To Categories
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Save Category"/>
+                <input type="submit" class="admin-btn" value="Save Category"/>
             </div>
         </div>
     </div>

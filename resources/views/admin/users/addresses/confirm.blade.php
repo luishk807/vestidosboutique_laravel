@@ -10,12 +10,12 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_address',['user_id'=>$user_id]) }}">
+                <a class="admin-btn" href="{{ route('admin_address',['user_id'=>$user_id]) }}">
                     Back To Addresses
                 </a>
         </div>
         <div class="col-md-6">
-            <input type="submit" class="btn-block vesti_in_btn" value="Delete Address"/>
+            <input type="submit" class="admin-btn" value="Delete Address"/>
         </div>
     </div>
 </div>

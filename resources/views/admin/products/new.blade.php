@@ -169,12 +169,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_products') }}">
+                <a class="admin-btn" href="{{ route('admin_products') }}">
                     Back To Products
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Product"/>
+                <input type="submit" class="admin-btn" value="Create Product"/>
             </div>
         </div>
     </div>

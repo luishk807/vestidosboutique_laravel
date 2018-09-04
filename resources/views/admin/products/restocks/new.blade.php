@@ -25,12 +25,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_restocks',['product_id'=>$product->id]) }}">
+                <a class="admin-btn" href="{{ route('admin_restocks',['product_id'=>$product->id]) }}">
                     Back To Restocks
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Restock"/>
+                <input type="submit" class="admin-btn" value="Create Restock"/>
             </div>
         </div>
     </div>

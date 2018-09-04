@@ -28,7 +28,7 @@ use Session;
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -41,6 +41,7 @@ class ordersController extends Controller
         $this->addresses=$addresses;
         $this->colors=$colors;
         $this->sizes=$sizes;
+        $this->tax_info = $tax->find(1);
         $this->address_types = $address_types;
     }
     public function index(){
@@ -475,57 +476,10 @@ class ordersController extends Controller
                 $new_product["status"]=9;
                 $new_product["created_at"]=$today;
 
-                //FOR EMAIL
-                $product_detail = $this->products->find($product["id"]);
-                $data_products_email[] = array(
-                    "quantity"=>$product["quantity"],
-                    "total"=>$product["total"],
-                    "color"=>$product["color"],
-                    "size"=>$product["size"],
-                    "name"=>$product["name"],
-                    "total"=>$product["total"],
-                    "model"=>$product_detail->product_model,
-                    "img"=>$product["img"],
-                    "id"=>$product["id"]
-                );
-
                 $this->order_products->insert($new_product);
             }
-             //SEND EMAIL
-             $ds_country = $this->countries->find($cart["shipping_country"]);
-             $db_country = $this->countries->find($cart["billing_country"]);
-             $order_detail=[
-                 "user"=>$this->users->find($user_id),
-                 "order"=>array(                        
-                     "order_number"=>$order_number,
-                     "purchase_date"=>$today,
-                     "shipping_name"=>$cart["shipping_name"],
-                     "shipping_address_1"=>$cart["shipping_address_1"],
-                     "shipping_address_2"=>$cart["shipping_address_2"],
-                     "shipping_city"=>$cart["shipping_city"],
-                     "shipping_state"=>$cart["shipping_state"],
-                     "shipping_country"=>$ds_country->countryCode,
-                     "shipping_zip_code"=>$cart["shipping_zip_code"],
-                     "shipping_phone_number_1"=>$cart["shipping_phone_number_1"],
-                     "shipping_phone_number_2"=>$cart["shipping_phone_number_2"],
-                     "shipping_email"=>$cart["shipping_email"],
-                     "billing_name"=>$cart["billing_name"],
-                     "billing_address_1"=>$cart["billing_address_1"],
-                     "billing_address_2"=>$cart["billing_address_2"],
-                     "billing_city"=>$cart["billing_city"],
-                     "billing_state"=>$cart["billing_state"],
-                     "billing_country"=>$db_country->countryCode,
-                     "billing_zip_code"=>$cart["billing_zip_code"],
-                     "billing_phone_number_1"=>$cart["billing_phone_number_1"],
-                     "billing_phone_number_2"=>$cart["billing_phone_number_2"],
-                     "billing_email"=>$cart["billing_email"],
-                     "products"=>$data_products_email,
-                     "order_total"=>$cart["order_total"],
-                     "order_tax"=>$cart["order_tax"],
-                     "status"=>$order->getStatusName->name,
-                     "shipping_total"=>$cart["order_shipping"]
-                 )
-             ];
+             //send email to user
+            $order_detail = $this->sendEmail($order->id);
              
              //send email to client
              Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){

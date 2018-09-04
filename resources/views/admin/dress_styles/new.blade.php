@@ -22,12 +22,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn-block vesti_in_btn" href="{{ route('admin_dressstyles') }}">
+                <a class="admin-btn" href="{{ route('admin_dressstyles') }}">
                     Back To Dress Style
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="btn-block vesti_in_btn" value="Create Dress Style"/>
+                <input type="submit" class="admin-btn" value="Create Dress Style"/>
             </div>
         </div>
     </div>
