@@ -1170,6 +1170,21 @@ width:30%;
   border-top:none;
 }
 //VIEW ORDER PAGE
+.view-order-main .dates-ul{
+  list-style-type: none;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+.view-order-main .dates-ul .dates-cont{
+  border:none;
+  padding:0px;
+  margin: 1px 0;
+}
+.view-order-main .dates-ul .dates-cont .dates .title{
+ font-weight:bold;
+ font-size:.8rem;
+}
 .view-order-main td,
 .view-order-main th{
     border-top:none !important;

@@ -1,10 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<style>
-.admin-btn:hover{
-    text-decoration:none !important;
-}
-</style>
 <div class="container">
     <form action="{{ route('admin_save_order_products',['order_id'=>$order->id]) }}" method="post">
     <div class="row">

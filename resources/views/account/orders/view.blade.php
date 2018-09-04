@@ -1,22 +1,5 @@
 @extends("layouts.sub-layout-account")
 @section('content')
-<style>
-.dates-ul{
-    list-style-type: none;
-    border: none;
-    padding: 0px;
-    margin: 0px;
-}
-.dates-ul .dates-cont{
-    border:none;
-    padding:0px;
-    margin: 1px 0;
-}
-.dates-ul .dates-cont .dates .title{
-   font-weight:bold;
-   font-size:.8rem;
-}
-</style>
 <div class="container container-in-space white-md-bg-in">
     <div class="row">
         <div class="col">
