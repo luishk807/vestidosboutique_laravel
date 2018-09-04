@@ -11,43 +11,73 @@
 <form action="{{ route('admin_create_order_products') }}" method="post">
 {{ csrf_field() }}
 
-    <table class="table order-product-list">
-        <thead>
-            <tr>
-                <td class="item"></td>
-                <td class="item">Image</td>
-                <td class="item">Name</td>
-                <td class="item">Total</td>
-                <td class="item">Quantity</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($products as $indexKey=>$product)
-            <tr>
-                <td class="item">
-                    <label class="form-check-label" for="productcheck{{$indexKey}}" class="label-table"></label>
-                    <input type="checkbox" name="order_products[{{$indexKey}}][product_id]" id="productcheck{{$indexKey}}" value="{{ $product->id }}">
-                </td>
-                <td class="item"><img src="
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-2">
+                Images
+            </div>
+            <div class="col-md-2">
+                Name
+            </div>
+            <div class="col-md-2">
+                Color
+            </div>
+            <div class="col-md-2">
+                Size
+            </div>
+            <div class="col-md-1">
+                Quant
+            </div>
+            <div class="col-md-2">
+                Total (sale)
+            </div>
+        </div>
+        @foreach($products as $indexKey=>$product)
+        <div class="row">
+            <div class="col-md-1">
+                <input type="checkbox" name="order_products[{{$indexKey}}][product_id]" id="productcheck{{$indexKey}}" value="{{ $product->id }}">
+            </div>
+            <div class="col-md-2">
+                <img src="
                 @if($product->images->count()>0)
                     {{asset('images/products')}}/{{$product->images->first()->img_url}}
                 @else
                 {{asset('images/no-image.jpg')}}
                 @endif
-                " alt="" class="img-fluid"></td>
-                <td class="item">{{$product->products_name}}</td>
-                <td class="item">{{$product->total_rent}}</td>
-                <td class="item">
-                    <select name="order_products[{{$indexKey}}][quantity]">
-                        @for ($i = 1; $i < 10; $i++)
-                        <option value="{{$i}}">{{$i}}</option>
-                        @endfor
-                    </select>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                " alt class="img-fluid">
+            </div>
+            <div class="col-md-2">
+                {{$product->products_name}}
+            </div>
+            <div class="col-md-2">
+                <select class="custom-select" name="order_products[{{$indexKey}}][color]">
+                    @foreach($product->colors as $color)
+                    <option value="{{$color->id}}">{{$color->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="custom-select" name="order_products[{{$indexKey}}][size]">
+                    @foreach($product->sizes as $size)
+                    <option value="{{$size->id}}">{{$size->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-1">
+                <select class="custom-select" name="order_products[{{$indexKey}}][quantity]">
+                    @for ($i = 1; $i < 10; $i++)
+                    <option value="{{$i}}">{{$i}}</option>
+                    @endfor
+                </select>
+            </div>
+            <div class="col-md-2">
+                {{$product->total_sale}}
+            </div>
+        </div>
+        @endforeach
+    </div>
     <div class="container">
         <div class="row text-center">
             <div class="col-md-6">

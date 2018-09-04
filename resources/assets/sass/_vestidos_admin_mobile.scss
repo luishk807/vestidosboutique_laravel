@@ -1,0 +1,20 @@
+@media only screen and (max-width: 600px) {
+    .admin-checkout-product{
+        .quantity,
+        .index,
+        .image,
+        .description,
+        .total{
+            text-align:center !important;
+        }
+    }
+    .admin-checkout-total{
+        .header,
+        .total{
+            text-align:center !important;
+        }
+    }
+}
+@media only screen and (max-device-width: 812px) and (orientation: landscape) {
+
+}

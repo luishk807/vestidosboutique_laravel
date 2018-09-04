@@ -333,6 +333,8 @@
                     Route::post('/edit','ordersController@saveOrderAddress')->name('admin_save_order_address');
                 });
                 Route::prefix("payment")->group(function(){
+                    Route::get('/checkout','ordersController@showAdminOrderCheckout')->name('admin_show_checkout');
+                    Route::post('/checkout','ordersController@processAdminOrderCheckout')->name('admin_process_checkout');
                     Route::get('/payment/{order_id}','ordersController@showAdminOrderPayment')->name('admin_show_order_payment');
                     Route::post('/process_payment/{order_id}','ordersController@orderAdminProcessPayment')->name('admin_process_order_payment');
                 });

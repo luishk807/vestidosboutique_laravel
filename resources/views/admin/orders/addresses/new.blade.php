@@ -17,6 +17,25 @@
 </div>
 <form action="{{ route('admin_create_new_order_address') }}" method="post">
 {{ csrf_field() }}
+    <div class="container admin-address-container">
+        <div class="row">
+            <div class="col header">
+                <h3>Delivery Address</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <select class="custom-select" name="shipping_list">
+                        @foreach($shipping_lists as $shipping_list)
+                        <option value="{{ $shipping_list->id }}">{{ $shipping_list->name }} - {{ $shipping_list->total }}</option>
+                        @endforeach
+                    </select>
+                    <small class="error">{{$errors->first("address_2")}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
     @foreach($address_types as $addressindex=>$address_type)
     <input type="hidden" name="addresses[{{$addressindex}}][address_type]" value="{{ $address_type->id }}"/>
     <div class="container admin-address-container">
@@ -29,7 +48,7 @@
             <div class="col">
                 @if($user->getAddresses()->count() > 0)
                 <div class="form-row">
-                    <select class="custom-select" name="addresses[{{$addressindex}}][user_address_id]]">
+                    <select class="custom-select" name="addresses[{{$addressindex}}][user_address_id]">
                         @foreach($user->getAddresses()->get() as $user_address)
                         <option value="{{ $user_address->id }}">{{ $user_address->nick_name }} - {{ $user_address->address_1 }} {{ $user_address->zip_code }}</option>
                         @endforeach
@@ -38,7 +57,7 @@
                 @else
                 <div class="form-row">
                     <label for="addressName">Name:</label>
-                    <input type="text" id="addressName" class="form-control" name="addresses[{{$addressindex}}][name]]" value="{{ old('name') }}" placeholder="Name"/>
+                    <input type="text" id="addressName" class="form-control" name="addresses[{{$addressindex}}][name]" value="{{ old('name') }}" placeholder="Name"/>
                     <small class="error">{{$errors->first("name")}}</small>
                 </div>
                 <div class="form-group">
@@ -83,7 +102,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="addressCountry">Country:</label>
-                        <select class="custom-select" name="addresses[{{$addressindex}}][country" id="addressCountry">
+                        <select class="custom-select" name="addresses[{{$addressindex}}][country]" id="addressCountry">
                             <option value="">Select Country</option>
                             @foreach($countries as $country)
                                 <option value="{{ $country->id }}">{{$country->countryName}} </option>
@@ -112,7 +131,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="admin-btn" value="Save Address"/>
+                <input type="submit" class="admin-btn" value="Proceed To Select Products"/>
             </div>
         </div>
     </div>

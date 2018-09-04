@@ -1,15 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<style>
-.admin-btn-b{
-    background-color: #fff;
-    border: 1px solid #000;
-    padding: 8px 40px;
-    color: #000;
-    cursor: pointer;
-    display: inline-block;
-}
-</style>
 <script src="https://js.braintreegateway.com/web/dropin/1.11.0/js/dropin.min.js"></script>
 <form action="{{ route('admin_process_order_payment',['order_id'=>$order->id]) }}" id="vestidos-checkout-form" method="post">
 

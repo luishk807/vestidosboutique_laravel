@@ -11,21 +11,29 @@ use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use App\vestidosCountries as Countries;
 use Illuminate\Support\Arr;
+use App\vestidosTaxInfos as Tax;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
+use App\vestidosShippingLists as ShippingLists;
+use App\vestidosColors as Colors;
+use App\vestidosSizes as Sizes;
 use Session;
 
 class ordersProductsController extends Controller
 {
     //
-    public function __construct(Countries $countries, Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products){
+    public function __construct(Countries $countries, Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,Tax $tax,ShippingLists $shippingLists,Colors $colors, Sizes $sizes){
+        $this->tax_info = $tax->find(1);
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
         $this->users=$users;
         $this->countries=$countries;
+        $this->colors = $colors;
+        $this->sizes = $sizes;
         $this->products=$products;
         $this->addresses=$addresses;
+        $this->shipping_lists = $shippingLists;
     }
     public function index($order_id){
         $data=[];
@@ -39,11 +47,13 @@ class ordersProductsController extends Controller
         $data=[];
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Add Products To Order: ";
+        $data["page_title"]="New Order | Add Products";
         return view("admin/orders/products/new",$data);
     }
     public function createOrderProducts(Request $request){
         $data=[];
+        $tax = $this->tax_info->tax;
+        $subtotal = 0;
         if(Session::has("vestidos_admin_shop")){
             $data=Session::get("vestidos_admin_shop");
             $user = $this->users->find($data["user_id"]);
@@ -54,17 +64,41 @@ class ordersProductsController extends Controller
         $order_p=[];
         foreach($order_products as $product){
             if(!empty($product["product_id"])){
-                $order_p[]=[
-                    "product_id"=>$product['product_id'],
+                $prod = $this->products->find($product['product_id']);
+
+                if(empty($product["color"]) || empty($product["size"]) || empty($product["quantity"])){
+                    return redirect()->back()->withErrors([
+                        "required"=>"Missing Size or Colors definition for ".$prod->products_name
+                    ]);
+                }
+
+                $total = $prod->total_sale * $product['quantity'];
+                $color = $this->colors->find($product["color"]);
+                $size = $this->sizes->find($product["size"]);
+                $subtotal += $total;
+                $order_p[]=array(
+                    "id"=>$prod->id,
+                    "name"=>$prod->products_name,
+                    "img"=>$prod->images->first()->img_url,
+                    "img_name"=>$prod->images->first()->img_name,
+                    "total"=>$prod->total_sale,
+                    "color_id"=>$product["color"],
+                    "color"=>$color->name,
+                    "size_id"=>$product["size"],
+                    "size"=>$size->name,
                     "quantity"=>$product['quantity']
-                ];
+                );
             }
         }
+        $shipping_list =$data["shipping_list"];
+        $data["order_total"]=$subtotal;
+        $data["order_tax"]=$subtotal * $tax;
+        $data["order_shipping"]=$shipping_list->total;
+        $data["grand_total"]=$subtotal + ($subtotal * $tax) + $shipping_list->total;
         $data["products"]=$order_p;
-        // $this->order_products->insert($order_p);
-        // return redirect()->route("admin_orders");
-
-        dd($data);
+        Session::forget('vestidos_admin_shop');
+        Session::put('vestidos_admin_shop',$data);
+        return redirect()->route("admin_show_checkout");
     }
     public function editOrderProduct($order_id,Request $request){
         $data=[];

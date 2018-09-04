@@ -377,6 +377,7 @@ class userPaymentController extends Controller
                         //SAVE PAYMENT HISTORIES
                         $new_payment=[];
                         $new_payment["order_id"]=$get_order->id;
+                        $new_payment["total"]=$grand_total;
                         $new_payment["user_id"]=$get_order->user_id;
                         $new_payment["transaction_id"]=$status->transaction->id;
                         $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
