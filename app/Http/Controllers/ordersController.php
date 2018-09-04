@@ -489,7 +489,7 @@ class ordersController extends Controller
                  //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
                  $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
              });
-             
+             Session::forget("vestidos_admin_shop");
             return redirect()->route('admin_orders')->with("success","order successfully created");
         }
         return redirect()->back()->withErrors([

@@ -108,7 +108,9 @@
                 <img src="{{ asset('images/products')}}/{{ $product['img'] }}" class="img-fluid" alt>
             </div>
             <div class="col-md-4 description">
-                {{ $product['name'] }}
+                {{ $product['name'] }}<br/>
+                Color: {{ $product['color'] }}<br/>
+                Size: {{ $product['size'] }}
             </div>
             <div class="col-md-2 quantity">
                 {{ $product['quantity'] }}
