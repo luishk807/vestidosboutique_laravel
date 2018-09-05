@@ -38,11 +38,11 @@
                     <div class="order-nav-list">
                         <ul>
                             @if(!empty($orders->previousPageUrl()))
-                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
+                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                             @endif
                             <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
                             @if($orders->nextPageUrl())
-                            <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
+                            <li><a href="{{ $orders->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
                             @endif
                         </ul>
                     </div><!--end of nav container-->
@@ -139,11 +139,11 @@
                     <div class="order-nav-list">
                         <ul>
                             @if(!empty($orders->previousPageUrl()))
-                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
+                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                             @endif
                             <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
                             @if($orders->nextPageUrl())
-                            <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
+                            <li><a href="{{ $orders->nextPageUrl() }}"> {{ __('pagination.next') }} &gt;</a></li>
                             @endif
                         </ul>
                     </div><!--end of nav container-->
