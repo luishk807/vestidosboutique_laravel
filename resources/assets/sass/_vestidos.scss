@@ -549,6 +549,35 @@ background-size: cover;
 .container-in-center{
   margin: 0px auto;
 }
+//CONTACT PAGE
+.contact-container{
+  padding-left:0px;
+  padding-right:0px;
+  .contact-section-right{
+    margin-top: 10%;
+  }
+  .contact-address{
+    padding:0px;
+    margin:10px 0px 0px 0px;
+    text-align:left;
+    .header{
+      font-weight:bold;
+      margin-top:10px;
+    }
+    .address-hour div:nth-child(1){
+      text-align:left;
+    }
+    .address-hour div:nth-child(2){
+      text-align:right;
+    }
+    .address-phone{
+      margin:5px 0px;
+    }
+    .address-phone a{
+      color:black;
+    }
+  }
+}
 /***ACCORDEON****/
 .card:first-child{
   border-bottom: none;

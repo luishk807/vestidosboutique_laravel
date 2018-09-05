@@ -1,14 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-.contact-container{
-    padding-left:0px;
-    padding-right:0px;
-}
-.contact-container .contact-section-right{
-    margin-top: 10%;
-}
-</style>
 <div class="main_sub_body contact_bg main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -18,7 +9,7 @@
                <div class="container-in-space white-md-bg-in">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-7">
+                            <div class="col-md-6">
                                 @if(isset($bodyMessage))
                                 <div class="w3-container w3-orange">
                                     <p>
@@ -72,9 +63,43 @@
                                 </form>
 
                             </div><!--end of contact form-->
-                            <div class="col-md-5 contact-section-right">
+                            <div class="col-md-6 contact-section-right">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vel earum ut tempore similique sint quam fugiat, sunt beatae reprehenderit voluptatum
-                            </div>
+                                <div class="container contact-address">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span class="header">Address</span><br/>
+                                            <a href='https://goo.gl/maps/xM81XLeuLGP2' target="_blank">El Calle Eusebio A. Morales, Hotel Milan, Local 2, En frente del Marquis Tower, Panama</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col address-phone">
+                                            <a target="_blank" class="footer-link" href="tel:5265848">(507) 203-5848</a> &#05; <a target="_blank" class="footer-link" href="67266556">(507) 6726-6556</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col header">
+                                            Openning Hours
+                                        </div>
+                                    </div>
+                                    <div class="row address-hour">
+                                        <div class="col-md-6">
+                                            Monday-Friday
+                                        </div>
+                                        <div class="col-md-6">
+                                            10:00 a.m. - 9:00 p.m.
+                                        </div>
+                                    </div>
+                                    <div class="row address-hour">
+                                        <div class="col-md-6">
+                                            Saturday
+                                        </div>
+                                        <div class="col-md-6">
+                                            10:00 a.m. - 9:00 p.m.
+                                        </div>
+                                    </div>
+                                </div><!--end of address-->
+                            </div><!--end of company info-->
                         </div>
                     </div>
 
