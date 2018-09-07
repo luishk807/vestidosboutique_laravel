@@ -81,7 +81,7 @@ class adminUsersController extends Controller
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = 'Hello '.$client_name.', your account registration is completed';
-                $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                $message->to($data["user"]["email"],$client_name)->subject($subject);
             });
             return redirect()->route("admin_users");
         }
@@ -165,7 +165,7 @@ class adminUsersController extends Controller
                     $message->from("info@vestidosboutique.com","Vestidos Boutique");
                     $client_name = $data['first_name']." ".$data["last_name"];
                     $subject = 'Hello '.$client_name.', your account is updated';
-                    $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                    $message->to($data["email"],$client_name)->subject($subject);
                 });
             }
             return redirect()->route("admin_users")->with("success","User Updated");

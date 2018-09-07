@@ -117,7 +117,7 @@ class HomeController extends Controller
                 $client_name = $client['first_name']." ".$client["last_name"];
                 $message->from($client["email"],$client_name);
                 $subject = 'New Email From '.$client_name.' Received';
-                $message->to("info@vestidosboutique.com")->subject($subject);
+                $message->to("info@vestidosboutique.com","Admin")->subject($subject);
             });
             return view("thankyou.contact",$data);
         }

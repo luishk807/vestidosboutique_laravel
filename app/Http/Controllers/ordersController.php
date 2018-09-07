@@ -358,7 +358,7 @@ class ordersController extends Controller
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = 'Hello '.$client_name.', your order has been updated';
-                $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                $message->to("info@vestidosboutique.com","Admin")->subject($subject);
             });
         }
         return redirect()->route("admin_orders");
@@ -486,8 +486,8 @@ class ordersController extends Controller
                  $message->from("info@vestidosboutique.com","Vestidos Boutique");
                  $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                  $subject = 'Hello '.$client_name.', thank you for your order';
-                 //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                 $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                 //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
              });
              Session::forget("vestidos_admin_shop");
             return redirect()->route('admin_orders')->with("success","order successfully created");
@@ -568,7 +568,7 @@ class ordersController extends Controller
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = 'Hello '.$client_name.', your order is cancelled';
-                $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
             });
         }
         return redirect()->route("admin_orders")->with('success',"order successfully cancelled");

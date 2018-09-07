@@ -78,8 +78,7 @@
                                                             Tax
                                                             </td>
                                                             <td>
-                                                            @php($tax_total = $last_order->order_total * $last_order->order_tax)
-                                                            ${{number_format($tax_total,'2','.',',')}}
+                                                            ${{number_format($last_order->order_tax,'2','.',',')}}
                                                             <td>
                                                         </tr>
                                                         <tr class="header2">

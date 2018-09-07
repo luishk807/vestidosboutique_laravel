@@ -429,8 +429,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = 'Hello '.$client_name.', thank you for your order';
-                            //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                            $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                            $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                            //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
                         });
                         
                         //send email to admin
@@ -438,8 +438,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = 'Hello Admin, new order received from '.$client_name;
-                            //$message->to("info@vestidosboutique.com","Admin")->subject($subject);
-                            $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                            $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                            //$message->to("evil_luis@hotmail.com","Admin")->subject($subject);
                         });
 
 
