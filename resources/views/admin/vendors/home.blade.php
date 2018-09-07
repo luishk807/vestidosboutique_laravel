@@ -13,6 +13,21 @@
         </div>
     </div>
     <div class="row">
+        <div class="col">
+            <div class="shoplist-nav">
+                <ul>
+                        @if(!empty($vendors->previousPageUrl()))
+                    <li><a href="{{ $vendors->previousPageUrl()}}">&lt; Back</a></li>
+                    @endif
+                    <li>{{ $vendors->currentPage()}} of {{ $vendors->count() }}</li>
+                    @if($vendors->nextPageUrl())
+                    <li><a href="{{ $vendors->nextPageUrl() }}">Next &gt;</a></li>
+                    @endif
+                </ul>
+            </div><!--end of nav container-->
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-4">Name</div>
         <div class="col-md-3">Status</div>
@@ -29,5 +44,20 @@
         </div>
     </div>
     @endforeach
+    <div class="row">
+        <div class="col">
+            <div class="shoplist-nav">
+                <ul>
+                        @if(!empty($vendors->previousPageUrl()))
+                    <li><a href="{{ $vendors->previousPageUrl()}}">&lt; Back</a></li>
+                    @endif
+                    <li>{{ $vendors->currentPage()}} of {{ $vendors->count() }}</li>
+                    @if($vendors->nextPageUrl())
+                    <li><a href="{{ $vendors->nextPageUrl() }}">Next &gt;</a></li>
+                    @endif
+                </ul>
+            </div><!--end of nav container-->
+        </div>
+    </div>
 </div>
 @endsection

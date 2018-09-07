@@ -31,7 +31,25 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="shoplist-nav">
+                <ul>
+                        @if(!empty($users->previousPageUrl()))
+                    <li><a href="{{ $users->previousPageUrl()}}">&lt; Back</a></li>
+                    @endif
+                    <li>{{ $users->currentPage()}} of {{ $users->count() }}</li>
+                    @if($users->nextPageUrl())
+                    <li><a href="{{ $users->nextPageUrl() }}">Next &gt;</a></li>
+                    @endif
+                </ul>
+            </div><!--end of nav container-->
+        </div>
+    </div>
+</div>
 <div class="container admin-user-list">
+
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-2">Name</div>
@@ -53,5 +71,22 @@
         </div>
     </div>
     @endforeach
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="shoplist-nav">
+                <ul>
+                        @if(!empty($users->previousPageUrl()))
+                    <li><a href="{{ $users->previousPageUrl()}}">&lt; Back</a></li>
+                    @endif
+                    <li>{{ $users->currentPage()}} of {{ $users->count() }}</li>
+                    @if($users->nextPageUrl())
+                    <li><a href="{{ $users->nextPageUrl() }}">Next &gt;</a></li>
+                    @endif
+                </ul>
+            </div><!--end of nav container-->
+        </div>
+    </div>
 </div>
 @endsection

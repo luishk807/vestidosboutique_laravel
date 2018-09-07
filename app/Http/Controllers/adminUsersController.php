@@ -34,7 +34,7 @@ class adminUsersController extends Controller
     public function index(){
         $data = [];
         $data["page_title"]="Users";
-        $data["users"]=$this->users->all();
+        $data["users"]=$this->users->paginate(10);
         return view("admin/users/home",$data);
     }
     public function showNewUserForm(){

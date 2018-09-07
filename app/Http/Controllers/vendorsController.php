@@ -19,7 +19,7 @@ class vendorsController extends Controller
     function index(){
         $data=[];
         $data["countries"]=$this->countries->all();
-        $data["vendors"]=$this->vendors->all();
+        $data["vendors"]=$this->vendors->paginate(10);
         $data["page_title"]="VendorPage";
         return view("admin/vendors/home",$data);
     }
