@@ -61,7 +61,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Estimated Tax to be collected</td>
-                                                    <td>${{number_format($order->order_total * $order->order_tax,'2','.',',')}}</td>
+                                                    <td>${{number_format($order->order_tax,'2','.',',')}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Grand Total</td>
@@ -90,6 +90,7 @@
                                                 <strong><a href="{{ route('product_page',['product_id'=>$product->getProduct->id]) }}">{{ $product->getProduct->products_name }}</a></strong><br/>
                                             {{ $product->getProduct->products_description }}<br/>
                                             By:{{ $product->getProduct->vendor->first_name }} {{ $product->getProduct->vendor->last_name }}<br/>
+                                            Quantity:{{ $product->quantity }}<br/>
                                             <span>${{ number_format($product->getProduct->total_rent,'2','.',',') }}</span>
                                             <br/>
                                             <ul class="dates-ul">
