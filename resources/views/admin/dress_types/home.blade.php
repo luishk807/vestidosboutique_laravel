@@ -6,6 +6,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_dresstype') }}" class="nav-link">Add Dress Type</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_dresstype') }}" class="nav-link">Import Dress Type</a></li>
             </ul>
             </nav>
             

@@ -15,6 +15,7 @@
                 <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
                 <li class="nav-item"><a href="{{ route('new_color',['product_id'=>$product_id]) }}" class="nav-link">Add Color</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_color',['product_id'=>$product_id]) }}" class="nav-link">Import Color</a></li>
             </ul>
             </nav>
             

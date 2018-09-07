@@ -142,4 +142,44 @@ class adminProductImagesController extends Controller
         $data["page_title"]="Delete Images";
         return view("admin/products/images/confirm",$data);
     }
+    public function showImportImage($product_id){
+        $data=[];
+        $data["page_title"]="Import Images";
+        $data["product_id"]=$product_id;
+        $data["import_btn"]="Import Images";
+        return view("admin/products/images/import",$data);
+    }
+
+    public function saveImportImage(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "products_id"=>$value->product_id,
+                        "img_name"=>$value->img_name,
+                        "img_url"=>$value->img_url,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    Images::insert($insert);
+                    return redirect()->route('admin_products')->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
 }

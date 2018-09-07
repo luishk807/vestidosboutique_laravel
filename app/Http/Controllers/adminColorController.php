@@ -84,4 +84,45 @@ class adminColorController extends Controller
         $data["product_id"]=$color->product_id;
         return view("admin/products/colors/confirm",$data);
     }
+    public function showImportColor($product_id){
+        $data=[];
+        $data["page_title"]="Import Colors";
+        $data["product_id"]=$product_id;
+        $data["import_btn"]="Import Colors";
+        return view("admin/products/colors/import",$data);
+    }
+
+    public function saveImportColor(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "name"=>$value->name,
+                        "color_code"=>$value->color_code,
+                        "product_id"=>$value->product_id,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    $data["product_id"]=$request->input("product_id");
+                    Colors::insert($insert);
+                    return redirect()->route('admin_colors',$data)->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
 }

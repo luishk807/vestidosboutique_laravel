@@ -6,6 +6,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_category') }}" class="nav-link">Add Category</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_category') }}" class="nav-link">Import Categories</a></li>
             </ul>
             </nav>
             

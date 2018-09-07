@@ -13,6 +13,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "larsjanssen6/underconstruction": "^2.8",
+        "maatwebsite/excel": "~2.1.0",
         "vrkansagara/lara-out-press": "^1.1"
     },
     "require-dev": {

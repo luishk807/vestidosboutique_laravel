@@ -80,4 +80,41 @@ class adminFitController extends Controller
         $data["page_title"]="Delete Fits";
         return view("admin/fits/confirm",$data);
     }
+    public function showImportFit(){
+        $data=[];
+        $data["page_title"]="Import Fits";
+        $data["import_btn"]="Import Fits";
+        return view("/admin/fits/import",$data);
+    }
+
+    public function saveImportFit(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "name"=>$value->name,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    Fits::insert($insert);
+                    return redirect()->route('admin_fits')->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
 }

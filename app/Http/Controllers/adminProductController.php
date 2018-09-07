@@ -18,6 +18,8 @@ use App\vestidosNecklineTypes as Necklines;
 use App\vestidosWaistlineTypes as Waistlines;
 use App\vestidosProductCategories as ProductCategories;
 use App\vestidosProductsRestocks as ProductRestocks;
+use Excel;
+use Illuminate\Support\Facades\Input;
 use Carbon\Carbon as carbon;
 use File;
 
@@ -411,5 +413,60 @@ class adminProductController extends Controller
                 }
             }
             return redirect()->route("top_quinces_page");
+    }
+
+    public function showImportProduct(){
+        $data=[];
+        $data["page_title"]="Import Product";
+        $data["import_btn"]="Import Products";
+        return view("/admin/products/import",$data);
+    }
+
+    public function saveImportProduct(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "products_name"=>$value->product_name,
+                        "product_model"=>$value->model_number,
+                        "products_description"=>$value->full_description,
+                        "brand_id"=>$value->brand,
+                        "product_stock"=>$value->stock,
+                        "product_closure_id"=>$value->closure,
+                        "product_detail"=>$value->short_detail,
+                        "product_fabric_id"=>$value->fabric,
+                        "product_fit_id"=>$value->fit,
+                        "product_length"=>$value->product_length,
+                        "product_neckline_id"=>$value->neckline,
+                        "product_waistline_id"=>$value->waistline,
+                        "total_sale"=>$value->total_sale,
+                        "is_sell"=>$value->is_for_sale,
+                        "total_rent"=>$value->total_rent,
+                        "is_rent"=>$value->is_for_rent,
+                        "purchase_date"=>$value->purchased_date,
+                        "vendor_id"=>$value->vendor,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    Products::insert($insert);
+                    return redirect()->route('admin_products')->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
 }

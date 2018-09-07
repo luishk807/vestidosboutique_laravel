@@ -85,4 +85,41 @@ class adminDressTypesController extends Controller
         $data["page_title"]="Dress Types";
         return view("admin/dress_types/home",$data);
     }
+    public function showImportDressType(){
+        $data=[];
+        $data["page_title"]="Import Dress Types";
+        $data["import_btn"]="Import Dress Types";
+        return view("/admin/dress_types/import",$data);
+    }
+
+    public function saveImportDressType(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "name"=>$value->name,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    DressTypes::insert($insert);
+                    return redirect()->route('admin_dresstypes')->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
 }

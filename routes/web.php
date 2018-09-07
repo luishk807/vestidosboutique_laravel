@@ -135,6 +135,8 @@
                 Route::post('/new','adminBrandController@newBrands')->name('create_brand');
                 Route::get('/edit/{brand_id}','adminBrandController@editBrand')->name('edit_brand');
                 Route::post('/edit/{brand_id}','adminBrandController@editBrand')->name('save_brand');
+                Route::get('/import','adminBrandController@showImportBrand')->name('show_import_brands');
+                Route::post('/import','adminBrandController@saveImportBrand')->name('save_import_brands');
             });
             //Admin Dress Types
             Route::prefix("dress_type")->group(function(){
@@ -145,6 +147,8 @@
                 Route::post('/new','adminDressTypesController@newDressTypes')->name('create_dresstype');
                 Route::get('/edit/{dresstype_id}','adminDressTypesController@editDressType')->name('edit_dresstype');
                 Route::post('/edit/{dresstype_id}','adminDressTypesController@editDressType')->name('save_dresstype');
+                Route::get('/import','adminDressTypesController@showImportDressType')->name('show_import_dresstype');
+                Route::post('/import','adminDressTypesController@saveImportDressType')->name('save_import_dresstype');
             });
             //Admin Dress Style
             Route::prefix("dress_style")->group(function(){
@@ -155,6 +159,8 @@
                 Route::post('/new','adminDressStylesController@newDressStyles')->name('create_dressstyle');
                 Route::get('/edit/{dressstyle_id}','adminDressStylesController@editDressStyle')->name('edit_dressstyle');
                 Route::post('/edit/{dressstyle_id}','adminDressStylesController@editDressStyle')->name('save_dressstyle');
+                Route::get('/import','adminDressStylesController@showImportDressStyle')->name('show_import_dressstyle');
+                Route::post('/import','adminDressStylesController@saveImportDressStyle')->name('save_import_dressstyle');
             });
             //Admin Category
             Route::prefix("categories")->group(function(){
@@ -165,6 +171,8 @@
                 Route::post('/new','categoriesController@newcategories')->name('create_category');
                 Route::get('/edit/{category_id}','categoriesController@editcategory')->name('edit_category');
                 Route::post('/edit/{category_id}','categoriesController@editcategory')->name('save_category');
+                Route::get('/import','categoriesController@showImportCategory')->name('show_import_category');
+                Route::post('/import','categoriesController@saveImportCategory')->name('save_import_category');
             });
             //Admin Closures
             Route::prefix("closures")->group(function(){
@@ -175,6 +183,8 @@
                 Route::post('/new','adminClosureController@newClosures')->name('create_closure');
                 Route::get('/edit/{closure_id}','adminClosureController@editClosure')->name('edit_closure');
                 Route::post('/edit/{closure_id}','adminClosureController@editClosure')->name('save_closure');
+                Route::get('/import','adminClosureController@showImportClosure')->name('show_import_closure');
+                Route::post('/import','adminClosureController@saveImportClosure')->name('save_import_closure');
             });
             //Admin fit
             Route::prefix("fits")->group(function(){
@@ -185,6 +195,8 @@
                 Route::post('/new','adminFitController@newFits')->name('create_fit');
                 Route::get('/edit/{fit_id}','adminFitController@editFit')->name('edit_fit');
                 Route::post('/edit/{fit_id}','adminFitController@editFit')->name('save_fit');
+                Route::get('/import','adminFitController@showImportFit')->name('show_import_fit');
+                Route::post('/import','adminFitController@saveImportFit')->name('save_import_fit');
             });
             
              //Admin Fabric
@@ -196,6 +208,8 @@
                 Route::post('/new','adminFabricController@newFabric')->name('create_fabric');
                 Route::get('/edit/{fabric_id}','adminFabricController@editFabric')->name('edit_fabric');
                 Route::post('/edit/{fabric_id}','adminFabricController@editFabric')->name('save_fabric');
+                Route::get('/import','adminFabricController@showImportFabric')->name('show_import_fabrics');
+                Route::post('/import','adminFabricController@saveImportFabric')->name('save_import_fabrics');
             });
              //Admin Neckline
              Route::prefix("necklines")->group(function(){
@@ -206,6 +220,8 @@
                 Route::post('/new','adminNecklineController@newNeckline')->name('create_neckline');
                 Route::get('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('edit_neckline');
                 Route::post('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('save_neckline');
+                Route::get('/import','adminNecklineController@showImportNeckline')->name('show_import_neckline');
+                Route::post('/import','adminNecklineController@saveImportNeckline')->name('save_import_neckline');
             });
              //Admin Waistline
              Route::prefix("waistlines")->group(function(){
@@ -216,6 +232,8 @@
                 Route::post('/new','adminWaistlineController@newWaistline')->name('create_waistline');
                 Route::get('/edit/{waistline_id}','adminWaistlineController@editWaistline')->name('edit_waistline');
                 Route::post('/edit/{waistline_id}','adminWaistlineController@editWaistline')->name('save_waistline');
+                Route::get('/import','adminWaistlineController@showImportWaistline')->name('show_import_waistline');
+                Route::post('/import','adminWaistlineController@saveImportWaistline')->name('save_import_waistline');
             });
             // //Admin Products
             Route::prefix("products")->group(function(){
@@ -226,6 +244,8 @@
                 Route::post('/create','adminProductController@createProduct')->name('create_product');
                 Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');
                 Route::post('/save/{product_id}','adminProductController@saveProduct')->name('save_product');
+                Route::get('/import','adminProductController@showImportProduct')->name('show_import_product');
+                Route::post('/import','adminProductController@saveImportProduct')->name('save_import_product');
                 Route::prefix("restock")->group(function(){
                     Route::get('/{product_id}','adminProductController@showRestock')->name("admin_restocks");
                     Route::get('/new/{product_id}','adminProductController@newRestock')->name("new_restock");
@@ -244,6 +264,8 @@
                     Route::post('/new/{product_id}','adminColorController@newColors')->name('create_color');
                     Route::get('/edit/{color_id}','adminColorController@editColor')->name('edit_color');
                     Route::post('/edit/{color_id}','adminColorController@editColor')->name('save_color');
+                    Route::get('/import/{product_id}','adminColorController@showImportColor')->name('show_import_color');
+                    Route::post('/import','adminColorController@saveImportColor')->name('save_import_color');
                 });
                 //Admin Size
                 Route::prefix("sizes")->group(function(){
@@ -254,6 +276,8 @@
                     Route::post('/new/{product_id}','adminSizesController@newSizes')->name('create_size');
                     Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
                     Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
+                    Route::get('/import/{product_id}','adminSizesController@showImportSize')->name('show_import_size');
+                    Route::post('/import','adminSizesController@saveImportSize')->name('save_import_size');
                 });
                 //Admin Image
                 Route::prefix("images")->group(function(){
@@ -264,6 +288,8 @@
                     Route::post('/new/{product_id}','adminProductImagesController@newImages')->name('create_image');
                     Route::get('/edit/{image_id}','adminProductImagesController@editImage')->name('edit_image');
                     Route::post('/edit/{image_id}','adminProductImagesController@editImage')->name('save_image');
+                    Route::get('/import/{product_id}','adminProductImagesController@showImportImage')->name('show_import_image');
+                    Route::post('/import','adminProductImagesController@saveImportImage')->name('save_import_image');
                 });
                 //Admin Rate
                 Route::prefix("rates")->group(function(){
@@ -285,6 +311,8 @@
                 Route::post('/edit/{vendor_id}','vendorsController@editVendor')->name('save_vendor');
                 Route::get('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('confirm_vendor');
                 Route::delete('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('delete_vendor');
+                Route::get('/import','vendorsController@showImportVendor')->name('show_import_vendor');
+                Route::post('/import','vendorsController@saveImportVendor')->name('save_import_vendor');
             });
             //Admin Users
             Route::prefix("users")->group(function(){
@@ -295,6 +323,8 @@
                 Route::post("/edit/{user_id}",'adminUsersController@updateUser')->name("admin_updateuser");
                 Route::get('/confirm/{user_id}','adminUsersController@deleteUser')->name('confirm_adminuser');
                 Route::delete('/confirm/{user_id}','adminUsersController@deleteUser')->name('delete_adminuser');
+                Route::get('/import','adminUsersController@showImportUser')->name('show_import_adminuser');
+                Route::post('/import','adminUsersController@saveImportUser')->name('save_import_adminuser');
                 Route::prefix("addresses")->group(function(){
                     Route::get("/{user_id}",'adminUsersController@userAddress')->name("admin_address");
                     Route::get("/new/{user_id}",'adminUsersAddressController@newAddress')->name("admin_newaddress");

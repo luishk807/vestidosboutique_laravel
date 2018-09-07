@@ -6,6 +6,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_neckline') }}" class="nav-link">Add Neckline Type</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_neckline') }}" class="nav-link">Import Necklines</a></li>
             </ul>
             </nav>
             

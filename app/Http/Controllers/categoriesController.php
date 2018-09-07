@@ -91,4 +91,44 @@ class categoriesController extends Controller
         $data["category_id"]=$category_id;
         return view("admin/categories/confirm",$data);
     }
+
+    public function showImportCategory(){
+        $data=[];
+        $data["page_title"]="Import Categories";
+        $data["import_btn"]="Import Categories";
+        return view("admin/categories/import",$data);
+    }
+
+    public function saveImportCategory(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "name"=>$value->name,
+                        "dress_type_id"=>$value->dress_type,
+                        "dress_style_id"=>$value->dress_style,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    Categories::insert($insert);
+                    return redirect()->route('admin_categories')->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
 }

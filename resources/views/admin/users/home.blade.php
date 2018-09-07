@@ -24,6 +24,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('admin_newuser') }}" class="nav-link">Add User</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_adminuser') }}" class="nav-link">Import User</a></li>
             </ul>
             </nav>
             

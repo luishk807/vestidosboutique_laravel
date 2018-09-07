@@ -6,6 +6,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_waistline') }}" class="nav-link">Add Waistline</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_waistline') }}" class="nav-link">Import Waistline</a></li>
             </ul>
             </nav>
             

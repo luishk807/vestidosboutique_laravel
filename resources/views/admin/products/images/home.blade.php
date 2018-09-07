@@ -11,6 +11,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_image',['product_id'=>$product_id]) }}" class="nav-link">Add Image</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_image',['product_id'=>$product_id]) }}" class="nav-link">Import Image</a></li>
             </ul>
             </nav>
             

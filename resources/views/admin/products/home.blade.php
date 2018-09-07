@@ -5,7 +5,8 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_product') }}" class="nav-link">Add Product</a></li>
+                <li class="nav-item"><a href="{{ route('new_product') }}" class="nav-link">Add Product Manually</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_product') }}" class="nav-link">Add Product From File</a></li>
             </ul>
             </nav>
             

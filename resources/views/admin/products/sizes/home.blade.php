@@ -8,6 +8,7 @@
                 <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="{{ route('edit_product',['product_id'=>$product_id]) }}" class="nav-link">Back to Edit</a></li>
                 <li class="nav-item"><a href="{{ route('new_size',['product_id'=>$product_id]) }}" class="nav-link">Add Product Size</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_size',['product_id'=>$product_id]) }}" class="nav-link">Import Sizes</a></li>
             </ul>
             </nav>
             

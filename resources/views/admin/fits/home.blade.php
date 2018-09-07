@@ -6,6 +6,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_fit') }}" class="nav-link">Add Fit Type</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_fit') }}" class="nav-link">Import Fit Types</a></li>
             </ul>
             </nav>
             

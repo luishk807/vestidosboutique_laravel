@@ -184,4 +184,50 @@ class adminUsersController extends Controller
         $data["page_title"]="Delete User";
         return view("admin/users/confirm",$data);
     }
+    public function showImportUser(){
+        $data=[];
+        $data["page_title"]="Import Users";
+        $data["import_btn"]="Import Users";
+        return view("admin/users/import",$data);
+    }
+
+    public function saveImportUser(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "first_name"=>$value->first_name,
+                        "middle_name"=>$value->middle_name,
+                        "last_name"=>$value->last_name,
+                        "password"=>Hash::make($value->password),
+                        "email"=>$value->email,
+                        "phone_number"=>$value->phone_number,
+                        "date_of_birth"=>$value->date_of_birth,
+                        "gender"=>$value->gender,
+                        "preferred_language"=>$value->preferred_language,
+                        "user_type"=>$value->user_type,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    Users::insert($insert);
+                    return redirect()->route('admin_users')->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
 }

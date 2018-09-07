@@ -125,4 +125,52 @@ class vendorsController extends Controller
         $data["page_title"]="Delete Vendor";
         return view("admin/vendors/confirm",$data);
     }
+    public function showImportVendor(){
+        $data=[];
+        $data["page_title"]="Import Vendors";
+        $data["import_btn"]="Import Vendors";
+        return view("admin/vendors/import",$data);
+    }
+
+    public function saveImportVendor(Request $request){
+        $this->validate($request,[
+            "file"=>"required"
+        ]);
+
+        if($request->hasFile('file')) {
+            $path = $request->file->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            
+            if(!empty($data) && $data->count()){
+                foreach ($data as $value) {
+                    $insert[]=[
+                        "first_name"=>$value->first_name,
+                        "middle_name"=>$value->middle_name,
+                        "last_name"=>$value->last_name,
+                        "phone_number_1"=>$value->phone_number_1,
+                        "phone_number_2"=>$value->phone_number_2,
+                        "email"=>$value->email,
+                        "address_1"=>$value->address_1,
+                        "address_2"=>$value->address_2,
+                        "city"=>$value->city,
+                        "state"=>$value->state,
+                        "country_id"=>$value->country_id,
+                        "zip_code"=>$value->zip_code,
+                        "status"=>1,
+                        "ip"=>$request->ip(),
+                        "created_at"=>carbon::now(),
+                    ];
+                }
+                if(!empty($insert)){
+                    Vendors::insert($insert);
+                    return redirect()->route('admin_vendors')->with('success','Insert Record successfully.');
+                }
+            }
+        }else{
+            return redirect()->back()->withErrors([
+                "required","No File Entered"
+            ]);
+        }
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
 }

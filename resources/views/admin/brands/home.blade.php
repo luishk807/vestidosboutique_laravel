@@ -6,6 +6,7 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_brand') }}" class="nav-link">Add Brand</a></li>
+                <li class="nav-item"><a href="{{ route('show_import_brands') }}" class="nav-link">Import Brands</a></li>
             </ul>
             </nav>
             
