@@ -8,6 +8,7 @@ use App\vestidosDressTypes as DressTypes;
 use App\vestidosStatus as VestidosStatus;
 use Carbon\Carbon as carbon;
 use App\vestidosStyles as VestidosStyles;
+use Excel;
 
 class categoriesController extends Controller
 {

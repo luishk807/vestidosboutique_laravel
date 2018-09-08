@@ -8,6 +8,7 @@ use App\vestidosStatus as vestidosStatus;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use Illuminate\Support\Str;
+use Excel;
 
 class adminProductImagesController extends Controller
 {

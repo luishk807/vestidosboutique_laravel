@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon as carbon;
 use App\vestidosStyles as DressStyles;
 use App\vestidosStatus as vestidosStatus;
+use Excel;
 
 class adminDressStylesController extends Controller
 {

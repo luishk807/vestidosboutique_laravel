@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\vestidosClosureTypes as Closures;
 use App\vestidosStatus as vestidosStatus;
 use Carbon\Carbon as carbon;
+use Excel;
 
 class adminClosureController extends Controller
 {
@@ -98,7 +99,6 @@ class adminClosureController extends Controller
                     $insert[]=[
                         "name"=>$value->name,
                         "status"=>1,
-                        "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
                     ];
                 }

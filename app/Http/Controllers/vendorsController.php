@@ -7,6 +7,7 @@ use App\vestidosStatus as Statuses;
 use App\vestidosVendors as Vendors;
 use App\vestidosCountries as Countries;
 use Carbon\Carbon as carbon;
+use Excel;
 
 class vendorsController extends Controller
 {

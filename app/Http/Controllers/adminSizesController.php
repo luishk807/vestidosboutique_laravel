@@ -7,6 +7,7 @@ use App\vestidosSizes as Sizes;
 use Carbon\Carbon as carbon;
 use App\vestidosProducts as Products;
 use App\vestidosStatus as vestidosStatus;
+use Excel;
 
 class adminSizesController extends Controller
 {

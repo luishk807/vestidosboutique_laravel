@@ -11,6 +11,7 @@ use Carbon\Carbon as carbon;
 use Illuminate\Support\Facades\Hash;
 use App\vestidosLanguages as Languages;
 use Mail;
+use Excel;
 
 class adminUsersController extends Controller
 {
@@ -66,7 +67,7 @@ class adminUsersController extends Controller
             "first_name"=>"required",
             "last_name"=>"required",
             "gender"=>"required",
-            "email"=>"required",
+            "email"=>"required | email | unique:vestidos_users,email",
             "date_of_birth"=>"required",
             "preferred_language"=>"required",
             "status"=>"required",
@@ -118,7 +119,7 @@ class adminUsersController extends Controller
             "password" => "same:re-type_password",
             "last_name"=>"required",
             "phone_number"=>"required",
-            "email"=>"required",
+            "email"=>"required | email | unique:vestidos_users,email,".$user->id,
             "date_of_birth"=>"required",
             "gender"=>"required",
             "preferred_language"=>"required",

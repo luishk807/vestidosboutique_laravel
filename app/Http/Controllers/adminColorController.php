@@ -7,6 +7,7 @@ use App\vestidosColors as Colors;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use App\vestidosStatus as Statuses;
+use Excel;
 
 
 class adminColorController extends Controller

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\vestidosFabricTypes as Fabrics;
 use App\vestidosStatus as vestidosStatus;
 use Carbon\Carbon as carbon;
+use Excel;
 
 class adminFabricController extends Controller
 {

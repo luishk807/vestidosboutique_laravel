@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\vestidosWaistlineTypes as Waistline;
 use App\vestidosStatus as vestidosStatus;
 use Carbon\Carbon as carbon;
+use Excel;
 
 class adminWaistlineController extends Controller
 {

@@ -62,7 +62,7 @@ class usersController extends Controller
             "password"=>"required | same:repassword",
             "repassword"=>"required | same:password",
             "date_of_birth"=>"required",
-            "email"=>"required",
+            "email"=>"required | email | unique:vestidos_users,email",
             "phone_number"=>"required",
         ]);
         
@@ -110,7 +110,7 @@ class usersController extends Controller
                 "first_name"=>"required",
                 "last_name"=>"required",
                 "password"=>"same:repassword",
-                "email"=>"required",
+                "email"=>"required | email | unique:vestidos_users,email,".$user_id,
                 "phone_number"=>"required",
             ]);
             if(!empty($request->input("password"))){

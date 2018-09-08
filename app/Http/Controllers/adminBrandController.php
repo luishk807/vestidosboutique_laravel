@@ -8,6 +8,7 @@ use App\vestidosStatus as vestidosStatus;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon as carbon;
 use Illuminate\Support\Facades\DB;
+use Excel;
 
 class adminBrandController extends Controller
 {
@@ -100,10 +101,10 @@ class adminBrandController extends Controller
                     $insert[]=[
                         "name"=>$value->name,
                         "status"=>1,
-                        "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
                     ];
                 }
+                //dd($insert);
                 if(!empty($insert)){
                     vestidosBrands::insert($insert);
                     return redirect()->route('admin_brands')->with('success','Insert Record successfully.');
@@ -114,6 +115,6 @@ class adminBrandController extends Controller
                 "required","No File Entered"
             ]);
         }
-        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+       return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
 }
