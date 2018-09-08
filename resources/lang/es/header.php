@@ -28,5 +28,6 @@ return [
     'faqs' => 'Preguntas Frequentes',
     'terms' => 'Terminos de Uso',
     'privacy' => 'Terminos de Privacidad',
+    'language' => 'Lenguages',
 
 ];

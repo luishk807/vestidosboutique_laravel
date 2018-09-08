@@ -184,13 +184,24 @@ margin:10px 0px;
     z-index:9999;
 }
 /******language panel*****/
+.nav-top-lang{
+    position:relative;
+}
+.vesti-lang-top ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 10px;
+}
+.vesti-lang-top ul li{
+    padding:10px;
+}
 .vesti-lang-top{
     max-height: 0;
     background-color: $main-vest-color-dark;
     color: #fff;
     position: absolute;
     min-width: 130px;
-    right: 408px;
+    right: 0px;
     top: 67px;
     z-index: -1;
     overflow: hidden;

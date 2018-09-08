@@ -28,5 +28,6 @@ return [
     'faqs' => 'Faqs',
     'terms' => 'Terms of Use',
     'privacy' => 'Privacy',
+    'language' => 'Languages',
 
 ];

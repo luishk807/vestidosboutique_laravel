@@ -62,6 +62,7 @@ class HomeController extends Controller
     public function setLocale($lang)
     {
         App::setLocale($lang);
+        Session::put("locale",$lang);
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();

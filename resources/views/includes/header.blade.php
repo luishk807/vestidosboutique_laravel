@@ -20,20 +20,6 @@
 <script>
     var addWishlistUrl = "{{ url('api/saveWishlist') }}";
 </script>
-<style>
-.vesti-lang-top ul{
-    list-style-type: none;
-    margin: 0px;
-    padding: 10px;
-}
-.vesti-lang-top ul li{
-    padding:10px;
-}
-/* .vesti-lang-top ul li:hover{
-    text-decoration:none;
-    background-color:#a2191d;
-} */
-</style>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >
@@ -82,7 +68,7 @@
                         <div class="vesti-lang-top">
                            <div class="container">
                                 <ul>
-                                @foreach(\App\vestidosLanguages::all() as $language)
+                                @foreach(\App\vestidosLanguages::where('status','=',1)->get() as $language)
                                     <li><a class="text-white" href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a></li>
                                 @endforeach
                                 </ul>
@@ -178,8 +164,8 @@
                 <ul class="navbar-nav mr-auto">
                      @if(Auth::guard('vestidosUsers')->check())
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.account') }}</a>
-                        <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-acct">{{ __('header.account') }}</a>
+                        <div class="collapse vesti-collapse" id="toggle-acct" style="height: 0px;">
                             <ul class="nav-list">
                                 <li><a href="{{ route('user_orders') }}">{{ __('header.orders') }}</a></li>
                                 <li><a href="{{ route('user_wishlists') }}">{{ __('header.wishlists') }}</a></li>
@@ -199,6 +185,16 @@
                             <ul class="nav-list">
                                 @foreach($categories as $category)
                                 <li><a href="#">{{$category->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-lang">{{ __('header.language') }}</a>
+                        <div class="collapse vesti-collapse" id="toggle-lang" style="height: 0px;">
+                            <ul class="nav-list">
+                                @foreach(\App\vestidosLanguages::where('status','=',1)->get() as $language)
+                                    <li><a href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
