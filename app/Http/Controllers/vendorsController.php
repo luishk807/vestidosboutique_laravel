@@ -176,7 +176,7 @@ class vendorsController extends Controller
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
-    public function showImportVendor_confirm(Request $request){
+    public function showImportVendor_confirm(){
        $data=[];
        if(Session::has("data_confirm")){
             $session = Session::get("data_confirm");
@@ -187,7 +187,7 @@ class vendorsController extends Controller
             return view("admin/vendors/import_confirm",$data);
        }
        $data["page_title"]="Import Vendors";
-        $data["import_btn"]="Import Vendors";
+       $data["import_btn"]="Import Vendors";
        return view("admin/vendors/import")->with("error","No data to confirm");
     }
     public function saveImportVendor_confirm(Request $request){

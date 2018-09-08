@@ -246,6 +246,8 @@
                 Route::post('/save/{product_id}','adminProductController@saveProduct')->name('save_product');
                 Route::get('/import','adminProductController@showImportProduct')->name('show_import_product');
                 Route::post('/import','adminProductController@saveImportProduct')->name('save_import_product');
+                Route::get('/import_confirm','adminProductController@showConfirmImportProduct')->name('show_confirm_import_product');
+                Route::post('/import_confirm','adminProductController@saveConfirmImportProduct')->name('save_confirm_import_product');
                 Route::prefix("restock")->group(function(){
                     Route::get('/{product_id}','adminProductController@showRestock')->name("admin_restocks");
                     Route::get('/new/{product_id}','adminProductController@newRestock')->name("new_restock");

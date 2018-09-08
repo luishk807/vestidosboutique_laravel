@@ -1297,5 +1297,14 @@ text-align:left;
 .cancel-container .row:last-child{
   margin-top:40px;
 }
+//IMPORT CONFIRM PAGE
+.import-confirm .confirm-data-row{
+  border-top:$vesti-light-bars;
+  margin:5px 0px;
+  padding:10px 0px;
+}
+.import-confirm .confirm-data-key{
+  font-size:1.2rem;
+}
 //custom vestidos mobile scss
 @import "vestidos_mobile";
