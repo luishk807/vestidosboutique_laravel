@@ -1,43 +1,4 @@
 @include('includes.header')
-<style>
-.vestidos-list-group-item{
-    display: block;
-}
-.vestidos-list-group-item:not(:first-child){
-    margin:5px 0px;
-}
-.no-top-border td,
-.no-top-border th{
-    border-top:none !important;
-}
-.vestidos-simple-link{
-    color:black;
-}
-.vestidos-simple-link:hover{
-    color:black;
-    text-decoration:none;
-}
-.vesti_in_btn_link{
-
-    border: 1px solid rgba(0,0,0,.1);
-    padding: 10px 0px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 0.8rem;
-    -webkit-transition: background-color 230ms;
-	-moz-transition: background-color 230ms;
-	-o-transition: background-color 230ms;
-	transition: background-color 230ms;
-}
-.vesti_in_btn_link:hover{
-    background-color:#000;
-    color:white !important;
-    padding: 10px 0px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 0.8rem;
-}
-</style>
 <div class="main_sub_body main_body_height">
     <div class="container">
         <div class="row">
@@ -45,16 +6,16 @@
                 <div class="container-in-space white-md-bg-in">
                     <ul class="list-group">
                         <li class="vestidos-list-group-item">
-                            <a href="{{ route('user_account') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Profile</a>
+                            <a href="{{ route('user_account') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Perfil</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a href="{{ route('user_orders') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Orders</a>
+                            <a href="{{ route('user_orders') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Pedidos</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a href="{{ route('user_wishlists')}}" class="btn-block vesti_in_btn_link vestidos-simple-link">Wishlist</a>
+                            <a href="{{ route('user_wishlists')}}" class="btn-block vesti_in_btn_link vestidos-simple-link">Lists</a>
                         </li>
                         <li class="vestidos-list-group-item">
-                            <a href="{{ route('logout_user') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Log Out</a>
+                            <a href="{{ route('logout_user') }}" class="btn-block vesti_in_btn_link vestidos-simple-link">Cerrar Sesión</a>
                         </li>
                     </ul>
                 </div>

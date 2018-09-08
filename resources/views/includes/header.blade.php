@@ -46,28 +46,28 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="vest-maincolor-left navbar-nav mr-auto">
                      <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">Shop</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">Comprar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">About</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">Nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="events-submenu" href="#">Events</a>
+                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="events-submenu" href="#">Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('viewContactPage') }}">Contact Us</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('viewContactPage') }}">Contáctenos</a>
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item">
                     @if(Auth::guard('vestidosUsers')->check())
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account')}}">My Account</a>
+                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account')}}">Tu Cuenta</a>
                     @else
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">Login</a>
+                    <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">Accede</a>
                     @endif
                     </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
-                        Cart<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
+                        Carrito<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
                         <!-- <div id="vesti-cart-top-cont">
                         <div class="vesti-cart-arrow"></div>
                         <div class="vesti-cart-arrow-b"></div> -->
@@ -82,13 +82,13 @@
                                    <div class="col-md-8 cart-top-item-txt">
                                        <div>
                                        <p><a href="/product/{{ $header_cart['id']}}">{{ $header_cart["name"] }}</a></p>
-                                       <p>Unit Price: ${{ number_format($header_cart["total"],2) }}</p>
-                                       <p>Size: {{ $header_cart["size"] }}</p>
+                                       <p>Precio: ${{ number_format($header_cart["total"],2) }}</p>
+                                       <p>Tamaño: {{ $header_cart["size"] }}</p>
                                        <p>Color: {{ $header_cart["color"] }}</p>
-                                       <p>Quantity: {{ $header_cart["quantity"] }}</p>
+                                       <p>Cantidad: {{ $header_cart["quantity"] }}</p>
                                         </div>
                                         <div>
-                                            <a href="javascript:deleteCart('{{ $header_cart_key }}')">Remove</a>
+                                            <a href="javascript:deleteCart('{{ $header_cart_key }}')">Eliminar</a>
                                         </div>
                                    </div>
                                </div><!--end of item-->
@@ -99,8 +99,8 @@
                                    <div class="col">Subtotal: ${{ number_format($header_cart_total,2) }}</div>
                                </div>
                                <div class="row cart-top-buttons">
-                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('cart_page') }}">View Cart</a></div>
-                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('checkout_show_shipping') }}">Checkout</a></div>
+                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('cart_page') }}">Carrito</a></div>
+                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('checkout_show_shipping') }}">Pagar</a></div>
                                </div>
                                
                            </div>
@@ -145,23 +145,23 @@
                 <ul class="navbar-nav mr-auto">
                      @if(Auth::guard('vestidosUsers')->check())
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">My Account</a>
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Tu Cuenta</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
-                                <li><a href="{{ route('user_orders') }}">Orders</a></li>
-                                <li><a href="{{ route('user_wishlists') }}">Wishlists</a></li>
+                                <li><a href="{{ route('user_orders') }}">Tus pedidos</a></li>
+                                <li><a href="{{ route('user_wishlists') }}">Tus listas</a></li>
                             </ul>
                         </div>
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">Shop</a>
+                        <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">Comprar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">About Us</a>
+                        <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">Nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Events</a>
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Eventos</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
                                 @foreach($categories as $category)
@@ -171,7 +171,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="{{ route('viewContactPage') }}">Contact Us</a>
+                        <a class="nav-link text-white collapse-link" href="{{ route('viewContactPage') }}">Contáctenos</a>
                     </li>
                 </ul>
 
@@ -181,13 +181,13 @@
                     <div class="row">
                         <div class="col text-white">
                             @if(Auth::guard('vestidosUsers')->check())
-                            <a href="{{route('logout_user')}}">Logout</a>
+                            <a href="{{route('logout_user')}}">Cerrar Sesión</a>
                             @else
-                            <a href="{{route('login_page')}}">Login</a>
+                            <a href="{{route('login_page')}}">Acceder</a>
                             @endif
                         </div>
                         <div class="col text-white">
-                            <a href="/cart">Cart</a>
+                            <a href="/cart">Carrito</a>
                         </div>
                     </div>
                 </div>

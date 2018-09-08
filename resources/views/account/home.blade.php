@@ -36,11 +36,11 @@
             <table class="table no-top-border">
                 <tbody>
                     <tr>
-                        <th scope="row">Profile</th>
+                        <th scope="row">Perfil</th>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Name</td>
+                        <td>Nombre</td>
                         <td>{{$user->getFullName()}}</td>
                     </tr>
                     <tr>
@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="text-right"><a href="{{ route('edituser') }}" class="vestidos-simple-link" href="">Edit</a></td>
+                        <td class="text-right"><a href="{{ route('edituser') }}" class="vestidos-simple-link" href="">Editar</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -61,8 +61,8 @@
                 <tbody>
                     
                     <tr>
-                        <th scope="row">Address</th>
-                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress')}}">Add Address</a></td>
+                        <th scope="row">Direcciones</th>
+                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress')}}">Agregar Direccion</a></td>
                     </tr>
                     @foreach($user->getAddresses as $address)
                     <tr>
@@ -75,7 +75,7 @@
                            {{ $address->email}}<br/>
                            {{ $address->city}} {{ $address->state}} {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
                         </td>
-                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">Edit</a></td>
+                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">Editar</a></td>
                     </tr>
                     @endforeach
                 </tbody>

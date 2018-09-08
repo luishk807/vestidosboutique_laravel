@@ -24,7 +24,7 @@
                                     <form action="{{ route('login_user') }}" method="post">
                                     {{ csrf_field() }}
                                     <div class="row">
-                                        <div class="col"><h2>Log In</h2></div>
+                                        <div class="col"><h2>Iniciar Sesión</h2></div>
                                     </div>
                                     <div class="row">
                                         <div class="col error py-2">
@@ -42,10 +42,10 @@
                                                 <small class="error">{{$errors->first("email")}}</small>
                                             </div>
                                             <div class="form-group">
-                                                <label for="loginPassword">Password:</label>
-                                                <input type="password" id="loginPassword" class="form-control" aria-describedby="passwordHelp"  name="password" placeholder="Password"/>
+                                                <label for="loginPassword">Contraseña:</label>
+                                                <input type="password" id="loginPassword" class="form-control" aria-describedby="passwordHelp"  name="password" placeholder="Contraseña"/>
                                                 <small class="error">{{$errors->first("password")}}</small>
-                                                <small id="passwordHelp" class="form-text text-muted"><a href="" class="vesti-small-link">Forgot Passord?</a></small>
+                                                <small id="passwordHelp" class="form-text text-muted"><a href="" class="vesti-small-link">Olvidó su contraseña?</a></small>
                                             </div>
                                             
                                         </div>
@@ -55,7 +55,7 @@
 
                                             <div class="vesti_in_btn_pnl">
                                                 <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                                                <input type="submit" class="btn-block vesti_in_btn loader-button" value="Login">
+                                                <input type="submit" class="btn-block vesti_in_btn loader-button" value="Continuar">
                                             </div>
 
                                         </div>
@@ -70,7 +70,7 @@
 
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col"><h2>Sign Up</div>
+                                        <div class="col"><h2>Regístrate</div>
                                     </div>
                                     <div class="row">
                                         <div class="col">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores,</div>
@@ -78,7 +78,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="vesti_in_btn_pnl">
-                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">Sign Up</a>
+                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">Continuar</a>
                                             </div>
                                         </div>
                                     </div>
