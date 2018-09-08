@@ -15,7 +15,6 @@
     // Route::get('/live-site', function() {
     //     echo 'content!';
     // });
-    
     Route::get("/",'homeController@index')->name("home_page");
     Route::get("/about",'homeController@about')->name("about_page");
     Route::get("/shop",'userShopController@index')->name("shop_page");
@@ -25,6 +24,7 @@
     Route::post("/product/{product_id}",'userCartController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");
     Route::post("/contact","homeController@sendEmail")->name("sendEmail");
+    Route::get("/set_lang/{lang}",'homeController@setLocale')->name("set_language");
 
     Route::get("/cart",'userCartController@index')->name("cart_page");
     Route::prefix("checkout")->middleware("auth:vestidosUsers")->group(function(){

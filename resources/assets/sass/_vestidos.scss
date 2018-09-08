@@ -892,6 +892,9 @@ button.colors_cubes.selected{
     top:30%;
     position: absolute;
     color:black;
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
 }
 .popup_close_btn_pnl{
     text-align:center;
@@ -1122,6 +1125,11 @@ width:30%;
   font-size:1.5rem;
   padding-bottom: 24px;
   text-align:center;
+}
+.vestidos-icons-globe{
+  width: 19px;
+  height: 19px;
+  background-size: 19px 19px;
 }
 .vestidos-icons-confirm-b {
   width: 70px;

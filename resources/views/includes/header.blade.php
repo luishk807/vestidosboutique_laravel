@@ -20,6 +20,20 @@
 <script>
     var addWishlistUrl = "{{ url('api/saveWishlist') }}";
 </script>
+<style>
+.vesti-lang-top ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 10px;
+}
+.vesti-lang-top ul li{
+    padding:10px;
+}
+/* .vesti-lang-top ul li:hover{
+    text-decoration:none;
+    background-color:#a2191d;
+} */
+</style>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >
@@ -59,6 +73,25 @@
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
+                    <li class="nav-item nav-top-lang">
+                        <a id="vesti-navbar-top-lang" class="text-white" href=''>
+                            <span>{{ strtoupper(App::getLocale()) }}</span><br/>
+                            <img src="{{ asset('images/globe.svg') }}" class="vesti-svg vestidos-icons-globe"/>
+                        </a>
+
+                        <div class="vesti-lang-top">
+                           <div class="container">
+                                <ul>
+                                @foreach(\App\vestidosLanguages::all() as $language)
+                                    <li><a class="text-white" href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a></li>
+                                @endforeach
+                                </ul>
+                           </div>
+                        </div><!--end of hover menu-->
+
+
+
+                    </li>
                     <li class="nav-item">
                     @if(Auth::guard('vestidosUsers')->check())
                     <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account')}}">{{ __('header.account') }}</a>
@@ -67,7 +100,7 @@
                     @endif
                     </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
-                        Carrito<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
+                    {{ __('header.cart') }}<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
                         <!-- <div id="vesti-cart-top-cont">
                         <div class="vesti-cart-arrow"></div>
                         <div class="vesti-cart-arrow-b"></div> -->

@@ -8,16 +8,18 @@ use App\vestidosUsers as Users;
 use App\vestidosProducts as Products;
 use App\vestidosProductsRestocks as ProductRestocks;
 use App\vestidosProductRates as Rates;
+use App\vestidosLanguages as Languages;
 use Auth;
 
 class adminHomeController extends Controller
 {
     //
-    public function __construct(Products $products, Orders $orders, Users $users, ProductRestocks $restocks, Rates $rates){
+    public function __construct(Languages $languages, Products $products, Orders $orders, Users $users, ProductRestocks $restocks, Rates $rates){
         $this->orders=$orders;
         $this->users=$users;
         $this->products=$products;
         $this->rates= $rates;
+        $this->languages = $languages;
         $this->restocks = $restocks;
     }
     function home(){
@@ -27,6 +29,7 @@ class adminHomeController extends Controller
         $data["users"]=$this->users->all();
         $data["restocks"]=$this->restocks->all();
         $data["rates"]=$this->rates->all();
+        $data["languages"]=$this->languages->all();
         return view("admin/home",$data);
     }
     public function signin(){

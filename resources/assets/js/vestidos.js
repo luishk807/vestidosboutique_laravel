@@ -54,6 +54,14 @@ $(document).ready(function() {
         $(".submenu-panel").removeClass("open");
         $(this).toggleClass("active"); 
     })
+    $("#vesti-navbar-top-lang").hover(function(){
+        $(".submenu-panel").removeClass("open");
+        $(".vesti-lang-top").toggleClass("active"); 
+    })
+    $(".vesti-lang-top").hover(function(){
+        $(".submenu-panel").removeClass("open");
+        $(this).toggleClass("active"); 
+    })
     /***END ***/
     var isReponsive =false;
     function initialization(){
