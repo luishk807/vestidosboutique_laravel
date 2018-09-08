@@ -3,7 +3,7 @@
 <div id="popup_bgOverlay">
     <div id="popup_text">
         <div id="popup_text_in"></div>
-        <div class="popup_close_btn_pnl"><button onclick="closeCartPopUp()" class="popup_close_btn">Close</button></div>
+        <div class="popup_close_btn_pnl"><button onclick="closeCartPopUp()" class="popup_close_btn">{{ __('buttons.close') }}</button></div>
     </div>
 </div>
 <div class="main_sub_body main_body_height">
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
                                     <div class="vesti_in_btn_pnl">
-                                        <input class="btn-block vesti_in_btn"  type="submit" value="ADD TO CART"/>
+                                        <input class="btn-block vesti_in_btn"  type="submit" value="{{ __('buttons.add_cart') }}"/>
                                     </div>
                                     <div class="product_in_social">
                                         

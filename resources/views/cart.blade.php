@@ -28,11 +28,11 @@
                         @if(!empty(Session::get("vestidos_shop")))
                         <div class="row">
                             <div class="col-md-8">
-                                <h2>Cart</h2>
+                                <h2>{{ __('header.cart') }}</h2>
                             </div>
                             <div class="col-md-4">
                                 <div class="vesti_in_btn_pnl">
-                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">CHECKOUT</a>
+                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.checkout') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                                 <p><span class="cart-item-subtitle">Size:</span>{{ $item["size"] }}</p>
                                             </div>
                                             <div>
-                                               <a href="javascript:deleteCart({{$keyIndex}})">Remove</a>
+                                               <a href="javascript:deleteCart({{$keyIndex}})">{{ __('buttons.remove') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -141,14 +141,14 @@
                             <div class="col-md-8"><!-- maybe continue shopping--></div>
                             <div class="col-md-4">
                                 <div class="vesti_in_btn_pnl">
-                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">CHECKOUT</a>
+                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.checkout') }}</a>
                                 </div>
                             </div>
                         </div>
                         @else
                         <div class="row">
                             <div class="col">
-                                <h2>Cart</h2>
+                                <h2>{{ __('header.cart') }}</h2>
                             </div>
                         </div>
                         <div class="row">
@@ -156,7 +156,7 @@
                                 <div class="col-md-7 text-center cart-text-cont">
                                     <p>Your Shopping Cart is Empty</p>
                                     <div class="vesti_in_btn_pnl">
-                                        <a class="btn-block vesti_in_btn" href="{{ route('shop_page') }}">Continue Shopping</a>
+                                        <a class="btn-block vesti_in_btn" href="{{ route('shop_page') }}">{{ __('buttons.continue_shop') }}</a>
                                     </div>
                                 </div>
                             </div>

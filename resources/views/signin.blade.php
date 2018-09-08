@@ -55,7 +55,7 @@
 
                                             <div class="vesti_in_btn_pnl">
                                                 <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                                                <input type="submit" class="btn-block vesti_in_btn loader-button" value="Continuar">
+                                                <input type="submit" class="btn-block vesti_in_btn loader-button" value="{{ __('buttons.submit') }}">
                                             </div>
 
                                         </div>
@@ -78,7 +78,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="vesti_in_btn_pnl">
-                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">Continuar</a>
+                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">{{ __('buttons.submit') }}r</a>
                                             </div>
                                         </div>
                                     </div>

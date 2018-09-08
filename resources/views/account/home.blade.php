@@ -36,7 +36,7 @@
             <table class="table no-top-border">
                 <tbody>
                     <tr>
-                        <th scope="row">Perfil</th>
+                        <th scope="row">{{ __('header.profile') }}</th>
                         <td></td>
                     </tr>
                     <tr>
@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td class="text-right"><a href="{{ route('edituser') }}" class="vestidos-simple-link" href="">Editar</a></td>
+                        <td class="text-right"><a href="{{ route('edituser') }}" class="vestidos-simple-link" href="">{{ __('buttons.edit') }}</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -62,7 +62,7 @@
                     
                     <tr>
                         <th scope="row">Direcciones</th>
-                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress')}}">Agregar Direccion</a></td>
+                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress')}}">{{ __('buttons.add_address') }}</a></td>
                     </tr>
                     @foreach($user->getAddresses as $address)
                     <tr>
@@ -75,7 +75,7 @@
                            {{ $address->email}}<br/>
                            {{ $address->city}} {{ $address->state}} {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
                         </td>
-                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">Editar</a></td>
+                        <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">{{ __('buttons.edit') }}</a></td>
                     </tr>
                     @endforeach
                 </tbody>

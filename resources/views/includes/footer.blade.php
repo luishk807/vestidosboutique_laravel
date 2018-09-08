@@ -9,11 +9,11 @@
                 <div class="row">
                     <div class="col-md-6 footer-top-col text-center">
                         <ul class="list-unstyled">
-                            <li>About Us</li>
-                            <li>Contact Us</li>
-                            <li>Faqs</li>
-                            <li>Terms of Use</li>
-                            <li>Privacy</li>
+                            <li>{{ __('header.about') }}</li>
+                            <li>{{ __('header.contact') }}</li>
+                            <li>{{ __('header.faqs') }}</li>
+                            <li>{{ __('header.terms') }}</li>
+                            <li>{{ __('header.privacy') }}</li>
                         </ul>
 
                     </div>
@@ -31,7 +31,7 @@
     </div>
     <div class="row vesti-footer-section-2">
         <div class="col-md-8 footer-bottom-col text-center">
-            We Accept:
+        {{ __('header.payment') }}:
             <img src="{{ asset('images/cc-visa.svg') }}" class="vesti-svg vestidos-icons-payment"/>
             <img src="{{ asset('images/cc-master.svg') }}" class="vesti-svg vestidos-icons-payment"/>
             <img src="{{ asset('images/cc-amex.svg') }}" class="vesti-svg vestidos-icons-payment"/>

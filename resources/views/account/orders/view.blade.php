@@ -18,7 +18,7 @@
                             <li>Order# {{ $order->order_number }}</li>
                             @if(empty($order->cancel_reason) && $order->status != 3)
                             <li>
-                                <a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">Cancel Order</a>
+                                <a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">{{ __('buttons.order_cancel') }}</a>
                             </li>
                             @endif
                         </ul>
@@ -117,7 +117,7 @@
                                         <div class="col-md-3">
                                             @if(!$product->getProduct->is_rated())
                                             <div class="vesti_in_btn_pnl">
-                                                <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">Write Review</a>
+                                                <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">{{ __('buttons.write_review') }}</a>
                                             </div>
                                             @endif
                                         </div>

@@ -39,7 +39,7 @@
                                     <div class='rate-view' data-rate-value="{{ $wishlist->getProduct->rates->avg('user_rate') }}"></div>
                                     ${{ number_format($wishlist->getProduct->total_rent,'2','.',',') }}
                                 </td>
-                                <td width="20%"class="action"><a href='{{ route("deletewishlist",["wishlist_id"=>$wishlist->id])}}'>Remove</a></td>
+                                <td width="20%"class="action"><a href='{{ route("deletewishlist",["wishlist_id"=>$wishlist->id])}}'>{{ __('buttons.remove') }}</a></td>
                             </tr>
                             @endforeach
                         </tbody>

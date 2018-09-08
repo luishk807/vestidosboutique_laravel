@@ -185,7 +185,7 @@
                         <input type="hidden" name="shopPage_select_input" id="shopPage_select_input">
                         <div class="shoplist-search-cont vesti-search-cont">
                             <div class="shoplist-search-type-cont">
-                                <h3>Events</h3>
+                                <h3>{{ __('header.event') }}</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
                                         @foreach($categories as $keyCat=>$category)
@@ -201,7 +201,7 @@
                                 </div>   
                             </div><!--end of search type-->
                             <div class="shoplist-search-type-cont">
-                                <h3>Brands</h3>
+                                <h3>{{ __('header.brands') }}</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
                                     @foreach($brands as $keyBrand=>$brand)

@@ -111,7 +111,7 @@
         <div class="row">
             <div class="col">
                 <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                <input type="submit" class="btn-block vesti_in_btn loader-button" value="Create Address"/>
+                <input type="submit" class="btn-block vesti_in_btn loader-button" value="{{ __('buttons.create') }}"/>
             </div>
         </div>
     </div>

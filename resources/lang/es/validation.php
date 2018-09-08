@@ -119,4 +119,13 @@ return [
 
     'attributes' => [],
 
-];
+    /*
+    |-----------------------------------------------------------------------
+    | Product Page
+    |-----------------------------------------------------------------------
+    |
+    | Alert for Product Page
+    */
+    'cart_alert_color'=>"Por Favor Escoga el Color",
+    'cart_alert_size'=>"Por Favor Escoga el Tamaño",
+];  

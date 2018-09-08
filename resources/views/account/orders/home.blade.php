@@ -68,7 +68,7 @@
                                                 <td>{{$order->purchase_date}}</td>
                                                 <td>${{ number_format($order->order_total,'2','.',',') }}</td>
                                                 <td><a href="">...{{$order->shipping_zip_code}}</a></td>
-                                                <td><a href="{{ route('view_order',['order_id'=>$order->id]) }}">Order Detail</a></td>
+                                                <td><a href="{{ route('view_order',['order_id'=>$order->id]) }}">{{ __('buttons.order_detail') }}</a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -77,7 +77,7 @@
                             <tr class="order-product-status">
                                 <td>{{$order->getStatusName->name}} 
                                 @if(empty($order->cancel_reason) && $order->status != 3 )
-                                &nbsp; &nbsp; &lbrack;<a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">Cancel Order</a>&rbrack;
+                                &nbsp; &nbsp; &lbrack;<a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">{{ __('buttons.order_cancel') }}</a>&rbrack;
                                 @endif
                                 </td>
                             </tr>
@@ -117,7 +117,7 @@
                                                 <td class="order-product-actions">
                                                     @if(!$product->getProduct->is_rated())
                                                     <div class="vesti_in_user_btn_pnl">
-                                                        <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">Write Review</a>
+                                                        <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">{{ __('buttons.write_review') }}</a>
                                                     </div>
                                                     @endif
                                                 </td>

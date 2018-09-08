@@ -66,7 +66,7 @@ $(document).ready(function(){
                             <div class="row">
                                 <div class="col">
                                     <div class="vesti_in_btn_pnl">
-                                        <input type="submit" class="btn-block vesti_in_btn" value="Submit Review"/>
+                                        <input type="submit" class="btn-block vesti_in_btn" value="{{ __('buttons.submit') }}"/>
                                     </div>
                                 </div>
                             </div>

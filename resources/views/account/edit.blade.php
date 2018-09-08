@@ -68,7 +68,7 @@
                         <input type="password" id="accountRePassword" class="form-control" name="repassword" value="" placeholder="Re-Type Password"/>
                 </div>
                 <div class="vesti_in_btn_pnl">
-                    <input type="submit" class="btn-block vesti_in_btn" value="Save Client"/>
+                    <input type="submit" class="btn-block vesti_in_btn" value="{{ __('header.save') }}"/>
                 </div>
                 </form><!--end of form container-->
     </div>

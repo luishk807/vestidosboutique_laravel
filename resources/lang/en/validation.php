@@ -143,4 +143,14 @@ return [
 
     'attributes' => [],
 
+    /*
+    |-----------------------------------------------------------------------
+    | Product Page
+    |-----------------------------------------------------------------------
+    |
+    | Alert for Product Page
+    */
+    'cart_alert_color'=>"Please Select Color",
+    'cart_alert_size'=>"Please Select Size",
+    
 ];

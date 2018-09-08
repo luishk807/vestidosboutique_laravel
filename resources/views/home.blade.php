@@ -11,7 +11,7 @@
         <div class="section" id="home_main_slider">
             <div id="main_slider_arrow_cont">
                     <div class="main_arrow_slider_txt">
-                        Scroll Down<br/>
+                        {{ __('buttons.scroll_down') }}<br/>
                         <a class="vesti-svg vesti-down-arrow" href=''></a>
                     </div>
             </div>
@@ -29,7 +29,7 @@
                             </div>
                             <div class="col main_slider_btn">
                                 <div>
-                                    <a href="{{ $main_slider->image_destination }}" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
+                                    <a href="{{ $main_slider->image_destination }}" class="btn btn-vesti-slide vesti_font_color_a">{{ __('buttons.see_more') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
                                 <div>
-                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">Ver Mas</a>
+                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">{{ __('buttons.see_more') }}</a>
                                 </div>
                             </div>
                         </div>

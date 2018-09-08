@@ -46,24 +46,24 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="vest-maincolor-left navbar-nav mr-auto">
                      <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">Comprar</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">Nosotros</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">{{ __('header.about') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="events-submenu" href="#">Eventos</a>
+                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="events-submenu" href="#">{{ __('header.event') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('viewContactPage') }}">Contáctenos</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a>
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item">
                     @if(Auth::guard('vestidosUsers')->check())
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account')}}">Tu Cuenta</a>
+                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account')}}">{{ __('header.account') }}</a>
                     @else
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">Accede</a>
+                    <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">{{ __('header.log_in') }}</a>
                     @endif
                     </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
@@ -99,8 +99,8 @@
                                    <div class="col">Subtotal: ${{ number_format($header_cart_total,2) }}</div>
                                </div>
                                <div class="row cart-top-buttons">
-                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('cart_page') }}">Carrito</a></div>
-                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('checkout_show_shipping') }}">Pagar</a></div>
+                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('cart_page') }}">{{ __('header.cart') }}</a></div>
+                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('checkout_show_shipping') }}">{{ __('header.checkout') }}</a></div>
                                </div>
                                
                            </div>
@@ -145,23 +145,23 @@
                 <ul class="navbar-nav mr-auto">
                      @if(Auth::guard('vestidosUsers')->check())
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Tu Cuenta</a>
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.account') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
-                                <li><a href="{{ route('user_orders') }}">Tus pedidos</a></li>
-                                <li><a href="{{ route('user_wishlists') }}">Tus listas</a></li>
+                                <li><a href="{{ route('user_orders') }}">{{ __('header.orders') }}</a></li>
+                                <li><a href="{{ route('user_wishlists') }}">{{ __('header.wishlists') }}</a></li>
                             </ul>
                         </div>
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">Comprar</a>
+                        <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">Nosotros</a>
+                        <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">{{ __('header.about') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">Eventos</a>
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.event') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
                                 @foreach($categories as $category)
@@ -171,7 +171,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white collapse-link" href="{{ route('viewContactPage') }}">Contáctenos</a>
+                        <a class="nav-link text-white collapse-link" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a>
                     </li>
                 </ul>
 
@@ -181,13 +181,13 @@
                     <div class="row">
                         <div class="col text-white">
                             @if(Auth::guard('vestidosUsers')->check())
-                            <a href="{{route('logout_user')}}">Cerrar Sesión</a>
+                            <a href="{{route('logout_user')}}">{{ __('header.log_out') }}</a>
                             @else
-                            <a href="{{route('login_page')}}">Acceder</a>
+                            <a href="{{route('login_page')}}">{{ __('header.log_in') }}</a>
                             @endif
                         </div>
                         <div class="col text-white">
-                            <a href="/cart">Carrito</a>
+                            <a href="/cart">{{ __('header.cart') }}</a>
                         </div>
                     </div>
                 </div>

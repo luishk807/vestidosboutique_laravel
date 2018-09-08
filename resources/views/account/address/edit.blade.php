@@ -118,11 +118,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="{{ route('confirmaddress',['address_id'=>$address->id])}}" class="btn-block vesti_in_btn">Delete</a>
+                <a href="{{ route('confirmaddress',['address_id'=>$address->id])}}" class="btn-block vesti_in_btn">{{ __('buttons.delete') }}</a>
             </div>
             <div class="col">
                 <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                <input type="submit" class="btn-block vesti_in_btn loader-button" value="Save Address"/>
+                <input type="submit" class="btn-block vesti_in_btn loader-button" value="{{ __('buttons.save') }}"/>
             </div>
         </div>
     </div>

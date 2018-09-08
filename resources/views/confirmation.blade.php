@@ -14,7 +14,7 @@
                             <h3>{{$thankyou_title}}</h3>
                             <div class="error_msg">{{ $thankyou_msg }}</div>
                             <div class="vesti_in_btn_pnl">
-                                <button class="btn-block vesti_in_btn" onclick="location.href='{{ route('home_page')}}'">Return to Home Page</button>
+                                <button class="btn-block vesti_in_btn" onclick="location.href='{{ route('home_page')}}'">{{ __('buttons.back_home') }}</button>
                             </div>
                         </div>
                     </div>

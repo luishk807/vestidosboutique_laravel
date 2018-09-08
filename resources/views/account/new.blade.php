@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="vesti_in_btn_pnl">
                                     <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                                    <input type="submit" class="btn-block vesti_in_btn loader-button" value="Sign Up"/>
+                                    <input type="submit" class="btn-block vesti_in_btn loader-button" value="{{ __('header.submit') }}"/>
                                 </div>
                                 </form>
                             </div><!--end of form container-->
