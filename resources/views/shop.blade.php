@@ -157,14 +157,14 @@
                                 
                                     <h5 class="mb-0">
                                         <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            +Optimize Search
+                                            +{{ __('general.optimized_search') }}
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
                                 <div class="shoplist-search-cont vesti-search-cont">
                             <div class="shoplist-search-type-cont">
-                                <h3>Events</h3>
+                                <h3>{{ __('header.event') }}</h3>
                                 <div class="shoplist-search-list-cont">
                                     <ul>
                                     @foreach($categories as $category)
@@ -223,8 +223,8 @@
                         <div><img src="{{ asset('images/shop_banners') }}/{{$shop_banners->image_url}}" class="img-fluid" alt/></div>
                         <div class="shoplist-nav">
                             <ul>
-                                <li>{{ $products->total() }} Products</li>
-                                <li>Sort By 
+                                <li>{{ $products->total() }} {{ trans_choice('general.product',3) }}</li>
+                                <li>{{ __('pagination.sort_by') }}
                                     <select id="shopPage_select" name="shopPage_select">
                                         @foreach($sort_ops as $sort_op)
                                         <option value='{{ $sort_op }}'

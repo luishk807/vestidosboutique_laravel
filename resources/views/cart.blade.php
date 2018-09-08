@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="vesti_in_btn_pnl">
-                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.checkout') }}</a>
+                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -44,16 +44,16 @@
                         <!--cart header-->
                         <div class="row cart-item-header">
                             <div class="col-md-5 cart-item-1">
-                                ITEM
+                            {{ trans_choice('general.quantity',1) }}
                             </div>
                             <div class="col cart-item-2">
-                               QTY
+                            {{ __('general.qty') }}
                             </div>
                             <div class="col cart-item-3">
-                                PRICE
+                            {{ trans_choice('general.price',1) }}
                             </div>
                             <div class="col cart-item-4">
-                                TOTAL PRICE
+                            {{ __('general.total_price') }}
                             </div>
                         </div><!--end of cart header-->
                         <!--start of cart items-->
@@ -68,10 +68,10 @@
                                         <div class="col">
                                             <div>
                                                 <p>{{$item["name"]}}</p>
-                                                <p>{{ $item['stock'] > 0 ? "In Stock":"Out of Stock"}}</p>
-                                                <p><span class="cart-item-subtitle">Product ID:</span>{{ $item["model"]}}</p>
-                                                <p><span class="cart-item-subtitle">Color:</span>{{ $item["color"] }}</p>
-                                                <p><span class="cart-item-subtitle">Size:</span>{{ $item["size"] }}</p>
+                                                <p>{{ $item['stock'] > 0 ?  __('general.in_stock') :__('general.out_stock') }}</p>
+                                                <p><span class="cart-item-subtitle">{{ __('general.model_id') }}:</span>{{ $item["model"]}}</p>
+                                                <p><span class="cart-item-subtitle">{{ __('general.color') }}:</span>{{ $item["color"] }}</p>
+                                                <p><span class="cart-item-subtitle">{{ __('general.size') }}:</span>{{ $item["size"] }}</p>
                                             </div>
                                             <div>
                                                <a href="javascript:deleteCart({{$keyIndex}})">{{ __('buttons.remove') }}</a>
@@ -110,7 +110,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
-                                            Subtotal
+                                        {{ __('general.subtotal') }}
                                         </div>
                                         <div class="col">
                                            ${{ number_format($subtotal,2) }}
@@ -118,7 +118,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            Tax
+                                        {{ __('general.tax') }}
                                         </div>
                                         <div class="col">
                                             ${{ number_format($taxtotal,2) }}
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            Subtotal
+                                        {{ __('general.total_price') }}
                                         </div>
                                         <div class="col">
                                             ${{ number_format(($subtotal + $taxtotal),2) }}
@@ -141,7 +141,7 @@
                             <div class="col-md-8"><!-- maybe continue shopping--></div>
                             <div class="col-md-4">
                                 <div class="vesti_in_btn_pnl">
-                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.checkout') }}</a>
+                                    <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
                             </div>
                         </div>

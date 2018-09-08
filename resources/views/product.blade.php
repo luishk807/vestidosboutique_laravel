@@ -48,7 +48,7 @@
                                     <div class="product_in_price">${{ $product->total_rent }}</div>
                                     <div class="product_in_colors">
                                         <div class="product_in_sub_title">
-                                            Select Colors
+                                        {{ __('general.select_color') }}
                                         </div>
                                         @foreach($product->colors as $color)
                                         <button class="colors_cubes color_cubes_btn_a" data-class="colors_cubes" data-input="product_color" data-value="{{ $color->id }}" onclick="addCart(event)" style="background-color:{{ $color->color_code }}"></button>
@@ -58,7 +58,7 @@
                                         <div class="row">
                                         <div class="col-md-6">
                                             <div class="product_in_sub_title">
-                                                Select Size
+                                            {{ __('general.select_size') }}
                                             </div>
                                             @foreach($product->sizes as $size)
                                             <button class="size_spheres" onclick="addCart(event)" data-class="size_spheres" data-input="product_size" data-value="{{ $size->id }}">{{ $size->name }}</button>
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="product_in_sub_title">
-                                               Quantity
+                                            {{ trans_choice('general.quantity',1) }}
                                             </div>
                                             <select class="custom-select" name="product_quantity">
                                             @for ($i = 1; $i < 10; $i++)
@@ -84,7 +84,7 @@
                                                 <div class="card-header" id="headingOne">
                                                     <h5 class="mb-0">
                                                         <a class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                           + Detail
+                                                           + {{ __('general.detail') }}
                                                         </a>
                                                     </h5>
                                                 </div>
@@ -97,7 +97,7 @@
                                                 <div class="card-header" id="headingTwo">
                                                     <h5 class="mb-0">
                                                         <a class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                                           + Description
+                                                           + {{ __('general.description') }}
                                                         </a>
                                                     </h5>
                                                 </div>
@@ -121,7 +121,7 @@
                 </div>
                 <div class="row">
                     <div class="col product_in_loved">
-                        <h2 class="product_in_title_loved">People Also Loved</h2>
+                        <h2 class="product_in_title_loved">{{ __('general.also_loved') }}</h2>
                         <div class="container-fluid">
                             <div class="row">
                                 @foreach($products_cat as $product_cat)

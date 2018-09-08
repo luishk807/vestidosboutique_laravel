@@ -47,7 +47,7 @@
                         <tbody>
                             <tr>
                                 <td class="no-wishlist">
-                                <strong>Your Wishlist is empty</strong>
+                                <strong>{{ __('general.wishlist_empty') }}</strong>
                                 </td>
                             </tr>
                         </tbody>
