@@ -7,7 +7,10 @@ use App\vestidosStatus as Statuses;
 use App\vestidosVendors as Vendors;
 use App\vestidosCountries as Countries;
 use Carbon\Carbon as carbon;
+use Illuminate\Support\Arr;
 use Excel;
+use Session;
+use Validator;
 
 class vendorsController extends Controller
 {
@@ -44,7 +47,7 @@ class vendorsController extends Controller
                 "first_name"=>"required",
                 "last_name"=>"required",
                 "phone_number_1"=>"required",
-                "email"=>"required",
+                "email"=>"required|email|unique:vestidos_vendors,email",
                 "address_1"=>"required",
                 "country"=>"required",
                 "city"=>"required",
@@ -82,7 +85,7 @@ class vendorsController extends Controller
                 "first_name"=>"required",
                 "last_name"=>"required",
                 "phone_number_1"=>"required",
-                "email"=>"required",
+                "email"=>"required|email|unique:vestidos_vendors,email,".$vendor->id,
                 "address_1"=>"required",
                 "country"=>"required",
                 "city"=>"required",
@@ -141,31 +144,30 @@ class vendorsController extends Controller
         if($request->hasFile('file')) {
             $path = $request->file->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
-            
+            $bad_data=[];
             if(!empty($data) && $data->count()){
                 foreach ($data as $value) {
                     $insert[]=[
                         "first_name"=>$value->first_name,
                         "middle_name"=>$value->middle_name,
                         "last_name"=>$value->last_name,
-                        "phone_number_1"=>$value->phone_number_1,
-                        "phone_number_2"=>$value->phone_number_2,
+                        "phone_number_1"=>$value->phone_1,
+                        "phone_number_2"=>$value->phone_2,
                         "email"=>$value->email,
                         "address_1"=>$value->address_1,
                         "address_2"=>$value->address_2,
                         "city"=>$value->city,
                         "state"=>$value->state,
-                        "country_id"=>$value->country_id,
+                        "country_id"=>$value->country,
                         "zip_code"=>$value->zip_code,
                         "status"=>1,
-                        "ip"=>$request->ip(),
+                        "ip_address"=>$request->ip(),
                         "created_at"=>carbon::now(),
                     ];
                 }
-                if(!empty($insert)){
-                    Vendors::insert($insert);
-                    return redirect()->route('admin_vendors')->with('success','Insert Record successfully.');
-                }
+                Session::forget("data_confirm");
+                Session::put("data_confirm",$insert);
+                return redirect()->route('show_import_vendor_confirm');
             }
         }else{
             return redirect()->back()->withErrors([
@@ -174,4 +176,64 @@ class vendorsController extends Controller
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
+    public function showImportVendor_confirm(Request $request){
+       $data=[];
+       if(Session::has("data_confirm")){
+            $session = Session::get("data_confirm");
+            $data["page_title"]="Confirm Import Data";
+            $data["statuses"]=$this->statuses->all();
+            $data["countries"]=$this->countries->all();
+            $data["data_confirm"]=$session;
+            return view("admin/vendors/import_confirm",$data);
+       }
+       $data["page_title"]="Import Vendors";
+        $data["import_btn"]="Import Vendors";
+       return view("admin/vendors/import")->with("error","No data to confirm");
+    }
+    public function saveImportVendor_confirm(Request $request){
+        $data=[];
+        $valid_array=false;
+        $this->validate($request,[
+            "vendor_confirm"=>"required",
+            "vendor_confirm.*.email"=>"required|email|unique:vestidos_vendors,email",
+            "vendor_confirm.*.first_name"=>"required",
+            "vendor_confirm.*.last_name"=>"required",
+            "vendor_confirm.*.phone_number_1"=>"required",
+            "vendor_confirm.*.address_1"=>"required",
+            "vendor_confirm.*.city"=>"required",
+            "vendor_confirm.*.state"=>"required",
+            "vendor_confirm.*.country"=>"required",
+        ]);
+        $vendors = $request->input("vendor_confirm");
+        foreach($vendors as $vendor){
+            if(Arr::exists($vendor,"key")){
+                $valid_array=true;
+                $insert=[
+                    "first_name"=>$vendor["first_name"],
+                    "middle_name"=>$vendor["middle_name"],
+                    "last_name"=>$vendor["last_name"],
+                    "phone_number_1"=>$vendor["phone_number_1"],
+                    "phone_number_2"=>$vendor["phone_number_2"],
+                    "email"=>$vendor["email"],
+                    "address_1"=>$vendor["address_1"],
+                    "address_2"=>$vendor["address_2"],
+                    "city"=>$vendor["city"],
+                    "state"=>$vendor["state"],
+                    "country_id"=>$vendor["country"],
+                    "zip_code"=>$vendor["zip_code"],
+                    "status"=>1,
+                    "ip_address"=>$request->ip(),
+                    "created_at"=>carbon::now(),
+                ];
+
+                 Vendors::insert($insert);
+            }
+        }
+        if(!$valid_array){
+            return redirect()->back()->withErrors(["required"=>"You must select a vendor"]);
+        }else{
+            Session::forget("data_confirm");
+            return redirect()->route("admin_vendors")->with("success","import successfully entered");
+        }
+     }
 }

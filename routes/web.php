@@ -313,6 +313,8 @@
                 Route::delete('/confirm/{vendor_id}','vendorsController@deleteVendor')->name('delete_vendor');
                 Route::get('/import','vendorsController@showImportVendor')->name('show_import_vendor');
                 Route::post('/import','vendorsController@saveImportVendor')->name('save_import_vendor');
+                Route::get('/import_confirm','vendorsController@showImportVendor_confirm')->name('show_import_vendor_confirm');
+                Route::post('/import_confirm','vendorsController@saveImportVendor_confirm')->name('save_import_vendor_confirm');
             });
             //Admin Users
             Route::prefix("users")->group(function(){
