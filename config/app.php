@@ -161,7 +161,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         
         //BrainTree
-        Laravel\Cashier\CashierServiceProvider::class
+        Laravel\Cashier\CashierServiceProvider::class,
+        //Spanish
+        Laraveles\Spanish\SpanishServiceProvider::class,
 
     ],
 

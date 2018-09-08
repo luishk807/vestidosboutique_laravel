@@ -7,7 +7,7 @@
     
     <link rel="stylesheet" type="text/css" href="{{ asset('js/vendor/fullpage/jquery.fullPage.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-     <title>Vestidos Boutique Main - {{ $page_title }}</title>
+     <title>Vestidos Boutique - {{ $page_title }}</title>
 
 
  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
