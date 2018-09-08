@@ -47,7 +47,7 @@
                         <tbody>
                             <tr>
                                 <td class="no-wishlist">
-                                <strong>{{ __('general.wishlist_empty') }}</strong>
+                                <strong>{{ __('general.empty_msg.wishlist') }}</strong>
                                 </td>
                             </tr>
                         </tbody>

@@ -154,7 +154,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="col-md-7 text-center cart-text-cont">
-                                    <p>Your Shopping Cart is Empty</p>
+                                    <p>{{ __('general.empty_msg.cart') }}</p>
                                     <div class="vesti_in_btn_pnl">
                                         <a class="btn-block vesti_in_btn" href="{{ route('shop_page') }}">{{ __('buttons.continue_shop') }}</a>
                                     </div>

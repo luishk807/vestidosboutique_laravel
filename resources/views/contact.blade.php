@@ -68,7 +68,7 @@
                                 <div class="container contact-address">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="header">Address</span><br/>
+                                            <span class="header">{{ __('general.address') }}</span><br/>
                                             <a href='https://goo.gl/maps/xM81XLeuLGP2' target="_blank">El Calle Eusebio A. Morales, Hotel Milan, Local 2, En frente del Marquis Tower, Panama</a>
                                         </div>
                                     </div>
@@ -79,12 +79,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="col header">
-                                            Openning Hours
+                                        {{ __('general.opening_hours') }}
                                         </div>
                                     </div>
                                     <div class="row address-hour">
                                         <div class="col-md-6">
-                                            Monday-Friday
+                                        {{ __('general.weekdays.monday') }}-{{ __('general.weekdays.friday') }}
                                         </div>
                                         <div class="col-md-6">
                                             10:00 a.m. - 9:00 p.m.
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="row address-hour">
                                         <div class="col-md-6">
-                                            Saturday
+                                        {{ __('general.weekdays.sunday') }}
                                         </div>
                                         <div class="col-md-6">
                                             10:00 a.m. - 9:00 p.m.

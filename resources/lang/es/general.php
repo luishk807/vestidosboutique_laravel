@@ -68,9 +68,23 @@ return [
     'shipping_handling'=>"Costo de Envio",
     'estimated_tax'=>"Estimado de Impuesto",
 
+    'opening_hours'=>"Horario de Apertura",
+
     //MENSAJES
-    'wishlist_empty'=>"Tu Lista esta vacio",
-    'cart_empty'=>"Tu Carrito esta vacio",
-    'order_empty'=>"No Hay Pedidos Encontrados",
+    'empty_msg'=>[
+        'wishlist'=>"Tu Lista esta vacio",
+        'cart'=>"Tu Carrito esta vacio",
+        'order'=>"No Hay Pedidos Encontrados",
+    ],
     
+     //Weekdates
+     'weekdays'=>[
+        'monday'=>"Lunes",
+        'tuesday'=>"Martes",
+        'wednesday'=>"Miercoles",
+        'thursday'=>"Jueves",
+        'friday'=>"Viernes",
+        'saturday'=>"Sabado",
+        'sunday'=>"Domingo",
+     ]
 ];

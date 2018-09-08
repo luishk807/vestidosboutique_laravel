@@ -65,4 +65,26 @@ return [
     'returned_date'=>'Returned Date',
     'shipping_handling'=>"Shipping Handling",
     'estimated_tax'=>"Estimated Tax to be collected",
+
+    'opening_hours'=>"Opening Hours",
+
+     //MENSAJES
+     'empty_msg'=>[
+        'wishlist'=>"Your Wishlists is Empty",
+        'cart'=>"Your Cart is Empty",
+        'order'=>"No Orders Found",
+     ],
+
+     //Weekdates
+     'weekdays'=>[
+        'monday'=>"Monday",
+        'tuesday'=>"Tuesday",
+        'wednesday'=>"Wednesday",
+        'thursday'=>"Thursday",
+        'friday'=>"Friday",
+        'saturday'=>"Saturday",
+        'sunday'=>"Sunday",
+     ]
+
+
 ];

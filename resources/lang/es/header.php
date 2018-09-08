@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'shop' => 'Shop',
+    'shop' => 'Comprar',
     'about' => 'Nosotros',
     'event' => 'Eventos',
     'contact' => 'Contáctenos',

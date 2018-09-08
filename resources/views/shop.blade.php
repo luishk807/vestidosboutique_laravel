@@ -236,11 +236,11 @@
                                     </select>
                                 </li>
                                 @if(!empty($products->previousPageUrl()))
-                                <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
+                                <li><a href="{{ $products->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                                 @endif
                                 <li>{{ $products->currentPage()}} of {{ $products->count() }}</li>
                                 @if($products->nextPageUrl())
-                                <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
+                                <li><a href="{{ $products->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
                                 @endif
                             </ul>
                         </div>
@@ -252,7 +252,7 @@
                                 <li class="shoplist-list">
                                     <div>
                                         @if($product->is_new)
-                                        <div class="vesti-new-txt vesti-new-txt-b">NEW</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
                                         @endif
                                         <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail"><img class="img-fluid" src="
                                         @if($product->images->count()>0)
