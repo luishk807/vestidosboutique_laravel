@@ -51,7 +51,7 @@
                         @foreach($top_dresses as $keyIndex=>$top_dress)
                         <div id="top_middle_img{{ $keyIndex+1 }}" class="col-sm-6 col-md-4">
                             @if($top_dress->is_new)
-                            <div class="vesti-new-txt vesti-new-txt-a">NEW</div>
+                            <div class="vesti-new-txt vesti-new-txt-a">{{ __('general.new') }}</div>
                             <div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="vesti-heart-link"><span class="vesti-svg
@@ -129,7 +129,7 @@
                         @foreach($top_quinces as $keyIndex=>$top_quince)
                         <div id="quince_thumb_{{ $keyIndex+1 }}" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             @if($top_quince->is_new)
-                            <div class="vesti-new-txt vesti-new-txt-a">NEW</div><div class="vesti-new-border vesti-new-border-a"></div>
+                            <div class="vesti-new-txt vesti-new-txt-a">{{ __('general.new') }}</div><div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="vesti-heart-link"><span class="vesti-svg
                             @if(Auth::guard('vestidosUsers')->check())
