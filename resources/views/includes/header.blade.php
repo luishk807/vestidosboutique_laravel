@@ -51,31 +51,45 @@
                     <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">{{ __('header.about') }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic dropdown-toggle" menu-target="events-submenu" href="#">{{ __('header.event') }}</a>
+                    <li class="nav-item nav-toggle-li">
+                        <a id="nav-item-events" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.event') }}</a>
+                        <ul class="nav-list-submenu">
+                            <li>
+                                <ul>
+                                    <!-- @foreach($categories as $category)
+                                    <li><a href="{{ $category->id }}">{{$category->name}}</a></li>
+                                    @endforeach -->
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                </ul>
+
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a>
                     </li>
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
-                    <li class="nav-item nav-top-lang">
-                        <a id="vesti-navbar-top-lang" class="text-white" href=''>
-                            <span>{{ strtoupper(App::getLocale()) }}</span><br/>
-                            <img src="{{ asset('images/globe.svg') }}" class="vesti-svg vestidos-icons-globe"/>
+                    <li class="nav-item nav-item-lang">
+                        <a id="vesti-navbar-top-lang" class="text-white navbar-link-lang" href=''>
+                            
+                            <img src="{{ asset('images/globe.svg') }}" class="vesti-svg vestidos-icons-globe"/><span>{{ strtoupper(App::getLocale()) }}</span>
                         </a>
-
-                        <div class="vesti-lang-top">
-                           <div class="container">
-                                <ul>
-                                @foreach(\App\vestidosLanguages::where('status','=',1)->get() as $language)
-                                    <li><a class="text-white" href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a></li>
-                                @endforeach
-                                </ul>
-                           </div>
-                        </div><!--end of hover menu-->
-
-
+                        
+                        <ul class="vesti-lang-top">
+                        @foreach(\App\vestidosLanguages::where('status','=',1)->get() as $language)
+                            <li><a class="text-white" href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a></li>
+                        @endforeach
+                        </ul><!--end of hover menu-->
 
                     </li>
                     <li class="nav-item">
@@ -132,38 +146,12 @@
             </div>
         </div>
     </nav>
-    <div id="events-submenu" class="submenu-panel">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <ul>
-                            @foreach($categories as $category)
-                            <li><a href="{{ $category->id }}">{{$category->name}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div id="brands-submenu" class="submenu-panel">
-         <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <ul>
-                            @foreach($brands as $brand)
-                            <li><a href="{{ $brand->id }}">{{$brand->name}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-    </div>
 
         <div class="collapse vestidos-main-nav-top" id="navbarToggleExternalContent">
             <div class="vesti-custom-bg">
                 <ul class="navbar-nav mr-auto">
                      @if(Auth::guard('vestidosUsers')->check())
-                    <li class="nav-item">
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="{{ route('user_account')}}"  data-toggle="collapse" class="collapsed" data-target="#toggle-acct">{{ __('header.account') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-acct" style="height: 0px;">
                             <ul class="nav-list">
@@ -173,13 +161,13 @@
                         </div>
                     </li>
                     @endif
-                    <li class="nav-item">
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">{{ __('header.about') }}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.event') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
@@ -189,7 +177,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-lang">{{ __('header.language') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-lang" style="height: 0px;">
                             <ul class="nav-list">
@@ -199,7 +187,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a>
                     </li>
                 </ul>

@@ -46,21 +46,15 @@ $(document).ready(function() {
        }); 
    });
     /****CART TOP HOVER****/
-    $("#vesti-navbar-top-link").hover(function(){
-        $(".submenu-panel").removeClass("open");
+    $(".nav-toggle-li").hover(function(){
+        $(".nav-list-submenu, .nav-list-submenu ul").toggleClass("active"); 
+    })
+
+     $(".navbar-vesti-cart").hover(function(){
         $(".vesti-cart-top").toggleClass("active"); 
     })
-    $(".vesti-cart-top").hover(function(){
-        $(".submenu-panel").removeClass("open");
-        $(this).toggleClass("active"); 
-    })
-    $("#vesti-navbar-top-lang").hover(function(){
-        $(".submenu-panel").removeClass("open");
+    $(".nav-item-lang").hover(function(){
         $(".vesti-lang-top").toggleClass("active"); 
-    })
-    $(".vesti-lang-top").hover(function(){
-        $(".submenu-panel").removeClass("open");
-        $(this).toggleClass("active"); 
     })
     /***END ***/
     var isReponsive =false;
@@ -124,8 +118,8 @@ $(document).ready(function() {
     }
     initialization();
     $(window).on("resize",function() {
-        $(".submenu-panel").removeClass("open");
         $('#vesti-main-nav-btn').removeClass('open');
+        $(".vestidos-main-nav-top").removeClass("show");
     });
     $("#main_slider_arrow_cont .vesti-down-arrow").click(function(e){
         e.preventDefault();
@@ -136,26 +130,6 @@ $(document).ready(function() {
     });
     $(".collapse-link").click(function(){
         $(this).closest(".nav-item").toggleClass("hover");
-    })
-    var current=null;
-    var menu_id=null;
-    $(".vest-maincolor-left .nav-item a").click(function(){
-        if(current){
-            menu_id=$(this).attr("menu-target");
-            $("#"+current).toggleClass("open");
-            if(menu_id != current){
-                current = null;
-                setTimeout(function(){
-                    $(".submenu-panel").not(this).removeClass("open");
-                    $("#"+menu_id).toggleClass("open");
-                },100)
-            }
-        }else{
-            menu_id=current=$(this).attr("menu-target");
-            $(".submenu-panel").not(this).removeClass("open");
-            $("#"+menu_id).toggleClass("open");
-        }
-
     })
     $(".vesti-cart-quantity-input").click(function () {
         $(this).select();

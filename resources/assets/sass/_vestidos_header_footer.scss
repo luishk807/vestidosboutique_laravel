@@ -1,7 +1,109 @@
-.submenu-panel ul{
-    @include colum-gab(4,20px);
-    list-style-type:none;
+.vest-maincolor-left,
+.vest-maincolor-right{
+    font-size:.97rem;
 }
+.nav-link{
+    padding: 23px 18px !important;
+}
+.navbar-link{
+    padding: 23px 18px !important;
+    display:inline-block;
+}
+.navbar-link-lang{
+    padding: 23px 18px !important;
+    display:inline-block;
+
+}
+.navbar-link-lang:hover{
+    text-decoration:none;
+}
+.nav-link:hover,
+.navbar-link:hover{
+    background-color:$main-vest-color-dark;
+    text-decoration:none;
+}
+#vesti-navbar-top-lang span{
+    font-size:.9rem;
+    vertical-align:middle;
+    padding-left:3px;
+    font-family: "Playfair Display";
+    font-style: italic;
+}
+.nav-item-lang:hover{
+    background-color:$main-vest-color-dark;
+    text-decoration:none;
+}
+.vesti-lang-top a{
+    padding:15px 40px !important;
+    display:block;
+}
+.vesti-lang-top a:hover{
+    text-decoration:none;
+    background-color:$main_vest_color;
+    @include transition(0.3s);
+}
+.vesti-lang-top{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.navbar-vesti-cart:hover{
+    background-color:$main-vest-color-dark;
+}
+
+.nav-list-submenu{
+    list-style-type:  none;
+    margin:  0px;
+    padding: 0px;
+    position:  absolute;
+    background-color:$main-vest-color-dark;
+    width: 100%;
+    left:  -0;
+
+}
+.nav-list-submenu ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 20px;
+    display: inline-block;
+    columns:5;
+  -webkit-columns:5;
+  -moz-columns:5;
+}
+.nav-list-submenu,
+.nav-list-submenu ul{
+    max-height:0;
+    z-index:-1;
+}
+.nav-list-submenu li{
+    text-align:center;
+}
+.nav-list-submenu ul li a{
+    color:white;
+    padding:10px 50px;
+    display:inline-block;
+}
+.nav-list-submenu ul li a:hover{
+    text-decoration:none;
+    background-color:$main_vest_color;
+    @include transition(0.3s);
+}
+.nav-toggle-li:hover{
+    background-color:$main-vest-color-dark;
+}
+.nav-list-submenu.active,
+.nav-list-submenu ul.active{
+	max-height:800px;
+    z-index:999;
+	-webkit-transition: max-height 0.25s ease-in;
+	-moz-transition: max-height 0.25s ease-in;
+	-o-transition: max-height 0.25s ease-in;
+	transition: max-height 0.25s ease-in;
+	-ms-transition: max-height 0.25s ease-in;
+}
+
+
 .nav-top-lang{
     font-size: .7rem;
     font-weight: bold;
@@ -25,25 +127,6 @@
     height: 190px;
     background-size: 170px 130px;
 }
-div.submenu-panel .col{
-    margin:20px 0px;
-}
-div.submenu-panel .col a{
-    color:white;
-    text-decoration:none;
-}
-div.submenu-panel .col a:hover{
-    text-decoration:underline;
-}
-.vest-maincolor-right li{
-    margin:0px 10px;
-}
-.vest-maincolor .nav-link,
-.vest-maincolor .navbar-link{
-    font-size:1rem;
-    padding-right:0 !important;
-    padding-left:0 !important;
-}
 .vestidos-main-nav{
     position: absolute;
     width: 100%;
@@ -51,7 +134,6 @@ div.submenu-panel .col a:hover{
     z-index: 9999;
 }
 .vest-maincolor-container{
-    // width:965px;
     width:1000px;
 }
 .vestidos-icons-header{
@@ -74,14 +156,8 @@ div.submenu-panel .col a:hover{
 .vesti-footer-section-2 .text-right img{
 margin:10px 0px;
 }
-  
-.vest-maincolor-right a{
-    display:inline-block;
-    padding:3px 2px;
-}
 .vest-maincolor-right .vesti-navbar-bag{
     display:inline-block;
-    /* vertical-align: top; */
     margin-top: -5px !important;
 }
 .vest-maincolor-right .vestidos-icons-header{
@@ -119,9 +195,6 @@ margin:10px 0px;
 .nav-list li a{
     color:white;
 }
-/* #vesti-custom-bottom{
-    position:absolute; bottom:50px; width:100%;
-} */
 #vesti-custom-bottom{
     border-top:1px solid rgba(255,255,255,.1);
     margin-top:50px;
@@ -147,36 +220,8 @@ margin:10px 0px;
 .vesti-collapse{
     padding-bottom:10px;
 }
-.nav-item{
-    padding:0px .9rem;
-}
-.vest-maincolor-left .nav-item{
-    padding:14px .9rem;
-}
-.vest-maincolor-right .nav-item{
-    padding:19px .9rem;
-}
-.vest-maincolor-left > .nav-item:hover,
-.vest-maincolor-right > .nav-item:hover{
-    background-color:$main-vest-color-dark;
-    @include transition(background-color .2s ease-in-out);
-}
-.nav-item.hover{
-    background-color: $main_vest_color_dark;
-}
-.submenu-panel.open{
-    top:70px;
-}
-.submenu-panel{
-    min-height: 150px;
-    position:absolute;
-    top:-5000px;
-    left:0px;
-    width:100%;
-    z-index: 999;
-    background-color: $main_vest_color_dark;
-    color:white;
-    @include transition(top .4s ease-in-out);
+.nav-item-lang{
+    position:relative;
 }
 #vestidos-top-news{
     position:relative;
@@ -184,9 +229,6 @@ margin:10px 0px;
     z-index:9999;
 }
 /******language panel*****/
-.nav-top-lang{
-    position:relative;
-}
 .vesti-lang-top ul{
     list-style-type: none;
     margin: 0px;
@@ -200,7 +242,6 @@ margin:10px 0px;
     background-color: $main-vest-color-dark;
     color: #fff;
     position: absolute;
-    min-width: 130px;
     right: 0px;
     top: 67px;
     z-index: -1;
