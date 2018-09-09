@@ -29,5 +29,6 @@ return [
     'terms' => 'Terms of Use',
     'privacy' => 'Privacy',
     'language' => 'Languages',
+    'registration'=>"Registration",
 
 ];

@@ -145,7 +145,7 @@
                                     <tbody>
                                         
                                         <tr>
-                                            <th class="checkout-subtitle" scope="row" colspan="3">Choose Delivery Method</th>
+                                            <th class="checkout-subtitle" scope="row" colspan="3">{{ __('general.header.choose_delivery') }}</th>
                                         </tr>
                                         @foreach($shipping_lists as $shipping_info)
                                         <tr>

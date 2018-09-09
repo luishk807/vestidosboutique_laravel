@@ -10,41 +10,34 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6">
-                                @if(isset($bodyMessage))
-                                <div class="w3-container w3-orange">
-                                    <p>
-                                        <b>The data you have entered is :</b><span style="color: #e36c39; background: #EEE">{{ $bodyMessage }}</span>
-                                    </p>
-                                </div>
-                                @endif
                                 <form action="{{ route('sendEmail') }}" method="post" role="email">
                                 {{ csrf_field() }}
-                                    <h2>Contact</h2>
+                                    <h2>{{ __('header.contact') }}</h2>
                                     <div class="form-group">
-                                            <label for="accountFirstName">First Name:</label>
-                                            <input type="text" id="accountFirstName" class="form-control" name="first_name" value="" placeholder="First Name"/>
+                                            <label for="accountFirstName">{{ __('general.form.first_name') }}:</label>
+                                            <input type="text" id="accountFirstName" class="form-control" name="first_name" value="" placeholder="{{ __('general.form.first_name') }}"/>
                                             <small class="error">{{$errors->first("first_name")}}</small>
                                     </div>
                                     <div class="form-group">
-                                            <label for="accountLastName">Last Name:</label>
-                                            <input type="text" id="accountLastName" class="form-control" name="last_name" value="" placeholder="Last Name"/>
+                                            <label for="accountLastName">{{ __('general.form.last_name') }}:</label>
+                                            <input type="text" id="accountLastName" class="form-control" name="last_name" value="" placeholder="{{ __('general.form.last_name') }}"/>
                                             <small class="error">{{$errors->first("last_name")}}</small>
                                     </div>
                                     <div class="form-group">
-                                            <label for="accountEmail">Email:</label>
-                                            <input type="email" id="accountEmail" class="form-control" name="email" value="" placeholder="Email"/>
+                                            <label for="accountEmail">{{ __('general.form.email') }}:</label>
+                                            <input type="email" id="accountEmail" class="form-control" name="email" value="" placeholder="{{ __('general.form.email') }}"/>
                                             <small class="error">{{$errors->first("email")}}</small>
                                     </div>
                                     <div class="form-group">
-                                            <label for="accountPhone">Phone:</label>
-                                            <input type="tel" id="accountPhone" class="form-control" name="phone" value="" placeholder="Phone Number"/>
+                                            <label for="accountPhone">{{ __('general.form.telephone') }}:</label>
+                                            <input type="tel" id="accountPhone" class="form-control" name="phone" value="" placeholder="{{ __('general.form.telephone') }}"/>
                                             <small class="error">{{$errors->first("phone")}}</small>
                                     </div>
                                     <div class="form-group">
-                                            <label class="accountCountrySelect" for="accountCountry">Select Country:</label>
+                                            <label class="accountCountrySelect" for="accountCountry">{{ __('general.form.country') }}:</label>
                                             <select class="custom-select accountCountrySelect" name="country" id="accountCountry">
                                                 
-                                                <option selected>Select Country</option>
+                                                <option selected>{{ __('general.form.select_country') }}</option>
                                                 @foreach($countries as $country)
                                                     <option vale="{{ $country->id }}">{{$country->countryName}} </option>
                                                 @endforeach
@@ -52,8 +45,8 @@
                                             <small class="error">{{$errors->first("country")}}</small>
                                     </div>
                                     <div class="form-group">
-                                            <label for="accountQuestion">Question:</label>
-                                            <textarea class="form-control" id="accountQuestion" rows="3" name="question"></textarea>
+                                            <label for="accountQuestion">{{ __('general.form.question') }}:</label>
+                                            <textarea class="form-control" id="accountQuestion" rows="3" name="{{ __('general.form.question') }}"></textarea>
                                             <small class="error">{{$errors->first("question")}}</small>
                                     </div>
                                     <div class="vesti_in_btn_pnl">
@@ -68,7 +61,7 @@
                                 <div class="container contact-address">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="header">{{ __('general.address') }}</span><br/>
+                                            <span class="header">{{ __('general.form.address') }}</span><br/>
                                             <a href='https://goo.gl/maps/xM81XLeuLGP2' target="_blank">El Calle Eusebio A. Morales, Hotel Milan, Local 2, En frente del Marquis Tower, Panama</a>
                                         </div>
                                     </div>

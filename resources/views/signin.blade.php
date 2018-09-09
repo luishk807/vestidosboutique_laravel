@@ -24,7 +24,7 @@
                                     <form action="{{ route('login_user') }}" method="post">
                                     {{ csrf_field() }}
                                     <div class="row">
-                                        <div class="col"><h2>Iniciar Sesión</h2></div>
+                                        <div class="col"><h2>{{ __('header.log_in') }}</h2></div>
                                     </div>
                                     <div class="row">
                                         <div class="col error py-2">
@@ -37,15 +37,15 @@
                                         <div class="col">
                                             
                                             <div class="form-group">
-                                                <label for="loginEmail">Email:</label>
-                                                <input type="email" id="loginEmail" class="form-control" name="email" placeholder="Email"/>
+                                                <label for="loginEmail">{{ __('general.form.email') }}:</label>
+                                                <input type="email" id="loginEmail" class="form-control" name="email" placeholder="{{ __('general.form.email') }}"/>
                                                 <small class="error">{{$errors->first("email")}}</small>
                                             </div>
                                             <div class="form-group">
-                                                <label for="loginPassword">Contraseña:</label>
-                                                <input type="password" id="loginPassword" class="form-control" aria-describedby="passwordHelp"  name="password" placeholder="Contraseña"/>
+                                                <label for="loginPassword">{{ __('general.form.password') }}:</label>
+                                                <input type="password" id="loginPassword" class="form-control" aria-describedby="passwordHelp"  name="password" placeholder="{{ __('general.form.password') }}"/>
                                                 <small class="error">{{$errors->first("password")}}</small>
-                                                <small id="passwordHelp" class="form-text text-muted"><a href="" class="vesti-small-link">Olvidó su contraseña?</a></small>
+                                                <small id="passwordHelp" class="form-text text-muted"><a href="" class="vesti-small-link">{{ __('auth.forgot_password') }}</a></small>
                                             </div>
                                             
                                         </div>
@@ -70,7 +70,7 @@
 
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col"><h2>Regístrate</div>
+                                        <div class="col"><h2>{{ __('header.registration') }}</div>
                                     </div>
                                     <div class="row">
                                         <div class="col">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores,</div>

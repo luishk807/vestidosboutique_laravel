@@ -29,5 +29,5 @@ return [
     'terms' => 'Terminos de Uso',
     'privacy' => 'Terminos de Privacidad',
     'language' => 'Lenguages',
-
+    'registration'=>"Regístrate",
 ];
