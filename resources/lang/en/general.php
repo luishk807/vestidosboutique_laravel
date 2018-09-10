@@ -18,7 +18,7 @@ return [
         'last_name'=>"Last Name",
         'email'=>"Email",
         'telephone'=>"Phone Number",
-        'address'=>"Address",
+        'address'=>"Address | Addresses",
         'city'=>"City",
         'state'=>"State",
         'country'=>"Country",

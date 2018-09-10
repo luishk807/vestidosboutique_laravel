@@ -20,7 +20,7 @@ return [
         'last_name'=>"Apellido",
         'email'=>"Email",
         'telephone'=>"Teléfono",
-        'address'=>"Dirección",
+        'address'=>"Dirección | Direcciones",
         'city'=>"Ciudad",
         'state'=>"Estado",
         'country'=>"País",

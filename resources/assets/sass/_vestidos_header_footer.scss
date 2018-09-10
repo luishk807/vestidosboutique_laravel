@@ -75,6 +75,7 @@
 .nav-list-submenu ul{
     max-height:0;
     z-index:-1;
+    display:none;
 }
 .nav-list-submenu li{
     text-align:center;
@@ -96,6 +97,7 @@
 .nav-list-submenu ul.active{
 	max-height:800px;
     z-index:999;
+    display:inline-block;
 	-webkit-transition: max-height 0.25s ease-in;
 	-moz-transition: max-height 0.25s ease-in;
 	-o-transition: max-height 0.25s ease-in;

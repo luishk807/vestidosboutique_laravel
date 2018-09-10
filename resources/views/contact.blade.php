@@ -61,7 +61,7 @@
                                 <div class="container contact-address">
                                     <div class="row">
                                         <div class="col">
-                                            <span class="header">{{ __('general.form.address') }}</span><br/>
+                                            <span class="header">{{ trans_choice('general.form.address',1) }}</span><br/>
                                             <a href='https://goo.gl/maps/xM81XLeuLGP2' target="_blank">El Calle Eusebio A. Morales, Hotel Milan, Local 2, En frente del Marquis Tower, Panama</a>
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col header">
-                                        {{ __('general.opening_hours') }}
+                                        {{ __('general.page_header.opening_hours') }}
                                         </div>
                                     </div>
                                     <div class="row address-hour">
