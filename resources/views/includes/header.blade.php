@@ -115,13 +115,13 @@
                                    <div class="col-md-8 cart-top-item-txt">
                                        <div>
                                        <p><a href="/product/{{ $header_cart['id']}}">{{ $header_cart["name"] }}</a></p>
-                                       <p>Precio: ${{ number_format($header_cart["total"],2) }}</p>
-                                       <p>Tamaño: {{ $header_cart["size"] }}</p>
-                                       <p>Color: {{ $header_cart["color"] }}</p>
-                                       <p>Cantidad: {{ $header_cart["quantity"] }}</p>
+                                       <p>{{ trans_choice('general.product_title.price',1) }}: ${{ number_format($header_cart["total"],2) }}</p>
+                                       <p>{{ trans_choice('general.product_title.size',1) }}: {{ $header_cart["size"] }}</p>
+                                       <p>{{ trans_choice('general.product_title.color',1) }}: {{ $header_cart["color"] }}</p>
+                                       <p>{{ trans_choice('general.cart_title.quantity',1) }}: {{ $header_cart["quantity"] }}</p>
                                         </div>
                                         <div>
-                                            <a href="javascript:deleteCart('{{ $header_cart_key }}')">Eliminar</a>
+                                            <a href="javascript:deleteCart('{{ $header_cart_key }}')">{{ __('buttons.remove') }}</a>
                                         </div>
                                    </div>
                                </div><!--end of item-->
@@ -129,7 +129,7 @@
                                @php( $header_cart_total +=$header_cart["total"] * $header_cart["quantity"] )
                                @endforeach
                                <div class="row cart-top-totals">
-                                   <div class="col">Subtotal: ${{ number_format($header_cart_total,2) }}</div>
+                                   <div class="col">{{ __('general.cart_title.subtotal') }}: ${{ number_format($header_cart_total,2) }}</div>
                                </div>
                                <div class="row cart-top-buttons">
                                    <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('cart_page') }}">{{ __('header.cart') }}</a></div>

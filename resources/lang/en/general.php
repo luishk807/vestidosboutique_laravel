@@ -36,6 +36,7 @@ return [
     //PAGE HEADER
     'page_header'=>[
         'address_type'=>"Address Types",
+        'select_address_type'=>"Select Address Type",
         'shipping_address'=>"Shipping Address",
         'billing_address'=>"Billing Address",
         'choose_delivery'=>'Choose Delivery Method',
@@ -43,6 +44,19 @@ return [
         'payment_method'=>"Payment Method",
         'order_summary'=>"Order Summary",
         'opening_hours'=>"Opening Hours",
+        'choose_billing_payment'=>"Choose Billing and Payment Method",
+        'provice_billing_payment'=>'Please Provide Billing and Payment Method',
+        'select_shipping'=>'Select Shipping Address',
+        'provide_shipping'=>'Provide Shipping Address',
+        'edit_account'=>"Edit Account",
+        'new_account'=>"New Account",
+        'review_name'=>'Review for :name',
+        'welcome' => 'Welcome, :name',
+        'delete_order'=>"Delete Order",
+        'cancel_order'=>"Cancel Order",
+        'order_detail'=>"Order Detail",
+        'top_dresses'=>"Top Dresses",
+        'top_quince'=>"Top Quinceañera Dresses",
     ],
 
     //CART TITLES
@@ -60,11 +74,16 @@ return [
         'item'=>"Item | Items",
         'product'=>"Product | Products",
         'order'=>"Order | Orders",
+        'order_total'=>"Order Total",
         'shipping_handling'=>"Shipping Handling",
         'estimated_tax'=>"Estimated Tax to be collected",
     ],
 
-
+    'rate_title'=>[
+        'your_rate'=>"Your Rate",
+        'headline'=>"Headline",
+        'comment'=>"Your Comment",
+    ],
     
      //DATES
     'dates_title'=>[
@@ -110,4 +129,6 @@ return [
         'sunday'=>"Sunday",
      ],
      'also_loved'=>"People Also Loved",
+     'got_question'=>"Got Questions? Call Us",
+     'payment_final_step_msg'=>"This is the final step for your order",
 ];

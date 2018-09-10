@@ -49,15 +49,15 @@ class userPaymentController extends Controller
         $this->tax_info = $tax->find(1);
         $this->checkout_menus=array(
             array(
-                "name"=>"Shipping",
+                "name"=>__('general.cart_title.shipping'),
                 "url"=>route("checkout_show_shipping")
             ),
             array(
-                "name"=>"Billing",
+                "name"=>__('general.cart_title.billing'),
                 "url"=>route("checkout_show_shipping")
             ),
             array(
-                "name"=>"Confirmation",
+                "name"=>__('general.cart_title.confirmation'),
                 "url"=>route("checkout_show_shipping")
             )
         );
@@ -73,14 +73,14 @@ class userPaymentController extends Controller
         $data["checkout_menu_prev_link"]="";
         $has_address = $user->getAddresses->first() ? true : false; 
 
-        $data["page_title"] = $has_address ? "Select Shipping Address" : "Provide Shipping Address";
+        $data["page_title"] = $has_address ? __('general.page_header.select_shipping') :__('general.page_header.provide_shipping') ;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
         $data["checkout_menus"]=$this->checkout_menus;
         $data["tax_info"]=$this->tax_info;
-        $data["checkout_header_key"]="Shipping";
-        $data["checkout_btn_name"]="Proceed to Billing";
+        $data["checkout_header_key"]=__('general.cart_title.shipping');
+        $data["checkout_btn_name"]=__('buttons.proceed_billing');
         $data["shipping_lists"]=$this->shipping_lists->all();
         return view("/checkout/shipping",$data);
     }
@@ -171,7 +171,7 @@ class userPaymentController extends Controller
 
         $has_address = $user->getAddresses->first() ? true : false; 
 
-        $data["page_title"] = $has_address ? "Choose Billing and Payment Method" : "Please Provide Billing and Payment Method";
+        $data["page_title"] = $has_address ? __('general.page_header.choose_billing_payment') : __('general.page_header.provide_billing_payment');
 
         $data["checkout_menus"]=$this->checkout_menus;
         $data["brands"]=$this->brands->all();

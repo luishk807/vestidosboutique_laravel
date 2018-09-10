@@ -44,7 +44,7 @@ class userOrderController extends Controller
         $data["user"]=$user;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Orders";
+        $data["page_title"]= __('header.orders');
         return view("account/orders/home",$data);
     }
     public function viewOrder($order_id,Request $request){
@@ -52,7 +52,7 @@ class userOrderController extends Controller
         $order =$this->orders->find($order_id);
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Order Detail";
+        $data["page_title"]=__('general.page_header.order_detail');;
         $data["order"]=$order;
         $data["user"]=$this->users->find($order->user_id);
         return view("account/orders/view",$data);
@@ -63,7 +63,7 @@ class userOrderController extends Controller
         $data["categories"]=$this->categories->all();
         $data["order"]=$this->orders->find($order_id);
         $data["cancel_reasons"]=$this->cancel_reasons->all();
-        $data["page_title"]="Delete Orders";
+        $data["page_title"]=__('general.page_header.cancel_order');
         return view("account/orders/confirm",$data);
     }
     public function deleteOrder($order_id,Request $request){

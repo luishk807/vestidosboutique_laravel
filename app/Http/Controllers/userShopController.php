@@ -38,7 +38,7 @@ class userShopController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Shop";
+        $data["page_title"]=__('header.shop');
         $data["sort"]="name";
         $data["shop_banners"]=$this->shop_banners->first();
         $products = $this->products->orderBy('products_name');
@@ -78,7 +78,7 @@ class userShopController extends Controller
         $sort = $request->input("shopPage_select");
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Shop";
+        $data["page_title"]=__('header.shop');
         // $data["sort"]=$request->get("sort");
         $data["sort"]=$sort;
         $data["sort_ops"]=array("name","brand","low","high");

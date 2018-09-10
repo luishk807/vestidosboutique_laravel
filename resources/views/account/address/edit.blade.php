@@ -19,71 +19,71 @@
 <form action="{{ route('updateaddress',['address_id'=>$address_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
-        <label for="addressNickName">NickName:</label>
-        <input type="text" id="addressNickName" class="form-control" name="nick_name" value="{{ old('nick_name') ? old('nick_name') : $address->nick_name }}" placeholder="NickName"/>
+        <label for="addressNickName">{{ __('general.form.nickname') }}:</label>
+        <input type="text" id="addressNickName" class="form-control" name="nick_name" value="{{ old('nick_name') ? old('nick_name') : $address->nick_name }}" placeholder="{{ __('general.form.nickname') }}"/>
         <small class="error">{{$errors->first("nick_name")}}</small>
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="addressFirstName">First Name:</label>
-            <input type="text" id="addressFirstName" class="form-control" name="first_name" value="{{ old('first_name') ? old('first_name') : $address->first_name }}" placeholder="First Name"/>
+            <label for="addressFirstName">{{ __('general.form.first_name') }}:</label>
+            <input type="text" id="addressFirstName" class="form-control" name="first_name" value="{{ old('first_name') ? old('first_name') : $address->first_name }}" placeholder="{{ __('general.form.first_name') }}"/>
             <small class="error">{{$errors->first("first_name")}}</small>
         </div>
         <div class="form-group col-md-4">
-            <label for="addressMiddleName">Middle Name:</label>
-            <input type="text" id="addressMiddleName" class="form-control" name="middle_name" value="{{ old('middle_name') ? old('middle_name') : $address->middle_name }}" placeholder="Middle Name"/>
+            <label for="addressMiddleName">{{ __('general.form.middle_name') }}:</label>
+            <input type="text" id="addressMiddleName" class="form-control" name="middle_name" value="{{ old('middle_name') ? old('middle_name') : $address->middle_name }}" placeholder="{{ __('general.form.middle_name') }}"/>
             <small class="error">{{$errors->first("middle_name")}}</small>
         </div>
         <div class="form-group col-md-4">
-            <label for="addressLastName">Last Name:</label>
-            <input type="text" id="addressLastName" class="form-control" name="last_name" value="{{ old('last_name') ? old('last_name') : $address->last_name }}" placeholder="Last Name"/>
+            <label for="addressLastName">{{ __('general.form.last_name') }}:</label>
+            <input type="text" id="addressLastName" class="form-control" name="last_name" value="{{ old('last_name') ? old('last_name') : $address->last_name }}" placeholder="{{ __('general.form.last_name') }}"/>
             <small class="error">{{$errors->first("last_name")}}</small>
         </div>
     </div>
     <div class="form-group">
-        <label for="addressEmail">Email:</label>
-        <input type="email" id="addressEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $address->email }}" placeholder="Email"/>
+        <label for="addressEmail">{{ __('general.form.email') }}:</label>
+        <input type="email" id="addressEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $address->email }}" placeholder="{{ __('general.form.email') }}"/>
         <small class="error">{{$errors->first("email")}}</small>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="addressPhone1">Telephone 1:</label>
-            <input type="text" id="addressPhone1" class="form-control" name="phone_number_1" value="{{ old('phone_number_1') ? old('phone_number_1') : $address->phone_number_1 }}" placeholder="Phone 1"/>
+            <label for="addressPhone1">{{ __('general.form.telephone') }} 1:</label>
+            <input type="text" id="addressPhone1" class="form-control" name="phone_number_1" value="{{ old('phone_number_1') ? old('phone_number_1') : $address->phone_number_1 }}" placeholder="{{ __('general.form.telephone') }} 1"/>
             <small class="error">{{$errors->first("phone_number_1")}}</small>
         </div>
         <div class="form-group col-md-6">
-            <label for="addressPhone2">Telephone 2:</label>
-            <input type="text" id="addressPhone2" class="form-control" name="phone_number_2" value="{{ old('phone_number_2') ? old('phone_number_2') : $address->phone_number_2 }}" placeholder="Phone 2"/>
+            <label for="addressPhone2">{{ __('general.form.telephone') }} 2:</label>
+            <input type="text" id="addressPhone2" class="form-control" name="phone_number_2" value="{{ old('phone_number_2') ? old('phone_number_2') : $address->phone_number_2 }}" placeholder="{{ __('general.form.telephone') }} 2"/>
             <small class="error">{{$errors->first("phone_number_2")}}</small>
         </div>
     </div>
     <div class="form-group">
-        <label for="addressAddress1">Address 1:</label>
-        <input type="text" id="addressAddress1" class="form-control" name="address_1" value="{{ old('address_1') ? old('address_1') : $address->address_1 }}" placeholder="Address 1"/>
+        <label for="addressAddress1">{{ trans_choice('general.form.address',1) }} 1:</label>
+        <input type="text" id="addressAddress1" class="form-control" name="address_1" value="{{ old('address_1') ? old('address_1') : $address->address_1 }}" placeholder="A{{ trans_choice('general.form.address',1) }} 1"/>
         <small class="error">{{$errors->first("address_1")}}</small>
     </div>
     <div class="form-group">
-        <label for="addressAddress2">Address 2:</label>
-        <input type="text" id="addressAddress2" class="form-control" name="address_2" value="{{ old('address_2') ? old('address_2') : $address->address_2 }}" placeholder="Address 2"/>
+        <label for="addressAddress2">{{ trans_choice('general.form.address',1) }} 2:</label>
+        <input type="text" id="addressAddress2" class="form-control" name="address_2" value="{{ old('address_2') ? old('address_2') : $address->address_2 }}" placeholder="{{ trans_choice('general.form.address',1) }} 2"/>
         <small class="error">{{$errors->first("address_2")}}</small>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="addressCity">City:</label>
-            <input type="text" id="addressCity" class="form-control" name="city" value="{{ old('city') ? old('city') : $address->city }}" placeholder="City"/>
+            <label for="addressCity">{{ __('general.form.city') }}:</label>
+            <input type="text" id="addressCity" class="form-control" name="city" value="{{ old('city') ? old('city') : $address->city }}" placeholder="{{ __('general.form.city') }}"/>
             <small class="error">{{$errors->first("city")}}</small>
         </div>
         <div class="form-group col-md-6">
-            <label for="addressState">State:</label>
-            <input type="text" id="addressState" class="form-control" name="state" value="{{ old('state') ? old('state') : $address->state }}" placeholder="State"/>
+            <label for="addressState">{{ __('general.form.state') }}:</label>
+            <input type="text" id="addressState" class="form-control" name="state" value="{{ old('state') ? old('state') : $address->state }}" placeholder="{{ __('general.form.state') }}"/>
             <small class="error">{{$errors->first("state")}}</small>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="addressCountry">Country:</label>
+            <label for="addressCountry">{{ __('general.form.country') }}:</label>
             <select class="custom-select" name="country" id="addressCountry">
-                <option value="">Select Country</option>
+                <option value="">{{ __('general.form.select_country') }}</option>
                 @foreach($countries as $country)
                     <option value="{{ $country->id }}"
                     @if($address->country_id==$country->id)
@@ -95,15 +95,15 @@
             <small class="error">{{$errors->first("country")}}</small>
         </div>
         <div class="form-group col-md-6">
-            <label for="addressZip">Zip Code:</label>
-            <input type="text" id="addressZip" class="form-control" name="zip_code" value="{{ old('zip_code') ? old('zip_code') : $address->zip_code }}" placeholder="Zip Code"/>
+            <label for="addressZip">{{ __('general.form.zip') }}:</label>
+            <input type="text" id="addressZip" class="form-control" name="zip_code" value="{{ old('zip_code') ? old('zip_code') : $address->zip_code }}" placeholder="{{ __('general.form.zip') }}"/>
             <small class="error">{{$errors->first("zip_code")}}</small>
         </div>
     </div>
     <div class="form-group">
-        <label for="addressAddressType">Address Type:</label>
+        <label for="addressAddressType">{{ __('general.form.address_type') }}:</label>
         <select class="custom-select" name="address_type" id="addressAddressType">
-            <option value="">Select Address Type</option>
+            <option value="">{{ __('general.page_header.select_address_type') }}</option>
             @foreach($addresstypes as $addresstype)
                 <option value="{{ $addresstype->id }}"
                 @if($address->address_type==$addresstype->id)

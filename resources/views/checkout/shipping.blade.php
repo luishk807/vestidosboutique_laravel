@@ -63,7 +63,7 @@
                                             {{ $address->email}}<br/>
                                             {{ $address->city}} {{ $address->state}} {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
                                             </td>
-                                            <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">Edit</a></td>
+                                            <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">{{ __('buttons.edit') }}</a></td>
                                         </tr>
                                         @endforeach
                                         @if(empty($user->getAddresses->first()))
@@ -71,54 +71,54 @@
                                             <td colspan="3">
                                                     {{ csrf_field() }}
                                                     <div class="form-row">
-                                                        <label for="addressName">Name:</label>
-                                                        <input type="text" id="addressName" class="form-control" name="shipping_name" value="{{ old('shipping_name') }}" placeholder="Name"/>
+                                                        <label for="addressName">{{ __('general.form.name') }}:</label>
+                                                        <input type="text" id="addressName" class="form-control" name="shipping_name" value="{{ old('shipping_name') }}" placeholder="{{ __('general.form.name') }}"/>
                                                         <small class="error">{{$errors->first("shipping_name")}}</small>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="addressEmail">Email:</label>
-                                                        <input type="email" id="addressEmail" class="form-control" name="shipping_email" value="{{ old('shipping_email') }}" placeholder="Email"/>
+                                                        <label for="addressEmail">{{ __('general.form.email') }}:</label>
+                                                        <input type="email" id="addressEmail" class="form-control" name="shipping_email" value="{{ old('shipping_email') }}" placeholder="{{ __('general.form.email') }}"/>
                                                         <small class="error">{{$errors->first("shipping_email")}}</small>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="addressPhone1">Telephone 1:</label>
-                                                            <input type="text" id="addressPhone1" class="form-control" name="shipping_phone_number_1" value="{{ old('shipping_phone_number_1') }}" placeholder="Phone 1"/>
+                                                            <label for="addressPhone1">{{ __('general.form.telephone') }} 1:</label>
+                                                            <input type="text" id="addressPhone1" class="form-control" name="shipping_phone_number_1" value="{{ old('shipping_phone_number_1') }}" placeholder="{{ __('general.form.telephone') }} 1"/>
                                                             <small class="error">{{$errors->first("shipping_phone_number_1")}}</small>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="addressPhone2">Telephone 2:</label>
-                                                            <input type="text" id="addressPhone2" class="form-control" name="shipping_phone_number_2" value="{{ old('shipping_phone_number_2') }}" placeholder="Phone 2"/>
+                                                            <label for="addressPhone2">{{ __('general.form.telephone') }} 2:</label>
+                                                            <input type="text" id="addressPhone2" class="form-control" name="shipping_phone_number_2" value="{{ old('shipping_phone_number_2') }}" placeholder="{{ __('general.form.telephone') }} 2"/>
                                                             <small class="error">{{$errors->first("shipping_phone_number_2")}}</small>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="addressAddress1">Address 1:</label>
-                                                        <input type="text" id="addressAddress1" class="form-control" name="shipping_address_1" value="{{ old('shipping_address_1')  }}" placeholder="Address 1"/>
+                                                        <label for="addressAddress1">{{ trans_choice('general.form.address',1) }} 1:</label>
+                                                        <input type="text" id="addressAddress1" class="form-control" name="shipping_address_1" value="{{ old('shipping_address_1')  }}" placeholder="{{ trans_choice('general.form.address',1) }} 1"/>
                                                         <small class="error">{{$errors->first("shipping_address_1")}}</small>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="addressAddress2">Address 2:</label>
-                                                        <input type="text" id="addressAddress2" class="form-control" name="shipping_address_2" value="{{ old('shipping_address_2') }}" placeholder="Address 2"/>
+                                                        <label for="addressAddress2">{{ trans_choice('general.form.address',1) }} 2:</label>
+                                                        <input type="text" id="addressAddress2" class="form-control" name="shipping_address_2" value="{{ old('shipping_address_2') }}" placeholder="{{ trans_choice('general.form.address',1) }} 2"/>
                                                         <small class="error">{{$errors->first("shipping_address_2")}}</small>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="addressCity">City:</label>
-                                                            <input type="text" id="addressCity" class="form-control" name="shipping_city" value="{{ old('shipping_city') }}" placeholder="City"/>
+                                                            <label for="addressCity">{{ __('general.form.city') }}:</label>
+                                                            <input type="text" id="addressCity" class="form-control" name="shipping_city" value="{{ old('shipping_city') }}" placeholder="{{ __('general.form.city') }}"/>
                                                             <small class="error">{{$errors->first("shipping_city")}}</small>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="addressState">State:</label>
-                                                            <input type="text" id="addressState" class="form-control" name="shipping_state" value="{{ old('shipping_state') }}" placeholder="State"/>
+                                                            <label for="addressState">{{ __('general.form.state') }}:</label>
+                                                            <input type="text" id="addressState" class="form-control" name="shipping_state" value="{{ old('shipping_state') }}" placeholder="{{ __('general.form.state') }}"/>
                                                             <small class="error">{{$errors->first("shipping_state")}}</small>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="addressCountry">Country:</label>
+                                                            <label for="addressCountry">{{ __('general.form.country') }}:</label>
                                                             <select class="custom-select" name="shipping_country" id="addressCountry">
-                                                                <option value="">Select Country</option>
+                                                                <option value="">{{ __('general.form.select_country') }}</option>
                                                                 @foreach($countries as $country)
                                                                     <option value="{{ $country->id }}">{{$country->countryName}} </option>
                                                                 @endforeach
@@ -126,8 +126,8 @@
                                                             <small class="error">{{$errors->first("shipping_country")}}</small>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="addressZip">Zip Code:</label>
-                                                            <input type="text" id="addressZip" class="form-control" name="shipping_zip_code" value="{{ old('shipping_zip_code') }}" placeholder="Zip Code"/>
+                                                            <label for="addressZip">{{ __('general.form.zip') }}:</label>
+                                                            <input type="text" id="addressZip" class="form-control" name="shipping_zip_code" value="{{ old('shipping_zip_code') }}" placeholder="{{ __('general.form.zip') }}"/>
                                                             <small class="error">{{$errors->first("shipping_zip_code")}}</small>
                                                         </div>
                                                     </div>
@@ -145,7 +145,7 @@
                                     <tbody>
                                         
                                         <tr>
-                                            <th class="checkout-subtitle" scope="row" colspan="3">{{ __('general.header.choose_delivery') }}</th>
+                                            <th class="checkout-subtitle" scope="row" colspan="3">{{ __('general.page_header.choose_delivery') }}</th>
                                         </tr>
                                         @foreach($shipping_lists as $shipping_info)
                                         <tr>
@@ -167,8 +167,8 @@
                                 <table class="table">
                                     <tbody>
                                         <tr class="checkout-cart-list-header">
-                                            <th class="checkout-subtitle">Order Summary</td>
-                                            <th class="checkout-subtitle"><a href="{{ route('cart_page') }}">Edit Cart</a></th>
+                                            <th class="checkout-subtitle">{{ __('general.page_header.order_summary') }}</td>
+                                            <th class="checkout-subtitle"><a href="{{ route('cart_page') }}">{{ __('buttons.edit_cart') }}</a></th>
                                         </tr>
                                         <tr class="checkout-cart-list">
                                             <td class="checkout-cart-list-cell" colspan="2">
@@ -185,11 +185,11 @@
                                                         <td class="info-data">
                                                             <a href="/product/{{ $cart_checkout['id']}}">{{ $cart_checkout["name"] }}</a><br/>
                                                             <ul>
-                                                                <li >Size: {{ $cart_checkout["size"] }}</li>
-                                                                <li >Color: {{ $cart_checkout["color"] }}</li>
-                                                                <li >Qty: {{ $cart_checkout["quantity"] }}</li>
+                                                                <li >{{ trans_choice('general.product_title.size',1) }}: {{ $cart_checkout["size"] }}</li>
+                                                                <li >{{ trans_choice('general.product_title.color',1) }}: {{ $cart_checkout["color"] }}</li>
+                                                                <li >{{ __('general.cart_title.qty') }}: {{ $cart_checkout["quantity"] }}</li>
                                                             </ul>
-                                                            <p>Unit Price: ${{ number_format($cart_checkout["total"],2) }}</p>
+                                                            <p>{{ trans_choice('general.product_title.unit_price',1) }}: ${{ number_format($cart_checkout["total"],2) }}</p>
                                                         </td>
                                                     </tr>
                                                      @php( $cart_checkout_total +=$cart_checkout["total"] * $cart_checkout["quantity"] )
@@ -203,7 +203,7 @@
                                         @php( $cart_checkout_tax = $cart_checkout_total * $tax_info->tax )
                                         <tr class="subtotal">
                                             <td>
-                                                Subtotal
+                                                {{ __('general.cart_title.subtotal') }}
                                             </td>
                                             <td>
                                                 ${{number_format($cart_checkout_total,'2','.',',')}}
@@ -211,7 +211,7 @@
                                         </tr>
                                         <tr class="subtotal">
                                             <td>
-                                                Tax
+                                                {{ __('general.product_title.tax') }}
                                             </td>
                                             <td>
                                                 ${{number_format($cart_checkout_tax,'2','.',',')}}
@@ -220,7 +220,7 @@
                                         @if(isset($shipping_cost))
                                         <tr class="subtotal">
                                             <td>
-                                                Shipping
+                                                {{ __('general.cart_title.shipping') }}
                                             </td>
                                             <td>
                                                 ${{number_format($shipping_cost,'2','.',',')}}
@@ -229,7 +229,7 @@
                                         @endif
                                         <tr class="grand-total">
                                             <td>
-                                                Order Total
+                                            {{ __('general.cart_title.order_total') }}
                                             </td>
                                             <td>
                                                 ${{number_format(($cart_checkout_total + $cart_checkout_tax),'2','.',',')}}
@@ -243,7 +243,7 @@
                         <div class="row">
                             <div class="col-md-4 checkout-btn-pnl">
                                 <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                                <input type="submit" class="btn-block vesti_in_btn checkout_next checkout-button" value="{{$checkout_btn_name}}"/>
+                                <input type="submit" class="btn-block vesti_in_btn checkout_next checkout-button" value="{{ __('buttons.proceed_billing') }}"/>
                             </div>
                         </div>
                         </form>

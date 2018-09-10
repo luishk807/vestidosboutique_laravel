@@ -61,7 +61,7 @@
                 <tbody>
                     
                     <tr>
-                        <th scope="row">{{ __('general.address') }}</th>
+                        <th scope="row">{{ trans_choice('general.form.address',1) }}</th>
                         <td class="text-right"><a class="vestidos-simple-link" href="{{ route('newaddress')}}">{{ __('buttons.add_address') }}</a></td>
                     </tr>
                     @foreach($user->getAddresses as $address)

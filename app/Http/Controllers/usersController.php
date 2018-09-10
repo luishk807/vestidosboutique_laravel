@@ -35,7 +35,7 @@ class usersController extends Controller
         $data["categories"]=$this->categories->all();
         if(Auth::guard("vestidosUsers")->check()){
             $user=$this->users->find($user_id);
-            $data["page_title"]="Welcome ".$user->getFullName();
+            $data["page_title"]= __('general.page_header.welcome',["name"=>$user->getFullName()]);
             $data["user"]=$user;
             return view("account/home",$data);
         }
@@ -48,7 +48,7 @@ class usersController extends Controller
         $data["categories"]=$this->categories->all();
         $data["languages"]=$this->languages->all();
         $data["genders"]=$this->genders->all();
-        $data["page_title"]="New Account";
+        $data["page_title"]=__('general.page_header.new_account');
         $data["countries"]=$this->country->all();
         return view("account/new",$data);
     }
@@ -97,7 +97,7 @@ class usersController extends Controller
     public function updateUser(Request $request){
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user=$this->users->find($user_id);
-        $data["page_title"]="Edit Account";
+        $data["page_title"]=__('general.page_header.edit_account');
         $data["languages"]=$this->languages->all();
         $data["countries"]=$this->country->all();
         $data["user"]=$user;

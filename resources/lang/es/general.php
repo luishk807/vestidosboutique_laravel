@@ -38,12 +38,33 @@ return [
     //PAGE HEADER
     'page_header'=>[
         'address_type'=>"Tipo de Dirección",
+        'select_address_type'=>"Elija el tipo de dirección",
         'shipping_address'=>"Dirección de Envio",
         'billing_address'=>"Dirección de Facturación",
+        'choose_delivery'=>'Elija el Metodo de Envio',
         'optimized_search'=>"Optimizar Busqueda",
         'payment_method'=>"Metodo de Pago",
         'order_summary'=>"Resumen de Orden",
         'opening_hours'=>"Horario de Apertura",
+        'choose_billing_payment'=>"Escoga Facturación y Metodo de Pago",
+        'provice_billing_payment'=>'Llene la Facturación y Metodo de Pago',
+        'select_shipping'=>'Escoga Dirección de Envio',
+        'provide_shipping'=>'Llene la Dirección de Envio',
+        'edit_account'=>"Editar Cuenta",
+        'new_account'=>"Nueva Cuenta",
+        'review_name'=>'Comentario para :name',
+        'welcome' => 'Bienvenido, :name',
+        'delete_order'=>"Borrar Orden",
+        'cancel_order'=>"Cancelar Orden",
+        'order_detail'=>"Detalle del Orden",
+        'top_dresses'=>"Mejores Vestidos",
+        'top_quince'=>"Mejores Vestidos de Quinceañera",
+    ],
+
+    'rate_title'=>[
+        'your_rate'=>"Tu Puntaje",
+        'headline'=>"Titulo",
+        'comment'=>"Tu Opinion",
     ],
 
     //CART TITLES
@@ -62,6 +83,7 @@ return [
         'shipping_handling'=>"Costo de Envio",
         'estimated_tax'=>"Estimado de Impuesto",
         'total_price'=>"Precio Total",
+        'order_total'=>"Total",
         'grand_total'=>"Gran Total",
         'subtotal'=>"Subtotal",
         'total'=>"Total | Totales",
@@ -112,4 +134,6 @@ return [
         'sunday'=>"Domingo",
      ],
      'also_loved'=>"La Gente Tambien Gustaron",
+     'got_question'=>"Tiene Preguntas? Llamenos",
+     'payment_final_step_msg'=>"Aqui es la etapa final para tu orden",
 ];

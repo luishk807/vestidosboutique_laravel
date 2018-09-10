@@ -19,9 +19,9 @@
                     </div>
                     <div class="col-md-6 footer-top-col text-center">
                         <ul class="list-unstyled">
-                            <li>Got Questions? Call Us</li>
-                            <li>PHONE: +507 203-5848</li>
-                            <li>EMAIL: info@vestidosboutique.com</li>
+                            <li>{{ __('general.got_question') }}</li>
+                            <li>{{ trans_choice('general.form.telephone',1) }}: +507 203-5848</li>
+                            <li>{{ __('general.form.email') }}: info@vestidosboutique.com</li>
                         </ul>
 
                     </div>

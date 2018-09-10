@@ -14,8 +14,8 @@
                 <tr>
                     <td>
                         <ul class="view-order-top-list">
-                            <li>{{ __('general.date_ordered') }}: {{ $order->purchase_date }}</li>
-                            <li>{{ trans_choice('general.order',1) }}# {{ $order->order_number }}</li>
+                            <li>{{ __('general.dates_title.date_ordered') }}: {{ $order->purchase_date }}</li>
+                            <li>{{ trans_choice('general.cart_title.order',1) }}# {{ $order->order_number }}</li>
                             @if(empty($order->cancel_reason) && $order->status != 3)
                             <li>
                                 <a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">{{ __('buttons.order_cancel') }}</a>
@@ -30,9 +30,9 @@
                         <table class="table view-order-top">
                             <thead>
                                 <tr>
-                                    <th>{{ __('general.ship_to') }}</th>
-                                    <th>{{ __('general.payment_method') }}</th>
-                                    <th>{{ __('general.order_summary') }}</th>
+                                    <th>{{ __('general.page_header.shipping_address') }}</th>
+                                    <th>{{ __('general.page_header.payment_method') }}</th>
+                                    <th>{{ __('general.page_header.order_summary') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,19 +52,19 @@
                                         <table class="table view-order-header-total">
                                             <tbody>
                                                 <tr>
-                                                    <td>{{ trans_choice('general.item',1) }}(s) {{ __('general.subtotal') }}</td>
+                                                    <td>{{ trans_choice('general.cart_title.item',1) }}(s) {{ __('general.cart_title.subtotal') }}</td>
                                                     <td>${{number_format($order->order_total,'2','.',',')}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>{{ __('general.shipping_handling') }}</td>
+                                                    <td>{{ __('general.cart_title.shipping_handling') }}</td>
                                                     <td>${{number_format($order->order_shipping,'2','.',',')}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>{{ __('general.estimated_tax') }}</td>
+                                                    <td>{{ __('general.cart_title.estimated_tax') }}</td>
                                                     <td>${{number_format($order->order_tax,'2','.',',')}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>{{ __('general.grand_total') }}</td>
+                                                    <th>{{ __('general.cart_title.grand_total') }}</td>
                                                     <th>${{number_format($order->order_total + ($order->order_quantity * $order->order_total) + $order->order_shipping + $order->order_tax,'2','.',',')}}</td>
                                                 </tr>
                                             </tbody>
@@ -89,26 +89,26 @@
                                         <div class="col-md-6">
                                                 <strong><a href="{{ route('product_page',['product_id'=>$product->getProduct->id]) }}">{{ $product->getProduct->products_name }}</a></strong><br/>
                                             {{ $product->getProduct->products_description }}<br/>
-                                            {{ __('general.sell_by') }}:{{ $product->getProduct->vendor->first_name }} {{ $product->getProduct->vendor->last_name }}<br/>
-                                            {{ trans_choice('general.quantity',1) }}:{{ $product->quantity }}<br/>
+                                            {{ __('general.cart_title.sell_by') }}:{{ $product->getProduct->vendor->first_name }} {{ $product->getProduct->vendor->last_name }}<br/>
+                                            {{ trans_choice('general.cart_title.quantity',1) }}:{{ $product->quantity }}<br/>
                                             <span>${{ number_format($product->getProduct->total_rent,'2','.',',') }}</span>
                                             <br/>
                                             <ul class="dates-ul">
                                                 @if(!empty($product->cancelled_date))
                                                 <li class="dates-cont">
-                                                    <span class="dates"><span class="title">{{ __('general.cancelled_date') }}:</span>{{ $product->cancelled_date }}</span>
+                                                    <span class="dates"><span class="title">{{ __('general.dates_title.cancelled_date') }}:</span>{{ $product->cancelled_date }}</span>
                                                 </li>
                                                 @elseif(!empty($product->returned_date))
                                                 <li class="dates-cont">
-                                                    <span class="dates"><span class="title">{{ __('general.returned_date') }}:</span>{{ $product->returned_date }}</span>
+                                                    <span class="dates"><span class="title">{{ __('general.dates_title.returned_date') }}:</span>{{ $product->returned_date }}</span>
                                                 </li>
                                                 @elseif(!empty($product->delivered_date))
                                                 <li class="dates-cont">
-                                                    <span class="dates"><span class="title">{{ __('general.delivered_date') }}:</span>{{ $product->delivered_date }}</span>
+                                                    <span class="dates"><span class="title">{{ __('general.dates_title.delivered_date') }}:</span>{{ $product->delivered_date }}</span>
                                                 </li>
                                                 @elseif(!empty($product->shipped_date))
                                                 <li class="dates-cont">
-                                                    <span class="dates"><span class="title">{{ __('general.shipped_date') }}:</span>{{ $product->shipped_date }}</span>
+                                                    <span class="dates"><span class="title">{{ __('general.dates_title.shipped_date') }}:</span>{{ $product->shipped_date }}</span>
                                                 </li>
                                                 @endif
                                             </ul>

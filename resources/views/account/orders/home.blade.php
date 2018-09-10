@@ -59,10 +59,10 @@
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td>{{ __('general.date_ordered') }}</td>
-                                                <td>{{ trans_choice('general.total',1) }}</td>
-                                                <td>{{ __('general.ship_to') }}</td>
-                                                <td>{{ trans_choice('general.order',1) }} #:{{$order->order_number}}</td>
+                                                <td>{{ __('general.dates_title.date_ordered') }}</td>
+                                                <td>{{ trans_choice('general.cart_title.total',1) }}</td>
+                                                <td>{{ __('general.page_header.shipping_address') }}</td>
+                                                <td>{{ trans_choice('general.cart_title.order',1) }} #:{{$order->order_number}}</td>
                                             </tr>
                                             <tr>
                                                 <td>{{$order->purchase_date}}</td>
@@ -103,9 +103,9 @@
                                                                 </td>
                                                                 <td width="60%">
                                                                     <a class="product-title" href="{{ route('product_page',['product_id'=>$product->product_id])}}">{{ $product->getProduct->products_name}}</a><br/>
-                                                                    <span class="product-subtitle">{{ __('general.model_id') }}</span>: {{ $product->getProduct->product_model}}<br/>
-                                                                    <span class="product-subtitle">{{ __('general.sell_by') }}</span>: {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
-                                                                    <span class="product-subtitle">{{ trans_choice('general.quantity',1) }}</span>: {{ $product->quantity}}<br/>
+                                                                    <span class="product-subtitle">{{ __('general.product_title.model_id') }}</span>: {{ $product->getProduct->product_model}}<br/>
+                                                                    <span class="product-subtitle">{{ __('general.cart_title.sell_by') }}</span>: {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
+                                                                    <span class="product-subtitle">{{ trans_choice('general.cart_title.quantity',1) }}</span>: {{ $product->quantity}}<br/>
                                                                     <span class="product-total">${{number_format($product->getProduct->total_rent,'2','.',',')}}
                                                                     </span>
                                                                 </td>

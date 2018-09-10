@@ -48,7 +48,7 @@
                                     <div class="product_in_price">${{ $product->total_rent }}</div>
                                     <div class="product_in_colors">
                                         <div class="product_in_sub_title">
-                                        {{ __('general.select_color') }}
+                                        {{ __('general.product_title.select_color') }}
                                         </div>
                                         @foreach($product->colors as $color)
                                         <button class="colors_cubes color_cubes_btn_a" data-class="colors_cubes" data-input="product_color" data-value="{{ $color->id }}" onclick="addCart(event)" style="background-color:{{ $color->color_code }}"></button>
@@ -58,7 +58,7 @@
                                         <div class="row">
                                         <div class="col-md-6">
                                             <div class="product_in_sub_title">
-                                            {{ __('general.select_size') }}
+                                            {{ __('general.product_title.select_size') }}
                                             </div>
                                             @foreach($product->sizes as $size)
                                             <button class="size_spheres" onclick="addCart(event)" data-class="size_spheres" data-input="product_size" data-value="{{ $size->id }}">{{ $size->name }}</button>
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="product_in_sub_title">
-                                            {{ trans_choice('general.quantity',1) }}
+                                            {{ trans_choice('general.cart_title.quantity',1) }}
                                             </div>
                                             <select class="custom-select" name="product_quantity">
                                             @for ($i = 1; $i < 10; $i++)
@@ -84,7 +84,7 @@
                                                 <div class="card-header" id="headingOne">
                                                     <h5 class="mb-0">
                                                         <a class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                           + {{ __('general.detail') }}
+                                                           + {{ __('general.product_title.detail') }}
                                                         </a>
                                                     </h5>
                                                 </div>
@@ -97,7 +97,7 @@
                                                 <div class="card-header" id="headingTwo">
                                                     <h5 class="mb-0">
                                                         <a class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                                           + {{ __('general.description') }}
+                                                           + {{ __('general.product_title.description') }}
                                                         </a>
                                                     </h5>
                                                 </div>

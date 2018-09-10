@@ -46,18 +46,18 @@ $(document).ready(function(){
                                 <div class="col-md-8">
                                     
                                     <div class="form-group">
-                                            <label for="reviewRate">Your Rate:</label>
+                                            <label for="reviewRate">{{ __('general.rate_title.your_rate') }}:</label>
                                             <div id="reviewRate" class='review-rate-view' data-rate-value="{{ old('user_rate') ? old('user_rate') : $product->rates->avg('user_rate') }}"></div>
                                             <input type="hidden" id="user_rate" name="user_rate" value=""/>
                                             <small class="error">{{$errors->first("user_rate")}}</small>
                                     </div>
                                     <div class="form-group">
-                                            <label for="reviewHeadline">Headline:</label>
-                                            <input type="text" id="reviewHeadline" class="form-control" name="user_headline" value="" placeholder="Review Headline"/>
+                                            <label for="reviewHeadline">{{ __('general.rate_title.headline') }}:</label>
+                                            <input type="text" id="reviewHeadline" class="form-control" name="user_headline" value="" placeholder="{{ __('general.rate_title.headline') }}"/>
                                             <small class="error">{{$errors->first("user_headline")}}</small>
                                     </div>
                                     <div class="form-group">
-                                            <label for="reviewComment">Comment:</label>
+                                            <label for="reviewComment">{{ __('general.rate_title.comment') }}:</label>
                                             <textarea class="form-control" id="reviewComment" rows="3" name="user_comment"></textarea>
                                             <small class="error">{{$errors->first("user_comment")}}</small>
                                     </div>

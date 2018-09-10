@@ -44,14 +44,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col top_middle_sec_title">
-                            Top Dresses
+                        {{ __('general.page_header.top_dresses') }}
                         </div>
                     </div>
                     <div id="top_middle_sec_row" class="row">
                         @foreach($top_dresses as $keyIndex=>$top_dress)
                         <div id="top_middle_img{{ $keyIndex+1 }}" class="col-sm-6 col-md-4">
                             @if($top_dress->is_new)
-                            <div class="vesti-new-txt vesti-new-txt-a">{{ __('general.new') }}</div>
+                            <div class="vesti-new-txt vesti-new-txt-a">{{ __('general.product_title.new') }}</div>
                             <div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="vesti-heart-link"><span class="vesti-svg
@@ -123,13 +123,13 @@
             <div class="intro">
                 <div class="container">
                     <div class="row">
-                         <div class="col quince-select-title vesti_font_color_b text-center">Top Quinceanera Dresses</div>
+                         <div class="col quince-select-title vesti_font_color_b text-center">{{ __('general.page_header.top_quince') }}</div>
                     </div>
                     <div class="row">
                         @foreach($top_quinces as $keyIndex=>$top_quince)
                         <div id="quince_thumb_{{ $keyIndex+1 }}" class="quince_thumb col-sm-6 mt-4 col-md-4">
                             @if($top_quince->is_new)
-                            <div class="vesti-new-txt vesti-new-txt-a">{{ __('general.new') }}</div><div class="vesti-new-border vesti-new-border-a"></div>
+                            <div class="vesti-new-txt vesti-new-txt-a">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-a"></div>
                             @endif
                             <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="vesti-heart-link"><span class="vesti-svg
                             @if(Auth::guard('vestidosUsers')->check())

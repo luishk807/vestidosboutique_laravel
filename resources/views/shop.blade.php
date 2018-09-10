@@ -223,7 +223,7 @@
                         <div><img src="{{ asset('images/shop_banners') }}/{{$shop_banners->image_url}}" class="img-fluid" alt/></div>
                         <div class="shoplist-nav">
                             <ul>
-                                <li>{{ $products->total() }} {{ trans_choice('general.product',3) }}</li>
+                                <li>{{ $products->total() }} {{ trans_choice('general.cart_title.product',3) }}</li>
                                 <li>{{ __('pagination.sort_by') }}
                                     <select id="shopPage_select" name="shopPage_select">
                                         @foreach($sort_ops as $sort_op)
@@ -252,7 +252,7 @@
                                 <li class="shoplist-list">
                                     <div>
                                         @if($product->is_new)
-                                        <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                        <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
                                         @endif
                                         <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail"><img class="img-fluid" src="
                                         @if($product->images->count()>0)

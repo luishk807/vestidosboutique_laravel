@@ -29,7 +29,7 @@ class userProductRateController extends Controller
         $data=[];
         $product=$this->products->find($product_id);
         $data["rates"]=$product->rates()->get();
-        $data["page_title"]="Review For ".$product->products_name;
+        $data["page_title"]=__('general.page_header.review_name',['name'=>$product->products_name]);
         $data["product_id"]=$product_id;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
