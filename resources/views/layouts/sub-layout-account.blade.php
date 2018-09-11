@@ -1,8 +1,8 @@
 @include('includes.header')
-<div class="main_sub_body main_body_height">
+<div id="user-body" class="main_sub_body main_body_height">
     <div class="container">
         <div class="row">
-            <div class="col-md-4" id="user-account-menu">
+            <div class="col-md-4 col-lg-4" id="user-account-menu">
                 <div class="container-in-space white-md-bg-in">
                     <ul class="list-group">
                         <li class="vestidos-list-group-item">
@@ -20,7 +20,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-xs-10 col-md-8 col-lg-8">
                 @yield('content')
             </div>
         </div>

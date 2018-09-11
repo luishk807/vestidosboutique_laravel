@@ -1,0 +1,78 @@
+
+@media only screen and (max-width: 600px) {
+    .vestidos-footer{
+        padding-top: 50px;
+    }
+    .vesti-footer-section-2{
+        border-top: none;
+    }
+    .vesti-footer-section-2 div:first-child{
+        border-right:none; 
+    }
+
+}
+@media only screen and (max-width: 800px) {
+    .vestidos-logo {
+        width: 117px;
+
+    }
+    .nav-link {
+        padding: 22px 10px!important;
+    }
+    .vest-maincolor-left, .vest-maincolor-right {
+        font-size: 1rem;
+
+    }
+    .navbar-link, .navbar-link-lang {
+        padding: 23px 10px!important;
+
+    }
+    .nav-list-submenu ul li a{
+        padding: 10px 20px;
+    }
+
+}
+
+@media only screen and (max-device-width: 812px) and (orientation: landscape) {
+
+    .vestidos-main-nav{
+        height: 50px;
+    }
+    .nav-item.mobile a {
+        padding: 5px 18px !important;
+    }
+    .vestidos-main-nav-top {
+        margin-top: -20px;
+    }
+
+    .vesti-footer-section-1 .footer-top-col:not(:last-child) {
+        text-align: center!important;
+    }
+    .vesti-footer-section-1 .footer-top-col:last-child {
+        text-align: center!important;
+    }
+    .vesti-footer-section-2 .footer-bottom-col:last-child {
+        text-align: center!important;
+    }
+
+    .vesti-footer-section-2 div:first-child {
+        border-right: none;
+    }
+
+
+    .vestidos-footer{
+     padding-top: 50px;
+    }
+
+    #vesti-main-nav-btn{
+     height: 26px;
+    }
+    #vesti-main-nav-btn span:nth-child(2),
+    #vesti-main-nav-btn span:nth-child(3){
+        top:10px;
+    }
+    #vesti-main-nav-btn span:nth-child(4){
+     top: 21px;
+    }
+
+ }

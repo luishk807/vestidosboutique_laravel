@@ -31,23 +31,24 @@
     </div>
     <div class="container order-container">
 
+        <div class="row">
+            <div class="col order-nav-list">
+                    <ul>
+                        @if(!empty($orders->previousPageUrl()))
+                        <li><a href="{{ $orders->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
+                        @endif
+                        <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                        @if($orders->nextPageUrl())
+                        <li><a href="{{ $orders->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
+                        @endif
+                    </ul>
+
+            </div>
+        </div>
+        
     <table class="table orders">
         <tbody>
-            <tr>
-                <td>
-                    <div class="order-nav-list">
-                        <ul>
-                            @if(!empty($orders->previousPageUrl()))
-                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
-                            @endif
-                            <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
-                            @if($orders->nextPageUrl())
-                            <li><a href="{{ $orders->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
-                            @endif
-                        </ul>
-                    </div><!--end of nav container-->
-                </td>
-            </tr><!--end of navigator-->
+
             <tr>
                 <td class="col orders-main-col">
                     @foreach($orders as $order)

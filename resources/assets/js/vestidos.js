@@ -74,7 +74,7 @@ $(document).ready(function() {
                 isReponsive = isResponsivex;
                 if(isResponsivex){
                     $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').removeClass('active');
-                    $("#home_main_slider .main_slider_btn").removeClass("col").addClass("col-md-4")
+                    // $("#home_main_slider .main_slider_btn").removeClass("col").addClass("col-md-4")
                     $('.brands_txt > div').css("margin-left","auto");
                     $(".quince_thumb").addClass("active");
                 }else{

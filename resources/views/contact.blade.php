@@ -4,12 +4,12 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-md-5 contact-container container-in-center">
+        <div class="col-md-9 col-lg-5 contact-container container-in-center">
             <div>
                <div class="container-in-space white-md-bg-in">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-lg-6">
                                 <form action="{{ route('sendEmail') }}" method="post" role="email">
                                 {{ csrf_field() }}
                                     <h2>{{ __('header.contact') }}</h2>
@@ -56,7 +56,7 @@
                                 </form>
 
                             </div><!--end of contact form-->
-                            <div class="col-md-6 contact-section-right">
+                            <div class="col-md-6 col-lg-6 contact-section-right">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vel earum ut tempore similique sint quam fugiat, sunt beatae reprehenderit voluptatum
                                 <div class="container contact-address">
                                     <div class="row">
