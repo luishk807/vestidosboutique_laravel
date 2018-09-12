@@ -134,6 +134,9 @@ text-align:left;
 .result-mg.error{
   color: red;
 }
+.order-product-status{
+    margin:10px 0px;
+}
 .order-product-status .td{
   background-color:white;
   font-weight:bold;
@@ -146,48 +149,49 @@ padding:0px !important;
 padding:0px;
 width:100%;
 }
-.order-container .orders td{
+.order-container .td{
 border-top:none;
 }
-.order-container .orders tr.order-products:not(:first-child){
-border-top:$vesti-light-bars;
+.order-container .order-products{
+    padding:10px;
 }
-.order-container .orders .order-products table,
-.order-container .orders .order-products td{
+.order-container .order-products:not(:first-child){
+border-top:1px solid rgba(0,0,0,.1);
+}
+.order-container .order-products table,
+.order-container .order-products td{
 background-color:white;
 }
-.order-container .orders .order-container-in{
-border: $vesti-light-bars;
+.order-container .order-container-in{
+border: 1px solid rgba(0,0,0,.1);
+margin-top:30px;
 }
-.order-container .orders .order-container-in .order-first-row{
-border-bottom: $vesti-light-bars;
+.order-container .order-container-in .order-first-row{
+border-bottom: 1px solid rgba(0,0,0,.1);
+background-color:#f5f8fa;
+padding:10px 0px;
 }
-.order-container .orders .order-container-in .order-first-row tr:nth-child(2) td{
+.order-container .order-container-in .order-first-row .header:nth-child(2) p{
 padding: .1rem .75rem;
 }
-.order-container .orders .order-container-in .order-first-row tr:nth-child(1) td{
+.order-container .order-container-in .order-first-row .header:nth-child(1) p{
 padding-bottom: .2rem;
 }
-.order-container .orders .order-products .order-product-info{
-width:70%;
-}
-.order-container .orders .order-products .order-product-info .product-subtitle{
+
+.order-container .order-products .order-product-info .product-subtitle{
 font-size: .75rem;
 }
-.order-container .orders .order-products .order-product-info .product-total{
+.order-container .order-products .order-product-info .product-total{
 color:red;
 }
-.order-container .orders .order-products .order-product-info .product-title{
+.order-container .order-products .order-product-info .product-title{
 font-size:1.2rem;
 color:black;
 font-weight:bold;
 text-decoration:none;
 }
-.order-container .orders .order-products .order-product-info .product-title:hover{
+.order-container .order-products .order-product-info .product-title:hover{
 text-decoration:underline;
-}
-.order-container .orders .order-products .order-product-actions{
-width:30%;
 }
 </style>
 <div class="container container-in-space white-md-bg-in">
@@ -222,24 +226,24 @@ width:30%;
         @foreach($orders as $order)
         <div class="row orders-main-col">
             <div class="container order-container-in">
-                <div class="row order-first-row">
-                    <div class="col">
+                <div class="row order-first-row text-center">
+                    <div class="col-md-3 col-lg-3 col-sm-10 header">
                         <p>{{ __('general.dates_title.date_ordered') }}</p>
                         <p>{{$order->purchase_date}}</p>
                     </div>
-                    <div class="col">
+                    <div class="col-md-1 col-lg-2 col-sm-10 header">
                         <p>
                             {{ trans_choice('general.cart_title.total',1) }}
                         </p>
                         <p>${{ number_format($order->order_total,'2','.',',') }}</p>
                     </div>
-                    <div class="col">
+                    <div class="col-md-3  col-lg-3 col-sm-10 header">
                         <p>
                             {{ __('general.page_header.shipping_address') }}
                         </p>
                         <p><a href="">...{{$order->shipping_zip_code}}</a></p>
                     </div>
-                    <div class="col">
+                    <div class="col-md-3  col-lg-4 col-sm-10 header">
                         <p>
                             {{ trans_choice('general.cart_title.order',1) }} #:{{$order->order_number}}
                         </p>
@@ -257,7 +261,7 @@ width:30%;
                 <!--list of products-->
                 @foreach($order->products as $product)
                 <div class="row order-products">
-                    <div class="col order-product-info">
+                    <div class="col-md-8 col-lg-8 col-sm-10 order-product-info">
                         <div class="container">
                             <div class="row">
                                 <div class="col">
@@ -281,7 +285,7 @@ width:30%;
                         </div>
                     
                     </div>
-                    <div class="col order-product-actions">
+                    <div class="col-md-4 col-lg-4 col-sm-10 order-product-actions">
                     
                         @if(!$product->getProduct->is_rated())
                         <div class="vesti_in_user_btn_pnl">
