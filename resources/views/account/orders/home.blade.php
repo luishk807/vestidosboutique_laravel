@@ -15,6 +15,180 @@
     display: inline-block;
     padding: 5px;
 }
+
+
+
+
+
+/* VIEW ORDER PAGE */
+.view-order-main .dates-ul{
+  list-style-type: none;
+  border: none;
+  padding: 0px;
+  margin: 0px;
+}
+.view-order-main .dates-ul .dates-cont{
+  border:none;
+  padding:0px;
+  margin: 1px 0;
+}
+.view-order-main .dates-ul .dates-cont .dates .title{
+ font-weight:bold;
+ font-size:.8rem;
+}
+.view-order-main td,
+.view-order-main th{
+    border-top:none !important;
+    border-bottom:none !important;
+}
+.account-container,
+.view-order-main,
+.view-order-main td{
+    padding:0px;
+}
+.view-order-header-info td{
+    padding: 6px 10px;
+    font-size: .8rem;
+    font-family: Arial;
+}
+.view-order-header-info td:nth-child(2){
+    text-align:center;
+}
+.view-order-header-total tr:first-child td{
+    border-top:none !important;
+}
+.view-order-header-total td:nth-child(1),
+.view-order-header-total th:nth-child(1){
+    text-align:left;
+}
+.view-order-header-total td:nth-child(2),
+.view-order-header-total th:nth-child(2){
+    text-align:right;
+}
+.view-order-top,
+.view-order-items,
+.view-order-header-total{
+    background-color:white !important;
+}
+
+.view-order-top-list{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.view-order-top-list li{
+    float: left;
+padding: 5px 10px;
+font-weight:bold;
+
+}
+.view-order-top-list li:not(:first-child){
+    border-left:1px solid rgba(0,0,0,.1)
+}
+.view-order-items .data .desc{
+    padding:5px;
+}
+.view-order-items .data .action{
+    padding:4px;
+}
+.view-order-items .data .action .btn-block{
+    font-size: .8rem;
+}
+.view-order-list{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.view-order-list li{
+    border-top:1px solid rgba(0,0,0,.1);
+padding: 15px 0px;
+    margin: 10px 0px;
+}
+.view-order-list .header{
+  font-size: 1.1rem;
+margin: 5px 0px;
+text-align:left;
+}
+/* cancel confirm */
+.cancel-container .row{
+  margin:20px 0px;
+}
+.cancel-container .row h3{
+  font-size:1.5rem;
+}
+.cancel-container .row:last-child{
+  margin-top:40px;
+}
+
+
+
+/* ACCOUNT ORDER */
+.result-mg{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.result-mg.success{
+  color: green;
+}
+.result-mg.error{
+  color: red;
+}
+.order-product-status .td{
+  background-color:white;
+  font-weight:bold;
+  font-size:1rem;
+}
+.orders-main-col{
+padding:0px !important;
+}
+.order-container{
+padding:0px;
+width:100%;
+}
+.order-container .orders td{
+border-top:none;
+}
+.order-container .orders tr.order-products:not(:first-child){
+border-top:$vesti-light-bars;
+}
+.order-container .orders .order-products table,
+.order-container .orders .order-products td{
+background-color:white;
+}
+.order-container .orders .order-container-in{
+border: $vesti-light-bars;
+}
+.order-container .orders .order-container-in .order-first-row{
+border-bottom: $vesti-light-bars;
+}
+.order-container .orders .order-container-in .order-first-row tr:nth-child(2) td{
+padding: .1rem .75rem;
+}
+.order-container .orders .order-container-in .order-first-row tr:nth-child(1) td{
+padding-bottom: .2rem;
+}
+.order-container .orders .order-products .order-product-info{
+width:70%;
+}
+.order-container .orders .order-products .order-product-info .product-subtitle{
+font-size: .75rem;
+}
+.order-container .orders .order-products .order-product-info .product-total{
+color:red;
+}
+.order-container .orders .order-products .order-product-info .product-title{
+font-size:1.2rem;
+color:black;
+font-weight:bold;
+text-decoration:none;
+}
+.order-container .orders .order-products .order-product-info .product-title:hover{
+text-decoration:underline;
+}
+.order-container .orders .order-products .order-product-actions{
+width:30%;
+}
 </style>
 <div class="container container-in-space white-md-bg-in">
     <div class="row">
@@ -45,113 +219,99 @@
 
             </div>
         </div>
-        
-    <table class="table orders">
-        <tbody>
+        @foreach($orders as $order)
+        <div class="row orders-main-col">
+            <div class="container order-container-in">
+                <div class="row order-first-row">
+                    <div class="col">
+                        <p>{{ __('general.dates_title.date_ordered') }}</p>
+                        <p>{{$order->purchase_date}}</p>
+                    </div>
+                    <div class="col">
+                        <p>
+                            {{ trans_choice('general.cart_title.total',1) }}
+                        </p>
+                        <p>${{ number_format($order->order_total,'2','.',',') }}</p>
+                    </div>
+                    <div class="col">
+                        <p>
+                            {{ __('general.page_header.shipping_address') }}
+                        </p>
+                        <p><a href="">...{{$order->shipping_zip_code}}</a></p>
+                    </div>
+                    <div class="col">
+                        <p>
+                            {{ trans_choice('general.cart_title.order',1) }} #:{{$order->order_number}}
+                        </p>
+                        <p><a href="{{ route('view_order',['order_id'=>$order->id]) }}">{{ __('buttons.order_detail') }}</a></p>
+                    </div>
+                </div><!---end of order header-->
+                <div class="row order-product-status">
+                    <div class="col td">
+                        {{$order->getStatusName->name}} 
+                        @if(empty($order->cancel_reason) && $order->status != 3 )
+                            &nbsp; &nbsp; &lbrack;<a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">{{ __('buttons.order_cancel') }}</a>&rbrack;
+                        @endif
+                    </div>
+                </div>
+                <!--list of products-->
+                @foreach($order->products as $product)
+                <div class="row order-products">
+                    <div class="col order-product-info">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="{{ route('product_page',['product_id'=>$product->product_id])}}"><img class="img-fluid" src="
+                                    @if($product->getProduct->images->count()>0)
+                                    {{asset('images/products')}}/{{$product->getProduct->images->first()->img_url}}
+                                    @else
+                                    {{asset('images/no-image.jpg')}}
+                                    @endif
+                                    "/></a>
+                                </div>
+                                <div class="col">
+                                    <a class="product-title" href="{{ route('product_page',['product_id'=>$product->product_id])}}">{{ $product->getProduct->products_name}}</a><br/>
+                                    <span class="product-subtitle">{{ __('general.product_title.model_id') }}</span>: {{ $product->getProduct->product_model}}<br/>
+                                    <span class="product-subtitle">{{ __('general.cart_title.sell_by') }}</span>: {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
+                                    <span class="product-subtitle">{{ trans_choice('general.cart_title.quantity',1) }}</span>: {{ $product->quantity}}<br/>
+                                    <span class="product-total">${{number_format($product->getProduct->total_rent,'2','.',',')}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div class="col order-product-actions">
+                    
+                        @if(!$product->getProduct->is_rated())
+                        <div class="vesti_in_user_btn_pnl">
+                            <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">{{ __('buttons.write_review') }}</a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @endforeach
+                <!--end of list of products-->
+            </div>
+        </div><!--product list ends-->
+        @endforeach
 
-            <tr>
-                <td class="col orders-main-col">
-                    @foreach($orders as $order)
-                    <!--product list begins-->
-                    <table class="table order-container-in">
-                        <tbody>
-                            <tr class="order-first-row">
-                                <td>
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>{{ __('general.dates_title.date_ordered') }}</td>
-                                                <td>{{ trans_choice('general.cart_title.total',1) }}</td>
-                                                <td>{{ __('general.page_header.shipping_address') }}</td>
-                                                <td>{{ trans_choice('general.cart_title.order',1) }} #:{{$order->order_number}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{{$order->purchase_date}}</td>
-                                                <td>${{ number_format($order->order_total,'2','.',',') }}</td>
-                                                <td><a href="">...{{$order->shipping_zip_code}}</a></td>
-                                                <td><a href="{{ route('view_order',['order_id'=>$order->id]) }}">{{ __('buttons.order_detail') }}</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr class="order-product-status">
-                                <td>{{$order->getStatusName->name}} 
-                                @if(empty($order->cancel_reason) && $order->status != 3 )
-                                &nbsp; &nbsp; &lbrack;<a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">{{ __('buttons.order_cancel') }}</a>&rbrack;
-                                @endif
-                                </td>
-                            </tr>
-                            <!--list all products of order-->
-                            @foreach($order->products as $product)
-                            <tr class="order-products">
-                                <td>
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td class="order-product-info">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td width="40%">
-                                                                <a href="{{ route('product_page',['product_id'=>$product->product_id])}}"><img class="img-fluid" src="
-                                                                @if($product->getProduct->images->count()>0)
-                                                                {{asset('images/products')}}/{{$product->getProduct->images->first()->img_url}}
-                                                                @else
-                                                                {{asset('images/no-image.jpg')}}
-                                                                @endif
-                                                                "/></a>
-                                                                </td>
-                                                                <td width="60%">
-                                                                    <a class="product-title" href="{{ route('product_page',['product_id'=>$product->product_id])}}">{{ $product->getProduct->products_name}}</a><br/>
-                                                                    <span class="product-subtitle">{{ __('general.product_title.model_id') }}</span>: {{ $product->getProduct->product_model}}<br/>
-                                                                    <span class="product-subtitle">{{ __('general.cart_title.sell_by') }}</span>: {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
-                                                                    <span class="product-subtitle">{{ trans_choice('general.cart_title.quantity',1) }}</span>: {{ $product->quantity}}<br/>
-                                                                    <span class="product-total">${{number_format($product->getProduct->total_rent,'2','.',',')}}
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                
-                                                </td>
-                                                <td class="order-product-actions">
-                                                    @if(!$product->getProduct->is_rated())
-                                                    <div class="vesti_in_user_btn_pnl">
-                                                        <a class="btn-block vesti_in_btn_b" href="{{ route('user_new_review',['product'=>$product->product_id])}}">{{ __('buttons.write_review') }}</a>
-                                                    </div>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            @endforeach
-                            <!--end list of product of orders-->
-                        </tbody>
-                    </table>
-                    @endforeach
-                    <!--product list ends-->
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="order-nav-list">
-                        <ul>
-                            @if(!empty($orders->previousPageUrl()))
-                            <li><a href="{{ $orders->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
-                            @endif
-                            <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
-                            @if($orders->nextPageUrl())
-                            <li><a href="{{ $orders->nextPageUrl() }}"> {{ __('pagination.next') }} &gt;</a></li>
-                            @endif
-                        </ul>
-                    </div><!--end of nav container-->
-                </td>
-            </tr><!--end of navigator-->
-        </tbody>
-    </table>
+        <div class="row">
+            <div class="col order-nav-list">
+                    <ul>
+                        @if(!empty($orders->previousPageUrl()))
+                        <li><a href="{{ $orders->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
+                        @endif
+                        <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                        @if($orders->nextPageUrl())
+                        <li><a href="{{ $orders->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
+                        @endif
+                    </ul>
+
+            </div>
+        </div>
+
+
 
     </div>
 </div><!--end of main container-->
