@@ -57,6 +57,7 @@ return [
         'order_detail'=>"Order Detail",
         'top_dresses'=>"Top Dresses",
         'top_quince'=>"Top Quinceañera Dresses",
+        'payment'=>"Payment",
     ],
 
     //CART TITLES
@@ -83,6 +84,8 @@ return [
         'your_rate'=>"Your Rate",
         'headline'=>"Headline",
         'comment'=>"Your Comment",
+        'product_review_title'=>"Product Review For: :name",
+        
     ],
     
      //DATES

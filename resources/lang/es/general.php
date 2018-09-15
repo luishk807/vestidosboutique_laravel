@@ -59,12 +59,14 @@ return [
         'order_detail'=>"Detalle del Orden",
         'top_dresses'=>"Mejores Vestidos",
         'top_quince'=>"Mejores Vestidos de Quinceañera",
+        'payment'=>"Pago",
     ],
 
     'rate_title'=>[
         'your_rate'=>"Tu Puntaje",
         'headline'=>"Titulo",
         'comment'=>"Tu Opinion",
+        'product_review_title'=>"Comentario para Producto: :name",
     ],
 
     //CART TITLES
