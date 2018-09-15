@@ -919,8 +919,108 @@ button.colors_cubes.selected{
 .account-form-section{
   margin:0px auto;
 }
-// ACCOUNT ORDER
+/* cancel confirm */
+.cancel-container .row{
+  margin:20px 0px;
+}
+.cancel-container .row h3{
+  font-size:1.5rem;
+}
+.cancel-container .row:last-child{
+  margin-top:40px;
+}
 
+
+
+/* ACCOUNT ORDER */
+.result-mg{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.result-mg.success{
+  color: green;
+}
+.result-mg.error{
+  color: red;
+}
+.order-product-status{
+    margin:10px 0px;
+}
+.order-product-status .td{
+  background-color:white;
+  font-weight:bold;
+  font-size:1rem;
+}
+.orders-main-col{
+padding:0px !important;
+}
+.order-container{
+padding:0px;
+width:100%;
+}
+.order-container .td{
+border-top:none;
+}
+.order-container .order-products{
+    padding:10px;
+}
+.order-container .order-products:not(:first-child){
+border-top:$vesti-light-bars;
+}
+.order-container .order-products table,
+.order-container .order-products td{
+background-color:white;
+}
+.order-container .order-container-in{
+border: $vesti-light-bars;
+margin-top:30px;
+}
+.order-container .order-container-in .order-first-row{
+border-bottom: $vesti-light-bars;
+background-color:#f5f8fa;
+padding:10px 0px;
+}
+.order-container .order-container-in .order-first-row p:first-child{
+font-weight:bold;
+}
+.order-container .order-container-in .order-first-row .header:nth-child(2) p{
+padding: .1rem .75rem;
+}
+.order-container .order-container-in .order-first-row .header:nth-child(1) p{
+padding-bottom: .2rem;
+}
+
+.order-container .order-products .order-product-info .product-subtitle{
+font-size: .75rem;
+}
+.order-container .order-products .order-product-info .product-total{
+color:red;
+}
+.order-container .order-products .order-product-info .product-title{
+font-size:1.2rem;
+color:black;
+font-weight:bold;
+text-decoration:none;
+}
+.order-container .order-products .order-product-info .product-title:hover{
+text-decoration:underline;
+}
+
+.order-nav-list{
+    text-align:right;
+}
+.order-nav-list ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    
+}
+.order-nav-list li{
+
+    display: inline-block;
+    padding: 5px;
+}
 //CHECKOUT PAGE
 .checkout-cart-list-cell-panel{
   max-height: 400px;

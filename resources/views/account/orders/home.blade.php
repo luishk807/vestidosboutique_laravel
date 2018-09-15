@@ -1,20 +1,7 @@
 @extends("layouts.sub-layout-account")
 @section('content')
 <style>
-.order-nav-list{
-    text-align:right;
-}
-.order-nav-list ul{
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-    
-}
-.order-nav-list li{
 
-    display: inline-block;
-    padding: 5px;
-}
 
 
 
@@ -109,90 +96,7 @@ padding: 15px 0px;
 margin: 5px 0px;
 text-align:left;
 }
-/* cancel confirm */
-.cancel-container .row{
-  margin:20px 0px;
-}
-.cancel-container .row h3{
-  font-size:1.5rem;
-}
-.cancel-container .row:last-child{
-  margin-top:40px;
-}
 
-
-
-/* ACCOUNT ORDER */
-.result-mg{
-  text-align: center;
-  font-weight: bold;
-  font-size: 1rem;
-}
-.result-mg.success{
-  color: green;
-}
-.result-mg.error{
-  color: red;
-}
-.order-product-status{
-    margin:10px 0px;
-}
-.order-product-status .td{
-  background-color:white;
-  font-weight:bold;
-  font-size:1rem;
-}
-.orders-main-col{
-padding:0px !important;
-}
-.order-container{
-padding:0px;
-width:100%;
-}
-.order-container .td{
-border-top:none;
-}
-.order-container .order-products{
-    padding:10px;
-}
-.order-container .order-products:not(:first-child){
-border-top:1px solid rgba(0,0,0,.1);
-}
-.order-container .order-products table,
-.order-container .order-products td{
-background-color:white;
-}
-.order-container .order-container-in{
-border: 1px solid rgba(0,0,0,.1);
-margin-top:30px;
-}
-.order-container .order-container-in .order-first-row{
-border-bottom: 1px solid rgba(0,0,0,.1);
-background-color:#f5f8fa;
-padding:10px 0px;
-}
-.order-container .order-container-in .order-first-row .header:nth-child(2) p{
-padding: .1rem .75rem;
-}
-.order-container .order-container-in .order-first-row .header:nth-child(1) p{
-padding-bottom: .2rem;
-}
-
-.order-container .order-products .order-product-info .product-subtitle{
-font-size: .75rem;
-}
-.order-container .order-products .order-product-info .product-total{
-color:red;
-}
-.order-container .order-products .order-product-info .product-title{
-font-size:1.2rem;
-color:black;
-font-weight:bold;
-text-decoration:none;
-}
-.order-container .order-products .order-product-info .product-title:hover{
-text-decoration:underline;
-}
 </style>
 <div class="container container-in-space white-md-bg-in">
     <div class="row">
@@ -227,23 +131,23 @@ text-decoration:underline;
         <div class="row orders-main-col">
             <div class="container order-container-in">
                 <div class="row order-first-row text-center">
-                    <div class="col-md-3 col-lg-3 col-sm-10 header">
+                    <div class="col-md-6 col-lg-3 col-sm-10 header">
                         <p>{{ __('general.dates_title.date_ordered') }}</p>
                         <p>{{$order->purchase_date}}</p>
                     </div>
-                    <div class="col-md-1 col-lg-2 col-sm-10 header">
+                    <div class="col-md-6 col-lg-2 col-sm-10 header">
                         <p>
                             {{ trans_choice('general.cart_title.total',1) }}
                         </p>
                         <p>${{ number_format($order->order_total,'2','.',',') }}</p>
                     </div>
-                    <div class="col-md-3  col-lg-3 col-sm-10 header">
+                    <div class="col-md-6  col-lg-3 col-sm-10 header">
                         <p>
                             {{ __('general.page_header.shipping_address') }}
                         </p>
                         <p><a href="">...{{$order->shipping_zip_code}}</a></p>
                     </div>
-                    <div class="col-md-3  col-lg-4 col-sm-10 header">
+                    <div class="col-md-6  col-lg-4 col-sm-10 header">
                         <p>
                             {{ trans_choice('general.cart_title.order',1) }} #:{{$order->order_number}}
                         </p>
