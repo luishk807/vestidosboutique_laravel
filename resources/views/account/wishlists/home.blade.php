@@ -15,50 +15,50 @@
     </div>
     <div class="container account-container">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <td class="col">
-                    <!--wishlist list begins-->
-                    <table class="table account-wishlist-table">
+    <div class="row">
+        <div class="col">
 
-                        @if($wishlists->count() > 0)
-                        <thead>
-                            <tr>
-                                <th class="image"></th>
-                                <th clas="desc">Description</th>
-                                <th class="action">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($wishlists as $wishlist)
-                            <tr>
-                                <td width="15%" class="image"><img class="img-fluid" src="{{ asset('images/products')}}/{{$wishlist->getProduct->images->first()->img_url}}" alt="{{$wishlist->getProduct->images->first()->img_name}}"></td>
-                                <td width="65%"class="desc">
-                                    <strong><a href="{{ route('product_page',['product_id'=>$wishlist->getProduct->id])}}">{{$wishlist->getProduct->products_name}}</a></strong><br/>
-                                    <div class='rate-view' data-rate-value="{{ $wishlist->getProduct->rates->avg('user_rate') }}"></div>
-                                    ${{ number_format($wishlist->getProduct->total_rent,'2','.',',') }}
-                                </td>
-                                <td width="20%"class="action"><a href='{{ route("deletewishlist",["wishlist_id"=>$wishlist->id])}}'>{{ __('buttons.remove') }}</a></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        @else
-                        <tbody>
-                            <tr>
-                                <td class="no-wishlist">
-                                <strong>{{ __('general.empty_msg.wishlist') }}</strong>
-                                </td>
-                            </tr>
-                        </tbody>
-                        @endif
+                <!--wishlist list begins-->
+                <div class="container account-wishlist-table">
+                    @if($wishlists->count() > 0)
+                    <div class="row">
+                        <div class="col image">
 
-                    </table>
-                    <!--wishlist list ends-->
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        </div>
+                        <div class="col desc">
+                            Description
+                        </div>
+                        <div class="col action">
+                            Action
+                        </div>
+                    </div>
+                    @foreach($wishlists as $wishlist)
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-12 image">
+                            <img class="img-fluid" src="{{ asset('images/products')}}/{{$wishlist->getProduct->images->first()->img_url}}" alt="{{$wishlist->getProduct->images->first()->img_name}}">
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-12 desc">
+                            <strong><a href="{{ route('product_page',['product_id'=>$wishlist->getProduct->id])}}">{{$wishlist->getProduct->products_name}}</a></strong><br/>
+                            <div class='rate-view' data-rate-value="{{ $wishlist->getProduct->rates->avg('user_rate') }}"></div>
+                             ${{ number_format($wishlist->getProduct->total_rent,'2','.',',') }}
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 action">
+                            <a href='{{ route("deletewishlist",["wishlist_id"=>$wishlist->id])}}'>{{ __('buttons.remove') }}</a>
+                        </div>
+                    </div>
+                    @endforeach
+                    @else
+                    <div class="row">
+                        <div class="col no-wishlist">
+                            <strong>{{ __('general.empty_msg.wishlist') }}</strong>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                 <!--wishlist list ends-->
+        </div>
+    </div>
+
 
     </div>
 </div><!--end of main container-->

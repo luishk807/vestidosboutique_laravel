@@ -140,4 +140,5 @@ return [
      'got_question'=>"Got Questions? Call Us",
      'payment_final_step_msg'=>"This is the final step for your order",
      'optimized_search'=>"Optimized Search",
+     'vendor'=>"Seller",
 ];

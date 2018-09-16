@@ -1,5 +1,8 @@
 @extends("layouts.sub-layout")
 @section('content')
+<style>
+
+</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -42,84 +45,86 @@
                         </div>
                         <div class="row">
                             <div class="col-md-7 checkout-confirm-info-cont">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <th class="checkout-subtitle-confirm" colspan="3">{{$page_title}}</th>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="{{ asset('images') }}/{{ $thankyou_img }}" class="vesti-svg vestidos-icons-confirm-b"/>
-                                            </td>
-                                            <td class="checkout-confirm-text">
-                                                {{ $thankyou_msg }}
-                                            </td>
-                                        </tr>
-                                        @if($thankyou_status)
-                                        <tr>
-                                            <td colspan='2'>
-                                                <table class="checkout-confirm-order-details">
-                                                    <tbody>
-                                                        <tr class="header1">
-                                                            <th colspan='3'>
-                                                                Order Number: {{$last_order->order_number}}
-                                                            </th>
-                                                        </tr>
-                                                        <tr class="header2">
-                                                            <td colspan="2">
-                                                            Subtotal
-                                                            </td>
-                                                            <td>
-                                                              ${{number_format($last_order->order_total,'2','.',',')}}
-                                                            <td>
-                                                        </tr>
-                                                        <tr class="header2">
-                                                            <td colspan="2">
-                                                            Tax
-                                                            </td>
-                                                            <td>
-                                                            ${{number_format($last_order->order_tax,'2','.',',')}}
-                                                            <td>
-                                                        </tr>
-                                                        <tr class="header2">
-                                                            <td colspan="2">
-                                                            Shipping
-                                                            </td>
-                                                            <td>
-                                                            ${{number_format($last_order->order_shipping,'2','.',',')}}
-                                                            <td>
-                                                        </tr>
-                                                        <tr class="header3">
-                                                            <td colspan="2">
-                                                            Grand total
-                                                            </td>
-                                                            <td>
-                                                            ${{number_format($last_order->order_total + $tax_total + $last_order->order_shipping,'2','.',',')}}
-                                                            <td>
-                                                        </tr>
-                                                        @foreach($last_order->products as $product)
-                                                        
-                                                        <tr class="checkout-confirm-order-details-data">
-                                                            <td width="15%">
-                                                                <img class="img-fluid" src="{{ asset('/images/products') }}/{{ $product->getProduct->images->first()->img_url }}" alt width="100%"/>
-                                                            </td>
-                                                            <td width="65%">
-                                                                 <span class="title">{{$product->getProduct->products_name}}</span><br/>
-                                                                 Vendor:{{ $product->getProduct->vendor->first_name." ".$product->getProduct->vendor->last_name}}
-                                                            </td>
-                                                            <td width="20%">
-                                                                ${{number_format($product->getProduct->total_rent,'2','.',',')}}
-                                                                 
-                                                            </td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr><!--end of success info-->
-                                        @endif
-                                    </tbody>
-                                </table>
+                                <!--start of confirm container-->
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col checkout-subtitle-confirm">
+                                            {{$page_title}}
+                                        </div>
+                                    </div>
+                                    <div class="row checkout-status-confirm">
+                                        <div class="col-12 col-lg-4 col-md-6 col-sm-12">
+                                            <img src="{{ asset('images') }}/{{ $thankyou_img }}" class="vesti-svg vestidos-icons-confirm-b"/>
+
+                                        </div>
+                                        <div class="col-12 col-lg-8 col-md-6 col-sm-12 checkout-confirm-text">
+                                            {{ $thankyou_msg }}
+                                        </div>
+                                    </div>
+                                    @if($thankyou_status)
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="container checkout-confirm-order-details">
+                                                <!--order header-->
+                                                <div class="row header1">
+                                                    <div class="col">
+                                                        {{ trans_choice('general.cart_title.order',1)}}: {{$last_order->order_number}}
+                                                    </div>
+                                                </div>
+                                                <div class="row header2">
+                                                    <div class="col">
+                                                        {{ __('general.cart_title.subtotal') }}
+                                                    </div>
+                                                    <div class="col">
+                                                        ${{number_format($last_order->order_total,'2','.',',')}}
+                                                    </div>
+                                                </div>
+                                                <div class="row header2">
+                                                    <div class="col">
+                                                        {{ __('general.product_title.tax') }}
+                                                    </div>
+                                                    <div class="col">
+                                                        ${{number_format($last_order->order_tax,'2','.',',')}}
+                                                    </div>
+                                                </div>
+                                                <div class="row header2">
+                                                    <div class="col">
+                                                        {{ __('general.cart_title.shipping') }}
+                                                    </div>
+                                                    <div class="col">
+                                                        ${{number_format($last_order->order_shipping,'2','.',',')}}
+                                                    </div>
+                                                </div>
+                                                <div class="row header3">
+                                                    <div class="col">
+                                                        {{ __('general.cart_title.grand_total') }}
+                                                    </div>
+                                                    <div class="col">
+                                                        ${{number_format($last_order->order_tax,'2','.',',')}}
+                                                    </div>
+                                                </div>
+                                                <!--end of header-->
+                                                <!--listing products-->
+                                                @foreach($last_order->products as $product)
+                                                <div class="row checkout-confirm-order-details-data">
+                                                    <div class="col-lg-2">
+                                                            <img class="img-fluid" src="{{ asset('/images/products') }}/{{ $product->getProduct->images->first()->img_url }}" alt width="100%"/>
+                                                    </div>
+                                                    <div class="col-lg-7">
+                                                        <span class="title">{{$product->getProduct->products_name}}</span><br/>
+                                                        {{ __('general.vendor') }}:{{ $product->getProduct->vendor->first_name." ".$product->getProduct->vendor->last_name}}
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        ${{number_format($product->getProduct->total_rent,'2','.',',')}}
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                <!--end of listing-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div><!--end of confirm container-->
                             </div><!--end of form-->
                         </div>
                         <div class="row">

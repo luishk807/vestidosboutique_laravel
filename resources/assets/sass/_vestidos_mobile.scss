@@ -184,6 +184,13 @@ and (-webkit-device-pixel-ratio : 3) {
     #user-account-menu{
         display:none;
     }
+    /*********CHECKOUT******************/
+    .checkout-status-confirm div:first-child{
+        text-align:center !important;
+    }
+    .checkout-status-confirm div:last-child{
+         text-align:center !important;
+    }
 
 
 }
@@ -315,6 +322,8 @@ and (orientation : landscape) {
 
     /**************MAIN SLIDER**************/
     #home_main_slider .text-cont{
+        position: absolute;
+        bottom: 0px!important;
         max-width:100% !important;
     }
     #main_slider_arrow_cont{
@@ -326,7 +335,9 @@ and (orientation : landscape) {
     .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next{
         display:none;
     }
-
+    .main_slider_in, .main_slider_txt {
+        text-align: center;
+    }
     #home_main_slider .fp-tableCell{
      vertical-align: middle;
     }
@@ -336,6 +347,8 @@ and (orientation : landscape) {
     #home_main_slider .container .main_slider_txt span:nth-child(1),
     #home_main_slider .container .main_slider_txt span:nth-child(3){
      font-size: 2rem !important;
+     color: #fff;
+    text-shadow: 0 2px 8px #000;
     }
     #home_main_slider .container .main_slider_txt .main_slider_in{
      padding-right: 33px;
@@ -343,9 +356,13 @@ and (orientation : landscape) {
     .slide-slide{
         background-position: top center;
        }
-    .btn-vesti-slide{
-     padding: 5px 53px;
-     font-size: 1rem;
+    .btn-vesti-slide {
+        border: 1px solid $main_vest_color_b;
+        padding: 10px 80px;
+        font-size: .8rem;
+        margin: 20px 0;
+        background-color: $main_vest_color_b;
+        color: #fff;
     }
 
     /************HOME PAGE *************/
@@ -438,6 +455,13 @@ and (orientation : landscape) {
     /*****************USER ACCOUNT**************/
     #user-account-menu{
         display:none;
+    }
+     /*********CHECKOUT******************/
+     .checkout-status-confirm div:first-child{
+        text-align:center !important;
+    }
+    .checkout-status-confirm div:last-child{
+         text-align:center !important;
     }
 
  }
@@ -774,6 +798,14 @@ and (orientation : portrait) {
         border-left:none;
         padding: 5px 0px;
     }
+     /*********CHECKOUT******************/
+     .checkout-status-confirm div:first-child{
+        text-align:center !important;
+    }
+    .checkout-status-confirm div:last-child{
+         text-align:center !important;
+    }
+    
 }
 /*************************************************/
 /*      IPHONE X PORTRAIT                      */
@@ -1339,5 +1371,12 @@ and (orientation:portrait){
     .view-order-top-list li:not(:first-child) {
         border-left:none;
         padding: 5px 0px;
+    }
+     /*********CHECKOUT******************/
+     .checkout-status-confirm div:first-child{
+        text-align:center !important;
+    }
+    .checkout-status-confirm div:last-child{
+         text-align:center !important;
     }
 }

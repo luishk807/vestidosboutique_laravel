@@ -1285,29 +1285,36 @@ text-align:left;
   width:100%;
   margin-top:30px;
 }
-.checkout-confirm-order-details-data td{
+.checkout-confirm-order-details-data div{
   vertical-align:top;
 }
-.checkout-confirm-order-details-data td:not(:first-child){
+.checkout-confirm-order-details-data div:not(:first-child){
   padding:10px;
 }
 .checkout-confirm-order-details-data .title{
   font-size:1.2rem;
 }
-.checkout-confirm-order-details .header1 th{
+.checkout-confirm-order-details .header1 div{
   text-align:right;
 }
-.checkout-confirm-order-details .header2 td,
-.checkout-confirm-order-details .header3 td{
+.checkout-confirm-order-details .header2 div,
+.checkout-confirm-order-details .header3 div{
   text-align:right;
 }
-.checkout-confirm-order-details .header3 td{
+.checkout-confirm-order-details .header3 div{
   font-size:1rem;
   font-weight:bold;
   padding-bottom: 23px;
 }
 .checkout-confirm-info-cont{
   margin:0px auto;
+}
+.checkout-status-confirm div:first-child{
+  text-align:right;
+  padding:25px;
+}
+.checkout-status-confirm div:last-child{
+  text-align:left;
 }
 // CONFIRMATION PAGES
 .vestidos-icons-confirm{
@@ -1327,7 +1334,7 @@ text-align:left;
 .confirm-col .col:nth-child(1){
     text-align:center;
 }
-.checkout-confirm-order-details .header1 th{
+.checkout-confirm-order-details .header1 div{
   text-align: left;
   font-size: 1.2rem;
   padding-bottom: 36px;
