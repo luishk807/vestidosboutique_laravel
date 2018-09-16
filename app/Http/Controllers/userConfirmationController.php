@@ -27,9 +27,9 @@ class userConfirmationController extends Controller
         $this->categories = $categories;
     }
     public function accountCreationConfirm(){
-        $data["page_title"]="thank You";
-        $data["thankyou_title"]="Account Created";
-        $data["thankyou_msg"]="Your account is successfully created";
+        $data["page_title"]=__('general.thank_you');
+        $data["thankyou_title"]=__('general.page_header.account_created');
+        $data["thankyou_msg"]=__('general.user_section.account_created');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
         $data["brands"]=$this->brands->all();
@@ -37,9 +37,9 @@ class userConfirmationController extends Controller
         return view("/confirmation",$data);
     }
     public function accountCreationError(){
-        $data["page_title"]="Ops!";
-        $data["thankyou_title"]="Ops! Account Not Created";
-        $data["thankyou_msg"]="An unexpected issue ocurred, please try again later";
+        $data["page_title"]=__('general.page_header.ops');
+        $data["thankyou_title"]=__('general.page_header.account_not_created');
+        $data["thankyou_msg"]=__('general.user_section.account_not_created');
         $data["thankyou_img"]="close_2.svg";
         $data["thankyou_status"]=false;
         $data["brands"]=$this->brands->all();
@@ -47,9 +47,9 @@ class userConfirmationController extends Controller
         return view("/confirmation",$data);
     }
     public function logoutConfirm(){
-        $data["page_title"]="Logout Page";
-        $data["thankyou_title"]="Logout Successfull";
-        $data["thankyou_msg"]="You have succesfully logout";
+        $data["page_title"]=__('general.page_header.logout');
+        $data["thankyou_title"]=__('auth.logout_title');
+        $data["thankyou_msg"]=__('auth.logout_msg');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
         $data["brands"]=$this->brands->all();
@@ -57,9 +57,9 @@ class userConfirmationController extends Controller
         return view("/confirmation",$data);
     }
     public function orderCreationCreated(Request $request){
-        $data["page_title"]="Order Received";
-        $data["thankyou_title"]="Order Received";
-        $data["thankyou_msg"]="Success: Your order has been created";
+        $data["page_title"]=__('general.page_header.order_received');
+        $data["thankyou_title"]=__('general.order_section.order_received');
+        $data["thankyou_msg"]=__('general.order_section.order_success_created');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
         $data["brands"]=$this->brands->all();

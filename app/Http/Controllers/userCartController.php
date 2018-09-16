@@ -43,7 +43,7 @@ class userCartController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Cart This";
+        $data["page_title"]=__('header.cart');
         $cart = Session::get("vestidos_shop");
         $tax = $this->taxes->find(1);
         $tax_amt = (float) $tax->tax;
@@ -61,7 +61,7 @@ class userCartController extends Controller
         }
         
         if(!empty($cart_remove)){
-            $cart_remove .=" removed";
+            $cart_remove .=" ".__('general.removed');
             Session::flash("alert",$cart_remove);
         }
         Session::forget("vestidos_shop");
@@ -75,7 +75,7 @@ class userCartController extends Controller
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["product"]=$this->products->find($product_id);
-        $data["page_title"]="Cart";
+        $data["page_title"]=__('header.cart');
         $cart = Session::get("vestidos_shop");
         $product = $this->products->find($product_id);
         $quantity = (int) $request->input("product_quantity");
@@ -91,7 +91,7 @@ class userCartController extends Controller
           for($i=0;$i<sizeof($cart);$i++){
              if($cart[$i]["id"]==$product_id && $cart[$i]["color"]==$color->name && $cart[$i]["size"]==$size->name){
                  $cart[$i]["quantity"] =$cart[$i]["quantity"] + $quantity;
-                 Session::flash("success","Item Updated");
+                 Session::flash("success",__('general.cart_title.item_updated'));
                  $found=true;
                  break;
              }
@@ -113,7 +113,7 @@ class userCartController extends Controller
                 "total"=>$product->total_rent,
                 "total_old"=>$product->total_old
             ); 
-            Session::flash("success","Item Added");
+            Session::flash("success",__('general.cart_title.item_added'));
         }
         $data["subtotal"]=0;
         $data["tax"]=$tax_amt;
@@ -129,13 +129,13 @@ class userCartController extends Controller
                 $cart[$key]["quantity"]=$quantity;
                 Session::forget("vestidos_shop");
                 Session::put("vestidos_shop",$cart);
-                Session::flash("success","Cart Updated");
+                Session::flash("success",__('general.cart_title.cart_updated'));
                 
             }else{
-                Session::flash("error","Ops!, Something happened!");
+                Session::flash("error",__('general.cart_title.cart_error'));
             }
         }else{
-            Session::flash("error","Ops!, Something happened!");
+            Session::flash("error",__('general.cart_title.cart_error'));
         }
         return redirect()->route("cart_page");
     }
@@ -144,16 +144,16 @@ class userCartController extends Controller
         if(Session::has("vestidos_shop")){
             $cart = Session::get("vestidos_shop");
             if(isset($cart[$key])){
-                Session::flash("success",$cart[$key]["name"]." Deleted");
+                Session::flash("success",__('general.cart_title.item_removed',['name'=>$cart[$key]["name"]]));
                 array_splice($cart,$key,1);
                 Session::forget("vestidos_shop");
                 Session::put("vestidos_shop",$cart);
                 return redirect()->route("cart_page");
             }else{
-                Session::flash("error","Ops!, Something happened!");
+                Session::flash("error",__('general.cart_title.cart_error'));
             }
         }else{
-            Session::flash("error","Ops!, Something happened!");
+            Session::flash("error",__('general.cart_title.cart_error'));
         }
         return redirect()->route("cart_page");
     }

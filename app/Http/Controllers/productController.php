@@ -12,7 +12,7 @@ class productController extends Controller
         $product = new Products();
         $product->find($produt_id);
         $data = [];
-        $data["page_title"]="Product: ".$product->products_name;
+        $data["page_title"]=__('general.product_title.product_name',['name'=>$product->products_name]);
         $data["product"]=$product;
         return view("product",$data);
     }

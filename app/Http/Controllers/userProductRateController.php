@@ -47,7 +47,7 @@ class userProductRateController extends Controller
         $data["categories"]=$this->categories->all();
         $data["rate_nums"]=$this->rate_numbers;
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Product Review For: ".$product->products_name;
+        $data["page_title"]=__('general.rate_title.product_review_title',['name'=>$product->products_name]);
         return view("account/review/new",$data);
     }
     public function createReview($product_id,Request $request){
@@ -73,7 +73,7 @@ class userProductRateController extends Controller
     public function editReview($rate_id){
         $data=[];
         $rate =$this->rates->find($rate_id);
-        $data["page_title"]="Edit Rate";
+        $data["page_title"]=__('general.rate_title.edit_rate');
         $data["rate"]=$rate;
         $data["user_rate"] = $request->input("user_rate");
         $data["user"] =(int)$request->input("user");
@@ -84,13 +84,13 @@ class userProductRateController extends Controller
         $data["users"]=$this->users->all();
         $data["rate_nums"]=$this->rate_numbers;
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Edit Rate";
+        $data["page_title"]=__('general.rate_title.edit_rate');
         return view("admin/products/rates/edit",$data);
     }
     public function saveReview($rate_id,Request $request){
         $data=[];
         $rate =$this->rates->find($rate_id);
-        $data["page_title"]="Edit Rate";
+        $data["page_title"]=__('general.rate_title.edit_rate');
         $data["rate"]=$rate;
         $data["user_rate"] = $request->input("user_rate");
         $data["user"] =(int)$request->input("user");
@@ -123,7 +123,7 @@ class userProductRateController extends Controller
             return redirect()->route("admin_rates");
         }
         $data["rate"]=$rate;
-        $data["page_title"]="Delete Rates";
+        $data["page_title"]=__('general.rate_title.delete_rate');
         $data["product_id"]=$rate->product_id;
         return view("admin/products/rates/confirm",$data);
     }

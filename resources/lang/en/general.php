@@ -57,14 +57,72 @@ return [
         'new_account'=>"New Account",
         'review_name'=>'Review for :name',
         'welcome' => 'Welcome, :name',
+        'welcome_page'=>"Welcome Page",
         'delete_order'=>"Delete Order",
         'cancel_order'=>"Cancel Order",
         'order_detail'=>"Order Detail",
         'top_dresses'=>"Top Dresses",
         'top_quince'=>"Top Quinceañera Dresses",
         'payment'=>"Payment",
+        'confirmation'=>"Confirmation",
+        'account_created'=>'Account Created',
+        'account_not_created'=>"Ops! Account Not Created",
+        'ops'=>"Ops!",
+        'logout'=>"Logout Page",
+        'order_received'=>"Order Received",
     ],
-
+    'order_section' =>[
+        'order_updated'=>'order updated',
+        'payment_success'=>'Payment was successfully processed!',
+        'order_received'=>'Order Received',
+        'order_completed'=>'Order is Completed',
+        'order_success_created'=>'Success: Your order has been created',
+        'order_success_created_none'=>'Order Successfully Created',
+        'order_success_received'=>'Success: Your order has been received',
+        'order_success_deleted'=>'Order Successfully Deleted',
+        'received_to_process'=>"Thank you for your order! we are processing your order, once your order is updated you will notify you right away!.",
+        'unable_delete'=>'Unable to Delete Order',
+        'cancel_request'=>'Order Cancellation Request Sent',
+        'new_order'=>'New Order',
+        'edit_order'=>"Edit Order",
+        'new_order_address'=>'New Order | Address',
+        'new_order_checkout'=>"New Order | Checkout",
+        'new_order_products'=>"New Order | Add Products",
+        'edit_order_address'=>"Edit Order :name Address",
+        'address_saved'=>'Address successfully saved',
+        'confirm_cancellation'=>'Confirm Order Cancellation',
+        'process_order'=>"Process Order Payment",
+        'cancel_success'=>"Order Successfully Cancelled",
+        'delete_name'=>'Delete Product :name From Orders',
+        'order_address'=>"Order Address",
+        'to_user'=>[
+            'received'=>'Hello :name, thank you for your order',
+            'cancel_confirmation'=>'Hello :name, your cancellation confirmation',
+            'updated'=>'Hello :name, your order has been updated',
+            'cancel'=>'Hello :name, your order is cancelled',
+        ],
+        'to_admin'=>[
+            'received'=>"Hello Admin, new order received from :name",
+            'cancel_confirmation'=>'Hello Admin, new order cancellation from :name',
+        ],
+    ],
+    'user_section'=>[
+        'registration_complete'=>'Hello :name, your account registration is completed.',
+        'create_address'=>'Create Address',
+        'edit_address'=>"Edit Address :name",
+        'delete_address'=>'Delete Address',
+        'account_created'=>"Your account is successfully created",
+        'account_not_created'=>'An unexpected issue ocurred, please try again later',
+        'to_user'=>[
+            'thank_you'=>'Hola :name, gracias por tu correo electrónico',
+        ],
+        'to_admin'=>[
+            'thank_you'=>'Nuevo correo electrónico recibido de :name',
+        ],
+    ],
+    'address_section'=>[
+        'invalid'=>"Dirección inválida",
+    ],
     //CART TITLES
     'cart_title'=>[
         'shipping'=>"Shipping",
@@ -83,16 +141,31 @@ return [
         'order_total'=>"Order Total",
         'shipping_handling'=>"Shipping Handling",
         'estimated_tax'=>"Estimated Tax to be collected",
+        'total_price'=>"Total Price",
+        'order_total'=>"Total",
+        'grand_total'=>"Grand Total",
+        'subtotal'=>"Subtotal",
+        'total'=>"Total | Totals",
+        'item_removed'=>":name Removed",
+        'item_updated'=>"Item Updated",
+        'item_added'=>"Item Added",
+        'cart_updated'=>"Cart Updated",
+        'cart_error'=>"Ops!, Something Happened!",
     ],
-
     'rate_title'=>[
         'your_rate'=>"Your Rate",
         'headline'=>"Headline",
+        'edit_rate'=>"Edit Rate",
+        'delete_rate'=>"Delete Rate",
+        'remove_rate'=>"Remove Rate",
         'comment'=>"Your Comment",
         'product_review_title'=>"Product Review For: :name",
         
     ],
-    
+    'access_section'=>[
+        'denied'=>"Access Denied.",
+        'invalid_access'=>"Invalid Access",
+    ],
      //DATES
     'dates_title'=>[
         'date_ordered'=>"Order Placed",
@@ -117,6 +190,9 @@ return [
         'unit_price'=>"Unit Price",
         'size'=>"Size | Sizes",
         'color'=>"Color | Colors",
+        'missing_size_color'=>"Missing Size or Colors definition for :name",
+        'select_product'=>'You must select a product',
+        'product_name'=>"Product: :name",
     ],
 
      //MENSAJES
@@ -141,4 +217,8 @@ return [
      'payment_final_step_msg'=>"This is the final step for your order",
      'optimized_search'=>"Optimized Search",
      'vendor'=>"Seller",
+     'removed'=>"Removed",
+     'unable_save'=>"Unable to Save",
+     'thank_you'=>"Thank You",
+
 ];

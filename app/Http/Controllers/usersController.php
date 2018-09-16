@@ -85,7 +85,7 @@ class usersController extends Controller
             Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
-                $subject = 'Hello '.$client_name.', your account registration is completed';
+                $subject = __('general.user_section.registration_complete',['name'=>$client_name]);
                 $message->to($data["email"],$client_name)->subject($subject);
             });
             return redirect()->route('account_create_confirmed');

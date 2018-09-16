@@ -51,7 +51,7 @@ class HomeController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Welcome Page";
+        $data["page_title"]=__('general.page_header.welcome_page');
         $data["languages"]=$this->languages->all();
         $data["main_sliders"] = $this->main_sliders->all();
         $data["top_dresses"] = $this->products->where("top_dress","=",1)->get();
@@ -66,7 +66,7 @@ class HomeController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Welcome Page";
+        $data["page_title"]=__('general.page_header.welcome_page');
         $data["languages"]=$this->languages->all();
         $data["main_sliders"] = $this->main_sliders->all();
         $data["top_dresses"] = $this->products->where("top_dress","=",1)->get();
@@ -78,7 +78,7 @@ class HomeController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="About Us";
+        $data["page_title"]=__('header.about');
         return view("about",$data);
     }
     public function product($product_id){
@@ -90,14 +90,14 @@ class HomeController extends Controller
         $data["products_cat"]=$product_cat;
         $data["products"]=$this->products;
         $data["product"]=$product;
-        $data["page_title"]="Product";
+        $data["page_title"]=__('header.product');
         return view("product",$data);
     }
     public function contact(){
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Contact Us";
+        $data["page_title"]=__('header.contact');
         $data["countries"]=$this->country->all();
         return view("contact",$data);
     }
@@ -105,7 +105,7 @@ class HomeController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Contact Us";
+        $data["page_title"]=__('header.contact');
         $data["countries"]=$this->country->all();
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -127,13 +127,13 @@ class HomeController extends Controller
            Mail::send('emails.emailcontent',["client"=>$client],function($message) use($client){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $client['first_name']." ".$client["last_name"];
-                $subject = 'Hello '.$client_name.', thank you for your email';
+                $subject = __('general.user_section.to_user.thank_you',['name'=>$client_name]);
                 $message->to($client["email"],$client_name)->subject($subject);
             });
             Mail::send('emails.adminemail',["client"=>$client],function($message) use($client){
                 $client_name = $client['first_name']." ".$client["last_name"];
                 $message->from($client["email"],$client_name);
-                $subject = 'New Email From '.$client_name.' Received';
+                $subject = __('general.user_section.to_admin.thank_you',['name'=>$client_name]);
                 $message->to("info@vestidosboutique.com","Admin")->subject($subject);
             });
             return view("thankyou.contact",$data);
@@ -143,13 +143,13 @@ class HomeController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]="Login";
+        $data["page_title"]=__('header.login');
         $data["users"]=$this->users->all();
         return view("/signin",$data);
     }
     public function login(Request $request){
         $data=[];
-        $data["page_title"]="Login";
+        $data["page_title"]=__('header.login');
         $data["email"]=$request->input("email");
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -161,7 +161,7 @@ class HomeController extends Controller
                 $data["user_id"]=$user_id;
                 return redirect()->route('user_account');
             }else{
-                return redirect()->back()->withInput($data)->with("msg","Invalid User");
+                return redirect()->back()->withInput($data)->with("msg",__('auth.failed'));
             }
         }
         return view("/signin",$data);
@@ -177,7 +177,7 @@ class HomeController extends Controller
         }else{
             $data["brands"]=$this->brands->all();
             $data["categories"]=$this->categories->all();
-            $data["page_title"]="Login";
+            $data["page_title"]=__('header.login');
             $data["users"]=$this->users->all();
             return redirect("/signin")->with($data);
         }

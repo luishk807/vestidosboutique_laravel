@@ -47,7 +47,7 @@ class ordersController extends Controller
     public function index(){
         $data=[];
         $data["orders"]=$this->orders->orderBy('created_at','desc')->paginate(10);
-        $data["page_title"]="Orders";
+        $data["page_title"]=__('header.orders');
         return view("admin/orders/home",$data);
     }
     public function getAddressDropdown(){
@@ -65,7 +65,7 @@ class ordersController extends Controller
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="New Order";
+        $data["page_title"]=__('general.order_section.new_order');
         return view("admin/orders/new",$data);
     }
     public function createOrder(Request $request){
@@ -106,7 +106,7 @@ class ordersController extends Controller
         $data["products"]=$this->products->all();
         $data["shipping_lists"]=$this->shipping_lists->all();
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Edit Order";
+        $data["page_title"]=__('general.order_section.edit_order');
         return view("admin/orders/edit",$data);
     }
     public function showOrderAddress(){
@@ -121,7 +121,7 @@ class ordersController extends Controller
         $data["address_types"]=$this->address_types->all();
         $data["countries"]=$this->countries->all();
         $data["user_adresses"]=$this->addresses->all();
-        $data["page_title"]="New Order | Address";
+        $data["page_title"]=__('general.order_section.new_order_address');
         return view("admin/orders/addresses/new",$data);
     }
     public function createOrderAddress(Request $request){
@@ -130,7 +130,7 @@ class ordersController extends Controller
             $data=Session::get("vestidos_admin_shop");
             $user = $this->users->find($data["user_id"]);
         }else{
-            return redirect()->route('admin_orders')->with("error","Invalid access");
+            return redirect()->route('admin_orders')->with("error",__('general.access_section.invalid_access'));
         }
         $addresses=$request->input("addresses");
         if(count($addresses) < 1){
@@ -207,7 +207,7 @@ class ordersController extends Controller
                     $data["billing_email"]=$address["email"];
                 }
             }else{
-                return redirect()->back()->with("error","Invalid Address");
+                return redirect()->back()->with("error",__('general.address_section.invalid'));
             }
         }
         $shipping_list=$this->shipping_lists->find($request->input("shipping_list"));
@@ -223,10 +223,10 @@ class ordersController extends Controller
         $data=[];
         $order =$this->orders->find($order_id);
         $data["order"]=$order;
-        $address_var = $address_type_id==1? "Shipping" : "Billing";
+        $address_var = $address_type_id==1? __('general.cart_title.shipping') : __('general.cart_title.billing');
         $data["order_id"]=$order_id;
         $data["address_var"]=$address_var;
-        $data["page_title"]="Edit Order ".$address_var." Address";
+        $data["page_title"]=__('general.order_section.edit_order_address',["name"=>$address_var]);
         $data["address_type_id"]=$address_type_id;
         $data["countries"]= $this->countries->all();
         $data["address_name"]=$request->input("address_name");
@@ -279,10 +279,10 @@ class ordersController extends Controller
         $order_id=$request->input("order_id");
         $address_type_id=$request->input("address_type_id");
         $order =$this->orders->find($order_id);
-        $address_var = $address_type_id==1? "shipping" : "billing";
+        $address_var = $address_type_id==1? __('general.cart_title.shipping') : __('general.cart_title.billing');
         $data["order_id"]=$order_id;
         $data["address_var"]=$address_var;
-        $data["page_title"]="Edit Order ".$address_var." Address";
+        $data["page_title"]= __('general.order_section.edit_order_address',["name"=>$address_var]);
 
         if($address_type_id==1){
             $order->shipping_name=$request->input("address_name");
@@ -308,10 +308,10 @@ class ordersController extends Controller
             $order->billing_zip_code=$request->input("address_zip_code");
         }
         if($order->save()){
-            return redirect()->route("admin_edit_order",["order_id"=>$order_id])->with("success","address successfully saved");
+            return redirect()->route("admin_edit_order",["order_id"=>$order_id])->with("success",__('general.order_section.address_saved'));
         }
         return redirect()->back()->withErrors([
-            "required"=>"unable to save"
+            "required"=>__('general.unable_save')
         ]);
     }
     public function saveOrder($order_id,Request $request){
@@ -357,7 +357,7 @@ class ordersController extends Controller
             Mail::send('emails.orderstatus_update',["order_detail"=>$order_detail],function($message) use($order_detail){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                $subject = 'Hello '.$client_name.', your order has been updated';
+                $subject = __('general.order_section.to_user.updated',['name'=>$client_name]);
                 $message->to("info@vestidosboutique.com","Admin")->subject($subject);
             });
         }
@@ -367,7 +367,7 @@ class ordersController extends Controller
         $data=[];
         $data["order"]=$this->orders->find($order_id);
         $data["cancel_reasons"]=$this->cancel_reasons->all();
-        $data["page_title"]="Confirm Order Cancellation";
+        $data["page_title"]=__('general.order_section.confirm_cancellation');
         return view("admin/orders/confirm_cancel",$data);
     }
     public function showAdminOrderCheckout(){
@@ -376,9 +376,9 @@ class ordersController extends Controller
             $data = Session::get("vestidos_admin_shop");
             $user = $this->users->find($data["user_id"]);
         }else{
-            return redirect()->route('admin_orders')->with("error","Invalid access");
+            return redirect()->route('admin_orders')->with("error",__('general.access_section.invalid_access'));
         }
-        $data["page_title"]="New Order | Checkout";
+        $data["page_title"]=__('general.order_section.new_order_checkout');
         return view("admin/orders/payments/checkout",$data);
     }
     public function processAdminOrderCheckout(Request $request){
@@ -389,7 +389,7 @@ class ordersController extends Controller
             $user = $this->users->find($cart["user_id"]);
             $user_id=$user->id;
         }else{
-            return redirect()->route('admin_orders')->with("error","Invalid access");
+            return redirect()->route('admin_orders')->with("error",__('general.access_section.invalid_access'));
         }
         $shipping_list = $cart["shipping_list"];
         $nonce = $request->input('nonce', false);
@@ -485,12 +485,12 @@ class ordersController extends Controller
              Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
                  $message->from("info@vestidosboutique.com","Vestidos Boutique");
                  $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                 $subject = 'Hello '.$client_name.', thank you for your order';
+                 $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
                  $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
                  //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
              });
              Session::forget("vestidos_admin_shop");
-            return redirect()->route('admin_orders')->with("success","order successfully created");
+            return redirect()->route('admin_orders')->with("success",__('general.order_section.order_success_created_none'));
         }
         return redirect()->back()->withErrors([
             "required"=>$status->message
@@ -499,7 +499,7 @@ class ordersController extends Controller
     public function showAdminOrderPayment($order_id){
         $data=[];
         $data["order"]=$this->orders->find($order_id);
-        $data["page_title"]="Process Order Payment";
+        $data["page_title"]=__('general.order_section.process_order');
         return view("admin/orders/payments/edit",$data);
     }
     public function orderAdminProcessPayment(Request $request,$order_id){
@@ -543,7 +543,7 @@ class ordersController extends Controller
             $new_payment["created_at"]=carbon::now();
             $this->payment_histories->insert($new_payment);
 
-            return redirect()->route('admin_edit_order',["order_id"=>$order_id])->with("success","order is complete");
+            return redirect()->route('admin_edit_order',["order_id"=>$order_id])->with("success",__('general.order_section.order_completed'));
         }
         return redirect()->back()->withErrors([
             "required"=>$status->message
@@ -567,11 +567,11 @@ class ordersController extends Controller
             Mail::send('emails.ordercancel_confirm',["order_detail"=>$order_detail],function($message) use($order_detail){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                $subject = 'Hello '.$client_name.', your order is cancelled';
+                $subject = __('general.order_section.to_user.cancel',['name'=>$client_name]);
                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
             });
         }
-        return redirect()->route("admin_orders")->with('success',"order successfully cancelled");
+        return redirect()->route("admin_orders")->with('success',__('general.order_section.cancel_success'));
     }
     public function sendEmail($order_id){
         $order=$this->orders->find($order_id);
@@ -631,7 +631,7 @@ class ordersController extends Controller
     public function confirmDelete($order_id){
         $data=[];
         $data["order"]=$this->orders->find($order_id);
-        $data["page_title"]="Confirm Order Delete";
+        $data["page_title"]=__('general.order_section.confirm_cancellation');
         return view("admin/orders/confirm_delete",$data);
     }
     public function deleteOrder($order_id,Request $request){
@@ -640,8 +640,8 @@ class ordersController extends Controller
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user_id=$order->user_id;
         if($order->delete()){
-            return redirect()->route("admin_orders")->with('success',"order successfully deleted");
+            return redirect()->route("admin_orders")->with('success',__('general.order_section.order_success_deleted'));
         }
-        return redirect()->route("admin_orders")->with('error',"order can't be deleted");
+        return redirect()->route("admin_orders")->with('error',__('general.order_section.unable_delete'));
     }
 }

@@ -40,14 +40,14 @@ class ordersProductsController extends Controller
         $data["order"]=$this->orders->find($order_id);
         $data["orders"]=$this->orders->all();
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Orders";
+        $data["page_title"]=__('header.orders');
         return view("admin/orders/products/home",$data);
     }
     public function newOrderProducts(){
         $data=[];
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="New Order | Add Products";
+        $data["page_title"]=__('general.order_section.new_order_products'); 
         return view("admin/orders/products/new",$data);
     }
     public function createOrderProducts(Request $request){
@@ -58,7 +58,7 @@ class ordersProductsController extends Controller
             $data=Session::get("vestidos_admin_shop");
             $user = $this->users->find($data["user_id"]);
         }else{
-            return redirect()->route('admin_orders')->with("error","Invalid access");
+            return redirect()->route('admin_orders')->with(__('general.access_section.denied'));
         }
         $order_products=$request->input("order_products");
         $order_p=[];
@@ -68,7 +68,7 @@ class ordersProductsController extends Controller
 
                 if(empty($product["color"]) || empty($product["size"]) || empty($product["quantity"])){
                     return redirect()->back()->withErrors([
-                        "required"=>"Missing Size or Colors definition for ".$prod->products_name
+                        "required"=> __('general.product_title.missing_size_color',['name'=>$prod->products_name])
                     ]);
                 }
 
@@ -108,7 +108,7 @@ class ordersProductsController extends Controller
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
         $data["statuses"]=$this->statuses->all();
-        $data["page_title"]="Edit Order";
+        $data["page_title"]=__('general.order_section.edit_order');
         return view("admin/orders/products/edit",$data);
     }
     public function saveOrderProduct($order_id,Request $request){
@@ -127,16 +127,16 @@ class ordersProductsController extends Controller
             }
         }
         if(!$valid_array){
-            return redirect()->back()->withErrors(["required"=>"You must select a product"]);
+            return redirect()->back()->withErrors(["required"=>__('general.product_title.select_product')]);
         }else{
-            return redirect()->route("admin_orders")->with("success","order updated");
+            return redirect()->route("admin_orders")->with("success",__('general.order_section.order_updated'));
         }
     }
     public function confirmDeleteOrderProduct($order_product_id){
         $data=[];
         $data["order"]=$this->orders->find($order_product->order_id);
         $data["order_product"]=$order_product;
-        $data["page_title"]="Delete Product ".$order_product->getProduct->products_name." From Orders";
+        $data["page_title"]=__('general.order_section.delete_name',['name'=>$order_product->getProduct->products_name]);
         return view("admin/orders/products/confirm",$data);
     }
     public function deleteOrderProduct($order_product_id,Request $request){
@@ -152,7 +152,7 @@ class ordersProductsController extends Controller
         $data["countries"]=$this->countries->all();
         $data["address_type"]=$address_type;
         $data["name"] = $request->input('address_name');
-        $data["page_title"]="Orders Address";
+        $data["page_title"]=__('general.order_section.order_address');
         return view("admin/orders/addresses/new",$data);
     }
     public function saveOrderAddress($order_id,Request $request){

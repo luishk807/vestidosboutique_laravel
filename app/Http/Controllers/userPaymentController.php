@@ -167,7 +167,7 @@ class userPaymentController extends Controller
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $data["user"]=$user;
-        $data["checkout_menu_prev_link"]=array("name"=>"Shipping","url"=>route('checkout_show_shipping'));
+        $data["checkout_menu_prev_link"]=array("name"=>__('general.cart_title.shipping'),"url"=>route('checkout_show_shipping'));
 
         $has_address = $user->getAddresses->first() ? true : false; 
 
@@ -185,8 +185,8 @@ class userPaymentController extends Controller
         $data["shipping_method"]=$this->shipping_lists->find($cart["shipping_method"]);
         $data["countries"]=$this->country->all();
         $data["address_id"]=$request->input("address_id");
-        $data["checkout_header_key"]="Billing";
-        $data["checkout_btn_name"]="Process Payment";
+        $data["checkout_header_key"]=__('general.cart_title.billing');
+        $data["checkout_btn_name"]=__('buttons.submit_payment');
         $data["shipping_lists"]=$this->shipping_lists->all();
         return view("/checkout/billing",$data);
     }
@@ -194,7 +194,7 @@ class userPaymentController extends Controller
         //if no session is available, redirect
         if(empty($request->session()->has('cart_session'))){
             return redirect()->back()->withErrors([
-                'required' => "Cart is Empty"
+                'required' => __('general.empty_msg.cart')
             ]);
         }
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
@@ -313,7 +313,7 @@ class userPaymentController extends Controller
         $order = Orders::create($data);
 
         $data["user"]=$user;
-        $data["page_title"]="Thank you";
+        $data["page_title"]=__('general.thank_you');
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
@@ -428,7 +428,7 @@ class userPaymentController extends Controller
                         Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                            $subject = 'Hello '.$client_name.', thank you for your order';
+                            $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
                             $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
                             //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
                         });
@@ -437,7 +437,7 @@ class userPaymentController extends Controller
                         Mail::send('emails.admin_orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                            $subject = 'Hello Admin, new order received from '.$client_name;
+                            $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
                             $message->to("info@vestidosboutique.com","Admin")->subject($subject);
                             //$message->to("evil_luis@hotmail.com","Admin")->subject($subject);
                         });
@@ -447,7 +447,7 @@ class userPaymentController extends Controller
                         $request->session()->forget('cart_session');
                         $request->session()->forget('vestidos_shop');
                         
-                        $request->session()->flash('alert-success', 'User was successful added!');
+                        $request->session()->flash('alert-success', __('general.order_section.payment_success'));
                         return redirect()->route("checkout_order_received");
                     }else{
                         $get_order = $this->orders->find($order->id);
@@ -470,19 +470,19 @@ class userPaymentController extends Controller
         $last_order=$user->orders()->orderBy('created_at','desc')->first();
         $data["last_order"]=$last_order;
         $data["checkout_menu_prev_link"]="";
-        $data["page_title"]="Success: Your order has been received";
+        $data["page_title"]=__('general.order_section.order_success_received');
         $data["checkout_menus"]=$this->checkout_menus;
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["tax_info"]=$this->tax_info;
-        $data["checkout_header_key"]="Confirmation";
-        $data["checkout_btn_name"]="Return Home Page";
-        $data["thankyou_msg"]="Thank you for your order! we are processing your order, once your order is update you will notify you right away!.";
+        $data["checkout_header_key"]=__('general.page_header.confirmation');
+        $data["checkout_btn_name"]=__('buttons.back_home');
+        $data["thankyou_msg"]=__('general.order_section.received_to_process');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
         if(empty(Session::has("alert-success"))){
             $data["page_title"]="Ops!";
-            $data["thankyou_msg"]="Access Denied.";
+            $data["thankyou_msg"]=__('general.access_section.denied');
             $data["thankyou_img"]="close_2.svg";
             $data["thankyou_status"]=false;
         }

@@ -130,19 +130,19 @@ class userOrderController extends Controller
             Mail::send('emails.ordercancel',["order_detail"=>$order_detail],function($message) use($order_detail){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                $subject = 'Hello '.$client_name.', your cancellation confirmation';
+                $subject = __('general.order_section.to_user.cancel_confirmation',['name'=>$client_name]);
                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
             });
             Mail::send('emails.ordercanceladmin',["order_detail"=>$order_detail],function($message) use($order_detail){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                $subject = 'Hello Admin, new order cancellation from '.$client_name;
+                $subject = __('general.order_section.to_admin.cancelled',['name'=>$client_name]);
                 $message->to("info@vestidosboutique.com","Admin")->subject($subject);
             });
             return redirect()->route("user_account",["user_id"=>$order->user_id])->with(
-                "success","Cancellation Request Sent");
+                "success",__('general.order_section.cancel_request'));
         }
-        return redirect()->route("user_account")->with("error","Unable to Delete Order");
+        return redirect()->route("user_account")->with("error",__('general.order_section.unable_delete'));
  
     }
 }
