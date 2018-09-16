@@ -39,4 +39,5 @@ return [
     'proceed_checkout'=>"Proceed to Checkout",
     'submit_payment'=>"Submit Payment",
     'edit_cart'=>"Edit Cart",
+    'back_shopping'=>'Continue Shopping',
 ];

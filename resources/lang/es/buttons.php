@@ -39,5 +39,6 @@ return [
       'proceed_checkout'=>"Proceder a Pago",
       'submit_payment'=>"Finalizar Pago",
       'edit_cart'=>"Editar Carrito",
+      'back_shopping'=>'Seguir Comprando',
       
 ];

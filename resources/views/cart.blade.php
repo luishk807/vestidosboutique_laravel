@@ -1,10 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-.cart-text-cont{
-    margin:50px auto;
-}
-</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -25,12 +20,22 @@
                                </span>
                             </div>
                         </div>
-                        @if(!empty(Session::get("vestidos_shop")))
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col">
                                 <h2>{{ __('header.cart') }}</h2>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        @if(!empty(Session::get("vestidos_shop")))
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 col-sm-12 col-12">
+                                <div class="vesti_in_btn_pnl">
+                                    <a class="btn-block vesti_in_btn" href="{{ route('shop_page') }}">{{ __('buttons.back_shopping') }}</a>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-lg-5 col-sm-12 col-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-12 col-12">
                                 <div class="vesti_in_btn_pnl">
                                     <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
@@ -138,19 +143,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-8"><!-- maybe continue shopping--></div>
-                            <div class="col-md-4">
+                            <div class="col-md-3 col-lg-3 col-sm-12 col-12">
+                                <div class="vesti_in_btn_pnl">
+                                    <a class="btn-block vesti_in_btn" href="{{ route('shop_page') }}">{{ __('buttons.back_shopping') }}</a>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-lg-5 col-sm-12 col-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4 col-lg-4 col-sm-12 col-12">
                                 <div class="vesti_in_btn_pnl">
                                     <a class="btn-block vesti_in_btn" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
                             </div>
                         </div>
                         @else
-                        <div class="row">
-                            <div class="col">
-                                <h2>{{ __('header.cart') }}</h2>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="col-md-7 text-center cart-text-cont">
