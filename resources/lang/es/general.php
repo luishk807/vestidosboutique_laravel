@@ -34,7 +34,12 @@ return [
         'select_country'=>"Escoga su País",
         'select_language'=>"Escoga tu idioma | Escoga tu idiomas",
     ],
-
+    'payment_info'=>[
+        'card'=>'Numero',
+        'type'=>'Tarjeta',
+        'status'=>"Estatus",
+        'date'=>"Fecha"
+    ],
     //PAGE HEADER
     'page_header'=>[
         'address_type'=>"Tipo de Dirección",
@@ -138,4 +143,5 @@ return [
      'also_loved'=>"La Gente Tambien Gustaron",
      'got_question'=>"Tiene Preguntas? Llamenos",
      'payment_final_step_msg'=>"Aqui es la etapa final para tu orden",
+     'optimized_search'=>"Mejorar Busqueda",
 ];

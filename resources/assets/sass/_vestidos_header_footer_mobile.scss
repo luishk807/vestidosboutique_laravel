@@ -76,3 +76,65 @@
     }
 
  }
+
+ /*************************************************/
+/*      IPHONE X PORTRAIT                      */
+/************************************************/
+@media only screen 
+and (min-device-width : 375px)
+and (max-device-width : 812px) 
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : portrait) {
+    .vesti-footer-section-1 
+    .footer-top-col{
+        text-align: center!important;
+    }
+}
+
+/*************************************************/
+/*      IPHONE X LANDSCAPE                        */
+/************************************************/
+@media only screen 
+and (min-device-width : 737px) 
+and (max-device-width : 812px) 
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) {
+     /****************HEADER*************/
+     .vestidos-logo {
+    width: 110px;
+    height: 70px;
+    background-size: 110px 70px;
+    }
+    .nav-link {
+        padding: 12px 10px!important;
+    }
+    .vest-maincolor-left, .vest-maincolor-right {
+        font-size: 1rem;
+
+    }
+    .navbar-link, .navbar-link-lang {
+        padding: 12px 10px!important;
+
+    }
+    .nav-list-submenu ul li a{
+        padding: 10px 20px;
+    }
+    .vesti-lang-top{
+        top: 49px;
+    }
+    .vesti-cart-top{
+        top: 47px;
+    }
+}
+
+/*************************************************/
+/*      IPHONE 5 LANDSCAPE                       */
+/************************************************/
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px)
+and (orientation:landscape){
+    #vesti-custom-bottom {
+        margin-top: 16px;
+    }
+}

@@ -21,13 +21,13 @@
                 <div class="intro">
                     <div class="container text-cont">
                         <div class="row">
-                            <div class="col-lg-6 col-md-12 col-xs-10 main_slider_txt">
+                            <div class="col-lg-6 col-md-12 col-xs-12 col-sm-12 main_slider_txt">
                                     <div class="vesti_font_color_a main_slider_in">
                                         <span>{{ $main_slider->image_name }}</span><br/>
                                         <span>{{ $main_slider->image_name_2 }}</span>
                                     </div>
                             </div>
-                            <div class="col-lg-6 col-md-12 col-xs-10 main_slider_btn">
+                            <div class="col-lg-6 col-md-12 col-xs-12 col-sm-12 main_slider_btn">
                                 <div>
                                     <a href="{{ $main_slider->image_destination }}" class="btn btn-vesti-slide vesti_font_color_a">{{ __('buttons.see_more') }}</a>
                                 </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div id="top_middle_sec_row" class="row">
                         @foreach($top_dresses as $keyIndex=>$top_dress)
-                        <div id="top_middle_img{{ $keyIndex+1 }}" class="col-sm-3 col-md-4">
+                        <div id="top_middle_img{{ $keyIndex+1 }}" class="col-12 col-sm-4 col-md-4 col-lg-4">
                             @if($top_dress->is_new)
                             <div class="vesti-new-txt vesti-new-txt-a">{{ __('general.product_title.new') }}</div>
                             <div class="vesti-new-border vesti-new-border-a"></div>

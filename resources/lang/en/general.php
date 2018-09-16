@@ -32,7 +32,12 @@ return [
         'select_country'=>"Select Country",
         'select_language'=>"Select Language | Select Languages",
     ],
-
+    'payment_info'=>[
+        'card'=>'Number',
+        'type'=>'Card',
+        'status'=>"Status",
+        'date'=>"Date"
+    ],
     //PAGE HEADER
     'page_header'=>[
         'address_type'=>"Address Types",
@@ -134,4 +139,5 @@ return [
      'also_loved'=>"People Also Loved",
      'got_question'=>"Got Questions? Call Us",
      'payment_final_step_msg'=>"This is the final step for your order",
+     'optimized_search'=>"Optimized Search",
 ];
