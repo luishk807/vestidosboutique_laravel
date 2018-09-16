@@ -19,7 +19,7 @@
                         @if(!empty($vendors->previousPageUrl()))
                     <li><a href="{{ $vendors->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $vendors->currentPage()}} of {{ $vendors->count() }}</li>
+                    <li>{{ $vendors->currentPage()}} {{ __('pagination.of') }} {{ $vendors->count() }}</li>
                     @if($vendors->nextPageUrl())
                     <li><a href="{{ $vendors->nextPageUrl() }}">Next &gt;</a></li>
                     @endif
@@ -51,7 +51,7 @@
                         @if(!empty($vendors->previousPageUrl()))
                     <li><a href="{{ $vendors->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $vendors->currentPage()}} of {{ $vendors->count() }}</li>
+                    <li>{{ $vendors->currentPage()}} {{ __('pagination.of') }} {{ $vendors->count() }}</li>
                     @if($vendors->nextPageUrl())
                     <li><a href="{{ $vendors->nextPageUrl() }}">Next &gt;</a></li>
                     @endif

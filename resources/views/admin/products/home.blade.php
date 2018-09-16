@@ -19,7 +19,7 @@
                         @if(!empty($products->previousPageUrl()))
                     <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $products->currentPage()}} of {{ $products->count() }}</li>
+                    <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->count() }}</li>
                     @if($products->nextPageUrl())
                     <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
                     @endif
@@ -63,7 +63,7 @@
                         @if(!empty($products->previousPageUrl()))
                     <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $products->currentPage()}} of {{ $products->count() }}</li>
+                    <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->count() }}</li>
                     @if($products->nextPageUrl())
                     <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
                     @endif

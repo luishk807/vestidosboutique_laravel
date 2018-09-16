@@ -238,7 +238,7 @@
                                 @if(!empty($products->previousPageUrl()))
                                 <li><a href="{{ $products->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                                 @endif
-                                <li>{{ $products->currentPage()}} of {{ $products->count() }}</li>
+                                <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->count() }}</li>
                                 @if($products->nextPageUrl())
                                 <li><a href="{{ $products->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
                                 @endif
@@ -263,7 +263,7 @@
                                         " alt/></a>
                                         <div class="container shoplist-list-cont-in">
                                             <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/><span class="shoplist-thumb-auth">By {{ $product->vendor->getFullVendorName() }}</span></div>
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/><span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $product->vendor->getFullVendorName() }}</span></div>
                                                 <div class="col-md-4"><span  class="shoplist-thumb-price">${{ $product->total_rent }}</span></div>
                                             </div>
                                             <div class="row">
@@ -288,12 +288,12 @@
                                  @if(!empty($products->previousPageUrl()))
                                 <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
                                 @endif
-                                <li>{{ $products->currentPage()}} of {{ $products->count() }}</li>
+                                <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->count() }}</li>
                                 @if($products->nextPageUrl())
                                 <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
                                 @endif
                             </ul>
-                        </div><!--end of nav container-->
+                        </div><!--end {{ __('pagination.of') }} nav container-->
                     </div><!--end of main product list container-->
                 </div>
             </div>

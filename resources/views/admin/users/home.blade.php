@@ -39,7 +39,7 @@
                         @if(!empty($users->previousPageUrl()))
                     <li><a href="{{ $users->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $users->currentPage()}} of {{ $users->count() }}</li>
+                    <li>{{ $users->currentPage()}} {{ __('pagination.of') }} {{ $users->count() }}</li>
                     @if($users->nextPageUrl())
                     <li><a href="{{ $users->nextPageUrl() }}">Next &gt;</a></li>
                     @endif
@@ -80,7 +80,7 @@
                         @if(!empty($users->previousPageUrl()))
                     <li><a href="{{ $users->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $users->currentPage()}} of {{ $users->count() }}</li>
+                    <li>{{ $users->currentPage()}} {{ __('pagination.of') }} {{ $users->count() }}</li>
                     @if($users->nextPageUrl())
                     <li><a href="{{ $users->nextPageUrl() }}">Next &gt;</a></li>
                     @endif

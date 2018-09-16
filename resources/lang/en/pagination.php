@@ -16,4 +16,5 @@ return [
     'previous' => 'Previous',
     'next' => 'Next',
     'sort_by'=>"Sort By",
+    'of'=>"of",
 ];

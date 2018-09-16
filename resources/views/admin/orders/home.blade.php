@@ -36,7 +36,7 @@
                         @if(!empty($orders->previousPageUrl()))
                     <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                    <li>{{ $orders->currentPage()}} {{ __('pagination.of') }} {{ $orders->count() }}</li>
                     @if($orders->nextPageUrl())
                     <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
                     @endif
@@ -127,7 +127,7 @@
                         @if(!empty($orders->previousPageUrl()))
                     <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
                     @endif
-                    <li>{{ $orders->currentPage()}} of {{ $orders->count() }}</li>
+                    <li>{{ $orders->currentPage()}} {{ __('pagination.of') }} {{ $orders->count() }}</li>
                     @if($orders->nextPageUrl())
                     <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
                     @endif
