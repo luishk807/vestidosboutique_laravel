@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
             $data=[];
             $data["brands"]=Brands::all();
             $data["categories"]=Categories::all();
-            $data["page_title"]="Error Page";
+            $data["page_title"]=__('general.page_header.error_page');
             $statusCode = $exception->getStatusCode();
             switch($statusCode){
                 case '404': return response()->view('errors.missing',$data, 404);
@@ -79,9 +79,9 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
        if(strrpos($request->path(),"admin")===0){
-            return $request->expectsJson()?response()->json(['message' => $exception->getMessage()], 401):redirect()->guest(route('admin_show_login'))->with("msg","Please Sign In");
+            return $request->expectsJson()?response()->json(['message' => $exception->getMessage()], 401):redirect()->guest(route('admin_show_login'))->with("msg",__('auth.need_login'));
        }else{
-            return $request->expectsJson()?response()->json(['message' => $exception->getMessage()], 401):redirect()->guest(route('login_page'))->with("msg","Please Sign In");
+            return $request->expectsJson()?response()->json(['message' => $exception->getMessage()], 401):redirect()->guest(route('login_page'))->with("msg",__('auth.need_login'));
        }
     }
 }

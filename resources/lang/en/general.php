@@ -70,6 +70,7 @@ return [
         'ops'=>"Ops!",
         'logout'=>"Logout Page",
         'order_received'=>"Order Received",
+        'error_page'=>"Error Page",
     ],
     'order_section' =>[
         'order_updated'=>'order updated',

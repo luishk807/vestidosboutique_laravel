@@ -18,4 +18,5 @@ return [
     'forgot_password'=>"Forgot Password?",
     'logout_title'=>"Logout Successfully",
     'logout_msg'=>"You have succesfully logout",
+    'need_login'=>"To Continue, Please Sign In",
 ];
