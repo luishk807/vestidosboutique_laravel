@@ -158,6 +158,13 @@ class HomeController extends Controller
             if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 1,'status'=>1])) {
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
+                $user=$this->users->find($user_id);
+                if(!empty($user->preferred_language)){
+                    $lang = $user->getLanguage->code;
+                    App::setLocale($lang);
+                    Session::forget("locale");
+                    Session::put("locale",$lang);
+                }
                 return redirect()->route('user_account');
             }else{
                 return redirect()->back()->withInput($data)->with("msg",__('auth.failed'));

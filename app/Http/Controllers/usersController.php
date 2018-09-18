@@ -14,6 +14,8 @@ use App\vestidosUserAddresses as Addresses;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Mail;
+use App;
+use Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -48,7 +50,7 @@ class usersController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["languages"]=$this->languages->all();
+        $data["languages"]=$this->languages->where('status',1)->get();
         $data["genders"]=$this->genders->all();
         $data["page_title"]=__('general.page_header.new_account');
         $data["countries"]=$this->country->all();
@@ -83,24 +85,43 @@ class usersController extends Controller
         $data["user_type"]=1;
         $data["created_at"]=carbon::now();
         $data["password"]=Hash::make($request->input("password"));
-        if($this->users->insert($data)){
+        $data["remember_token"]=str_random(60);
+        $user = Users::create($data);
+        if(!empty($user->id)){
+            $link = url('/account/activate/'. $user->remember_token);
+            $data["link"]=$link;
             Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = __('general.user_section.registration_complete',['name'=>$client_name]);
-                $message->to($data["email"],$client_name)->subject($subject);
+                // $message->to($data["email"],$client_name)->subject($subject);
+                $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
             });
             return redirect()->route('account_create_confirmed');
         }else{
             return redirect()->back();
         }
     }
-    
+    public function activeUserAccount($token){
+        $userRaw = DB::table('vestidos_users')->where('remember_token',$token)->first();
+        if($userRaw){
+            $user = $this->users->find($userRaw->id);
+            $user->status=1;
+            if($user->save()){
+                Users::find($user->id)->rollBackApi();
+                return redirect()->route('user_account_activation_confirmed');
+            }else{
+                return redirect()->route('login_page')->with('msg',__('general.user_section.invalid_save'));
+            }
+        }else{
+            return redirect()->route('login_page')->with('msg',__('general.user_section.invalid_token'));
+        }
+    }
     public function updateUser(Request $request){
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user=$this->users->find($user_id);
         $data["page_title"]=__('general.page_header.edit_account');
-        $data["languages"]=$this->languages->all();
+        $data["languages"]=$this->languages->where('status',1)->get();
         $data["countries"]=$this->country->all();
         $data["user"]=$user;
         $data["brands"]=$this->brands->all();
@@ -118,6 +139,10 @@ class usersController extends Controller
             if(!empty($request->input("password"))){
                 $user->password = Hash::make($request->input("password"));
             }
+            $changeLang = false;
+            if($user->preferred_language != $request->input("preferred_language")){
+                $changeLang = true;
+            }
             $user->preferred_language=$request->input("preferred_language");
             $user->first_name=$request->input("first_name");
             $user->middle_name=$request->input("middle_name");
@@ -126,6 +151,12 @@ class usersController extends Controller
             $user->phone_number=$request->input("phone_number");
             $user->updated_at=carbon::now();
             $user->save();
+            if($changeLang){
+                $lang = $user->getLanguage->code;
+                App::setLocale($lang);
+                Session::forget("locale");
+                Session::put("locale",$lang);
+            }
             return redirect()->route("user_account",['user_id'=>$user->id]);
         }
         return view("account/edit",$data);
@@ -157,8 +188,8 @@ class usersController extends Controller
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = __('general.forgot_password.send_title',['name'=>$client_name]);
-                // $message->to($data["email"],$client_name)->subject($subject);
-                $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                $message->to($data["email"],$client_name)->subject($subject);
+                //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
             });
             return redirect()->route('forgot_password_confirm_sent',$data);
         }else{
@@ -201,9 +232,9 @@ class usersController extends Controller
             Mail::send('emails.default',["data"=>$data],function($message) use($data){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
-                $subject = __('general.form.user_updated',['name'=>$client_name]);
-                // $message->to($data["email"],$client_name)->subject($subject);
-                $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                $subject = __('general.user_section.to_user.update',['name'=>$client_name]);
+                $message->to($data["email"],$client_name)->subject($subject);
+                //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
             });
             $data["brands"]=$this->brands->all();
             $data["categories"]=$this->categories->all();

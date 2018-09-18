@@ -33,7 +33,6 @@ return [
         'select_language'=>"Select Language | Select Languages",
         'no_email_match'=>"No match found under that email",
         'save_password_error'=>"ERROR: the password could not be updated, try again later.",
-        'user_updated'=>":name, your account has been updated",
     ],
     'payment_info'=>[
         'card'=>'Number',
@@ -117,11 +116,16 @@ return [
         'delete_address'=>'Delete Address',
         'account_created'=>"Your account is successfully created",
         'account_not_created'=>'An unexpected issue ocurred, please try again later',
+        'account_active_title'=>"Account Activation Confirmation",
+        'account_active_message'=>'Congratulations, you account is successfully activated!',
+        'invalid_token'=>"Token required not found",
+        'invalid_save'=>"ERROR: unable to activate account",
         'to_user'=>[
-            'thank_you'=>'Hola :name, gracias por tu correo electrónico',
+            'thank_you'=>'Hello :name, thank you for your email',
+            'update'=>":name, your account has been updated",
         ],
         'to_admin'=>[
-            'thank_you'=>'Nuevo correo electrónico recibido de :name',
+            'thank_you'=>'New Email From :name Received',
         ],
     ],
     'address_section'=>[

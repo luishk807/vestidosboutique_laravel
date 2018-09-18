@@ -119,11 +119,16 @@ return [
         'delete_address'=>'Eliminar dirección',
         'account_created'=>"Su cuenta fue creada con éxito",
         'account_not_created'=>'Se produjo un problema inesperado, intente de nuevo más tarde',
+        'account_active_title'=>"Confirmación de activación de cuenta",
+        'account_active_message'=>'Felicitaciones, su cuenta se activó exitosamente!',
+        'invalid_token'=>"Token requerido no encontrado",
+        'invalid_save'=>"ERROR: no se puede activar la cuenta",
         'to_user'=>[
-            'thank_you'=>'Hello :name, thank you for your email',
+            'thank_you'=>'Hola :name, gracias por tu correo electrónico',
+            'update'=>":name, tu cuenta ha sido actualizado",
         ],
         'to_admin'=>[
-            'thank_you'=>'New Email From :name Received',
+            'thank_you'=>'Nuevo correo electrónico recibido de :name',
         ],
     ],
     'address_section'=>[

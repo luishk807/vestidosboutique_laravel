@@ -17,6 +17,8 @@ class vestidosUsers extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'preferred_language',
+        'remember_token',
         'first_name',
         'middle_name',
         'last_name', 
@@ -43,6 +45,9 @@ class vestidosUsers extends Authenticatable
     //
     public function getId(){
         return $this->id;
+    }
+    public function getLanguage(){
+        return $this->hasOne('App\vestidosLanguages','id','preferred_language');
     }
     public function orders(){
         return $this->hasMany('App\vestidosOrders',"user_id");

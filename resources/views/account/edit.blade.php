@@ -20,7 +20,6 @@
                 <div class="form-group">
                         <label class="accountTitleSelect" for="accountLanguage">{{ trans_choice('general.form.select_language',1) }}:</label>
                         <select class="custom-select accountTitleSelect" name="preferred_language" id="accountLanguage">
-                            <option value="">{{ trans_choice('general.form.select_language',1) }}</option>
                             @foreach($languages as $language)
                                 <option value="{{$language->id}}"
                                 @if($user->preferred_language==$language->id)

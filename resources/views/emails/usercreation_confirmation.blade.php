@@ -8,7 +8,8 @@
             Hello {{ $data["first_name"]}}, <br/><br/>
             <p>Welcome to Vestidos Boutique.</p>
             <p>Your Account registration has been submitted!.</p>
-            <p>Please allow registration to finished processing. Once registration is completed, we will notify you via email.</p>
+            <p>To active your account, please click the link below for verification</p>
+            <p><a href="{{ $data['link'] }}" target="_blank">Active Account</a></p>
             <p>To log in when visiting our site just click on:<br/>
             <a href="https://www.vestidosboutique.com/signin/" target="_blank">www.vestidosboutique.com/signin/</a></p>
             <br/><br/>
