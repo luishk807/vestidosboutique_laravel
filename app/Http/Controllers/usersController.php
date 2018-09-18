@@ -94,8 +94,8 @@ class usersController extends Controller
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = __('general.user_section.registration_complete',['name'=>$client_name]);
-                // $message->to($data["email"],$client_name)->subject($subject);
-                $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                $message->to($data["email"],$client_name)->subject($subject);
+                //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
             });
             return redirect()->route('account_create_confirmed');
         }else{
