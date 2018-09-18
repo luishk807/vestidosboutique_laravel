@@ -65,7 +65,6 @@
                                 <div class="form-group">
                                         <label class="accountTitleSelect" for="accountGender">{{ trans_choice('general.form.select_language',1) }}:</label>
                                         <select class="custom-select accountTitleSelect" name="gender" id="accountGender">
-                                            <option selected value="">{{ trans_choice('general.form.select_language',1) }}</option>
                                             @foreach($genders as $gender)
                                                 <option value="{{$gender->id}}"
                                                 @if(old('gender')==$gender->id)

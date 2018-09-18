@@ -29,7 +29,7 @@ class userConfirmationController extends Controller
     public function accountCreationConfirm(){
         $data["page_title"]=__('general.thank_you');
         $data["thankyou_title"]=__('general.page_header.account_created');
-        $data["thankyou_msg"]=__('general.user_section.account_created');
+        $data["thankyou_msg"]=__('general.user_section.account_created_confirm');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
         $data["brands"]=$this->brands->all();

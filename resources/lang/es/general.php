@@ -118,11 +118,13 @@ return [
         'edit_address'=>"Editar dirección :name",
         'delete_address'=>'Eliminar dirección',
         'account_created'=>"Su cuenta fue creada con éxito",
+        'account_created_confirm'=>"Su cuenta fue creada con éxito. Un correo electrónico ha sido enviado a su email para activación.  Por favor, siga las instrucciones para activar su cuenta con éxito.",
         'account_not_created'=>'Se produjo un problema inesperado, intente de nuevo más tarde',
         'account_active_title'=>"Confirmación de activación de cuenta",
         'account_active_message'=>'Felicitaciones, su cuenta se activó exitosamente!',
         'invalid_token'=>"Token requerido no encontrado",
         'invalid_save'=>"ERROR: no se puede activar la cuenta",
+        'activation_required'=>"Su cuenta require activation para poder continuar",
         'to_user'=>[
             'thank_you'=>'Hola :name, gracias por tu correo electrónico',
             'update'=>":name, tu cuenta ha sido actualizado",

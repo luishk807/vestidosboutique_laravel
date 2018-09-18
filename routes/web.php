@@ -53,6 +53,8 @@
     Route::post("/account/new",'usersController@newUser')->name("createuser");
     Route::get("/password/forgot",'usersController@ShowSendPasswordResetForm')->name('show_send_reset_password');
     Route::get("/account/activate/{token}",'usersController@activeUserAccount')->name('active_user_account');
+    Route::get("/account/showresendactivation",'usersController@ShowResendActiveUserAccount')->name('show_resend_active_user_account');
+    Route::get("/account/resendactivation",'usersController@ResendActiveUserAccount')->name('resend_active_user_account');
     Route::get("/confirmation",'usersController@ShowSendPasswordResetForm')->name('show_send_reset_password');
     Route::post("/password/forgot",'usersController@SendResetPasswordEmail')->name('send_reset_password_email');
     Route::get('/password/reset/show/{token}','usersController@showPasswordResetForm')->name('show_reset_password');

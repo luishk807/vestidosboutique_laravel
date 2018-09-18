@@ -33,6 +33,7 @@ return [
     'see_more'=> "See More",
     'order_detail'=>'Order Detail',
     'reset_password'=>"Reset Password",
+    'resend_activation'=>"Resend Email Activation",
 
     //cart
     'proceed_billing'=>"Proceed to Billing",

@@ -117,6 +117,9 @@ class usersController extends Controller
             return redirect()->route('login_page')->with('msg',__('general.user_section.invalid_token'));
         }
     }
+    public function ResendActiveUserAccount(){
+
+    }
     public function updateUser(Request $request){
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $user=$this->users->find($user_id);

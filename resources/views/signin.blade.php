@@ -1,14 +1,12 @@
 @extends("layouts.sub-layout")
 @section('content')
 <style>
-    .signin-container .signin-signup-section{
-        border-left:1px solid rgba(0,0,0,.1);
-    }
-    @media only screen and (max-width: 600px) {
-        .signin-container .signin-signup-section {
-            border-left: none;
-        }
-    }
+   .warning-block{
+        border: 1px solid;
+        padding: 15px;
+        text-align: center;
+        margin: 24px auto;
+   }
 </style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
@@ -17,6 +15,15 @@
             <div>
                <div class="container-in-space white-md-bg-in">
                     <div class="container signin-container">
+                        @if(Session::has("activate"))
+                        <div class="row">
+                            <div class="col">
+                                <div class="warning-block col-md-8">
+                                    {{ Session::has("activate") }} &nbsp; <a href="{{ route('show_resend_active_user_account') }}">{{ __('buttons.resend_activation')}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                         <div class="row">
                             <div class="col-md-6 signin-login-section">
                                 

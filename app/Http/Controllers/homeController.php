@@ -159,6 +159,9 @@ class HomeController extends Controller
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
                 $user=$this->users->find($user_id);
+                if($user->status !=1){
+                    return redirect()->route("login_page")->with('active',__('general.user_section.activation_required'));
+                }
                 if(!empty($user->preferred_language)){
                     $lang = $user->getLanguage->code;
                     App::setLocale($lang);

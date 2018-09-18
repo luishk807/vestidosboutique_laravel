@@ -115,11 +115,13 @@ return [
         'edit_address'=>"Edit Address :name",
         'delete_address'=>'Delete Address',
         'account_created'=>"Your account is successfully created",
+        'account_created_confirm'=>"Your account is successfully created.  An email has been sent to your email for activation.  Please follow instructions to successfully activate your account.",
         'account_not_created'=>'An unexpected issue ocurred, please try again later',
         'account_active_title'=>"Account Activation Confirmation",
         'account_active_message'=>'Congratulations, you account is successfully activated!',
         'invalid_token'=>"Token required not found",
         'invalid_save'=>"ERROR: unable to activate account",
+        'activation_required'=>"Your account requires activation in order to continue",
         'to_user'=>[
             'thank_you'=>'Hello :name, thank you for your email',
             'update'=>":name, your account has been updated",

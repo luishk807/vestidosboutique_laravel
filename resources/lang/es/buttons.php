@@ -33,6 +33,7 @@ return [
     'order_cancel'=>"Cancelar Orden",
     'continue_shop'=>"Seguir Comprando",
     'reset_password'=>"Restablecer contraseña",
+    'resend_activation'=>"Re-enviar email de activation",
 
     //cart
       'proceed_billing'=>"Proceder a Facturacion",
