@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Mail\TestEmail;
 use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
 use App\vestidosCountries as vestidosCountries;
