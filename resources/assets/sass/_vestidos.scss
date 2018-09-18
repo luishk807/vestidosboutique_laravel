@@ -1329,7 +1329,7 @@ text-align:left;
     font-weight: bold;
 }
 .confirm-col .error_msg {
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 .confirm-col {
     width: 644px;
@@ -1372,6 +1372,10 @@ text-align:left;
 .remove-side-padding{
   padding-left:0px;
   padding-right:0px;
+}
+//Sign In Page
+.signin-container .signin-signup-section{
+  border-left:$vesti-light-bars;
 }
 //custom vestidos mobile scss
 @import "vestidos_mobile";

@@ -32,6 +32,7 @@ return [
     'order_cancel'=>'Cancel Order',
     'see_more'=> "See More",
     'order_detail'=>'Order Detail',
+    'reset_password'=>"Reset Password",
 
     //cart
     'proceed_billing'=>"Proceed to Billing",

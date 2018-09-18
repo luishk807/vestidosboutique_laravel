@@ -33,6 +33,9 @@ return [
         'language'=>"Idioma | Idiomas",
         'select_country'=>"Escoga su País",
         'select_language'=>"Escoga tu idioma | Escoga tu idiomas",
+        'no_email_match'=>"No se encontraron coincidencias en ese correo electrónico",
+        'save_password_error'=>"ERROR: la contraseña no se pudo actualizar, intente de nuevo mas tarde",
+        'user_updated'=>":name, tu cuenta ha sido actualizado",
     ],
     'payment_info'=>[
         'card'=>'Numero',
@@ -212,6 +215,18 @@ return [
         'friday'=>"Viernes",
         'saturday'=>"Sabado",
         'sunday'=>"Domingo",
+     ],
+
+     'forgot_password'=>[
+         'title'=>"Se te olvidó tu contraseña?",
+         'title_2'=>'Solicitar restablecer su contraseña',
+         'send_title'=>'Hola :name, tu correo electrónico de restablecimiento de contraseña',
+         'confirm_title'=>"Correo electrónico para la solicitud de restablecimiento de contraseña enviada!",
+         'confirm_msg'=>"Se envía su solicitud por correo electrónico para restablecer su contraseña de acceso. Siga las instrucciones en el correo electrónico para restablecer su contraseñad.",
+         'reset_title'=>"Ingrese la nueva contraseña",
+         'invalid_token'=>'El token de restablecimiento ha expirado o no es válido',
+         'reset_confirm_email'=>"Hola :name",
+         'reset_confirm_message'=>"Su contraseña ha sido actualizada satisfactoriamente",
      ],
      'also_loved'=>"La Gente Tambien Gustaron",
      'got_question'=>"Tiene Preguntas? Llamenos",

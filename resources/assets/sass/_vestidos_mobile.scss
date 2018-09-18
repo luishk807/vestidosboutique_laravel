@@ -8,6 +8,11 @@
     display:block;
     padding:5px 18px !important;
 }
+@media only screen and (max-width: 600px) {
+    .signin-container .signin-signup-section {
+        border-left: none;
+    }
+}
 /*************************************************/
 /*           PHONE PORTRAIT                      */
 /************************************************/

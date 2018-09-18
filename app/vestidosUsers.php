@@ -65,4 +65,10 @@ class vestidosUsers extends Authenticatable
     public function getType(){
         return $this->hasOne('App\vestidosUserTypes',"id","user_type");
     }
+    public function rollBackApi(){
+        do{
+            $this->remember_token = str_random(60);
+        }while($this->where('remember_token',$this->remember_token)->exists());
+        $this->save();
+    }
 }

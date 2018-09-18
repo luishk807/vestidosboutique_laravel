@@ -66,4 +66,14 @@ class userConfirmationController extends Controller
         $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
+    public function resetPasswordSent(){
+        $data["page_title"]=__('general.forgot_password.confirm_title');
+        $data["thankyou_title"]=__('general.forgot_password.confirm_title');
+        $data["thankyou_msg"]=__('general.forgot_password.confirm_msg');
+        $data["thankyou_img"]="checked.svg";
+        $data["thankyou_status"]=true;
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        return view("/confirmation",$data);
+    }
 }

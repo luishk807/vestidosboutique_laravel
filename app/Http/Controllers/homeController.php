@@ -143,7 +143,7 @@ class HomeController extends Controller
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
-        $data["page_title"]=__('header.login');
+        $data["page_title"]=__('header.log_in');
         $data["users"]=$this->users->all();
         return view("/signin",$data);
     }

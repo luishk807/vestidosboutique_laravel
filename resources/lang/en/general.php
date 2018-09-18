@@ -31,6 +31,9 @@ return [
         'language'=>"Language | Languages",
         'select_country'=>"Select Country",
         'select_language'=>"Select Language | Select Languages",
+        'no_email_match'=>"No match found under that email",
+        'save_password_error'=>"ERROR: the password could not be updated, try again later.",
+        'user_updated'=>":name, your account has been updated",
     ],
     'payment_info'=>[
         'card'=>'Number',
@@ -213,6 +216,18 @@ return [
         'saturday'=>"Saturday",
         'sunday'=>"Sunday",
      ],
+
+     'forgot_password'=>[
+        'title'=>"Forgot Password?",
+        'title_2'=>'Request to reset your password',
+        'send_title'=>'Hello :name, your password reset email',
+        'confirm_title'=>"Email for password reset request sent!",
+        'confirm_msg'=>"Your email request to reset your access password is sent, please follow instruction in email to reset your passwordrequest sent!.",
+        'reset_title'=>"Type your new password",
+        'invalid_token'=>'Reset token either expired or no valid',
+        'reset_confirm_email'=>"Hello :name",
+         'reset_confirm_message'=>"Your password has been successfully updated",
+    ],
      'also_loved'=>"People Also Loved",
      'got_question'=>"Got Questions? Call Us",
      'payment_final_step_msg'=>"This is the final step for your order",

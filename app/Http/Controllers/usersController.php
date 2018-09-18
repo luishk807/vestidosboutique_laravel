@@ -14,6 +14,8 @@ use App\vestidosUserAddresses as Addresses;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Mail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Redirect;
 
 class usersController extends Controller
@@ -39,7 +41,7 @@ class usersController extends Controller
             $data["user"]=$user;
             return view("account/home",$data);
         }
-        $data["page_title"]="Login";
+        $data["page_title"]=__('header.log_in');
         return view('/signin',$data);
     }
     public function viewNewUser(Request $request){
@@ -128,5 +130,88 @@ class usersController extends Controller
         }
         return view("account/edit",$data);
     }
+    public function ShowSendPasswordResetForm(){
+        $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["page_title"]=__('general.forgot_password.title');
+        return view('/password/forgot',$data);
+    }
+    public function SendResetPasswordEmail(Request $request){
+        $data=[];
+        $this->validate($request,[
+            "email"=>"required | email",
+        ]);
+        $user = DB::table('vestidos_users')->where('email',$request->input("email"))->first();
+        if($user){
+            if(empty($user->remember_token)){
+                Users::find($user->id)->rollBackApi();
+            }
+            $link = url('/password/reset/show/'. $user->remember_token);
+            $data["link"]=$link;
+            $data["first_name"]=$user->first_name;
+            $data["last_name"]=$user->last_name;
+            $data["middle_name"]=$user->middle_name;
+            $data["email"]=$user->email;
+            Mail::send('emails.password_reset',["data"=>$data],function($message) use($data){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $client_name = $data['first_name']." ".$data["last_name"];
+                $subject = __('general.forgot_password.send_title',['name'=>$client_name]);
+                // $message->to($data["email"],$client_name)->subject($subject);
+                $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+            });
+            return redirect()->route('forgot_password_confirm_sent',$data);
+        }else{
+            return redirect()->back()->withErrors(['required'=>__('general.form.no_email_match')]);
+        }
+    }
+    public function showPasswordResetForm(Request $request,$token){
+        $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["page_title"]=__('general.forgot_password.title');
+        $user = DB::table('vestidos_users')->where('remember_token',$token)->first();
+        if($user){
+           $data["token"]=$token;
+           return view('/password/reset',$data);
+        }else{
+            $data["page_title"]=__('general.forgot_password.confirm_title');
+            return view('/password/forgot',$data)->withErrors(['required'=>__('general.forgot_password.invalid_token')]);
+        }
+    }
+    public function resetpassword(Request $request){
+        $data=[];
+        $this->validate($request,[
+            "password"=>"required | same:repassword",
+            "repassword"=>"required | same:password",
+            'token'=>"required",
+        ]);
+        $userRaw = DB::table('vestidos_users')->where('remember_token',$request->input("token"))->first();
+        $user=$this->users->find($userRaw->id);
+        $user->password=Hash::make($request->input("password"));
+        $user->updated_at=carbon::now();
+        if($user->save()){
+            Users::find($user->id)->rollBackApi();
+            $data["first_name"]=$user->first_name;
+            $data["last_name"]=$user->last_name;
+            $data["middle_name"]=$user->middle_name;
+            $data["email"]=$user->email;
+            $data["name"]=__('general.forgot_password.reset_confirm_email',["name"=>$user->first_name]);
+            $data["message"]=__('general.forgot_password.reset_confirm_message');
+            Mail::send('emails.default',["data"=>$data],function($message) use($data){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $client_name = $data['first_name']." ".$data["last_name"];
+                $subject = __('general.form.user_updated',['name'=>$client_name]);
+                // $message->to($data["email"],$client_name)->subject($subject);
+                $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+            });
+            $data["brands"]=$this->brands->all();
+            $data["categories"]=$this->categories->all();
+            $data["page_title"]=__('header.log_in');
+            return redirect()->route('login_page',$data)->with("msg",__('general.forgot_password.reset_confirm_message'));
+        }else{
+            return redirect()->route('show_reset_password')->with("msg",__('general.form.save_password_error'));
+        }
 
+    }
 }

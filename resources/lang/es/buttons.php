@@ -32,6 +32,7 @@ return [
     'order_detail'=>'Detalle de Orden',
     'order_cancel'=>"Cancelar Orden",
     'continue_shop'=>"Seguir Comprando",
+    'reset_password'=>"Restablecer contraseña",
 
     //cart
       'proceed_billing'=>"Proceder a Facturacion",

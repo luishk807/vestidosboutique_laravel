@@ -46,9 +46,15 @@
     Route::get("/thankyou/account","userConfirmationController@accountCreationConfirm")->name("account_create_confirmed");
     Route::get("/thankyou/logout","userConfirmationController@logoutConfirm")->name("logout_confirmation");
     Route::get("/orderreceived","userConfirmationController@orderCreationCreated")->name("order_received_confirmation");
+    Route::get("/resetpasswordsent","userConfirmationController@resetPasswordSent")->name("forgot_password_confirm_sent");
     //Users
     Route::get("/account/new",'usersController@viewNewUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
+    Route::get("/password/forgot",'usersController@ShowSendPasswordResetForm')->name('show_send_reset_password');
+    Route::get("/confirmation",'usersController@ShowSendPasswordResetForm')->name('show_send_reset_password');
+    Route::post("/password/forgot",'usersController@SendResetPasswordEmail')->name('send_reset_password_email');
+    Route::get('/password/reset/show/{token}','usersController@showPasswordResetForm')->name('show_reset_password');
+    Route::post('/password/reset/save','usersController@resetpassword')->name('reset_password');
     Route::prefix("account")->middleware("auth:vestidosUsers")->group(function(){
         Route::get("/",'usersController@index')->name("user_account");
         

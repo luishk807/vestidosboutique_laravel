@@ -45,7 +45,7 @@
                                                 <label for="loginPassword">{{ __('general.form.password') }}:</label>
                                                 <input type="password" id="loginPassword" class="form-control" aria-describedby="passwordHelp"  name="password" placeholder="{{ __('general.form.password') }}"/>
                                                 <small class="error">{{$errors->first("password")}}</small>
-                                                <small id="passwordHelp" class="form-text text-muted"><a href="" class="vesti-small-link">{{ __('auth.forgot_password') }}</a></small>
+                                                <small id="passwordHelp" class="form-text text-muted"><a href="{{ route('show_send_reset_password') }}" class="vesti-small-link">{{ __('auth.forgot_password') }}</a></small>
                                             </div>
                                             
                                         </div>
@@ -78,7 +78,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="vesti_in_btn_pnl">
-                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">{{ __('buttons.submit') }}r</a>
+                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">{{ __('buttons.submit') }}</a>
                                             </div>
                                         </div>
                                     </div>
