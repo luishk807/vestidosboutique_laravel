@@ -86,4 +86,15 @@ class userConfirmationController extends Controller
         $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
+    public function resendaccountActivationConfirmation(){
+        $data["page_title"]=__('general.user_section.resend_activation_title_resend');
+        $data["thankyou_title"]=__('general.user_section.resend_activation_title_resend');
+        $data["thankyou_msg"]=__('general.user_section.resend_activation_message_resend');
+        $data["thankyou_img"]="checked.svg";
+        $data["thankyou_status"]=true;
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        return view("/confirmation",$data);
+    }
+
 }

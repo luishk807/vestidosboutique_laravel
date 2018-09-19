@@ -48,13 +48,14 @@
     Route::get("/orderreceived","userConfirmationController@orderCreationCreated")->name("order_received_confirmation");
     Route::get("/resetpasswordsent","userConfirmationController@resetPasswordSent")->name("forgot_password_confirm_sent");
     Route::get("/account/activateconfirmation","userConfirmationController@accountActivationConfirmation")->name('user_account_activation_confirmed');
+    Route::get("/account/resendactivateconfirmation","userConfirmationController@resendaccountActivationConfirmation")->name('user_account_activation_confirmed_resend');
     //Users
     Route::get("/account/new",'usersController@viewNewUser')->name("newuser");
     Route::post("/account/new",'usersController@newUser')->name("createuser");
     Route::get("/password/forgot",'usersController@ShowSendPasswordResetForm')->name('show_send_reset_password');
     Route::get("/account/activate/{token}",'usersController@activeUserAccount')->name('active_user_account');
     Route::get("/account/showresendactivation",'usersController@ShowResendActiveUserAccount')->name('show_resend_active_user_account');
-    Route::get("/account/resendactivation",'usersController@ResendActiveUserAccount')->name('resend_active_user_account');
+    Route::post("/account/resendactivation",'usersController@ResendActiveUserAccount')->name('resend_active_user_account');
     Route::get("/confirmation",'usersController@ShowSendPasswordResetForm')->name('show_send_reset_password');
     Route::post("/password/forgot",'usersController@SendResetPasswordEmail')->name('send_reset_password_email');
     Route::get('/password/reset/show/{token}','usersController@showPasswordResetForm')->name('show_reset_password');

@@ -122,9 +122,14 @@ return [
         'invalid_token'=>"Token required not found",
         'invalid_save'=>"ERROR: unable to activate account",
         'activation_required'=>"Your account requires activation in order to continue",
+        'resend_activation_title'=>"Resend Activation Link",
+        'resend_activation_message'=>"Please type your email address to resend you your activation link.",
+        'resend_activation_title_resend'=>"Activation Link Resent",
+        'resend_activation_message_resend'=>"An email has been sent to your email for activation.  Please follow instructions to successfully activate your account.",
         'to_user'=>[
             'thank_you'=>'Hello :name, thank you for your email',
             'update'=>":name, your account has been updated",
+            'activate'=>":name, activate your account now",
         ],
         'to_admin'=>[
             'thank_you'=>'New Email From :name Received',

@@ -124,10 +124,15 @@ return [
         'account_active_message'=>'Felicitaciones, su cuenta se activó exitosamente!',
         'invalid_token'=>"Token requerido no encontrado",
         'invalid_save'=>"ERROR: no se puede activar la cuenta",
-        'activation_required'=>"Su cuenta require activation para poder continuar",
+        'activation_required'=>"Su cuenta require activación para poder continuar",
+        'resend_activation_title'=>"Reenviar enlace de activación",
+        'resend_activation_message'=>"Escriba su dirección de correo electrónico para volver a enviarle su enlace de activación.",
+        'resend_activation_title_resend'=>"Enlace de activación Enviada",
+        'resend_activation_message_resend'=>"Un correo electrónico ha sido enviado a su email para activación.  Por favor, siga las instrucciones para activar su cuenta con éxito.",
         'to_user'=>[
             'thank_you'=>'Hola :name, gracias por tu correo electrónico',
             'update'=>":name, tu cuenta ha sido actualizado",
+            'activate'=>":name, active su cuenta ahora",
         ],
         'to_admin'=>[
             'thank_you'=>'Nuevo correo electrónico recibido de :name',

@@ -117,8 +117,40 @@ class usersController extends Controller
             return redirect()->route('login_page')->with('msg',__('general.user_section.invalid_token'));
         }
     }
-    public function ResendActiveUserAccount(){
-
+    public function ShowResendActiveUserAccount(){
+        $data=[];
+        $data["brands"]=$this->brands->all();
+        $data["categories"]=$this->categories->all();
+        $data["page_title"]=__('general.user_section.resend_activation_title');
+        return view('/account/resend_active',$data);
+    }
+    public function ResendActiveUserAccount(Request $request){
+        $data=[];
+        $this->validate($request,[
+            "email"=>"required | email",
+        ]);
+        $user = DB::table('vestidos_users')->where('email',$request->input("email"))->first();
+        if($user){
+            if(empty($user->remember_token)){
+                Users::find($user->id)->rollBackApi();
+            }
+            $link = url('/account/activate/'. $user->remember_token);
+            $data["link"]=$link;
+            $data["first_name"]=$user->first_name;
+            $data["last_name"]=$user->last_name;
+            $data["middle_name"]=$user->middle_name;
+            $data["email"]=$user->email;
+            Mail::send('emails.usercreation_resend_confirmation',["data"=>$data],function($message) use($data){
+                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $client_name = $data['first_name']." ".$data["last_name"];
+                $subject = __('general.user_section.to_user.activate',['name'=>$client_name]);
+               // $message->to($data["email"],$client_name)->subject($subject);
+                $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+            });
+            return redirect()->route('user_account_activation_confirmed_resend');
+        }else{
+            return redirect()->back()->withErrors(['required'=>__('general.form.no_email_match')]);
+        }
     }
     public function updateUser(Request $request){
         $user_id = Auth::guard("vestidosUsers")->user()->getId();

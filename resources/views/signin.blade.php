@@ -15,11 +15,11 @@
             <div>
                <div class="container-in-space white-md-bg-in">
                     <div class="container signin-container">
-                        @if(Session::has("activate"))
+                        @if(Session::has("activate_required"))
                         <div class="row">
                             <div class="col">
                                 <div class="warning-block col-md-8">
-                                    {{ Session::has("activate") }} &nbsp; <a href="{{ route('show_resend_active_user_account') }}">{{ __('buttons.resend_activation')}}</a>
+                                    {{ Session::get("activate_required") }} &nbsp; <a href="{{ route('show_resend_active_user_account') }}">{{ __('buttons.resend_activation')}}</a>
                                 </div>
                             </div>
                         </div>

@@ -155,12 +155,13 @@ class HomeController extends Controller
                 "email"=>"required | email",
                 "password"=>"required"
             ]);
-            if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 1,'status'=>1])) {
+            if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 1])) {
                 $user_id=Auth::guard("vestidosUsers")->user()->getId();
                 $data["user_id"]=$user_id;
                 $user=$this->users->find($user_id);
                 if($user->status !=1){
-                    return redirect()->route("login_page")->with('active',__('general.user_section.activation_required'));
+                    Auth::guard("vestidosUsers")->logout();
+                    return redirect()->route("login_page")->with('activate_required',__('general.user_section.activation_required'));
                 }
                 if(!empty($user->preferred_language)){
                     $lang = $user->getLanguage->code;
