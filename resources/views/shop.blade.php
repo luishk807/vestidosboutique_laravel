@@ -254,13 +254,15 @@
                                         @if($product->is_new)
                                         <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
                                         @endif
-                                        <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail"><img class="img-fluid" src="
+                                        <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail">
+                                        <img class="img-fluid" src="
                                         @if($product->images->count()>0)
                                             {{asset('images/products')}}/{{$product->images->first()->img_url}}
                                         @else
                                              {{asset('images/no-image.jpg')}}
                                         @endif
-                                        " alt/></a>
+                                        " alt/>
+                                        </a>
                                         <div class="container shoplist-list-cont-in">
                                             <div class="row">
                                                 <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/><span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $product->vendor->getFullVendorName() }}</span></div>

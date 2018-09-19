@@ -14,6 +14,7 @@ use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosConfigSectionShopBanners as ShopBanners;
+use App\vestidosProductCategories as ProductsCategories;
 use Illuminate\Support\Facades\Input;
 use Auth;
 use Session;
@@ -21,7 +22,7 @@ use Session;
 class userShopController extends Controller
 {
     //
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, ShopBanners $shop_banners)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, ShopBanners $shop_banners,ProductsCategories $product_categories)
     {
       $this->brands=$brands;
       $this->country=$countries->all();
@@ -32,6 +33,7 @@ class userShopController extends Controller
       $this->languages=$languages;
       $this->addresses=$addresses;
       $this->shop_banners = $shop_banners;
+      $this->product_categories = $product_categories;
     }
     public function index(){
         $data=[];
@@ -40,7 +42,7 @@ class userShopController extends Controller
         $data["page_title"]=__('header.shop');
         $data["sort"]="name";
         $data["shop_banners"]=$this->shop_banners->first();
-        $products = $this->products->orderBy('products_name');
+        $products = $this->products->where('product_stock','>',0)->orderBy('products_name');
         $data["products"]=$products->paginate(15);
         $data["sort_ops"]=array("name","brand","low","high");
         $data["categoryids"]=array();
@@ -50,7 +52,7 @@ class userShopController extends Controller
     function sortOption($neddle, $categories, $brands){
         $products = $this->products;
         if(sizeof($categories)>0){
-            $products = $products->whereIn("category_id",$categories);
+            $products = $this->products->getProductByCats($categories);
         }
         if(sizeof($brands)>0){
             $products = $products->whereIn("brand_id",$brands);
@@ -69,7 +71,8 @@ class userShopController extends Controller
             $products = $products->orderBy("products_name");
             break;
         }
-        return $products;
+        dd($products->paginate(15));
+        //return $products;
     }
     public function sort_page_submit(Request $request){
         $data=[];

@@ -93,6 +93,13 @@ class vestidosProducts extends Model
         ->where("vestidos_product_categories.category_id",$cat_id)->take(5)->get();
         return $products;
     }
+    public function getProductByCats($cat_ids){
+        $products = DB::table("vestidos_products")
+        ->select("vestidos_products.*")
+        ->join("vestidos_product_categories","product_id","vestidos_products.id")
+        ->whereIn("vestidos_product_categories.category_id",$cat_ids);
+        return $products;
+    }
     public function searchProductsByLabels($filter){
         $products = DB::table("vestidos_products")
                                     ->select("vestidos_products.*",
