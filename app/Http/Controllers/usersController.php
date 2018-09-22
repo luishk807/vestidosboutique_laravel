@@ -114,7 +114,7 @@ class usersController extends Controller
                 return redirect()->route('login_page')->with('msg',__('general.user_section.invalid_save'));
             }
         }else{
-            return redirect()->route('login_page')->with('msg',__('general.user_section.invalid_token'));
+            return redirect()->route('login_page')->with('msg',__('auth.account_already_active'));
         }
     }
     public function ShowResendActiveUserAccount(){

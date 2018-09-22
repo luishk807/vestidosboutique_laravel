@@ -19,4 +19,5 @@ return [
     'logout_title'=>"Logout Successfully",
     'logout_msg'=>"You have succesfully logout",
     'need_login'=>"To Continue, Please Sign In",
+    'account_already_active'=>"Your account is already active",
 ];

@@ -19,4 +19,5 @@ return [
     'logout_title'=>"Sesión terminado con éxito",
     'logout_msg'=>"Has salido exitosamente",
     'need_login'=>"Favor de Iniciar Sesión",
+    'account_already_active'=>"Su cuenta ha sido activada",
 ];
