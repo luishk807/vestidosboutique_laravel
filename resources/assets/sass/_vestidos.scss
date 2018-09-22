@@ -955,6 +955,112 @@ button.colors_cubes.selected{
 .missing-col .col{
   text-align:center;
 }
+// SHOP PAGE
+.vesti-new-txt-b{
+  font-size: .7rem;
+  margin-top: 10px;
+    margin-left: 5px;
+}
+.shoplist-cont{
+    list-style-type: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    -moz-columns: 4 200px;
+    -webkit-columns: 4 200px;
+    columns: 4 200px;
+    -moz-column-gap: 1em;
+    -webkit-column-gap: 1em;
+    column-gap: 1em;
+}
+.shoplist-cont li{
+    padding-top: 30px;
+    margin: 1px;
+}
+.shoplist-list > div{
+    display:inline-table;
+}
+.shoplist-list-cont-in .row div{
+    padding-right:0px;
+    padding-left:0px;
+}
+.shoplist-list-cont-in .row div:nth-child(1){
+    text-align:left;
+}
+.shoplist-list-cont-in .row div:nth-child(2){
+    text-align:right;
+}
+.shoplist-list-cont-in .shoplist-thumb-name{
+    font-family: Arial;
+    font-size: .8rem;
+}
+.shoplist-list-cont-in .shoplist-thumb-price{
+    font-family: Arial;
+    font-size: 1.1rem;
+}
+.shoplist-list-cont-in .shoplist-thumb-auth{
+    font-family: Arial;
+    font-size: .7rem;
+}
+.color_cubes_view_a{
+  width: 23px;
+  height: 15px;
+}
+.shoplist-nav{
+    text-align:right;
+    margin: 20px 0px 10px 0px;
+}
+.shoplist-nav ul{
+    list-style:none;
+}
+.shoplist-nav ul li{
+    display:inline-block;
+}
+.shoplist-nav ul li:not(:first-child):not(:last-child){
+    margin:0px 10px;
+}
+.shoplist-nav a,
+.shoplist-nav{
+    font-family: arial;
+    font-size: 1rem;
+    color: black;
+}
+.shoplist-nav select{
+    padding: 10px 40px 10px 2px;
+    background-color: transparent;
+    text-align: left;
+    background: none;
+}
+.shoplist-search-cont ul{
+    list-style:none;
+    padding: 0;
+    margin: 0;
+}
+.shoplist-search-cont h3{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    line-height: 3rem;
+}
+.shoplist-search-cont ul li{
+    text-align:left;
+}
+.shoplist-search-list-cont{
+    max-height: 250px;
+    overflow: auto;
+}
+.shoplist-search-type-cont{
+    margin-bottom:20px;
+}
+#mobile-sort-nav{
+    display:none;
+    margin: 10px 0px;
+}
+#mobile-sort-nav #accordion .card-header{
+    background-color:black !important;;
+}
+#mobile-sort-nav button{
+    color:white;
+}
 // ACCOUNT SECTION
 .account-form-section{
   margin:0px auto;

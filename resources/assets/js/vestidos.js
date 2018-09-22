@@ -45,6 +45,16 @@ $(document).ready(function() {
            }
        }); 
    });
+   /*******SHOP PAGE *************/
+   $(".rate-shop").rate({
+        readonly:true
+    });
+    $("#shopPage_select").change(function(){
+        $("#shop_sort_form").submit();
+    });
+    $(".vestidos-check").on("click",function(){
+        $("#shop_sort_form").submit();
+    })
     /****CART TOP HOVER****/
     $(".nav-toggle-li").hover(function(){
         $(".nav-list-submenu, .nav-list-submenu ul").toggleClass("active"); 
