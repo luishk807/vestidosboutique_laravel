@@ -65,6 +65,7 @@
                     </div>
                 </div>
                 <!--list of products-->
+                @if(count($order->products)>0)
                 @foreach($order->products as $product)
                 <div class="row order-products">
                     <div class="col-md-8 col-lg-8 col-sm-10 order-product-info">
@@ -101,6 +102,13 @@
                     </div>
                 </div>
                 @endforeach
+                @else
+                    <div class="row">
+                        <div class="col no-order text-center">
+                            <strong>{{ __('general.empty_msg.order') }}</strong>
+                        </div>
+                    </div>
+                @endif
                 <!--end of list of products-->
             </div>
         </div><!--product list ends-->

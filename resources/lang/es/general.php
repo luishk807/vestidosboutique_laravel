@@ -214,7 +214,7 @@ return [
 
     //MENSAJES
     'empty_msg'=>[
-        'wishlist'=>"Tu Lista esta vacio",
+        'wishlist'=>"Tu lista de favoritos esta vacio",
         'cart'=>"Tu Carrito esta vacio",
         'order'=>"No Hay Pedidos Encontrados",
     ],

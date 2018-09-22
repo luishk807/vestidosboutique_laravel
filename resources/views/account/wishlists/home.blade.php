@@ -49,7 +49,7 @@
                     @endforeach
                     @else
                     <div class="row">
-                        <div class="col no-wishlist">
+                        <div class="col no-wishlist text-center">
                             <strong>{{ __('general.empty_msg.wishlist') }}</strong>
                         </div>
                     </div>

@@ -23,7 +23,7 @@ return [
     'log_out' => 'Cerrar Sesión',
     'checkout' => 'Pagar',
     'orders' => 'Pedidos',
-    'wishlists' => 'Listas',
+    'wishlists' => 'Favoritos',
     'payment' => 'Acceptamos',
     'faqs' => 'Preguntas Frequentes',
     'terms' => 'Terminos de Uso',
