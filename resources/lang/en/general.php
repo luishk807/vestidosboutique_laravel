@@ -112,6 +112,7 @@ return [
     'user_section'=>[
         'registration_complete'=>'Hello :name, your account registration is completed.',
         'create_address'=>'Create Address',
+        'edit_address_simple'=>"Edit Address",
         'edit_address'=>"Edit Address :name",
         'delete_address'=>'Delete Address',
         'account_created'=>"Your account is successfully created",

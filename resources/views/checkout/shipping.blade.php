@@ -242,8 +242,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4 checkout-btn-pnl">
-                                <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                                <input type="submit" class="btn-block vesti_in_btn checkout_next checkout-button" value="{{ __('buttons.proceed_billing') }}"/>
+                                <div id="vesti-load-oval"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
+                                <input type="submit" class="btn-block vesti_in_btn_oval checkout_next checkout-button oval-button" value="{{ __('buttons.proceed_billing') }}"/>
                             </div>
                         </div>
                         </form>

@@ -151,6 +151,11 @@ $(document).ready(function() {
         // $(this).prop('disabled', true);
         $("#vesti-load").css("display","block");
     });
+    $(".oval-button").on("click",function(){
+        $(this).css("display","none");
+        // $(this).prop('disabled', true);
+        $("#vesti-load-oval").css("display","block");
+    });
 });
 function addWishlist(product_id){
     $.ajax({

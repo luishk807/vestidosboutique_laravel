@@ -173,8 +173,8 @@
                                 <div id="checkout-message"></div>
                                 <div id="dropin-container"></div>
                                 <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" />
-                                <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                                <button class="btn-block vesti_in_btn checkout-button" type="submit" id="submit-button">{{ __('buttons.submit_payment') }}</button>
+                                <div id="vesti-load-oval"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
+                                <button class="btn-block vesti_in_btn_oval checkout-button oval-button" type="submit" id="submit-button">{{ __('buttons.submit_payment') }}</button>
                                 <p><strong><center>{{ __('general.payment_final_step_msg') }}</center></strong></p>
                             </div>
 

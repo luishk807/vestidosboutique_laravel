@@ -129,7 +129,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4 checkout-btn-pnl">
-                                <a class="btn-block vesti_in_btn checkout_next" href="{{ route('home_page') }}"/>{{$checkout_btn_name}}</a>
+                                <a class="btn-block vesti_in_btn_oval checkout_next" href="{{ route('home_page') }}"/>{{$checkout_btn_name}}</a>
                             </div>
                         </div>
                         <!--end of content-->

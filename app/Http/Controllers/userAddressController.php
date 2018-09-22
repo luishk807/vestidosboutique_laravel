@@ -125,7 +125,7 @@ class userAddressController extends Controller
         $data["country"]=$request->input("country");
         $data["addresstypes"]=$this->addresstypes->all();
         $data["address"]=$address;
-        $data["page_title"]= __('general.user_section.edit_addresss',['name'=>$address->nick_name]);
+        $data["page_title"]= __('general.user_section.edit_address',['name'=>$address->nick_name]);
         $data["address_id"]=$address_id;
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
@@ -147,7 +147,7 @@ class userAddressController extends Controller
         $data["brands"]=$this->brands->all();
         $data["user"]=$this->users->find($address->user_id);
         $data["user_id"] = $address->user_id;
-        $data["page_title"]=__('general.user_section.delete_addresss');
+        $data["page_title"]=__('general.user_section.delete_address');
         return view("account/address/confirm",$data);
     }
 }
