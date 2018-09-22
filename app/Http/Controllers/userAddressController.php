@@ -9,6 +9,7 @@ use App\vestidosAddressTypes as AddressTypes;
 use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
 use App\vestidosCountries as Countries;
+use App\vestidosProvinces as Provinces;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
 use Auth;
@@ -16,10 +17,11 @@ use Auth;
 class userAddressController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Users $users, Statuses $statuses,Addresses $addresses, Countries $countries,Brands $brands, Categories $categories){
+    public function __construct(AddressTypes $addresstypes, Users $users, Statuses $statuses,Addresses $addresses, Countries $countries,Brands $brands, Categories $categories, Provinces $provinces){
         $this->statuses=$statuses;
         $this->addresses=$addresses;
         $this->countries=$countries;
+        $this->provinces=$provinces;
         $this->users = $users;
         $this->brands=$brands;
         $this->categories = $categories;
@@ -39,11 +41,14 @@ class userAddressController extends Controller
         $data["address_2"]=$request->input("address_2");
         $data["city"]=$request->input("city");
         $data["country_id"]=(int)$request->input("country");
-        $data["state"]=$request->input("state");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
         $data["address_type"]=(int)$request->input("address_type");
         $data["ip_address"]=$request->ip();
+        $data["province"]=$request->input("province");
+        $province_id=$request->input("province");
+        $province=$this->provinces->find($province_id);
+        $data["state"]=!empty($province_id) ? $province->name : $request->input("state");
         if($request->isMethod("post")){
             $this->validate($request,[
                 "nick_name"=>"required",
@@ -53,9 +58,6 @@ class userAddressController extends Controller
                 "email"=>"required",
                 "address_1"=>"required",
                 "country"=>"required",
-                "city"=>"required",
-                "state"=>"required",
-                "zip_code"=>"required",
                 "address_type"=>"required"
             ]);
             $data["status"]=1;
@@ -70,6 +72,7 @@ class userAddressController extends Controller
         $data["page_title"]=__('general.user_section.create_address');
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
+        $data["provinces"]=$this->provinces->all();
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         return view("account/address/new",$data);
@@ -85,7 +88,10 @@ class userAddressController extends Controller
         $data["address_1"]=$request->input("address_1");
         $data["address_2"]=$request->input("address_2");
         $data["city"]=$request->input("city");
-        $data["state"]=$request->input("state");
+        $data["province"]=$request->input("province");
+        $province_id=$request->input("province");
+        $province=$this->provinces->find($province_id);
+        $data["state"]=!empty($province_id) ? $province->name : $request->input("state");
         $data["zip_code"]=$request->input("zip_code");
         $address = $this->addresses->find($address_id);
         $user_id = $address->user_id;
@@ -97,10 +103,7 @@ class userAddressController extends Controller
                 "phone_number_1"=>"required",
                 "email"=>"required",
                 "address_1"=>"required",
-                "country"=>"required",
-                "city"=>"required",
-                "state"=>"required",
-                "zip_code"=>"required",
+                "country"=>"required"
             ]);
             $address->nick_name = $request->input("nick_name");
             $address->first_name = $request->input("first_name");
@@ -123,6 +126,7 @@ class userAddressController extends Controller
         $data["user"]=$user;
         $data["user_id"]=$user_id;
         $data["country"]=$request->input("country");
+        $data["provinces"]=$this->provinces->all();
         $data["addresstypes"]=$this->addresstypes->all();
         $data["address"]=$address;
         $data["page_title"]= __('general.user_section.edit_address',['name'=>$address->nick_name]);

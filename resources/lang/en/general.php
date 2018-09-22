@@ -22,6 +22,7 @@ return [
         'city'=>"City",
         'state'=>"State",
         'country'=>"Country",
+        'province'=>"Province",
         'zip'=>"Postal Code",
         'password'=>'Password',
         'question'=>"Question",

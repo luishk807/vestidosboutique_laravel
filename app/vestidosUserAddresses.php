@@ -7,6 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 class vestidosUserAddresses extends Model
 {
     //
+    protected $fillable = [
+        'user_id',
+        "address_type",
+        "nick_name",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "address_1",
+        "address_2",
+        "city",
+        "state",
+        "country",
+        "zip_code",
+        "phone_number_1",
+        "phone_number_2",
+        "email",
+        "province",
+        "status",
+        "ip_address",
+        "created_at",
+        "updated_at"
+    ];
     public function getUser(){
         return $this->belongsTo('App\vestidosUsers',"user_id");
     }

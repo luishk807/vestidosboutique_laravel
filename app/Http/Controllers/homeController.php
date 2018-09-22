@@ -13,6 +13,7 @@ use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosConfigSectionMainSliders as MainSliders;
+use Illuminate\Support\Facades\Input;
 use Auth;
 use App;
 use Mail;
@@ -191,5 +192,10 @@ class HomeController extends Controller
             $data["users"]=$this->users->all();
             return redirect("/signin")->with($data);
         }
+    }
+    public function loadStatesDrop(){
+        $country_id=Input::get('data');
+        $country = $this->country->find($country_id);
+        return response()->json($country->provinces()->get());
     }
 }

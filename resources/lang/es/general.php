@@ -24,6 +24,7 @@ return [
         'city'=>"Ciudad",
         'state'=>"Estado",
         'country'=>"País",
+        'province'=>"Provincia",
         'zip'=>"Codigo Postal",
         'password'=>"Contraseña",
         'question'=>"Pregunta",

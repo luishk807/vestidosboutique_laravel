@@ -393,6 +393,7 @@
         Route::get("api/deleteCart",'userCartController@cart_delete');
         Route::get('api/getAddress','ordersController@getAddressDropdown');
         Route::get('api/getProduct','ordersController@getProductDropdown');
+        Route::get("api/loadStates",'homeController@loadStatesDrop');
    // });
    Auth::routes();
 //});

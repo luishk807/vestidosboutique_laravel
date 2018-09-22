@@ -102,36 +102,7 @@
                                                         <input type="text" id="addressAddress2" class="form-control" name="shipping_address_2" value="{{ old('shipping_address_2') }}" placeholder="{{ trans_choice('general.form.address',1) }} 2"/>
                                                         <small class="error">{{$errors->first("shipping_address_2")}}</small>
                                                     </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="addressCity">{{ __('general.form.city') }}:</label>
-                                                            <input type="text" id="addressCity" class="form-control" name="shipping_city" value="{{ old('shipping_city') }}" placeholder="{{ __('general.form.city') }}"/>
-                                                            <small class="error">{{$errors->first("shipping_city")}}</small>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="addressState">{{ __('general.form.state') }}:</label>
-                                                            <input type="text" id="addressState" class="form-control" name="shipping_state" value="{{ old('shipping_state') }}" placeholder="{{ __('general.form.state') }}"/>
-                                                            <small class="error">{{$errors->first("shipping_state")}}</small>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="addressCountry">{{ __('general.form.country') }}:</label>
-                                                            <select class="custom-select" name="shipping_country" id="addressCountry">
-                                                                <option value="">{{ __('general.form.select_country') }}</option>
-                                                                @foreach($countries as $country)
-                                                                    <option value="{{ $country->id }}">{{$country->countryName}} </option>
-                                                                @endforeach
-                                                            </select>
-                                                            <small class="error">{{$errors->first("shipping_country")}}</small>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="addressZip">{{ __('general.form.zip') }}:</label>
-                                                            <input type="text" id="addressZip" class="form-control" name="shipping_zip_code" value="{{ old('shipping_zip_code') }}" placeholder="{{ __('general.form.zip') }}"/>
-                                                            <small class="error">{{$errors->first("shipping_zip_code")}}</small>
-                                                        </div>
-                                                    </div>
-
+                                                    @include('includes.country_province')
 
                                             <!--end of address-->
                                             </td>
