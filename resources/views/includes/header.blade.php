@@ -53,11 +53,34 @@ $(document).ready(function(){
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="vest-maincolor-left navbar-nav mr-auto">
+                    <li class="nav-item nav-toggle-li">
+                        <a id="nav-item-styles" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.by_styles') }}</a>
+                        <ul class="nav-list-submenu">
+                            <li>
+                                <ul>
+                                    <!-- @foreach($categories as $category)
+                                    <li><a href="{{ $category->id }}">{{$category->name}}</a></li>
+                                    @endforeach -->
+                                    <li><a href="">Stilos</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                    <li><a href="">testing</a></li>
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
                      <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">{{ __('header.about') }}</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">{{ __('header.accessories') }}</a>
                     </li>
                     <li class="nav-item nav-toggle-li">
                         <a id="nav-item-events" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.event') }}</a>

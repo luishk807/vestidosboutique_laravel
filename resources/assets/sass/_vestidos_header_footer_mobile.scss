@@ -138,3 +138,51 @@ and (orientation:landscape){
         margin-top: 16px;
     }
 }
+/*************************************************/
+/*          IPAD PORTRAIT                       */
+/************************************************/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+
+    .vestidos-logo {
+        width: 110px !important;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        font-size: .8rem !important;
+    }
+    .navbar-link, .navbar-link-lang {
+        font-size: .8rem !important;
+    }
+}
+/*************************************************/
+/*          IPAD LANDSCAPE                       */
+/************************************************/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+
+    .vestidos-logo {
+        width: 140px !important;
+    }
+    .navbar-light .navbar-nav .nav-link {
+        font-size: .9rem !important;
+    }
+    .navbar-link, .navbar-link-lang {
+        font-size: .9rem !important;
+    }
+}
+/*************************************************/
+/*      IPHONE X LANDSCAPE                        */
+/************************************************/
+@media only screen 
+and (min-device-width : 737px) 
+and (max-device-width : 812px) 
+and (-webkit-device-pixel-ratio : 3)
+and (orientation : landscape) {
+    .vestidos-logo {
+        width: 92px!important;
+    }
+}

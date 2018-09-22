@@ -56,8 +56,12 @@ $(document).ready(function() {
         $("#shop_sort_form").submit();
     })
     /****CART TOP HOVER****/
+    // $(".nav-toggle-li").hover(function(){
+    //     $(".nav-list-submenu, .nav-list-submenu ul").toggleClass("active"); 
+    // })
     $(".nav-toggle-li").hover(function(){
-        $(".nav-list-submenu, .nav-list-submenu ul").toggleClass("active"); 
+        $(this).toggleClass("active"); 
+        $(this).find("ul").toggleClass("active");
     })
 
      $(".navbar-vesti-cart").hover(function(){

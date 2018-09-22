@@ -30,5 +30,6 @@ return [
     'privacy' => 'Privacy',
     'language' => 'Languages',
     'registration'=>"Registration",
-
+    'accessories'=>"Accessories",
+    'by_styles'=>"By Styles",
 ];

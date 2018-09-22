@@ -30,4 +30,6 @@ return [
     'privacy' => 'Terminos de Privacidad',
     'language' => 'Lenguages',
     'registration'=>"Regístrate",
+    'accessories'=>"Accesorios",
+    'by_styles'=>"Por Estilos",
 ];
