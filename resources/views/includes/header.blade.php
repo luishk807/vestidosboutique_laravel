@@ -38,7 +38,8 @@ $(document).ready(function(){
         </div>
      </div> -->
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-md navbar-light">
-        <div class="vest-maincolor-container container-fluid">
+        <!-- <div class="vest-maincolor-container container-fluid"> -->
+        <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand text-white" href="/" >
                     <img src="{{ asset('images/logo_text_only_white.svg') }}" class="vesti-svg vestidos-logo"/>
