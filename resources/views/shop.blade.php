@@ -154,7 +154,6 @@
                         <div id="accordion">
                             <div class="card">
                                 <div class="card-header" id="headingOne">
-                                
                                     <h5 class="mb-0">
                                         <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             +{{ __('general.optimized_search') }}
@@ -162,20 +161,18 @@
                                     </h5>
                                 </div>
                                 <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
-                                <div class="shoplist-search-cont vesti-search-cont">
-                            <div class="shoplist-search-type-cont">
-                                <h3>{{ __('header.event') }}</h3>
-                                <div class="shoplist-search-list-cont">
-                                    <ul>
-                                    @foreach($categories as $category)
-                                    <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $category->id }}"/><label for="vestidos_cat_3" class="vestidos-label"/>{{ $category->name }}</label></li>
-                                    @endforeach
-                                    </ul>
-                                </div>   
-                            </div><!--end of search type-->
-                        </div>
-                        
-
+                                    <div class="shoplist-search-cont vesti-search-cont">
+                                        <div class="shoplist-search-type-cont">
+                                            <h3>{{ __('header.event') }}</h3>
+                                            <div class="shoplist-search-list-cont">
+                                                <ul>
+                                                @foreach($categories as $category)
+                                                <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $category->id }}"/><label for="vestidos_cat_3" class="vestidos-label"/>{{ $category->name }}</label></li>
+                                                @endforeach
+                                                </ul>
+                                            </div>   
+                                        </div><!--end of search type-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -254,10 +251,11 @@
                                         @if($product->is_new)
                                         <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
                                         @endif
+                                        @php( $prod_img = $products_model->getImages_byId($product->id))
                                         <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail">
                                         <img class="img-fluid" src="
-                                        @if($product->images->count()>0)
-                                            {{asset('images/products')}}/{{$product->images->first()->img_url}}
+                                        @if($prod_img)
+                                            {{asset('images/products')}}/{{$prod_img->img_url}}
                                         @else
                                              {{asset('images/no-image.jpg')}}
                                         @endif
@@ -265,15 +263,20 @@
                                         </a>
                                         <div class="container shoplist-list-cont-in">
                                             <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/><span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $product->vendor->getFullVendorName() }}</span></div>
+                                                <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/>
+                                                @php( $prod_vendor = $products_model->getVendors_byId($product->vendor_id))
+                                                <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $prod_vendor[0]->first_name." ".$prod_vendor[0]->middle_name." ".$prod_vendor[0]->last_name }}</span>
+                                                </div>
                                                 <div class="col-md-4"><span  class="shoplist-thumb-price">${{ $product->total_rent }}</span></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <div class='rate-shop' data-rate-value="{{ $product->rates->avg('user_rate') }}"></div>
+                                                    @php( $prod_rates = $products_model->getRates_byId($product->id))
+                                                    <div class='rate-shop' data-rate-value="{{ $prod_rates[0]->rates }}"></div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    @foreach($product->colors as $color)
+                                                    @php( $prod_colors = $products_model->getColors_byId($product->id))
+                                                    @foreach($prod_colors as $color)
                                                     <span class="colors_cubes color_cubes_view_a" style="background-color:{{ $color->color_code }}"></span>
                                                     @endforeach
                                                 </div>

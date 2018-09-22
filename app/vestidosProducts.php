@@ -38,6 +38,34 @@ class vestidosProducts extends Model
         "created_at",
         "updated_at"
     ];
+    public function getImages_byId($product_id){
+        $prod=null;
+        if(!empty($product_id)){
+            $prod = DB::table("vestidos_products_imgs")->where('product_id',$product_id)->first();
+        }
+        return $prod;
+    }
+    public function getColors_byId($product_id){
+        $prod=null;
+        if(!empty($product_id)){
+            $prod = DB::table("vestidos_colors")->where('product_id',$product_id)->get();
+        }
+        return $prod;
+    }
+    public function getVendors_byId($vendor_id){
+        $prod=null;
+        if(!empty($vendor_id)){
+            $prod = DB::table("vestidos_vendors")->where('id',$vendor_id)->get();
+        }
+        return $prod;
+    }
+    public function getRates_byId($product_id){
+        $prod=null;
+        if(!empty($product_id)){
+            $prod = DB::table("vestidos_product_rates")->select( DB::raw("AVG(user_rate) as rates","id","product_id"))->where('product_id',$product_id)->get();
+        }
+        return $prod;
+    }
     public function images(){
         return $this->hasMany('App\vestidosProductsImgs',"product_id");
     }

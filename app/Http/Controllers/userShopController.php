@@ -47,6 +47,7 @@ class userShopController extends Controller
         $data["sort_ops"]=array("name","brand","low","high");
         $data["categoryids"]=array();
         $data["brandids"]=array();
+        $data["products_model"]=new Products;
         return view("shop",$data);
     }
     function sortOption($neddle, $categories, $brands){
@@ -71,8 +72,9 @@ class userShopController extends Controller
             $products = $products->orderBy("products_name");
             break;
         }
-        dd($products->paginate(15));
-        //return $products;
+        //dd($products->paginate(15));
+        // dd($this->getImages($products->first()->id));
+        return $products;
     }
     public function sort_page_submit(Request $request){
         $data=[];
