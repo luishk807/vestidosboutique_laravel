@@ -101,9 +101,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="addressAddressType">{{ __('general.form.address_type') }}:</label>
+        <label for="addressAddressType">{{ __('general.page_header.address_type') }}:</label>
         <select class="custom-select" name="address_type" id="addressAddressType">
-            <option value="">{{ __('general.page_header.select_address_type') }}</option>
             @foreach($addresstypes as $addresstype)
                 <option value="{{ $addresstype->id }}"
                 @if($address->address_type==$addresstype->id)
