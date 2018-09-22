@@ -34,17 +34,18 @@ class userShopController extends Controller
       $this->addresses=$addresses;
       $this->shop_banners = $shop_banners;
       $this->product_categories = $product_categories;
+      $this->sort_options=array("low"=>__('pagination.sort_options.low_price'),"high"=>__('pagination.sort_options.high_price'));
     }
     public function index(){
         $data=[];
         $data["brands"]=$this->brands->all();
         $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.shop');
-        $data["sort"]="name";
+        $data["sort"]="low";
         $data["shop_banners"]=$this->shop_banners->first();
         $products = $this->products->where('product_stock','>',0)->orderBy('products_name');
         $data["products"]=$products->paginate(15);
-        $data["sort_ops"]=array("name","brand","low","high");
+        $data["sort_ops"]=$this->sort_options;
         $data["categoryids"]=array();
         $data["brandids"]=array();
         $data["products_model"]=new Products;
@@ -85,8 +86,9 @@ class userShopController extends Controller
         $data["page_title"]=__('header.shop');
         // $data["sort"]=$request->get("sort");
         $data["sort"]=$sort;
-        $data["sort_ops"]=array("name","brand","low","high");
+        $data["sort_ops"]=$this->sort_options;
         $data["shop_banners"]=$this->shop_banners->first();
+        $data["products_model"]=new Products;
         if($request->isMethod('post')){
             $categoryIn =array();
             $brandIn=array();

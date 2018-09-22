@@ -48,7 +48,7 @@ class vestidosProducts extends Model
     public function getColors_byId($product_id){
         $prod=null;
         if(!empty($product_id)){
-            $prod = DB::table("vestidos_colors")->where('product_id',$product_id)->get();
+            $prod = DB::table("vestidos_colors")->where('product_id',$product_id)->take(2)->get();
         }
         return $prod;
     }

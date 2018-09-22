@@ -17,4 +17,8 @@ return [
     'next'     => 'Siguiente',
     'sort_by'=>"Ordernar Por",
     'of'=>"de",
+    'sort_options'=>[
+        'low_price'=>"Precio Más Bajo",
+        'high_price'=>"Precio Más Alto",
+    ]
 ];

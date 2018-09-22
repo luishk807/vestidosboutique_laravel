@@ -12,16 +12,16 @@
     padding: 0;
     margin: 0;
     position: relative;
-    -moz-columns: 3 200px;
-    -webkit-columns: 3 200px;
-    columns: 3 200px;
+    -moz-columns: 4 200px;
+    -webkit-columns: 4 200px;
+    columns: 4 200px;
     -moz-column-gap: 1em;
     -webkit-column-gap: 1em;
     column-gap: 1em;
 }
 .shoplist-cont li{
-    /* display:table-cell; */
     padding-top: 30px;
+    margin: 1px;
 }
 .shoplist-list > div{
     display:inline-table;
@@ -106,12 +106,6 @@
 #mobile-sort-nav button{
     color:white;
 }
-.vestidos-check{
-
-}
-.vestidos-label{
-
-}
 @media only screen and (max-width: 600px) {
     #mobile-sort-nav{
         display:block;
@@ -143,12 +137,12 @@
     })
 </script>
 <div class="main_sub_body main_body_height">
-<div class="container">
+<div class="container-fluid">
     <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
     <div class="row">
         <div class="col container-in-center">
-            <div class="container container-in-space">
-                <div class="row">
+            <div class="container-fluid container-in-space">
+               {{-- <div class="row">
                     <div class="col-md-3" id="mobile-sort-nav"><!--mobile search-->
                         <!--hiding mobile menu-->
                         <div id="accordion">
@@ -176,9 +170,11 @@
                                 </div>
                             </div>
                         </div>
-                                      <!--hiding mobile menu-->   
+                                      <!--hiding mobile menu-->
+                                      
                     </div><!--end of mobile search-->
-                    <div class="col-md-3" id="desktop-sort-nav">
+                    --}}
+                    {{--<div class="col-md-3" id="desktop-sort-nav">
                         <input type="hidden" name="shopPage_select_input" id="shopPage_select_input">
                         <div class="shoplist-search-cont vesti-search-cont">
                             <div class="shoplist-search-type-cont">
@@ -217,15 +213,17 @@
 
                     </div>
                     <div class="col-md-9">
-                        <div><img src="{{ asset('images/shop_banners') }}/{{$shop_banners->image_url}}" class="img-fluid" alt/></div>
+                    --}}
+                    <div class="col">
+                        <div class="text-center"><img src="{{ asset('images/shop_banners') }}/{{$shop_banners->image_url}}" class="img-fluid" alt/></div>
                         <div class="shoplist-nav">
                             <ul>
                                 <li>{{ $products->total() }} {{ trans_choice('general.cart_title.product',3) }}</li>
                                 <li>{{ __('pagination.sort_by') }}
                                     <select id="shopPage_select" name="shopPage_select">
-                                        @foreach($sort_ops as $sort_op)
-                                        <option value='{{ $sort_op }}'
-                                        @if($sort_op==$sort)
+                                        @foreach($sort_ops as $keySort=>$sort_op)
+                                        <option value='{{ $keySort }}'
+                                        @if($keySort==$sort)
                                         selected='selected'
                                         @endif
                                         >{{ ucfirst(trans($sort_op)) }}</option>
@@ -247,7 +245,6 @@
                                 @foreach($products as $product)
                                 <!--each pod-->
                                 <li class="shoplist-list">
-                                    <div>
                                         @if($product->is_new)
                                         <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
                                         @endif
@@ -282,7 +279,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </li>
                                 <!--end pod-->
                                 @endforeach
