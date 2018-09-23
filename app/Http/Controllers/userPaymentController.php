@@ -141,7 +141,7 @@ class userPaymentController extends Controller
             $data["province"]=$request->input("province");
             $province_id=$request->input("province");
             $shipping_province=$this->provinces->find($province_id);
-            $state=!empty($province_id) ? $province->name : $request->input("state");
+            $state=!empty($province_id) ? $shipping_province->name : $request->input("state");
             $data["state"] = $state;
             $data["country"]=$request->input("country");
             $data["zip_code"]=$request->input("zip_code");
@@ -167,7 +167,8 @@ class userPaymentController extends Controller
                 "shipping_method"=>$request->input("shipping_method")
             );
         }
-        $request->session()->put("cart_session",$cart_data);
+       // dd($cart_data);
+         $request->session()->put("cart_session",$cart_data);
         return redirect()->route("checkout_show_billing")->with($data);
     }
     public function showBilling(Request $request){
@@ -275,11 +276,14 @@ class userPaymentController extends Controller
             $billing_country = $this->country->find($request->input("country"));
             $billing_country_id = $billing_country->id;
             $billing_province = $this->provinces->find($request->input("province"));
+
+            $state=!empty($request->input("province")) ? $billing_province->name : $request->input("state");
+
             $data["billing_name"]=$billing_name;
             $data["billing_address_1"]=$request->input("billing_address_1");
             $data["billing_address_2"]=$request->input("billing_address_2");
             $data["billing_city"]=$request->input("city");
-            $data["billing_state"]=$request->input("state");
+            $data["billing_state"]=$state;
             $data["billing_province"]=$billing_province->name;
             $data["billing_country"]=$billing_country->id;
             $data["billing_zip_code"]=$request->input("zip_code");
@@ -324,7 +328,7 @@ class userPaymentController extends Controller
         $data["status"]=9;
         $data["created_at"]=$today;
 
-
+        // dd($data);
         $order = Orders::create($data);
 
         $data["user"]=$user;
@@ -429,7 +433,7 @@ class userPaymentController extends Controller
                                 "billing_address_2"=>$request->input("billing_address_2"),
                                 "billing_city"=>$request->input("city"),
                                 "billing_province"=>$db_province,
-                                "billing_state"=>$request->input("state"),
+                                "billing_state"=>$db_province,
                                 "billing_country"=>$db_country->countryCode,
                                 "billing_zip_code"=>$request->input("zip_code"),
                                 "billing_phone_number_1"=>$request->input("billing_phone_number_1"),
@@ -448,8 +452,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
-                            $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                            //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                            //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                            $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
                         });
                         
                         //send email to admin
@@ -457,8 +461,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
-                            $message->to("info@vestidosboutique.com","Admin")->subject($subject);
-                            //$message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                            //$message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                            $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
                         });
 
 

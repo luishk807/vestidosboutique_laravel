@@ -48,14 +48,14 @@
                         {{ $order_detail["order"]["shipping_name"] }}<br/>
                         {{ $order_detail["order"]["shipping_address_1"] }}<br/>
                         {{ $order_detail["order"]["shipping_address_2"] }}<br/>
-                        {{ $order_detail["order"]["shipping_city"] }}, {{ $order_detail["order"]["shipping_state"] }} {{ $order_detail["order"]["shipping_zip_code"] }}<br/>
+                        {{ $order_detail["order"]["shipping_city"] }} {{ $order_detail["order"]["shipping_state"] }} {{ $order_detail["order"]["shipping_zip_code"] }}<br/>
                         {{ $order_detail["order"]["shipping_country"] }}<br/>
                     </td>
                     <td width="50%" align="left" valign="top">
                         {{ $order_detail["order"]["billing_name"] }}<br/>
                         {{ $order_detail["order"]["billing_address_1"] }}<br/>
                         {{ $order_detail["order"]["billing_address_2"] }}<br/>
-                        {{ $order_detail["order"]["billing_city"] }}, {{ $order_detail["order"]["billing_state"] }} {{ $order_detail["order"]["billing_zip_code"] }}<br/>
+                        {{ $order_detail["order"]["billing_city"] }} {{ $order_detail["order"]["billing_state"] }} {{ $order_detail["order"]["billing_zip_code"] }}<br/>
                         {{ $order_detail["order"]["billing_country"] }}<br/>
                     </td>
                 </tr>

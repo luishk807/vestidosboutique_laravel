@@ -20,11 +20,11 @@ $(document).ready(()=>{
                         orderShipAddress.append("<option value='"+element.id+"'>"+element.name+"</option>");
                     });
                }else{
+                var orderShipAddress = $("#addressProvince");
+                    orderShipAddress.empty();
                    $("#province-switch").addClass("hide");
                    $("#state-switch").removeClass('hide');
                    $("#city-switch").removeClass('hide');
-                   var orderShipAddress = $("#addressProvince");
-                    orderShipAddress.empty();
                }
            }
        }); 
