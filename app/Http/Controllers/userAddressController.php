@@ -40,17 +40,23 @@ class userAddressController extends Controller
         $data["address_1"]=$request->input("address_1");
         $data["address_2"]=$request->input("address_2");
         $data["city"]=$request->input("city");
+        $city = $request->input("city");
         $data["country_id"]=(int)$request->input("country");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
+        $data["state"]=$request->input("state");
         $data["address_type"]=(int)$request->input("address_type");
         $data["ip_address"]=$request->ip();
         $data["province"]=$request->input("province");
-        $province_id=$request->input("province");
-        $province=$this->provinces->find($province_id);
-        $data["state"]=!empty($province_id) ? $province->name : $request->input("state");
-        if($request->isMethod("post")){
-            $this->validate($request,[
+
+        $province_required=$request->input('province_required');
+        $province_id=null;
+        if($province_required=="true"){
+            $province_id=$request->input("province");
+            $province=$this->provinces->find($province_id);
+            $city=null;
+            $state=null;
+            $rules=[
                 "nick_name"=>"required",
                 "first_name"=>"required",
                 "last_name"=>"required",
@@ -58,8 +64,31 @@ class userAddressController extends Controller
                 "email"=>"required",
                 "address_1"=>"required",
                 "country"=>"required",
-                "address_type"=>"required"
-            ]);
+                "zip_code"=>"required"
+            ];
+        }else{
+            $city=$request->input("city");
+            $state=$request->input("state");
+            $rules=[
+                "nick_name"=>"required",
+                "first_name"=>"required",
+                "last_name"=>"required",
+                "phone_number_1"=>"required",
+                "email"=>"required",
+                "address_1"=>"required",
+                "country"=>"required",
+                "zip_code"=>"required",
+                "address_type"=>"required",
+                "city"=>"required",
+                "state"=>"required"
+            ];
+        }
+        $data["state"] = $state;
+        $data["city"] = $city;
+        $data["province"] = $province_id;
+
+        if($request->isMethod("post")){
+            $this->validate($request,$rules);
             $data["status"]=1;
             $data["created_at"]=carbon::now();
             $this->addresses->insert($data);
@@ -69,6 +98,7 @@ class userAddressController extends Controller
         $data["user"]=$user;
         $data["addresstypes"]=$this->addresstypes->all();
         $data["country"]=$request->input("country");
+        $data["province_required"]=$province_required;
         $data["page_title"]=__('general.user_section.create_address');
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();
@@ -87,24 +117,52 @@ class userAddressController extends Controller
         $data["email"]=$request->input("email");
         $data["address_1"]=$request->input("address_1");
         $data["address_2"]=$request->input("address_2");
-        $data["city"]=$request->input("city");
-        $data["province"]=$request->input("province");
-        $province_id=$request->input("province");
-        $province=$this->provinces->find($province_id);
-        $data["state"]=!empty($province_id) ? $province->name : $request->input("state");
-        $data["zip_code"]=$request->input("zip_code");
-        $address = $this->addresses->find($address_id);
-        $user_id = $address->user_id;
-        if($request->isMethod("post")){
-            $this->validate($request,[
+
+        $province=$this->provinces->find($request->input("province"));
+        $province_required=$request->input("province_required");
+        
+        $province_id=null;
+        if($province_required=="true"){
+            $province_id=$request->input("province");
+            $province=$this->provinces->find($province_id);
+            $city=null;
+            $state=null;
+            $rules=[
                 "nick_name"=>"required",
                 "first_name"=>"required",
                 "last_name"=>"required",
                 "phone_number_1"=>"required",
                 "email"=>"required",
                 "address_1"=>"required",
-                "country"=>"required"
-            ]);
+                "country"=>"required",
+                "zip_code"=>"required"
+            ];
+        }else{
+            $city=$request->input("city");
+            $state=$request->input("state");
+            $rules=[
+                "nick_name"=>"required",
+                "first_name"=>"required",
+                "last_name"=>"required",
+                "phone_number_1"=>"required",
+                "email"=>"required",
+                "address_1"=>"required",
+                "country"=>"required",
+                "zip_code"=>"required",
+                "city"=>"required",
+                "state"=>"required"
+            ];
+        }
+        $data["state"] = $state;
+        $data["city"] = $city;
+        $data["province"] = $province_id;
+        
+        $data["zip_code"]=$request->input("zip_code");
+        $address = $this->addresses->find($address_id);
+        $user_id = $address->user_id;
+
+        if($request->isMethod("post")){
+            $this->validate($request,$rules);
             $address->nick_name = $request->input("nick_name");
             $address->first_name = $request->input("first_name");
             $address->address_type = $request->input("address_type");
@@ -114,9 +172,10 @@ class userAddressController extends Controller
             $address->email = $request->input("email");
             $address->address_1 = $request->input("address_1");
             $address->address_2 = $request->input("address_2");
-            $address->city = $request->input("city");
+            $address->city = $city;
+            $address->province=$province_id;
+            $address->state = $state;
             $address->country_id = (int)$request->input("country");
-            $address->state = $request->input("state");
             $address->zip_code = $request->input("zip_code");
             $address->updated_at = carbon::now();
             $address->save();
@@ -126,6 +185,7 @@ class userAddressController extends Controller
         $data["user"]=$user;
         $data["user_id"]=$user_id;
         $data["country"]=$request->input("country");
+        $data["province_required"]=$province_required;
         $data["provinces"]=$this->provinces->all();
         $data["addresstypes"]=$this->addresstypes->all();
         $data["address"]=$address;

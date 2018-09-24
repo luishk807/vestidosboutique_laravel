@@ -93,6 +93,7 @@ class userPaymentController extends Controller
         $has_address = $user->getAddresses->first() ? true : false; 
         $rule=[];
         $data=[];
+        $province_required=$request->input('province_required');
         if($has_address){
             $this->validate($request,[
                 "shipping_address"=>"required",
@@ -106,14 +107,16 @@ class userPaymentController extends Controller
             $shipping_name .= " ".$shipping->last_name;
             $shipping_country = $this->country->find($shipping->country_id);
             $shipping_province = $this->provinces->find($shipping->province);
+            $shipping_province_id=$shipping->province;
+            $shipping_province_name = $shipping->name;
             $cart_data = array(
                 "shipping_name"=>$shipping_name,
                 "shipping_address_1"=>$shipping->address_1,
                 "shipping_address_2"=>$shipping->address_2,
                 "shipping_city"=>$shipping->city,
                 "shipping_state"=>$shipping->state,
-                "shipping_province_id"=>$shipping_province->id,
-                "shipping_province"=>$shipping_province->name,
+                "shipping_province_id"=>$shipping_province_id,
+                "shipping_province"=>$shipping_province_name,
                 "shipping_country_id"=>$shipping_country->id,
                 "shipping_country"=>$shipping_country->countryCode,
                 "shipping_zip_code"=>$shipping->zip_code,
@@ -124,25 +127,49 @@ class userPaymentController extends Controller
             );
         }
         else{
-            $this->validate($request,[
-                "shipping_name"=>"required",
-                "shipping_address_1"=>"required",
-                "country"=>"required",
-                "zip_code"=>"required",
-                "shipping_phone_number_1"=>"required",
-                "shipping_email"=>"required",
-                "shipping_method"=>"required"
-            ]);
+
+            $data["province_required"]=$province_required;
+            $province_id=null;
+            $province_name=null;
+            if($province_required=="true"){
+                $province_id=$request->input("province");
+                $province=$this->provinces->find($province_id);
+                $province_name = $province->name;
+                $city=null;
+                $state=null;
+                $rules=[
+                    "shipping_name"=>"required",
+                    "shipping_address_1"=>"required",
+                    "country"=>"required",
+                    "zip_code"=>"required",
+                    "shipping_phone_number_1"=>"required",
+                    "shipping_email"=>"required",
+                    "shipping_method"=>"required",
+                ];
+            }else{
+                $city=$request->input("city");
+                $state=$request->input("state");
+                $rules=[
+                    "shipping_name"=>"required",
+                    "shipping_address_1"=>"required",
+                    "country"=>"required",
+                    "zip_code"=>"required",
+                    "shipping_phone_number_1"=>"required",
+                    "shipping_email"=>"required",
+                    "shipping_method"=>"required",
+                    "city"=>"required",
+                    "state"=>"required"
+                ];
+            }
+            $data["state"] = $state;
+            $data["city"] = $city;
+            $data["province"] = $province_id;
+
+
+            $this->validate($request,$rules);
             $data["shipping_name"]=$request->input("shipping_name");
             $data["shipping_address_1"]=$request->input("shipping_address_1");
             $data["shipping_address_2"]=$request->input("shipping_address_2");
-            $data["city"]=$request->input("city");
-
-            $data["province"]=$request->input("province");
-            $province_id=$request->input("province");
-            $shipping_province=$this->provinces->find($province_id);
-            $state=!empty($province_id) ? $shipping_province->name : $request->input("state");
-            $data["state"] = $state;
             $data["country"]=$request->input("country");
             $data["zip_code"]=$request->input("zip_code");
             $data["shipping_phone_number_1"]=$request->input("shipping_phone_number_1");
@@ -154,9 +181,9 @@ class userPaymentController extends Controller
                 "shipping_name"=>$request->input("shipping_name"),
                 "shipping_address_1"=>$request->input("shipping_address_1"),
                 "shipping_address_2"=>$request->input("shipping_address_2"),
-                "shipping_city"=>$request->input("city"),
-                "shipping_province_id"=>$shipping_province->id,
-                "shipping_province"=>$shipping_province->name,
+                "shipping_city"=>$city,
+                "shipping_province_id"=>$province_id,
+                "shipping_province"=>$province_name,
                 "shipping_state"=>$state,
                 "shipping_country_id"=>$shipping_country->id,
                 "shipping_country"=>$shipping_country->countryCode,
@@ -210,6 +237,7 @@ class userPaymentController extends Controller
                 'required' => __('general.empty_msg.cart')
             ]);
         }
+        $province_required=$request->input('province_required');
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $has_address = $user->getAddresses->first() ? true : false; 
@@ -230,7 +258,10 @@ class userPaymentController extends Controller
 
 
         $shipping_list = $this->shipping_lists->find($cart_address["shipping_method"]);
-
+        $province_id=null;
+        $province_name=null;
+        $city=null;
+        $state=null;
         if($has_address){
             $this->validate($request,[
                 "billing_address"=>"required"
@@ -250,11 +281,15 @@ class userPaymentController extends Controller
             $billing_country = $this->country->find($billing->country_id);
             $billing_country_id = $billing_country->id;
             $billing_province = $this->provinces->find($billing->province);
+            $province_id = $billing->province;
+            $province_name = $billing->province ? $billing_province->name : null;
+            $city=$billing->city;
+            $state=$billing->state;
             $data["billing_name"]=$billing_name;
             $data["billing_address_1"]=$billing->address_1;
             $data["billing_address_2"]=$billing->address_2;
             $data["billing_city"]=$billing->city;
-            $data["billing_province"]=$billing_province->name;
+            $data["billing_province"]=$province_name;
             $data["billing_state"]=$billing->state;
             $data["billing_country"]=$billing_country->id;
             $data["billing_zip_code"]=$billing->zip_code;
@@ -263,28 +298,50 @@ class userPaymentController extends Controller
             $data["billing_email"]=$billing->email;
         
         }else{
-            $this->validate($request,[
-                "billing_name"=>"required",
-                "billing_address_1"=>"required",
-                "country"=>"required",
-                "zip_code"=>"required",
-                "billing_phone_number_1"=>"required",
-                "billing_email"=>"required"
-            ]);
+
+            if($province_required=="true"){
+                $province_id=$request->input("province");
+                $province=$this->provinces->find($province_id);
+                $province_name = $province_id ? $province->name : null;
+                $rules=[
+                    "billing_name"=>"required",
+                    "billing_address_1"=>"required",
+                    "country"=>"required",
+                    "zip_code"=>"required",
+                    "billing_phone_number_1"=>"required",
+                    "billing_email"=>"required",
+                ];
+            }else{
+                $city=$request->input("city");
+                $state=$request->input("state");
+                $rules=[
+                    "billing_name"=>"required",
+                    "billing_address_1"=>"required",
+                    "country"=>"required",
+                    "zip_code"=>"required",
+                    "billing_phone_number_1"=>"required",
+                    "billing_email"=>"required",
+                    "city"=>"required",
+                    "state"=>"required"
+                ];
+            }
+            $data["state"] = $state;
+            $data["city"] = $city;
+            $data["province"] = $province_id;
+
+
+            $this->validate($request,$rules);
 
             $billing_name = $request->input("billing_name");
             $billing_country = $this->country->find($request->input("country"));
             $billing_country_id = $billing_country->id;
-            $billing_province = $this->provinces->find($request->input("province"));
-
-            $state=!empty($request->input("province")) ? $billing_province->name : $request->input("state");
 
             $data["billing_name"]=$billing_name;
             $data["billing_address_1"]=$request->input("billing_address_1");
             $data["billing_address_2"]=$request->input("billing_address_2");
-            $data["billing_city"]=$request->input("city");
+            $data["billing_city"]=$city;
             $data["billing_state"]=$state;
-            $data["billing_province"]=$billing_province->name;
+            $data["billing_province"]=$province_name;
             $data["billing_country"]=$billing_country->id;
             $data["billing_zip_code"]=$request->input("zip_code");
             $data["billing_phone_number_1"]=$request->input("billing_phone_number_1");
@@ -337,7 +394,7 @@ class userPaymentController extends Controller
         $data["categories"]=$this->categories->all();
         $data["countries"]=$this->country->all();
         $data["checkout_menus"]=$this->checkout_menus;
-
+        $data["province_required"]=$province_required;
         if(!empty($order->id)){
             for($i=0;$i<sizeof($cart);$i++){
                 $data_products[] = array(
@@ -411,7 +468,6 @@ class userPaymentController extends Controller
                         $ds_country = $this->country->find($cart_address["shipping_country_id"]);
                         $db_country = $this->country->find($billing_country_id);
                         $ds_province = $cart_address["shipping_province"];
-                        $db_province = $billing_province->name;
                         $order_detail=[
                             "user"=>$this->users->find($user_id),
                             "order"=>array(                        
@@ -428,17 +484,17 @@ class userPaymentController extends Controller
                                 "shipping_phone_number_1"=>$cart_address["shipping_phone_number_1"],
                                 "shipping_phone_number_2"=>$cart_address["shipping_phone_number_2"],
                                 "shipping_email"=>$cart_address["shipping_email"],
-                                "billing_name"=>$request->input("billing_name"),
-                                "billing_address_1"=>$request->input("billing_address_1"),
-                                "billing_address_2"=>$request->input("billing_address_2"),
-                                "billing_city"=>$request->input("city"),
-                                "billing_province"=>$db_province,
-                                "billing_state"=>$db_province,
+                                "billing_name"=>$data["billing_name"],
+                                "billing_address_1"=>$data["billing_address_1"],
+                                "billing_address_2"=>$data["billing_address_2"],
+                                "billing_city"=>$city,
+                                "billing_province"=>$province_name,
+                                "billing_state"=>$state,
                                 "billing_country"=>$db_country->countryCode,
-                                "billing_zip_code"=>$request->input("zip_code"),
-                                "billing_phone_number_1"=>$request->input("billing_phone_number_1"),
-                                "billing_phone_number_2"=>$request->input("billing_phone_number_2"),
-                                "billing_email"=>$request->input("billing_email"),
+                                "billing_zip_code"=>$data["billing_zip_code"],
+                                "billing_phone_number_1"=>$data["billing_phone_number_1"],
+                                "billing_phone_number_2"=>$data["billing_phone_number_2"],
+                                "billing_email"=>$data["billing_email"],
                                 "products"=>$data_products_email,
                                 "order_total"=>$total,
                                 "order_tax"=>$tax,

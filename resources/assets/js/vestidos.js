@@ -1,4 +1,37 @@
 $(document).ready(function() {
+    /*********country province section ********/
+    function switchStatesDrop(){
+        $.ajax({
+           type: "GET",
+           url: getLoadStatesUrl,
+           data: {
+               data:$("#addressCountry").val()
+           },
+           success: function(data) {
+                var addressProvince = $("#addressProvince");
+                addressProvince.empty();
+               if(data.length>0){
+                   $("#province_required").val("true");
+                   $("#province-switch").removeClass("hide");
+                   $("#state-switch").addClass('hide');
+                   $("#city-switch").addClass('hide');
+                   $("#addressCity").val("");
+                    $.each(data, function(index,element){
+                        addressProvince.append("<option value='"+element.id+"'>"+element.name+"</option>");
+                    });
+               }else{
+                   $("#province_required").val("false");
+                   $("#province-switch").addClass("hide");
+                   $("#state-switch").removeClass('hide');
+                   $("#city-switch").removeClass('hide');
+               }
+           }
+       }); 
+    }
+    $("#addressCountry").change(function(){
+        switchStatesDrop();
+   });
+   /***********END of country province ************/
     $("#main-body").fadeIn();
     var slideTimeout = null;
     function setSlider(){

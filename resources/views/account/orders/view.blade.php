@@ -38,7 +38,7 @@
                             <li class="view-order-header-info">
                                 {{$order->shipping_name}}<br/>
                                 {{$order->shipping_address_1}} {{$order->shipping_address_2}}<br/>
-                                {{$order->shipping_city}} {{$order->shipping_state}} {{$order->getShippingCountry->countryCode}} {{$order->shipping_zip_code}}<br/>
+                                {{$order->shipping_city}} {{$order->shipping_state}} {{$order->shipping_province}} {{$order->getShippingCountry->countryCode}} {{$order->shipping_zip_code}}<br/>
                                 {{$order->shipping_phone_number_1}}<br/>
                                 {{$order->shipping_phone_number_2}}<br/>
                                 {{$order->shipping_email}}<br/>
@@ -51,7 +51,7 @@
                             <li class="view-order-header-info">
                                 {{$order->billing_name}}<br/>
                                 {{$order->billing_address_1}} {{$order->billing_address_2}}<br/>
-                                {{$order->billing_city}} {{$order->billing_state}} {{$order->getShippingCountry->countryCode}} {{$order->billing_zip_code}}<br/>
+                                {{$order->billing_city}} {{$order->billing_state}} {{$order->billing_province}} {{$order->getShippingCountry->countryCode}} {{$order->billing_zip_code}}<br/>
                                 {{$order->billing_phone_number_1}}<br/>
                                 {{$order->billing_phone_number_2}}<br/>
                                 {{$order->billing_email}}<br/>

@@ -67,13 +67,26 @@
                     @foreach($user->getAddresses as $address)
                     <tr>
                         <td>
-                           {{ $address->nick_name}}<br/>
+                           @if($address->nick_name)
+                           <strong>{{ $address->nick_name}}</strong><br/>
+                           @endif
                            {{ $address->first_name}} {{ $address->middle_name}} {{ $address->last_name}}<br/>
                            {{ $address->address_1}} {{ $address->address_2}}<br/>
-                           
-                           {{ $address->phone_number}}<br/>
+                           {{ $address->city}} {{ $address->state}}
+                           @if($address->getProvince)
+                           {{ $address->getProvince->name }}
+                           @endif
+                           {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
+                           <br/>
+                           @if($address->phone_number_1)
+                           {{ $address->phone_number_1}}<br/>
+                           @endif
+                           @if($address->phone_number_2)
+                           {{ $address->phone_number_2 }}<br/>
+                           @endif
+                           @if($address->email)
                            {{ $address->email}}<br/>
-                           {{ $address->city}} {{ $address->state}} {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
+                           @endif
                         </td>
                         <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">{{ __('buttons.edit') }}</a></td>
                     </tr>

@@ -14,6 +14,8 @@ $(document).ready(()=>{
                 <option value="{{ $province->id }}"
                 @if($province->id==$old('province'))   
                     selected=selected
+                @elseif($province->id==$address('province'))   
+                    selected=selected
                 @endif     
                 >{{$province->name}} </option>
             @endforeach
@@ -22,7 +24,7 @@ $(document).ready(()=>{
     </div>
     <div class="form-group col-md-6">
         <label for="addressZip">{{ __('general.form.zip') }}:</label>
-        <input type="text" id="addressZip" class="form-control" name="zip_code" value="{{ old('zip_code') }}" placeholder="{{ __('general.form.zip') }}"/>
+        <input type="text" id="addressZip" class="form-control" name="zip_code" value="{{ old('zip_code') ? old('zip_code') : $address->zip_code }}" placeholder="{{ __('general.form.zip') }}"/>
         <small class="error">{{$errors->first("zip_code")}}</small>
     </div>
     </div>
@@ -44,12 +46,12 @@ $(document).ready(()=>{
     <div class="form-row">
     <div class="form-group col-md-6" id="city-switch">
         <label for="addressCity">{{ __('general.form.city') }}:</label>
-        <input type="text" id="addressCity" class="form-control" name="city" value="{{ old('city') }}" placeholder="{{ __('general.form.city') }}"/>
+        <input type="text" id="addressCity" class="form-control" name="city" value="{{ old('city') ? old('city') : $address->city }}" placeholder="{{ __('general.form.city') }}"/>
         <small class="error">{{$errors->first("city")}}</small>
     </div>
     <div class="form-group col-md-6" id="state-switch">
         <label for="addressState">{{ __('general.form.state') }}:</label>
-        <input type="text" id="addressState" class="form-control" name="state" value="{{ old('state') }}" placeholder="{{ __('general.form.state') }}"/>
+        <input type="text" id="addressState" class="form-control" name="state" value="{{ old('state') ? old('state') : $address->state  }}" placeholder="{{ __('general.form.state') }}"/>
         <small class="error">{{$errors->first("state")}}</small>
     </div>
     
@@ -57,7 +59,11 @@ $(document).ready(()=>{
         <label for="addressProvince">{{ __('general.form.province') }}:</label>
         <select class="custom-select" name="province" id="addressProvince">
             @foreach($provinces as $province)
-                <option value="{{ $province->id }}">{{$province->name}} </option>
+                <option value="{{ $province->id }}"
+                @if($province->id == $address->province)
+                selected=selected
+                @endif    
+                >{{$province->name}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("province")}}</small>
@@ -65,7 +71,7 @@ $(document).ready(()=>{
 
     <div class="form-group col-md-6">
         <label for="addressZip">{{ __('general.form.zip') }}:</label>
-        <input type="text" id="addressZip" class="form-control" name="zip_code" value="{{ old('zip_code') }}" placeholder="{{ __('general.form.zip') }}"/>
+        <input type="text" id="addressZip" class="form-control" name="zip_code" value="{{ old('zip_code') ? old('zip_code') : $address->zip_code  }}" placeholder="{{ __('general.form.zip') }}"/>
         <small class="error">{{$errors->first("zip_code")}}</small>
     </div>
 
@@ -73,7 +79,11 @@ $(document).ready(()=>{
         <label for="addressCountry">{{ __('general.form.country') }}:</label>
         <select class="custom-select" name="country" id="addressCountry">
             @foreach($countries as $country)
-                <option value="{{ $country->id }}">{{$country->countryName}} </option>
+                <option value="{{ $country->id }}"
+                @if($country->id == $address->country_id)
+                selected=selected
+                @endif
+                >{{$country->countryName}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("country")}}</small>

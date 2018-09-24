@@ -18,7 +18,7 @@ class vestidosUserAddresses extends Model
         "address_2",
         "city",
         "state",
-        "country",
+        "country_id",
         "zip_code",
         "phone_number_1",
         "phone_number_2",
@@ -40,6 +40,9 @@ class vestidosUserAddresses extends Model
     }
     public function getCountry(){
         return $this->belongsTo('App\vestidosCountries',"country_id","id");
+    }
+    public function getProvince(){
+        return $this->belongsTo('App\vestidosProvinces',"province");
     }
     public function getAddressType(){
         return $this->belongsTo('App\vestidosAddressTypes',"address_type","id");

@@ -15,6 +15,9 @@
 .vesti-search-cont ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3)
 }
+.hide{
+  display:none;
+}
 .error{
   color:red;
 }
@@ -1075,7 +1078,41 @@ button.colors_cubes.selected{
 .cancel-container .row:last-child{
   margin-top:40px;
 }
+  //ACCOUNT PAGE
+  .vestidos-list-group-item{
+    display: block;
+}
+.vestidos-list-group-item:not(:first-child){
+    margin:5px 0px;
+}
+.no-top-border td,
+.no-top-border th{
+    border-top:none !important;
+}
+.vestidos-simple-link{
+    color:black;
+}
+.vestidos-simple-link:hover{
+    color:black;
+    text-decoration:none;
+}
+.vesti_in_btn_link{
 
+    border: $vesti-light-bars;
+    padding: 10px 0px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    @include transition(background-color 230ms)
+}
+.vesti_in_btn_link:hover{
+    background-color:#000;
+    color:white !important;
+    padding: 10px 0px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
 
 
 /* ACCOUNT ORDER */

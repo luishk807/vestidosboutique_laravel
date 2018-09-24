@@ -67,7 +67,7 @@
         <input type="text" id="addressAddress2" class="form-control" name="address_2" value="{{ old('address_2') ? old('address_2') : $address->address_2 }}" placeholder="{{ trans_choice('general.form.address',1) }} 2"/>
         <small class="error">{{$errors->first("address_2")}}</small>
     </div>
-    @include('includes.country_province')
+    @include('includes.country_province_edit')
     <div class="form-group">
         <label for="addressAddressType">{{ __('general.page_header.address_type') }}:</label>
         <select class="custom-select" name="address_type" id="addressAddressType">
