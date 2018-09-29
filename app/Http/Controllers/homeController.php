@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
 use App\vestidosCountries as vestidosCountries;
+use App\vestidosProvinces as Provinces;
+use App\vestidosDistricts as Districts;
+use App\vestidosCorregimientos as Corregimientos;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
 use App\vestidosProducts as Products;
@@ -34,7 +37,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders, Districts $districts, Provinces $provinces, Corregimientos $corregimientos)
     {
       $this->brands=$brands;
       $this->country=$countries;
@@ -45,6 +48,9 @@ class HomeController extends Controller
       $this->languages=$languages;
       $this->addresses=$addresses;
       $this->main_sliders = $main_sliders;
+      $this->districts = $districts;
+      $this->provinces = $provinces;
+      $this->corregimientos = $corregimientos;
     }
     public function index()
     {
@@ -197,5 +203,15 @@ class HomeController extends Controller
         $country_id=Input::get('data');
         $country = $this->country->find($country_id);
         return response()->json($country->provinces()->get());
+    }
+    public function loadDistrictsDrop(){
+        $province_id=Input::get('data');
+        $province = $this->provinces->find($province_id);
+        return response()->json($province->districts()->get());
+    }
+    public function loadCorregimientosDrop(){
+        $district_id=Input::get('data');
+        $district = $this->districts->find($district_id);
+        return response()->json($district->corregimientos()->get());
     }
 }

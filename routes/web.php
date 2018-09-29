@@ -394,6 +394,8 @@
         Route::get('api/getAddress','ordersController@getAddressDropdown');
         Route::get('api/getProduct','ordersController@getProductDropdown');
         Route::get("api/loadStates",'homeController@loadStatesDrop');
+        Route::get("api/loadDistricts",'homeController@loadDistrictsDrop');
+        Route::get("api/loadCorregimientos",'homeController@loadCorregimientosDrop');
    // });
    Auth::routes();
 //});
