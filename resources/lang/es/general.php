@@ -22,6 +22,8 @@ return [
         'telephone'=>"Teléfono",
         'address'=>"Dirección | Direcciones",
         'city'=>"Ciudad",
+        'district'=>"Distrito",
+        'corregimiento'=>"Corregimiento",
         'state'=>"Estado",
         'country'=>"País",
         'province'=>"Provincia",

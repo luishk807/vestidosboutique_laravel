@@ -73,10 +73,7 @@
                            {{ $address->first_name}} {{ $address->middle_name}} {{ $address->last_name}}<br/>
                            {{ $address->address_1}} {{ $address->address_2}}<br/>
                            {{ $address->city}} {{ $address->state}}
-                           @if($address->getProvince)
-                           {{ $address->getProvince->name }}
-                           @endif
-                           {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
+                           {{ $address->getProvince->name }} {{ $address->getDistrict->name }} {{ $address->getCorregimiento->name }}, {{ $address->getCountry->countryName }}
                            <br/>
                            @if($address->phone_number_1)
                            {{ $address->phone_number_1}}<br/>

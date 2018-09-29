@@ -67,7 +67,6 @@ $(document).ready(function() {
    switchStatesDrop()
 });
 </script>
-<input type="hidden" value="{{ old('province_required') }}" name="province_required" id="province_required"/>
     <div class="form-row">
     <div class="form-group col-md-6">
         <label for="addressProvince">{{ __('general.form.province') }}:</label>
@@ -84,13 +83,13 @@ $(document).ready(function() {
     </div>
     <div class="form-group col-md-6">
         <label for="addressDistrict">{{ __('general.form.district') }}:</label>
-        <select class="custom-select" name="province" id="addressDistrict">
+        <select class="custom-select" name="district" id="addressDistrict">
         </select>
         <small class="error">{{$errors->first("district")}}</small>
     </div>
     <div class="form-group col-md-6">
         <label for="addressCorregimiento">{{ __('general.form.corregimiento') }}:</label>
-        <select class="custom-select" name="province" id="addressCorregimiento">
+        <select class="custom-select" name="corregimiento" id="addressCorregimiento">
         </select>
         <small class="error">{{$errors->first("corregimiento")}}</small>
     </div>

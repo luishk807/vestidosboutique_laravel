@@ -64,7 +64,7 @@ $(document).ready(function() {
         switchCorregimientosDrop();
    });
    /***END OF COUNTRY */
-   switchStatesDrop()
+  // switchStatesDrop()
 });
 </script>
     <div class="form-row">
@@ -73,9 +73,7 @@ $(document).ready(function() {
         <select class="custom-select" name="province" id="addressProvince">
             @foreach($provinces as $province)
                 <option value="{{ $province->id }}"
-                @if($province->id==$old('province'))   
-                    selected=selected
-                @elseif($province->id==$address('province'))   
+                @if($province->id==$address->province_id)   
                     selected=selected
                 @endif     
                 >{{$province->name}} </option>
@@ -85,13 +83,27 @@ $(document).ready(function() {
     </div>
     <div class="form-group col-md-6">
         <label for="addressDistrict">{{ __('general.form.district') }}:</label>
-        <select class="custom-select" name="province" id="addressDistrict">
+        <select class="custom-select" name="district" id="addressDistrict">
+            @foreach($districts as $district)
+                <option value="{{ $district->id }}"
+                @if($district->id==$address->district_id)   
+                    selected=selected
+                @endif     
+                >{{$district->name}} </option>
+            @endforeach
         </select>
         <small class="error">{{$errors->first("district")}}</small>
     </div>
     <div class="form-group col-md-6">
         <label for="addressCorregimiento">{{ __('general.form.corregimiento') }}:</label>
-        <select class="custom-select" name="province" id="addressCorregimiento">
+        <select class="custom-select" name="corregimiento" id="addressCorregimiento">
+            @foreach($corregimientos as $corregimiento)
+                <option value="{{ $corregimiento->id }}"
+                @if($corregimiento->id==$address->corregimiento_id)   
+                    selected=selected
+                @endif     
+                >{{$corregimiento->name}}</option>
+            @endforeach
         </select>
         <small class="error">{{$errors->first("corregimiento")}}</small>
     </div>

@@ -23,6 +23,8 @@ return [
         'state'=>"State",
         'country'=>"Country",
         'province'=>"Province",
+        'district'=>"District",
+        'corregimiento'=>"Corregimiento",
         'zip'=>"Postal Code",
         'password'=>'Password',
         'question'=>"Question",
