@@ -24,8 +24,6 @@ class CreateOrderAdddresses extends Migration
             $table->string('last_name');
             $table->string('address_1');
             $table->string('address_2')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
             $table->string('province')->nullable();
             $table->string('corregimiento')->nullable();
             $table->string('district')->nullable();

@@ -24,8 +24,6 @@ class CreateVestidosUserAddress extends Migration
             $table->string('last_name');
             $table->string('address_1');
             $table->string('address_2')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
             $table->integer('province_id')->unsigned()->nullable();
             $table->foreign("province_id")->references("id")->on("vestidos_provinces");
             $table->integer('corregimiento_id')->unsigned()->nullable();
