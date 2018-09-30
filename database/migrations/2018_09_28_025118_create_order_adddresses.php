@@ -19,9 +19,7 @@ class CreateOrderAdddresses extends Migration
             $table->foreign("order_id")->references("id")->on("vestidos_orders")->onDelete("cascade");
             $table->integer('address_type')->unsigned()->nullable();
             $table->foreign("address_type")->references("id")->on("vestidos_address_types")->onDelete("set null");
-            $table->string('first_name');
-            $table->string('middle_name')->nullable();
-            $table->string('last_name');
+            $table->string('name');
             $table->string('address_1');
             $table->string('address_2')->nullable();
             $table->string('province')->nullable();

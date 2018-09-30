@@ -409,27 +409,29 @@ class ordersController extends Controller
             $data["user_id"]=$cart["user_id"];
             $data["order_number"]=$order_number;
             $data["purchase_date"]=$today;
-            $data["shipping_name"]=$cart["shipping_name"];
-            $data["shipping_address_1"]=$cart["shipping_address_1"];
-            $data["shipping_address_2"]=$cart["shipping_address_2"];
-            $data["shipping_city"]=$cart["shipping_city"];
-            $data["shipping_state"]=$cart["shipping_state"];
-            $data["shipping_country"]=$cart["shipping_country"];
-            $data["shipping_zip_code"]=$cart["shipping_zip_code"];
-            $data["shipping_phone_number_1"]=$cart["shipping_phone_number_1"];
-            $data["shipping_phone_number_2"]=$cart["shipping_phone_number_2"];
-            $data["shipping_email"]=$cart["shipping_email"];
+            $data_shipping["name"]=$cart["shipping_name"];
+            $data_shipping["address_1"]=$cart["shipping_address_1"];
+            $data_shipping["address_2"]=$cart["shipping_address_2"];
+            $data_shipping["city"]=$cart["shipping_city"];
+            $data_shipping["state"]=$cart["shipping_state"];
+            $data_shipping["country"]=$cart["shipping_country"];
+            $data_shipping["zip_code"]=$cart["shipping_zip_code"];
+            $data_shipping["phone_number_1"]=$cart["shipping_phone_number_1"];
+            $data_shipping["phone_number_2"]=$cart["shipping_phone_number_2"];
+            $data_shipping["email"]=$cart["shipping_email"];
+            $data_shipping["address_type"]=1;
 
-            $data["billing_name"]=$cart["billing_name"];
-            $data["billing_address_1"]=$cart["billing_address_1"];
-            $data["billing_address_2"]=$cart["billing_address_2"];
-            $data["billing_city"]=$cart["billing_city"];
-            $data["billing_state"]=$cart["billing_state"];
-            $data["billing_country"]=$cart["billing_country"];
-            $data["billing_zip_code"]=$cart["billing_zip_code"];
-            $data["billing_phone_number_1"]=$cart["billing_phone_number_1"];
-            $data["billing_phone_number_2"]=$cart["billing_phone_number_2"];
-            $data["billing_email"]=$cart["billing_email"];
+            $data_billing["name"]=$cart["billing_name"];
+            $data_billing["address_1"]=$cart["billing_address_1"];
+            $data_billing["address_2"]=$cart["billing_address_2"];
+            $data_billing["city"]=$cart["billing_city"];
+            $data_billing["state"]=$cart["billing_state"];
+            $data_billing["country"]=$cart["billing_country"];
+            $data_billing["zip_code"]=$cart["billing_zip_code"];
+            $data_billing["phone_number_1"]=$cart["billing_phone_number_1"];
+            $data_billing["phone_number_2"]=$cart["billing_phone_number_2"];
+            $data_billing["email"]=$cart["billing_email"];
+            $data_billing["address_type"]=2;
 
 
             $data["transaction_id"]=$status->transaction->id;
@@ -448,6 +450,11 @@ class ordersController extends Controller
             
             // $data["products"]=$cart_p;
             $order = Orders::create($data);
+            //save addresese
+            $data_shipping["order_id"]=$order->id;
+            $data_billing["order_id"]=$order->id;
+            $this->order_addresses->insert($data_shipping);
+            $this->order_addresses->insert($data_billing);
             
             //SAVE PAYMENT HISTORIES
             $new_payment=[];
