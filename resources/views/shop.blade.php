@@ -5,7 +5,7 @@
     <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
     <div class="row">
         <div class="col container-in-center">
-            <div class="container-fluid container-in-space">
+            <div class="container container-in-space">
                {{-- <div class="row">
                     <div class="col-md-3" id="mobile-sort-nav"><!--mobile search-->
                         <!--hiding mobile menu-->
