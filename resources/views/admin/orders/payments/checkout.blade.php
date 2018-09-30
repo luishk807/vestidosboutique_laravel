@@ -61,7 +61,7 @@
                 <p>
                     {{ $shipping_name }}<br/>
                     {{ $shipping_address_1 }} {{ $shipping_address_2 }}<br/>
-                    {{ $shipping_city }} {{ $shipping_state }} {{ $shipping_country_name }}, {{ $shipping_zip_code }}<br/>
+                    {{ $shipping_province }} {{ $shipping_district }}  {{ $shipping_corregimiento }} {{ $shipping_country_name }}, {{ $shipping_zip_code }}<br/>
                     {{ $shipping_email }}<br/>
                     {{ $shipping_phone_number_1 }}<br/>
                     {{ $shipping_phone_number_2 }}
@@ -72,7 +72,7 @@
                 <p>
                     {{ $billing_name }}<br/>
                     {{ $billing_address_1 }} {{ $billing_address_2 }}<br/>
-                    {{ $billing_city }} {{ $billing_state }} {{ $billing_country_name }}, {{ $billing_zip_code }}<br/>
+                    {{ $billing_province }} {{ $billing_district }}  {{ $billing_corregimiento }}{{ $billing_country_name }}, {{ $billing_zip_code }}<br/>
                     {{ $billing_email }}<br/>
                     {{ $billing_phone_number_1 }}<br/>
                     {{ $billing_phone_number_2 }}

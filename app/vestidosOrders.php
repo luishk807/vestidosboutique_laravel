@@ -47,17 +47,29 @@ class vestidosOrders extends Model
         return $this->hasMany('App\vestidosOrderAddresses','order_id');
     }
     public function getOrderShippingAddress(){
-        $address = DB::table('vestidosOrderAddress')
-                   ->select("vestidosOrderAddress.*")
-                   ->where("address_type",1)
+        $address = DB::table('vestidos_order_addresses')
+                   ->select("vestidos_order_addresses.*", "vestidos_provinces.name as province_name","vestidos_districts.name as district_name",
+                   "vestidos_corregimientos.name as corregimiento_name", "vestidos_countries.countryCode as country_name")
+                   ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province")
+                   ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district")
+                   ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento")
+                   ->join("vestidos_countries","vestidos_countries.id","vestidos_order_addresses.country")
+                   ->where("vestidos_order_addresses.address_type",1)
+                   ->where("order_id",$this->getKey())
                    ->get();
-        return $address;
+        return $address->toArray();
     }
     public function getOrderBillingAddress(){
-        $address = DB::table('vestidosOrderAddress')
-                   ->select("vestidosOrderAddress.*")
-                   ->where("address_type",2)
+        $address = DB::table('vestidos_order_addresses')
+                    ->select("vestidos_order_addresses.*", "vestidos_provinces.name as province_name","vestidos_districts.name as district_name",
+                    "vestidos_corregimientos.name as corregimiento_name", "vestidos_countries.countryCode as country_name")
+                    ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province")
+                    ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district")
+                    ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento")
+                    ->join("vestidos_countries","vestidos_countries.id","vestidos_order_addresses.country")
+                   ->where("vestidos_order_addresses.address_type",2)
+                   ->where("order_id",$this->getKey())
                    ->get();
-        return $address;
+        return $address->toArray();
     }
 }

@@ -19,6 +19,7 @@ use App\vestidosSizes as Sizes;
 use App\vestidosColors as Colors;
 use App\vestidosPaymentHistories as PaymentHistories;
 use App\vestidosAddressTypes as AddressTypes;
+use App\vestidosOrderAddresses as OrderAddresses;
 use App\vestidosTaxInfos as Tax;
 use Braintree_Transaction;
 use Mail;
@@ -28,7 +29,7 @@ use Session;
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -40,6 +41,7 @@ class ordersController extends Controller
         $this->products=$products;
         $this->addresses=$addresses;
         $this->colors=$colors;
+        $this->order_addresses = $orderaddresses;
         $this->sizes=$sizes;
         $this->tax_info = $tax->find(1);
         $this->address_types = $address_types;
@@ -154,8 +156,12 @@ class ordersController extends Controller
                     $data["shipping_name"]=$user_address->getFullName();
                     $data["shipping_address_1"]=$user_address->address_1;
                     $data["shipping_address_2"]=$user_address->address_2;
-                    $data["shipping_city"]=$user_address->city;
-                    $data["shipping_state"]=$user_address->state;
+                    $data["shipping_province_id"]=$user_address->province_id;
+                    $data["shipping_province"]=$user_address->getProvince->name;
+                    $data["shipping_district_id"]=$user_address->district_id;
+                    $data["shipping_district"]=$user_address->getDistrict->name;
+                    $data["shipping_corregimiento_id"]=$user_address->corregimiento_id;
+                    $data["shipping_corregimiento"]=$user_address->getCorregimiento->name;
                     $data["shipping_country"]=$user_address->country_id;
                     $data["shipping_country_name"] = $country->countryCode;
                     $data["shipping_zip_code"]=$user_address->zip_code;
@@ -167,8 +173,12 @@ class ordersController extends Controller
                     $data["shipping_name"]=$address["name"];
                     $data["shipping_address_1"]=$address["address_1"];
                     $data["shipping_address_2"]=$address["address_2"];
-                    $data["shipping_city"]=$address["city"];
-                    $data["shipping_state"]=$address["state"];
+                    $data["shipping_province_id"]=$user_address->province_id;
+                    $data["shipping_province"]=$user_address->getProvince->name;
+                    $data["shipping_district_id"]=$user_address->district_id;
+                    $data["shipping_district"]=$user_address->getDistrict->name;
+                    $data["shipping_corregimiento_id"]=$user_address->corregimiento_id;
+                    $data["shipping_corregimiento"]=$user_address->getCorregimiento->name;
                     $data["shipping_country"]=$address["country"];
                     $data["shipping_country_name"] = $country->countryCode;
                     $data["shipping_zip_code"]=$address["zip_code"];
@@ -184,8 +194,12 @@ class ordersController extends Controller
                     $data["billing_name"]=$user_address->getFullName();
                     $data["billing_address_1"]=$user_address->address_1;
                     $data["billing_address_2"]=$user_address->address_2;
-                    $data["billing_city"]=$user_address->city;
-                    $data["billing_state"]=$user_address->state;
+                    $data["billing_province_id"]=$user_address->province_id;
+                    $data["billing_province"]=$user_address->getProvince->name;
+                    $data["billing_district_id"]=$user_address->district_id;
+                    $data["billing_district"]=$user_address->getDistrict->name;
+                    $data["billing_corregimiento_id"]=$user_address->corregimiento_id;
+                    $data["billing_corregimiento"]=$user_address->getCorregimiento->name;
                     $data["billing_country"]=$user_address->country_id;
                     $data["billing_country_name"] = $country->countryCode;
                     $data["billing_zip_code"]=$user_address->zip_code;
@@ -197,8 +211,12 @@ class ordersController extends Controller
                     $data["billing_name"]=$address["name"];
                     $data["billing_address_1"]=$address["address_1"];
                     $data["billing_address_2"]=$address["address_2"];
-                    $data["billing_city"]=$address["city"];
-                    $data["billing_state"]=$address["state"];
+                    $data["billing_province_id"]=$user_address->province_id;
+                    $data["billing_province"]=$user_address->getProvince->name;
+                    $data["billing_district_id"]=$user_address->district_id;
+                    $data["billing_district"]=$user_address->getDistrict->name;
+                    $data["billing_corregimiento_id"]=$user_address->corregimiento_id;
+                    $data["billing_corregimiento"]=$user_address->getCorregimiento->name;
                     $data["billing_country"]=$address["country"];
                     $data["billing_country_name"] = $country->countryCode;
                     $data["billing_zip_code"]=$address["zip_code"];
@@ -235,8 +253,9 @@ class ordersController extends Controller
         $data["address_phone_number_2"]=$request->input("address_phone_number_2");
         $data["address_address_1"]=$request->input("address_address_1");
         $data["address_address_2"]=$request->input("address_address_2");
-        $data["address_city"]=$request->input("address_city");
-        $data["address_state"]=$request->input("address_phone_state");
+        $data["address_province"]=$request->input("address_province");
+        $data["address_district"]=$request->input("address_district");
+        $data["address_corregimiento"]=$request->input("address_corregimiento");
         $data["address_country"]=$request->input("address_country");
         $data["address_zip_code"]=$request->input("address_zip_code");
         if($address_type_id==1){
@@ -246,7 +265,7 @@ class ordersController extends Controller
             $data["order_address_phone_number_2"]=$order->shipping_phone_number_2;
             $data["order_address_address_1"]=$order->shipping_address_1;
             $data["order_address_address_2"]=$order->shipping_address_2;
-            $data["order_address_city"]=$order->shipping_city;
+            $data["order_address_province"]=$order->shipping_city;
             $data["order_address_state"]=$order->shipping_state;
             $data["order_address_country"]=$order->shipping_country;
             $data["order_address_zip_code"]=$order->shipping_zip_code;
@@ -271,8 +290,9 @@ class ordersController extends Controller
             "address_email"=>"required",
             "address_phone_number_1"=>"required",
             "address_address_1"=>"required",
-            "address_city"=>"required",
-            "address_state"=>"required",
+            "address_province"=>"required",
+            "address_district"=>"required",
+            "address_corregimiento"=>"required",
             "address_country"=>"required",
             "address_zip_code"=>"required"
         ]);
@@ -285,29 +305,33 @@ class ordersController extends Controller
         $data["page_title"]= __('general.order_section.edit_order_address',["name"=>$address_var]);
 
         if($address_type_id==1){
-            $order->shipping_name=$request->input("address_name");
-            $order->shipping_email=$request->input("address_email");
-            $order->shipping_phone_number_1=$request->input("address_phone_number_1");
-            $order->shipping_phone_number_2=$request->input("address_phone_number_2");
-            $order->shipping_address_1=$request->input("address_address_1");
-            $order->shipping_address_2=$request->input("address_address_2");
-            $order->shipping_city=$request->input("address_city");
-            $order->shipping_state=$request->input("address_state");
-            $order->shipping_country=$request->input("address_country");
-            $order->shipping_zip_code=$request->input("address_zip_code");
+            $order_address = $this->order_addresses->where("order_id",$order->id)->where("address_type",1)->get();
+            $order_address->name=$request->input("address_name");
+            $order_address->email=$request->input("address_email");
+            $order_address->phone_number_1=$request->input("address_phone_number_1");
+            $order_address->phone_number_2=$request->input("address_phone_number_2");
+            $order_address->address_1=$request->input("address_address_1");
+            $order_address->address_2=$request->input("address_address_2");
+            $order_address->province=$request->input("address_province");
+            $order_address->district=$request->input("address_district");
+            $order_address->corregimiento=$request->input("address_corregimiento");
+            $order_address->country=$request->input("address_country");
+            $order_address->zip_code=$request->input("address_zip_code");
         }else if($address_type_id==2){
-            $order->billing_name=$request->input("address_name");
-            $order->billing_email=$request->input("address_email");
-            $order->billing_phone_number_1=$request->input("address_phone_number_1");
-            $order->billing_phone_number_2=$request->input("address_phone_number_2");
-            $order->billing_address_1=$request->input("address_address_1");
-            $order->billing_address_2=$request->input("address_address_2");
-            $order->billing_city=$request->input("address_city");
-            $order->billing_state=$request->input("address_state");
-            $order->billing_country=$request->input("address_country");
-            $order->billing_zip_code=$request->input("address_zip_code");
+            $order_address = $this->order_addresses->where("order_id",$order->id)->where("address_type",2)->get();
+            $order_address->name=$request->input("address_name");
+            $order_address->email=$request->input("address_email");
+            $order_address->phone_number_1=$request->input("address_phone_number_1");
+            $order_address->phone_number_2=$request->input("address_phone_number_2");
+            $order_address->address_1=$request->input("address_address_1");
+            $order_address->address_2=$request->input("address_address_2");
+            $order_address->province=$request->input("address_province");
+            $order_address->district=$request->input("address_district");
+            $order_address->corregimiento=$request->input("address_corregimiento");
+            $order_address->country=$request->input("address_country");
+            $order_address->zip_code=$request->input("address_zip_code");
         }
-        if($order->save()){
+        if($order_address->save()){
             return redirect()->route("admin_edit_order",["order_id"=>$order_id])->with("success",__('general.order_section.address_saved'));
         }
         return redirect()->back()->withErrors([
@@ -412,8 +436,9 @@ class ordersController extends Controller
             $data_shipping["name"]=$cart["shipping_name"];
             $data_shipping["address_1"]=$cart["shipping_address_1"];
             $data_shipping["address_2"]=$cart["shipping_address_2"];
-            $data_shipping["city"]=$cart["shipping_city"];
-            $data_shipping["state"]=$cart["shipping_state"];
+            $data_shipping["province"]=$cart["shipping_province"];
+            $data_shipping["district"]=$cart["shipping_district"];
+            $data_shipping["corregimiento"]=$cart["shipping_corregimiento"];
             $data_shipping["country"]=$cart["shipping_country"];
             $data_shipping["zip_code"]=$cart["shipping_zip_code"];
             $data_shipping["phone_number_1"]=$cart["shipping_phone_number_1"];
@@ -424,8 +449,9 @@ class ordersController extends Controller
             $data_billing["name"]=$cart["billing_name"];
             $data_billing["address_1"]=$cart["billing_address_1"];
             $data_billing["address_2"]=$cart["billing_address_2"];
-            $data_billing["city"]=$cart["billing_city"];
-            $data_billing["state"]=$cart["billing_state"];
+            $data_billing["province"]=$cart["billing_province"];
+            $data_billing["district"]=$cart["billing_district"];
+            $data_billing["corregimiento"]=$cart["billing_corregimiento"];
             $data_billing["country"]=$cart["billing_country"];
             $data_billing["zip_code"]=$cart["billing_zip_code"];
             $data_billing["phone_number_1"]=$cart["billing_phone_number_1"];
@@ -581,6 +607,7 @@ class ordersController extends Controller
         return redirect()->route("admin_orders")->with('success',__('general.order_section.cancel_success'));
     }
     public function sendEmail($order_id){
+        echo $order_id;
         $order=$this->orders->find($order_id);
         $user_id = $order->user_id;
         $today = carbon::now();
@@ -600,39 +627,44 @@ class ordersController extends Controller
                 "id"=>$product_detail->id
             );
         }
-        $order_detail=[
-            "user"=>$this->users->find($user_id),
-            "order"=>array(                        
-                "order_number"=>$order->order_number,
-                "purchase_date"=>$today,
-                "shipping_name"=>$order->shipping_name,
-                "shipping_address_1"=>$order->shipping_address_1,
-                "shipping_address_2"=>$order->shipping_address_2,
-                "shipping_city"=>$order->shipping_city,
-                "shipping_state"=>$order->shipping_state,
-                "shipping_country"=>$order->getShippingCountry->countryCode,
-                "shipping_zip_code"=>$order->shipping_zip_code,
-                "shipping_phone_number_1"=>$order->shipping_phone_number_1,
-                "shipping_phone_number_2"=>$order->shipping_phone_number_2,
-                "shipping_email"=>$order->shipping_email,
-                "billing_name"=>$order->billing_name,
-                "billing_address_1"=>$order->billing_address_1,
-                "billing_address_2"=>$order->billing_address_2,
-                "billing_city"=>$order->billing_city,
-                "billing_state"=>$order->billing_state,
-                "billing_country"=>$order->getBillingCountry->countryCode,
-                "billing_zip_code"=>$order->billing_zip_code,
-                "billing_phone_number_1"=>$order->billing_phone_number_1,
-                "billing_phone_number_2"=>$order->billing_phone_number_2,
-                "billing_email"=>$order->billing_email,
-                "products"=>$data_products_email,
-                "order_total"=>$order->order_total,
-                "order_tax"=>$order->order_tax,
-                "status"=>$order->getStatusName->name,
-                "shipping_total"=>$order->order_shipping,
-                "order_grand_total"=>$order->order_total + $order->order_tax + $order->order_shipping,
-            )
-        ];
+        $getOrderShipping = $order->getOrderShippingAddress();
+        $getOrderBilling = $order->getOrderBillingAddress();
+        dd($order);
+        // $order_detail=[
+        //     "user"=>$this->users->find($user_id),
+        //     "order"=>array(                        
+        //         "order_number"=>$order->order_number,
+        //         "purchase_date"=>$today,
+        //         "shipping_name"=>$order_shipping[0]->name,
+        //         "shipping_address_1"=>$order_shipping[0]->address_1,
+        //         "shipping_address_2"=>$order_shipping[0]->address_2,
+        //         "shipping_city"=>$order_shipping[0]->province_name,
+        //         "shipping_district"=>$order_shipping[0]->district_name,
+        //         "shipping_corregimiento"=>$order_shipping[0]->corregimiento_name,
+        //         "shipping_country"=>$order_shipping[0]->country_name,
+        //         "shipping_zip_code"=>$order_shipping[0]->zip_code,
+        //         "shipping_phone_number_1"=>$order_shipping[0]->phone_number_1,
+        //         "shipping_phone_number_2"=>$order_shipping[0]->phone_number_2,
+        //         "shipping_email"=>$order_shipping[0]->email,
+        //         "billing_name"=>$order_billing[0]->name,
+        //         "billing_address_1"=>$order_billing[0]->address_1,
+        //         "billing_address_2"=>$order_billing[0]->address_2,
+        //         "billing_city"=>$order_billing[0]->province_name,
+        //         "billing_district"=>$order_billing[0]->district_name,
+        //         "billing_corregimiento"=>$order_billing[0]->corregimiento_name,
+        //         "billing_country"=>$order_billing[0]->country_name,
+        //         "billing_zip_code"=>$order_billing[0]->zip_code,
+        //         "billing_phone_number_1"=>$order_billing[0]->phone_number_1,
+        //         "billing_phone_number_2"=>$order_billing[0]->phone_number_2,
+        //         "billing_email"=>$order_billing[0]->email,
+        //         "products"=>$data_products_email,
+        //         "order_total"=>$order->order_total,
+        //         "order_tax"=>$order->order_tax,
+        //         "status"=>$order->getStatusName->name,
+        //         "shipping_total"=>$order->order_shipping,
+        //         "order_grand_total"=>$order->order_total + $order->order_tax + $order->order_shipping,
+        //     )
+        //];
         return $order_detail;
     }
     public function confirmDelete($order_id){

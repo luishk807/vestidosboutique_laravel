@@ -88,7 +88,7 @@
                                             
                                             {{ $address->phone_number}}<br/>
                                             {{ $address->email}}<br/>
-                                            {{ $address->city}} {{ $address->state}} {{ $address->getCountry->countryName}} {{ $address->zip_code}}<br/>
+                                            {{ $address->getProvince->name}} {{ $address->getDistrict->name}} {{ $address->getCorregimiento->name }}, {{ $address->getCountry->countryCode}} {{ $address->zip_code}}<br/>
                                             </td>
                                             <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">{{ __('buttons.edit') }}</a></td>
                                         </tr>

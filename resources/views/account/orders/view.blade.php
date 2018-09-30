@@ -36,12 +36,12 @@
                         <ul>
                             <li>{{ __('general.page_header.shipping_address') }}</li>
                             <li class="view-order-header-info">
-                                {{$order->getOrderShippingAddress->name}}<br/>
-                                {{$order->getOrderShippingAddress->address_1}} {{$order->getOrderShippingAddress->address_2}}<br/>
-                                {{$order->getOrderShippingAddress->getProvince->name}} {{$order->getOrderShippingAddress->getDistrict->name}} {{$order->getOrderShippingAddress->getCorregimiento->name}} {{$order->getShippingCountry->countryCode}} {{$order->getOrderShippingAddress->zip_code}}<br/>
-                                {{$order->getOrderShippingAddress->phone_number_1}}<br/>
-                                {{$order->getOrderShippingAddress->phone_number_2}}<br/>
-                                {{$order->getOrderShippingAddress->email}}<br/>
+                                {{$order_shipping->name }}<br/>
+                                {{$order_shipping->address_1}} {{$order_shipping->address_2}}<br/>
+                                {{$order_shipping->province_name}} {{$order_shipping->district_name}} {{$order_shipping->corregimiento_name}} {{ $order_shipping->country_name}} {{$order_shipping->zip_code}}<br/>
+                                {{$order_shipping->phone_number_1}}<br/>
+                                {{$order_shipping->phone_number_2}}<br/>
+                                {{$order_shipping->email}}<br/>
                             </li>
                         </ul>
                     </div>
@@ -49,12 +49,12 @@
                         <ul>
                             <li>{{ __('general.page_header.billing_address') }}</li>
                             <li class="view-order-header-info">
-                                {{$order->getOrderBillingAddress->name}}<br/>
-                                {{$order->getOrderBillingAddress->address_1}} {{$order->getOrderBillingAddress->address_2}}<br/>
-                                {{$order->getOrderBillingAddress->getProvince->name}} {{$order->getOrderBillingAddress->getDistrict->name}} {{$order->getOrderBillingAddress->getCorregimiento->name}} {{$order->getShippingCountry->countryCode}} {{$order->getOrderBillingAddress->zip_code}}<br/>
-                                {{$order->getOrderBillingAddress->phone_number_1}}<br/>
-                                {{$order->getOrderBillingAddress->phone_number_2}}<br/>
-                                {{$order->getOrderBillingAddress->email}}<br/>
+                                {{$order_billing->name}}<br/>
+                                {{$order_billing->address_1}} {{$order_billing->address_2}}<br/>
+                                {{$order_billing->province_name}} {{$order_billing->district_name}} {{$order_billing->corregimiento_name}} {{$order->country_name}} {{$order_billing->zip_code}}<br/>
+                                {{$order_billing->phone_number_1}}<br/>
+                                {{$order_billing->phone_number_2}}<br/>
+                                {{$order_billing->email}}<br/>
                             </li>
                         </ul>
                     </div>

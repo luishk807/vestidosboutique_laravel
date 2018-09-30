@@ -54,6 +54,10 @@ class userOrderController extends Controller
         $data["categories"]=$this->categories->all();
         $data["page_title"]=__('general.page_header.order_detail');;
         $data["order"]=$order;
+        $getOrderShipping = $order->getOrderShippingAddress();
+        $data["order_shipping"]=$getOrderShipping[0];
+        $getOrderBilling = $order->getOrderBillingAddress();
+        $data["order_billing"]=$getOrderBilling[0];
         $data["user"]=$this->users->find($order->user_id);
         return view("account/orders/view",$data);
     }

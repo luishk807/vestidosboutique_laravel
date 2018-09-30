@@ -241,7 +241,7 @@ class userPaymentController extends Controller
         $data_shipping["phone_number_1"]=$cart_address["shipping_phone_number_1"];
         $data_shipping["phone_number_2"]=$cart_address["shipping_phone_number_2"];
         $data_shipping["email"]=$cart_address["shipping_email"];
-        $data_shipping["address_type"]=2;
+        $data_shipping["address_type"]=1;
 
 
         $shipping_list = $this->shipping_lists->find($cart_address["shipping_method"]);
@@ -275,7 +275,7 @@ class userPaymentController extends Controller
             $data_billing["province"]=$billing->province_id;
             $data_billing["district"]=$billing->district_id;
             $data_billing["corregimiento"]=$billing->corregimiento_id;
-            $data_billing["country"]=$billing_country->id;
+            $data_billing["country"]=$billing->getCountry->id;
             $data_billing["zip_code"]=$billing->zip_code;
             $data_billing["phone_number_1"]=$billing->phone_number_1;
             $data_billing["phone_number_2"]=$billing->phone_number_2;
@@ -366,7 +366,8 @@ class userPaymentController extends Controller
         $data["status"]=9;
         $data["created_at"]=$today;
 
-        // dd($data);
+         //dd($data);
+        // dd($data_shipping);
         $order = Orders::create($data);
 
         $data["user"]=$user;
@@ -468,17 +469,17 @@ class userPaymentController extends Controller
                                 "shipping_phone_number_1"=>$cart_address["shipping_phone_number_1"],
                                 "shipping_phone_number_2"=>$cart_address["shipping_phone_number_2"],
                                 "shipping_email"=>$cart_address["shipping_email"],
-                                "billing_name"=>$data["billing_name"],
-                                "billing_address_1"=>$data_billing["billing_address_1"],
-                                "billing_address_2"=>$data_billing["billing_address_2"],
+                                "billing_name"=>$data_billing["name"],
+                                "billing_address_1"=>$data_billing["address_1"],
+                                "billing_address_2"=>$data_billing["address_2"],
                                 "billing_district"=>$billing_district,
                                 "billing_province"=>$billing_province,
                                 "billing_corregimiento"=>$billing_corregimiento,
                                 "billing_country"=>$billing_country,
-                                "billing_zip_code"=>$data_billing["billing_zip_code"],
-                                "billing_phone_number_1"=>$data_billing["billing_phone_number_1"],
-                                "billing_phone_number_2"=>$data_billing["billing_phone_number_2"],
-                                "billing_email"=>$data_billing["billing_email"],
+                                "billing_zip_code"=>$data_billing["zip_code"],
+                                "billing_phone_number_1"=>$data_billing["phone_number_1"],
+                                "billing_phone_number_2"=>$data_billing["phone_number_2"],
+                                "billing_email"=>$data_billing["email"],
                                 "products"=>$data_products_email,
                                 "order_total"=>$total,
                                 "order_tax"=>$tax,
@@ -521,9 +522,9 @@ class userPaymentController extends Controller
                     }
                 }
             }
-        }
+       }
 
-        return redirect()->route("checkout_order_received");
+       return redirect()->route("checkout_order_received");
     }
     public function showOrderReceived(){
         $data=[];
