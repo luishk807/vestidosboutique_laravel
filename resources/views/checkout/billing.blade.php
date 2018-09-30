@@ -53,7 +53,7 @@
                                         <strong>{{ __('general.page_header.billing_address') }}</strong><br/>
                                         {{$shipping_info["shipping_name"]}}<br/>
                                         {{$shipping_info["shipping_address_1"]}} {{$shipping_info["shipping_address_2"]}}<br/>
-                                        {{$shipping_info["shipping_city"]}} {{$shipping_info["shipping_state"]}} {{$shipping_info["shipping_province"]}} {{$shipping_info["shipping_country"]}} {{$shipping_info["shipping_zip_code"]}}<br/>
+                                        {{$shipping_info["shipping_province"]}} {{$shipping_info["shipping_district"]}} {{$shipping_info["shipping_corregimiento"]}} {{$shipping_info["shipping_country"]}} {{$shipping_info["shipping_zip_code"]}}<br/>
                                         Email: {{$shipping_info["shipping_email"]}}
                                         </div>
                                     </td>
