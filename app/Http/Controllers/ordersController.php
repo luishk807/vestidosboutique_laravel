@@ -133,6 +133,7 @@ class ordersController extends Controller
         $data["address_types"]=$this->address_types->all();
         $data["countries"]=$this->countries->all();
         $data["user_adresses"]=$this->addresses->all();
+        $data["provinces"]=$this->provinces->all();
         $data["page_title"]=__('general.order_section.new_order_address');
         return view("admin/orders/addresses/new",$data);
     }
@@ -149,8 +150,6 @@ class ordersController extends Controller
             $this->validate($request,[
                 "name"=>"required",
                 "address_1"=>"required",
-                "city"=>"required",
-                "state"=>"required",
                 "country"=>"required",
                 "zip_code"=>"required",
                 "phone_number_1"=>"required",
@@ -180,15 +179,18 @@ class ordersController extends Controller
                     $data["shipping_email"]=$user_address->email;
                 }else{
                     $country = $this->countries->find($address["country"]);
+                    $province = $this->provinces->find($address["province"]);
+                    $district = $this->districts->find($address["district"]);
+                    $corregimiento = $this->corregimientos->find($address["corregimiento"]);
                     $data["shipping_name"]=$address["name"];
                     $data["shipping_address_1"]=$address["address_1"];
                     $data["shipping_address_2"]=$address["address_2"];
-                    $data["shipping_province_id"]=$user_address->province_id;
-                    $data["shipping_province"]=$user_address->getProvince->name;
-                    $data["shipping_district_id"]=$user_address->district_id;
-                    $data["shipping_district"]=$user_address->getDistrict->name;
-                    $data["shipping_corregimiento_id"]=$user_address->corregimiento_id;
-                    $data["shipping_corregimiento"]=$user_address->getCorregimiento->name;
+                    $data["shipping_province_id"]=$province->id;
+                    $data["shipping_province"]=$province->name;
+                    $data["shipping_district_id"]=$district->id;
+                    $data["shipping_district"]=$district->name;
+                    $data["shipping_corregimiento_id"]=$corregimiento->id;
+                    $data["shipping_corregimiento"]=$corregimiento->name;
                     $data["shipping_country"]=$address["country"];
                     $data["shipping_country_name"] = $country->countryCode;
                     $data["shipping_zip_code"]=$address["zip_code"];
@@ -218,15 +220,18 @@ class ordersController extends Controller
                     $data["billing_email"]=$user_address->email;
                 }else{
                     $country = $this->countries->find($address["country"]);
+                    $province = $this->provinces->find($address["province"]);
+                    $district = $this->districts->find($address["district"]);
+                    $corregimiento = $this->corregimientos->find($address["corregimiento"]);
                     $data["billing_name"]=$address["name"];
                     $data["billing_address_1"]=$address["address_1"];
                     $data["billing_address_2"]=$address["address_2"];
-                    $data["billing_province_id"]=$user_address->province_id;
-                    $data["billing_province"]=$user_address->getProvince->name;
-                    $data["billing_district_id"]=$user_address->district_id;
-                    $data["billing_district"]=$user_address->getDistrict->name;
-                    $data["billing_corregimiento_id"]=$user_address->corregimiento_id;
-                    $data["billing_corregimiento"]=$user_address->getCorregimiento->name;
+                    $data["billing_province_id"]=$province->id;
+                    $data["billing_province"]=$province->name;
+                    $data["billing_district_id"]=$district->id;
+                    $data["billing_district"]=$district->name;
+                    $data["billing_corregimiento_id"]=$corregimiento->id;
+                    $data["billing_corregimiento"]=$corregimiento->name;
                     $data["billing_country"]=$address["country"];
                     $data["billing_country_name"] = $country->countryCode;
                     $data["billing_zip_code"]=$address["zip_code"];

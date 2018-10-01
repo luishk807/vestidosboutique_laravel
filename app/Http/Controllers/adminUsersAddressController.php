@@ -7,16 +7,22 @@ use App\vestidosStatus as Statuses;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosAddressTypes as AddressTypes;
 use App\vestidosCountries as Countries;
+use App\vestidosProvinces as Provinces;
+use App\vestidosDistricts as Districts;
+use App\vestidosCorregimientos as Corregimientos;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
 
 class adminUsersAddressController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Users $users, Statuses $statuses,Addresses $addresses, Countries $countries){
+    public function __construct(AddressTypes $addresstypes, Users $users, Statuses $statuses,Addresses $addresses, Countries $countries,Provinces $provinces, Districts $districts, Corregimientos $corregimientos){
         $this->statuses=$statuses;
         $this->addresses=$addresses;
         $this->countries=$countries;
+        $this->provinces=$provinces;
+        $this->districts=$districts;
+        $this->corregimientos=$corregimientos;
         $this->users = $users;
         $this->addresstypes = $addresstypes;
     }
@@ -39,9 +45,10 @@ class adminUsersAddressController extends Controller
         $data["email"]=$request->input("email");
         $data["address_1"]=$request->input("address_1");
         $data["address_2"]=$request->input("address_2");
-        $data["city"]=$request->input("city");
-        $data["country_id"]=(int)$request->input("country");
-        $data["state"]=$request->input("state");
+        $data["province_id"]=$request->input("province");
+        $data["district_id"]=$request->input("district");
+        $data["corregimiento_id"]=$request->input("corregimiento");
+        $data["country_id"]=$request->input("country");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
         $data["address_type"]=(int)$request->input("address_type");
@@ -55,8 +62,9 @@ class adminUsersAddressController extends Controller
                 "email"=>"required",
                 "address_1"=>"required",
                 "country"=>"required",
-                "city"=>"required",
-                "state"=>"required",
+                "district"=>"required",
+                "province"=>"required",
+                "corregimiento"=>"required",
                 "zip_code"=>"required",
                 "address_type"=>"required",
                 "status"=>"required",
@@ -68,9 +76,13 @@ class adminUsersAddressController extends Controller
         $user = $this->users->find($user_id);
         $data["user"]=$user;
         $data["addresstypes"]=$this->addresstypes->all();
+        $data["province"]=$request->input("province");
+        $data["district"]=$request->input("district");
+        $data["corregimiento"]=$request->input("corregimiento");
         $data["country"]=$request->input("country");
         $data["page_title"]="Create Address Page For ".$user->getFullName();
         $data["statuses"]=$this->statuses->all();
+        $data["provinces"]=$this->provinces->all();
         $data["countries"]=$this->countries->all();
         return view("admin/users/addresses/new",$data);
     }
@@ -84,8 +96,10 @@ class adminUsersAddressController extends Controller
         $data["email"]=$request->input("email");
         $data["address_1"]=$request->input("address_1");
         $data["address_2"]=$request->input("address_2");
-        $data["city"]=$request->input("city");
-        $data["state"]=$request->input("state");
+        $data["province"]=$request->input("province");
+        $data["district"]=$request->input("district");
+        $data["corregimiento"]=$request->input("corregimiento");
+        $data["country"]=$request->input("country");
         $data["zip_code"]=$request->input("zip_code");
         $data["status"]=(int)$request->input("status");
         $address = $this->addresses->find($address_id);
@@ -99,8 +113,9 @@ class adminUsersAddressController extends Controller
                 "email"=>"required",
                 "address_1"=>"required",
                 "country"=>"required",
-                "city"=>"required",
-                "state"=>"required",
+                "district"=>"required",
+                "province"=>"required",
+                "corregimiento"=>"required",
                 "zip_code"=>"required",
                 "status"=>"required",
             ]);
@@ -113,9 +128,10 @@ class adminUsersAddressController extends Controller
             $address->email = $request->input("email");
             $address->address_1 = $request->input("address_1");
             $address->address_2 = $request->input("address_2");
-            $address->city = $request->input("city");
+            $address->province_id = $request->input("province");
+            $address->corregimiento_id = $request->input("corregimiento");
+            $address->district_id = $request->input("district");
             $address->country_id = (int)$request->input("country");
-            $address->state = $request->input("state");
             $address->zip_code = $request->input("zip_code");
             $address->status = (int)$request->input("status");
             $address->updated_at = carbon::now();
@@ -129,6 +145,9 @@ class adminUsersAddressController extends Controller
         $data["addresstypes"]=$this->addresstypes->all();
         $data["address"]=$address;
         $data["page_title"]="Edit Address ".$user->getFullName();
+        $data["provinces"]=$this->provinces->all();
+        $data["districts"]=$this->districts->where("province_id",$address->province_id)->get();
+        $data["corregimientos"]=$this->corregimientos->where("districts_id",$address->district_id)->get();
         $data["address_id"]=$address_id;
         $data["statuses"]=$this->statuses->all();
         $data["countries"]=$this->countries->all();

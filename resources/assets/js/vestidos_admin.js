@@ -1,5 +1,57 @@
+function switchStatesDropByIndex(indx){
+    var getLoadStatesUrl = $("#loadStateUrl").val();
+    $.ajax({
+        type: "GET",
+        url:getLoadStatesUrl,
+        data: {
+            data:$("#addressCountry_"+indx).val()
+        },
+        success: function (data) {
+            var addressProvince = $("#addressProvince_"+indx);
+            addressProvince.empty();
+            $.each(data, function(index,element){
+                addressProvince.append("<option value='"+element.id+"'>"+element.name+"</option>");
+            });
+            switchDistrictsDropByIndex(indx);
+        }
+    });
+}
+function switchDistrictsDropByIndex(indx){
+    var getLoadDistrictsUrl = $("#loadDistrictUrl").val();
+    $.ajax({
+        type: "GET",
+        data: {
+            data:$("#addressProvince_"+indx).val()
+        },
+        url:getLoadDistrictsUrl,
+        success: function (data) {
+            var addressDistrict = $("#addressDistrict_"+indx);
+            addressDistrict.empty();
+            $.each(data, function(index,element){
+                addressDistrict.append("<option value='"+element.id+"'>"+element.name+"</option>");
+            });
+            switchCorregimientosDropByIndex(indx)
+        }
+    });
+}
+function switchCorregimientosDropByIndex(indx){
+    var getLoadCorregimientosUrl = $("#loadCorregimientoUrl").val();
+    $.ajax({
+        type: "GET",
+        data: {
+            data:$("#addressDistrict_"+indx).val()
+        },
+        url:getLoadCorregimientosUrl,
+        success: function (data) {
+            var addressCorregimiento = $("#addressCorregimiento_"+indx);
+            addressCorregimiento.empty();
+            $.each(data, function(index,element){
+                addressCorregimiento.append("<option value='"+element.id+"'>"+element.name+"</option>");
+            });
+        }
+    });
+}
 $(document).ready(function() {
-    
     $('.no-submit').on('click', function(e) {
         // Prevent the default action of the clicked item. In this case that is submit
         e.preventDefault();

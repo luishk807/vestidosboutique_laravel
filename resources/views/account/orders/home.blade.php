@@ -47,7 +47,7 @@
                         <p>
                             {{ __('general.page_header.shipping_address') }}
                         </p>
-                        <p><a href="">...{{$order->shipping_zip_code}}</a></p>
+                        <p><a href="">...{{$order->getOrderShippingAddress->zip_code}}</a></p>
                     </div>
                     <div class="col-md-6  col-lg-4 col-sm-10 header">
                         <p>

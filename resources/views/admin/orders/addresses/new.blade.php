@@ -8,6 +8,12 @@
     text-decoration:underline;
 }
 </style>
+<script>
+    $(document).ready(()=>{
+        switchStatesDropByIndex(0);
+        switchStatesDropByIndex(1);
+    })
+</script>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -17,6 +23,9 @@
 </div>
 <form action="{{ route('admin_create_new_order_address') }}" method="post">
 {{ csrf_field() }}
+    <input type="hidden" value="{{ url('api/loadStates') }}" id="loadStateUrl">
+    <input type="hidden" value="{{ url('api/loadDistricts') }}" id="loadDistrictUrl">
+    <input type="hidden" value="{{ url('api/loadCorregimientos') }}" id="loadCorregimientoUrl">
     <div class="container admin-address-container">
         <div class="row">
             <div class="col header">
@@ -87,7 +96,51 @@
                     <input type="text" id="addressAddress2" class="form-control" name="addresses[{{$addressindex}}][address_2]" value="{{ old('address_2') }}" placeholder="Address 2"/>
                     <small class="error">{{$errors->first("address_2")}}</small>
                 </div>
-                @include('includes.country_province')
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="addressProvince_{{ $addressindex }}">{{ __('general.form.province') }}:</label>
+                        <select class="custom-select" onChange="switchDistrictsDropByIndex('{{ $addressindex }}')" name="addresses[{{$addressindex}}][province]" id="addressProvince_{{ $addressindex }}">
+                            @foreach($provinces as $province)
+                                <option value="{{ $province->id }}"
+                                @if($province->id==old('province'))   
+                                    selected=selected
+                                @endif     
+                                >{{$province->name}} </option>
+                            @endforeach
+                        </select>
+                        <small class="error">{{$errors->first("province")}}</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="addressDistrict_{{ $addressindex }}">{{ __('general.form.district') }}:</label>
+                        <select class="custom-select" onChange="switchCorregimientosDropByIndex('{{ $addressindex }}')" name="addresses[{{$addressindex}}][district]" id="addressDistrict_{{ $addressindex }}">
+                        </select>
+                        <small class="error">{{$errors->first("district")}}</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="addressCorregimiento_{{ $addressindex }}">{{ __('general.form.corregimiento') }}:</label>
+                        <select class="custom-select" name="addresses[{{$addressindex}}][corregimiento]" id="addressCorregimiento_{{ $addressindex }}">
+                        </select>
+                        <small class="error">{{$errors->first("corregimiento")}}</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="addressZip_{{ $addressindex }}">{{ __('general.form.zip') }}:</label>
+                        <input type="text" id="addressZip" class="form-control" name="addresses[{{$addressindex}}][zip_code]" value="{{ old('zip_code') }}" placeholder="{{ __('general.form.zip') }}"/>
+                        <small class="error">{{$errors->first("zip_code")}}</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="addressCountry_{{ $addressindex }}">{{ __('general.form.country') }}:</label>
+                        <select class="custom-select" name="addresses[{{$addressindex}}][country]" id="addressCountry_{{ $addressindex }}">
+                            @foreach($countries as $country)
+                                @if($country->id==173)
+                                <option value="{{ $country->id }}">{{$country->countryName}} </option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <small class="error">{{$errors->first("country")}}</small>
+                    </div>
+                </div>
                 @endif
             </div><!--end of form cols-->
         </div>
