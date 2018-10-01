@@ -48,27 +48,29 @@ class vestidosOrders extends Model
     }
     public function getOrderShippingAddress(){
         $address = DB::table('vestidos_order_addresses')
-                   ->select("vestidos_order_addresses.*", "vestidos_provinces.name as province_name","vestidos_districts.name as district_name",
-                   "vestidos_corregimientos.name as corregimiento_name", "vestidos_countries.countryCode as country_name")
-                   ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province")
-                   ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district")
-                   ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento")
-                   ->join("vestidos_countries","vestidos_countries.id","vestidos_order_addresses.country")
+                   ->select("vestidos_order_addresses.*","vestidos_provinces.name as province_name","vestidos_provinces.id as province_id","vestidos_districts.name as district_name","vestidos_districts.id as district_id",
+                   "vestidos_corregimientos.name as corregimiento_name",
+                   "vestidos_corregimientos.id as corregimiento_id", "vestidos_countries.countryCode as country_name", "vestidos_countries.id as country_id")
+                   ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province_id")
+                   ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district_id")
+                   ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento_id")
+                   ->join("vestidos_countries","vestidos_countries.id","vestidos_order_addresses.country_id")
                    ->where("vestidos_order_addresses.address_type",1)
-                   ->where("order_id",$this->getKey())
+                   ->where("vestidos_order_addresses.order_id",$this->getKey())
                    ->get();
         return $address->toArray();
     }
     public function getOrderBillingAddress(){
         $address = DB::table('vestidos_order_addresses')
-                    ->select("vestidos_order_addresses.*", "vestidos_provinces.name as province_name","vestidos_districts.name as district_name",
-                    "vestidos_corregimientos.name as corregimiento_name", "vestidos_countries.countryCode as country_name")
-                    ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province")
-                    ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district")
-                    ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento")
-                    ->join("vestidos_countries","vestidos_countries.id","vestidos_order_addresses.country")
+                    ->select("vestidos_order_addresses.*","vestidos_provinces.name as province_name","vestidos_provinces.id as province_id","vestidos_districts.name as district_name","vestidos_districts.id as district_id",
+                    "vestidos_corregimientos.name as corregimiento_name",
+                    "vestidos_corregimientos.id as corregimiento_id", "vestidos_countries.countryCode as country_name", "vestidos_countries.id as country_id")
+                    ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province_id")
+                    ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district_id")
+                    ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento_id")
+                    ->join("vestidos_countries","vestidos_countries.id","vestidos_order_addresses.country_id")
                    ->where("vestidos_order_addresses.address_type",2)
-                   ->where("order_id",$this->getKey())
+                   ->where("vestidos_order_addresses.order_id",$this->getKey())
                    ->get();
         return $address->toArray();
     }

@@ -51,39 +51,7 @@
         <input type="text" id="addressAddress2" class="form-control" name="address_2" value="{{ old('address_2') ? old('address_2') : $address->address_2 }}" placeholder="Address 2"/>
         <small class="error">{{$errors->first("address_2")}}</small>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="addressCity">City:</label>
-            <input type="text" id="addressCity" class="form-control" name="city" value="{{ old('city') ? old('city') : $address->city }}" placeholder="City"/>
-            <small class="error">{{$errors->first("city")}}</small>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="addressState">State:</label>
-            <input type="text" id="addressState" class="form-control" name="state" value="{{ old('state') ? old('state') : $address->state }}" placeholder="State"/>
-            <small class="error">{{$errors->first("state")}}</small>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="addressCountry">Country:</label>
-            <select class="custom-select" name="country" id="addressCountry">
-                <option value="">Select Country</option>
-                @foreach($countries as $country)
-                    <option value="{{ $country->id }}"
-                    @if($address->country_id==$country->id)
-                        selected="selected"
-                    @endif
-                    >{{$country->countryName}} </option>
-                @endforeach
-            </select>
-            <small class="error">{{$errors->first("country")}}</small>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="addressZip">Zip Code:</label>
-            <input type="text" id="addressZip" class="form-control" name="zip_code" value="{{ old('zip_code') ? old('zip_code') : $address->zip_code }}" placeholder="Zip Code"/>
-            <small class="error">{{$errors->first("zip_code")}}</small>
-        </div>
-    </div>
+    @include('includes.country_province_edit')
     <div class="form-group">
         <label for="addressAddressType">Address Type:</label>
         <select class="custom-select" name="address_type" id="addressAddressType">

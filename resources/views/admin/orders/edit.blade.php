@@ -20,25 +20,23 @@
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
                             <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>1]) }}">Edit</a>]</p>
-                            {{$order->shipping_name}}<br/>
-                            {{$order->shipping_address_1}} {{$order->shipping_address_2}}<br/>
-                            {{$order->shipping_city}}, {{$order->shipping_state}} {{$order->getShippingCountry->countryCode}} {{$order->shipping_zip_code}}<br/>
-                            <br/>
-                            Email: {{$order->shipping_email}}<br/>
-                            Phone 1:{{$order->shipping_phone_number_1}}<br/>
-                            Phone 2:{{$order->shipping_phone_number_2}}
+                            {{$order_shipping->name }}<br/>
+                            {{$order_shipping->address_1}} {{$order_shipping->address_2}}<br/>
+                            {{$order_shipping->province_name}} {{$order_shipping->district_name}} {{$order_shipping->corregimiento_name}} {{ $order_shipping->country_name}} {{$order_shipping->zip_code}}<br/>
+                            Email: {{$order_shipping->email}}<br/>
+                            Phone 1:{{$order_shipping->phone_number_1}}<br/>
+                            Phone 2:{{$order_shipping->phone_number_2}}
                         </div>
                     </li>
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
                             <p><span class="title">Billing Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>2]) }}">Edit</a>]</p>
-                            {{$order->billing_name}}<br/>
-                            {{$order->billing_address_1}} {{$order->billing_address_2}}<br/>
-                            {{$order->billing_city}}, {{$order->billing_state}} {{$order->getBillingCountry->countryCode}} {{$order->billing_zip_code}}<br/>
-                            <br/>
-                            Email: {{$order->billing_email}}<br/>
-                            Phone 1:{{$order->billing_phone_number_1}}<br/>
-                            Phone 2:{{$order->billing_phone_number_2}}
+                            {{$order_billing->name}}<br/>
+                            {{$order_billing->address_1}} {{$order_billing->address_2}}<br/>
+                            {{$order_billing->province_name}} {{$order_billing->district_name}} {{$order_billing->corregimiento_name}} {{$order->country_name}} {{$order_billing->zip_code}}<br/>
+                            Email: {{$order_billing->email}}<br/>
+                            Phone 1:{{$order_billing->phone_number_1}}<br/>
+                            Phone 2:{{$order_billing->phone_number_2}}
                         </div>
                     </li>
                 </ul>

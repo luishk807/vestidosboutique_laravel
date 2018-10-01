@@ -87,35 +87,7 @@
                     <input type="text" id="addressAddress2" class="form-control" name="addresses[{{$addressindex}}][address_2]" value="{{ old('address_2') }}" placeholder="Address 2"/>
                     <small class="error">{{$errors->first("address_2")}}</small>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="addressCity">City:</label>
-                        <input type="text" id="addressCity" class="form-control" name="addresses[{{$addressindex}}][city]" value="{{ old('city') }}" placeholder="City"/>
-                        <small class="error">{{$errors->first("city")}}</small>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="addressState">State:</label>
-                        <input type="text" id="addressState" class="form-control" name="addresses[{{$addressindex}}][state]" value="{{ old('state') }}" placeholder="State"/>
-                        <small class="error">{{$errors->first("state")}}</small>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="addressCountry">Country:</label>
-                        <select class="custom-select" name="addresses[{{$addressindex}}][country]" id="addressCountry">
-                            <option value="">Select Country</option>
-                            @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{$country->countryName}} </option>
-                            @endforeach
-                        </select>
-                        <small class="error">{{$errors->first("country")}}</small>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="addressZip">Zip Code:</label>
-                        <input type="text" id="addressZip" class="form-control" name="addresses[{{$addressindex}}][zip_code]" value="{{ old('zip_code') }}" placeholder="Zip Code"/>
-                        <small class="error">{{$errors->first("zip_code")}}</small>
-                    </div>
-                </div>
+                @include('includes.country_province')
                 @endif
             </div><!--end of form cols-->
         </div>
