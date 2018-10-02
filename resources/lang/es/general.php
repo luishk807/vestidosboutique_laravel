@@ -200,6 +200,7 @@ return [
         'price'=>"Precio | Precios",
         'unit_price'=>"Precio | Precios",
         'in_stock'=>"Disponible",
+        'in_stock_number'=>"Solo quedan :name!",
         'out_stock'=>"No Disponible",
         'model_id'=>"No. de Modelo",
         'tax'=>"Impuesto",

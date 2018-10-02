@@ -21,6 +21,12 @@
 .error{
   color:red;
 }
+.stock{
+  color:green;
+}
+.out-stock{
+  color:red;
+}
 body{
   background-color:white;
 }
@@ -807,9 +813,30 @@ background-size: cover;
   border-top: 60px solid $main_vest_color_b;
   border-right: 60px solid transparent;
 }
+.shoplist-list-cont-in .shoplist-stock-txt {
+  font-family: Arial;
+  font-size: .8rem;
+  font-weight:bold;
+}
 // PRODUCT PAGE
 .product_in_rate{
   font-size:1.3rem;
+}
+.vesti_out_stock_btn{
+  background-color: black;
+  color:white;
+  border: 1px solid black;
+  padding: 10px 0;
+  font-family: Playfair Display;
+  text-align: center;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.product_main_txt .shoplist-stock-txt{
+  font-size: 1rem;
+  padding:5px 0px;
+  font-family:Arial;
 }
 .product_in_rate .rate-view{
   color:$main_vest_color_b;
@@ -963,26 +990,6 @@ button.colors_cubes.selected{
   font-size: .7rem;
   margin-top: 10px;
     margin-left: 5px;
-}
-.shoplist-cont{
-    list-style-type: none;
-    display: block;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    -moz-columns: 3 200px;
-    -webkit-columns: 3 200px;
-    columns: 3 200px;
-    -moz-column-gap: 1em;
-    -webkit-column-gap: 1em;
-    column-gap: 1em;
-}
-.shoplist-cont li{
-    padding-top: 30px;
-    margin: 1px;
-}
-.shoplist-list > div{
-    display:inline-table;
 }
 .shoplist-list-cont-in .row div{
     padding-right:0px;

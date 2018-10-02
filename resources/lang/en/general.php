@@ -203,6 +203,7 @@ return [
         'description'=>"Description",
         'tax'=>"Tax",
         'in_stock'=>"In Stock",
+        'in_stock_number'=>"Only :name Left!",
         'out_stock'=>"Out of Stock",
         'model_id'=>"Product ID",
         'new'=>"New",

@@ -68,15 +68,27 @@
                                             <div class="product_in_sub_title">
                                             {{ trans_choice('general.cart_title.quantity',1) }}
                                             </div>
+                                            @php( $product_select_total = $product->product_stock >=10 ? 10 : $product->product_stock )
                                             <select class="custom-select" name="product_quantity">
-                                            @for ($i = 1; $i < 10; $i++)
-                                            <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
+                                            @if($product_select_total > 0)
+                                                @for ($i = 1; $i <= $product_select_total; $i++)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            @else
+                                                <option value="">0</option>
+                                            @endif
                                             </select>
                                         </div>
                                         </div>
-
-                                        
+                                    </div>
+                                    <div class="shoplist-stock-txt">
+                                        @if($product->product_stock > 3)
+                                            <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
+                                        @elseif($product->product_stock > 0 && $product->product_stock < 4)
+                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$product->product_stock])}}</span>
+                                        @elseif($product->product_stock < 1)
+                                            <span class='out-stock'>{{ __('general.product_title.out_stock')}}</span>
+                                        @endif
                                     </div>
                                     <div class="product_in_detail_drop">
                                         <div id="accordion">
@@ -109,7 +121,11 @@
                                         </div>
                                     </div>
                                     <div class="vesti_in_btn_pnl">
-                                        <input class="btn-block vesti_in_btn"  type="submit" value="{{ __('buttons.add_cart') }}"/>
+                                        @if($product->product_stock > 0)
+                                            <input class="btn-block vesti_in_btn"  type="submit" value="{{ __('buttons.add_cart') }}"/>
+                                        @else
+                                            <div class="vesti_out_stock_btn">{{ __('general.product_title.out_stock') }}</div>
+                                        @endif
                                     </div>
                                     <div class="product_in_social">
                                         

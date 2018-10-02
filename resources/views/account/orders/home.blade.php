@@ -47,7 +47,8 @@
                         <p>
                             {{ __('general.page_header.shipping_address') }}
                         </p>
-                        <p><a href="">...{{$order->getOrderShippingAddress->zip_code}}</a></p>
+                        @php( $shipping_info = $order->getOrderShippingAddress() )
+                        <p><a href="{{ route('view_order',['order_id'=>$order->id]) }}">...{{$shipping_info[0]->zip_code}}</a></p>
                     </div>
                     <div class="col-md-6  col-lg-4 col-sm-10 header">
                         <p>

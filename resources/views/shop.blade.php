@@ -5,7 +5,7 @@
     <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
     <div class="row">
         <div class="col container-in-center">
-            <div class="container container-in-space">
+            <div class="container-fluid container-in-space">
                {{-- <div class="row">
                     <div class="col-md-3" id="mobile-sort-nav"><!--mobile search-->
                         <!--hiding mobile menu-->
@@ -103,50 +103,59 @@
                                 @endif
                             </ul>
                         </div>
-                        <div>
-                            <ul class="shoplist-cont">
-                            
-                                @foreach($products as $product)
-                                <!--each pod-->
-                                <li class="shoplist-list">
-                                        @if($product->is_new)
-                                        <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
-                                        @endif
-                                        @php( $prod_img = $products_model->getImages_byId($product->id))
-                                        <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail">
-                                        <img class="img-fluid" src="
-                                        @if($prod_img)
-                                            {{asset('images/products')}}/{{$prod_img->img_url}}
-                                        @else
-                                             {{asset('images/no-image.jpg')}}
-                                        @endif
-                                        " alt/>
-                                        </a>
-                                        <div class="container shoplist-list-cont-in">
-                                            <div class="row">
-                                                <div class="col-md-8"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/>
-                                                @php( $prod_vendor = $products_model->getVendors_byId($product->vendor_id))
-                                                <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $prod_vendor[0]->first_name." ".$prod_vendor[0]->middle_name." ".$prod_vendor[0]->last_name }}</span>
+                        <div class="container-fluid">
+                            <div class="row">
+                                    @foreach($products as $product)
+                                    <div class="col-md-3 p-2">
+                                    <!--each pod-->
+                                            @if($product->is_new)
+                                            <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
+                                            @endif
+                                            @php( $prod_img = $products_model->getImages_byId($product->id))
+                                            <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail">
+                                            <img class="img-fluid" src="
+                                            @if($prod_img)
+                                                {{asset('images/products')}}/{{$prod_img->img_url}}
+                                            @else
+                                                {{asset('images/no-image.jpg')}}
+                                            @endif
+                                            " alt/>
+                                            </a>
+                                            <div class="container shoplist-list-cont-in">
+                                                <div class="row">
+                                                    <div class="col-md-7"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/>
+                                                    @php( $prod_vendor = $products_model->getVendors_byId($product->vendor_id))
+                                                    <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $prod_vendor[0]->first_name." ".$prod_vendor[0]->middle_name." ".$prod_vendor[0]->last_name }}</span>
+                                                    </div>
+                                                    <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $product->total_rent }}</span>
+                                                    <br/>
+                                                    <span  class="shoplist-stock-txt">
+                                                        @if($product->product_stock > 3)
+                                                            <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
+                                                        @elseif($product->product_stock > 0 && $product->product_stock < 4)
+                                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$product->product_stock])}}</span>
+                                                        @elseif($product->product_stock < 1)
+                                                            <span class='out-stock'>{{ __('general.product_title.out_stock')}}</span>
+                                                        @endif
+                                                    </span>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-4"><span  class="shoplist-thumb-price">${{ $product->total_rent }}</span></div>
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        @php( $prod_rates = $products_model->getRates_byId($product->id))
+                                                        <div class='rate-shop' data-rate-value="{{ $prod_rates[0]->rates }}"></div>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        @php( $prod_colors = $products_model->getColors_byId($product->id))
+                                                        @foreach($prod_colors as $color)
+                                                        <span class="colors_cubes color_cubes_view_a" style="background-color:{{ $color->color_code }}"></span>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    @php( $prod_rates = $products_model->getRates_byId($product->id))
-                                                    <div class='rate-shop' data-rate-value="{{ $prod_rates[0]->rates }}"></div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    @php( $prod_colors = $products_model->getColors_byId($product->id))
-                                                    @foreach($prod_colors as $color)
-                                                    <span class="colors_cubes color_cubes_view_a" style="background-color:{{ $color->color_code }}"></span>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        </div>
-                                </li>
-                                <!--end pod-->
-                                @endforeach
-                            </ul>
+                                    </div><!--end of each pod-->
+                                    @endforeach
+                            </div>
                         </div><!--end of product list container-->
                         <div class="shoplist-nav">
                             <ul>
