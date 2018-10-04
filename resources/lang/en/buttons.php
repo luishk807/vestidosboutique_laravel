@@ -39,7 +39,7 @@ return [
     'proceed_billing'=>"Proceed to Billing",
     'proceed_shipping'=>"Proceed to Shipping",
     'proceed_checkout'=>"Proceed to Checkout",
-    'submit_payment'=>"Submit Payment",
+    'submit_payment'=>"Finalize Order",
     'edit_cart'=>"Edit Cart",
     'back_shopping'=>'Continue Shopping',
 ];

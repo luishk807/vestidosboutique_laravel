@@ -172,7 +172,7 @@ return [
         'order'=>"Pedido | Pedidos",
         'quantity'=>"Cantidad | Cantidades",
         'shipping_handling'=>"Costo de Envio",
-        'estimated_tax'=>"Estimado de Impuesto",
+        'estimated_tax'=>"Estimado Impuesto",
         'total_price'=>"Precio Total",
         'order_total'=>"Total",
         'grand_total'=>"Gran Total",
