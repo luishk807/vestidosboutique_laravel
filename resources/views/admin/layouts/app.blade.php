@@ -41,7 +41,6 @@
                         <div class="dropdown-menu  navbar-dark bg-dark">
                             <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>
                             <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>
-                            <a href="{{ route('admin_dresstypes')}}" class="nav-link">Dress Types</a>
                             <a href="{{ route('admin_dressstyles')}}" class="nav-link">Dress Styles</a>
                             <a href="{{ route('admin_fits')}}" class="nav-link">Dress Fit Types</a>
                             <a href="{{ route('admin_fabrics')}}" class="nav-link">Fabric Type</a>

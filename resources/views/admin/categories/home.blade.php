@@ -15,8 +15,6 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-3">Name</div>
-        <div class="col-md-2">Dress Type</div>
-        <div class="col-md-2">Dress Style</div>
         <div class="col-md-1">Status</div>
         <div class="col-md-3">Action</div>
     </div>
@@ -24,8 +22,6 @@
     <div class="row">
     <div class="col-md-1"></div>
         <div class="col-md-3">{{$category->name}}</div>
-        <div class="col-md-2">{{ $category->getDressType->name }}</div>
-        <div class="col-md-2">{{ $category->getDressStyle->name }}</div>
         <div class="col-md-1">{{ $category->getStatus->name }}</div>
         <div class="col-md-3">
              <a href="{{ route('confirm_category',['category_id'=>$category->id])}}">delete</a>

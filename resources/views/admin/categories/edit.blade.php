@@ -8,34 +8,6 @@
         <small class="error">{{$errors->first("name")}}</small>
     </div>
     <div class="form-group">
-        <label for="categoryDressType">Dress Type:</label>
-        <select class="custom-select" name="dress_type" id="categoryDressType">
-            <option value="">Select Dress Type</option>
-            @foreach($dresstypes as $dresstype)
-                <option value="{{ $dresstype->id }}"
-                @if($category->dress_type_id == $dresstype->id)
-                    selected=selected
-                @endif
-                >{{$dresstype->name}} </option>
-            @endforeach
-        </select>
-        <small class="error">{{$errors->first("dress_type")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="categoryDressStyle">Dress Style:</label>
-        <select class="custom-select" name="dress_style" id="categoryDressStyle">
-            <option value="">Select Dress Style</option>
-            @foreach($dressstyles as $dressstyle)
-                <option value="{{ $dressstyle->id }}"
-                @if($category->dress_style_id==$dressstyle->id)
-                selected=selected
-                @endif 
-                >{{$dressstyle->name}} </option>
-            @endforeach
-        </select>
-        <small class="error">{{$errors->first("dress_style")}}</small>
-    </div>
-    <div class="form-group">
         <label for="categoryStatus">Status:</label>
         <select class="custom-select" name="status" id="categoryStatus">
             @foreach($statuses as $status)

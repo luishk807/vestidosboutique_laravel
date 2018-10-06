@@ -102,13 +102,12 @@ class adminDressStylesController extends Controller
                     $insert[]=[
                         "name"=>$value->name,
                         "status"=>1,
-                        "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
                     ];
                 }
                 if(!empty($insert)){
                     DressStyles::insert($insert);
-                    return redirect()->route('admin_styles')->with('success','Insert Record successfully.');
+                    return redirect()->route('admin_dressstyle')->with('success','Insert Record successfully.');
                 }
             }
         }else{

@@ -1,5 +1,25 @@
 @extends("layouts.sub-layout")
 @section('content')
+<style>
+.billing-payment-section .row{
+    padding:10px;
+    border-left: 1px solid rgba(0,0,0,.1);
+    border-right: 1px solid rgba(0,0,0,.1);
+}
+.billing-payment-section .row:not(:first-child),
+.billing-payment-section .row:not(:last-child)
+{
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+.billing-payment-section .row:first-child {
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 10px 10px 0px 0px;
+}
+.billing-payment-section .row:last-child {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    border-radius: 0px 0px 10px 10px;
+}
+</style>
 <script src="https://js.braintreegateway.com/web/dropin/1.11.0/js/dropin.min.js"></script>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
@@ -143,8 +163,31 @@
 
                             <div id="dropin-wrapper">
                                 <div id="checkout-message"></div>
-                                <div id="dropin-container"></div>
-                                <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" />
+                                <!-- <div id="dropin-container"></div>
+                                <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" /> -->
+
+                                <div class="container billing-payment-section">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="radio"/>&nbsp;Testing
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, Amet ea ex voluptatem unde molestias veritatis dolor numquam perspiciatis ad.
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="radio"/>&nbsp;Testing
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, Amet ea ex voluptatem unde molestias veritatis dolor numquam perspiciatis ad.
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="vesti-load-oval"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
                                 <button class="btn-block vesti_in_btn_oval checkout-button oval-button" type="submit" id="submit-button">{{ __('buttons.submit_payment') }}</button>
                                 <p><strong><center>{{ __('general.payment_final_step_msg') }}</center></strong></p>
@@ -246,28 +289,23 @@
 </div>
 </div>
 <script>
-    var form = document.querySelector("#vestidos-checkout-form");
-    braintree.dropin.create({
-      authorization: "{{ Braintree_ClientToken::generate() }}",
-      selector: '#dropin-container'
-    //   ,
-    //   paypal:{
-
-    //       flow:'vault'
-    //   }
-    }, function (createErr, instance) {
-        if(createErr){
-            console.log(createErr);
-            return;
-        }
-        form.addEventListener('submit',function(event){
-            event.preventDefault();
-            instance.requestPaymentMethod(function (err, payload) {
-                document.querySelector("#nonce").value=payload.nonce;
-                form.submit();
-            });
-        });
+    // var form = document.querySelector("#vestidos-checkout-form");
+    // braintree.dropin.create({
+    //   authorization: "{{ Braintree_ClientToken::generate() }}",
+    //   selector: '#dropin-container'
+    // }, function (createErr, instance) {
+    //     if(createErr){
+    //         console.log(createErr);
+    //         return;
+    //     }
+    //     form.addEventListener('submit',function(event){
+    //         event.preventDefault();
+    //         instance.requestPaymentMethod(function (err, payload) {
+    //             document.querySelector("#nonce").value=payload.nonce;
+    //             form.submit();
+    //         });
+    //     });
         
-    });
+    // });
   </script>
 @endsection

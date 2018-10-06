@@ -149,18 +149,6 @@
                 Route::get('/import','adminBrandController@showImportBrand')->name('show_import_brands');
                 Route::post('/import','adminBrandController@saveImportBrand')->name('save_import_brands');
             });
-            //Admin Dress Types
-            Route::prefix("dress_type")->group(function(){
-                Route::get('/','adminDressTypesController@index')->name("admin_dresstypes");
-                Route::get('/confirm/{dresstype_id}','adminDressTypesController@deleteDressType')->name('confirm_dresstype');
-                Route::delete('/confirm/{dresstype_id}','adminDressTypesController@deleteDressType')->name('delete_dresstype');
-                Route::get('/new','adminDressTypesController@newDressTypes')->name('new_dresstype');
-                Route::post('/new','adminDressTypesController@newDressTypes')->name('create_dresstype');
-                Route::get('/edit/{dresstype_id}','adminDressTypesController@editDressType')->name('edit_dresstype');
-                Route::post('/edit/{dresstype_id}','adminDressTypesController@editDressType')->name('save_dresstype');
-                Route::get('/import','adminDressTypesController@showImportDressType')->name('show_import_dresstype');
-                Route::post('/import','adminDressTypesController@saveImportDressType')->name('save_import_dresstype');
-            });
             //Admin Dress Style
             Route::prefix("dress_style")->group(function(){
                 Route::get('/','adminDressStylesController@index')->name("admin_dressstyles");
