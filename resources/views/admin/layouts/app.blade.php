@@ -43,6 +43,7 @@
                             <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>
                             <a href="{{ route('admin_dressstyles')}}" class="nav-link">Dress Styles</a>
                             <a href="{{ route('admin_fits')}}" class="nav-link">Dress Fit Types</a>
+                            <a href="{{ route('admin_lengths')}}" class="nav-link">Dress Length Types</a>
                             <a href="{{ route('admin_fabrics')}}" class="nav-link">Fabric Type</a>
                             <a href="{{ route('admin_necklines')}}" class="nav-link">Neckline Type</a>
                             <a href="{{ route('admin_category')}}" class="nav-link">Category</a>

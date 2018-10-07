@@ -102,7 +102,6 @@ class adminFitController extends Controller
                     $insert[]=[
                         "name"=>$value->name,
                         "status"=>1,
-                        "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
                     ];
                 }

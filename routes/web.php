@@ -185,6 +185,18 @@
                 Route::get('/import','adminClosureController@showImportClosure')->name('show_import_closure');
                 Route::post('/import','adminClosureController@saveImportClosure')->name('save_import_closure');
             });
+            //Admin Lengths
+            Route::prefix("lengths")->group(function(){
+                Route::get('/','adminLengthController@index')->name("admin_lengths");
+                Route::get('/confirm/{length_id}','adminLengthController@deleteLength')->name('confirm_length');
+                Route::delete('/confirm/{length_id}','adminLengthController@deleteLength')->name('delete_length');
+                Route::get('/new','adminLengthController@newLengths')->name('new_length');
+                Route::post('/new','adminLengthController@newLengths')->name('create_length');
+                Route::get('/edit/{length_id}','adminLengthController@editLength')->name('edit_length');
+                Route::post('/edit/{length_id}','adminLengthController@editLength')->name('save_length');
+                Route::get('/import','adminLengthController@showImportLength')->name('show_import_length');
+                Route::post('/import','adminLengthController@saveImportLength')->name('save_import_length');
+            });
             //Admin fit
             Route::prefix("fits")->group(function(){
                 Route::get('/','adminFitController@index')->name("admin_fits");

@@ -78,6 +78,7 @@ class vestidosProducts extends Model
     public function sizes(){
         return $this->hasMany('App\vestidosSizes',"product_id");
     }
+    
     public function isWishList($user_id,$product_id){
         $wishlist = DB::table("vestidos_user_wishlists")
                     ->whereRaw("user_id = {$user_id} and product_id={$product_id}")
@@ -141,6 +142,9 @@ class vestidosProducts extends Model
     }
     public function getStatus(){
         return $this->belongsTo('App\vestidosStatus',"status");
+    }
+    public function length(){
+        return $this->belongsTo('App\vestidosLengthTypes',"product_length");
     }
     public function getBrand(){
         return $this->belongsTo('App\vestidosBrands',"brand_id");

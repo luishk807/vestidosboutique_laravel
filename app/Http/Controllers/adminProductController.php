@@ -18,6 +18,7 @@ use App\vestidosNecklineTypes as Necklines;
 use App\vestidosWaistlineTypes as Waistlines;
 use App\vestidosProductCategories as ProductCategories;
 use App\vestidosProductsRestocks as ProductRestocks;
+use App\vestidosLengthTypes as Lengths;
 use Excel;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon as carbon;
@@ -28,7 +29,7 @@ use File;
 class adminProductController extends Controller
 {
     //
-    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines, ProductCategories $product_categories,ProductRestocks $product_restocks){
+    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines, ProductCategories $product_categories,ProductRestocks $product_restocks, Lenghts $lenghts){
         $this->statuses=$vestidosStatus;
         $this->products=$products;
         $this->categories=$categories;
@@ -36,6 +37,7 @@ class adminProductController extends Controller
         $this->colors=$colors;
         $this->brands=$brands;
         $this->fits=$fits;
+        $this->lenghts = $lenghts;
         $this->fabrics=$fabrics;
         $this->sizes=$sizes;
         $this->vendors=$vendors;
@@ -61,6 +63,7 @@ class adminProductController extends Controller
         $data["statuses"]=$this->statuses->all();
         $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
+        $data["lenghts"]=$this->lenghts->all();
         $data["brands"]=$this->brands->all();   
         $data["fits"]=$this->fits->all();
         $data["fabrics"]=$this->fabrics->all();
@@ -97,6 +100,7 @@ class adminProductController extends Controller
         $data["neckline"]=(int)$request->input("neckline");
         $data["waistline"]=(int)$request->input("waistline");
         $data["brand_id"]=(int)$request->input("brand");
+        $data["product_length"]=(int)$request->input("length");
         $data["vendor_id"]=(int)$request->input("vendor");
         $data["category_id"]=(int)$request->input("category");
         $data["product_closure_id"]=(int)$request->input("closure");
@@ -149,6 +153,7 @@ class adminProductController extends Controller
         
         $data["page_title"]="Edit Product: ".$product->products_name;
         $data["statuses"]=$this->statuses->all();
+        $data["lenghts"]=$this->lenghts->all();
         $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
         $data["brands"]=$this->brands->all();   
@@ -168,6 +173,7 @@ class adminProductController extends Controller
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
         $data["product_model"]=$request->input("product_model");
+        $data["product_length"]=(int)$request->input("length");
         $data["products_description"]=$request->input("products_description");
         $data["purchase_date"]=$request->input("purchase_date");
         $data["status"]=(int)$request->input("status");
@@ -221,6 +227,7 @@ class adminProductController extends Controller
         $product->product_stock = $request->input("product_stock");
         $product->search_labels = $request->input("search_labels");
         $product->purchase_date=$request->input("purchase_date");
+        $product->product_length = $request->input("length");
         $product->product_detail = $request->input("product_detail");
         $product->product_model = $request->input("product_model");
         $product->product_waistline_id=(int)$request->input("waistline");
@@ -505,24 +512,10 @@ class adminProductController extends Controller
          $valid_array=false;
 
          $this->validate($request,[
-            "product_confirm.*.products_name"=>"required",
             "product_confirm.*.product_model"=>"required",
-            "product_confirm.*.products_description"=>"required",
             "product_confirm.*.brand"=>"required",
             "product_confirm.*.product_stock"=>"required",
-            "product_confirm.*.closure"=>"required",
-            "product_confirm.*.product_detail"=>"required",
-            "product_confirm.*.fabric"=>"required",
-            "product_confirm.*.fit"=>"required",
-            "product_confirm.*.product_length"=>"required",
-            "product_confirm.*.neckline"=>"required",
-            "product_confirm.*.waistline"=>"required",
-            "product_confirm.*.total_sale"=>"required",
-            "product_confirm.*.is_sale"=>"required",
-            "product_confirm.*.total_rent"=>"required",
-            "product_confirm.*.is_rent"=>"required",
             "product_confirm.*.purchased_date"=>"required",
-            "product_confirm.*.vendor"=>"required",
          ]);
          $products = $request->input("product_confirm");
          foreach($products as $product){

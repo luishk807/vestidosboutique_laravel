@@ -98,6 +98,16 @@
         <small class="error">{{$errors->first("neckline")}}</small>
     </div>
     <div class="form-group">
+        <label for="productLength">Length Type:</label>
+        <select class="custom-select" name="length" id="productLength">
+            <option value="">Select Length</option>
+            @foreach($lengths as $length)
+                <option value="{{ $length->id }}">{{$length->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("length")}}</small>
+    </div>
+    <div class="form-group">
         <label for="productWaistline">Waistline Type:</label>
         <select class="custom-select" name="waistline" id="productWaistline">
             <option value="">Select Waistline</option>
