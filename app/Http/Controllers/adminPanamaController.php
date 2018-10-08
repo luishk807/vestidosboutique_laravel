@@ -121,11 +121,9 @@ class adminPanamaController extends Controller
              $data["categories"]=$this->categories->all();
              $data["closures"]=$this->closures->all();
              $data["brands"]=$this->brands->all();   
-             $data["fits"]=$this->fits->all();
              $data["fabrics"]=$this->fabrics->all();
              $data["vendors"]=$this->vendors->all();
              $data["necklines"]=$this->necklines->all();
-             $data["waistlines"]=$this->waistlines->all();
 
              $data["data_confirm"]=$session;
              return view("admin/products/import_confirm",$data);
@@ -147,10 +145,8 @@ class adminPanamaController extends Controller
             "product_confirm.*.closure"=>"required",
             "product_confirm.*.product_detail"=>"required",
             "product_confirm.*.fabric"=>"required",
-            "product_confirm.*.fit"=>"required",
             "product_confirm.*.product_length"=>"required",
             "product_confirm.*.neckline"=>"required",
-            "product_confirm.*.waistline"=>"required",
             "product_confirm.*.total_sale"=>"required",
             "product_confirm.*.is_sale"=>"required",
             "product_confirm.*.total_rent"=>"required",
@@ -171,10 +167,8 @@ class adminPanamaController extends Controller
                     "product_closure_id"=>$product["closure"],
                     "product_detail"=>$product["product_detail"],
                     "product_fabric_id"=>$product["fabric"],
-                    "product_fit_id"=>$product["fit"],
                     "product_length"=>$product["product_length"],
                     "product_neckline_id"=>$product["neckline"],
-                    "product_waistline_id"=>$product["waistline"],
                     "total_sale"=>$product["total_sale"],
                     "is_sell"=>(int)$product["is_sale"],
                     "total_rent"=>$product["total_rent"],

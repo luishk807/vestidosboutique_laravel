@@ -26,14 +26,10 @@ class CreateVestidosProducts extends Migration
             $table->string('product_detail')->nullable();
             $table->integer('product_fabric_id')->unsigned()->nullable();
             $table->foreign("product_fabric_id")->references("id")->on("vestidos_fabric_types")->onDelete('set null');
-            $table->integer('product_fit_id')->unsigned()->nullable();
-            $table->foreign("product_fit_id")->references("id")->on("vestidos_fit_types")->onDelete('set null');
             $table->integer('product_length')->unsigned()->nullable();
             $table->foreign('product_length')->references('id')->on('vestidos_length_types')->onDelete("set null");
             $table->integer('product_neckline_id')->unsigned()->nullable();
             $table->foreign("product_neckline_id")->references("id")->on("vestidos_neckline_types")->onDelete('set null');
-            $table->integer('product_waistline_id')->unsigned()->nullable();
-            $table->foreign("product_waistline_id")->references("id")->on("vestidos_waistline_types")->onDelete('set null');
             $table->decimal('total_sale',10,2)->nullable();
             $table->decimal('total_sale_old',10,2)->nullable();
             $table->boolean('is_sell')->default(false)->nullable();

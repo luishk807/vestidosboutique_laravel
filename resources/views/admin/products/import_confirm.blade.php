@@ -103,20 +103,6 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label for="productFit">Fit Type:</label>
-                                <select class="custom-select" name="product_confirm[{{$indexKey}}][fit]" id="productFit">
-                                    <option value="">Select Fit</option>
-                                    @foreach($fits as $fit)
-                                        <option value="{{ $fit->id }}"
-                                        @if($product['product_fit_id']==$fit->id)
-                                            selected="selected"
-                                        @endif
-                                        >{{$fit->name}} </option>
-                                    @endforeach
-                                </select>
-                                <small class="error">{{$errors->first("fit")}}</small>
-                            </div>
-                            <div class="form-group col-md-4">
                                 <label for="productNeckline">Neckline Type:</label>
                                 <select class="custom-select" name="product_confirm[{{$indexKey}}][neckline]" id="productNeckline">
                                     <option value="">Select Neckline</option>
@@ -129,21 +115,7 @@
                                     @endforeach
                                 </select>
                                 <small class="error">{{$errors->first("neckline")}}</small>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="productWaistline">Waistline Type:</label>
-                                <select class="custom-select" name="product_confirm[{{$indexKey}}][waistline]" id="productWaistline">
-                                    <option value="">Select Waistline</option>
-                                    @foreach($waistlines as $waistline)
-                                        <option value="{{ $waistline->id }}"
-                                        @if($product['product_waistline_id']==$waistline->id)
-                                            selected="selected"
-                                        @endif
-                                        >{{$waistline->name}} </option>
-                                    @endforeach
-                                </select>
-                                <small class="error">{{$errors->first("waistline")}}</small>
-                            </div>              
+                            </div>            
                         </div>
                         <div class="row">
                             <div class="form-group col-md-3">

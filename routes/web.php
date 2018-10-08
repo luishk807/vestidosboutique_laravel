@@ -197,19 +197,6 @@
                 Route::get('/import','adminLengthController@showImportLength')->name('show_import_length');
                 Route::post('/import','adminLengthController@saveImportLength')->name('save_import_length');
             });
-            //Admin fit
-            Route::prefix("fits")->group(function(){
-                Route::get('/','adminFitController@index')->name("admin_fits");
-                Route::get('/confirm/{fit_id}','adminFitController@deleteFit')->name('confirm_fit');
-                Route::delete('/confirm/{fit_id}','adminFitController@deleteFit')->name('delete_fit');
-                Route::get('/new','adminFitController@newFits')->name('new_fit');
-                Route::post('/new','adminFitController@newFits')->name('create_fit');
-                Route::get('/edit/{fit_id}','adminFitController@editFit')->name('edit_fit');
-                Route::post('/edit/{fit_id}','adminFitController@editFit')->name('save_fit');
-                Route::get('/import','adminFitController@showImportFit')->name('show_import_fit');
-                Route::post('/import','adminFitController@saveImportFit')->name('save_import_fit');
-            });
-            
              //Admin Fabric
              Route::prefix("fabrics")->group(function(){
                 Route::get('/','adminFabricController@index')->name("admin_fabrics");
@@ -233,18 +220,6 @@
                 Route::post('/edit/{neckline_id}','adminNecklineController@editNeckline')->name('save_neckline');
                 Route::get('/import','adminNecklineController@showImportNeckline')->name('show_import_neckline');
                 Route::post('/import','adminNecklineController@saveImportNeckline')->name('save_import_neckline');
-            });
-             //Admin Waistline
-             Route::prefix("waistlines")->group(function(){
-                Route::get('/','adminWaistlineController@index')->name("admin_waistlines");
-                Route::get('/confirm/{waistline_id}','adminWaistlineController@deleteWaistline')->name('confirm_waistline');
-                Route::delete('/confirm/{waistline_id}','adminWaistlineController@deleteWaistline')->name('delete_waistline');
-                Route::get('/new','adminWaistlineController@newWaistline')->name('new_waistline');
-                Route::post('/new','adminWaistlineController@newWaistline')->name('create_waistline');
-                Route::get('/edit/{waistline_id}','adminWaistlineController@editWaistline')->name('edit_waistline');
-                Route::post('/edit/{waistline_id}','adminWaistlineController@editWaistline')->name('save_waistline');
-                Route::get('/import','adminWaistlineController@showImportWaistline')->name('show_import_waistline');
-                Route::post('/import','adminWaistlineController@saveImportWaistline')->name('save_import_waistline');
             });
             // //Admin Products
             Route::prefix("products")->group(function(){

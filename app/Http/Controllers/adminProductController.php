@@ -9,13 +9,11 @@ use App\vestidosCategories as Categories;
 use App\vestidosClosureTypes as Closures;
 use App\vestidosColors as Colors;
 use App\vestidosBrands as Brands;
-use App\vestidosFitTypes as Fits;
 use App\vestidosFabricTypes as Fabrics;
 use App\vestidosSizes as Sizes;
 use App\vestidosProductsImgs as Images;
 use App\vestidosVendors as Vendors;
 use App\vestidosNecklineTypes as Necklines;
-use App\vestidosWaistlineTypes as Waistlines;
 use App\vestidosProductCategories as ProductCategories;
 use App\vestidosProductsRestocks as ProductRestocks;
 use App\vestidosLengthTypes as Lengths;
@@ -29,20 +27,18 @@ use File;
 class adminProductController extends Controller
 {
     //
-    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fits $fits, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, Waistlines $waistlines, ProductCategories $product_categories,ProductRestocks $product_restocks, Lenghts $lenghts){
+    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, ProductCategories $product_categories,ProductRestocks $product_restocks, Lengths $lengths){
         $this->statuses=$vestidosStatus;
         $this->products=$products;
         $this->categories=$categories;
         $this->closures=$closures;
         $this->colors=$colors;
         $this->brands=$brands;
-        $this->fits=$fits;
-        $this->lenghts = $lenghts;
+        $this->lengths = $lengths;
         $this->fabrics=$fabrics;
         $this->sizes=$sizes;
         $this->vendors=$vendors;
         $this->necklines=$necklines;
-        $this->waistlines=$waistlines;
         $this->images = $images;
         $this->restocks = $product_restocks;
         $this->product_categories = $product_categories;
@@ -63,13 +59,11 @@ class adminProductController extends Controller
         $data["statuses"]=$this->statuses->all();
         $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
-        $data["lenghts"]=$this->lenghts->all();
-        $data["brands"]=$this->brands->all();   
-        $data["fits"]=$this->fits->all();
+        $data["lengths"]=$this->lengths->all();
+        $data["brands"]=$this->brands->all();
         $data["fabrics"]=$this->fabrics->all();
         $data["vendors"]=$this->vendors->all();
         $data["necklines"]=$this->necklines->all();
-        $data["waistlines"]=$this->waistlines->all();
         return view("admin/products/new",$data);
     }
     public function createProduct(Request $request){
@@ -80,10 +74,8 @@ class adminProductController extends Controller
             "brand"=>"required",
             "closure"=>"required",
             "fabric"=>"required",
-            "fit"=>"required",
             'purchase_date'=>"required",
             "neckline"=>"required",
-            "waistline"=>"required",
             "products_description"=>"required",
             "total_rent"=>"required",
             "product_stock"=>"required"
@@ -96,18 +88,14 @@ class adminProductController extends Controller
         $data["vendor"]=(int)$request->input("vendor");
         $data["closure"]=(int)$request->input("closure");
         $data["fabric"]=(int)$request->input("fabric");
-        $data["fit"]=(int)$request->input("fit");
         $data["neckline"]=(int)$request->input("neckline");
-        $data["waistline"]=(int)$request->input("waistline");
         $data["brand_id"]=(int)$request->input("brand");
         $data["product_length"]=(int)$request->input("length");
         $data["vendor_id"]=(int)$request->input("vendor");
         $data["category_id"]=(int)$request->input("category");
         $data["product_closure_id"]=(int)$request->input("closure");
         $data["product_fabric_id"]=(int)$request->input("fabric");
-        $data["product_fit_id"]=(int)$request->input("fit");
         $data["product_neckline_id"]=(int)$request->input("neckline");
-        $data["product_waistline_id"]=(int)$request->input("waistline");
 
         $is_for_rent = $request->input("is_for_rent")?true:false;
         $data["is_rent"]=$is_for_rent;
@@ -153,15 +141,13 @@ class adminProductController extends Controller
         
         $data["page_title"]="Edit Product: ".$product->products_name;
         $data["statuses"]=$this->statuses->all();
-        $data["lenghts"]=$this->lenghts->all();
+        $data["lengths"]=$this->lengths->all();
         $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
-        $data["brands"]=$this->brands->all();   
-        $data["fits"]=$this->fits->all();
+        $data["brands"]=$this->brands->all();
         $data["fabrics"]=$this->fabrics->all();
         $data["vendors"]=$this->vendors->all();
         $data["necklines"]=$this->necklines->all();
-        $data["waistlines"]=$this->waistlines->all();
         return view("admin/products/edit",$data);
     }
     public function saveProduct(Request $request,$product_id){
@@ -186,9 +172,7 @@ class adminProductController extends Controller
         $data["category"]=(int)$request->input("category");
         $data["closure"]=(int)$request->input("closure");
         $data["fabric"]=(int)$request->input("fabric");
-        $data["fit"]=(int)$request->input("fit");
         $data["neckline"]=(int)$request->input("neckline");
-        $data["waistline"]=(int)$request->input("waistline");
 
         $this->validate($request,[
             "products_name"=>"required",
@@ -199,9 +183,7 @@ class adminProductController extends Controller
             "closure"=>"required",
             "fabric"=>"required",
             "purchase_date"=>"required",
-            "fit"=>"required",
             "neckline"=>"required",
-            "waistline"=>"required",
             "products_description"=>"required",
             "total_rent"=>"required",
             "product_stock"=>"required"
@@ -211,9 +193,7 @@ class adminProductController extends Controller
         $product->vendor_id = (int)$request->input("vendor");
         $product->product_closure_id = (int)$request->input("closure");
         $product->product_fabric_id = (int)$request->input("fabric");
-        $product->product_fit_id = (int)$request->input("fit");
         $product->product_neckline_id = (int)$request->input("neckline");
-        $product->product_waistline_id = (int)$request->input("waistline");
         
         $is_for_rent = $request->input("is_for_rent")?true:false;
         $product->is_rent=$is_for_rent;
@@ -230,7 +210,6 @@ class adminProductController extends Controller
         $product->product_length = $request->input("length");
         $product->product_detail = $request->input("product_detail");
         $product->product_model = $request->input("product_model");
-        $product->product_waistline_id=(int)$request->input("waistline");
         $product->products_description = $request->input("products_description");
         $product->status = (int)$request->input("status");
         $product->updated_at = carbon::now();
@@ -451,10 +430,8 @@ class adminProductController extends Controller
                         "product_closure_id"=>$value->closure,
                         "product_detail"=>$value->short_detail,
                         "product_fabric_id"=>$value->fabric,
-                        "product_fit_id"=>$value->fit,
                         "product_length"=>$value->product_length,
                         "product_neckline_id"=>$value->neckline,
-                        "product_waistline_id"=>$value->waistline,
                         "total_sale"=>$value->total_sale,
                         "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
                         "total_rent"=>$value->total_rent,
@@ -493,12 +470,10 @@ class adminProductController extends Controller
              $data["statuses"]=$this->statuses->all();
              $data["categories"]=$this->categories->all();
              $data["closures"]=$this->closures->all();
-             $data["brands"]=$this->brands->all();   
-             $data["fits"]=$this->fits->all();
+             $data["brands"]=$this->brands->all();
              $data["fabrics"]=$this->fabrics->all();
              $data["vendors"]=$this->vendors->all();
              $data["necklines"]=$this->necklines->all();
-             $data["waistlines"]=$this->waistlines->all();
 
              $data["data_confirm"]=$session;
              return view("admin/products/import_confirm",$data);
@@ -530,10 +505,8 @@ class adminProductController extends Controller
                     "product_closure_id"=>$product["closure"],
                     "product_detail"=>$product["product_detail"],
                     "product_fabric_id"=>$product["fabric"],
-                    "product_fit_id"=>$product["fit"],
                     "product_length"=>$product["product_length"],
                     "product_neckline_id"=>$product["neckline"],
-                    "product_waistline_id"=>$product["waistline"],
                     "total_sale"=>$product["total_sale"],
                     "is_sell"=>(int)$product["is_sale"],
                     "total_rent"=>$product["total_rent"],
@@ -543,7 +516,7 @@ class adminProductController extends Controller
                     "status"=>1,
                     "created_at"=>carbon::now(),
                  ];
-                
+                 
                  $product_insert = Products::create($insert);
                  $categories = $product["cat"];
                      //insert new categories
