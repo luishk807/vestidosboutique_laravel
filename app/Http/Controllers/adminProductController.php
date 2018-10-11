@@ -414,49 +414,92 @@ class adminProductController extends Controller
         $this->validate($request,[
             "file"=>"required"
         ]);
-
+        $insert=[];
         if($request->hasFile('file')) {
             $path = $request->file->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
             
+            $model_number=null;
+            $detail_products=[];
             if(!empty($data) && $data->count()){
                 foreach ($data as $value) {
-                    $insert[]=[
-                        "products_name"=>$value->product_name,
-                        "product_model"=>$value->model_number,
-                        "products_description"=>$value->full_description,
-                        "brand_id"=>$value->brand,
-                        "product_stock"=>$value->stock,
-                        "product_closure_id"=>$value->closure,
-                        "product_detail"=>$value->short_detail,
-                        "product_fabric_id"=>$value->fabric,
-                        "product_length"=>$value->product_length,
-                        "product_neckline_id"=>$value->neckline,
-                        "total_sale"=>$value->total_sale,
-                        "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
-                        "total_rent"=>$value->total_rent,
-                        "is_rent"=>$value->is_for_rent=="yes" ?1:0,
-                        "purchase_date"=>$value->purchased_date,
-                        "vendor_id"=>$value->vendor,
-                        "status"=>1,
-                        "ip"=>$request->ip(),
-                        "created_at"=>carbon::now(),
-                    ];
+                    $sizes = [];
+                    $found=false;
+
+                    if(count($insert)>0){
+                        foreach($insert as $check){
+                            if($check["product_model"]==$value->model_number){
+                                $found=true;
+                            
+                                $color = $detail_products[$model_number];
+                                if(!array_key_exists($value->color,$color)){
+                                    $detail_products[$model_number][$value->color]=[];
+                                }
+                                $sizes = $detail_products[$model_number][$value->color];
+                                $sizes[]=$value->size;
+                                $detail_products[$model_number][$value->color]=$sizes;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(!$found){
+                        $model_number = $value->model_number;
+                        $insert[]=[
+                            "products_name"=>$value->product_name,
+                            "product_model"=>$value->model_number,
+                            "products_description"=>$value->full_description,
+                            "brand_id"=>$value->brand,
+                            "product_stock"=>$value->stock,
+                            "product_closure_id"=>$value->closure,
+                            "product_detail"=>$value->short_detail,
+                            "product_fabric_id"=>$value->fabric,
+                            "product_length"=>$value->product_length,
+                            "product_neckline_id"=>$value->neckline,
+                            "total_sale"=>$value->total_sale,
+                            "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
+                            "total_rent"=>$value->total_rent,
+                            "is_rent"=>$value->is_for_rent=="yes" ?1:0,
+                            "purchase_date"=>$value->purchased_date,
+                            "vendor_id"=>$value->vendor,
+                            "status"=>1,
+                            "ip"=>$request->ip(),
+                            "created_at"=>carbon::now(),
+                        ];
+
+                        // get the color based on model
+                        $detail_products[$model_number][$value->color]=[];
+                        $sizes[]=$value->size;
+                        $detail_products[$model_number][$value->color]=$sizes;
+ 
+
+                    }
+
+
                 }
+                // echo "<pre>";
+                // print_r($insert);
+                // echo "</pre>";
+                // echo "<pre>";
+                // print_r($detail_products);
+                // echo "</pre>";
                 Session::forget("data_confirm");
-                Session::put("data_confirm",$insert);
+                Session::put("data_confirm",[
+                    "insert"=>$insert,
+                    "detail"=>$detail_products
+                ]);
                 return redirect()->route('show_confirm_import_product');
-                // if(!empty($insert)){
-                //     Products::insert($insert);
-                //     return redirect()->route('admin_products')->with('success','Insert Record successfully.');
-                // }
+                if(!empty($insert)){
+                    Products::insert($insert);
+                    return redirect()->route('admin_products')->with('success','Insert Record successfully.');
+                }
             }
         }else{
             return redirect()->back()->withErrors([
                 "required","No File Entered"
             ]);
         }
-        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+       // return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
 
     public function showConfirmImportProduct(){

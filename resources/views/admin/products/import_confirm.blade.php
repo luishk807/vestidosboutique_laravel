@@ -11,7 +11,7 @@
     <form action="{{ route('save_confirm_import_product') }}" method="post">
     {{ csrf_field() }}
         <div class="container">
-            @foreach($data_confirm as $indexKey=>$product)
+            @foreach($data_confirm["insert"] as $indexKey=>$product)
             <div class="row confirm-data-row">
                 <div class="col-md-1">
                     <span class="confirm-data-key">{{ 1+ $indexKey }}&#46;</span>&nbsp;<input type="checkbox" checked name="product_confirm[{{$indexKey}}][key]" id="productcheck{{$indexKey}}]" value="{{ $indexKey }}"/>
@@ -169,6 +169,38 @@
                         </div>
 
 
+
+                        @if(array_key_exists($product['product_model'],$data_confirm["detail"]))
+                            @foreach($data_confirm["detail"][$product['product_model']] as $key_detail=>$p_detail)
+                                
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="productLength">Color Name:</label>
+                                        <input type="text" id="productLength" class="form-control" name="product_confirm[{{$indexKey}}][product_length]" value="{{$key_detail}}" placeholder="Color Name"/>
+                                        <small class="error">{{$errors->first("product_length")}}</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="productDetail">Color Code:</label>
+                                        <input type="text" id="productDetail" class="form-control" name="product_confirm[{{$indexKey}}][product_detail]" value="{{ $product['product_detail'] }}" placeholder="Product Detail"/>
+                                        <small class="error">{{$errors->first("product_detail")}}</small>
+                                    </div>                  
+                                </div>
+                                
+                                Choose Sizes For {{$key_detail}}:<br/>
+                                <ul class="custom-ul">
+                                    @foreach($p_detail as $key_sizes => $p_sizes)
+                                    <li>
+                                        <input value="{{ $p_sizes}}" id="category_{{$key_sizes}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][cat][]">
+                                        <label for="category_{{$key_sizes}}" >{{ $p_sizes}} </label>
+                                    </li>
+                                    @endforeach
+                                </ul>
+
+
+
+                            @endforeach
+                        @endif
                     </div><!--end of the product container-->
                 </div><!--end of product column-->
             </div>
