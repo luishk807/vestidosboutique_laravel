@@ -73,9 +73,6 @@ class vestidosProducts extends Model
     public function rates(){
         return $this->hasMany('App\vestidosProductRates',"product_id");
     }
-    public function sizes(){
-        return $this->hasMany('App\vestidosSizes',"product_id");
-    }
     
     public function isWishList($user_id,$product_id){
         $wishlist = DB::table("vestidos_user_wishlists")

@@ -532,6 +532,7 @@ class adminProductController extends Controller
          $this->validate($request,[
             "product_confirm.*.product_model"=>"required",
             "product_confirm.*.brand"=>"required",
+            "product_confirm.*.cat"=>"required",
             "product_confirm.*.product_stock"=>"required",
             "product_confirm.*.purchased_date"=>"required",
          ]);
@@ -559,19 +560,56 @@ class adminProductController extends Controller
                     "status"=>1,
                     "created_at"=>carbon::now(),
                  ];
-                 
-                 $product_insert = Products::create($insert);
-                 $categories = $product["cat"];
-                     //insert new categories
-                    if(count($categories)>0){
-                        foreach($categories as $category){
-                            $this->product_categories->insert([
-                                "product_id"=>$product_insert->id,
-                                "category_id"=>$category,
-                                "created_at"=>carbon::now()
-                            ]);
-                        }
+                //  echo "<pre>";
+                // print_r($insert);
+                // echo "</pre>";
+
+                // echo "<pre>";
+                // print_r($product["color"]);
+                // echo "</pre>";
+
+                // echo "<pre>";
+                // print_r($product["cat"]);
+                // echo "</pre>";
+               
+                $product_insert = Products::create($insert);
+                $categories = $product["cat"];
+                //insert new categories
+                if(count($categories)>0){
+                    foreach($categories as $category){
+                        $this->product_categories->insert([
+                            "product_id"=>$product_insert->id,
+                            "category_id"=>$category,
+                            "created_at"=>carbon::now()
+                        ]);
                     }
+                }
+                // insert colors
+                $colors = $product["color"];
+                if(count($colors)>0){
+                    foreach($colors as $color){
+                        $insert_c = [
+                            "product_id"=>$product_insert->id,
+                            "name"=>$color["name"],
+                            "color_code"=>$color["code"],
+                            "created_at"=>carbon::now()
+                        ];
+                        $color_insert = Colors::create($insert_c);
+                       if(!empty($color_insert->id)){
+                        $sizes = $product["sizes"];
+                            //insert new sizes
+                            if(count($sizes)>0){
+                                foreach($sizes as $size){
+                                    $this->sizes->insert([
+                                        "color_id"=>$color_insert->id,
+                                        "name"=>$size,
+                                        "created_at"=>carbon::now()
+                                    ]);
+                                }
+                            }
+                       }
+                    }
+                }
              }
          }
          if(!$valid_array){

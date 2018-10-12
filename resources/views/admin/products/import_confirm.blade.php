@@ -176,13 +176,13 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-6">
-                                        <label for="productLength">Color Name:</label>
-                                        <input type="text" id="productLength" class="form-control" name="product_confirm[{{$indexKey}}][product_length]" value="{{$key_detail}}" placeholder="Color Name"/>
+                                        <label for="product_color_{{$indexKey}}">Color Name:</label>
+                                        <input type="text" id="product_color_{{$indexKey}}" class="form-control" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][name]" value="{{$key_detail}}" placeholder="Color Name"/>
                                         <small class="error">{{$errors->first("product_length")}}</small>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="productDetail">Color Code:</label>
-                                        <input type="text" id="productDetail" class="form-control" name="product_confirm[{{$indexKey}}][product_detail]" value="{{ $product['product_detail'] }}" placeholder="Product Detail"/>
+                                        <label for="productDetail">Color Code:</label><br/>
+                                        <input type="color" id="colorCode" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][code]" value=""/>
                                         <small class="error">{{$errors->first("product_detail")}}</small>
                                     </div>                  
                                 </div>
@@ -191,7 +191,7 @@
                                 <ul class="custom-ul">
                                     @foreach($p_detail as $key_sizes => $p_sizes)
                                     <li>
-                                        <input value="{{ $p_sizes}}" id="category_{{$key_sizes}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][cat][]">
+                                        <input checked value="{{ $p_sizes}}" id="category_{{$key_sizes}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][]">
                                         <label for="category_{{$key_sizes}}" >{{ $p_sizes}} </label>
                                     </li>
                                     @endforeach
