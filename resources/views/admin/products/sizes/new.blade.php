@@ -8,6 +8,15 @@
         <small class="error">{{$errors->first("size")}}</small>
     </div>
     <div class="form-group">
+        <label for="sizeColor">Select Color for Size:</label>
+        <select class="custom-select" name="color" id="sizeColor">
+            @foreach($colors as $color)
+                <option value="{{ $color->id }}">{{$color->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("color")}}</small>
+    </div>
+    <div class="form-group">
         <label for="sizeStatus">Status:</label>
         <select class="custom-select" name="status" id="sizeStatus">
             @foreach($statuses as $status)
@@ -16,7 +25,6 @@
         </select>
         <small class="error">{{$errors->first("status")}}</small>
     </div>
-    
 
     <div class="container">
         <div class="row">

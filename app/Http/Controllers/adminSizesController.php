@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\vestidosSizes as Sizes;
 use Carbon\Carbon as carbon;
+use App\vestidosColors as Colors;
 use App\vestidosProducts as Products;
 use App\vestidosStatus as vestidosStatus;
 use Excel;
@@ -12,9 +13,10 @@ use Excel;
 class adminSizesController extends Controller
 {
     //
-    public function __construct(vestidosStatus $vestidosStatus, Sizes $sizes, Products $products){
+    public function __construct(vestidosStatus $vestidosStatus, Sizes $sizes, Products $products,Colors $colors){
         $this->statuses=$vestidosStatus;
         $this->sizes=$sizes;
+        $this->colors=$colors;
         $this->products=$products;
     }
     public function index($product_id){
@@ -30,14 +32,15 @@ class adminSizesController extends Controller
     public function newSizes($product_id,Request $request){
         $data=[];
         $data["name"]=$request->input("size");
+        $data["color_id"]=$request->input("color");
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
             $this->validate($request,[
                 "size"=>"required",
                 "status"=>"required",
+                "color"=>"required"
             ]
             );
-            $data["product_id"]=$product_id;
             $data["created_at"]=carbon::now();
             $this->sizes->insert($data);
             return redirect()->route("admin_sizes",["product_id"=>$product_id]);
@@ -45,6 +48,8 @@ class adminSizesController extends Controller
         $product=$this->products->find($product_id);
         $data["size"]=(int)$request->input("size");
         $data["product_id"]=$product_id;
+        $data["color"]=$request->input("color");
+        $data["colors"]=$product->colors;
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Dress Size For: ".$product->products_name;
         return view("admin/products/sizes/new",$data);
@@ -52,7 +57,9 @@ class adminSizesController extends Controller
     public function editSize($size_id,Request $request){
         $data=[];
         $size =$this->sizes->find($size_id);
-        $data["product_id"]=$size->product_id;
+        $color = $this->colors->find($size->color_id);
+        $product = $this->products->find($color->product_id);
+        $data["product_id"]=$color->product_id;
         $data["size"]=$size;
         $data["size_id"]=$size_id;
         $data["status"]=$request->input("status");
@@ -60,18 +67,20 @@ class adminSizesController extends Controller
         if($request->isMethod("post")){
             $this->validate($request,[
                 "dress_size"=>"required",
+                "color"=>"required",
                 "status"=>"required"
             ]);
             $size->name=$request->input("dress_size");
+            $size->color_id=$request->input("color");
             $size->status=(int)$request->input("status");
             $size->updated_at=carbon::now();
             $size->save();
 
-            return redirect()->route("admin_sizes",["product_id"=>$size->product_id]);
+            return redirect()->route("admin_sizes",["product_id"=>$color->product_id]);
         }
         
         $data["statuses"]=$this->statuses->all();
-        $product = $this->products->find($size->product_id);
+        $data["colors"]=$product->colors;
         $data["page_title"]="Edit Dress Size For ".$product->products_name;
         return view("admin/products/sizes/edit",$data);
     }
