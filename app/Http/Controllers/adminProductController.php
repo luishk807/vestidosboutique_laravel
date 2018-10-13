@@ -145,6 +145,7 @@ class adminProductController extends Controller
         $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
         $data["brands"]=$this->brands->all();
+        $data["sizes"]=$product->getAllSizesCount()[0];
         $data["fabrics"]=$this->fabrics->all();
         $data["vendors"]=$this->vendors->all();
         $data["necklines"]=$this->necklines->all();
@@ -573,12 +574,14 @@ class adminProductController extends Controller
                 // echo "</pre>";
                
                 $product_insert = Products::create($insert);
+                $product_id = null;
+                $product_id = $product_insert->id;
                 $categories = $product["cat"];
                 //insert new categories
                 if(count($categories)>0){
                     foreach($categories as $category){
                         $this->product_categories->insert([
-                            "product_id"=>$product_insert->id,
+                            "product_id"=>$product_id,
                             "category_id"=>$category,
                             "created_at"=>carbon::now()
                         ]);
@@ -588,20 +591,20 @@ class adminProductController extends Controller
                 $colors = $product["color"];
                 if(count($colors)>0){
                     foreach($colors as $color){
-                        $insert_c = [
-                            "product_id"=>$product_insert->id,
+                        $color_insert = Colors::create([
+                            "product_id"=>$product_id,
                             "name"=>$color["name"],
                             "color_code"=>$color["code"],
                             "created_at"=>carbon::now()
-                        ];
-                        $color_insert = Colors::create($insert_c);
-                       if(!empty($color_insert->id)){
-                        $sizes = $product["sizes"];
+                        ]);
+                        $color_id = $color_insert->id;
+                       if(!empty($color_id)){
+                        $sizes = $color["sizes"];
                             //insert new sizes
                             if(count($sizes)>0){
                                 foreach($sizes as $size){
                                     $this->sizes->insert([
-                                        "color_id"=>$color_insert->id,
+                                        "color_id"=>$color_id,
                                         "name"=>$size,
                                         "created_at"=>carbon::now()
                                     ]);

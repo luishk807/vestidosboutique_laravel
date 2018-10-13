@@ -8,7 +8,7 @@ class vestidosColors extends Model
 {
     //
     protected $fillable = [
-        "products_id",
+        "product_id",
         "name",
         "color_code",
         "status",

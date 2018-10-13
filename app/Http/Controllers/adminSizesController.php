@@ -20,11 +20,12 @@ class adminSizesController extends Controller
     public function index($product_id){
         $data=[];
         $product = $this->products->find($product_id);
-        $data["sizes"]=$product->sizes()->get();
+        $data["sizes"]=$product->getAllSizes();
         $data["product_id"]=$product_id;
         $data["products"]=$this->products->all();
         $data["page_title"]="Dress Sizes";
         return view("admin/products/sizes/home",$data);
+
     }
     public function newSizes($product_id,Request $request){
         $data=[];

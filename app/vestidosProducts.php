@@ -91,6 +91,23 @@ class vestidosProducts extends Model
                     ->get();
         return $products;
     }
+    public function getAllSizesCount(){
+        return DB::table("vestidos_sizes")
+        ->select(DB::raw('count(vestidos_sizes.id) as count'))
+        ->join("vestidos_colors","vestidos_colors.id","=","vestidos_sizes.color_id")
+        ->join("vestidos_products","vestidos_products.id","=","vestidos_colors.product_id")
+        ->where("vestidos_products.id",$this->getKey())
+        ->get();
+    }
+    public function getAllSizes(){
+        return DB::table("vestidos_sizes")
+        ->select('vestidos_sizes.*',"vestidos_colors.name as color_name","vestidos_statuses.name as status_name")
+        ->join("vestidos_colors","vestidos_colors.id","=","vestidos_sizes.color_id")
+        ->join("vestidos_products","vestidos_products.id","=","vestidos_colors.product_id")
+        ->join("vestidos_statuses","vestidos_statuses.id","=","vestidos_sizes.status")
+        ->where("vestidos_products.id",$this->getKey())
+        ->get();
+    }
     public function is_rated(){
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $products = DB::table("vestidos_product_rates")
