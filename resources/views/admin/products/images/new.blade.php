@@ -1,12 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-
-<style>
-.warning-text{
-    font-size:1.5rem;
-    font-weight:bold;
-}
-</style>
 <form action="{{ route('create_image',['product_id'=>$product_id]) }}" method="post" enctype="multipart/form-data">
 {{ csrf_field() }}
     <div class="container cancel-container">
