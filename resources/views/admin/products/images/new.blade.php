@@ -1,11 +1,21 @@
 @extends('admin/layouts.app')
 @section('content')
 
-
+<style>
+.warning-text{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+</style>
 <form action="{{ route('create_image',['product_id'=>$product_id]) }}" method="post" enctype="multipart/form-data">
-
-
 {{ csrf_field() }}
+    <div class="container cancel-container">
+        <div class="row">
+            <div class="col text-center warning-text">
+                Images must be be <br/>{{$required_size["width"]}}px in width and {{$required_size["height"]}}px in Height
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <small class="error">
             @foreach ($errors->all() as $error)

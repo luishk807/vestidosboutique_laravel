@@ -1,5 +1,17 @@
 @extends('admin/layouts.app')
 @section('content')
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <nav class="navbar navbar navbar-expand-lg">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{{ route('new_size',['product_id'=>$color->product_id]) }}" class="nav-link">Add Sizes</a></li>
+                </ul>
+            </nav>
+            
+        </div>
+    </div>
+</div>
 <form action="{{ route('edit_color',['color_id'=>$color->id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">

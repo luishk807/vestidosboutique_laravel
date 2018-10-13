@@ -75,6 +75,10 @@ class adminProductImagesController extends Controller
             }
             return redirect()->route("admin_images",['product_id'=>$product_id]);
         }
+        $data["required_size"]=[
+            "width"=>$this->maxWidth,
+            "height"=>$this->maxHeight
+        ];
         $data["product_id"]=$product_id;
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Image For Product: ".$product->products_name;

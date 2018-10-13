@@ -23,8 +23,9 @@
     </div>
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3">Name</div>
+        <div class="col-md-2">Name</div>
         <div class="col-md-2">Color</div>
+        <div class="col-md-1">Sizes</div>
         <div class="col-md-2">Status</div>
         <div class="col-md-3">Action</div>
     </div>
@@ -32,8 +33,9 @@
     <div class="row">
 
         <div class="col-md-2"></div>
-        <div class="col-md-3">{{$color->name}}</div>
+        <div class="col-md-2">{{$color->name}}</div>
         <div class="col-md-2"><span class="color_cubes color_cubes_btn_b"  style="background-color:{{ $color->color_code }}">&nbsp;</span></div>
+        <div class="col-md-1"><a href='{{ route("admin_sizes",["product_id"=>$color->product_id])}}'>{{ $color->sizes()->count() }}</a></div>
         <div class="col-md-2">{{ $color->getStatusName->name }}</div>
         <div class="col-md-3">
             <a href="{{ route('confirm_color',['color_id'=>$color->id])}}">delete</a>
