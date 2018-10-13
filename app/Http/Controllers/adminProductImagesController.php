@@ -150,6 +150,10 @@ class adminProductImagesController extends Controller
     public function showImportImage($product_id){
         $data=[];
         $data["page_title"]="Import Images";
+        $data["required_size"]=[
+            "width"=>$this->maxWidth,
+            "height"=>$this->maxHeight
+        ];
         $data["product_id"]=$product_id;
         $data["import_btn"]="Import Images";
         return view("admin/products/images/import",$data);
