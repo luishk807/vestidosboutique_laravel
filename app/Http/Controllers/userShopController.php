@@ -44,7 +44,7 @@ class userShopController extends Controller
         $data["sort"]="low";
         $data["shop_banners"]=$this->shop_banners->first();
         $products = $this->products->orderBy('products_name');
-        $data["products"]=$products->paginate(15);
+        $data["products"]=$products->where("status",1)->paginate(15);
         $data["sort_ops"]=$this->sort_options;
         $data["categoryids"]=array();
         $data["brandids"]=array();

@@ -624,15 +624,14 @@ background-size: cover;
 /***COLOR CUBES***/
 .colors_cubes{
   display: inline-block;
-  border-radius: 4px;
   margin:2px 2px 2px 0px;
   border:1px rgba(0,0,0,.2) solid;
 }
 .color_cubes_btn_a{
   border: 2px transparent solid;
   cursor: pointer;
-  width: 33px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 }
 .vesti_in_user_btn_pnl{
   margin:5px 0px;
@@ -919,7 +918,8 @@ button.size_spheres.selected {
     color: white;
 }
 button.colors_cubes.selected{
-    border:2px gray solid;
+  border: 1px solid white;
+  outline: 1px solid black;
 }
 .product_in_detail_drop{
     margin: 25px 0px;

@@ -10,6 +10,7 @@ use App\vestidosProvinces as Provinces;
 use App\vestidosDistricts as Districts;
 use App\vestidosCorregimientos as Corregimientos;
 use App\vestidosUsers as Users;
+use App\vestidosColors as Colors;
 use Carbon\Carbon as carbon;
 use App\vestidosProducts as Products;
 use App\vestidosGenders as Genders;
@@ -37,7 +38,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders, Districts $districts, Provinces $provinces, Corregimientos $corregimientos)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders, Districts $districts, Provinces $provinces, Corregimientos $corregimientos,Colors $colors)
     {
       $this->brands=$brands;
       $this->country=$countries;
@@ -45,6 +46,7 @@ class HomeController extends Controller
       $this->users = $users;
       $this->products=$products;
       $this->genders=$genders;
+      $this->colors=$colors;
       $this->languages=$languages;
       $this->addresses=$addresses;
       $this->main_sliders = $main_sliders;
@@ -213,5 +215,10 @@ class HomeController extends Controller
         $district_id=Input::get('data');
         $district = $this->districts->find($district_id);
         return response()->json($district->corregimientos()->get());
+    }
+    public function loadColorSizes(){
+        $color_id=Input::get('data');
+        $color = $this->colors->find($color_id);
+        return response()->json($color->sizes()->get());
     }
 }

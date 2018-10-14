@@ -45,6 +45,15 @@ $(document).ready(function() {
            }
        }); 
    });
+   /******PRODUCT PAGE ***/
+   var color_selected = $(".product_in_colors button.selected");
+   if(color_selected){
+       color_selected.trigger( "click" );
+       loadSizes(color_selected.attr('data-value'));
+   }
+   $(".color_cubes_btn_a").click(function(e){
+        loadSizes($(e.target).attr("data-value"));
+   });
    /*******SHOP PAGE *************/
    $(".rate-shop").rate({
         readonly:true
@@ -195,6 +204,24 @@ function updateCart(index,quant){
 }
 function deleteCart(index){
     document.location='api/deleteCart?key='+index;
+}
+function loadSizes(color){
+    if(typeof urlColorSizes !== "undefined"){
+        $.ajax({
+            type: "GET",
+            url: urlColorSizes,
+            data: {
+                data:color
+            },
+            success: function(data) {
+                var sizeContainer = $("#size-container");
+                sizeContainer.empty();
+                $.each(data, function(index,element){
+                    sizeContainer.append("<button class='size_spheres' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
+                });
+            }
+        });
+    }
 }
 function addCart(event){
     event.preventDefault();

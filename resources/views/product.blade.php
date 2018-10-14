@@ -1,5 +1,8 @@
 @extends("layouts.sub-layout")
 @section('content')
+<script>
+var urlColorSizes = "{{ url('api/loadSizes') }}";
+</script>
 <div id="popup_bgOverlay">
     <div id="popup_text">
         <div id="popup_text_in"></div>
@@ -50,8 +53,9 @@
                                         <div class="product_in_sub_title">
                                         {{ __('general.product_title.select_color') }}
                                         </div>
-                                        @foreach($product->colors as $color)
-                                        <button class="colors_cubes color_cubes_btn_a" data-class="colors_cubes" data-input="product_color" data-value="{{ $color->id }}" onclick="addCart(event)" style="background-color:{{ $color->color_code }}"></button>
+                                        @foreach($product->colors as $colorIndex => $color)
+                                        @php( $colorSelected= $colorIndex==0 ? "selected":"" )
+                                        <button class="colors_cubes {{ $colorSelected }} color_cubes_btn_a" data-class="colors_cubes" data-input="product_color" data-value="{{ $color->id }}" onclick="addCart(event)" style="background-color:{{ $color->color_code }}"></button>
                                         @endforeach
                                     </div>
                                    <div class="product_in_size">
@@ -60,9 +64,7 @@
                                             <div class="product_in_sub_title">
                                             {{ __('general.product_title.select_size') }}
                                             </div>
-                                            @foreach($product->sizes as $size)
-                                            <button class="size_spheres" onclick="addCart(event)" data-class="size_spheres" data-input="product_size" data-value="{{ $size->id }}">{{ $size->name }}</button>
-                                            @endforeach
+                                            <span id="size-container"></span>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="product_in_sub_title">
