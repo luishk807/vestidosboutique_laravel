@@ -78,19 +78,21 @@ class ordersProductsController extends Controller
                 $total = $prod->total_sale * $product['quantity'];
                 $color = $this->colors->find($product["color"]);
                 $size = $this->sizes->find($product["size"]);
-                $subtotal += $total;
-                $order_p[]=array(
-                    "id"=>$prod->id,
-                    "name"=>$prod->products_name,
-                    "img"=>$prod->images->first()->img_url,
-                    "img_name"=>$prod->images->first()->img_name,
-                    "total"=>$prod->total_sale,
-                    "color_id"=>$product["color"],
-                    "color"=>$color->name,
-                    "size_id"=>$product["size"],
-                    "size"=>$size->name,
-                    "quantity"=>$product['quantity']
-                );
+                if($size->stock >0){
+                    $subtotal += $total;
+                    $order_p[]=array(
+                        "id"=>$prod->id,
+                        "name"=>$prod->products_name,
+                        "img"=>$prod->images->first()->img_url,
+                        "img_name"=>$prod->images->first()->img_name,
+                        "total"=>$prod->total_sale,
+                        "color_id"=>$product["color"],
+                        "color"=>$color->name,
+                        "size_id"=>$product["size"],
+                        "size"=>$size->name,
+                        "quantity"=>$product['quantity']
+                    );
+                }
             }
         }
         $shipping_list =$data["shipping_list"];

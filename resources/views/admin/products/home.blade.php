@@ -48,7 +48,7 @@
         " class="img-fluid"/></div>
         <div class="col-md-3">{{$product->products_name}}</div>
         <div class="col-md-2">{{$product->getBrand->name }}</div>
-        <div class="col-md-1">{{$product->product_stock > 0 ? "In Stock" : "Out of Stock"}}</div>
+        <div class="col-md-1">{{$product->getAllSizesCount()[0]->count > 0 ? "In Stock" : "Out of Stock"}}</div>
         <div class="col-md-1">{{ $product->getStatus->name }}</div>
         <div class="col-md-2">
             <a href="{{ route('confirm_product',['product_id'=>$product->id])}}">delete</a>

@@ -490,6 +490,24 @@ class ordersController extends Controller
             $data["order_shipping_type"] = $shipping_list->id;
             $data["created_at"]=carbon::now();
             // $data["products"]=$cart_p;
+            foreach($cart["products"] as $product){
+                $new_product["product_id"]=$product["id"];
+                $new_product["order_id"]=$order->id;
+                $new_product["quantity"]=$product["quantity"];
+                $new_product["total"]=$product["total"];
+                $new_product["color_id"]=$product["color_id"];
+                $new_product["size_id"]=$product["size_id"];
+                $new_product["status"]=9;
+                $new_product["created_at"]=$today;
+                $check_size = $this->sizes->find($product["size_id"]);
+                $check_product = $this->products->find($product["id"]);
+                $check_color =  $this->colors->find($product["color_id"]);
+                if($check_size->stock < 1){
+                    return redirect()->back()->withErrors([
+                        "required"=>$check_product->products_name." ".$check_color->name." / ".$check_size->name." is out of stock"
+                    ]);
+                }
+            }
             $order = Orders::create($data);
             //save addresese
             $data_shipping["order_id"]=$order->id;
