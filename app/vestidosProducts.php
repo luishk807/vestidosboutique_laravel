@@ -14,7 +14,6 @@ class vestidosProducts extends Model
         "product_model",
         "products_description",
         "brand_id",
-        "product_stock",
         "product_closure_id",
         "product_detail",
         "product_fabric_id",
@@ -140,6 +139,14 @@ class vestidosProducts extends Model
         ->join("vestidos_product_categories","product_id","vestidos_products.id")
         ->whereIn("vestidos_product_categories.category_id",$cat_ids);
         return $products;
+    }
+    public function getStock(){
+        return DB::table("vestidos_sizes")
+        ->select(DB::raw('sum(vestidos_sizes.stock) as stock'))
+        ->join("vestidos_colors","vestidos_colors.id","=","vestidos_sizes.color_id")
+        ->join("vestidos_products","vestidos_products.id","=","vestidos_colors.product_id")
+        ->where("vestidos_products.id",$this->getKey())
+        ->get();
     }
     public function searchProductsByLabels($filter){
         $products = DB::table("vestidos_products")

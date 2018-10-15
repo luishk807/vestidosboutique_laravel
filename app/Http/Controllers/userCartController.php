@@ -50,11 +50,11 @@ class userCartController extends Controller
         if(!empty($cart)){
             for($i=0;$i<sizeof($cart);$i++){
                 $product = $this->products->find($cart[$i]["id"]);
-                if($product->product_stock < 1){
+                if($cart[$i]["stock"] < 1){
                     $cart_remove .= empty($cart_remove) ? $cart[$i]["name"]:" ,".$cart[$i]["name"];
                    array_splice($cart,$i,1);
                 }else{
-                    $cart[$i]["stock"]=$product->product_stock;
+                    $cart[$i]["stock"]=$cart[$i]["stock"];
                 }
             }
         }
@@ -108,7 +108,7 @@ class userCartController extends Controller
                 "color_id"=>$color_id,
                 "size"=>$size->name,
                 "size_id"=>$size_id,
-                "stock"=>0,
+                "stock"=>$size->stock,
                 "total"=>$product->total_rent,
                 "total_old"=>$product->total_old
             ); 
@@ -116,6 +116,7 @@ class userCartController extends Controller
         }
         $data["subtotal"]=0;
         $data["tax"]=$tax_amt;
+       // dd($cart);
         Session::put("vestidos_shop",$cart);
         return redirect()->route("cart_page");
     }

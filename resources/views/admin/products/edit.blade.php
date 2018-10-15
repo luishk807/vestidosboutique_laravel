@@ -151,11 +151,6 @@
         <small class="error">{{$errors->first("total_sale")}}</small>
     </div>
     <div class="form-group">
-        <label for="productStock">Available Stock:</label>
-        <input type="text" id="productStock" class="form-control" name="product_stock" value="{{ old('product_stock') ? old('product_stock') : $product->product_stock }}" placeholder="Number of Stock Available"/>
-        <small class="error">{{$errors->first("product_stock")}}</small>
-    </div>
-    <div class="form-group">
         <label for="productSearchLabel">Search Labels:</label>
         <textarea class="form-control" id="productSearchLabel" rows="3" name="search_labels">{{ old('search_labels') ? old('search_labels') : $product->search_labels }}</textarea>
         <small class="error">{{$errors->first("search_labels")}}</small>

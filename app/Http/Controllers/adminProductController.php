@@ -78,7 +78,6 @@ class adminProductController extends Controller
             "neckline"=>"required",
             "products_description"=>"required",
             "total_rent"=>"required",
-            "product_stock"=>"required"
         ]);
         
         $categories = $request->input("categories");
@@ -105,8 +104,6 @@ class adminProductController extends Controller
         $data["is_sell"] = $is_for_sell;
         $data["total_sale"] = $is_for_sell?$request->input("total_sale"):0;
 
-        
-        $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
         $data["product_model"]=$request->input("product_model");
@@ -156,7 +153,6 @@ class adminProductController extends Controller
         $product = $this->products->find($product_id);
         $data["products_name"]=$request->input("products_name");
         $data["total_rent"]=$request->input("total_rent");
-        $data["product_stock"]=$request->input("product_stock");
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
         $data["product_model"]=$request->input("product_model");
@@ -187,7 +183,6 @@ class adminProductController extends Controller
             "neckline"=>"required",
             "products_description"=>"required",
             "total_rent"=>"required",
-            "product_stock"=>"required"
         ]);
         $product->products_name = $request->input("products_name");
         $product->brand_id = (int)$request->input("brand");
@@ -204,8 +199,6 @@ class adminProductController extends Controller
         $product->is_sell = $is_for_sell;
         $product->total_sale = $is_for_sell?$request->input("total_sale"):0;
 
-
-        $product->product_stock = $request->input("product_stock");
         $product->search_labels = $request->input("search_labels");
         $product->purchase_date=$request->input("purchase_date");
         $product->product_length = $request->input("length");

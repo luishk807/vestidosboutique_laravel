@@ -33,12 +33,14 @@ class adminSizesController extends Controller
         $data=[];
         $data["name"]=$request->input("size");
         $data["color_id"]=$request->input("color");
+        $data["stock"]=$request->input("stock");
         $data["status"]=(int)$request->input("status");
         if($request->isMethod("post")){
             $this->validate($request,[
                 "size"=>"required",
                 "status"=>"required",
-                "color"=>"required"
+                "color"=>"required",
+                "stock"=>"required",
             ]
             );
             $data["created_at"]=carbon::now();
@@ -49,6 +51,7 @@ class adminSizesController extends Controller
         $data["size"]=(int)$request->input("size");
         $data["product_id"]=$product_id;
         $data["color"]=$request->input("color");
+        $data["stock"]=$request->input("stock");
         $data["colors"]=$product->colors;
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Dress Size For: ".$product->products_name;
@@ -63,12 +66,14 @@ class adminSizesController extends Controller
         $data["size"]=$size;
         $data["size_id"]=$size_id;
         $data["status"]=$request->input("status");
+        $data["stock"]=$request->input("stock");
         $data["dress_size"]=$request->input("dress_size");
         if($request->isMethod("post")){
             $this->validate($request,[
                 "dress_size"=>"required",
                 "color"=>"required",
-                "status"=>"required"
+                "status"=>"required",
+                "stock"=>"required",
             ]);
             $size->name=$request->input("dress_size");
             $size->color_id=$request->input("color");

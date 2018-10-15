@@ -372,6 +372,7 @@
         Route::get("api/loadDistricts",'homeController@loadDistrictsDrop');
         Route::get("api/loadCorregimientos",'homeController@loadCorregimientosDrop');
         Route::get("api/loadSizes",'homeController@loadColorSizes');
+        Route::get("api/loadProdQuantity",'homeController@loadProdQuantity');
    // });
    Auth::routes();
 //});

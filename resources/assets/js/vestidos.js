@@ -51,9 +51,6 @@ $(document).ready(function() {
        color_selected.trigger( "click" );
        loadSizes(color_selected.attr('data-value'));
    }
-   $(".color_cubes_btn_a").click(function(e){
-        loadSizes($(e.target).attr("data-value"));
-   });
    /*******SHOP PAGE *************/
    $(".rate-shop").rate({
         readonly:true
@@ -216,9 +213,39 @@ function loadSizes(color){
             success: function(data) {
                 var sizeContainer = $("#size-container");
                 sizeContainer.empty();
+                var size_counter=0;
+                $total_size = 0;
                 $.each(data, function(index,element){
-                    sizeContainer.append("<button class='size_spheres' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
+                    if(size_counter==0){
+                        loadSizeDropDown(element.id);
+                        sizeContainer.append("<button class='size_spheres selected' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
+                    }else{
+                        sizeContainer.append("<button class='size_spheres' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
+                    }
+                    size_counter++;
                 });
+
+            }
+        });
+    }
+}
+function loadSizeDropDown(size){
+    if(typeof urlProductQuantity !== "undefined"){
+        $.ajax({
+            type: "GET",
+            url: urlProductQuantity,
+            data: {
+                data:size
+            },
+            success: function(data) {
+                var total_size = 0;
+                total_size = data > 10 ? 10 : data;
+                var product_quantity = $("#product_quantity");
+                product_quantity.empty();
+                for(var i=0;i<total_size;i++){
+                    var data_index =i+1;
+                    product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
+                }
             }
         });
     }
@@ -231,6 +258,11 @@ function addCart(event){
     $("."+dataClass).removeClass("selected");
     $(event.target).addClass("selected");
     $("#"+hiddenInput).val(dataValue);
+    if(hiddenInput=="product_size"){
+        loadSizeDropDown(dataValue);
+    }else if(hiddenInput=="product_color"){
+        loadSizes($(event.target).attr("data-value"));
+    }
 }
 function checkCartSubmit(){
     if(!$("#product_color").val()){

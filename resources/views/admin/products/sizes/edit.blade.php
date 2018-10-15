@@ -8,6 +8,11 @@
         <small class="error">{{$errors->first("dress_size")}}</small>
     </div>
     <div class="form-group">
+        <label for="sizeStock">Stock:</label>
+        <input type="number" id="sizeStock" class="form-control" name="stock" value="{{ old('stock') ? old('stock') : $size->stock }}" placeholder="Stock"/>
+        <small class="error">{{$errors->first("stock")}}</small>
+    </div>
+    <div class="form-group">
         <label for="sizeColor">Select Color for Size:</label>
         <select class="custom-select" name="color" id="sizeColor">
             @foreach($colors as $color)

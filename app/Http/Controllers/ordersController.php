@@ -24,6 +24,7 @@ use App\vestidosPaymentHistories as PaymentHistories;
 use App\vestidosAddressTypes as AddressTypes;
 use App\vestidosOrderAddresses as OrderAddresses;
 use App\vestidosTaxInfos as Tax;
+use App\vestidosPaymentTypes as PaymentTypes;
 use Braintree_Transaction;
 use Mail;
 use Auth;
@@ -32,7 +33,7 @@ use Session;
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -41,6 +42,7 @@ class ordersController extends Controller
         $this->provinces=$provinces;
         $this->districts=$districts;
         $this->corregimientos=$corregimientos;
+        $this->payment_types = $paymentTypes;
         $this->payment_histories = $payment_histories;
         $this->shipping_lists = $shippingLists;
         $this->cancel_reasons=$cancel_reasons;
@@ -412,6 +414,7 @@ class ordersController extends Controller
         }else{
             return redirect()->route('admin_orders')->with("error",__('general.access_section.invalid_access'));
         }
+        $data["payment_types"]=$this->payment_types->where("status",1)->get();
         $data["page_title"]=__('general.order_section.new_order_checkout');
         return view("admin/orders/payments/checkout",$data);
     }
@@ -432,14 +435,23 @@ class ordersController extends Controller
         $random = rand(0,99);
         $order_number = "VES-".$todayf.$user_id.$random;
 
-        $status = Braintree_Transaction::sale([
-            'amount' => $grand_total,
-            'paymentMethodNonce' => $nonce,
-            'options' => [
-                'submitForSettlement' => True
-            ]
-        ]);
-        if($status->success){
+        $is_credit_card = $request->input("payment_type") == 4 ? true : false;
+        $data["status"]=$is_credit_card ? 9 : 14;
+        if($is_credit_card){
+            $status = Braintree_Transaction::sale([
+                'amount' => $grand_total,
+                'paymentMethodNonce' => $nonce,
+                'options' => [
+                    'submitForSettlement' => True
+                ]
+            ]);
+            if(!$status->success){
+                return redirect()->back()->withErrors([
+                    "required"=>$status->message
+                ]);
+            }
+        }
+
             $data["user_id"]=$cart["user_id"];
             $data["order_number"]=$order_number;
             $data["purchase_date"]=$today;
@@ -469,18 +481,10 @@ class ordersController extends Controller
             $data_billing["email"]=$cart["billing_email"];
             $data_billing["address_type"]=2;
 
-
-            $data["transaction_id"]=$status->transaction->id;
-            $data["payment_method"]=$status->transaction->paymentInstrumentType;
-            $data["credit_card_type"]=$status->transaction->creditCard["cardType"];
-            $data["credit_card_number"]=$status->transaction->creditCard["last4"];
-            $data["payment_status"]=$status->transaction->processorResponseText;
             $data["order_total"]=$grand_total;
             $data["order_tax"]=$cart["order_tax"];
             $data["order_shipping"]=$cart["order_shipping"];
             $data["grand_total"]=$grand_total;
-            
-            $data["status"]=9;
             $data["ip"] = $request->ip();
             $data["order_shipping_type"] = $shipping_list->id;
             $data["created_at"]=carbon::now();
@@ -492,20 +496,23 @@ class ordersController extends Controller
             $this->order_addresses->insert($data_shipping);
             $this->order_addresses->insert($data_billing);
             
-            //SAVE PAYMENT HISTORIES
-            $new_payment=[];
-            $new_payment["order_id"]=$order->id;
-            $new_payment["total"]=$grand_total;
-            $new_payment["user_id"]=$order->user_id;
-            $new_payment["transaction_id"]=$status->transaction->id;
-            $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
-            $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
-            $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
-            $new_payment["payment_status"]=$status->transaction->processorResponseText;
-            $new_payment["ip"]=$request->ip();
-            $new_payment["created_at"]=carbon::now();
-            $this->payment_histories->insert($new_payment);
-
+            if($is_credit_card){
+                if($status->success){
+                    //SAVE PAYMENT HISTORIES
+                    $new_payment=[];
+                    $new_payment["order_id"]=$order->id;
+                    $new_payment["total"]=$grand_total;
+                    $new_payment["user_id"]=$order->user_id;
+                    $new_payment["transaction_id"]=$status->transaction->id;
+                    $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
+                    $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
+                    $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
+                    $new_payment["payment_status"]=$status->transaction->processorResponseText;
+                    $new_payment["ip"]=$request->ip();
+                    $new_payment["created_at"]=carbon::now();
+                    $this->payment_histories->insert($new_payment);
+                }
+            }
             //save to products
             $new_product=[];
             $data_products_email=[];
@@ -520,6 +527,14 @@ class ordersController extends Controller
                 $new_product["created_at"]=$today;
 
                 $this->order_products->insert($new_product);
+
+                 //decrease stock number
+                 $size_dec = $this->sizes->find($new_product["size_id"]);
+
+                 $newstock_quant = $product["quantity"];
+                 $newstock = $size_dec->stock - $newstock_quant;
+                 $size_dec->stock = $newstock;
+                 $size_dec->save();
             }
              //send email to user
             $order_detail = $this->sendEmail($order->id);
@@ -534,10 +549,7 @@ class ordersController extends Controller
              });
              Session::forget("vestidos_admin_shop");
             return redirect()->route('admin_orders')->with("success",__('general.order_section.order_success_created_none'));
-        }
-        return redirect()->back()->withErrors([
-            "required"=>$status->message
-        ]);
+
     }
     public function showAdminOrderPayment($order_id){
         $data=[];
@@ -554,6 +566,7 @@ class ordersController extends Controller
         $order=$this->orders->find($order_id);
         $nonce = $request->input('nonce', false);
         $today = carbon::now();
+        
         $status = Braintree_Transaction::sale([
             'amount' => $grand_total,
             'paymentMethodNonce' => $nonce,
@@ -564,12 +577,7 @@ class ordersController extends Controller
         if($status->success){
             $order->order_total = $request->input('order_total');
             $order->updated_at=$today;
-
-            $order->transaction_id=$status->transaction->id;
-            $order->payment_method=$status->transaction->paymentInstrumentType;
-            $order->credit_card_type=$status->transaction->creditCard["cardType"];
-            $order->credit_card_number=$status->transaction->creditCard["last4"];
-            $order->payment_status=$status->transaction->processorResponseText;
+            $order->payment_method=$request->input("payment_method");
             $order->save();
 
             //SAVE PAYMENT HISTORIES
@@ -603,7 +611,19 @@ class ordersController extends Controller
         $today=carbon::now();
         $data_products_email=[];
         if($order->save()){
+            
             DB::table('vestidos_orders_products')->where("id",$order->id)->update(["status"=>2]);
+
+            //revert product stock
+            $order_products = $this->order_products->where("order_id",$order->id)->get();
+            foreach($order_products as $order_product){
+                $size_dec = $this->sizes->find($order_product->size_id);
+                $newstock_quant =$order_product->quantity;
+                $newstock = $size_dec->stock + $newstock_quant;
+                $size_dec->stock = $newstock;
+                $size_dec->save();
+            }
+
             //send email to user
             $order_detail = $this->sendEmail($order_id);
 

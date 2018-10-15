@@ -11,6 +11,7 @@ use App\vestidosDistricts as Districts;
 use App\vestidosCorregimientos as Corregimientos;
 use App\vestidosUsers as Users;
 use App\vestidosColors as Colors;
+use App\vestidosSizes as Sizes;
 use Carbon\Carbon as carbon;
 use App\vestidosProducts as Products;
 use App\vestidosGenders as Genders;
@@ -38,7 +39,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders, Districts $districts, Provinces $provinces, Corregimientos $corregimientos,Colors $colors)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders,Sizes $sizes, Districts $districts, Provinces $provinces, Corregimientos $corregimientos,Colors $colors)
     {
       $this->brands=$brands;
       $this->country=$countries;
@@ -47,6 +48,7 @@ class HomeController extends Controller
       $this->products=$products;
       $this->genders=$genders;
       $this->colors=$colors;
+      $this->sizes=$sizes;
       $this->languages=$languages;
       $this->addresses=$addresses;
       $this->main_sliders = $main_sliders;
@@ -98,6 +100,7 @@ class HomeController extends Controller
         $data["products_cat"]=$product_cat;
         $data["products"]=$this->products;
         $data["product"]=$product;
+        $data["stock"]=$product->getStock()[0]->stock;
         $data["page_title"]=__('header.product');
         return view("product",$data);
     }
@@ -220,5 +223,11 @@ class HomeController extends Controller
         $color_id=Input::get('data');
         $color = $this->colors->find($color_id);
         return response()->json($color->sizes()->get());
+    }
+    public function loadProdQuantity(){
+        $size_id=Input::get('data');
+        
+        $size = $this->sizes->find($size_id);
+        return response()->json($size->stock);
     }
 }

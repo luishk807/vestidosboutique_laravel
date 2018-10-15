@@ -44,7 +44,8 @@ return [
         'card'=>'Numero',
         'type'=>'Tarjeta',
         'status'=>"Estatus",
-        'date'=>"Fecha"
+        'date'=>"Fecha",
+        "payment_type"=>"Tipo de Pago"
     ],
     //PAGE HEADER
     'page_header'=>[

@@ -20,7 +20,6 @@ class CreateVestidosProducts extends Migration
             $table->text('products_description')->nullable();
             $table->integer('brand_id')->unsigned()->nullable();
             $table->foreign("brand_id")->references("id")->on("vestidos_brands")->onDelete('set null');
-            $table->integer('product_stock')->nullable();
             $table->integer('product_closure_id')->unsigned()->nullable();
             $table->foreign("product_closure_id")->references("id")->on("vestidos_closure_types")->onDelete('set null');
             $table->string('product_detail')->nullable();

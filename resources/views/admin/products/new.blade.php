@@ -113,11 +113,6 @@
         <small class="error">{{$errors->first("purchase_date")}}</small>
     </div>
     <div class="form-group">
-        <label for="productStock">Available Stock:</label>
-        <input type="text" id="productStock" class="form-control" name="product_stock" value="" placeholder="Number of Stock Available"/>
-        <small class="error">{{$errors->first("product_stock")}}</small>
-    </div>
-    <div class="form-group">
         <label for="productSearchLabel">Search Labels:</label>
         <textarea class="form-control" id="productSearchLabel" rows="3" name="search_labels"></textarea>
         <small class="error">{{$errors->first("search_labels")}}</small>

@@ -16,16 +16,18 @@
     </div>
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3">Color</div>
-        <div class="col-md-3">Size</div>
+        <div class="col-md-2">Color</div>
+        <div class="col-md-2">Size</div>
+        <div class="col-md-2">Stock</div>
         <div class="col-md-2">Status</div>
         <div class="col-md-2">Action</div>
     </div>
     @foreach($sizes as $size)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3">{{$size->color_name}}</div>
-        <div class="col-md-3">{{$size->name}}</div>
+        <div class="col-md-2">{{$size->color_name}}</div>
+        <div class="col-md-2">{{$size->name}}</div>
+        <div class="col-md-2">{{$size->stock}}</div>
         <div class="col-md-2">{{ $size->status_name }}</div>
         <div class="col-md-2">
             <a href="{{ route('confirm_size',['size_id'=>$size->id])}}">delete</a>

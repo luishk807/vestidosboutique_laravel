@@ -11,6 +11,7 @@ class vestidosSizes extends Model
         "color_id",
         "name",
         "status",
+        "stock",
         "created_at",
         "updated_at"
     ];

@@ -41,7 +41,8 @@ return [
         'card'=>'Number',
         'type'=>'Card',
         'status'=>"Status",
-        'date'=>"Date"
+        'date'=>"Date",
+        "payment_type"=>"Type of Payment"
     ],
     //PAGE HEADER
     'page_header'=>[

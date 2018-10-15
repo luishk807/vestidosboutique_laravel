@@ -18,11 +18,7 @@ class vestidosOrders extends Model
         "order_tax",
         "order_shipping",
         "order_shipping_type",
-        "transaction_id",
-        "payment_method",
-        "credit_card",
-        "credit_card_number",
-        "payment_status",
+        "payment_type",
         "ip",
         "status",
         "created_at",
@@ -45,6 +41,9 @@ class vestidosOrders extends Model
     }
     public function getOrderAddress(){
         return $this->hasMany('App\vestidosOrderAddresses','order_id');
+    }
+    public function getPaymentType(){
+        return $this->belongsTo('App\vestidosPaymentTypes',"payment_type");
     }
     public function getOrderShippingAddress(){
         $address = DB::table('vestidos_order_addresses')

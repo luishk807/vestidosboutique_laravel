@@ -67,6 +67,7 @@
                             <li>{{ __('general.page_header.payment_method') }}</li>
                             <li class="view-order-header-info">
                                 <div class="container view-order-header-payment-info">
+                                    @if($order->paymentHistories->count() > 0)
                                     <div class="row">
                                         <div class="col-md-5">{{__('general.payment_info.card')}}</div>
                                         <div class="col-md-7">...{{$order->paymentHistories->first()->credit_card_number}}</div>
@@ -83,6 +84,16 @@
                                         <div class="col-md-5">{{__('general.payment_info.status')}}</div>
                                         <div class="col-md-7">{{$order->paymentHistories->first()->payment_status}}</div>
                                     </div>
+                                    @else
+                                    <div class="row">
+                                        <div class="col-md-5">{{__('general.payment_info.payment_type')}}</div>
+                                        <div class="col-md-7">{{$order->getPaymentType->name }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">{{__('general.payment_info.status')}}</div>
+                                        <div class="col-md-7">{{$order->getStatusName->name }}</div>
+                                    </div>
+                                    @endif
                                 </div>
                                 
                             </li>

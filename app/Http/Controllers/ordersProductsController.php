@@ -45,7 +45,7 @@ class ordersProductsController extends Controller
     }
     public function newOrderProducts(){
         $data=[];
-        $data["products"]=$this->products->all();
+        $data["products"]=$this->products->where("status",1)->get();
         $data["statuses"]=$this->statuses->all();
         $data["page_title"]=__('general.order_section.new_order_products'); 
         return view("admin/orders/products/new",$data);

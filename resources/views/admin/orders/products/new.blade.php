@@ -8,6 +8,53 @@
     width:20%;
 }
 </style>
+<script>
+var urlColorSizes = "{{ url('api/loadSizes') }}";
+var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
+
+
+function loadSizes(color,ind){
+    if(typeof urlColorSizes !== "undefined"){
+        $.ajax({
+            type: "GET",
+            url: urlColorSizes,
+            data: {
+                data:color
+            },
+            success: function(data) {
+                console.log(data)
+                var sizeContainer = $("#size_drop_"+ind);
+                sizeContainer.empty();
+                sizeContainer.append("<option value=''>Select Size</option>");
+                $.each(data, function(index,element){
+                    sizeContainer.append("<option value='"+element.id+"'>"+element.name+"</option>");
+                });
+            }
+        });
+    }
+}
+function loadSizeDropDown(size,ind){
+    if(typeof urlProductQuantity !== "undefined"){
+        $.ajax({
+            type: "GET",
+            url: urlProductQuantity,
+            data: {
+                data:size
+            },
+            success: function(data) {
+                var total_size = 0;
+                total_size = data > 10 ? 10 : data;
+                var product_quantity = $("#quantity_drop_"+ind);
+                product_quantity.empty();
+                for(var i=0;i<total_size;i++){
+                    var data_index =i+1;
+                    product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
+                }
+            }
+        });
+    }
+}
+</script>
 <form action="{{ route('admin_create_order_products') }}" method="post">
 {{ csrf_field() }}
 
@@ -52,21 +99,20 @@
                 {{$product->products_name}}
             </div>
             <div class="col-md-2">
-                <select class="custom-select" name="order_products[{{$indexKey}}][color]">
+                <select class="custom-select" id="color_drop_{{ $indexKey }}"  onChange="loadSizes(this.value,'{{ $indexKey }}')" name="order_products[{{$indexKey}}][color]">
+                    <option value="">Select Color</option>
                     @foreach($product->colors as $color)
                     <option value="{{$color->id}}">{{$color->name}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="custom-select" name="order_products[{{$indexKey}}][size]">
-                    @foreach($product->sizes as $size)
-                    <option value="{{$size->id}}">{{$size->name}}</option>
-                    @endforeach
+                <select class="custom-select" id="size_drop_{{ $indexKey }}" onChange="loadSizeDropDown(this.value,'{{ $indexKey }}')" name="order_products[{{$indexKey}}][size]">
+                    <option value="">Select Size</option>
                 </select>
             </div>
             <div class="col-md-1">
-                <select class="custom-select" name="order_products[{{$indexKey}}][quantity]">
+                <select class="custom-select" id="quantity_drop_{{ $indexKey }}" name="order_products[{{$indexKey}}][quantity]">
                     @for ($i = 1; $i < 10; $i++)
                     <option value="{{$i}}">{{$i}}</option>
                     @endfor
