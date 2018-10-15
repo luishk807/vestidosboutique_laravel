@@ -436,6 +436,7 @@ class ordersController extends Controller
         $order_number = "VES-".$todayf.$user_id.$random;
 
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
+        $data["payment_type"]=$request->input("payment_type");
         $data["status"]=$is_credit_card ? 9 : 14;
         if($is_credit_card){
             $status = Braintree_Transaction::sale([

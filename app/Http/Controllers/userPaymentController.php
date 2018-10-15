@@ -438,7 +438,7 @@ class userPaymentController extends Controller
                                 'submitForSettlement' => True
                             ]
                         ]);
-                        if($status->succes){
+                        if($status->success){
                             //SAVE PAYMENT HISTORIES
                             $new_payment=[];
                             $new_payment["order_id"]=$get_order->id;

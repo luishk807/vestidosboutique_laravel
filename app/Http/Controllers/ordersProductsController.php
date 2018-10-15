@@ -62,6 +62,9 @@ class ordersProductsController extends Controller
         }
         $order_products=$request->input("order_products");
         $order_p=[];
+        $this->validate($request,[
+            "order_products.*.product_id"=>"required",
+        ]);
         foreach($order_products as $product){
             if(!empty($product["product_id"])){
                 $prod = $this->products->find($product['product_id']);
