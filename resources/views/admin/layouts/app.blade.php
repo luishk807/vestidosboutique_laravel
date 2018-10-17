@@ -54,6 +54,8 @@
                             <a href="{{ route('shop_banners_page')}}" class="nav-link">Shop Banners</a>
                             <a href="{{ route('top_quinces_page')}}" class="nav-link">Top Quince</a>
                             <a href="{{ route('top_dresses_page')}}" class="nav-link">Top Dresses</a>
+                            <a href="{{ route('admin_payments')}}" class="nav-link">Payment Types</a>
+                            <a href="{{ route('admin_shipping_lists')}}" class="nav-link">Shipping Lists</a>
                         </div>
                     </li>
                 </ul>

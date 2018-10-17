@@ -136,6 +136,27 @@
                     Route::get('/confirm/{shop_banner_id}','adminConfigShopBannerController@deleteShopBanner')->name('confirm_shop_banner');
                     Route::delete('/confirm/{shop_banner_id}','adminConfigShopBannerController@deleteShopBanner')->name('delete_shop_banner');
                 });
+
+                //Admin Payment TYpe
+                Route::prefix("payment_types")->group(function(){
+                    Route::get('/','adminPaymentTypesController@index')->name("admin_payments");
+                    Route::get('/new','adminPaymentTypesController@newPayments')->name('new_payment');
+                    Route::post('/new','adminPaymentTypesController@createPayments')->name('create_payment');
+                    Route::get('/edit/{payment_id}','adminPaymentTypesController@editPayment')->name('edit_payment');
+                    Route::post('/edit/{payment_id}','adminPaymentTypesController@savePayment')->name('save_payment');
+                    Route::get('/confirm/{payment_id}','adminPaymentTypesController@showDeletePayment')->name('confirm_payment');
+                    Route::delete('/confirm/{payment_id}','adminPaymentTypesController@deletePayment')->name('delete_payment');
+                });
+                //Admin Shipping list
+                Route::prefix("shipping_lists")->group(function(){
+                    Route::get('/','adminShippingListsController@index')->name("admin_shipping_lists");
+                    Route::get('/new','adminShippingListsController@newShippingLists')->name('new_shipping_list');
+                    Route::post('/new','adminShippingListsController@createShippingLists')->name('create_shipping_list');
+                    Route::get('/edit/{shipping_list_id}','adminShippingListsController@editShippingList')->name('edit_shipping_list');
+                    Route::post('/edit/{shipping_list_id}','adminShippingListsController@saveShippingList')->name('save_shipping_list');
+                    Route::get('/confirm/{shipping_list_id}','adminShippingListsController@showDeleteShippingList')->name('confirm_shipping_list');
+                    Route::delete('/confirm/{shipping_list_id}','adminShippingListsController@deleteShippingList')->name('delete_shipping_list');
+                });
             });
             //Admin Brands
             Route::prefix('brands')->group(function () {
