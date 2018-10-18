@@ -36,7 +36,6 @@ class adminLengthController extends Controller
             $this->lengths->insert($data);
             return redirect()->route("admin_lengths");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Length";
         return view("admin/lengths/new",$data);
     }
@@ -62,7 +61,6 @@ class adminLengthController extends Controller
 
             return redirect()->route("admin_lengths");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Length";
         return view("admin/lengths/edit",$data);
     }

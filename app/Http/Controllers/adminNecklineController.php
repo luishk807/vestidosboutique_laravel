@@ -63,7 +63,6 @@ class adminNecklineController extends Controller
 
             return redirect()->route("admin_necklines");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Neckline";
         return view("admin/necklines/edit",$data);
     }

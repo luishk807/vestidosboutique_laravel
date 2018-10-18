@@ -28,8 +28,6 @@ class adminUsersAddressController extends Controller
     }
     function index(){
         $data=[];
-
-        $data["countries"]=$this->countries->all();
         $data["addresses"]=$this->addresses->all();
         $data["page_title"]="Address Page";
         return view("admin/users/addresses/home",$data);
@@ -81,9 +79,7 @@ class adminUsersAddressController extends Controller
         $data["corregimiento"]=$request->input("corregimiento");
         $data["country"]=$request->input("country");
         $data["page_title"]="Create Address Page For ".$user->getFullName();
-        $data["statuses"]=$this->statuses->all();
         $data["provinces"]=$this->provinces->all();
-        $data["countries"]=$this->countries->all();
         return view("admin/users/addresses/new",$data);
     }
     function editAddress($address_id, Request $request){
@@ -149,8 +145,6 @@ class adminUsersAddressController extends Controller
         $data["districts"]=$this->districts->where("province_id",$address->province_id)->get();
         $data["corregimientos"]=$this->corregimientos->where("districts_id",$address->district_id)->get();
         $data["address_id"]=$address_id;
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
         return view("admin/users/addresses/edit",$data);
     }
     public function deleteAddress($address_id,Request $request){

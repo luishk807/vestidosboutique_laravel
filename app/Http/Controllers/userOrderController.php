@@ -42,16 +42,12 @@ class userOrderController extends Controller
         $user = $this->users->find($user_id);
         $data["orders"]=$user->orders()->orderBy('created_at',"desc")->paginate(5);
         $data["user"]=$user;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]= __('header.orders');
         return view("account/orders/home",$data);
     }
     public function viewOrder($order_id,Request $request){
         $data=[];
         $order =$this->orders->find($order_id);
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('general.page_header.order_detail');;
         $data["order"]=$order;
         $getOrderShipping = $order->getOrderShippingAddress();
@@ -63,8 +59,6 @@ class userOrderController extends Controller
     }
     public function showCancelIndex($order_id){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["order"]=$this->orders->find($order_id);
         $data["cancel_reasons"]=$this->cancel_reasons->all();
         $data["page_title"]=__('general.page_header.cancel_order');

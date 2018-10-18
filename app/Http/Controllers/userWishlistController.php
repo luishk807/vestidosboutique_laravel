@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\vestidosStatus as Statuses;
 use App\vestidosUsers as Users;
 use App\vestidosUserWishlists as Wishlists;
-use App\vestidosBrands as Brands;
-use App\vestidosCountries as Countries;
-use App\vestidosCategories as Categories;
 use Carbon\Carbon as carbon;
 use Illuminate\Support\Facades\Input;
 use Auth;
@@ -16,13 +12,9 @@ use Auth;
 class userWishlistController extends Controller
 {
     //
-    public function __construct(Countries $countries,Brands $brands, Statuses $statuses, Wishlists $wishlists, Users $users, Categories $categories){
+    public function __construct(Wishlists $wishlists, Users $users){
         $this->users = $users;
-        $this->statuses=$statuses;
-        $this->countries = $countries;
         $this->wishlists=$wishlists;
-        $this->brands=$brands;
-        $this->categories = $categories;
     }
     public function index(){
         $data=[];
@@ -31,8 +23,6 @@ class userWishlistController extends Controller
         $data["page_title"]=__('header.wishlists');
         $data["user"]=$user;
         $data["user_id"]=$user_id;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["wishlists"]=$this->wishlists->all();
         return view("/account/wishlists/home",$data);
     }

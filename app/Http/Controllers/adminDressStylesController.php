@@ -37,7 +37,6 @@ class adminDressStylesController extends Controller
             $this->dressstyles->insert($data);
             return redirect()->route("admin_dressstyles");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Dress Style";
         return view("admin/dress_styles/new",$data);
     }
@@ -63,7 +62,6 @@ class adminDressStylesController extends Controller
 
             return redirect()->route("admin_dressstyles");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Dress Styles";
         return view("admin/dress_styles/edit",$data);
     }

@@ -59,8 +59,6 @@ class HomeController extends Controller
     public function index()
     {
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('general.page_header.welcome_page');
         $data["languages"]=$this->languages->all();
         $data["main_sliders"] = $this->main_sliders->all();
@@ -74,8 +72,6 @@ class HomeController extends Controller
         App::setLocale($lang);
         Session::put("locale",$lang);
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('general.page_header.welcome_page');
         $data["languages"]=$this->languages->all();
         $data["main_sliders"] = $this->main_sliders->all();
@@ -86,8 +82,6 @@ class HomeController extends Controller
     }
     public function about(){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.about');
         return view("about",$data);
     }
@@ -95,8 +89,6 @@ class HomeController extends Controller
         // $data=[];
         $product = $this->products->find($product_id);
         $product_cat = $this->products->getProductByCat($product->categories()->get()->first()->category_id);
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["products_cat"]=$product_cat;
         $data["products"]=$this->products;
         $data["product"]=$product;
@@ -106,18 +98,12 @@ class HomeController extends Controller
     }
     public function contact(){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.contact');
-        $data["countries"]=$this->country->all();
         return view("contact",$data);
     }
     public function sendEmail(Request $request){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.contact');
-        $data["countries"]=$this->country->all();
         if($request->isMethod("post")){
             $this->validate($request,[
                 "first_name"=>"required",
@@ -152,8 +138,6 @@ class HomeController extends Controller
     }
     public function signin(){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.log_in');
         $data["users"]=$this->users->all();
         return view("/signin",$data);

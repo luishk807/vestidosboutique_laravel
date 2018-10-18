@@ -43,7 +43,6 @@ class adminUsersController extends Controller
         $data["page_title"]="New Users";
         $data["genders"] = $this->genders->all();
         $data["user_types"]=$this->user_types->all();
-        $data["statuses"]=$this->statuses->all();
         $data["users"]=$this->users->all();
         $data["languages"]=$this->languages->all();
         return view("admin/users/new",$data);
@@ -95,7 +94,6 @@ class adminUsersController extends Controller
         $data["page_title"]="Edit Info For ".$user->first_name;
         $data["user_id"]=$user_id;
         $data["user_types"]=$this->user_types->all();
-        $data["statuses"]=$this->statuses->all();
         $data["languages"]=$this->languages->all();
         $data["genders"]=$this->genders->all();
         return view("admin/users/edit",$data);

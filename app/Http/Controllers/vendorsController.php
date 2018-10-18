@@ -22,7 +22,6 @@ class vendorsController extends Controller
     }
     function index(){
         $data=[];
-        $data["countries"]=$this->countries->all();
         $data["vendors"]=$this->vendors->paginate(10);
         $data["page_title"]="Vendor Page";
         return view("admin/vendors/home",$data);
@@ -62,8 +61,6 @@ class vendorsController extends Controller
         $data["country"]=$request->input("country");
 
         $data["page_title"]="Create Vendors Page";
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
         return view("admin/vendors/new",$data);
     }
     function editVendor($vendor_id, Request $request){
@@ -114,8 +111,6 @@ class vendorsController extends Controller
         $data["vendor"]=$vendor;
         $data["page_title"]="Edit Vendors";
         $data["vendor_id"]=$vendor_id;
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
         return view("admin/vendors/new",$data);
     }
     public function deleteVendor($vendor_id,Request $request){
@@ -181,8 +176,6 @@ class vendorsController extends Controller
        if(Session::has("data_confirm")){
             $session = Session::get("data_confirm");
             $data["page_title"]="Confirm Import Data";
-            $data["statuses"]=$this->statuses->all();
-            $data["countries"]=$this->countries->all();
             $data["data_confirm"]=$session;
             return view("admin/vendors/import_confirm",$data);
        }

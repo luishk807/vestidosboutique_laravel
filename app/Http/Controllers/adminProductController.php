@@ -56,11 +56,8 @@ class adminProductController extends Controller
         $data["is_news"]=[0,1];
 
         $data["page_title"]="Create Products Page";
-        $data["statuses"]=$this->statuses->all();
-        $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
         $data["lengths"]=$this->lengths->all();
-        $data["brands"]=$this->brands->all();
         $data["fabrics"]=$this->fabrics->all();
         $data["vendors"]=$this->vendors->all();
         $data["necklines"]=$this->necklines->all();
@@ -137,11 +134,8 @@ class adminProductController extends Controller
         $data["product"]=$product;
         
         $data["page_title"]="Edit Product: ".$product->products_name;
-        $data["statuses"]=$this->statuses->all();
         $data["lengths"]=$this->lengths->all();
-        $data["categories"]=$this->categories->all();
         $data["closures"]=$this->closures->all();
-        $data["brands"]=$this->brands->all();
         $data["sizes"]=$product->getAllSizesCount()[0];
         $data["fabrics"]=$this->fabrics->all();
         $data["vendors"]=$this->vendors->all();

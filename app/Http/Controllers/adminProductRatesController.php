@@ -53,7 +53,6 @@ class adminProductRatesController extends Controller
         $data["users"]=$users;
         $data["product"]=$product;
         $data["rate_nums"]=$this->rate_numbers;
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Rate For Product: ".$product->products_name;
         // if(!$users->count()){
         //     $data["product_id"]=$product_id;
@@ -92,7 +91,6 @@ class adminProductRatesController extends Controller
         }
         $data["users"]=$this->users->all();
         $data["rate_nums"]=$this->rate_numbers;
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Rate";
         return view("admin/products/rates/edit",$data);
     }

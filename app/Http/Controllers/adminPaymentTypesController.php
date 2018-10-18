@@ -22,7 +22,6 @@ class adminPaymentTypesController extends Controller
     }
     function index(){
         $data=[];
-        $data["countries"]=$this->countries->all();
         $data["payment_types"]=$this->payment_types->all();
         $data["page_title"]="Payment Page";
         return view("admin/payment_types/home",$data);
@@ -30,8 +29,6 @@ class adminPaymentTypesController extends Controller
     function newPayments(){
         $data=[];
         $data["page_title"]="Create Payments Page";
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
         return view("admin/payment_types/new",$data);
     }
     function createPayments(Request $request){
@@ -54,8 +51,6 @@ class adminPaymentTypesController extends Controller
         $data["payment_type"]=$payment_type;
         $data["page_title"]="Edit Payments";
         $data["payment_type_id"]=$payment_type_id;
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
         return view("admin/payment_types/edit",$data);
     }
     function savePayment($payment_type_id, Request $request){

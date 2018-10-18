@@ -27,7 +27,6 @@ class adminShippingListsController extends Controller
     function newShippingLists(){
         $data=[];
         $data["page_title"]="Create Shipping Lists Page";
-        $data["statuses"]=$this->statuses->all();
         return view("admin/shipping_lists/new",$data);
     }
     function createShippingLists(Request $request){
@@ -52,7 +51,6 @@ class adminShippingListsController extends Controller
         $data["shipping_list"]=$shipping_list;
         $data["page_title"]="Edit Shipping Lists";
         $data["shipping_list_id"]=$shipping_list_id;
-        $data["statuses"]=$this->statuses->all();
         return view("admin/shipping_lists/edit",$data);
     }
     function saveShippingList($shipping_list_id, Request $request){

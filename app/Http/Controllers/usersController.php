@@ -36,7 +36,6 @@ class usersController extends Controller
         $data=[];
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
         $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         if(Auth::guard("vestidosUsers")->check()){
             $user=$this->users->find($user_id);
             $data["page_title"]= __('general.page_header.welcome',["name"=>$user->getFullName()]);
@@ -48,12 +47,9 @@ class usersController extends Controller
     }
     public function viewNewUser(Request $request){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["languages"]=$this->languages->where('status',1)->get();
         $data["genders"]=$this->genders->all();
         $data["page_title"]=__('general.page_header.new_account');
-        $data["countries"]=$this->country->all();
         return view("account/new",$data);
     }
     public function newUser(Request $request){
@@ -119,8 +115,6 @@ class usersController extends Controller
     }
     public function ShowResendActiveUserAccount(){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('general.user_section.resend_activation_title');
         return view('/account/resend_active',$data);
     }
@@ -157,10 +151,7 @@ class usersController extends Controller
         $user=$this->users->find($user_id);
         $data["page_title"]=__('general.page_header.edit_account');
         $data["languages"]=$this->languages->where('status',1)->get();
-        $data["countries"]=$this->country->all();
         $data["user"]=$user;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["user_id"]=$user->id;
         if($request->isMethod("post")){
             $this->validate($request,[
@@ -198,8 +189,6 @@ class usersController extends Controller
     }
     public function ShowSendPasswordResetForm(){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('general.forgot_password.title');
         return view('/password/forgot',$data);
     }
@@ -233,8 +222,6 @@ class usersController extends Controller
     }
     public function showPasswordResetForm(Request $request,$token){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('general.forgot_password.title');
         $user = DB::table('vestidos_users')->where('remember_token',$token)->first();
         if($user){
@@ -271,8 +258,6 @@ class usersController extends Controller
                 $message->to($data["email"],$client_name)->subject($subject);
                 //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
             });
-            $data["brands"]=$this->brands->all();
-            $data["categories"]=$this->categories->all();
             $data["page_title"]=__('header.log_in');
             return redirect()->route('login_page',$data)->with("msg",__('general.forgot_password.reset_confirm_message'));
         }else{

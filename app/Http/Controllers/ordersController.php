@@ -74,7 +74,6 @@ class ordersController extends Controller
         $data=[];
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]=__('general.order_section.new_order');
         return view("admin/orders/new",$data);
     }
@@ -115,7 +114,6 @@ class ordersController extends Controller
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
         $data["shipping_lists"]=$this->shipping_lists->all();
-        $data["statuses"]=$this->statuses->all();
         $order_shipping = $order->getOrderShippingAddress();
         $order_billing = $order->getOrderBillingAddress();
         $data["order_shipping"]=$order_shipping[0];
@@ -133,7 +131,6 @@ class ordersController extends Controller
         $data["user"]=$user;
         $data["shipping_lists"]=$this->shipping_lists->all();
         $data["address_types"]=$this->address_types->all();
-        $data["countries"]=$this->countries->all();
         $data["user_adresses"]=$this->addresses->all();
         $data["provinces"]=$this->provinces->all();
         $data["page_title"]=__('general.order_section.new_order_address');
@@ -265,7 +262,6 @@ class ordersController extends Controller
         $data["address_var"]=$address_var;
         $data["page_title"]=__('general.order_section.edit_order_address',["name"=>$address_var]);
         $data["address_type_id"]=$address_type_id;
-        $data["countries"]= $this->countries->all();
         $data["name"]=$request->input("name");
         $data["email"]=$request->input("email");
         $data["phone_number_1"]=$request->input("phone_number_1");

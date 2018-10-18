@@ -27,9 +27,8 @@
                                         <div class="col"><h2>{{ __('header.log_in') }}</h2></div>
                                     </div>
                                     <div class="row">
-                                        <div class="col error py-2">
+                                        <div class="col py-2">
                                         @if(Session::has("msg"))
-                                        @if(Session::has("success"))
                                         <div class="warning-cont">
                                         {{Session::get("msg")}}
                                         </div>

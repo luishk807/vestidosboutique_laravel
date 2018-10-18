@@ -38,8 +38,6 @@ class userShopController extends Controller
     }
     public function index(){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.shop');
         $data["sort"]="low";
         $data["shop_banners"]=$this->shop_banners->first();
@@ -82,7 +80,6 @@ class userShopController extends Controller
         // $sort = $request->get("sort");
         $sort = $request->input("shopPage_select");
         $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.shop');
         // $data["sort"]=$request->get("sort");
         $data["sort"]=$sort;

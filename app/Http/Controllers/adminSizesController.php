@@ -53,7 +53,6 @@ class adminSizesController extends Controller
         $data["color"]=$request->input("color");
         $data["stock"]=$request->input("stock");
         $data["colors"]=$product->colors;
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Dress Size For: ".$product->products_name;
         return view("admin/products/sizes/new",$data);
     }
@@ -84,7 +83,6 @@ class adminSizesController extends Controller
             return redirect()->route("admin_sizes",["product_id"=>$color->product_id]);
         }
         
-        $data["statuses"]=$this->statuses->all();
         $data["colors"]=$product->colors;
         $data["page_title"]="Edit Dress Size For ".$product->products_name;
         return view("admin/products/sizes/edit",$data);

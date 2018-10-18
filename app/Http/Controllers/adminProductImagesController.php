@@ -80,7 +80,6 @@ class adminProductImagesController extends Controller
             "height"=>$this->maxHeight
         ];
         $data["product_id"]=$product_id;
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Image For Product: ".$product->products_name;
         return view("admin/products/images/new",$data);
     }
@@ -126,7 +125,6 @@ class adminProductImagesController extends Controller
             return redirect()->route("admin_images",['product_id'=>$image->product_id]);
         }
         $data["product_id"]=$image->product_id;
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Image";
         return view("admin/products/images/edit",$data);
     }

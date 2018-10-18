@@ -30,15 +30,7 @@ $(document).ready(function(){
 </head>
 <body id="main-body">
 <div class="pos-f-t" >
-     <!-- <div id="vestidos-top-news" class="container-fluid navbar-fixed-top">
-        <div class="row">
-            <div class="col">
-              Order Now for Free Shipping
-            </div>
-        </div>
-     </div> -->
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-md navbar-light">
-        <!-- <div class="vest-maincolor-container container-fluid"> -->
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand text-white" href="/" >
@@ -58,19 +50,9 @@ $(document).ready(function(){
                         <ul class="nav-list-submenu">
                             <li>
                                 <ul>
-                                    <!-- @foreach($categories as $category)
-                                    <li><a href="{{ $category->id }}">{{$category->name}}</a></li>
-                                    @endforeach -->
-                                    <li><a href="">Stilos</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
+                                    @foreach($vestidos_styles as $style)
+                                    <li><a href="{{ $style->id }}">{{$style->name}}</a></li>
+                                    @endforeach
                                 </ul>
 
                             </li>
@@ -79,27 +61,27 @@ $(document).ready(function(){
                      <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('about_page')}}">{{ __('header.accessories') }}</a>
+                    <li class="nav-item nav-toggle-li">
+                        <a id="nav-item-accessories" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.accessories') }}</a>
+                        <ul class="nav-list-submenu">
+                            <li>
+                                <ul>
+                                    @foreach($subcategories as $subcategory)
+                                    <li><a href="{{ $subcategory->id }}">{{$subcategory->name}}</a></li>
+                                    @endforeach
+                                </ul>
+
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item nav-toggle-li">
                         <a id="nav-item-events" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.event') }}</a>
                         <ul class="nav-list-submenu">
                             <li>
                                 <ul>
-                                    <!-- @foreach($categories as $category)
+                                    @foreach($categories as $category)
                                     <li><a href="{{ $category->id }}">{{$category->name}}</a></li>
-                                    @endforeach -->
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
-                                    <li><a href="">testing</a></li>
+                                    @endforeach
                                 </ul>
 
                             </li>
@@ -132,9 +114,6 @@ $(document).ready(function(){
                     </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
                     {{ __('header.cart') }}<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
-                        <!-- <div id="vesti-cart-top-cont">
-                        <div class="vesti-cart-arrow"></div>
-                        <div class="vesti-cart-arrow-b"></div> -->
                         @if(Session::has('vestidos_shop'))
                         <div class="vesti-cart-top">
                            
@@ -198,6 +177,26 @@ $(document).ready(function(){
                     </li>
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">{{ __('header.about') }}</a>
+                    </li>
+                    <li class="nav-item mobile">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-accessories">{{ __('header.accessories') }}</a>
+                        <div class="collapse vesti-collapse" id="toggle-accessories" style="height: 0px;">
+                            <ul class="nav-list">
+                                @foreach($subcategories as $subcategory)
+                                <li><a href="#">{{$subcategory->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item mobile">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-styles">{{ __('header.by_styles') }}</a>
+                        <div class="collapse vesti-collapse" id="toggle-styles" style="height: 0px;">
+                            <ul class="nav-list">
+                                @foreach($vestidos_styles as $style)
+                                <li><a href="#">{{$style->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.event') }}</a>

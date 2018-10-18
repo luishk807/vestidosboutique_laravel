@@ -39,14 +39,12 @@ class ordersProductsController extends Controller
         $data=[];
         $data["order"]=$this->orders->find($order_id);
         $data["orders"]=$this->orders->all();
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]=__('header.orders');
         return view("admin/orders/products/home",$data);
     }
     public function newOrderProducts(){
         $data=[];
         $data["products"]=$this->products->where("status",1)->get();
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]=__('general.order_section.new_order_products'); 
         return view("admin/orders/products/new",$data);
     }
@@ -112,7 +110,6 @@ class ordersProductsController extends Controller
         $user=$this->users->find($order->user_id);
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]=__('general.order_section.edit_order');
         return view("admin/orders/products/edit",$data);
     }
@@ -153,8 +150,6 @@ class ordersProductsController extends Controller
     public function editOrderAddress($order_id,$address_type){
         $data["order"]=$this->orders->find($order_id);
         $data["orders"]=$this->orders->all();
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
         $data["address_type"]=$address_type;
         $data["name"] = $request->input('address_name');
         $data["page_title"]=__('general.order_section.order_address');

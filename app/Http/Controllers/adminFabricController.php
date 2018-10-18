@@ -37,7 +37,6 @@ class adminFabricController extends Controller
             $this->fabrics->insert($data);
             return redirect()->route("admin_fabrics");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Fabric";
         return view("admin/fabrics/new",$data);
     }
@@ -63,7 +62,6 @@ class adminFabricController extends Controller
 
             return redirect()->route("admin_fabrics");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Fabric";
         return view("admin/fabrics/edit",$data);
     }

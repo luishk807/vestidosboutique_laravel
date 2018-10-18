@@ -37,7 +37,6 @@ class adminClosureController extends Controller
             $this->closures->insert($data);
             return redirect()->route("admin_closures");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Closure";
         return view("admin/closures/new",$data);
     }
@@ -63,7 +62,6 @@ class adminClosureController extends Controller
 
             return redirect()->route("admin_closures");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Closure";
         return view("admin/closures/edit",$data);
     }

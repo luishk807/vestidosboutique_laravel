@@ -151,6 +151,12 @@ background-size: cover;
 .gray_bg{
   background-color:#dfdfe1;
 }
+.vector-excla{
+  width:70px;
+}
+.vector-excla path{
+  fill:$main_vest_color;
+}
 /***white arrow cont***/
 .main_arrow_slider_txt{
     width: 200px;

@@ -25,7 +25,6 @@ class adminColorController extends Controller
         $data["page_title"]="Colors For Product: ".$product->products_name;
         $data["product_id"]=$product_id;
         $data["colors"]=$product->colors()->get();
-        $data["statuses"]=$this->statuses->all();
         $data["products"]=$this->products->all();
         return view("admin/products/colors/home",$data);
     }
@@ -49,7 +48,6 @@ class adminColorController extends Controller
         }
         $data["page_title"]="New Color For ".$product->products_name;
         $data["product_id"]=$product_id;
-        $data["statuses"]=$this->statuses->all();
         $data["products"]=$this->products->all();
         return view("admin/products/colors/new",$data);
     }
@@ -58,7 +56,6 @@ class adminColorController extends Controller
         $data =[];
         $data["page_title"]="Colors";
         $data["color"]=$this->colors->find($color_id);
-        $data["statuses"]=$this->statuses->all();
         $data["products"]=$this->products->all();
         $color=$this->colors->find($color_id);
         if($request->isMethod("post")){
@@ -80,7 +77,6 @@ class adminColorController extends Controller
         }
         
         $data["page_title"]="Colors";
-        $data["statuses"]=$this->statuses->all();
         $data["color"]=$color;
         $data["product_id"]=$color->product_id;
         return view("admin/products/colors/confirm",$data);

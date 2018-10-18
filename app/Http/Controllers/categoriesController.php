@@ -18,7 +18,6 @@ class categoriesController extends Controller
     public function index(){
         $data=[];
         $data["page_title"]="Categories";
-        $data["categories"]=$this->categories->all();
         return view("admin/categories/home",$data);
     }
     public function newcategories(Request $request){
@@ -35,8 +34,6 @@ class categoriesController extends Controller
             return redirect()->route("admin_category");
         }
         $data["page_title"]="New Categories";
-        $data["categories"]=$this->categories->all();
-        $data["statuses"]=$this->statuses->all();
         return view("admin/categories/new",$data);
     }
     public function editcategory(Request $request,$category_id){
@@ -58,8 +55,6 @@ class categoriesController extends Controller
         $data["status"] = (int)$request->input("status");
 
         $data["page_title"]="Edit Categories";
-        $data["categories"]=$this->categories->all();
-        $data["statuses"]=$this->statuses->all();
         return view("admin/categories/edit",$data);
     }
     public function deletecategory($category_id,Request $request){

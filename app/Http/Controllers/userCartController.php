@@ -40,8 +40,6 @@ class userCartController extends Controller
     }
     public function index(){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["page_title"]=__('header.cart');
         $cart = Session::get("vestidos_shop");
         $tax = $this->taxes->find(1);
@@ -71,8 +69,6 @@ class userCartController extends Controller
     }
     public function addToCart($product_id,Request $request){
         $data=[];
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["product"]=$this->products->find($product_id);
         $data["page_title"]=__('header.cart');
         $cart = Session::get("vestidos_shop");

@@ -76,15 +76,11 @@ class userAddressController extends Controller
         $data["addresstypes"]=$this->addresstypes->all();
         $data["country"]=$request->input("country");
         $data["page_title"]=__('general.user_section.create_address');
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
         $data["provinces"]=$this->provinces->all();
-        $data["brands"]=$this->brands->all();
         $data["corregimiento"]=$request->input("corregimiento");
         $data["province"]=$request->input("province");
         $data["district"]=$request->input("district");
         $data["country"]=(int)$request->input("country");
-        $data["categories"]=$this->categories->all();
         return view("account/address/new",$data);
     }
     function editAddress($address_id, Request $request){
@@ -145,10 +141,6 @@ class userAddressController extends Controller
         $data["address"]=$address;
         $data["page_title"]= __('general.user_section.edit_address',['name'=>$address->nick_name]);
         $data["address_id"]=$address_id;
-        $data["statuses"]=$this->statuses->all();
-        $data["countries"]=$this->countries->all();
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["corregimiento"]=$request->input("corregimiento");
         $data["province"]=$request->input("province");
         $data["district"]=$request->input("district");
@@ -164,8 +156,6 @@ class userAddressController extends Controller
         $address = $this->addresses->find($address_id);
         $data["address"]=$address;
         $data["country"]=$request->input("country");
-        $data["categories"]=$this->categories->all();
-        $data["brands"]=$this->brands->all();
         $data["user"]=$this->users->find($address->user_id);
         $data["user_id"] = $address->user_id;
         $data["page_title"]=__('general.user_section.delete_address');

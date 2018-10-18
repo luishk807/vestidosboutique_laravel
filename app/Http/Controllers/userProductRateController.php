@@ -31,8 +31,6 @@ class userProductRateController extends Controller
         $data["rates"]=$product->rates()->get();
         $data["page_title"]=__('general.page_header.review_name',['name'=>$product->products_name]);
         $data["product_id"]=$product_id;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("account/review/home",$data);
     }
 
@@ -43,10 +41,7 @@ class userProductRateController extends Controller
         $user = $this->users->find($user_id);
         $data["users"]=$user;
         $data["product"]=$product;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["rate_nums"]=$this->rate_numbers;
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]=__('general.rate_title.product_review_title',['name'=>$product->products_name]);
         return view("account/review/new",$data);
     }
@@ -83,7 +78,6 @@ class userProductRateController extends Controller
 
         $data["users"]=$this->users->all();
         $data["rate_nums"]=$this->rate_numbers;
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]=__('general.rate_title.edit_rate');
         return view("admin/products/rates/edit",$data);
     }

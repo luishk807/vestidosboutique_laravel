@@ -32,8 +32,6 @@ class userConfirmationController extends Controller
         $data["thankyou_msg"]=__('general.user_section.account_created_confirm');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
     public function accountCreationError(){
@@ -42,8 +40,6 @@ class userConfirmationController extends Controller
         $data["thankyou_msg"]=__('general.user_section.account_not_created');
         $data["thankyou_img"]="close_2.svg";
         $data["thankyou_status"]=false;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
     public function logoutConfirm(){
@@ -52,8 +48,6 @@ class userConfirmationController extends Controller
         $data["thankyou_msg"]=__('auth.logout_msg');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
     public function orderCreationCreated(Request $request){
@@ -62,8 +56,6 @@ class userConfirmationController extends Controller
         $data["thankyou_msg"]=__('general.order_section.order_success_created');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
     public function resetPasswordSent(){
@@ -72,8 +64,6 @@ class userConfirmationController extends Controller
         $data["thankyou_msg"]=__('general.forgot_password.confirm_msg');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
     public function accountActivationConfirmation(){
@@ -82,8 +72,6 @@ class userConfirmationController extends Controller
         $data["thankyou_msg"]=__('general.user_section.account_active_message');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
     public function resendaccountActivationConfirmation(){
@@ -92,8 +80,6 @@ class userConfirmationController extends Controller
         $data["thankyou_msg"]=__('general.user_section.resend_activation_message_resend');
         $data["thankyou_img"]="checked.svg";
         $data["thankyou_status"]=true;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         return view("/confirmation",$data);
     }
 

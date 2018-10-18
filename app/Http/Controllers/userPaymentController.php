@@ -84,9 +84,6 @@ class userPaymentController extends Controller
         $has_address = $user->getAddresses->first() ? true : false; 
 
         $data["page_title"] = $has_address ? __('general.page_header.select_shipping') :__('general.page_header.provide_shipping') ;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["countries"]=$this->country->all();
         $data["provinces"]=$this->provinces->all();
         $data["checkout_menus"]=$this->checkout_menus;
         $data["tax_info"]=$this->tax_info;
@@ -205,8 +202,6 @@ class userPaymentController extends Controller
         $data["page_title"] = $has_address ? __('general.page_header.choose_billing_payment') : __('general.page_header.provide_billing_payment');
 
         $data["checkout_menus"]=$this->checkout_menus;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $cart = $request->session()->get('cart_session');
         $shipping_cost=$this->shipping_lists->find($cart["shipping_method"]);
         $data["payment_types"]=$this->payment_types->where("status",1)->get();
@@ -214,7 +209,6 @@ class userPaymentController extends Controller
         $data["tax_info"]=$this->tax_info;
         $data["shipping_info"] = $cart;
         $data["shipping_method"]=$this->shipping_lists->find($cart["shipping_method"]);
-        $data["countries"]=$this->country->all();
         $data["provinces"]=$this->provinces->all();
         $data["address_id"]=$request->input("address_id");
         $data["checkout_header_key"]=__('general.cart_title.billing');
@@ -378,9 +372,6 @@ class userPaymentController extends Controller
 
         $data["user"]=$user;
         $data["page_title"]=__('general.thank_you');
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
-        $data["countries"]=$this->country->all();
         $data["checkout_menus"]=$this->checkout_menus;
         $data["province_required"]=$province_required;
         if(!empty($order->id)){
@@ -539,8 +530,6 @@ class userPaymentController extends Controller
         $data["checkout_menu_prev_link"]="";
         $data["page_title"]=__('general.order_section.order_success_received');
         $data["checkout_menus"]=$this->checkout_menus;
-        $data["brands"]=$this->brands->all();
-        $data["categories"]=$this->categories->all();
         $data["tax_info"]=$this->tax_info;
         $data["checkout_header_key"]=__('general.page_header.confirmation');
         $data["checkout_btn_name"]=__('buttons.back_home');
