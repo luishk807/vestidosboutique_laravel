@@ -38,7 +38,6 @@ class adminBrandController extends Controller
             $this->brand->insert($data);
             return redirect()->route("admin_brands");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Brand";
         return view("admin/brands/new",$data);
     }
@@ -64,7 +63,6 @@ class adminBrandController extends Controller
 
             return redirect()->route("admin_brands");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="Edit Brand";
         return view("admin/brands/edit",$data);
     }

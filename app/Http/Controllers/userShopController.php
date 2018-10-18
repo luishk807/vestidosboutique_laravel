@@ -79,7 +79,6 @@ class userShopController extends Controller
         $data=[];
         // $sort = $request->get("sort");
         $sort = $request->input("shopPage_select");
-        $data["brands"]=$this->brands->all();
         $data["page_title"]=__('header.shop');
         // $data["sort"]=$request->get("sort");
         $data["sort"]=$sort;

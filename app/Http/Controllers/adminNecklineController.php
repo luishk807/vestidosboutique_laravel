@@ -37,7 +37,6 @@ class adminNecklineController extends Controller
             $this->necklines->insert($data);
             return redirect()->route("admin_necklines");
         }
-        $data["statuses"]=$this->statuses->all();
         $data["page_title"]="New Neckline";
         return view("admin/necklines/new",$data);
     }

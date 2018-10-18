@@ -117,8 +117,6 @@ class adminPanamaController extends Controller
              
              $data["is_news"]=[0,1];
 
-             $data["statuses"]=$this->statuses->all();
-             $data["categories"]=$this->categories->all();
              $data["closures"]=$this->closures->all();
              $data["brands"]=$this->brands->all();   
              $data["fabrics"]=$this->fabrics->all();
