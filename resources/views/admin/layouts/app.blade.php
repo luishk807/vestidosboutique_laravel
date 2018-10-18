@@ -4,24 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app_admin.css') }}">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <title>Vestidos Boutique Admin</title>
-    <style>
-    .vestidos-footer-abs{
-        width: 100%;
-        background-color: #f5f5f5;
-    }
-    #admin-wrap{
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        margin: 0 auto -60px;
-    }
-    #push,#footer{
-        height: 100px;
-    }
-</style>
 </head>
 <body>
     <div id="admin-wrap">
@@ -112,7 +97,7 @@
         <div class="container">
             <div class="row">
                 <div class="col text-center my-4">
-                    Vestidos Boutique &copy; 2018
+                    Vestidos Boutique &copy; {{ now()->year }}
                 </div>
             </div>
         </div>

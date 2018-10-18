@@ -2,7 +2,14 @@
 @section('content')
 <form action="{{ route('save_payment',['payment_id'=>$payment_type->id]) }}" method="post">
 {{ csrf_field() }}
-
+    <div class="row">
+        <div class="col text-center">
+            <div class="warning-cont">
+            <p class="title">For Credit Card Payment</p>
+            <p>To make this into a credit card container, just leave the description emtpy</p>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
             <label for="paymentFirstName">Name:</label>
             <input type="text" id="paymentFirstName" class="form-control" name="name" value="{{ old('name') ? old('name') : $payment_type->name }}" placeholder="Name"/>

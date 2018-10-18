@@ -9,15 +9,20 @@
                     <div class="container cart-container-in">
                         <div class="row" >
                             <div class="col-md-12 text-center">
-                               <span id="session_msg"
-                               @if(Session::has("success"))
-                               class="success">{{Session::get("success")}}
-                               @elseif(Session::has("error"))
-                               class="error">{{Session::get("error")}}
-                               @elseif(Session::has("alert"))
-                               class="alert">{{Session::get("alert")}}
-                               @endif
-                               </span>
+                                
+                                @if(Session::has("success"))
+                                <div class="warning-cont">
+                                {{Session::get("success")}}
+                                </div>
+                                @elseif(Session::has("error"))
+                                <div class="warning-cont">
+                                {{Session::get("error")}}
+                                </div>
+                                @elseif(Session::has("alert"))
+                                <div class="warning-cont">
+                                {{Session::get("alert")}}
+                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="row">

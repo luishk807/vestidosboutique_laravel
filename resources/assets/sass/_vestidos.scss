@@ -15,6 +15,15 @@
 .vesti-search-cont ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3)
 }
+.warning-cont{
+  width: 50%;
+  margin: 10px auto;
+  padding: 10px 40px;
+  border: 1px solid $vesti-light-bars-b;
+}
+.warning-cont .title{
+  font-weight:bold;
+}
 .hide{
   display:none;
 }

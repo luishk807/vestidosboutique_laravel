@@ -1,13 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-   .warning-block{
-        border: 1px solid;
-        padding: 15px;
-        text-align: center;
-        margin: 24px auto;
-   }
-</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -18,8 +10,9 @@
                         @if(Session::has("activate_required"))
                         <div class="row">
                             <div class="col">
-                                <div class="warning-block col-md-8">
-                                    {{ Session::get("activate_required") }} &nbsp; <a href="{{ route('show_resend_active_user_account') }}">{{ __('buttons.resend_activation')}}</a>
+                                <div class="warning-cont">
+                                    {{ Session::get("activate_required") }} &nbsp; 
+                                    <a href="{{ route('show_resend_active_user_account') }}">{{ __('buttons.resend_activation')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +29,10 @@
                                     <div class="row">
                                         <div class="col error py-2">
                                         @if(Session::has("msg"))
+                                        @if(Session::has("success"))
+                                        <div class="warning-cont">
                                         {{Session::get("msg")}}
+                                        </div>
                                         @endif
                                         </div>
                                     </div>

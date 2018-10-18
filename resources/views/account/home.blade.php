@@ -7,20 +7,20 @@
         </div>
     </div>
     @if(session('success'))
-    <div class="row result-mg success">
+    <div class="row result-mg">
         <div class="col">
-            <P>
-                {{ session('success') }}
-            </P>
+            <div class="warning-cont">
+                <P>{{ session('success') }}</P>
+            </div>
         </div>
     </div>
     @endif
     @if(session('error'))
-    <div class="row result-mg error">
+    <div class="row result-mg">
         <div class="col">
-            <P>
-                {{ session('error') }}
-            </P>
+            <div class="warning-cont">
+                <P>{{ session('error') }}</P>
+            </div>
         </div>
     </div>
     @endif

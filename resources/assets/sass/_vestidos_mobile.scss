@@ -26,6 +26,9 @@
 and (min-device-width : 375px) 
 and (max-device-width : 812px)
 and (-webkit-device-pixel-ratio : 3) { 
+    .warning-cont{
+        width: 100% !important;
+    }
     /*****************MAIN SLIDER*********************/
     #main_slider_arrow_cont{
        display:block;
@@ -330,6 +333,9 @@ and (orientation : landscape) {
 /*          IPHONE LANDSCAPE                     */
 /************************************************/
 @media only screen and (max-device-width: 812px) and (orientation: landscape) {
+    .warning-cont{
+        width: 100% !important;
+    }
     /**********shop page**************/
     #mobile-sort-nav{
         display:block;
@@ -491,6 +497,9 @@ and (orientation : landscape) {
 and (min-device-width:375px) 
 and (max-device-width:667px) 
 and (orientation:landscape){
+    .warning-cont{
+        width: 100% !important;
+    }
     /**************MAIN SLIDER**************/
     #home_main_slider .text-cont{
         position: absolute;
@@ -638,6 +647,9 @@ and (orientation:landscape){
 and (min-device-width : 375px) 
 and (max-device-width : 667px)
 and (orientation : portrait) {
+    .warning-cont{
+        width: 100% !important;
+    }
     /********MAIN SLIDER************/
     #main_slider_arrow_cont{
        display:block;
@@ -833,7 +845,9 @@ and (min-device-width : 375px)
 and (max-device-width : 812px) 
 and (-webkit-device-pixel-ratio : 3)
 and (orientation : portrait) {
-  
+    .warning-cont{
+        width: 100% !important;
+    }
     .vesti-new-txt-a {
         font-size: 1rem;
         top: 25px;
@@ -848,6 +862,9 @@ and (min-device-width : 737px)
 and (max-device-width : 812px) 
 and (-webkit-device-pixel-ratio : 3)
 and (orientation : landscape) {
+    .warning-cont{
+        width: 100% !important;
+    }
      /*****************USER ACCOUNT**************/
      #user-account-menu{
         display:block;
@@ -1034,6 +1051,9 @@ and (orientation : landscape) {
     and (-webkit-min-device-pixel-ratio : 3) 
     and (orientation : landscape)
 { 
+    .warning-cont{
+        width: 100% !important;
+    }
  /*****************USER ACCOUNT**************/
     #user-account-menu{
         display:none;
@@ -1059,7 +1079,9 @@ and (orientation : landscape) {
 and (min-device-width : 320px) 
 and (max-device-width : 568px)
 and (orientation:landscape){
-
+    .warning-cont{
+        width: 100% !important;
+    }
     /**************MAIN SLIDER**************/
     .col-12 {
         -ms-flex: 0 0 33.33333333%;
@@ -1212,6 +1234,9 @@ and (orientation:landscape){
 and (min-device-width : 320px) 
 and (max-device-width : 568px)
 and (orientation:portrait){
+    .warning-cont{
+        width: 100% !important;
+    }
  /********MAIN SLIDER************/
  #main_slider_arrow_cont{
        display:block;

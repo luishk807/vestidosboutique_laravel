@@ -17,6 +17,7 @@ mix
     'resources/assets/js/vestidos.js'
 ], 'public/js/vestidos.js')
 .sass('resources/assets/sass/app.scss', 'public/css')
+.sass('resources/assets/sass/app_admin.scss', 'public/css')
 .copy('resources/assets/images/', 'public/images/', false) // Don't flatten!
 .copy('resources/assets/js/vendor/fullpage', 'public/js/vendor/fullpage') // Don't flatten!
 .copy('resources/assets/js/vendor/rater', 'public/js/vendor/rater')
