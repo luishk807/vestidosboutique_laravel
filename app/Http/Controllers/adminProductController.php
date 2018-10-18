@@ -267,11 +267,15 @@ class adminProductController extends Controller
         $data["product_id"]=$product_id;
         $data["restock_date"]=$request->input("restock_date");
         $data["vendor_id"]=$request->input("vendor");
+        $data["color"]=$request->input("color");
+        $data["size"]=$request->input("size");
         $data["quantity"]=$request->input("quantity");
         $data["created_at"]=carbon::now();
         $this->validate($request,[
             "restock_date"=>"required",
             "vendor"=>"required",
+            "size"=>"required",
+            "color"=>"required",
             "quantity"=>"required",
         ]);
         if($this->restocks->insert($data)){
@@ -295,15 +299,21 @@ class adminProductController extends Controller
         $restock = $this->restocks->find($restock_id);
         $data["restock_date"]=$request->input("restock_date");
         $data["vendor"]=$request->input("vendor");
+        $data["color"]=$request->input("color");
+        $data["size"]=$request->input("size");
         $data["quantity"]=$request->input("quantity");
         
         $this->validate($request,[
             "restock_date"=>"required",
             "vendor"=>"required",
+            "size"=>"required",
+            "color"=>"required",
             "quantity"=>"required",
         ]);
         $restock->restock_date = $request->input("restock_date");
         $restock->quantity = (int)$request->input("quantity");
+        $restock->color = (int)$request->input("color");
+        $restock->size = (int)$request->input("size");
         $restock->vendor_id = (int)$request->input("vendor");
 
         if($restock->save()){

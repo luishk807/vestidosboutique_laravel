@@ -1,5 +1,8 @@
 @extends('admin/layouts.app')
 @section('content')
+<script>
+var urlColorSizes = "{{ url('api/loadSizes') }}";
+</script>
 <form action="{{ route('create_restock',['product_id'=>$product->id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
@@ -11,6 +14,23 @@
         <label for="restockQuantity">Quantity:</label>
         <input type="text" id="restockQuantity" class="form-control" name="quantity" value="" placeholder="Restock Quantity"/>
         <small class="error">{{$errors->first("quantity")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="restockColor">Color:</label>
+        <select class="custom-select" name="color" id="restockColor" onChange="loadSizes(this.value,0)">
+        <option value="">Select Color</option> 
+            @foreach($product->colors as $color)
+                <option value="{{ $color->id }}">{{$color->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("vendor")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="size_drop_0">Size:</label>
+        <select class="custom-select" name="size" id="size_drop_0">
+            <option value="">Select Size</option> 
+        </select>
+        <small class="error">{{$errors->first("size")}}</small>
     </div>
     <div class="form-group">
         <label for="restockVendor">Vendor:</label>
