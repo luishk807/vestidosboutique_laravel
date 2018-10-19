@@ -23,6 +23,7 @@ class vestidosProducts extends Model
         "total_rent_old",
         "total_sale",
         "total_sale_old",
+        "style",
         "is_rent",
         "is_sell",
         "is_new",
