@@ -1,7 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('js/vendor/magnifier/magnifier.css') }}">
-
 <script>
 var urlColorSizes = "{{ url('api/loadSizes') }}";
 var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
@@ -33,8 +31,7 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
                             @endif
                             @endif
                             "></span></a>
-                            <a class="magnifier-thumb-wrapper" href="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" data-large-img-url="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
-                            <div class="magnifier-preview" id="preview" style="width: 1000px; height:1666px"></div>
+                            <a target="_black" href="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" data-large-img-url="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
                         </div>
                     </div>
                     <div class="col-md-4 product_main_txt">
@@ -166,8 +163,6 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
     </div>
 </div>
 </div>
-<script src="{{ asset('js/vendor/magnifier/Event.js') }}"></script>
-<script src="{{ asset('js/vendor/magnifier/Magnifier.js') }}"></script>
 <script type="text/javascript">
 var imgUrl = $("#thumb").attr("data-large-img-url");
 var evt = new Event(),
@@ -175,7 +170,10 @@ var evt = new Event(),
     m.attach({
         thumb: '#thumb',
         large: imgUrl,
-        largeWrapper: 'preview'
+        mode:'inside',
+        zoom: 2,
+    zoomable: true
     });
 </script>
+
 @endsection

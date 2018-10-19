@@ -209,7 +209,7 @@ return [
         'model_id'=>"Product ID",
         'new'=>"New",
         'style'=>"Style",
-        'select_style'=>"Select Style",
+        'select_style'=>"Select style",
         'unit_price'=>"Unit Price",
         'size'=>"Size | Sizes",
         'color'=>"Color | Colors",
