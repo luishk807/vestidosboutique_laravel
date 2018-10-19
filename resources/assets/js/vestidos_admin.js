@@ -16,6 +16,22 @@ function switchStatesDropByIndex(indx){
         }
     });
 }
+function loadDropDown(select1, select2,url){
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            data:$(select1).val()
+        },
+        success: function(data) {
+            var product_quantity = $(select2);
+            product_quantity.empty();
+            $.each(data, function(index,element){
+                product_quantity.append("<option value='"+element.id+"'>"+element.name+"</option>");
+            });
+        }
+    });
+}
 function loadSizes(color,ind){
     if(typeof urlColorSizes !== "undefined"){
         $.ajax({

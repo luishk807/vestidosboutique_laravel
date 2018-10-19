@@ -1,7 +1,10 @@
 @extends('admin/layouts.app')
 @section('content')
-<script>
+<script type="text/javascript">
 var urlColorSizes = "{{ url('api/loadSizes') }}";
+$(document).ready(function(){
+    loadDropDown('#restockColor','#size_drop_0',"{{ url('api/loadSizes') }}")
+})
 </script>
 <form action="{{ route('edit_restock',['restock_id'=>$restock->id]) }}" method="post">
 {{ csrf_field() }}
@@ -32,7 +35,6 @@ var urlColorSizes = "{{ url('api/loadSizes') }}";
     <div class="form-group">
         <label for="restockColor">Color:</label>
         <select class="custom-select" name="color" id="restockColor" onChange="loadSizes(this.value,0)">
-        <option value="">Select Color</option> 
             @foreach($restock->product->colors as $color)
                 <option value="{{ $color->id }}">{{$color->name}} </option>
             @endforeach

@@ -5,7 +5,10 @@ body{
     height: 100%;
     margin: 0;
   }
-#admin-wrap{
+    #admin-wrap .container .row a:not(:first-child){
+        padding-left:5px;
+    }
+    #admin-wrap{
     .nav-link:hover, .navbar-link:hover {
         background-color: black;
         text-decoration: none;
