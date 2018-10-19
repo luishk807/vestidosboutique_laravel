@@ -205,6 +205,8 @@ return [
         'out_stock'=>"No Disponible",
         'model_id'=>"No. de Modelo",
         'tax'=>"Impuesto",
+        'style'=>"Estilo",
+        'select_style'=>"Seleccione estilo",
         'size'=>"Tamaño",
         'color'=>"Color | Colores",
         'select_color'=>"Seleccione el Color",
