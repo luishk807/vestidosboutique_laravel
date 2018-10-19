@@ -66,9 +66,6 @@ $(document).ready(function(){
                         <ul class="nav-list-submenu">
                             <li>
                                 <ul>
-                                    @foreach($subcategories as $subcategory)
-                                    <li><a href="{{ $subcategory->id }}">{{$subcategory->name}}</a></li>
-                                    @endforeach
                                 </ul>
 
                             </li>
@@ -182,9 +179,6 @@ $(document).ready(function(){
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-accessories">{{ __('header.accessories') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-accessories" style="height: 0px;">
                             <ul class="nav-list">
-                                @foreach($subcategories as $subcategory)
-                                <li><a href="#">{{$subcategory->name}}</a></li>
-                                @endforeach
                             </ul>
                         </div>
                     </li>
