@@ -19,9 +19,9 @@ class CreateRestockData extends Migration
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete("cascade");
             $table->integer("vendor_id")->unsigned()->nullable();
             $table->foreign("vendor_id")->references("id")->on("vestidos_vendors")->onDelete("set null");
-            $table->integer('color')->after('vendor_id')->unsigned()->nullable();
+            $table->integer('color')->unsigned()->nullable();
             $table->foreign("color")->references("id")->on("vestidos_colors")->onDelete('cascade');
-            $table->integer('size')->after('color')->unsigned()->nullable();
+            $table->integer('size')->unsigned()->nullable();
             $table->foreign("size")->references("id")->on("vestidos_sizes")->onDelete('cascade');
             $table->integer("quantity");
             $table->date("restock_date");

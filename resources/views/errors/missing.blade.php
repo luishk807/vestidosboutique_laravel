@@ -12,9 +12,9 @@
                         </div>
                         <div class="col">
                             <h3>404</h3>
-                            <div class="error_msg">Ooops, something goes wrong</div>
+                            <div class="error_msg">{{ trans('general.no_found.message')}}</div>
                             <div class="vesti_in_btn_pnl">
-                                <button class="btn-block vesti_in_btn" onclick="location.href='{{ route('home_page')}}'">Return to Home Page</button>
+                                <button class="btn-block vesti_in_btn" onclick="location.href='{{ route('home_page')}}'">{{ trans('buttons.back_home')}}</button>
                             </div>
                         </div>
                     </div>

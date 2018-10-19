@@ -105,7 +105,7 @@ class adminDressStylesController extends Controller
                 }
                 if(!empty($insert)){
                     DressStyles::insert($insert);
-                    return redirect()->route('admin_dressstyle')->with('success','Insert Record successfully.');
+                    return redirect()->route('admin_dressstyles')->with('success','Insert Record successfully.');
                 }
             }
         }else{

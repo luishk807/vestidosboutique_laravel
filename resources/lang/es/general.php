@@ -218,7 +218,10 @@ return [
         'product_name'=>"Producto: :name",
     ],
 
-
+// 404
+'no_found'=>[
+    'message'=>"Ooops, algo malo sucedio",
+],
     //MENSAJES
     'empty_msg'=>[
         'wishlist'=>"Tu lista de favoritos esta vacio",

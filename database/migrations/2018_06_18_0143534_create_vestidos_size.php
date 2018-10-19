@@ -15,7 +15,7 @@ class CreateVestidosSize extends Migration
     {
         Schema::create('vestidos_sizes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('color_id')->unsigned()->after("id")->nullable();
+            $table->integer('color_id')->unsigned()->nullable();
             $table->foreign('color_id')->references('id')->on('vestidos_colors')->onDelete('cascade');
             $table->string('name');
             $table->integer('stock')->nullable();

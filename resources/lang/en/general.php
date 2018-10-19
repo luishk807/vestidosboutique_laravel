@@ -186,6 +186,10 @@ return [
         'denied'=>"Access Denied.",
         'invalid_access'=>"Invalid Access",
     ],
+    // 404
+    'no_found'=>[
+        'message'=>"Ooops, something goes wrong",
+    ],
      //DATES
     'dates_title'=>[
         'date_ordered'=>"Order Placed",
