@@ -36,6 +36,16 @@
         <small class="error">{{$errors->first("brand")}}</small>
     </div>
     <div class="form-group">
+        <label for="productStyle">Style:</label>
+        <select class="custom-select" name="style" id="productStyle">
+            <option value="">Select Style</option>
+            @foreach($vestidos_styles as $style)
+                <option value="{{ $style->id }}">{{$style->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("style")}}</small>
+    </div>
+    <div class="form-group">
         <label for="productVendor">Vendor:</label>
         <select class="custom-select" name="vendor" id="productVendor">
             <option value="">Select Vendor</option>

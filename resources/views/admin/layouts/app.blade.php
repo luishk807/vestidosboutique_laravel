@@ -66,18 +66,23 @@
             @if(session('success'))
             <div class="row result-mg success">
                 <div class="col">
-                    <P>
-                        {{ session('success') }}
-                    </P>
+                    <div class="warning-cont text-center">
+                        <P>
+                            {{ session('success') }}
+                        </P>
+                    </div>
+
                 </div>
             </div>
             @endif
             @if(session('error'))
             <div class="row result-mg error">
                 <div class="col">
+                    <div class="warning-cont text-center">
                     <P>
                         {{ session('error') }}
                     </P>
+                    </div>
                 </div>
             </div>
             @endif

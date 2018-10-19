@@ -58,6 +58,20 @@
         <small class="error">{{$errors->first("vendor")}}</small>
     </div>
     <div class="form-group">
+        <label for="productStyle">Style:</label>
+        <select class="custom-select" name="style" id="productStyle">
+            <option value="">Select Style</option>
+            @foreach($vestidos_styles as $style)
+                <option value="{{ $style->id }}"
+                @if($product->style==$style->id)
+                    selected="selected"
+                @endif
+                >{{$style->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("style")}}</small>
+    </div>
+    <div class="form-group">
         Choose Category:<br/>
         <ul class="custom-ul">
             @foreach($categories as $catIndex => $category)

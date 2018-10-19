@@ -102,7 +102,7 @@
                             </div>                   
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="productNeckline">Neckline Type:</label>
                                 <select class="custom-select" name="product_confirm[{{$indexKey}}][neckline]" id="productNeckline">
                                     <option value="">Select Neckline</option>
@@ -115,6 +115,20 @@
                                     @endforeach
                                 </select>
                                 <small class="error">{{$errors->first("neckline")}}</small>
+                            </div>    
+                            <div class="form-group col-md-6">
+                                <label for="productStyle">Style:</label>
+                                <select class="custom-select" name="product_confirm[{{$indexKey}}][style]" id="productStyle">
+                                    <option value="">Select Style</option>
+                                    @foreach($vestidos_styles as $style)
+                                        <option value="{{ $style->id }}"
+                                        @if($product['product_style_id']==$style->id)
+                                            selected="selected"
+                                        @endif
+                                        >{{$style->name}} </option>
+                                    @endforeach
+                                </select>
+                                <small class="error">{{$errors->first("style")}}</small>
                             </div>            
                         </div>
                         <div class="row">

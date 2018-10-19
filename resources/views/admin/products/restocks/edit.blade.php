@@ -2,11 +2,8 @@
 @section('content')
 <script type="text/javascript">
 var urlColorSizes = "{{ url('api/loadSizes') }}";
-$(document).ready(function(){
-    loadDropDown('#restockColor','#size_drop_0',"{{ url('api/loadSizes') }}")
-})
 </script>
-<form action="{{ route('edit_restock',['restock_id'=>$restock->id]) }}" method="post">
+<form action="{{ route('save_restock',['restock_id'=>$restock->id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="restockDate">Order Date:</label>
@@ -36,7 +33,11 @@ $(document).ready(function(){
         <label for="restockColor">Color:</label>
         <select class="custom-select" name="color" id="restockColor" onChange="loadSizes(this.value,0)">
             @foreach($restock->product->colors as $color)
-                <option value="{{ $color->id }}">{{$color->name}} </option>
+                <option value="{{ $color->id }}"
+                @if($restock->color == $color->id)
+                selected='selected'
+                @endif
+                >{{$color->name}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("vendor")}}</small>
@@ -45,6 +46,13 @@ $(document).ready(function(){
         <label for="size_drop_0">Size:</label>
         <select class="custom-select" name="size" id="size_drop_0">
             <option value="">Select Size</option>
+            @foreach($sizes as $size)
+                <option value="{{ $size->id }}"
+                @if($restock->size == $size->id)
+                selected='selected'
+                @endif
+                >{{$size->name}} </option>
+            @endforeach
         </select>
         <small class="error">{{$errors->first("size")}}</small>
     </div>

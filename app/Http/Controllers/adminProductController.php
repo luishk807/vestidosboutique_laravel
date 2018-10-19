@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosProducts as Products;
-use App\vestidosStatus as vestidosStatus;
-use App\vestidosCategories as Categories;
 use App\vestidosClosureTypes as Closures;
 use App\vestidosColors as Colors;
-use App\vestidosBrands as Brands;
 use App\vestidosFabricTypes as Fabrics;
 use App\vestidosSizes as Sizes;
 use App\vestidosProductsImgs as Images;
@@ -27,13 +24,10 @@ use File;
 class adminProductController extends Controller
 {
     //
-    public function __construct(Images $images, vestidosStatus $vestidosStatus, Products $products,Categories $categories, Closures $closures,Colors $colors, Brands $brands, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, ProductCategories $product_categories,ProductRestocks $product_restocks, Lengths $lengths){
-        $this->statuses=$vestidosStatus;
+    public function __construct(Images $images, Products $products,Closures $closures,Colors $colors, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, ProductCategories $product_categories,ProductRestocks $product_restocks, Lengths $lengths){
         $this->products=$products;
-        $this->categories=$categories;
         $this->closures=$closures;
         $this->colors=$colors;
-        $this->brands=$brands;
         $this->lengths = $lengths;
         $this->fabrics=$fabrics;
         $this->sizes=$sizes;
@@ -51,10 +45,7 @@ class adminProductController extends Controller
     }
     function newProducts(){
         $data=[];
-
-
         $data["is_news"]=[0,1];
-
         $data["page_title"]="Create Products Page";
         $data["closures"]=$this->closures->all();
         $data["lengths"]=$this->lengths->all();
@@ -71,6 +62,7 @@ class adminProductController extends Controller
             "brand"=>"required",
             "closure"=>"required",
             "fabric"=>"required",
+            "style"=>"required",
             'purchase_date'=>"required",
             "neckline"=>"required",
             "products_description"=>"required",
@@ -88,6 +80,7 @@ class adminProductController extends Controller
         $data["brand_id"]=(int)$request->input("brand");
         $data["product_length"]=(int)$request->input("length");
         $data["vendor_id"]=(int)$request->input("vendor");
+        $data["style"]=(int)$request->input("style");
         $data["category_id"]=(int)$request->input("category");
         $data["product_closure_id"]=(int)$request->input("closure");
         $data["product_fabric_id"]=(int)$request->input("fabric");
@@ -132,7 +125,6 @@ class adminProductController extends Controller
         $data["is_news"]=[0,1];
         $data["product_id"]=$product_id;
         $data["product"]=$product;
-        
         $data["page_title"]="Edit Product: ".$product->products_name;
         $data["lengths"]=$this->lengths->all();
         $data["closures"]=$this->closures->all();
@@ -164,11 +156,13 @@ class adminProductController extends Controller
         $data["closure"]=(int)$request->input("closure");
         $data["fabric"]=(int)$request->input("fabric");
         $data["neckline"]=(int)$request->input("neckline");
+        $data["style"]=(int)$request->input("style");
 
         $this->validate($request,[
             "products_name"=>"required",
             "status"=>"required",
             "brand"=>"required",
+            "style"=>"required",
             "categories"=>"required",
             "vendor"=>"required",
             "closure"=>"required",
@@ -181,6 +175,7 @@ class adminProductController extends Controller
         $product->products_name = $request->input("products_name");
         $product->brand_id = (int)$request->input("brand");
         $product->vendor_id = (int)$request->input("vendor");
+        $product->style = (int)$request->input("style");
         $product->product_closure_id = (int)$request->input("closure");
         $product->product_fabric_id = (int)$request->input("fabric");
         $product->product_neckline_id = (int)$request->input("neckline");
@@ -280,7 +275,7 @@ class adminProductController extends Controller
         ]);
         if($this->restocks->insert($data)){
             $data["product_id"]=$product_id;
-            return redirect()->route("edit_product",$data);
+            return redirect()->route("edit_product",$data)->with('success','Insert Record successfully.');;
         }
         return redirect()->back()->withErrors([
             "required"=>"Error Saving Restock"
@@ -288,15 +283,17 @@ class adminProductController extends Controller
     }
     public function editRestock($restock_id){
         $data=[];
-
-        $data["restock"]=$this->restocks->find($restock_id);
+        $restock = $this->restocks->find($restock_id);
+        $data["restock"]=$restock;
         $data["vendors"]=$this->vendors->all();
+        $data["sizes"]=$this->sizes->where("color_id",$restock->color)->get();
         $data["page_title"]="Edit Restock";
         return view("admin/products/restocks/edit",$data);
     }
     public function saveRestock(Request $request,$restock_id){
         $data=[];
         $restock = $this->restocks->find($restock_id);
+        $color = $this->colors->find($restock->color);
         $data["restock_date"]=$request->input("restock_date");
         $data["vendor"]=$request->input("vendor");
         $data["color"]=$request->input("color");
@@ -311,15 +308,16 @@ class adminProductController extends Controller
             "quantity"=>"required",
         ]);
         $restock->restock_date = $request->input("restock_date");
-        $restock->quantity = (int)$request->input("quantity");
-        $restock->color = (int)$request->input("color");
-        $restock->size = (int)$request->input("size");
-        $restock->vendor_id = (int)$request->input("vendor");
+        $restock->quantity = $request->input("quantity");
+        $restock->color =$request->input("color");
+        $restock->size =$request->input("size");
+        $restock->vendor_id =$request->input("vendor");
 
         if($restock->save()){
-            return redirect()->route("restock_product");
+            $data["product_id"] = $color->product_id;
+            return redirect()->route("admin_restocks",$data)->with('success','Restock saved successfully.');;
         }
-        return redirect()->back();
+        return redirect()->back()->with('error','Unable to save restock.');;
     }
     public function confirmRestock($restock_id){
         $data=[];
@@ -331,7 +329,7 @@ class adminProductController extends Controller
         $data=[];
         $restock = $this->restocks->find($restock_id);
         $restock->delete();
-        return redirect()->route("admin_restocks",["product_id"=>$restock->product_id]);
+        return redirect()->route("admin_restocks",["product_id"=>$restock->product_id])->with('success','Restock deleted successfully.');;
     }
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");
@@ -454,6 +452,7 @@ class adminProductController extends Controller
                             "product_fabric_id"=>$value->fabric,
                             "product_length"=>$value->product_length,
                             "product_neckline_id"=>$value->neckline,
+                            "product_style_id"=>$value->style,
                             "total_sale"=>$value->total_sale,
                             "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
                             "total_rent"=>$value->total_rent,
@@ -505,15 +504,10 @@ class adminProductController extends Controller
         if(Session::has("data_confirm")){
              $session = Session::get("data_confirm");
              $data["page_title"]="Confirm Import Data";
-             
              $data["is_news"]=[0,1];
-
-             $data["statuses"]=$this->statuses->all();
-             $data["categories"]=$this->categories->all();
-             $data["closures"]=$this->closures->all();
-             $data["brands"]=$this->brands->all();
              $data["fabrics"]=$this->fabrics->all();
              $data["vendors"]=$this->vendors->all();
+             $data["closures"]=$this->closures->all();
              $data["necklines"]=$this->necklines->all();
 
              $data["data_confirm"]=$session;
@@ -531,6 +525,7 @@ class adminProductController extends Controller
             "product_confirm.*.product_model"=>"required",
             "product_confirm.*.brand"=>"required",
             "product_confirm.*.cat"=>"required",
+            "product_confirm.*.style"=>"required",
             "product_confirm.*.product_stock"=>"required",
             "product_confirm.*.purchased_date"=>"required",
          ]);
@@ -543,6 +538,7 @@ class adminProductController extends Controller
                     "product_model"=>$product["product_model"],
                     "products_description"=>$product["products_description"],
                     "brand_id"=>$product["brand"],
+                    "style"=>$product["style"],
                     "product_stock"=>$product["product_stock"],
                     "product_closure_id"=>$product["closure"],
                     "product_detail"=>$product["product_detail"],

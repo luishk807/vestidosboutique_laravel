@@ -33,6 +33,24 @@ class AppServiceProvider extends ServiceProvider
         view()->share('statuses', Statuses::all());
         view()->share('brands', Brands::all());
         view()->share('countries', Countries::all());
+        $this->app->singleton('countries', function () {
+            return Countries::all();
+        });
+        $this->app->singleton('brands', function () {
+            return Brands::all();
+        });
+        $this->app->singleton('statuses', function () {
+            return Statuses::all();
+        });
+        $this->app->singleton('vestidos_styles', function () {
+            return Styles::all();
+        });
+        $this->app->singleton('categories', function () {
+            return Categories::all();
+        });
+        $this->app->singleton('subcategories', function () {
+            return SubCategories::all();
+        });
     }
 
     /**
