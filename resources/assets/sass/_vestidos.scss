@@ -21,6 +21,12 @@
   padding: 10px 40px;
   border: 1px solid $vesti-light-bars-b;
 }
+.desktop-view{
+  display:block;
+}
+.mobile-view{
+  display:none;
+}
 .warning-cont .title{
   font-weight:bold;
 }

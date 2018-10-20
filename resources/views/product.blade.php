@@ -4,6 +4,8 @@
 var urlColorSizes = "{{ url('api/loadSizes') }}";
 var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
 </script>
+<link rel="stylesheet" href="{{ asset('js/vendor/slick/slick-theme.css') }}">
+<link rel="stylesheet" href="{{ asset('js/vendor/slick/slick.css') }}">
 <div id="popup_bgOverlay">
     <div id="popup_text">
         <div id="popup_text_in"></div>
@@ -16,12 +18,12 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
         <div class="col container-in-center">
             <div class="container-fluid container-in-space">
                 <div class="row">
-                    <div class="col-md-2 product_thumnnail">
+                    <div class="col-md-2 desktop-view product_thumnnail">
                             @foreach($product->images as $image)
                             <a href="" class="product_thumnb_link"><img src="{{ asset('/images/products/') }}/{{ $image->img_url }}" alt="{{ $image->img_name }}" class="float-left img-thumbnail"/></a>
                             @endforeach
                     </div>
-                    <div class="col-md-6 product_main_img">
+                    <div class="col-md-6 desktop-view product_main_img">
                         <div class="product_main_img_in">
                             <a href="javascript:addWishlist('{{ $product->id }}')" class="vesti-heart-link-b">
                             <span class="vesti-svg
@@ -32,6 +34,13 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
                             @endif
                             "></span></a>
                             <a target="_black" href="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" data-large-img-url="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mobile-view product_main_img">
+                        <div class="product_main_img_in slick">
+                            @foreach($product->images as $image)
+                            <a target="_black" href="{{ asset('/images/products/') }}/{{ $image->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $image->img_url }}" class="img-fluid" alt="{{ $image->img_name }}" /></a>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-4 product_main_txt">
@@ -163,6 +172,7 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
     </div>
 </div>
 </div>
+<script src="{{ asset('js/vendor/slick/slick.js')}}"></script>
 <script type="text/javascript">
 var imgUrl = $("#thumb").attr("data-large-img-url");
 var evt = new Event(),
@@ -174,6 +184,9 @@ var evt = new Event(),
         zoom: 2,
     zoomable: true
     });
+$(document).ready(function(){
+    $('.slick').slick();
+})
 </script>
 
 @endsection

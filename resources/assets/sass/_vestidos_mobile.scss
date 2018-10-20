@@ -25,7 +25,13 @@
 @media only screen 
 and (min-device-width : 375px) 
 and (max-device-width : 812px)
-and (-webkit-device-pixel-ratio : 3) { 
+and (-webkit-device-pixel-ratio : 3) {
+    .desktop-view{
+    display:none;
+    }
+    .mobile-view{
+    display:block;
+    }
     .warning-cont{
         width: 100% !important;
     }

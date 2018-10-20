@@ -15,6 +15,10 @@ class CreateVestidosProducts extends Migration
     {
         Schema::create('vestidos_products', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->foreign("category_id")->references("id")->on("vestidos_categories")->onDelete('set null');
+            $table->integer('product_type_id')->unsigned()->nullable();
+            $table->foreign("product_type_id")->references("id")->on("vestidos_product_types")->onDelete('set null');
             $table->string('products_name')->nullable();
             $table->string('product_model')->nullable();
             $table->text('products_description')->nullable();
