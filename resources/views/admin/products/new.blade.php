@@ -26,6 +26,26 @@
         <small class="error">{{$errors->first("product_model")}}</small>
     </div>
     <div class="form-group">
+        <label for="productCategory">Category:</label>
+        <select class="custom-select" name="category" id="productCategory">
+            <option value="">Select Category</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{$category->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("brand")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="productProductType">Product Type:</label>
+        <select class="custom-select" name="product_type" id="productProductType">
+            <option value="">Select Product Type</option>
+            @foreach($product_types as $product_type)
+                <option value="{{ $product_type->id }}">{{$product_type->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("brand")}}</small>
+    </div>
+    <div class="form-group">
         <label for="productBrand">Brand:</label>
         <select class="custom-select" name="brand" id="productBrand">
             <option value="">Select Brand</option>
@@ -56,12 +76,12 @@
         <small class="error">{{$errors->first("vendor")}}</small>
     </div>
     <div class="form-group">
-        Choose Category:<br/>
+        Choose Events:<br/>
         <ul class="custom-ul">
-            @foreach($categories as $catIndex => $category)
+            @foreach($events as $eventIndex => $event)
             <li>
-                <input value="{{ $category->id }}" id="category_{{$catIndex}}" class="custom-checkbox" type="checkbox" name="categories[]">
-                <label for="category_{{$catIndex}}" >{{$category->name}} </label>
+                <input value="{{ $event->id }}" id="event_{{$eventIndex}}" class="custom-checkbox" type="checkbox" name="events[]">
+                <label for="event_{{$eventIndex}}" >{{$event->name}} </label>
             </li>
             @endforeach
         </ul>

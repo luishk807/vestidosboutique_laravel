@@ -31,6 +31,8 @@
                             <a href="{{ route('admin_fabrics')}}" class="nav-link">Fabric Type</a>
                             <a href="{{ route('admin_necklines')}}" class="nav-link">Neckline Type</a>
                             <a href="{{ route('admin_category')}}" class="nav-link">Category</a>
+                            <a href="{{ route('admin_events')}}" class="nav-link">Events</a>
+                            <a href="{{ route('admin_product_types')}}" class="nav-link">Product Types</a>
                         </div>
                     </li>
                     <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Home Config</a>

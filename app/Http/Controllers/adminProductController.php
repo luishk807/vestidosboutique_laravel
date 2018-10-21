@@ -13,6 +13,7 @@ use App\vestidosVendors as Vendors;
 use App\vestidosNecklineTypes as Necklines;
 use App\vestidosProductCategories as ProductCategories;
 use App\vestidosProductsRestocks as ProductRestocks;
+use App\vestidosProductTypes as ProductTypes;
 use App\vestidosLengthTypes as Lengths;
 use Excel;
 use Illuminate\Support\Facades\Input;
@@ -24,11 +25,12 @@ use File;
 class adminProductController extends Controller
 {
     //
-    public function __construct(Images $images, Products $products,Closures $closures,Colors $colors, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, ProductCategories $product_categories,ProductRestocks $product_restocks, Lengths $lengths){
+    public function __construct(Images $images, Products $products,Closures $closures,Colors $colors, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines, ProductCategories $product_categories,ProductRestocks $product_restocks, Lengths $lengths, ProductTypes $product_types){
         $this->products=$products;
         $this->closures=$closures;
         $this->colors=$colors;
         $this->lengths = $lengths;
+        $this->product_types = $product_types;
         $this->fabrics=$fabrics;
         $this->sizes=$sizes;
         $this->vendors=$vendors;
@@ -443,6 +445,8 @@ class adminProductController extends Controller
                         $model_number = $value->model_number;
                         $insert[]=[
                             "products_name"=>$value->product_name,
+                            "category_id"=>$value->category,
+                            "product_type_id"=>$value->product_type,
                             "product_model"=>$value->model_number,
                             "products_description"=>$value->full_description,
                             "brand_id"=>$value->brand,
@@ -480,16 +484,17 @@ class adminProductController extends Controller
                 // echo "<pre>";
                 // print_r($detail_products);
                 // echo "</pre>";
-                Session::forget("data_confirm");
-                Session::put("data_confirm",[
-                    "insert"=>$insert,
-                    "detail"=>$detail_products
-                ]);
-                return redirect()->route('show_confirm_import_product');
-                if(!empty($insert)){
-                    Products::insert($insert);
-                    return redirect()->route('admin_products')->with('success','Insert Record successfully.');
-                }
+                dd(app("product_events"));
+                // Session::forget("data_confirm");
+                // Session::put("data_confirm",[
+                //     "insert"=>$insert,
+                //     "detail"=>$detail_products
+                // ]);
+                // return redirect()->route('show_confirm_import_product');
+                // if(!empty($insert)){
+                //     Products::insert($insert);
+                //     return redirect()->route('admin_products')->with('success','Insert Record successfully.');
+                // }
             }
         }else{
             return redirect()->back()->withErrors([
@@ -524,7 +529,7 @@ class adminProductController extends Controller
          $this->validate($request,[
             "product_confirm.*.product_model"=>"required",
             "product_confirm.*.brand"=>"required",
-            "product_confirm.*.cat"=>"required",
+            "product_confirm.*.event"=>"required",
             "product_confirm.*.product_stock"=>"required",
             "product_confirm.*.purchased_date"=>"required",
          ]);
@@ -534,6 +539,8 @@ class adminProductController extends Controller
                  $valid_array=true;
                  $insert=[
                     "products_name"=>$product["products_name"],
+                    "category_id"=>$product["category"],
+                    "product_type_id"=>$product["product_type"],
                     "product_model"=>$product["product_model"],
                     "products_description"=>$product["products_description"],
                     "brand_id"=>$product["brand"],
@@ -568,13 +575,14 @@ class adminProductController extends Controller
                 $product_insert = Products::create($insert);
                 $product_id = null;
                 $product_id = $product_insert->id;
-                $categories = $product["cat"];
-                //insert new categories
-                if(count($categories)>0){
-                    foreach($categories as $category){
-                        $this->product_categories->insert([
+                $events = $product["event"];
+                $product_events = app("product_events");
+                //insert new events
+                if(count($events)>0){
+                    foreach($events as $event){
+                        $product_events->insert([
                             "product_id"=>$product_id,
-                            "category_id"=>$category,
+                            "event_id"=>$event,
                             "created_at"=>carbon::now()
                         ]);
                     }

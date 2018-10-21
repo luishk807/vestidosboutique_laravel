@@ -90,16 +90,44 @@
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                Choose Category:<br/>
+                                Choose Events:<br/>
                                 <ul class="custom-ul">
-                                    @foreach($categories as $catIndex => $category)
+                                    @foreach($events as $eventIndex => $event)
                                     <li>
-                                        <input value="{{ $category->id }}" id="category_{{$catIndex}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][cat][]">
-                                        <label for="category_{{$catIndex}}" >{{$category->name}} </label>
+                                        <input value="{{ $event->id }}" id="event_{{$eventIndex}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][event][]">
+                                        <label for="event_{{$eventIndex}}" >{{$event->name}} </label>
                                     </li>
                                     @endforeach
                                 </ul>
                             </div>                   
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                Choose Category:<br/>
+                                <select class="custom-select" name="product_confirm[{{$indexKey}}][category]" id="productCategory">
+                                    <option value="">Select Category</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                        @if($product['category_id']==$category->id)
+                                            selected="selected"
+                                        @endif
+                                        >{{$category->name}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                Choose Product Type:<br/>
+                                <select class="custom-select" name="product_confirm[{{$indexKey}}][product_type]" id="productProductType">
+                                    <option value="">Select Product Type</option>
+                                    @foreach($product_types as $product_type)
+                                        <option value="{{ $product_type->id }}"
+                                        @if($product['product_type_id']==$product_type->id)
+                                            selected="selected"
+                                        @endif
+                                        >{{$product_type->name}} </option>
+                                    @endforeach
+                                </select>
+                            </div>               
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">

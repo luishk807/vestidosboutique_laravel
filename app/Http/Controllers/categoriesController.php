@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosCategories as Categories;
-use App\vestidosStatus as VestidosStatus;
 use Carbon\Carbon as carbon;
 use Excel;
 
 class categoriesController extends Controller
 {
     //
-    public function __construct(Categories $categories,VestidosStatus $statuses){
+    public function __construct(Categories $categories){
         $this->categories=$categories;
-        $this->statuses = $statuses;
     }
     public function index(){
         $data=[];

@@ -11,6 +11,8 @@ class vestidosProducts extends Model
     //
     protected $fillable = [
         "products_name",
+        "category_id",
+        "product_type_id",
         "product_model",
         "products_description",
         "brand_id",
@@ -165,13 +167,20 @@ class vestidosProducts extends Model
     public function length(){
         return $this->belongsTo('App\vestidosLengthTypes',"product_length");
     }
+    
     public function getStyle(){
         return $this->belongsTo('App\vestidosStyles',"style");
     }
     public function getBrand(){
         return $this->belongsTo('App\vestidosBrands',"brand_id");
     }
-    public function categories(){
-        return $this->hasMany('App\vestidosProductCategories',"product_id");
+    public function getCategory(){
+        return $this->belongsTo('App\vestidosCategories',"category_id");
+    }
+    public function getProductType(){
+        return $this->belongsTo('App\vestidosProductTypes',"product_type_id");
+    }
+    public function events(){
+        return $this->hasMany('App\vestidosEvents',"product_id");
     }
 }

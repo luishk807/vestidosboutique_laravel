@@ -194,6 +194,30 @@
                 Route::get('/import','categoriesController@showImportCategory')->name('show_import_category');
                 Route::post('/import','categoriesController@saveImportCategory')->name('save_import_category');
             });
+            //Admin Event
+            Route::prefix("events")->group(function(){
+                Route::get('/','adminEventsController@index')->name("admin_events");
+                Route::get('/confirm/{event_id}','adminEventsController@deleteevent')->name('confirm_event');
+                Route::delete('/confirm/{event_id}','adminEventsController@deleteevent')->name('delete_event');
+                Route::get('/new','adminEventsController@newevents')->name('new_event');
+                Route::post('/new','adminEventsController@newevents')->name('create_event');
+                Route::get('/edit/{event_id}','adminEventsController@editevent')->name('edit_event');
+                Route::post('/edit/{event_id}','adminEventsController@editevent')->name('save_event');
+                Route::get('/import','adminEventsController@showImportEvent')->name('show_import_event');
+                Route::post('/import','adminEventsController@saveImportEvent')->name('save_import_event');
+            });
+            //Admin AdminProductType
+            Route::prefix("product_types")->group(function(){
+                Route::get('/','adminProductTypesController@index')->name("admin_product_types");
+                Route::get('/confirm/{product_type_id}','adminProductTypesController@deleteproduct_type')->name('confirm_product_type');
+                Route::delete('/confirm/{product_type_id}','adminProductTypesController@deleteproduct_type')->name('delete_product_type');
+                Route::get('/new','adminProductTypesController@newproduct_types')->name('new_product_type');
+                Route::post('/new','adminProductTypesController@newproduct_types')->name('create_product_type');
+                Route::get('/edit/{product_type_id}','adminProductTypesController@editproduct_type')->name('edit_product_type');
+                Route::post('/edit/{product_type_id}','adminProductTypesController@editproduct_type')->name('save_product_type');
+                Route::get('/import','adminProductTypesController@showImportProductType')->name('show_import_product_type');
+                Route::post('/import','adminProductTypesController@saveImportProductType')->name('save_import_product_type');
+            });
             //Admin Closures
             Route::prefix("closures")->group(function(){
                 Route::get('/','adminClosureController@index')->name("admin_closures");
