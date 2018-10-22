@@ -181,6 +181,6 @@ class vestidosProducts extends Model
         return $this->belongsTo('App\vestidosProductTypes',"product_type_id");
     }
     public function events(){
-        return $this->hasMany('App\vestidosEvents',"product_id");
+        return $this->hasMany('App\vestidosProductEvents',"product_id");
     }
 }

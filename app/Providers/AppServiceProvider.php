@@ -37,30 +37,6 @@ class AppServiceProvider extends ServiceProvider
         view()->share('product_types', ProductTypes::all());
         view()->share('product_events', ProductEvents::all());
         view()->share('events', Events::all());
-        $this->app->singleton('product_types', function () {
-            return ProductTypes::all();
-        });
-        $this->app->singleton('product_events', function () {
-            return ProductEvents::all();
-        });
-        $this->app->singleton('vestidos_events', function () {
-            return Events::all();
-        });
-        $this->app->singleton('countries', function () {
-            return Countries::all();
-        });
-        $this->app->singleton('brands', function () {
-            return Brands::all();
-        });
-        $this->app->singleton('statuses', function () {
-            return Statuses::all();
-        });
-        $this->app->singleton('vestidos_styles', function () {
-            return Styles::all();
-        });
-        $this->app->singleton('categories', function () {
-            return Categories::all();
-        });
     }
 
     /**

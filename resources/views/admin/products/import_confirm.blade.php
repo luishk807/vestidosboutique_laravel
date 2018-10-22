@@ -14,7 +14,7 @@
             @foreach($data_confirm["insert"] as $indexKey=>$product)
             <div class="row confirm-data-row">
                 <div class="col-md-1">
-                    <span class="confirm-data-key">{{ 1+ $indexKey }}&#46;</span>&nbsp;<input type="checkbox" checked name="product_confirm[{{$indexKey}}][key]" id="productcheck{{$indexKey}}]" value="{{ $indexKey }}"/>
+                    <span class="confirm-data-key">{{ 1+ $indexKey }}&#46;</span>&nbsp;<input type="checkbox" checked name="product_confirm[{{$indexKey}}][key]" id="productcheck[{{$indexKey}}]" value="{{ $indexKey }}"/>
                 </div><!--end of checkbox column-->
                 <div class="col-md-11">
                     <div class="container">
@@ -130,7 +130,7 @@
                             </div>               
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5">
                                 <label for="productNeckline">Neckline Type:</label>
                                 <select class="custom-select" name="product_confirm[{{$indexKey}}][neckline]" id="productNeckline">
                                     <option value="">Select Neckline</option>
@@ -144,7 +144,7 @@
                                 </select>
                                 <small class="error">{{$errors->first("neckline")}}</small>
                             </div>    
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-5">
                                 <label for="productStyle">Style:</label>
                                 <select class="custom-select" name="product_confirm[{{$indexKey}}][style]" id="productStyle">
                                     <option value="">Select Style</option>
@@ -157,40 +157,13 @@
                                     @endforeach
                                 </select>
                                 <small class="error">{{$errors->first("style")}}</small>
-                            </div>            
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="productRent">
-                                <input type="checkbox" 
-                                @if($product['is_rent'])
-                                echo checked='checked'
-                                @endif
-                                name="product_confirm[{{$indexKey}}][is_rent]" value="true"/>&nbsp;For Rent?:</label>
-                                <input type="number" id="productRent" class="form-control" name="product_confirm[{{$indexKey}}][total_rent]" min="0" step="0.01" value="{{ $product['total_rent'] }}" placeholder="0.00"/>
-                                <small class="error">{{$errors->first("total_rent")}}</small>
                             </div>
-                            <div class="form-group col-md-3">
-                                <label for="productSell">
-                                <input type="checkbox" 
-                                @if($product['is_sell'])
-                                echo checked='checked'
-                                @endif
-                                name="product_confirm[{{$indexKey}}][is_sale]" value="true"/>&nbsp;For Sale?:</label>
-                                <input type="number" id="productSell" class="form-control" name="product_confirm[{{$indexKey}}][total_sale]" min="0" step="0.01" value="{{ $product['total_sale'] }}" placeholder="0.00"/>
-                                <small class="error">{{$errors->first("total_sale")}}</small>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="productStock">Available Stock:</label>
-                                <input type="text" id="productStock" class="form-control" name="product_confirm[{{$indexKey}}][product_stock]" value="{{ $product['product_stock'] }}" placeholder="Number of Stock Available"/>
-                                <small class="error">{{$errors->first("product_stock")}}</small>
-                            </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label for="productDop">Date of Purchase:</label>
                                 @php( $date = date('Y-m-d', strtotime($product["purchase_date"])) );
                                 <input type="date" id="productDop" min="2017-01-01" class="form-control" name="product_confirm[{{$indexKey}}][purchased_date]" value="{{ $date }}" placeholder="Date of Purchase"/>
                                 <small class="error">{{$errors->first("purchase_date")}}</small>
-                            </div>               
+                            </div>          
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
@@ -230,14 +203,38 @@
                                 </div>
                                 
                                 Choose Sizes For {{$key_detail}}:<br/>
-                                <ul class="custom-ul">
+                                <div class="row">
                                     @foreach($p_detail as $key_sizes => $p_sizes)
-                                    <li>
-                                        <input checked value="{{ $p_sizes}}" id="category_{{$key_sizes}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][]">
-                                        <label for="category_{{$key_sizes}}" >{{ $p_sizes}} </label>
-                                    </li>
+                                    <div class="form-group col-md-1">
+                                        <span class="confirm-data-key">{{ 1+ $key_sizes }}&#46;</span>&nbsp;<input type="checkbox" checked name="product_confirm[{{$key_sizes}}][key_size]" id="product_size_check[{{$key_sizes}}]" value="{{ $key_sizes }}"/>
+                                        
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="size_size_{{$key_sizes}}" >Size</label>
+                                        <input value="{{ $p_sizes['size']}}" id="size_size_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][size]">
+
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="size_stock_{{$key_sizes}}" >Stock</label>
+                                        <input value="{{ $p_sizes['stock']}}" id="size_stock_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][stock]">
+                                    </div>
+                                    <div class="form-group col-md-3">    
+                                        <label for="size_sale_{{$key_sizes}}" >Total Sale
+                                        &nbsp;
+                                        <input checked value="{{ $p_sizes['is_sell']}}" id="size_is_sell_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][is_sell]">is Sell?
+
+                                        </label>
+                                        <input value="{{ $p_sizes['total_sale']}}" id="size_sale_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][total_sale]">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="size_rent_{{$key_sizes}}" >Total Rent
+                                        &nbsp;
+                                        <input checked value="{{ $p_sizes['is_rent']}}" id="size_is_rent_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][is_rent]">is Rent?
+                                        </label>
+                                        <input value="{{ $p_sizes['total_rent']}}" id="size_rent_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][total_rent]">
+                                    </div>
                                     @endforeach
-                                </ul>
+                                </div>
 
 
 
