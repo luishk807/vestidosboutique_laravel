@@ -9,7 +9,7 @@
     <title>Vestidos Boutique Admin</title>
 </head>
 <body>
-    <div id="admin-wrap">
+    <div id="admin-wrap" class="main_body_height">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ route('admin') }}">Vestidos Boutique Admin</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
