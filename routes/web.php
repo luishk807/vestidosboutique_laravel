@@ -279,15 +279,6 @@
                 Route::post('/import','adminProductController@saveImportProduct')->name('save_import_product');
                 Route::get('/import_confirm','adminProductController@showConfirmImportProduct')->name('show_confirm_import_product');
                 Route::post('/import_confirm','adminProductController@saveConfirmImportProduct')->name('save_confirm_import_product');
-                Route::prefix("restock")->group(function(){
-                    Route::get('/{product_id}','adminProductController@showRestock')->name("admin_restocks");
-                    Route::get('/new/{product_id}','adminProductController@newRestock')->name("new_restock");
-                    Route::post('/create/{product_id}','adminProductController@createRestock')->name("create_restock");
-                    Route::get('/edit/{restock_id}','adminProductController@editRestock')->name("edit_restock");
-                    Route::post('/save/{restock_id}','adminProductController@saveRestock')->name("save_restock");
-                    Route::get('/confirm/{restock_id}','adminProductController@confirmRestock')->name("confirm_restock");
-                    Route::delete('/delete/{restock_id}','adminProductController@deleteRestock')->name("delete_restock");
-                });
                 //Admin Color
                 Route::prefix("colors")->group(function(){
                     Route::get('/{product_id}','adminColorController@index')->name("admin_colors");
@@ -311,6 +302,15 @@
                     Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
                     Route::get('/import/{product_id}','adminSizesController@showImportSize')->name('show_import_size');
                     Route::post('/import','adminSizesController@saveImportSize')->name('save_import_size');
+                    Route::prefix("restock")->group(function(){
+                        Route::get('/{product_id}','adminSizesController@showRestock')->name("admin_restocks");
+                        Route::get('/new/{product_id}','adminSizesController@newRestock')->name("new_restock");
+                        Route::post('/create/{product_id}','adminSizesController@createRestock')->name("create_restock");
+                        Route::get('/edit/{restock_id}','adminSizesController@editRestock')->name("edit_restock");
+                        Route::post('/save/{restock_id}','adminSizesController@saveRestock')->name("save_restock");
+                        Route::get('/confirm/{restock_id}','adminSizesController@confirmRestock')->name("confirm_restock");
+                        Route::delete('/delete/{restock_id}','adminSizesController@deleteRestock')->name("delete_restock");
+                    });
                 });
                 //Admin Image
                 Route::prefix("images")->group(function(){

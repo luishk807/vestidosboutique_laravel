@@ -18,6 +18,12 @@ class CreateVestidosSize extends Migration
             $table->integer('color_id')->unsigned()->nullable();
             $table->foreign('color_id')->references('id')->on('vestidos_colors')->onDelete('cascade');
             $table->string('name');
+            $table->decimal('total_sale',10,2)->nullable();
+            $table->decimal('total_sale_old',10,2)->nullable();
+            $table->boolean('is_sell')->default(false)->nullable();
+            $table->decimal('total_rent',10,2)->nullable();
+            $table->decimal('total_rent_old',10,2)->nullable();
+            $table->boolean('is_rent')->default(true)->nullable();
             $table->integer('stock')->nullable();
             $table->integer('status')->default(1)->unsigned()->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');

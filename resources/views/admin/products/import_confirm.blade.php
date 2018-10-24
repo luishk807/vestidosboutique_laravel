@@ -203,38 +203,48 @@
                                 </div>
                                 
                                 Choose Sizes For {{$key_detail}}:<br/>
-                                <div class="row">
+
                                     @foreach($p_detail as $key_sizes => $p_sizes)
+                                <div class="row">
                                     <div class="form-group col-md-1">
-                                        <span class="confirm-data-key">{{ 1+ $key_sizes }}&#46;</span>&nbsp;<input type="checkbox" checked name="product_confirm[{{$key_sizes}}][key_size]" id="product_size_check[{{$key_sizes}}]" value="{{ $key_sizes }}"/>
-                                        
+                                        <span class="confirm-data-key">{{ 1+ $key_sizes }}&#46;</span>
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label for="size_size_{{$key_sizes}}" >Size</label>
-                                        <input value="{{ $p_sizes['size']}}" id="size_size_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][size]">
 
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="size_stock_{{$key_sizes}}" >Stock</label>
-                                        <input value="{{ $p_sizes['stock']}}" id="size_stock_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][stock]">
                                     </div>
-                                    <div class="form-group col-md-3">    
-                                        <label for="size_sale_{{$key_sizes}}" >Total Sale
-                                        &nbsp;
-                                        <input checked value="{{ $p_sizes['is_sell']}}" id="size_is_sell_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][is_sell]">is Sell?
-
-                                        </label>
-                                        <input value="{{ $p_sizes['total_sale']}}" id="size_sale_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][total_sale]">
+                                    <div class="form-group col-md-2">    
+                                        <label for="size_sale_{{$key_sizes}}" >Total Sale</label>
+                                        <input checked value="{{ $p_sizes['is_sell']}}" id="size_is_sell_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_sell]">is sell?
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="size_rent_{{$key_sizes}}" >Total Rent
-                                        &nbsp;
-                                        <input checked value="{{ $p_sizes['is_rent']}}" id="size_is_rent_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][is_rent]">is Rent?
+                                            <input checked value="{{ $p_sizes['is_rent']}}" id="size_is_rent_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_rent]">is Rent?
                                         </label>
-                                        <input value="{{ $p_sizes['total_rent']}}" id="size_rent_{{$key_sizes}}" class="custom-control" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][total_rent]">
                                     </div>
-                                    @endforeach
                                 </div>
+                                <div class="row">
+                                    <div class="form-group col-md-1">
+                                        <input type="checkbox" checked name="product_confirm[[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][key_size]" id="product_confirm[{{$indexKey}}][color][{{$key_sizes}}]" value="{{ $key_sizes }}"/>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input value="{{ $p_sizes['size']}}" id="size_size_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][size]">
+
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input value="{{ $p_sizes['stock']}}" id="size_stock_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][stock]">
+                                    </div>
+                                    <div class="form-group col-md-2">    
+                                        <input value="{{ $p_sizes['total_sale']}}" id="size_sale_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][total_sale]">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <input value="{{ $p_sizes['total_rent']}}" id="size_rent_{{$key_sizes}}" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][total_rent]">
+                                    </div>
+                                </div>
+                                    @endforeach
 
 
 

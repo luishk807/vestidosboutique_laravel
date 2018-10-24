@@ -8,6 +8,16 @@
         <small class="error">{{$errors->first("size")}}</small>
     </div>
     <div class="form-group">
+        <label for="productRent"><input type="checkbox" name="is_for_rent" value="true"/>&nbsp;For Rent?:</label>
+        <input type="number" id="productRent" class="form-control" name="total_rent" min="0" step="0.01" value="" placeholder="0.00"/>
+        <small class="error">{{$errors->first("total_rent")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="productSell"><input type="checkbox" name="is_for_sale" value="true"/>&nbsp;For Sale?:</label>
+        <input type="number" id="productSell" class="form-control" name="total_sale" min="0" step="0.01" value="" placeholder="0.00"/>
+        <small class="error">{{$errors->first("total_sale")}}</small>
+    </div>
+    <div class="form-group">
         <label for="sizeStock">Stock:</label>
         <input type="number" id="sizeStock" class="form-control" name="stock" value="" placeholder="Stock"/>
         <small class="error">{{$errors->first("stock")}}</small>

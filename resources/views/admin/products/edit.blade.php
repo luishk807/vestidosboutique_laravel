@@ -10,7 +10,6 @@
                     <li class="nav-item"><a href="{{ route('admin_colors',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->colors()->count() }}] View Colors</a></li>
                     <li class="nav-item"><a href="{{ route('admin_sizes',['product_id'=>$product_id]) }}" class="nav-link">[{{ $sizes->count }}] View Sizes</a></li>
                     <li class="nav-item"><a href="{{ route('admin_rates',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->rates()->count() }}] View Rates</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_restocks',['product_id'=>$product_id]) }}" class="nav-link">Restock</a></li>
                 </ul>
             </nav>
             
@@ -171,26 +170,6 @@
             @endforeach
         </select>
         <small class="error">{{$errors->first("length")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="productRent">
-        <input type="checkbox" 
-        @if($product->is_rent)
-        echo checked='checked'
-        @endif
-        name="is_for_rent" value="true"/>&nbsp;For Rent?:</label>
-        <input type="number" id="productRent" class="form-control" name="total_rent" min="0" step="0.01" value="{{ old('total_rent') ? old('total_rent') : $product->total_rent }}" placeholder="0.00"/>
-        <small class="error">{{$errors->first("total_rent")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="productSell">
-        <input type="checkbox" 
-        @if($product->is_sell)
-        echo checked='checked'
-        @endif
-         name="is_for_sale" value="true"/>&nbsp;For Sale?:</label>
-        <input type="number" id="productSell" class="form-control" name="total_sale" min="0" step="0.01" value="{{ old('total_sale') ? old('total_sale') : $product->total_sale }}" placeholder="0.00"/>
-        <small class="error">{{$errors->first("total_sale")}}</small>
     </div>
     <div class="form-group">
         <label for="productSearchLabel">Search Labels:</label>

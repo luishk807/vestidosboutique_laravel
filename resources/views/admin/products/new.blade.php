@@ -128,16 +128,6 @@
         <small class="error">{{$errors->first("length")}}</small>
     </div>
     <div class="form-group">
-        <label for="productRent"><input type="checkbox" name="is_for_rent" value="true"/>&nbsp;For Rent?:</label>
-        <input type="number" id="productRent" class="form-control" name="total_rent" min="0" step="0.01" value="" placeholder="0.00"/>
-        <small class="error">{{$errors->first("total_rent")}}</small>
-    </div>
-    <div class="form-group">
-        <label for="productSell"><input type="checkbox" name="is_for_sale" value="true"/>&nbsp;For Sale?:</label>
-        <input type="number" id="productSell" class="form-control" name="total_sale" min="0" step="0.01" value="" placeholder="0.00"/>
-        <small class="error">{{$errors->first("total_sale")}}</small>
-    </div>
-    <div class="form-group">
         <label for="productDop">Date of Purchase:</label>
         <input type="date" id="productDop" min="1950-01-01" class="form-control" name="purchase_date" value="{{ old('purchase_date')}}" placeholder="Date of Purchase"/>
         <small class="error">{{$errors->first("purchase_date")}}</small>

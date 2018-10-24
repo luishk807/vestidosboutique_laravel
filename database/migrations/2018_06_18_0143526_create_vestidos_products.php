@@ -35,12 +35,6 @@ class CreateVestidosProducts extends Migration
             $table->foreign("product_neckline_id")->references("id")->on("vestidos_neckline_types")->onDelete('set null');
             $table->integer('style')->unsigned()->nullable();
             $table->foreign("style")->references("id")->on("vestidos_styles")->onDelete('set null');
-            $table->decimal('total_sale',10,2)->nullable();
-            $table->decimal('total_sale_old',10,2)->nullable();
-            $table->boolean('is_sell')->default(false)->nullable();
-            $table->decimal('total_rent',10,2)->nullable();
-            $table->decimal('total_rent_old',10,2)->nullable();
-            $table->boolean('is_rent')->default(true)->nullable();
             $table->boolean('is_new')->nullable();
             $table->date('purchase_date')->nullable();
             $table->text('search_labels')->nullable();

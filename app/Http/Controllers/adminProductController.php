@@ -11,7 +11,6 @@ use App\vestidosSizes as Sizes;
 use App\vestidosProductsImgs as Images;
 use App\vestidosVendors as Vendors;
 use App\vestidosNecklineTypes as Necklines;
-use App\vestidosProductsRestocks as ProductRestocks;
 use App\vestidosProductTypes as ProductTypes;
 use App\vestidosLengthTypes as Lengths;
 use App\vestidosProductEvents as ProductEvents;
@@ -25,7 +24,7 @@ use File;
 class adminProductController extends Controller
 {
     //
-    public function __construct(Images $images, Products $products,Closures $closures,Colors $colors, Fabrics $fabrics, Sizes $sizes,  Vendors $vendors, Necklines $necklines,ProductRestocks $product_restocks, Lengths $lengths, ProductTypes $product_types,ProductEvents $product_events){
+    public function __construct(Images $images, Products $products,Closures $closures,  Vendors $vendors,Colors $colors, Fabrics $fabrics, Sizes $sizes, Necklines $necklines, Lengths $lengths, ProductTypes $product_types,ProductEvents $product_events){
         $this->products=$products;
         $this->closures=$closures;
         $this->colors=$colors;
@@ -33,10 +32,11 @@ class adminProductController extends Controller
         $this->product_types = $product_types;
         $this->fabrics=$fabrics;
         $this->sizes=$sizes;
+        $this->colors=$colors;
         $this->vendors=$vendors;
         $this->necklines=$necklines;
         $this->images = $images;
-        $this->restocks = $product_restocks;
+
         $this->product_events = $product_events;
 
     }
@@ -88,14 +88,6 @@ class adminProductController extends Controller
         $data["product_closure_id"]=(int)$request->input("closure");
         $data["product_fabric_id"]=(int)$request->input("fabric");
         $data["product_neckline_id"]=(int)$request->input("neckline");
-
-        $is_for_rent = $request->input("is_for_rent")?true:false;
-        $data["is_rent"]=$is_for_rent;
-        $data["total_rent"] = $is_for_rent?$request->input("total_rent"):0;
-
-        $is_for_sell = $request->input("is_for_sale")?true:false;
-        $data["is_sell"] = $is_for_sell;
-        $data["total_sale"] = $is_for_sell?$request->input("total_sale"):0;
 
         $data["search_labels"]=$request->input("search_labels");
         $data["product_detail"]=$request->input("product_detail");
@@ -173,7 +165,6 @@ class adminProductController extends Controller
             "purchase_date"=>"required",
             "neckline"=>"required",
             "products_description"=>"required",
-            "total_rent"=>"required",
         ]);
         $product->products_name = $request->input("products_name");
         $product->brand_id = (int)$request->input("brand");
@@ -182,14 +173,6 @@ class adminProductController extends Controller
         $product->product_closure_id = (int)$request->input("closure");
         $product->product_fabric_id = (int)$request->input("fabric");
         $product->product_neckline_id = (int)$request->input("neckline");
-        
-        $is_for_rent = $request->input("is_for_rent")?true:false;
-        $product->is_rent=$is_for_rent;
-        $product->total_rent = $is_for_rent?$request->input("total_rent"):0;
-
-        $is_for_sell = $request->input("is_for_sale")?true:false;
-        $product->is_sell = $is_for_sell;
-        $product->total_sale = $is_for_sell?$request->input("total_sale"):0;
 
         $product->search_labels = $request->input("search_labels");
         $product->purchase_date=$request->input("purchase_date");
@@ -200,12 +183,6 @@ class adminProductController extends Controller
         $product->status = (int)$request->input("status");
         $product->updated_at = carbon::now();
         $product->is_new=(int)$request->input("is_new");
-        if($product->total_rent != $request->input("total_rent")){
-            $product->total_rent_old=$request->input("total_rent");
-        }
-        if($product->total_sale != $request->input("total_sale")){
-            $product->total_sale_old=$request->input("total_sale");
-        }
 
         if($product->save()){
             $eventData = [];
@@ -244,95 +221,6 @@ class adminProductController extends Controller
         $data["product"]=$this->products->find($product_id);
         $data["page_title"]="Delete Product";
         return view("admin/products/confirm",$data);
-    }
-    public function showRestock($product_id){
-        $data=[];
-        $product = $this->products->find($product_id);
-        $data["restocks"]=$this->restocks->all();
-        $data["product"]=$this->products->find($product_id);
-        $data["page_title"]="Restock Data for Product ".$product->products_name;
-        return view("admin/products/restocks/home",$data);
-    }
-    public function newRestock($product_id){
-        $data=[];
-        $data["product"]=$this->products->find($product_id);
-        $data["vendors"]=$this->vendors->all();
-        $data["page_title"]="Create New Restock";
-        return view("admin/products/restocks/new",$data);
-    }
-    public function createRestock(Request $request, $product_id){
-        $data=[];
-        $data["product_id"]=$product_id;
-        $data["restock_date"]=$request->input("restock_date");
-        $data["vendor_id"]=$request->input("vendor");
-        $data["color"]=$request->input("color");
-        $data["size"]=$request->input("size");
-        $data["quantity"]=$request->input("quantity");
-        $data["created_at"]=carbon::now();
-        $this->validate($request,[
-            "restock_date"=>"required",
-            "vendor"=>"required",
-            "size"=>"required",
-            "color"=>"required",
-            "quantity"=>"required",
-        ]);
-        if($this->restocks->insert($data)){
-            $data["product_id"]=$product_id;
-            return redirect()->route("edit_product",$data)->with('success','Insert Record successfully.');;
-        }
-        return redirect()->back()->withErrors([
-            "required"=>"Error Saving Restock"
-        ]);
-    }
-    public function editRestock($restock_id){
-        $data=[];
-        $restock = $this->restocks->find($restock_id);
-        $data["restock"]=$restock;
-        $data["vendors"]=$this->vendors->all();
-        $data["sizes"]=$this->sizes->where("color_id",$restock->color)->get();
-        $data["page_title"]="Edit Restock";
-        return view("admin/products/restocks/edit",$data);
-    }
-    public function saveRestock(Request $request,$restock_id){
-        $data=[];
-        $restock = $this->restocks->find($restock_id);
-        $color = $this->colors->find($restock->color);
-        $data["restock_date"]=$request->input("restock_date");
-        $data["vendor"]=$request->input("vendor");
-        $data["color"]=$request->input("color");
-        $data["size"]=$request->input("size");
-        $data["quantity"]=$request->input("quantity");
-        
-        $this->validate($request,[
-            "restock_date"=>"required",
-            "vendor"=>"required",
-            "size"=>"required",
-            "color"=>"required",
-            "quantity"=>"required",
-        ]);
-        $restock->restock_date = $request->input("restock_date");
-        $restock->quantity = $request->input("quantity");
-        $restock->color =$request->input("color");
-        $restock->size =$request->input("size");
-        $restock->vendor_id =$request->input("vendor");
-
-        if($restock->save()){
-            $data["product_id"] = $color->product_id;
-            return redirect()->route("admin_restocks",$data)->with('success','Restock saved successfully.');;
-        }
-        return redirect()->back()->with('error','Unable to save restock.');;
-    }
-    public function confirmRestock($restock_id){
-        $data=[];
-        $data["restock"]=$this->restocks->find($restock_id);
-        $data["page_title"]="Delete Restock Info";
-        return view("admin/products/restocks/confirm",$data);
-    }
-    public function deleteRestock(Request $request,$restock_id){
-        $data=[];
-        $restock = $this->restocks->find($restock_id);
-        $restock->delete();
-        return redirect()->route("admin_restocks",["product_id"=>$restock->product_id])->with('success','Restock deleted successfully.');;
     }
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");
@@ -534,13 +422,12 @@ class adminProductController extends Controller
      public function saveConfirmImportProduct(Request $request){
          $data=[];
          $valid_array=false;
-
-         $this->validate($request,[
-            "product_confirm.*.product_model"=>"required",
-            "product_confirm.*.brand"=>"required",
-            "product_confirm.*.event"=>"required",
-            "product_confirm.*.purchased_date"=>"required",
-         ]);
+        //  $this->validate($request,[
+        //     "product_confirm.*.product_model"=>"required",
+        //     "product_confirm.*.brand"=>"required",
+        //     "product_confirm.*.event"=>"required",
+        //     "product_confirm.*.purchased_date"=>"required",
+        //  ]);
          $products = $request->input("product_confirm");
          foreach($products as $product){
              if(Arr::exists($product,"key")){
@@ -563,9 +450,9 @@ class adminProductController extends Controller
                     "status"=>1,
                     "created_at"=>carbon::now(),
                  ];
-                 echo "<pre>";
-                print_r($insert);
-                echo "</pre>";
+                //  echo "<pre>";
+                // print_r($insert);
+                // echo "</pre>";
 
                 // echo "<pre>";
                 // print_r($product["color"]);
@@ -575,58 +462,63 @@ class adminProductController extends Controller
                 // print_r($product["cat"]);
                 // echo "</pre>";
                
-                // $product_insert = Products::create($insert);
-                // $product_id = null;
-                // $product_id = $product_insert->id;
-                // $events = $product["event"];
+                $product_insert = Products::create($insert);
+                $product_id = null;
+                $product_id = $product_insert->id;
+                 $events = $product["event"];
                 // //insert new events
-                // if(count($events)>0){
-                //     foreach($events as $event){
-                //         $this->product_events->insert([
-                //             "product_id"=>$product_id,
-                //             "event_id"=>$event,
-                //             "created_at"=>carbon::now()
-                //         ]);
-                //     }
-                // }
+                if(count($events)>0){
+                    foreach($events as $event){
+                        //echo $event."<br/>";
+                        $this->product_events->insert([
+                            "product_id"=>$product_id,
+                            "event_id"=>$event,
+                            "created_at"=>carbon::now()
+                        ]);
+                    }
+                }
                 //insert colors
                 $colors = $product["color"];
                 if(count($colors)>0){
                     foreach($colors as $color){
-                        echo $color["name"]."<br/>";
-                        // $color_insert = Colors::create([
-                        //     "product_id"=>$product_id,
-                        //     "name"=>$color["name"],
-                        //     "color_code"=>$color["code"],
-                        //     "created_at"=>carbon::now()
-                        // ]);
-                       // $color_id = $color_insert->id;
-                      // if(!empty($color_id)){
+                        //echo $color["name"]."<br/>";
+                        $color_insert = Colors::create([
+                            "product_id"=>$product_id,
+                            "name"=>$color["name"],
+                            "color_code"=>$color["code"],
+                            "created_at"=>carbon::now()
+                        ]);
+                       $color_id = $color_insert->id;
+                      if(!empty($color_id)){
                         $sizes = $color["sizes"];
-                        echo "<pre>";
-                print_r($sizes);
-                echo "</pre>";
                             //insert new sizes
-                            // if(count($sizes)>0){
-                            //     foreach($sizes as $size){
-                            //         echo $size."<br/>";
-                            //         // $this->sizes->insert([
-                            //         //     "color_id"=>$color_id,
-                            //         //     "name"=>$size,
-                            //         //     "created_at"=>carbon::now()
-                            //         // ]);
-                            //     }
-                            // }
-                      // }
+                            if(count($sizes)>0){
+                                foreach($sizes as $size){
+                                    // echo "<pre>";
+                                    // print_r($size);
+                                    // echo "</pre>";
+                                    $this->sizes->insert([
+                                        "color_id"=>$color_id,
+                                        "name"=>$size["size"],
+                                        "total_sale"=>$size["total_sale"],
+                                        "is_sell"=>$size["is_sell"],
+                                        "total_rent"=>$size["total_rent"],
+                                        "is_rent"=>$size["is_rent"],
+                                        "stock"=>$size["stock"],
+                                        "created_at"=>carbon::now()
+                                    ]);
+                                }
+                            }
+                        }
                     }
                 }
              }
          }
-        //  if(!$valid_array){
-        //      return redirect()->back()->withErrors(["required"=>"You must select a product"]);
-        //  }else{
-        //      Session::forget("data_confirm");
-        //      return redirect()->route("admin_products")->with("success","import successfully entered");
-        //  }
+         if(!$valid_array){
+             return redirect()->back()->withErrors(["required"=>"You must select a product"]);
+         }else{
+             Session::forget("data_confirm");
+             return redirect()->route("admin_products")->with("success","import successfully entered");
+         }
       }
 }
