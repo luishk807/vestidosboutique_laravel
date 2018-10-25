@@ -6,8 +6,8 @@
             <nav class="navbar navbar navbar-expand-lg">
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{{ route('edit_product',['product_id'=>$product->id]) }}" class="nav-link">Back to Edit</a></li>
-                <li class="nav-item"><a href="{{ route('new_restock',['product_id'=>$product->id]) }}" class="nav-link">Add Restock Data</a></li>
+                <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
+                <li class="nav-item"><a href="{{ route('new_restock') }}" class="nav-link">Add Restock Data</a></li>
             </ul>
             </nav>
             

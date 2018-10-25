@@ -203,6 +203,11 @@ class HomeController extends Controller
         $district = $this->districts->find($district_id);
         return response()->json($district->corregimientos()->get());
     }
+    public function loadColor(){
+        $product_id=Input::get('data');
+        $product= $this->products->find($product_id);
+        return response()->json($product->colors()->get());
+    }
     public function loadColorSizes(){
         $color_id=Input::get('data');
         $color = $this->colors->find($color_id);

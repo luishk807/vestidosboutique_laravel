@@ -6,7 +6,6 @@
             <nav class="navbar navbar navbar-expand-lg">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_restocks',['product_id'=>$product_id]) }}" class="nav-link">Restock</a></li>
                 </ul>
             </nav>
             

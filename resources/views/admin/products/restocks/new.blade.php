@@ -3,7 +3,7 @@
 <script>
 var urlColorSizes = "{{ url('api/loadSizes') }}";
 </script>
-<form action="{{ route('create_restock',['product_id'=>$product->id]) }}" method="post">
+<form action="{{ route('create_restock') }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="restockDate">Order Date:</label>
@@ -14,6 +14,16 @@ var urlColorSizes = "{{ url('api/loadSizes') }}";
         <label for="restockQuantity">Quantity:</label>
         <input type="text" id="restockQuantity" class="form-control" name="quantity" value="" placeholder="Restock Quantity"/>
         <small class="error">{{$errors->first("quantity")}}</small>
+    </div>
+    <div class="form-group">
+        <label for="restockProduct">Product:</label>
+        <select class="custom-select" name="product" id="restockProduct" onChange="loadColorDropDown('#restockProduct','#restockColor','#size_drop_0','{{ url('api/loadColors') }}')">
+            <option value="">Select Product</option>
+            @foreach($products as $product)
+                <option value="{{ $product->id }}">{{$product->products_name}} - {{$product->product_model}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("vendor")}}</small>
     </div>
     <div class="form-group">
         <label for="restockColor">Color:</label>
@@ -45,7 +55,7 @@ var urlColorSizes = "{{ url('api/loadSizes') }}";
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <a class="admin-btn" href="{{ route('admin_restocks',['product_id'=>$product->id]) }}">
+                <a class="admin-btn" href="{{ route('admin_restocks') }}">
                     Back To Restocks
                 </a>
             </div>

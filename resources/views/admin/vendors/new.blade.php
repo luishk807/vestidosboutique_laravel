@@ -4,6 +4,11 @@
 {{ csrf_field() }}
     <div class="form-row">
         <div class="form-group col-md-4">
+            <label for="vendorCompany">Company Name:</label>
+            <input type="text" id="vendorCompany" class="form-control" name="company_name" value="" placeholder="Company Name"/>
+            <small class="error">{{$errors->first("company_name")}}</small>
+        </div>
+        <div class="form-group col-md-4">
             <label for="vendorFirstName">First Name:</label>
             <input type="text" id="vendorFirstName" class="form-control" name="first_name" value="" placeholder="First Name"/>
             <small class="error">{{$errors->first("first_name")}}</small>

@@ -15,6 +15,7 @@ class CreateVestidosVendors extends Migration
     {
         Schema::create('vestidos_vendors', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('company_name')->nullable();
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');

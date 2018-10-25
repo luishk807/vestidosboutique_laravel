@@ -6,6 +6,11 @@
 {{$vendor}}
     <div class="form-row">
         <div class="form-group col-md-4">
+            <label for="vendorCompany">Company Name:</label>
+            <input type="text" id="vendorCompany" class="form-control" name="company_name" value="{{ old('company_name') ? old('company_name') : $vendor->company_name }}" placeholder="Company Name"/>
+            <small class="error">{{$errors->first("company_name")}}</small>
+        </div>
+        <div class="form-group col-md-4">
             <label for="vendorFirstName">First Name:</label>
             <input type="text" id="vendorFirstName" class="form-control" name="first_name" value="{{ old('first_name') ? old('first_name') : $vendor->first_name }}" placeholder="First Name"/>
             <small class="error">{{$errors->first("first_name")}}</small>

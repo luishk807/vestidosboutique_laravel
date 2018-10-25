@@ -12,6 +12,7 @@ use App\vestidosProductsImgs as Images;
 use App\vestidosVendors as Vendors;
 use App\vestidosNecklineTypes as Necklines;
 use App\vestidosProductTypes as ProductTypes;
+use App\vestidosProductsRestocks as ProductRestocks;
 use App\vestidosLengthTypes as Lengths;
 use App\vestidosProductEvents as ProductEvents;
 use Excel;
@@ -24,7 +25,7 @@ use File;
 class adminProductController extends Controller
 {
     //
-    public function __construct(Images $images, Products $products,Closures $closures,  Vendors $vendors,Colors $colors, Fabrics $fabrics, Sizes $sizes, Necklines $necklines, Lengths $lengths, ProductTypes $product_types,ProductEvents $product_events){
+    public function __construct(Images $images, Products $products,Closures $closures,  Vendors $vendors,Colors $colors, Fabrics $fabrics, Sizes $sizes, Necklines $necklines, Lengths $lengths, ProductTypes $product_types,ProductRestocks $product_restocks,ProductEvents $product_events){
         $this->products=$products;
         $this->closures=$closures;
         $this->colors=$colors;
@@ -32,6 +33,7 @@ class adminProductController extends Controller
         $this->product_types = $product_types;
         $this->fabrics=$fabrics;
         $this->sizes=$sizes;
+        $this->restocks = $product_restocks;
         $this->colors=$colors;
         $this->vendors=$vendors;
         $this->necklines=$necklines;
@@ -400,7 +402,99 @@ class adminProductController extends Controller
         }
       return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
+    public function showRestock(){
+        $data=[];
+        $data["restocks"]=$this->restocks->all();
+        $data["page_title"]="Restock Data";
+        return view("admin/products/restocks/home",$data);
+    }
+    public function newRestock(){
+        $data=[];
+        $data["vendors"]=$this->vendors->all();
+        $data["products"]=$this->products->all();
+        $data["page_title"]="Create New Restock";
+        return view("admin/products/restocks/new",$data);
+    }
+    public function createRestock(Request $request){
+        $data=[];
+        $data["restock_date"]=$request->input("restock_date");
+        $data["product_id"]=$request->input("product");
+        $data["vendor_id"]=$request->input("vendor");
+        $data["color"]=$request->input("color");
+        $data["size"]=$request->input("size");
+        $data["quantity"]=$request->input("quantity");
+        $data["created_at"]=carbon::now();
+        $this->validate($request,[
+            "restock_date"=>"required",
+            "product"=>"required",
+            "vendor"=>"required",
+            "size"=>"required",
+            "color"=>"required",
+            "quantity"=>"required",
+        ]);
+        if($this->restocks->insert($data)){
+            $size = $this->sizes->find($request->input("size"));
+            $size->stock  = $size->stock + $request->input("quantity");
+            $size->save();
+            return redirect()->route("edit_product",$data)->with('success','Insert Record successfully.');;
+        }
+        $data["product"]=$request->input("product");
+        $data["vendor"]=$request->input("vendor");
+        return redirect()->back()->withErrors([
+            "required"=>"Error Saving Restock"
+        ]);
+    }
+    public function editRestock($restock_id){
+        $data=[];
+        $restock = $this->restocks->find($restock_id);
+        $data["restock"]=$restock;
+        $data["vendors"]=$this->vendors->all();
+        $data["sizes"]=$this->sizes->where("color_id",$restock->color)->get();
+        $data["page_title"]="Edit Restock";
+        return view("admin/products/restocks/edit",$data);
+    }
+    public function saveRestock(Request $request,$restock_id){
+        $data=[];
+        $restock = $this->restocks->find($restock_id);
+        $color = $this->colors->find($restock->color);
+        $data["restock_date"]=$request->input("restock_date");
+        $data["vendor"]=$request->input("vendor");
+        $data["color"]=$request->input("color");
+        $data["size"]=$request->input("size");
+        $data["quantity"]=$request->input("quantity");
+        
+        $this->validate($request,[
+            "restock_date"=>"required",
+            "product"=>"required",
+            "vendor"=>"required",
+            "size"=>"required",
+            "color"=>"required",
+            "quantity"=>"required",
+        ]);
+        $restock->restock_date = $request->input("restock_date");
+        $restock->quantity = $request->input("quantity");
+        $restock->color =$request->input("color");
+        $restock->size =$request->input("size");
+        $restock->vendor_id =$request->input("vendor");
+        $restock->product_id=$request->input("product");
 
+        if($restock->save()){
+            return redirect()->route("admin_restocks",$data)->with('success','Restock saved successfully.');;
+        }
+        return redirect()->back()->with('error','Unable to save restock.');;
+    }
+    public function confirmRestock($restock_id){
+        $data=[];
+        $data["restock"]=$this->restocks->find($restock_id);
+        $data["page_title"]="Delete Restock Info";
+        return view("admin/products/restocks/confirm",$data);
+    }
+    public function deleteRestock(Request $request,$restock_id){
+        $data=[];
+        $restock = $this->restocks->find($restock_id);
+        $restock->delete();
+        return redirect()->route("admin_restocks",["product_id"=>$restock->product_id])->with('success','Restock deleted successfully.');;
+    }
     public function showConfirmImportProduct(){
         $data=[];
         if(Session::has("data_confirm")){

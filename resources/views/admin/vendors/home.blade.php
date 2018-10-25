@@ -29,16 +29,18 @@
     </div>
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-4">Name</div>
-        <div class="col-md-3">Status</div>
-        <div class="col-md-3">Action</div>
+        <div class="col-md-3">Company Name</div>
+        <div class="col-md-3">Name</div>
+        <div class="col-md-2">Status</div>
+        <div class="col-md-2">Action</div>
     </div>
     @foreach($vendors as $vendor)
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-4">{{$vendor->first_name}} {{$vendor->last_name}}</div>
-        <div class="col-md-3">{{ $vendor->getStatusName->name }}</div>
-        <div class="col-md-3">
+        <div class="col-md-3">{{$vendor->company_name}}</div>
+        <div class="col-md-3">{{$vendor->first_name}} {{$vendor->last_name}}</div>
+        <div class="col-md-2">{{ $vendor->getStatusName->name }}</div>
+        <div class="col-md-2">
             <a href="{{ route('confirm_vendor',['vendor_id'=>$vendor->id])}}">delete</a>
             <a href="{{ route('edit_vendor',['vendor_id'=>$vendor->id])}}">edit</a>
         </div>

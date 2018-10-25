@@ -7,6 +7,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{ route('new_product') }}" class="nav-link">Add Product Manually</a></li>
                 <li class="nav-item"><a href="{{ route('show_import_product') }}" class="nav-link">Add Product From File</a></li>
+                <li class="nav-item"><a href="{{ route('admin_restocks') }}" class="nav-link">Restock</a></li>
             </ul>
             </nav>
             

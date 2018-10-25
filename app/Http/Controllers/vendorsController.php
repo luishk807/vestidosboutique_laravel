@@ -28,6 +28,7 @@ class vendorsController extends Controller
     }
     function newVendors(Request $request){
         $data=[];
+        $data["company_name"]=$request->input("company_name");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
         $data["last_name"]=$request->input("last_name");
@@ -65,6 +66,7 @@ class vendorsController extends Controller
     }
     function editVendor($vendor_id, Request $request){
         $data=[];
+        $data["company_name"]=$request->input("company_name");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");
         $data["last_name"]=$request->input("last_name");
@@ -90,7 +92,7 @@ class vendorsController extends Controller
                 "zip_code"=>"required",
                 "status"=>"required",
             ]);
-            
+            $vendor->company_name = $request->input("company_name");
             $vendor->first_name = $request->input("first_name");
             $vendor->middle_name = $request->input("middle_name");
             $vendor->last_name = $request->input("last_name");
@@ -143,6 +145,7 @@ class vendorsController extends Controller
             if(!empty($data) && $data->count()){
                 foreach ($data as $value) {
                     $insert[]=[
+                        "company_name"=>$value->company_name,
                         "first_name"=>$value->first_name,
                         "middle_name"=>$value->middle_name,
                         "last_name"=>$value->last_name,
@@ -202,6 +205,7 @@ class vendorsController extends Controller
             if(Arr::exists($vendor,"key")){
                 $valid_array=true;
                 $insert=[
+                    "company_name"=>$vendor["company_name"],
                     "first_name"=>$vendor["first_name"],
                     "middle_name"=>$vendor["middle_name"],
                     "last_name"=>$vendor["last_name"],
