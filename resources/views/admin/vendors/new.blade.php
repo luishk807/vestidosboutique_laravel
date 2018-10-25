@@ -2,12 +2,12 @@
 @section('content')
 <form action="{{ route('create_vendor') }}" method="post">
 {{ csrf_field() }}
-    <div class="form-row">
-        <div class="form-group col-md-4">
+    <div class="form-group">
             <label for="vendorCompany">Company Name:</label>
             <input type="text" id="vendorCompany" class="form-control" name="company_name" value="" placeholder="Company Name"/>
             <small class="error">{{$errors->first("company_name")}}</small>
-        </div>
+    </div>
+    <div class="form-row">
         <div class="form-group col-md-4">
             <label for="vendorFirstName">First Name:</label>
             <input type="text" id="vendorFirstName" class="form-control" name="first_name" value="" placeholder="First Name"/>
@@ -83,7 +83,6 @@
     <div class="form-group">
         <label for="vendorStatus">Status:</label>
         <select class="custom-select" name="status" id="vendorStatus">
-            <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}">{{$status->name}} </option>
             @endforeach

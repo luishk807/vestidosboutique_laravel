@@ -436,7 +436,7 @@ class adminProductController extends Controller
             $size = $this->sizes->find($request->input("size"));
             $size->stock  = $size->stock + $request->input("quantity");
             $size->save();
-            return redirect()->route("edit_product",$data)->with('success','Insert Record successfully.');;
+            return redirect()->route("admin_products",$data)->with('success','Insert Record successfully.');;
         }
         $data["product"]=$request->input("product");
         $data["vendor"]=$request->input("vendor");
