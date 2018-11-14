@@ -27,8 +27,8 @@
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-2">{{$restock->product->product_model}}</div>
-        <div class="col-md-2">{{$restock->color->name}}</div>
-        <div class="col-md-1">{{$restock->size->name}}</div>
+        <div class="col-md-2">{{$restock->getColor->name}}</div>
+        <div class="col-md-1">{{$restock->getSize->name}}</div>
         <div class="col-md-1">{{$restock->restock_date}}</div>
         <div class="col-md-1">{{$restock->quantity}}</div>
         <div class="col-md-2">{{ $restock->vendor->first_name }} {{ $restock->vendor->last_name }}</div>

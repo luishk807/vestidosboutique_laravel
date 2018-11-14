@@ -126,20 +126,20 @@ class vestidosProducts extends Model
                     ->get();
         return $products;
     }
-    public function getProductByCat($cat_id){
+    public function getProductByEvent($event_id){
         $products = DB::table("vestidos_products")
         ->select("vestidos_products.*",
         DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_url'),
         DB::raw('(select img_name from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_name')
-        )->join("vestidos_product_categories","product_id","vestidos_products.id")
-        ->where("vestidos_product_categories.category_id",$cat_id)->take(5)->get();
+        )->join("vestidos_product_events","product_id","vestidos_products.id")
+        ->where("vestidos_product_events.event_id",$event_id)->take(5)->get();
         return $products;
     }
-    public function getProductByCats($cat_ids){
+    public function getProductByEvents($cat_ids){
         $products = DB::table("vestidos_products")
         ->select("vestidos_products.*")
-        ->join("vestidos_product_categories","product_id","vestidos_products.id")
-        ->whereIn("vestidos_product_categories.category_id",$cat_ids);
+        ->join("vestidos_product_events","product_id","vestidos_products.id")
+        ->whereIn("vestidos_product_events.event_id",$cat_ids);
         return $products;
     }
     public function getStock(){
@@ -173,9 +173,6 @@ class vestidosProducts extends Model
     }
     public function getBrand(){
         return $this->belongsTo('App\vestidosBrands',"brand_id");
-    }
-    public function getCategory(){
-        return $this->belongsTo('App\vestidosCategories',"category_id");
     }
     public function getProductType(){
         return $this->belongsTo('App\vestidosProductTypes',"product_type_id");

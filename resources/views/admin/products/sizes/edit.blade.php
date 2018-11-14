@@ -12,7 +12,7 @@
         </div>
     </div>
 </div>
-<form action="{{ route('edit_size',['size_id'=>$size_id]) }}" method="post">
+<form action="{{ route('save_size',['size_id'=>$size_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="sizeName">Size:</label>

@@ -19,10 +19,10 @@ class vestidosProductsRestocks extends Model
     public function product(){
         return $this->belongsTo('App\vestidosProducts',"product_id");
     }
-    public function color(){
+    public function getColor(){
         return $this->belongsTo('App\vestidosColors',"color");
     }
-    public function size(){
+    public function getSize(){
         return $this->belongsTo('App\vestidosSizes',"size");
     }
     public function vendor(){

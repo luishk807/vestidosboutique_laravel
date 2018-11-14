@@ -465,7 +465,6 @@ class adminProductController extends Controller
         
         $this->validate($request,[
             "restock_date"=>"required",
-            "product"=>"required",
             "vendor"=>"required",
             "size"=>"required",
             "color"=>"required",
@@ -476,7 +475,6 @@ class adminProductController extends Controller
         $restock->color =$request->input("color");
         $restock->size =$request->input("size");
         $restock->vendor_id =$request->input("vendor");
-        $restock->product_id=$request->input("product");
 
         if($restock->save()){
             return redirect()->route("admin_restocks",$data)->with('success','Restock saved successfully.');;

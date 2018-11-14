@@ -88,7 +88,7 @@ class HomeController extends Controller
     public function product($product_id){
         // $data=[];
         $product = $this->products->find($product_id);
-        $product_cat = $this->products->getProductByCat($product->categories()->get()->first()->category_id);
+        $product_cat = $this->products->getProductByEvent($product->events()->get()->first()->event_id);
         $data["products_cat"]=$product_cat;
         $data["products"]=$this->products;
         $data["product"]=$product;

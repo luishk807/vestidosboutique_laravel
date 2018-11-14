@@ -80,44 +80,49 @@ class adminSizesController extends Controller
         $data["status"]=$request->input("status");
         $data["stock"]=$request->input("stock");
         $data["dress_size"]=$request->input("dress_size");
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "dress_size"=>"required",
-                "color"=>"required",
-                "status"=>"required",
-                "stock"=>"required",
-                "total_rent"=>"required",
-            ]);
-            $size->name=$request->input("dress_size");
-            
-            $is_for_rent = $request->input("is_for_rent")?true:false;
-            $product->is_rent=$is_for_rent;
-            $product->total_rent = $is_for_rent?$request->input("total_rent"):0;
-    
-            $is_for_sell = $request->input("is_for_sale")?true:false;
-            $product->is_sell = $is_for_sell;
-            $product->total_sale = $is_for_sell?$request->input("total_sale"):0;
-
-
-            if($product->total_rent != $request->input("total_rent")){
-                $product->total_rent_old=$request->input("total_rent");
-            }
-            if($product->total_sale != $request->input("total_sale")){
-                $product->total_sale_old=$request->input("total_sale");
-            }
-
-
-            $size->color_id=$request->input("color");
-            $size->status=(int)$request->input("status");
-            $size->updated_at=carbon::now();
-            $size->save();
-
-            return redirect()->route("admin_sizes",["product_id"=>$color->product_id]);
-        }
-        
         $data["colors"]=$product->colors;
         $data["page_title"]="Edit Dress Size For ".$product->products_name;
         return view("admin/products/sizes/edit",$data);
+    }
+    public function saveSize($size_id,Request $request){
+        $data=[];
+        $size =$this->sizes->find($size_id);
+        $color = $this->colors->find($size->color_id);
+        $product = $this->products->find($color->product_id);
+        $this->validate($request,[
+            "dress_size"=>"required",
+            "color"=>"required",
+            "status"=>"required",
+            "stock"=>"required",
+            "total_rent"=>"required",
+        ]);
+        $size->name=$request->input("dress_size");
+        
+        $is_for_rent = $request->input("is_for_rent")?true:false;
+        $size->is_rent=$is_for_rent;
+        $size->total_rent = $is_for_rent?$request->input("total_rent"):0;
+
+        $is_for_sell = $request->input("is_for_sale")?true:false;
+        $size->is_sell = $is_for_sell;
+        $size->total_sale = $is_for_sell?$request->input("total_sale"):0;
+
+
+        if($size->total_rent != $request->input("total_rent")){
+            $size->total_rent_old=$request->input("total_rent");
+        }
+        if($size->total_sale != $request->input("total_sale")){
+            $size->total_sale_old=$request->input("total_sale");
+        }
+
+
+        $size->color_id=$request->input("color");
+        $size->status=(int)$request->input("status");
+        $size->updated_at=carbon::now();
+
+
+        $size->save();
+
+        return redirect()->route("admin_sizes",["product_id"=>$color->product_id]);
     }
     public function deleteSize($size_id,Request $request){
         $data=[];

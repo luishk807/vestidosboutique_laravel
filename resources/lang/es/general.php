@@ -210,7 +210,7 @@ return [
         'size'=>"Tamaño",
         'color'=>"Color | Colores",
         'select_color'=>"Seleccione el Color",
-        'select_size'=>"Seleccione el Tamaño",
+        'select_size'=>"Tamaño",
         'detail'=>"Detalle",
         'description'=>"Descripcion",
         'missing_size_color'=>"Missing Size or Colors definition for :name",

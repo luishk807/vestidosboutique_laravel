@@ -11,6 +11,12 @@ class vestidosSizes extends Model
         "color_id",
         "name",
         "status",
+        "total_sale",
+        "total_sale_old",
+        "is_sell",
+        "total_rent",
+        "total_rent_old",
+        "is_rent",
         "stock",
         "created_at",
         "updated_at"

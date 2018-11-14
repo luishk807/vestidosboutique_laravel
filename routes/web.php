@@ -309,7 +309,7 @@
                     Route::get('/new/{product_id}','adminSizesController@newSizes')->name('new_size');
                     Route::post('/new/{product_id}','adminSizesController@newSizes')->name('create_size');
                     Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
-                    Route::post('/edit/{size_id}','adminSizesController@editSize')->name('save_size');
+                    Route::post('/edit/{size_id}','adminSizesController@saveSize')->name('save_size');
                     Route::get('/import/{product_id}','adminSizesController@showImportSize')->name('show_import_size');
                     Route::post('/import','adminSizesController@saveImportSize')->name('save_import_size');
                 });
