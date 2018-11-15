@@ -420,6 +420,7 @@
         Route::get("api/loadColors",'homeController@loadColor');
         Route::get("api/loadSizes",'homeController@loadColorSizes');
         Route::get("api/loadProdQuantity",'homeController@loadProdQuantity');
+        Route::get("api/loadSizeInfo",'homeController@loadSizeInfo');
    // });
    Auth::routes();
 //});

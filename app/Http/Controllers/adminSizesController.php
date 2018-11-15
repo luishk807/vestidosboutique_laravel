@@ -39,6 +39,14 @@ class adminSizesController extends Controller
         $data["color_id"]=$request->input("color");
         $data["stock"]=$request->input("stock");
         $data["status"]=(int)$request->input("status");
+        $is_for_rent = $request->input("is_for_rent")?true:false;
+        $data["is_rent"] = $is_for_rent;
+        $data["total_rent"] = $is_for_rent?$request->input("total_rent"):0;
+       
+        $is_for_sell = $request->input("is_for_sale")?true:false;
+        $data["is_sell"] = $is_for_sell;
+        $data["total_sale"] = $is_for_sell?$request->input("total_sale"):0;
+
         if($request->isMethod("post")){
             $this->validate($request,[
                 "size"=>"required",

@@ -167,7 +167,9 @@ class vestidosProducts extends Model
     public function length(){
         return $this->belongsTo('App\vestidosLengthTypes',"product_length");
     }
-    
+    public function getCategory(){
+        return $this->belongsTo('App\vestidosCategories',"category_id");
+    }
     public function getStyle(){
         return $this->belongsTo('App\vestidosStyles',"style");
     }

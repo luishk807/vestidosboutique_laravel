@@ -3,7 +3,14 @@
 <script>
 var urlColorSizes = "{{ url('api/loadSizes') }}";
 var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
+var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
 </script>
+<style>
+#product_addCart_btn,
+#product_out_stock_btn{
+    display:none;
+}
+</style>
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick-theme.css') }}">
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick.css') }}">
 <div id="popup_bgOverlay">
@@ -58,7 +65,7 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
                                     <div class="product_in_detail crimson-txt">
                                     {{ $product->product_detail }}
                                     </div>
-                                    <div class="product_in_price">${{ $product->total_rent }}</div>
+                                    <div class="product_in_price">$<span>{{ $product->total_rent }}</span></div>
                                     <div class="product_in_colors">
                                         <div class="product_in_sub_title">
                                         {{ __('general.product_title.select_color') }}
@@ -130,11 +137,8 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
                                         </div>
                                     </div>
                                     <div class="vesti_in_btn_pnl">
-                                        @if($stock > 0)
-                                            <input class="btn-block vesti_in_btn"  type="submit" value="{{ __('buttons.add_cart') }}"/>
-                                        @else
-                                            <div class="vesti_out_stock_btn">{{ __('general.product_title.out_stock') }}</div>
-                                        @endif
+                                            <input id="product_addCart_btn" class="btn-block vesti_in_btn"  type="submit" value="{{ __('buttons.add_cart') }}"/>
+                                            <div id="product_out_stock_btn" class="vesti_out_stock_btn">{{ __('general.product_title.out_stock') }}</div>
                                     </div>
                                     <div class="product_in_social">
                                         

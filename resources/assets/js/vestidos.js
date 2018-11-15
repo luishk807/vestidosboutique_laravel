@@ -238,6 +238,8 @@ function loadSizes(color){
                     if(size_counter==0){
                         loadSizeDropDown(element.id);
                         sizeContainer.append("<button class='size_spheres selected' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
+                        $('#product_size').val(element.id)
+                        getPriceInfo(element.id);
                     }else{
                         sizeContainer.append("<button class='size_spheres' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
                     }
@@ -269,6 +271,7 @@ function loadSizeDropDown(size){
         });
     }
 }
+
 function addCart(event){
     event.preventDefault();
     var dataValue=$(event.target).attr("data-value");
@@ -279,8 +282,41 @@ function addCart(event){
     $("#"+hiddenInput).val(dataValue);
     if(hiddenInput=="product_size"){
         loadSizeDropDown(dataValue);
+        getPriceInfo(dataValue);
     }else if(hiddenInput=="product_color"){
         loadSizes($(event.target).attr("data-value"));
+    }
+}
+function getPriceInfo(size){
+    if(typeof urlLoadSizeInfo !== "undefined"){
+        $.ajax({
+            type: "GET",
+            url: urlLoadSizeInfo,
+            data: {
+                data:size
+            },
+            success: function(data) {
+                $(".product_in_price span").text(data.total_sale);
+                $(".shoplist-stock-txt span").removeClass();
+                if(data.stock > 3)
+                {
+                    $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
+                }
+                else if((data.stock > 0 && data.stock < 4) || data.stock < 1)
+                {
+                    $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
+                }
+
+                if(data.stock > 0){
+                    $("#roduct_out_stock_btn").css("display","none");
+                    $("#product_addCart_btn").css("display","block");
+                }
+                else{
+                    $("#roduct_out_stock_btn").css("display","block");
+                    $("#product_addCart_btn").css("display","none");
+                }
+            }
+        });
     }
 }
 function checkCartSubmit(){

@@ -208,6 +208,21 @@ class HomeController extends Controller
         $product= $this->products->find($product_id);
         return response()->json($product->colors()->get());
     }
+    public function loadSizeInfo(){
+        $size_id=Input::get('data');
+        $size = $this->sizes->find($size_id);
+        if($size["stock"] > 3)
+        {
+            $size["stock_msg"]=__('general.product_title.in_stock');
+        }
+        else if($size["stock"] > 0 && $size["stock"] < 4){
+            $size["stock_msg"]=__('general.product_title.in_stock_number',['name'=>$size["stock"]]);
+        }
+        else if($size["stock"] < 1){
+            $size["stock_msg"]=__('general.product_title.out_stock');
+        }
+        return response()->json($size);
+    }
     public function loadColorSizes(){
         $color_id=Input::get('data');
         $color = $this->colors->find($color_id);
