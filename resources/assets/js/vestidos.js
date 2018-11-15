@@ -302,8 +302,10 @@ function getPriceInfo(size){
                 {
                     $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
                 }
-                else if((data.stock > 0 && data.stock < 4) || data.stock < 1)
+                else if(data.stock > 0 && data.stock < 4)
                 {
+                    $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
+                }else if( data.stock < 1){
                     $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
                 }
 
