@@ -259,5 +259,5 @@ return [
      'removed'=>"Removido",
      'unable_save'=>"No se puede guardar",
      'thank_you'=>"Gracias",
-
+     'failed_email'=>'Email no se pude enviar',
 ];

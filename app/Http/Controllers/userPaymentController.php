@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosUsers as Users;
+use App\Exceptions\Handler;
 use Carbon\Carbon as carbon;
 use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
@@ -72,22 +73,7 @@ class userPaymentController extends Controller
         $data["page_title"] = $has_address ? __('general.page_header.select_shipping') :__('general.page_header.provide_shipping') ;
         $data["provinces"]=$this->provinces->all();
 
-        $this->checkout_menus=array(
-            array(
-                "name"=>__('general.cart_title.shipping'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.billing'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.confirmation'),
-                "url"=>route("checkout_show_shipping")
-            )
-        );
-
-        $data["checkout_menus"]=$this->checkout_menus;
+        $data["checkout_menus"]=$this->getCheckoutMenu();
         $data["tax_info"]=$this->tax_info;
         $data["checkout_header_key"]=__('general.cart_title.shipping');
         $data["checkout_btn_name"]=__('buttons.proceed_billing');
@@ -189,20 +175,8 @@ class userPaymentController extends Controller
          $request->session()->put("cart_session",$cart_data);
         return redirect()->route("checkout_show_billing")->with($data);
     }
-    public function showBilling(Request $request){
-        if(empty(Session::has("vestidos_shop"))){
-            return redirect()->route("home_page");
-        }
-        $data=[];
-        $user_id=Auth::guard("vestidosUsers")->user()->getId();
-        $user = $this->users->find($user_id);
-        $data["user"]=$user;
-        $data["checkout_menu_prev_link"]=array("name"=>__('general.cart_title.shipping'),"url"=>route('checkout_show_shipping'));
-
-        $has_address = $user->getAddresses->first() ? true : false; 
-
-        $data["page_title"] = $has_address ? __('general.page_header.choose_billing_payment') : __('general.page_header.provide_billing_payment');
-        $this->checkout_menus=array(
+    public function getCheckoutMenu(){
+        return array(
             array(
                 "name"=>__('general.cart_title.shipping'),
                 "url"=>route("checkout_show_shipping")
@@ -216,7 +190,22 @@ class userPaymentController extends Controller
                 "url"=>route("checkout_show_shipping")
             )
         );
-        $data["checkout_menus"]=$this->checkout_menus;
+    }
+    public function showBilling(Request $request){
+        if(empty(Session::has("vestidos_shop"))){
+            return redirect()->route("home_page");
+        }
+        $data=[];
+        $user_id=Auth::guard("vestidosUsers")->user()->getId();
+        $user = $this->users->find($user_id);
+        $data["user"]=$user;
+        $data["checkout_menu_prev_link"]=array("name"=>__('general.cart_title.shipping'),"url"=>route('checkout_show_shipping'));
+
+        $has_address = $user->getAddresses->first() ? true : false; 
+
+        $data["page_title"] = $has_address ? __('general.page_header.choose_billing_payment') : __('general.page_header.provide_billing_payment');
+
+        $data["checkout_menus"]=$this->getCheckoutMenu();
         $cart = $request->session()->get('cart_session');
         $shipping_cost=$this->shipping_lists->find($cart["shipping_method"]);
         $data["payment_types"]=$this->payment_types->where("status",1)->get();
@@ -299,9 +288,9 @@ class userPaymentController extends Controller
         
         }else{
 
-            $data["province"] = $request->input("province");
-            $data["district"] = $request->input("district");
-            $data["corregimiento"] = $request->input("corregimiento");
+            // $data["province"] = $request->input("province");
+            // $data["district"] = $request->input("district");
+            // $data["corregimiento"] = $request->input("corregimiento");
 
             $this->validate($request,[
                 "billing_name"=>"required",
@@ -379,7 +368,7 @@ class userPaymentController extends Controller
         $data["ip"]=$request->ip();
         $data["created_at"]=$today;
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
-        $data["status"]=$is_credit_card ? 9 : 14;
+        $data["status"]=$is_credit_card ? 9 : 12;
         $data["payment_type"]=$request->input("payment_type");
          //dd($data);
         // dd($data_shipping);
@@ -387,7 +376,7 @@ class userPaymentController extends Controller
 
         $data["user"]=$user;
         $data["page_title"]=__('general.thank_you');
-        $data["checkout_menus"]=$this->checkout_menus;
+        $data["checkout_menus"]=$this->getCheckoutMenu();
         $data["province_required"]=$province_required;
         if(!empty($order->id)){
             //save addresese
@@ -504,36 +493,45 @@ class userPaymentController extends Controller
                         )
                     ];
                     
-                    //send email to client
-                    Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                        $message->from("info@vestidosboutique.com","Vestidos Boutique");
-                        $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                        $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
-                        //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                        $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
-                    });
+                    $email_msg = [];
+                    try{
+                        //send email to client
+                        Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
+                            $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                            $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
+                            $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
+                            //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                            $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                        });
+
+                        //send email to admin
+                        Mail::send('emails.admin_orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
+                            $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                            $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
+                            $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
+                            //$message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                            $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                        });
+                        $email_msg[]=__('general.order_section.payment_success');
+                    }catch(Exception $e){
+                        $email_msg[]=__('general.order_section.payment_success');
+                        $email_msg[]=__('general.failed_email');
+                    }
+
                     
-                    //send email to admin
-                    Mail::send('emails.admin_orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                        $message->from("info@vestidosboutique.com","Vestidos Boutique");
-                        $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                        $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
-                        //$message->to("info@vestidosboutique.com","Admin")->subject($subject);
-                        $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
-                    });
 
 
                     // DESTROY SESSION
                     $request->session()->forget('cart_session');
                     $request->session()->forget('vestidos_shop');
                     
-                    $request->session()->flash('alert-success', __('general.order_section.payment_success'));
+                    $request->session()->flash('alert-success',$email_msg);
                     return redirect()->route("checkout_order_received");
                 }
             }
        }
 
-       return redirect()->route("checkout_order_received");
+    //    return redirect()->route("checkout_order_received");
     }
     public function showOrderReceived(){
         $data=[];
@@ -544,21 +542,8 @@ class userPaymentController extends Controller
         $data["last_order"]=$last_order;
         $data["checkout_menu_prev_link"]="";
         $data["page_title"]=__('general.order_section.order_success_received');
-        $this->checkout_menus=array(
-            array(
-                "name"=>__('general.cart_title.shipping'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.billing'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.confirmation'),
-                "url"=>route("checkout_show_shipping")
-            )
-        );
-        $data["checkout_menus"]=$this->checkout_menus;
+
+        $data["checkout_menus"]=$this->getCheckoutMenu();
         $data["tax_info"]=$this->tax_info;
         $data["checkout_header_key"]=__('general.page_header.confirmation');
         $data["checkout_btn_name"]=__('buttons.back_home');

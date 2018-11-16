@@ -56,7 +56,7 @@ return [
         'order_summary'=>"Order Summary",
         'opening_hours'=>"Opening Hours",
         'choose_billing_payment'=>"Choose Billing and Payment Method",
-        'provice_billing_payment'=>'Please Provide Billing and Payment Method',
+        'provide_billing_payment'=>'Please Provide Billing and Payment Method',
         'select_shipping'=>'Select Shipping Address',
         'provide_shipping'=>'Provide Shipping Address',
         'edit_account'=>"Edit Account",
@@ -259,5 +259,6 @@ return [
      'removed'=>"Removed",
      'unable_save'=>"Unable to Save",
      'thank_you'=>"Thank You",
+     'failed_email'=>'Unable to send email',
 
 ];
