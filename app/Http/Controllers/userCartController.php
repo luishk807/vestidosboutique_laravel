@@ -105,8 +105,8 @@ class userCartController extends Controller
                 "size"=>$size->name,
                 "size_id"=>$size_id,
                 "stock"=>$size->stock,
-                "total"=>$product->total_rent,
-                "total_old"=>$product->total_old
+                "total"=>$size->total_sale,
+                "total_old"=>$size->total_sale_old
             ); 
             Session::flash("success",__('general.cart_title.item_added'));
         }

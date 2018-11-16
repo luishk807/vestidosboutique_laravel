@@ -57,20 +57,6 @@ class userPaymentController extends Controller
         $this->districts=$districts;
         $this->corregimientos=$corregimientos;
         $this->tax_info = $tax->find(1);
-        $this->checkout_menus=array(
-            array(
-                "name"=>__('general.cart_title.shipping'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.billing'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.confirmation'),
-                "url"=>route("checkout_show_shipping")
-            )
-        );
     }
     public function showShipping(){
         if(empty(Session::has("vestidos_shop"))){
@@ -85,6 +71,22 @@ class userPaymentController extends Controller
 
         $data["page_title"] = $has_address ? __('general.page_header.select_shipping') :__('general.page_header.provide_shipping') ;
         $data["provinces"]=$this->provinces->all();
+
+        $this->checkout_menus=array(
+            array(
+                "name"=>__('general.cart_title.shipping'),
+                "url"=>route("checkout_show_shipping")
+            ),
+            array(
+                "name"=>__('general.cart_title.billing'),
+                "url"=>route("checkout_show_shipping")
+            ),
+            array(
+                "name"=>__('general.cart_title.confirmation'),
+                "url"=>route("checkout_show_shipping")
+            )
+        );
+
         $data["checkout_menus"]=$this->checkout_menus;
         $data["tax_info"]=$this->tax_info;
         $data["checkout_header_key"]=__('general.cart_title.shipping');
@@ -200,7 +202,20 @@ class userPaymentController extends Controller
         $has_address = $user->getAddresses->first() ? true : false; 
 
         $data["page_title"] = $has_address ? __('general.page_header.choose_billing_payment') : __('general.page_header.provide_billing_payment');
-
+        $this->checkout_menus=array(
+            array(
+                "name"=>__('general.cart_title.shipping'),
+                "url"=>route("checkout_show_shipping")
+            ),
+            array(
+                "name"=>__('general.cart_title.billing'),
+                "url"=>route("checkout_show_shipping")
+            ),
+            array(
+                "name"=>__('general.cart_title.confirmation'),
+                "url"=>route("checkout_show_shipping")
+            )
+        );
         $data["checkout_menus"]=$this->checkout_menus;
         $cart = $request->session()->get('cart_session');
         $shipping_cost=$this->shipping_lists->find($cart["shipping_method"]);
@@ -529,6 +544,20 @@ class userPaymentController extends Controller
         $data["last_order"]=$last_order;
         $data["checkout_menu_prev_link"]="";
         $data["page_title"]=__('general.order_section.order_success_received');
+        $this->checkout_menus=array(
+            array(
+                "name"=>__('general.cart_title.shipping'),
+                "url"=>route("checkout_show_shipping")
+            ),
+            array(
+                "name"=>__('general.cart_title.billing'),
+                "url"=>route("checkout_show_shipping")
+            ),
+            array(
+                "name"=>__('general.cart_title.confirmation'),
+                "url"=>route("checkout_show_shipping")
+            )
+        );
         $data["checkout_menus"]=$this->checkout_menus;
         $data["tax_info"]=$this->tax_info;
         $data["checkout_header_key"]=__('general.page_header.confirmation');
