@@ -125,16 +125,17 @@
                                                 <div class="row">
                                                     <div class="col-md-7"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/>
                                                     @php( $prod_vendor = $products_model->getVendors_byId($product->vendor_id))
-                                                    <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $prod_vendor[0]->first_name." ".$prod_vendor[0]->middle_name." ".$prod_vendor[0]->last_name }}</span>
+                                                    <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $prod_vendor[0]->company_name }}</span>
                                                     </div>
-                                                    <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $product->total_rent }}</span>
+                                                    <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $product->colors->first()->sizes->first()->total_sale }}</span>
                                                     <br/>
+                                                    @php($p_stock = $product->colors->first()->sizes->first()->stock )
                                                     <span  class="shoplist-stock-txt">
-                                                        @if($product->product_stock > 3)
+                                                        @if($p_stock > 3)
                                                             <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
-                                                        @elseif($product->product_stock > 0 && $product->product_stock < 4)
-                                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$product->product_stock])}}</span>
-                                                        @elseif($product->product_stock < 1)
+                                                        @elseif($p_stock > 0 && $p_stock < 4)
+                                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$p_stock])}}</span>
+                                                        @elseif($p_stock < 1)
                                                             <span class='out-stock'>{{ __('general.product_title.out_stock')}}</span>
                                                         @endif
                                                     </span>

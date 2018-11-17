@@ -86,7 +86,7 @@
                                     <span class="product-subtitle">{{ __('general.product_title.model_id') }}</span>: {{ $product->getProduct->product_model}}<br/>
                                     <span class="product-subtitle">{{ __('general.cart_title.sell_by') }}</span>: {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
                                     <span class="product-subtitle">{{ trans_choice('general.cart_title.quantity',1) }}</span>: {{ $product->quantity}}<br/>
-                                    <span class="product-total">${{number_format($product->getProduct->total_rent,'2','.',',')}}
+                                    <span class="product-total">${{number_format($product->total,'2','.',',')}}
                                     </span>
                                 </div>
                             </div>

@@ -151,7 +151,7 @@
                                                         {{ $product->getProduct->products_description }}<br/>
                                                         {{ __('general.cart_title.sell_by') }}:{{ $product->getProduct->vendor->first_name }} {{ $product->getProduct->vendor->last_name }}<br/>
                                                         {{ trans_choice('general.cart_title.quantity',1) }}:{{ $product->quantity }}<br/>
-                                                        <span>${{ number_format($product->getProduct->total_rent,'2','.',',') }}</span>
+                                                        <span>${{ number_format($product->total,'2','.',',') }}</span>
                                                         <br/>
                                                         <ul class="dates-ul">
                                                             @if(!empty($product->cancelled_date))

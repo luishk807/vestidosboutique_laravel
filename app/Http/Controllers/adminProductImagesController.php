@@ -109,8 +109,13 @@ class adminProductImagesController extends Controller
                         @unlink($img_path);
                     }
                     $picture =$this->getImageName($file,$image->product_id);
-                    $destinationPath = public_path().'/images/products/';
+                    //  $destinationPath = env('APP_ENV_URL').'/images/products/';
+                   $destinationPath =public_path().'/images/products/';
+                  // dd(public_path());
                     $file->move($destinationPath, $picture);
+                   // $url_test = '/images/products/'.$image->img_url;
+                    //dd($url_test);
+                   // $file->move($url_test);
                     $image->img_url=$picture;
                 }else{
                     return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
