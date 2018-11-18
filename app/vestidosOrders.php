@@ -59,6 +59,39 @@ class vestidosOrders extends Model
                    ->get();
         return $address->toArray();
     }
+
+    public function getTotalOrderYear(){
+        $this_year = date("Y");
+        $start_date = $this_year."-01-01 00:00:00";
+        $end_date = $this_year."-12-31 00:00:00";
+        $order_year = DB::table('vestidos_orders as order')
+        ->select(DB::raw("COUNT(*) as count"))
+        ->whereBetween('created_at',[$start_date,$end_date])
+        ->orderBy("purchase_date")
+        ->groupBy(DB::raw("MONTH(purchase_date)"))
+        ->get()->toArray();
+
+        $order_year = array_column($order_year, 'count');
+        $order_year = json_encode($order_year,JSON_NUMERIC_CHECK);
+
+        return $order_year;
+    }
+
+    public function getTotalOrderWeek(){
+        $this_year = date("Y");
+        $start_date = $this_year."-01-01 00:00:00";
+        $end_date = $this_year."-12-31 00:00:00";
+        $order_week = DB::table('vestidos_orders as order')
+        ->select(DB::raw("COUNT(*) as count"))
+        ->whereBetween('created_at',[$start_date,$end_date])
+        ->orderBy("purchase_date")
+        ->groupBy(DB::raw("WEEK(purchase_date)"))
+        ->get()->toArray();
+        $order_week = array_column($order_week, 'count');
+        $order_week = json_encode($order_week,JSON_NUMERIC_CHECK);
+
+        return $order_week;
+    }
     public function getOrderBillingAddress(){
         $address = DB::table('vestidos_order_addresses')
                     ->select("vestidos_order_addresses.*","vestidos_provinces.name as province_name","vestidos_provinces.id as province_id","vestidos_districts.name as district_name","vestidos_districts.id as district_id",

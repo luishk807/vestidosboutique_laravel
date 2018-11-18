@@ -150,6 +150,20 @@ class vestidosProducts extends Model
         ->where("vestidos_products.id",$this->getKey())
         ->get();
     }
+    public function getPopularProduct(){
+        $this_year = date("Y");
+        $start_date = $this_year."-01-01 00:00:00";
+        $end_date = $this_year."-12-31 00:00:00";
+        $popular_dresses = DB::table('vestidos_orders_products as order')
+        ->select(DB::raw("COUNT(*) as y"),"product.products_name as name")
+        ->whereBetween('order.created_at',[$start_date,$end_date])
+        ->join("vestidos_products as product","product.id","order.product_id")
+        ->groupBy("order.size_id")
+        ->get()->toArray();
+        $popular_dresses = json_encode($popular_dresses,JSON_NUMERIC_CHECK);
+
+        return $popular_dresses;
+    }
     public function searchProductsByLabels($filter){
         $products = DB::table("vestidos_products")
                                     ->select("vestidos_products.*",

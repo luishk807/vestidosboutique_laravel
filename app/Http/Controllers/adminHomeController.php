@@ -7,7 +7,9 @@ use App\vestidosOrders as Orders;
 use App\vestidosUsers as Users;
 use App\vestidosProducts as Products;
 use App\vestidosProductsRestocks as ProductRestocks;
+use App\vestidosOrdersProducts as OrderProducts;
 use App\vestidosProductRates as Rates;
+use App\vestidosSizes as Sizes;
 use App\vestidosLanguages as Languages;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,13 +17,15 @@ use Illuminate\Support\Facades\DB;
 class adminHomeController extends Controller
 {
     //
-    public function __construct(Languages $languages, Products $products, Orders $orders, Users $users, ProductRestocks $restocks, Rates $rates){
+    public function __construct(Languages $languages, Products $products, Orders $orders, Users $users, ProductRestocks $restocks, Rates $rates,Sizes $sizes,OrderProducts $order_products){
         $this->orders=$orders;
         $this->users=$users;
         $this->products=$products;
         $this->rates= $rates;
         $this->languages = $languages;
         $this->restocks = $restocks;
+        $this->sizes = $sizes;
+        $this->order_products = $order_products;
     }
     function home(){
         $data["page_title"]="Admin Home Page";
@@ -31,15 +35,23 @@ class adminHomeController extends Controller
         $data["restocks"]=$this->restocks->all();
         $data["rates"]=$this->rates->all();
         $data["languages"]=$this->languages->all();
-        $order_data = DB::table('vestidos_orders as order')
-        ->select(DB::raw("COUNT(*) as count"))
-        ->orderBy("created_at")
-        ->groupBy(DB::raw("MONTH(created_at)"))
-        ->get()->toArray();
-        //dd($order_data);
-        $order_data = array_column($order_data, 'count');
-        $order_data = json_encode($order_data,JSON_NUMERIC_CHECK);
-        $data["order_data"]=$order_data;
+
+        $order_year = $this->orders->getTotalOrderYear();
+        $data["order_year"]=$order_year;
+
+        $order_week = $this->orders->getTotalOrderWeek();
+        $data["order_week"]=$order_week;
+
+        $popular_dresses = $this->products->getPopularProduct();
+        $data["popular_dresses"]=$popular_dresses;
+
+        $product_stock = $this->sizes->where("stock","<",5)->limit(10)->get();
+        $data["product_stocks"]=$product_stock;
+
+        $unshipped_orders = $this->order_products->where("status","!=",3)->limit(10)->get();
+        $data["unshipped_orders"]=$unshipped_orders;
+
+        //dd($product_stock);
         return view("admin/home",$data);
     }
     public function signin(){

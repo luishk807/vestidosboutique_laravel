@@ -27,5 +27,8 @@ class vestidosSizes extends Model
     public function getProduct(){
         return $this->belongsTo('App\vestidosProducts',"product_id");
     }
+    public function getColor(){
+        return $this->belongsTo('App\vestidosColors',"color_id");
+    }
     
 }
