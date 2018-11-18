@@ -10,6 +10,7 @@ use App\vestidosProductsRestocks as ProductRestocks;
 use App\vestidosProductRates as Rates;
 use App\vestidosLanguages as Languages;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class adminHomeController extends Controller
 {
@@ -30,6 +31,15 @@ class adminHomeController extends Controller
         $data["restocks"]=$this->restocks->all();
         $data["rates"]=$this->rates->all();
         $data["languages"]=$this->languages->all();
+        $order_data = DB::table('vestidos_orders as order')
+        ->select(DB::raw("COUNT(*) as count"))
+        ->orderBy("created_at")
+        ->groupBy(DB::raw("MONTH(created_at)"))
+        ->get()->toArray();
+        //dd($order_data);
+        $order_data = array_column($order_data, 'count');
+        $order_data = json_encode($order_data,JSON_NUMERIC_CHECK);
+        $data["order_data"]=$order_data;
         return view("admin/home",$data);
     }
     public function signin(){
