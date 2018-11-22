@@ -99,7 +99,39 @@
                 data: popular_dresses
             }]
         });
+        
 
+        var range_ages = <?php echo $age_ranges[0]; ?>;
+        var range_titles = <?php echo $age_ranges[1]; ?>;
+        Highcharts.chart('container_age_range', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Popular Dresses'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Name',
+                colorByPoint: true,
+                data: range_ages
+            }]
+        });
 
     });
 </script>
@@ -187,16 +219,8 @@
             </ul>
         </div>
         <div class="col">
-            <div class="text-center pv-4">Latest Users</div>
-            <ul>
-            @foreach($age_ranges as $age_range)
-                <li>
-                    <a href="">
-                        {{ $age_range[0]->count }}
-                    </a>
-                </li>
-            @endforeach
-            </ul>
+            <div class="text-center pv-4">Age Estimate</div>
+            <div id="container_age_range"></div>
         </div>
     </div>
 </div>

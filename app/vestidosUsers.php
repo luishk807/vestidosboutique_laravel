@@ -98,16 +98,23 @@ class vestidosUsers extends Authenticatable
         $range = 18;
         $range_limit = 90;
         $increase = 20;
+        $range_counts = "";
+        $range_titles = "";
         while($range < $range_limit){
             $range_b = $range + $increase;
-            $users[] = DB::table("vestidos_users")
+            
+            $user = DB::table("vestidos_users")
             ->select(DB::raw("COUNT(*) as count"))
             ->whereRaw("DATEDIFF('".carbon::now()."', date_of_birth)/365 > ".$range)
             ->whereRaw("DATEDIFF('".carbon::now()."', date_of_birth)/365 < ".$range_b)
             ->get()->toArray();
+            $range_counts .= $range_counts ? ",".$user[0]->count : $user[0]->count;
+            $range_titles .= $range_titles ? ",".$range."-".$range_b :$range."-".$range_b;
             $range = $range_b;
         }
-        return $users;
+        $range_info[]=$range_counts;
+        $range_info[]=$range_titles;
+        return $range_info;
 
     }
 }

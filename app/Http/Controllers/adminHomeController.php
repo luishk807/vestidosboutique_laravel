@@ -57,7 +57,7 @@ class adminHomeController extends Controller
 
         $data["age_ranges"]=$this->users->getRangeAges();
 
-        dd($data["age_ranges"]);
+       dd($data["age_ranges"]);
         //return view("admin/home",$data);
     }
     public function signin(){
