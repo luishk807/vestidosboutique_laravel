@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon as carbon;
 
 class vestidosUsers extends Authenticatable
 {
@@ -75,5 +77,37 @@ class vestidosUsers extends Authenticatable
             $this->remember_token = str_random(60);
         }while($this->where('remember_token',$this->remember_token)->exists());
         $this->save();
+    }
+    public function getLatestTen(){
+        $users = DB::table("vestidos_users")
+        ->orderBy("created_at","desc")
+        ->where("user_type","=",1)
+        ->limit(10)
+        ->get();
+        return $users;
+    }
+    public function getTotalGender(){
+        $users = DB::table("vestidos_users")
+        ->select(DB::raw("COUNT(*) as male"),DB::raw("COUNT(*) as female"))
+        ->get();
+        return $users;
+    }
+
+    public function getRangeAges(){
+        $user=[];
+        $range = 18;
+        $range_limit = 90;
+        $increase = 20;
+        while($range < $range_limit){
+            $range_b = $range + $increase;
+            $users[] = DB::table("vestidos_users")
+            ->select(DB::raw("COUNT(*) as count"))
+            ->whereRaw("DATEDIFF('".carbon::now()."', date_of_birth)/365 > ".$range)
+            ->whereRaw("DATEDIFF('".carbon::now()."', date_of_birth)/365 < ".$range_b)
+            ->get()->toArray();
+            $range = $range_b;
+        }
+        return $users;
+
     }
 }

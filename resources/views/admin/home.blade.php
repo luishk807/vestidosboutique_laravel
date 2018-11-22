@@ -189,10 +189,10 @@
         <div class="col">
             <div class="text-center pv-4">Latest Users</div>
             <ul>
-            @foreach($users as $user)
+            @foreach($age_ranges as $age_range)
                 <li>
-                    <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">
-                        {{ $user->first_name }}
+                    <a href="">
+                        {{ $age_range[0]->count }}
                     </a>
                 </li>
             @endforeach

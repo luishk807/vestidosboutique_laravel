@@ -36,6 +36,8 @@ class adminHomeController extends Controller
         $data["rates"]=$this->rates->all();
         $data["languages"]=$this->languages->all();
 
+        $data["last_ten_users"]=$this->users->getLatestTen();
+
         $order_year = $this->orders->getTotalOrderYear();
         $data["order_year"]=$order_year;
 
@@ -48,11 +50,15 @@ class adminHomeController extends Controller
         $product_stock = $this->sizes->where("stock","<",5)->limit(10)->get();
         $data["product_stocks"]=$product_stock;
 
+        $data["user_genders"] = $this->users->getTotalGender();
+
         $unshipped_orders = $this->order_products->where("status","!=",3)->limit(10)->get();
         $data["unshipped_orders"]=$unshipped_orders;
 
-        //dd($product_stock);
-        return view("admin/home",$data);
+        $data["age_ranges"]=$this->users->getRangeAges();
+
+        dd($data["age_ranges"]);
+        //return view("admin/home",$data);
     }
     public function signin(){
         $data=[];
