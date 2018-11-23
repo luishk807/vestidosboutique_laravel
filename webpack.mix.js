@@ -25,5 +25,6 @@ mix
 .copy('resources/assets/js/vendor/jquery/jquery-3.2.1.min.js', 'public/js/vendor/jquery/jquery-3.2.1.min.js')
 .copy('resources/assets/js/vendor/jquery/popper.min.js', 'public/js/vendor/jquery/popper.min.js')
 .copy('resources/assets/js/vendor/slick', 'public/js/vendor/slick')
+.copy('resources/assets/js/vendor/highchart', 'public/js/vendor/highchart')
 .copy('resources/assets/js/bootstrap.min.js', 'public/js/bootstrap.min.js');
 //.copy('resources/assets/fonts/', 'public/fonts/'); // Don't flatten!

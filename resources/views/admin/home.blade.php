@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="{{ asset('js/vendor/highchart/highcharts.js') }}"></script>
 <script type="text/javascript">
     $(function () {
         var $order_year = <?php echo $order_year; ?>;
