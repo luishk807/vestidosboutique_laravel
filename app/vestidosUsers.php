@@ -57,6 +57,9 @@ class vestidosUsers extends Authenticatable
     public function wishlists(){
         return $this->hasMany('App\vestidosUserWishlists',"user_id");
     }
+    public function getGender(){
+        return $this->belongsTo('App\vestidosGenders',"gender");
+    }
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }
@@ -79,9 +82,25 @@ class vestidosUsers extends Authenticatable
         $this->save();
     }
     public function getLatestTen(){
-        $users = DB::table("vestidos_users")
-        ->orderBy("created_at","desc")
-        ->where("user_type","=",1)
+        $users = DB::table("vestidos_users as users")
+        ->select("users.*","status.name as status_name","gender.name as gender_name")
+        ->orderBy("users.created_at","desc")
+        ->join("vestidos_statuses as status","status.id","users.status")
+        ->join("vestidos_genders as gender","gender.id","users.gender")
+        ->where("users.user_type","=",1)
+        ->limit(10)
+        ->get();
+        return $users;
+    }
+    public function getUnapprovedUsers(){
+        $users = DB::table("vestidos_users as users")
+        ->select("users.*","status.name as status_name","gender.name as gender_name")
+        ->where("users.status","!=","1")
+        ->whereAnd("users.user_type","1")
+        ->orderBy("users.created_at","desc")
+        ->join("vestidos_genders as gender","users.gender","gender.id")
+        ->join("vestidos_statuses as status","status.id","users.status")
+        ->where("users.user_type","=",1)
         ->limit(10)
         ->get();
         return $users;
@@ -98,8 +117,8 @@ class vestidosUsers extends Authenticatable
         $range = 18;
         $range_limit = 90;
         $increase = 20;
-        $range_counts = "";
-        $range_titles = "";
+        $range_counts = [];
+        $range_titles = [];
         while($range < $range_limit){
             $range_b = $range + $increase;
             
@@ -108,12 +127,14 @@ class vestidosUsers extends Authenticatable
             ->whereRaw("DATEDIFF('".carbon::now()."', date_of_birth)/365 > ".$range)
             ->whereRaw("DATEDIFF('".carbon::now()."', date_of_birth)/365 < ".$range_b)
             ->get()->toArray();
-            $range_counts .= $range_counts ? ",".$user[0]->count : $user[0]->count;
-            $range_titles .= $range_titles ? ",".$range."-".$range_b :$range."-".$range_b;
+            $range_info[] = [
+                "name"=>$range."-".$range_b,
+                "y"=>$user[0]->count
+            ];
+
             $range = $range_b;
         }
-        $range_info[]=$range_counts;
-        $range_info[]=$range_titles;
+        $range_info = json_encode($range_info,JSON_NUMERIC_CHECK);
         return $range_info;
 
     }

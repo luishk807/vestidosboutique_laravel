@@ -32,9 +32,12 @@ class adminHomeController extends Controller
         $data["orders"]=$this->orders->all();
         $data["products"]=$this->products->all();
         $data["users"]=$this->users->all();
+
         $data["restocks"]=$this->restocks->all();
         $data["rates"]=$this->rates->all();
         $data["languages"]=$this->languages->all();
+
+        $data["unapproved_users"]=$this->users->getUnapprovedUsers();
 
         $data["last_ten_users"]=$this->users->getLatestTen();
 
@@ -47,7 +50,7 @@ class adminHomeController extends Controller
         $popular_dresses = $this->products->getPopularProduct();
         $data["popular_dresses"]=$popular_dresses;
 
-        $product_stock = $this->sizes->where("stock","<",5)->limit(10)->get();
+        $product_stock = $this->sizes->where("stock","<",5)->limit(5)->get();
         $data["product_stocks"]=$product_stock;
 
         $data["user_genders"] = $this->users->getTotalGender();
@@ -57,8 +60,8 @@ class adminHomeController extends Controller
 
         $data["age_ranges"]=$this->users->getRangeAges();
 
-       dd($data["age_ranges"]);
-        //return view("admin/home",$data);
+        //dd($data["popular_dresses"]);
+        return view("admin/home",$data);
     }
     public function signin(){
         $data=[];

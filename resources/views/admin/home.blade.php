@@ -11,9 +11,9 @@
             title: {
                 text: 'Yearly Orders'
             },
-            // xAxis: {
-            //     categories: ['Jan','Feb']
-            // },
+            xAxis: {
+                categories: ['Jan','Feb','Mar','Abr','May','Jun',"Jul","Aug",'Sep','Oct','Nov','Dec']
+            },
             yAxis: {
                 title: {
                     text: 'Orders'
@@ -93,16 +93,17 @@
                     showInLegend: true
                 }
             },
-            series: [{
+            series: [
+            {
                 name: 'Name',
                 colorByPoint: true,
                 data: popular_dresses
-            }]
+            }
+            ]
         });
         
 
-        var range_ages = <?php echo $age_ranges[0]; ?>;
-        var range_titles = <?php echo $age_ranges[1]; ?>;
+        var range_ages = <?php echo $age_ranges; ?>;
         Highcharts.chart('container_age_range', {
             chart: {
                 plotBackgroundColor: null,
@@ -111,7 +112,7 @@
                 type: 'pie'
             },
             title: {
-                text: 'Popular Dresses'
+                text: 'Age Range'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -127,7 +128,7 @@
                 }
             },
             series: [{
-                name: 'Name',
+                name: "Age",
                 colorByPoint: true,
                 data: range_ages
             }]
@@ -135,8 +136,47 @@
 
     });
 </script>
+<style>
+.sub-main-row{
+    margin-top:20px;
+}
+.sub-main-row .home-title{
+    text-align: center;
+    text-decoration:underline;
+}
+.homesection-orders li,
+.homesection-products li{
+    margin:10px;
+
+}
+.homesection-orders li a,
+.homesection-products li a{
+    text-align:center;
+    text-decoration:none;
+    color:black;
+}
+.homesection-orders li a:hover,
+.homesection-products li a:hover{
+    text-decoration:underline;
+}
+.homesection-orders li a .orders-content,
+.homesection-products li a .products-content{
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+}
+.homesection-orders li a .orders-content >.title{
+    border-right:1px solid;
+    padding-right:5px;
+
+}
+.homesection-orders li a .orders-content span,
+.homesection-products li a .products-content span{
+    font-weight:bold;
+}
+</style>
 <div class="container">
-    <div class="row">
+    <div class="row sub-main-row">
         <div class="col">
             <div id="container_year"></div>
         </div>
@@ -149,77 +189,88 @@
             <div id="container_week"></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="homesection-orders">
-                <div class="text-center pv-4">Latest Orders</div>
-                <ul>
-                @foreach($orders as $order)
-                    <li>
-                        <a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
-                            {{ $order->order_number }}{{ $order->order_total }}
-                            {{ $order->purchase_date }} {{ $order->getStatusName->name }}
-                        </a>
-                    </li>
-                @endforeach
-                </ul>
-            </div><!--end of nav container-->
+    <div class="row sub-main-row">
+        <div class="col-md-4 homesection-orders">
+            <div class="text-center pv-4 home-title">Latest Orders</div>
+            <ol>
+            @foreach($orders as $order)
+                <li>
+                    <a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
+                        <span class="orders-content">
+                            <span class="title">{{ $order->order_number }}</span>
+                            Total: <span class="total">${{ $order->order_total }}</span><br/>
+                            Status: <span class="status">{{ $order->getStatusName->name }}</span><br/>
+                            Order Date: <span class="pdate">{{ $order->purchase_date }}</span>
+                        </span>
+                    </a>
+                </li>
+            @endforeach
+            </ol>
         </div>
-        <div class="col">
-            <div class="text-center pv-4">Orders Unshipped</div>
-            <ul>
+        <div class="col-md-4 homesection-orders">
+            <div class="text-center pv-4 home-title">Orders Unshipped</div>
+            <ol>
             @foreach($unshipped_orders as $unshipped_order)
                 <li>
                     <a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
-                        {{ $unshipped_order->getOrderInfo->order_number }}{{ $unshipped_order->total }}
-                        {{ $unshipped_order->getOrderInfo->purchase_date }} {{ $unshipped_order->getStatusName->name }}
+                        <span class="orders-content">
+                            <span class="title">{{ $unshipped_order->getOrderInfo->order_number }}</span>
+                            Total: <span class="total">${{ $unshipped_order->total }}</span><br/>
+                            Status: <span class="status">{{ $unshipped_order->getStatusName->name }}</span><br/>
+                            Order Date: <span class="pdate">{{ $unshipped_order->getOrderInfo->purchase_date }}</span>
+                        </span>
                     </a>
                 </li>
             @endforeach
-            </ul>
+            </ol>
         </div>
-        <div class="col">
-            <div class="text-center pv-4">Product Low Stock</div>
-            <ul>
+        <div class="col-md-4 homesection-products">
+            <div class="text-center pv-4 home-title">Product Low Stock</div>
+            <ol>
             @foreach($product_stocks as $product_stock)
                 <li>
                     <a href="{{ route('edit_product',['product_id'=>$product_stock->getColor->product->id])}}">
-                        {{ $product_stock->getColor->product->products_name }}
-                        {{ $product_stock->stock }}
-                        {{ $product_stock->getStatusName->name }}
+                        <span class="products-content">
+                            Name:<span class="name">{{ $product_stock->getColor->product->products_name }}</span><br/>
+                            Stock: <span class="stock">{{ $product_stock->stock }}</span>
+                            Size: <span class="color">{{ $product_stock->name }}</span><br/>
+                            Size: <span class="color">{{ $product_stock->getColor->name }}</span>
+                            Status:<span class="status">{{ $product_stock->getStatusName->name }}</span>
+                        </span>
                     </a>
                 </li>
             @endforeach
-            </ul>
+            </ol>
         </div>
     </div>
-    <div class="row">
+    <div class="row sub-main-row">
         <div class="col">
-            <div class="text-center pv-4">Unapproved Users</div>
-            <ul>
-            @foreach($users as $user)
+            <div class="text-center pv-4 home-title">Unapproved Users</div>
+            <ol>
+            @foreach($unapproved_users as $user)
                 <li>
                     <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">
-                        {{ $user->first_name }}
+                        {{ $user->first_name }} {{ $user->last_name }}
+                        {{ $user->status_name }}
+                        {{ $user->gender_name}}
                     </a>
                 </li>
             @endforeach
-            </ul>
+            </ol>
         </div>
         <div class="col">
-            <div class="text-center pv-4">Latest Users</div>
-            <ul>
-            @foreach($users as $user)
+            <div class="text-center pv-4 home-title">Latest Users</div>
+            <ol>
+            @foreach($last_ten_users as $user)
                 <li>
                     <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">
-                        {{ $user->first_name }}
+                        {{ $user->first_name }} {{ $user->last_name }} {{ $user->date_of_birth }} {{ $user->gender_name}}
                     </a>
                 </li>
             @endforeach
-            </ul>
+            </ol>
         </div>
         <div class="col">
-            <div class="text-center pv-4">Age Estimate</div>
             <div id="container_age_range"></div>
         </div>
     </div>

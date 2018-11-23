@@ -158,7 +158,9 @@ class vestidosProducts extends Model
         ->select(DB::raw("COUNT(*) as y"),"product.products_name as name")
         ->whereBetween('order.created_at',[$start_date,$end_date])
         ->join("vestidos_products as product","product.id","order.product_id")
+        ->limit(10)
         ->groupBy("order.size_id")
+        ->orderBy("y","desc")
         ->get()->toArray();
         $popular_dresses = json_encode($popular_dresses,JSON_NUMERIC_CHECK);
 
