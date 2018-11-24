@@ -28,7 +28,7 @@ class adminHomeController extends Controller
         $this->order_products = $order_products;
     }
     function home(){
-        $data["page_title"]="Admin Home Page";
+        $data["page_title"]=__('header.admin_login');
         $data["orders"]=$this->orders->all();
         $data["products"]=$this->products->all();
         $data["users"]=$this->users->all();
@@ -65,7 +65,7 @@ class adminHomeController extends Controller
     }
     public function signin(){
         $data=[];
-        $data["page_title"]="Vestidos Boutique Admin";
+        $data["page_title"]=__('header.admin_login');
         return view("admin/login",$data);
     }
     public function login(Request $request){

@@ -6,18 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app_admin.css') }}">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <title>Vestidos Boutique Admin</title>
+    <title>{{ __('header.admin_login') }}</title>
+    <style>
+    .right-header-menu{
+        list-style-type:none
+    }
+    .right-header-menu li{
+        
+    }
+    .right-header-menu a{
+        color:hsla(0,0%,100%,.75);
+    }
+    </style>
 </head>
 <body>
     <div id="admin-wrap" class="main_body_height">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ route('admin') }}">Vestidos Boutique Admin</a>
+            <a class="navbar-brand" href="{{ route('admin') }}">{{ __('header.admin_login') }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a href="{{ route('admin_logout_user') }}" class="nav-link">Sign Out</a></li>
                     <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Products</a></li>
                     <li class="nav-item"><a href="{{ route('admin_vendors') }}" class="nav-link">Vendors</a></li>
                     <li class="nav-item"><a href="{{route('admin_orders')}}" class="nav-link">Orders</a></li>
@@ -45,6 +55,12 @@
                             <a href="{{ route('admin_shipping_lists')}}" class="nav-link">Shipping Lists</a>
                         </div>
                     </li>
+                </ul>
+
+
+                <ul class="form-inline my-2 my-lg-0 right-header-menu">
+                    <li class="nav-item"><a href="{{ route('admin_logout_user') }}" class="nav-link">Sign Out</a></li>
+                    <li class="nav-item"><a href="{{ route('admin_editadmin') }}" class="nav-link">My Account</a></li>
                 </ul>
             </div>
         </nav>

@@ -33,12 +33,12 @@
         </div>
         <div class="form-group">
             <label for="loginName">{{ __('general.form.name') }}:</label>
-            <input type="email" id="loginName" class="form-control" name="email" value="" placeholder="Login Email"/>
+            <input type="email" id="loginName" class="form-control" name="email" value="" placeholder="{{ __('general.form.email') }}"/>
             <small class="error">{{$errors->first("email")}}</small>
         </div>
         <div class="form-group">
             <label for="loginPassword">{{ __('general.form.password') }}:</label>
-            <input type="password" id="loginPassword" class="form-control" name="password" value="" placeholder="Password"/>
+            <input type="password" id="loginPassword" class="form-control" name="password" value="" placeholder="{{ __('general.form.password') }}"/>
             <small class="error">{{$errors->first("password")}}</small>
         </div>
 
