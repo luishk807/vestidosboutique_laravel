@@ -350,6 +350,11 @@
                 Route::get('/import_confirm','vendorsController@showImportVendor_confirm')->name('show_import_vendor_confirm');
                 Route::post('/import_confirm','vendorsController@saveImportVendor_confirm')->name('save_import_vendor_confirm');
             });
+            //Admin Account
+            Route::prefix("account")->group(function(){
+                Route::get("/edit",'adminUsersController@showUpdateAdmin')->name("admin_editadmin");
+                Route::post("/edit",'adminUsersController@updateAdmin')->name("admin_updateadmin");
+            });
             //Admin Users
             Route::prefix("users")->group(function(){
                 Route::get("/",'adminUsersController@index')->name("admin_users");

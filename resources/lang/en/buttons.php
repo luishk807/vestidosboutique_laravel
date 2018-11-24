@@ -10,7 +10,8 @@ return [
     | The following language lines are used for actions buttons
     |
     */
-
+    'log_in' => 'Log In',
+    'log_out' => 'Log Out',
     'edit' => 'Edit',
     'add'=>'Add',
     'add_cart'=> 'Add To Cart',

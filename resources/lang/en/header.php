@@ -10,7 +10,7 @@ return [
     | The following language lines are used for the header
     |
     */
-
+    'admin_login'=>"Vestidos Boutique Admin",
     'shop' => 'Shop',
     'about' => 'About Us',
     'event' => 'Events',

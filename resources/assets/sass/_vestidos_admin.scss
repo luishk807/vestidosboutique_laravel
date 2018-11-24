@@ -22,6 +22,11 @@ body,html{
     height: 100%;
     margin: 0;
 }
+.vestidos-icons-logo{
+    width: 200px;
+    height: 200px;
+    background-size: 200px 200px;
+}
 .main_body_height{
     min-height: -webkit-calc(100% - 100px);     /* Chrome */
     min-height: -moz-calc(100% - 100px);     /* Firefox */
@@ -70,7 +75,7 @@ body,html{
         color: black;
         cursor:pointer;
         display:inline-block;
-        :hover{
+        &:hover{
             background-color: black;
             color: white;
         }
@@ -82,7 +87,7 @@ body,html{
         color: #000;
         cursor: pointer;
         display: inline-block;
-        :hover{
+        &:hover{
             background-color: #000;
             border: 1px solid #fff;
         }
