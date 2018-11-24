@@ -65,7 +65,7 @@ class adminHomeController extends Controller
     }
     public function signin(){
         $data=[];
-        $data["page_title"]="Admin Login";
+        $data["page_title"]="Vestidos Boutique Admin";
         return view("admin/login",$data);
     }
     public function login(Request $request){
