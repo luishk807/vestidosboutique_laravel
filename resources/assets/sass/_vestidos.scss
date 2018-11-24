@@ -767,35 +767,40 @@ background-size: cover;
 .cart-container-in .cart-item-img{
   width:75%;
 }
-.cart-item-items .cart-item-1 .col:nth-child(1){
-  padding-left:0px;
-  padding-right:0px;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2){
-  /* line-height: 1rem; */
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+.cart-item-items {
+  .cart-item-1 {
+    .col:nth-child(1){
+      padding-left:0px;
+      padding-right:0px;
+    }
+    .col:nth-child(2){
+      /* line-height: 1rem; */
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
 
+      div p:first-child{
+      
+        font-weight:bold;
+      }
+      div p:not(:first-child){
+        line-height: .5rem;
+        font-size: .8rem;
+      }
+      div:last-child a{
+       text-decoration:none;
+       color:black;
+        &:hover{
+          text-decoration:underline;
+        }
+        &:last-child{
+          margin-left:5%;
+        }
+      }
+    }
+  }
 }
-.cart-item-items .cart-item-1 .col:nth-child(2) div p:first-child{
-  
-  font-weight:bold;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
-  line-height: .5rem;
-  font-size: .8rem;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a{
- text-decoration:none;
- color:black;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:hover{
- text-decoration:underline;
-}
-.cart-item-items .cart-item-1 .col:nth-child(2) div:last-child a:last-child{
-  margin-left:5%;
-}
+
 .vesti-cart-quantity-input{
   padding: 10px;
   text-align: center;
