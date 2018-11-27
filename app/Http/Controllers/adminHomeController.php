@@ -60,8 +60,8 @@ class adminHomeController extends Controller
 
         $data["age_ranges"]=$this->users->getRangeAges();
 
-        //dd($data["popular_dresses"]);
-        return view("admin/home",$data);
+       //dd($data["order_week"]);
+       return view("admin/home",$data);
     }
     public function signin(){
         $data=[];

@@ -9,7 +9,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Yearly Orders'
+                text: 'This Year Orders'
             },
             xAxis: {
                 categories: ['Jan','Feb','Mar','Abr','May','Jun',"Jul","Aug",'Sep','Oct','Nov','Dec']
@@ -24,27 +24,6 @@
                 data: $order_year
             }]
         });
-        var $order_week = <?php echo $order_week; ?>;
-        $('#container_week').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Weekly Orders'
-            },
-            xAxis: {
-                categories: ['Mon','Tue','Wed','Thr','Fri','Sat','Sun']
-            },
-            yAxis: {
-                title: {
-                    text: 'Orders'
-                }
-            },
-            series: [{
-                name: 'Orders',
-                data: $order_week
-            }]
-        });
 
         var $order_week = <?php echo $order_week; ?>;
         $('#container_week').highcharts({
@@ -52,7 +31,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Weekly Orders'
+                text: 'This Week Order'
             },
             xAxis: {
                 categories: ['Mon','Tue','Wed','Thr','Fri','Sat','Sun']
@@ -166,13 +145,49 @@
     vertical-align: top;
 }
 .homesection-orders li a .orders-content >.title{
-    border-right:1px solid;
     padding-right:5px;
 
 }
 .homesection-orders li a .orders-content span,
 .homesection-products li a .products-content span{
     font-weight:bold;
+}
+
+.home_button_box{
+    background-color:#1b96f0;
+    padding: 10px;
+    text-align: center;
+}
+.home_button_box ul{
+    list-style-type: none;
+    margin:0px;
+    padding:0px;
+}
+.home_button_box ul a span{
+    display:inline-block;
+}
+.home_button_box ul a .orders-content span:first-child{
+    background-color:red;
+}
+.homesection-orders .title{
+    padding:10px 0px;
+    color:white;
+}
+.home_button_box .orders_links{
+    width:100%;
+    padding:5px 0px;
+    color:white;
+    background-color:#1377cc;
+    font-family:Arial;
+    margin:2px 0px;
+}
+.home_button_box .orders_links:hover{
+    text-decoration:none;
+    background-color:#0f5f99;
+}
+.home_button_box .orders_links .title,
+.home_button_box .orders_links .pdate{
+    
 }
 </style>
 <div class="container">
@@ -208,21 +223,22 @@
             </ol>
         </div>
         <div class="col-md-4 homesection-orders">
-            <div class="text-center pv-4 home-title">Orders Unshipped</div>
-            <ol>
-            @foreach($unshipped_orders as $unshipped_order)
-                <li>
-                    <a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
-                        <span class="orders-content">
-                            <span class="title">{{ $unshipped_order->getOrderInfo->order_number }}</span>
-                            Total: <span class="total">${{ $unshipped_order->total }}</span><br/>
-                            Status: <span class="status">{{ $unshipped_order->getStatusName->name }}</span><br/>
-                            Order Date: <span class="pdate">{{ $unshipped_order->getOrderInfo->purchase_date }}</span>
-                        </span>
-                    </a>
-                </li>
-            @endforeach
-            </ol>
+            <div class="home_button_box">
+                <div class="title">Unshipped Orders [2]</div>
+                <div class="container">
+                    <div class="row">
+                        @foreach($unshipped_orders as $unshipped_order)
+                        <a class="orders_links" href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
+                            <span class="orders-content">
+                                <span class="col-md-8 text-left"  class="title">{{ $unshipped_order->getOrderInfo->order_number }}</span>
+                                <span class="col-md-4 text-right"  class="pdate">{{ $unshipped_order->getOrderInfo->purchase_date }}</span>
+                            </span>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="col-md-4 homesection-products">
             <div class="text-center pv-4 home-title">Product Low Stock</div>
