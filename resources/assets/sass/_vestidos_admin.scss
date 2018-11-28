@@ -35,6 +35,52 @@ body,html{
 #admin-wrap .container .row a:not(:first-child){
     padding-left:5px;
 }
+.bg_color_1{
+    background-color:#1b96f0;
+    & .orders_links{
+        background-color:#1377cc;
+        &:hover{
+            background-color:#0f5f99;
+        }
+    }
+}
+.bg_color_2{
+    background-color:#860ba7cf;
+    & .orders_links{
+        background-color:#690c82cf;
+        &:hover{
+            background-color:#4e0961cf;
+        }
+    }
+}
+
+.bg_color_3{
+    background-color:#d21a60e3;
+    & .orders_links{
+        background-color:#ce185de3;
+        &:hover{
+            background-color:#a51249e3;
+        }
+    }
+}
+.bg_color_4{
+    background-color:#1cc199;
+    & .orders_links{
+        background-color:#199476;
+        &:hover{
+            background-color:#146d57;
+        }
+    }
+}
+.bg_color_5{
+    background-color:#e49102;
+    & .orders_links{
+        background-color:#d67424;
+        &:hover{
+            background-color:#c7691b;
+        }
+    }
+}
 #admin-wrap{
     .nav-link:hover, .navbar-link:hover {
         background-color: black;

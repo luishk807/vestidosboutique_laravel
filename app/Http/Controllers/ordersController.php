@@ -118,7 +118,7 @@ class ordersController extends Controller
         $order_billing = $order->getOrderBillingAddress();
         $data["order_shipping"]=$order_shipping[0];
         $data["order_billing"]=$order_billing[0];
-        $data["page_title"]=__('general.order_section.edit_order');
+        $data["page_title"]=__('general.order_section.edit_order')." ".$order->order_number;
         return view("admin/orders/edit",$data);
     }
     public function showOrderAddress(){
@@ -260,7 +260,7 @@ class ordersController extends Controller
         $order_billing = $order->getOrderBillingAddress();
         $data["order_id"]=$order_id;
         $data["address_var"]=$address_var;
-        $data["page_title"]=__('general.order_section.edit_order_address',["name"=>$address_var]);
+        $data["page_title"]=__('general.order_section.edit_order_address',["name"=>$address_var])." ".$order->order_number;
         $data["address_type_id"]=$address_type_id;
         $data["name"]=$request->input("name");
         $data["email"]=$request->input("email");
@@ -568,8 +568,9 @@ class ordersController extends Controller
     }
     public function showAdminOrderPayment($order_id){
         $data=[];
+        $order = $this->orders->find($order_id);
         $data["order"]=$this->orders->find($order_id);
-        $data["page_title"]=__('general.order_section.process_order');
+        $data["page_title"]=__('general.order_section.process_order')." ".$order->order_number;
         return view("admin/orders/payments/edit",$data);
     }
     public function orderAdminProcessPayment(Request $request,$order_id){
