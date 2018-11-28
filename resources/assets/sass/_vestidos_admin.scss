@@ -15,6 +15,9 @@
 .vesti-search-cont ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3)
 }
+.bg-vestidos-admin{
+    background-color:$main_vest_color!important;
+}
 body{
     background-color:white;
 }
@@ -82,8 +85,11 @@ body,html{
     }
 }
 #admin-wrap{
+    .dropdown-menu{
+        border:$main_vest_color;
+    }
     .nav-link:hover, .navbar-link:hover {
-        background-color: black;
+        background-color:$main-vest-color-dark;
         text-decoration: none;
         color: white;
     }
