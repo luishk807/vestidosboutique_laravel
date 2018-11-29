@@ -20,6 +20,16 @@ class adminBrandController extends Controller
     public function index(){
         $data=[];
         $data["page_title"]="Brands";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_brand'),
+                "name"=>"Add Brand"
+            ],
+            [
+                "url"=>route('show_import_brands'),
+                "name"=>"Import Brands"
+            ]
+        ];
         return view("admin/brands/home",$data);
     }
     public function newBrands(Request $request){

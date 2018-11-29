@@ -23,6 +23,16 @@ class vendorsController extends Controller
     function index(){
         $data=[];
         $data["vendors"]=$this->vendors->paginate(10);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_vendor'),
+                "name"=>"Add Vendor"
+            ],
+            [
+                "url"=>route('show_import_vendor'),
+                "name"=>"Import Vendor"
+            ]
+        ];
         $data["page_title"]="Vendor Page";
         return view("admin/vendors/home",$data);
     }

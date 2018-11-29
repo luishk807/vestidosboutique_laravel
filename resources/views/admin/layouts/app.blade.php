@@ -114,6 +114,21 @@
             @endif
             <div class="row">
                 <div class="col">
+                <div class="container">
+                    @if(isset($page_submenus) && count($page_submenus)>0)
+                    <div class="row sub-menu">
+                            <div class="col text-center">
+                                <nav class="navbar navbar navbar-expand-lg">
+                                <ul class="navbar-nav">
+                                        @foreach($page_submenus as $submenu)
+                                            <li class="nav-item"><a href="{{ $submenu['url'] }}" class="nav-link">{{ $submenu['name'] }}</a></li>
+                                        @endforeach
+                                </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>

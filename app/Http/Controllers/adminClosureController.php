@@ -19,6 +19,16 @@ class adminClosureController extends Controller
         $data=[];
         $data["closures"]=$this->closures->all();
         $data["page_title"]="Closure Types";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_closure'),
+                "name"=>"Add Closure"
+            ],
+            [
+                "url"=>route('show_import_closure'),
+                "name"=>"Import Closure"
+            ]
+        ];
         return view("admin/closures/home",$data);
     }
     public function newClosures(Request $request){

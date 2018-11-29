@@ -19,6 +19,16 @@ class adminLengthController extends Controller
         $data=[];
         $data["lengths"]=$this->lengths->all();
         $data["page_title"]="Length Types";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_length'),
+                "name"=>"Add Length"
+            ],
+            [
+                "url"=>route('show_import_length'),
+                "name"=>"Import Length"
+            ]
+        ];
         return view("admin/lengths/home",$data);
     }
     public function newLengths(Request $request){

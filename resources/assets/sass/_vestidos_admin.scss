@@ -85,6 +85,73 @@ body,html{
     }
 }
 #admin-wrap{
+    .sub-menu .nav-link{
+        background-color: rgba(0,0,0,0.03);
+        margin: 0px 5px;
+        color: black;
+        border: 1px solid rgba(0,0,0,0.1);
+        font-size: .8rem;
+        padding: 8px 15px !important;
+        font-family: Arial;
+        font-weight: bold;
+        box-shadow: 0 0 3px rgba(0,0,0,0.1);
+        border-radius: 5px;
+    }
+    .shoplist-nav{
+        text-align: right;
+        margin: 10px;
+        & ul{
+            padding: 0px;
+            margin: 0px;
+            & li{
+                display: inline-block;
+                margin: 5px;
+            }
+        }
+    }
+    .container-title{
+        margin: 15px 0px;
+        font-weight: bold;
+        text-align: center;
+        & div{
+            text-align:center;
+        }
+        & div:first-child{
+            text-align:left;
+        }
+        & div:last-child{
+            text-align:right;
+        }
+    }
+    .container-data{
+        text-align: center;
+        margin: 10px 0px;
+        padding: 20px 0px;
+    
+        & div:first-child{
+            text-align:left;
+        }
+        & div:last-child{
+            text-align:right;
+        }
+        & .container-button a{
+            background-color: rgba(0,0,0,.02);
+            padding: 8px 10px;
+            color: black;
+            border-radius: 5px;
+            font-size: .9rem;
+            border: 1px solid rgba(0,0,0,.1);
+            font-family: arial;
+            &:hover{
+                text-decoration:none;
+                background-color:$main-vest-color-dark;
+                color:white;
+            }
+        }
+        & .row-even:nth-child(even){
+            background-color:rgba(0,0,0,.02);
+        }
+    }
     .dropdown-menu{
         border:$main_vest_color;
     }

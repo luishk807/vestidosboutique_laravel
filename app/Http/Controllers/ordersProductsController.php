@@ -38,6 +38,12 @@ class ordersProductsController extends Controller
     public function index($order_id){
         $data=[];
         $order = $this->orders->find($order_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_edit_order',['order_id'=>$order->id]),
+                "name"=>"Back to Previous"
+            ]
+        ];
         $data["order"]=$this->orders->find($order_id);
         $data["orders"]=$this->orders->all();
         $data["page_title"]=__('header.orders')." ".$order->order_number;

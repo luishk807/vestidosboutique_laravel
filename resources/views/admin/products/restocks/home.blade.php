@@ -2,18 +2,6 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
-                <li class="nav-item"><a href="{{ route('new_restock') }}" class="nav-link">Add Restock Data</a></li>
-            </ul>
-            </nav>
-            
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-2">Model</div>
         <div class="col-md-2">Color</div>

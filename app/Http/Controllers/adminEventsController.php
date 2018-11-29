@@ -16,6 +16,16 @@ class adminEventsController extends Controller
     public function index(){
         $data=[];
         $data["page_title"]="Events";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_event'),
+                "name"=>"Add Event"
+            ],
+            [
+                "url"=>route('show_import_event'),
+                "name"=>"Import Events"
+            ]
+        ];
         return view("admin/events/home",$data);
     }
     public function newevents(Request $request){

@@ -45,6 +45,22 @@ class adminProductController extends Controller
     function index(){
         $data=[];
         $data["products"]=$this->products->paginate(10);
+
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_product'),
+                "name"=>"Add Product Manually"
+            ],
+            [
+                "url"=>route('show_import_product'),
+                "name"=>"Add Product From File"
+            ],
+            [
+                "url"=>route('admin_restocks'),
+                "name"=>"Restock"
+            ]
+        ];
+
         $data["page_title"]="Product Page";
         return view("admin/products/home",$data);
     }
@@ -117,15 +133,38 @@ class adminProductController extends Controller
     }
     function editProduct($product_id, Request $request){
         $data=[];
-        
         $product = $this->products->find($product_id);
+        $sizes = $product->getAllSizesCount()[0];
+ 
+        $data["page_submenus"]=[
+            [
+            "url"=> route('admin_products'),
+            "name"=>"Back to Products"
+            ],
+            [
+                "url"=>route('admin_images',['product_id'=>$product_id]),
+                "name"=>"[".$product->images()->count()."] View Images"
+            ],
+            [
+                "url"=>route('admin_colors',['product_id'=>$product_id]),
+                "name"=>"[".$product->colors()->count()."] View Colors"
+            ],
+            [
+                "url"=>route('admin_sizes',['product_id'=>$product_id]),
+                "name"=>"[".$sizes->count."] View Sizes"
+            ],
+            [
+                "url"=>route('admin_rates',['product_id'=>$product_id]),
+                "name"=>"[".$product->rates()->count()."]  View Rates"
+            ]
+        ];
         $data["is_news"]=[0,1];
         $data["product_id"]=$product_id;
         $data["product"]=$product;
         $data["page_title"]="Edit Product: ".$product->products_name;
         $data["lengths"]=$this->lengths->all();
         $data["closures"]=$this->closures->all();
-        $data["sizes"]=$product->getAllSizesCount()[0];
+        $data["sizes"]=$sizes;
         $data["fabrics"]=$this->fabrics->all();
         $data["vendors"]=$this->vendors->all();
         $data["necklines"]=$this->necklines->all();
@@ -405,6 +444,21 @@ class adminProductController extends Controller
     public function showRestock(){
         $data=[];
         $data["restocks"]=$this->restocks->all();
+        
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin'),
+                "name"=>"Home"
+            ],
+            [
+                "url"=>route('admin_products'),
+                "name"=>"Back to Products"
+            ],
+            [
+                "url"=>route('new_restock'),
+                "name"=>"Add Restock Data"
+            ]
+        ];
         $data["page_title"]="Restock Data";
         return view("admin/products/restocks/home",$data);
     }

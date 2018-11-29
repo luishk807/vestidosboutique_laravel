@@ -30,12 +30,32 @@ class adminUsersController extends Controller
         $data["addresses"]=$user->getAddresses()->get();
         $data["user"]=$user;
         $data["user_id"]=$user_id;
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_edituser',['user_id'=>$user_id]),
+                "name"=>"Back to Edit"
+            ],
+            [
+                "url"=>route('admin_newaddress',['user_id'=>$user_id]),
+                "name"=>"Add Address"
+            ]
+        ];
         $data["page_title"]="Address Page For ".$user->getFullName();
         return view("admin/users/addresses/home",$data);
     }
     public function index(){
         $data = [];
         $data["page_title"]="Users";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_newuser'),
+                "name"=>"Add User"
+            ],
+            [
+                "url"=>route('show_import_adminuser'),
+                "name"=>"Import User"
+            ]
+        ];
         $data["users"]=$this->users->paginate(10);
         return view("admin/users/home",$data);
     }
@@ -92,6 +112,16 @@ class adminUsersController extends Controller
         $data=[];
         $user = $this->users->find($user_id);
         $data["user"]=$user;
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_users'),
+                "name"=>"Back to Users"
+            ],
+            [
+                "url"=>route('admin_address',['user_id'=>$user_id]),
+                "name"=>"[".$user->getAddresses()->count()."] View Address"
+            ]
+        ];
         $data["page_title"]="Edit Info For ".$user->first_name;
         $data["user_id"]=$user_id;
         $data["user_types"]=$this->user_types->all();

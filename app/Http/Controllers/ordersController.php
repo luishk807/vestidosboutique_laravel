@@ -57,6 +57,12 @@ class ordersController extends Controller
     public function index(){
         $data=[];
         $data["orders"]=$this->orders->orderBy('created_at','desc')->paginate(10);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_new_order'),
+                "name"=>"Add Order"
+            ]
+        ];
         $data["page_title"]=__('header.orders');
         return view("admin/orders/home",$data);
     }
@@ -107,6 +113,20 @@ class ordersController extends Controller
     public function editOrder($order_id){
         $data=[];
         $order =$this->orders->find($order_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_orders'),
+                "name"=>"Back to Orders"
+            ],
+            [
+                "url"=>route('admin_order_products',['order_id'=>$order_id]),
+                "name"=>"[".$order->products()->count()."] View products"
+            ],
+            [
+                "url"=>route('admin_show_order_payment',['order_id'=>$order_id]),
+                "name"=>"Re-process Payment"
+            ]
+        ];
         $data["order"]=$order;
         $data["order_id"]=$order_id;
       

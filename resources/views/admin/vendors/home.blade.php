@@ -2,17 +2,6 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_vendor') }}" class="nav-link">Add Vendor</a></li>
-                <li class="nav-item"><a href="{{ route('show_import_vendor') }}" class="nav-link">Import Vendor</a></li>
-            </ul>
-            </nav>
-            
-        </div>
-    </div>
-    <div class="row">
         <div class="col">
             <div class="shoplist-nav">
                 <ul>

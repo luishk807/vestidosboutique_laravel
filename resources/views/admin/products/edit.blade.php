@@ -1,21 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_images',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->images()->count() }}] View Images</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_colors',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->colors()->count() }}] View Colors</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_sizes',['product_id'=>$product_id]) }}" class="nav-link">[{{ $sizes->count }}] View Sizes</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_rates',['product_id'=>$product_id]) }}" class="nav-link">[{{ $product->rates()->count() }}] View Rates</a></li>
-                </ul>
-            </nav>
-            
-        </div>
-    </div>
-</div>
 <form action="{{ route('save_product',['product_id'=>$product_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">

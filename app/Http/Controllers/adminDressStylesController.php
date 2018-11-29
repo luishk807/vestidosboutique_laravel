@@ -19,6 +19,16 @@ class adminDressStylesController extends Controller
         $data=[];
         $data["dressstyles"]=$this->dressstyles->all();
         $data["page_title"]="Dress Styles";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_dressstyle'),
+                "name"=>"Add Dress Style"
+            ],
+            [
+                "url"=>route('show_import_dressstyle'),
+                "name"=>"Import Dress Style"
+            ]
+        ];
         return view("admin/dress_styles/home",$data);
     }
     public function newDressStyles(Request $request){
