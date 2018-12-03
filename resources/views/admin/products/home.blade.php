@@ -28,7 +28,7 @@
     </div>
     @foreach($products as $product)
     <div class="row container-data row-even">
-        <div class="col-md-1"><input  class="form-control" type="checkbox" name="products[]" value="{{ $product->id }}"></div>
+        <div class="col-md-1"><input  class="form-control" type="checkbox" name="product_ids[]" value="{{ $product->id }}"></div>
         <div class="col-md-2"><img src="
         @if($product->images->count()>0)
             {{asset('images/products')}}/{{$product->images->first()->img_url}}

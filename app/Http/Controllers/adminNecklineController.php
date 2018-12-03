@@ -17,6 +17,16 @@ class adminNecklineController extends Controller
     }
     public function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_neckline'),
+                "name"=>"Add Neckline Type"
+            ],
+            [
+                "url"=>route('show_import_neckline'),
+                "name"=>"Import Necklines"
+            ]
+        ];
         $data["necklines"]=$this->necklines->all();
         $data["page_title"]="Necklines";
         return view("admin/necklines/home",$data);

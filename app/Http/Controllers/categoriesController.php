@@ -15,6 +15,16 @@ class categoriesController extends Controller
     }
     public function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_category'),
+                "name"=>"Add Category"
+            ],
+            [
+                "url"=>route('show_import_category'),
+                "name"=>"Import Categories"
+            ]
+        ];
         $data["page_title"]="Categories";
         return view("admin/categories/home",$data);
     }

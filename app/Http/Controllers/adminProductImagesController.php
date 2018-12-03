@@ -23,6 +23,17 @@ class adminProductImagesController extends Controller
     public function index($product_id){
         $data=[];
         $product=$this->products->find($product_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_image',['product_id'=>$product_id]),
+                "name"=>"Add Image"
+            ],
+            [
+                "url"=>route('show_import_image',['product_id'=>$product_id]),
+                "name"=>"Import Image"
+            ]
+        ];
+
         $data["product_id"]=$product->id;
         $data["images"]=$product->images()->get();
         $data["page_title"]="Images For ".$product->products_name;

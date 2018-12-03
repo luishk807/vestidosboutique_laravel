@@ -22,6 +22,20 @@ class adminProductRatesController extends Controller
     public function index($product_id){
         $data=[];
         $product=$this->products->find($product_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin'),
+                "name"=>"Home"
+            ],
+            [
+                "url"=>route('edit_product',['product_id'=>$product_id]),
+                "name"=>"Back to Edit"
+            ],
+            [
+                "url"=>route('new_rate',['product_id'=>$product_id]),
+                "name"=>"Add Product Rate"
+            ]
+        ];
         $data["rates"]=$product->rates()->get();
         $data["page_title"]="Rates For ".$product->products_name;
         $data["product_id"]=$product_id;

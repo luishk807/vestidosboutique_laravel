@@ -18,6 +18,16 @@ class adminProductTypesController extends Controller
     }
     public function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_product_type'),
+                "name"=>"Add Product Type"
+            ],
+            [
+                "url"=>route('show_import_product_type'),
+                "name"=>"Import Product Types"
+            ]
+        ];
         $data["page_title"]="ProductTypes";
         return view("admin/product_types/home",$data);
     }

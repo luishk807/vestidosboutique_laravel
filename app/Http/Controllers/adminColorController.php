@@ -22,6 +22,25 @@ class adminColorController extends Controller
     public function index($product_id){
         $data =[];
         $product=$this->products->find($product_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin'),
+                "name"=>"Home"
+            ],
+            [
+                "url"=>route('admin_products'),
+                "name"=>"Back to Products"
+            ],
+            [
+                "url"=>route('new_color',['product_id'=>$product_id]),
+                "name"=>"Add Color"
+            ],
+            [
+                "url"=>route('show_import_color',['product_id'=>$product_id]),
+                "name"=>"Import Color"
+            ]
+        ];
+
         $data["page_title"]="Colors For Product: ".$product->products_name;
         $data["product_id"]=$product_id;
         $data["colors"]=$product->colors()->get();

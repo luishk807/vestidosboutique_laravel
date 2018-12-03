@@ -275,6 +275,12 @@ class adminProductController extends Controller
 
     public function showTopDress(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_top_dress'),
+                "name"=>"Select Top Dresses"
+            ]
+        ];
         $data["products"]=$this->products->where("top_dress","=","1")->get();
         $data["page_title"]="Top Dresses";
         return view("/admin/home_config/top_dresses/home",$data);
@@ -303,6 +309,12 @@ class adminProductController extends Controller
     }
     public function showTopQuince(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_top_quince'),
+                "name"=>"Select Top Quince"
+            ]
+        ];
         $data["products"]=$this->products->where("top_quince","=","1")->get();
         $data["page_title"]="Top Quince";
         return view("/admin/home_config/top_quince/home",$data);

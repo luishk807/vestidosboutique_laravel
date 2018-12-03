@@ -22,6 +22,12 @@ class adminPaymentTypesController extends Controller
     }
     function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_payment'),
+                "name"=>"Add Payment Types"
+            ]
+        ];
         $data["payment_types"]=$this->payment_types->all();
         $data["page_title"]="Payment Page";
         return view("admin/payment_types/home",$data);

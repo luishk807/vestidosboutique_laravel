@@ -21,6 +21,12 @@ class adminConfigSectionMainSliders extends Controller
     }
     public function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_main_slider'),
+                "name"=>"Add Slider"
+            ]
+        ];
         $data["main_sliders"]=$this->main_sliders->all();
         $data["page_title"]="Main Slider";
         return view("/admin/home_config/main_sliders/home",$data);

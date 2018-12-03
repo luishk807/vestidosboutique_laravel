@@ -21,6 +21,12 @@ class adminConfigShopBannerController extends Controller
     }
     public function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+            "url"=>route('new_shop_banner'),
+            "name"=>"Add Banner"
+            ]
+        ];
         $data["shop_banners"]=$this->shop_banners->all();
         $data["page_title"]="Shop Banners";
         return view("/admin/home_config/shop_banners/home",$data);

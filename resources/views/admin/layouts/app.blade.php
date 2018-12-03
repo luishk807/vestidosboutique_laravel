@@ -27,8 +27,8 @@
     }
     </style>
 </head>
-<body>
-    <div id="admin-wrap" class="main_body_height">
+<body id="admin-wrap" >
+    <div class="main_body_height">
         <nav class="navbar navbar-expand-md navbar-dark bg-vestidos-admin">
             <a class="navbar-brand" href="{{ route('admin') }}">{{ __('header.admin_login') }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

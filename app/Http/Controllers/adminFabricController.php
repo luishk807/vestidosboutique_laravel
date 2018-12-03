@@ -17,6 +17,16 @@ class adminFabricController extends Controller
     }
     public function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_fabric'),
+                "name"=>"Add Fabric"
+            ],
+            [
+                "url"=>route('show_import_fabrics'),
+                "name"=>"Import Fabrics"
+            ]
+        ];
         $data["fabrics"]=$this->fabrics->all();
         $data["page_title"]="Fabrics";
         return view("admin/fabrics/home",$data);

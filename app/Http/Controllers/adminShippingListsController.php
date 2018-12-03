@@ -20,6 +20,12 @@ class adminShippingListsController extends Controller
     }
     function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_shipping_list'),
+                "name"=>"Add Shipping Lists"
+            ]
+        ];
         $data["shipping_lists"]=$this->shipping_lists->all();
         $data["page_title"]="Shipping List Page";
         return view("admin/shipping_lists/home",$data);
