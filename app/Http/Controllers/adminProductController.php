@@ -60,7 +60,7 @@ class adminProductController extends Controller
                 "name"=>"Restock"
             ]
         ];
-
+        $data["delete_menu"] =route('confirm_delete_products');
         $data["page_title"]="Product Page";
         return view("admin/products/home",$data);
     }
@@ -262,6 +262,39 @@ class adminProductController extends Controller
         $data["product"]=$this->products->find($product_id);
         $data["page_title"]="Delete Product";
         return view("admin/products/confirm",$data);
+    }
+    public function deleteConfirmProducts(Request $request){
+        $product_ids = $request["product_ids"];
+        $custom_message = [
+            'required'=>"Please select a product"
+        ];
+        $this->validate($request,[
+            "product_ids"=>"required",
+        ],$custom_message);
+        $products = $this->products->getProductsByIds($product_ids);
+        $data["confirm_data"] = $products;
+        $data["confirm_delete_url"]=route('delete_products');
+        $data["page_title"]="Confirm products for deletion";
+        return view('admin/confirm_delete',$data);
+    }
+    public function deleteProducts(Request $request){
+        $this->validate($request,[
+            "product_ids"=>"required",
+        ],[
+            'required'=>"Please select a product"
+        ]);
+            $product_ids = $request["product_ids"];
+            //dd($product_ids);
+            foreach($product_ids as $product){
+                $product = $this->products->find($product_id);
+                $img_path =public_path().'/images/products/'.$image->img_url;
+                if(file_exists($img_path)){
+                    @unlink($img_path);
+                }
+                $product->delete();
+            }
+            return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
+
     }
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");

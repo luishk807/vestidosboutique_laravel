@@ -150,6 +150,24 @@ class vestidosProducts extends Model
         ->where("vestidos_products.id",$this->getKey())
         ->get();
     }
+    public function getProductsByIds($ids){
+       $id_list =[];
+        foreach($ids as $id){
+            $id_list[]=$id;
+        }
+
+        $products = DB::table("vestidos_products")
+        ->select("vestidos_products.*",
+        DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_url'),
+        DB::raw('(select img_name from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_name')
+        ,"brands.name as brand_name","category.name as category_name")->join("vestidos_product_events","product_id","vestidos_products.id")
+        ->join("vestidos_brands as brands","brands.id","vestidos_products.brand_id")
+        ->join("vestidos_categories as category","category.id","vestidos_products.category_id")
+        ->whereIn('vestidos_products.id',$id_list)
+        ->get();
+       // dd($products);
+        return $products;
+    }
     public function getPopularProduct(){
         $this_year = date("Y");
         $start_date = $this_year."-01-01 00:00:00";

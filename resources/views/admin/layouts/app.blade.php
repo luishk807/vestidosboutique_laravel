@@ -123,6 +123,9 @@
                                         @foreach($page_submenus as $submenu)
                                             <li class="nav-item"><a href="{{ $submenu['url'] }}" class="nav-link">{{ $submenu['name'] }}</a></li>
                                         @endforeach
+                                        @if(isset($delete_menu))
+                                            <li class="nav-item"><a href="" class="nav-link delete_button">Delete Selected</a></li>
+                                        @endif
                                 </ul>
                                 </nav>
                             </div>

@@ -1,6 +1,18 @@
 @extends('admin/layouts.app')
 @section('content')
+<script>
+$(document).ready(function(){
+    $('.delete_button').click(function(event) {
+        event.preventDefault();
+        $("#custom_home_form").submit();
+    });
+})
+</script>
 <div class="container">
+    <form id="custom_home_form" method="post" action="
+        @if(isset($delete_menu)) 
+            {{ $delete_menu }}
+        @endif">
     <div class="row">
         <div class="col">
             <div class="shoplist-nav">
@@ -15,7 +27,7 @@
                 </ul>
             </div><!--end of nav container-->
         </div>
-    </div>
+    </div>-
     <div class="row container-title">
         <div class="col-md-1"></div>
         <div class="col-md-2">Image</div>
@@ -62,5 +74,6 @@
             </div><!--end of nav container-->
         </div>
     </div>
+    </form>
 </div>
 @endsection
