@@ -148,6 +148,12 @@ class ordersController extends Controller
             $session=Session::get("vestidos_admin_shop");
             $user = $this->users->find($session["user_id"]);
         }
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_newaddress',['user_id'=>$user->id]),
+                "name"=>"Add New Address"
+            ]
+        ];
         $data["user"]=$user;
         $data["shipping_lists"]=$this->shipping_lists->all();
         $data["address_types"]=$this->address_types->all();

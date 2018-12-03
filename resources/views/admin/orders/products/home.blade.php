@@ -7,7 +7,7 @@
             <input class="admin-btn" type="submit" value="Save Product">
         </div>
     </div>
-    <div class="row">
+    <div class="row container-title">
         <div class="col-md-1"></div>
         <div class="col-md-5">Description</div>
         <div class="col-md-1">Qty</div>
@@ -15,7 +15,7 @@
         <div class="col-md-3">Status</div>
     </div>
     @foreach($order->products()->get() as $indexKey=>$order_product)
-    <div class="row">
+    <div class="row container-data row-even">
         <div class="col-md-1"><input type="checkbox" class="custom-checkbox" name="order_product[{{$indexKey}}][id]" value="{{ $order_product->id}}"></div>
         <div class="col-md-5">
             <div class="container">

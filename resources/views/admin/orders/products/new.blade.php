@@ -10,13 +10,13 @@
 </style>
 <script>
 var urlColorSizes = "{{ url('api/loadSizes') }}";
-var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
+var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
 </script>
 <form action="{{ route('admin_create_order_products') }}" method="post">
 {{ csrf_field() }}
 
     <div class="container">
-        <div class="row">
+        <div class="row container-title">
             <div class="col-md-1">
             </div>
             <div class="col-md-2">
@@ -39,7 +39,7 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
             </div>
         </div>
         @foreach($products as $indexKey=>$product)
-        <div class="row">
+        <div class="row container-data row-even">
             <div class="col-md-1">
                 <input type="checkbox" name="order_products[{{$indexKey}}][product_id]" id="productcheck{{$indexKey}}" value="{{ $product->id }}">
             </div>
@@ -64,7 +64,7 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
                 </select>
             </div>
             <div class="col-md-2">
-                <select class="custom-select" id="size_drop_{{ $indexKey }}" onChange="loadSizeDropDown(this.value,'{{ $indexKey }}')" name="order_products[{{$indexKey}}][size]">
+                <select class="custom-select" id="size_drop_{{ $indexKey }}" onChange="loadSizeDropDownArray(this.value,'{{ $indexKey }}')" name="order_products[{{$indexKey}}][size]">
                     <option value="">Select Size</option>
                 </select>
             </div>
@@ -76,7 +76,7 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
                 </select>
             </div>
             <div class="col-md-2">
-                {{$product->total_sale}}
+                <span id="admin_new_order_total">{{$product->total_sale}}</span>
             </div>
         </div>
         @endforeach
@@ -92,4 +92,5 @@ var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
         </div>
     </div>
 </form>
+</div>
 @endsection

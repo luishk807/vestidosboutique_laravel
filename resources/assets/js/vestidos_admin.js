@@ -92,6 +92,29 @@ function loadSizeDropDown(size,ind){
         });
     }
 }
+function loadSizeDropDownArray(size,ind){
+    if(typeof urlProductQuantityArray !== "undefined"){
+        $.ajax({
+            type: "GET",
+            url: urlProductQuantityArray,
+            data: {
+                data:size
+            },
+            success: function(data) {
+                var total_size = 0;
+                total_size = data["stock"] > 10 ? 10 : data["stock"];
+                var product_quantity = $("#quantity_drop_"+ind);
+                product_quantity.empty();
+                $("#admin_new_order_total").text("");
+                $("#admin_new_order_total").text("$"+data["total"]);
+                for(var i=0;i<total_size;i++){
+                    var data_index =i+1;
+                    product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
+                }
+            }
+        });
+    }
+}
 function switchDistrictsDropByIndex(indx){
     var getLoadDistrictsUrl = $("#loadDistrictUrl").val();
     $.ajax({
