@@ -1,6 +1,7 @@
 @extends('admin/layouts.app')
 @section('content')
 <form action="{{ $confirm_delete_url }}" method="post">
+{{ method_field('DELETE') }}
 <div class="container">
     <div class="row container-title">
         <div class="col-md-1"></div>

@@ -25,6 +25,20 @@ class adminSizesController extends Controller
     }
     public function index($product_id){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('edit_product',['product_id'=>$product_id]),
+                "name"=>"Back to Product"
+            ],
+            [
+                "url"=>route('new_size',['product_id'=>$product_id]),
+                "name"=>"Add Product Size"
+            ],
+            [
+                "url"=>route('show_import_size',['product_id'=>$product_id]),
+                "name"=>"Import Size"
+            ]
+        ];
         $product = $this->products->find($product_id);
         $data["sizes"]=$product->getAllSizes();
         $data["product_id"]=$product_id;

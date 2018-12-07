@@ -272,7 +272,8 @@
                 Route::get('/confirm/{product_id}','adminProductController@deleteProduct')->name('confirm_product');
                 Route::delete('/confirm/{product_id}','adminProductController@deleteProduct')->name('delete_product');
                 Route::post('/confirm_products','adminProductController@deleteConfirmProducts')->name('confirm_delete_products');
-                Route::post('/delete_products','adminProductController@deleteProducts')->name('delete_products');
+                Route::get('/show_confirm_products','adminProductController@showConfirmProducts')->name('show_delete_products');
+                Route::delete('/show_confirm_products','adminProductController@deleteProducts')->name('delete_products');
                 Route::get('/new','adminProductController@newProducts')->name('new_product');
                 Route::post('/create','adminProductController@createProduct')->name('create_product');
                 Route::get('/edit/{product_id}','adminProductController@editProduct')->name('edit_product');

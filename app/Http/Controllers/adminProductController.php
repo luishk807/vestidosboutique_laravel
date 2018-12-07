@@ -87,10 +87,9 @@ class adminProductController extends Controller
             'purchase_date'=>"required",
             "neckline"=>"required",
             "products_description"=>"required",
-            "total_rent"=>"required",
         ]);
         
-        $categories = $request->input("categories");
+        $events = $request->input("events");
 
         $data["products_name"]=$request->input("products_name");
         $data["brand"]=(int)$request->input("brand");
@@ -118,11 +117,11 @@ class adminProductController extends Controller
         $product = Products::create($data);
         if($product->id){
             $catData = [];
-            if(count($categories)>0){
-                foreach($categories as $category){
-                    $this->product_categories->insert([
+            if(count($events)>0){
+                foreach($events as $event){
+                    $this->product_events->insert([
                         "product_id"=>$product->id,
-                        "category_id"=>$category,
+                        "event_id"=>$event,
                         "created_at"=>carbon::now()
                     ]);
                 }
@@ -273,27 +272,34 @@ class adminProductController extends Controller
         ],$custom_message);
         $products = $this->products->getProductsByIds($product_ids);
         $data["confirm_data"] = $products;
-        $data["confirm_delete_url"]=route('delete_products');
-        $data["page_title"]="Confirm products for deletion";
-        return view('admin/confirm_delete',$data);
+        return redirect()->route('show_delete_products',$data);
+    }
+    public function showConfirmProducts(Request $request){
+        dd($request);
     }
     public function deleteProducts(Request $request){
-        $this->validate($request,[
-            "product_ids"=>"required",
-        ],[
-            'required'=>"Please select a product"
-        ]);
-            $product_ids = $request["product_ids"];
-            //dd($product_ids);
-            foreach($product_ids as $product){
-                $product = $this->products->find($product_id);
-                $img_path =public_path().'/images/products/'.$image->img_url;
-                if(file_exists($img_path)){
-                    @unlink($img_path);
+        if($request->input("_method")=="DELETE"){
+            $this->validate($request,[
+                "product_ids"=>"required",
+            ],[
+                'required'=>"Please select a product"
+            ]);
+                $product_ids = $request["product_ids"];
+                //dd($product_ids);
+                foreach($product_ids as $product){
+                    echo $product;
+                  //  $product = $this->products->find($product_id);
+                    // $img_path =public_path().'/images/products/'.$image->img_url;
+                    // if(file_exists($img_path)){
+                    //     @unlink($img_path);
+                    // }
+                    // $product->delete();
                 }
-                $product->delete();
-            }
-            return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
+             //   return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
+         }
+         $data["confirm_delete_url"]=route('delete_products');
+        $data["page_title"]="Confirm products for deletion";
+        return view("admin/confirm_delete",$data);
 
     }
     public function searchByFilter(Request $request){

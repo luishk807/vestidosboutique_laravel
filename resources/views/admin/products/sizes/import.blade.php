@@ -8,9 +8,11 @@
 {{ csrf_field() }}
     <div class="form-group">
         <small class="error">
+            <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
+            </ul>
         </small>
     </div>
     <input type="hidden" name="product_id" value="{{ $product_id }}">
@@ -31,4 +33,5 @@
         </div>
     </div>
 </form>
+</div>
 @endsection

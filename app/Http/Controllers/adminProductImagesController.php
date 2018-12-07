@@ -25,6 +25,10 @@ class adminProductImagesController extends Controller
         $product=$this->products->find($product_id);
         $data["page_submenus"]=[
             [
+                "url"=>route('edit_product',['product_id'=>$product_id]),
+                "name"=>"Back to Product"
+            ],
+            [
                 "url"=>route('new_image',['product_id'=>$product_id]),
                 "name"=>"Add Image"
             ],

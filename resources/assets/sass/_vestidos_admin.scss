@@ -85,6 +85,17 @@ body,html{
     }
 }
 #admin-wrap{
+    .custom-ul{
+        -moz-column-count: 4;
+        -moz-column-gap: 20px;
+        -webkit-column-count: 4;
+        -webkit-column-gap: 20px;
+        column-count: 4;
+        column-gap: 20px;
+        list-style-type: none;
+        padding: 0px;
+        margin: 5px 0px;
+    }
     .sub-menu .nav-link{
         background-color: rgba(0,0,0,0.03);
         margin: 0px 5px;
