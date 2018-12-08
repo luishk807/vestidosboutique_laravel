@@ -92,5 +92,4 @@ var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
         </div>
     </div>
 </form>
-</div>
 @endsection
