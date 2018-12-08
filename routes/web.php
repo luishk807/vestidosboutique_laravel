@@ -146,8 +146,8 @@
                     Route::post('/edit/{payment_id}','adminPaymentTypesController@savePayment')->name('save_payment');
                     Route::get('/confirm/{payment_id}','adminPaymentTypesController@showDeletePayment')->name('confirm_payment');
                     Route::delete('/confirm/{payment_id}','adminPaymentTypesController@deletePayment')->name('delete_payment');
-                    Route::post('/confirm_payment_types','adminPaymentTypesController@deleteConfirmPaymentTypes')->name('confirm_delete_payment_types');
-                    Route::delete('/show_confirm_payment_types','adminPaymentTypesController@deletePaymentTypes')->name('delete_payment_types');
+                    Route::post('/confirm_payment_types','adminPaymentTypesController@deleteConfirmPayments')->name('confirm_delete_payments');
+                    Route::delete('/show_confirm_payment_types','adminPaymentTypesController@deletePayments')->name('delete_payments');
                 });
                 //Admin Shipping list
                 Route::prefix("shipping_lists")->group(function(){
