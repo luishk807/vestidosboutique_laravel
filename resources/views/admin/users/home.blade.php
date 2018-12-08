@@ -29,7 +29,7 @@
     </div>
     @foreach($users as $user)
     <div class="row container-data row-even">
-        <div class="col-md-1"></div>
+        <div class="col-md-1"><input  class="form-control" type="checkbox" name="user_ids[]" value="{{ $user->id }}"></div>
         <div class="col-md-2">{{$user->getFullName()}}</div>
         <div class="col-md-3">{{$user->email}}</div>
         <div class="col-md-2">{{ $user->getStatusName->name }}</div>

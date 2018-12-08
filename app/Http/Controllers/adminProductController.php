@@ -265,12 +265,15 @@ class adminProductController extends Controller
     public function deleteConfirmProducts(Request $request){
         $product_ids = $request["product_ids"];
         $custom_message = [
-            'required'=>"Please select a product"
+            'required'=>"Please select a item to delete"
         ];
         $this->validate($request,[
             "product_ids"=>"required",
         ],$custom_message);
         $products = $this->products->getProductsByIds($product_ids);
+        $data["confirm_type"] = "img";
+        $data["confirm_return"] = route("admin_products");
+        $data["confirm_name"] = "Products";
         $data["confirm_data"] = $products;
         $data["confirm_delete_url"]=route('delete_products');
         $data["page_title"]="Confirm products for deletion";
@@ -279,11 +282,11 @@ class adminProductController extends Controller
     public function deleteProducts(Request $request){
     
             $this->validate($request,[
-                "product_ids"=>"required",
+                "item_ids"=>"required",
             ],[
-                'required'=>"Please select a product"
+                'required'=>"Please select a item to delete"
             ]);
-                $product_ids = $request["product_ids"];
+                $product_ids = $request["item_ids"];
                 foreach($product_ids as $product){
                    $product = $this->products->find($product);
                    foreach($product->images as $image){

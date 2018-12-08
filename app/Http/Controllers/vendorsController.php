@@ -140,12 +140,15 @@ class vendorsController extends Controller
     public function deleteConfirmVendors(Request $request){
         $vendor_ids = $request["vendor_ids"];
         $custom_message = [
-            'required'=>"Please select a vendor"
+            'required'=>"Please select a item to delete"
         ];
         $this->validate($request,[
             "vendor_ids"=>"required",
         ],$custom_message);
         $vendors = $this->vendors->getVendorsByIds($vendor_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_vendors");
+        $data["confirm_name"] = "Vendors";
         $data["confirm_data"] = $vendors;
         $data["confirm_delete_url"]=route('delete_vendors');
         $data["page_title"]="Confirm vendors for deletion";
@@ -154,14 +157,14 @@ class vendorsController extends Controller
     public function deleteVendors(Request $request){
     
             $this->validate($request,[
-                "vendor_ids"=>"required",
+                "item_ids"=>"required",
             ],[
-                'required'=>"Please select a vendor"
+                'required'=>"Please select a item to delete"
             ]);
-                $vendor_ids = $request["vendor_ids"];
+                $vendor_ids = $request["item_ids"];
                 foreach($vendor_ids as $vendor){
                    $vendor = $this->vendors->find($vendor);
-                   $vendor->delete();
+                    $vendor->delete();
                 }
                return redirect()->route("admin_vendors")->with('success','Vendors Deleted successfully.');
     }

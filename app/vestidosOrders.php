@@ -98,10 +98,12 @@ class vestidosOrders extends Model
          foreach($ids as $id){
              $id_list[]=$id;
          }
-         $products = DB::table("vestidos_orders")
-         ->select("vestidos_orders.*")
-         ->whereIn('vestidos_orders.id',$id_list)
-         ->groupBy("vestidos_orders.id")
+         $products = DB::table("vestidos_orders as order")
+         ->select("order.id as id","order.order_number as col_1","order.purchase_date as col_2","user.first_name as col_3","status.name as col_4")
+         ->whereIn('order.id',$id_list)
+         ->join("vestidos_users as user","user.id","order.user_id")
+         ->join("vestidos_statuses as status","status.id","order.status")
+         ->groupBy("order.id")
          ->get();
          return $products;
      }

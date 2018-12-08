@@ -45,6 +45,7 @@ class adminUsersController extends Controller
     }
     public function index(){
         $data = [];
+        $data["delete_menu"] =route('confirm_delete_users');
         $data["page_title"]="Users";
         $data["page_submenus"]=[
             [
@@ -290,7 +291,37 @@ class adminUsersController extends Controller
             redirect()->back();
         }
     }
+    public function deleteConfirmUsers(Request $request){
+        $user_ids = $request["user_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "user_ids"=>"required",
+        ],$custom_message);
+        $users = $this->users->getUsersByIds($user_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_users");
+        $data["confirm_name"] = "Users";
+        $data["confirm_data"] = $users;
+        $data["confirm_delete_url"]=route('delete_users');
+        $data["page_title"]="Confirm users for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteUsers(Request $request){
     
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $user_ids = $request["item_ids"];
+                foreach($user_ids as $user){
+                   $user = $this->users->find($user);
+                    $user->delete();
+                }
+               return redirect()->route("admin_users")->with('success','Users Deleted successfully.');
+    }
     public function deleteUser($user_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){

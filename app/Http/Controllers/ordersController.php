@@ -63,6 +63,7 @@ class ordersController extends Controller
                 "name"=>"Add Order"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_orders');
         $data["page_title"]=__('header.orders');
         return view("admin/orders/home",$data);
     }
@@ -752,5 +753,36 @@ class ordersController extends Controller
             return redirect()->route("admin_orders")->with('success',__('general.order_section.order_success_deleted'));
         }
         return redirect()->route("admin_orders")->with('error',__('general.order_section.unable_delete'));
+    }
+    public function deleteConfirmOrders(Request $request){
+        $order_ids = $request["order_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "order_ids"=>"required",
+        ],$custom_message);
+        $orders = $this->orders->getOrdersByIds($order_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_orders");
+        $data["confirm_name"] = "Orders";
+        $data["confirm_data"] = $orders;
+        $data["confirm_delete_url"]=route('delete_orders');
+        $data["page_title"]="Confirm orders for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteOrders(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $order_ids = $request["item_ids"];
+                foreach($order_ids as $order){
+                   $order = $this->orders->find($order);
+                    $order->delete();
+                }
+               return redirect()->route("admin_orders")->with('success','Orders Deleted successfully.');
     }
 }

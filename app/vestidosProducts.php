@@ -157,10 +157,10 @@ class vestidosProducts extends Model
         }
 
         $products = DB::table("vestidos_products")
-        ->select("vestidos_products.*",
-        DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_url'),
-        DB::raw('(select img_name from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_name')
-        ,"brands.name as brand_name","category.name as category_name")->join("vestidos_product_events","product_id","vestidos_products.id")
+        ->select("vestidos_products.products_name as col_2","vestidos_products.id as id",
+        DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as col_1')
+        ,"brands.name as col_3","category.name as col_4")
+        ->join("vestidos_product_events","product_id","vestidos_products.id")
         ->join("vestidos_brands as brands","brands.id","vestidos_products.brand_id")
         ->join("vestidos_categories as category","category.id","vestidos_products.category_id")
         ->whereIn('vestidos_products.id',$id_list)

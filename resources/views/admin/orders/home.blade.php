@@ -37,7 +37,8 @@
     <!--start of orders-->
     @foreach($orders as $order)
     <div class="row admin_orders_row">
-        <div class="col">
+        <div class="col-md-1"><input  class="form-control" type="checkbox" name="order_ids[]" value="{{ $order->id }}"></div>
+        <div class="col-md-11">
             <div class="row py-3 order_admin_header">
                 <div class="col">
                     <div class="row">
