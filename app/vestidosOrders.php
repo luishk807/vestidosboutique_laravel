@@ -93,7 +93,18 @@ class vestidosOrders extends Model
 
        return $order_arrays;
     }
-
+    public function getOrdersByIds($ids){
+        $id_list =[];
+         foreach($ids as $id){
+             $id_list[]=$id;
+         }
+         $products = DB::table("vestidos_orders")
+         ->select("vestidos_orders.*")
+         ->whereIn('vestidos_orders.id',$id_list)
+         ->groupBy("vestidos_orders.id")
+         ->get();
+         return $products;
+     }
     public function getTotalOrderWeek(){
         $order_week = DB::table('vestidos_orders as order')
         ->select(DB::raw("COUNT(*) as count"),DB::raw("WEEKDAY(purchase_date) as week"))

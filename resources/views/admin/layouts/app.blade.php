@@ -132,7 +132,13 @@
                         </div>
                     </div>
                     @endif
+                    <form id="custom_home_form" method="post" action="
+                        @if(isset($delete_menu)) 
+                            {{ $delete_menu }}
+                        @endif">
+                    <div class="row">
                     @yield('content')
+                    </form>
                 </div>
             </div>
         </div>

@@ -111,7 +111,18 @@ class vestidosUsers extends Authenticatable
         ->get();
         return $users;
     }
-
+    public function getUsersByIds($ids){
+        $id_list =[];
+         foreach($ids as $id){
+             $id_list[]=$id;
+         }
+         $products = DB::table("vestidos_users")
+         ->select("vestidos_users.*")
+         ->whereIn('vestidos_users.id',$id_list)
+         ->groupBy("vestidos_users.id")
+         ->get();
+         return $products;
+     }
     public function getRangeAges(){
         $user=[];
         $range = 18;

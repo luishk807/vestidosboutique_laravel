@@ -151,6 +151,10 @@ function switchCorregimientosDropByIndex(indx){
     });
 }
 $(document).ready(function() {
+    $('.delete_button').click(function(event) {
+        event.preventDefault();
+        $("#custom_home_form").submit();
+    });
     $('.no-submit').on('click', function(e) {
         // Prevent the default action of the clicked item. In this case that is submit
         e.preventDefault();
