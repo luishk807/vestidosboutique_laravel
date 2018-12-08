@@ -39,6 +39,7 @@ class adminSizesController extends Controller
                 "name"=>"Import Size"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_sizes');
         $product = $this->products->find($product_id);
         $data["sizes"]=$product->getAllSizes();
         $data["product_id"]=$product_id;
@@ -196,5 +197,36 @@ class adminSizesController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmSizes(Request $request){
+        $size_ids = $request["size_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "size_ids"=>"required",
+        ],$custom_message);
+        $sizes = $this->sizes->getSizesByIds($size_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_sizes");
+        $data["confirm_name"] = "Sizes";
+        $data["confirm_data"] = $sizes;
+        $data["confirm_delete_url"]=route('delete_sizes');
+        $data["page_title"]="Confirm sizes for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteSizes(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $size_ids = $request["item_ids"];
+                foreach($size_ids as $size){
+                   $size = $this->sizes->find($size);
+                    $size->delete();
+                }
+               return redirect()->route("admin_sizes")->with('success','Sizes Deleted successfully.');
     }
 }

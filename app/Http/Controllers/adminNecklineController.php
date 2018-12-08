@@ -27,6 +27,7 @@ class adminNecklineController extends Controller
                 "name"=>"Import Necklines"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_necklines');
         $data["necklines"]=$this->necklines->all();
         $data["page_title"]="Necklines";
         return view("admin/necklines/home",$data);
@@ -122,5 +123,36 @@ class adminNecklineController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmNecklines(Request $request){
+        $neckline_ids = $request["neckline_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "neckline_ids"=>"required",
+        ],$custom_message);
+        $necklines = $this->necklines->getNecklinesByIds($neckline_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_necklines");
+        $data["confirm_name"] = "Necklines";
+        $data["confirm_data"] = $necklines;
+        $data["confirm_delete_url"]=route('delete_necklines');
+        $data["page_title"]="Confirm necklines for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteNecklines(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $neckline_ids = $request["item_ids"];
+                foreach($neckline_ids as $neckline){
+                   $neckline = $this->necklines->find($neckline);
+                    $neckline->delete();
+                }
+               return redirect()->route("admin_necklines")->with('success','Necklines Deleted successfully.');
     }
 }

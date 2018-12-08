@@ -40,7 +40,7 @@ class adminColorController extends Controller
                 "name"=>"Import Color"
             ]
         ];
-
+        $data["delete_menu"] =route('confirm_delete_colors');
         $data["page_title"]="Colors For Product: ".$product->products_name;
         $data["product_id"]=$product_id;
         $data["colors"]=$product->colors()->get();
@@ -140,5 +140,36 @@ class adminColorController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmColors(Request $request){
+        $color_ids = $request["color_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "color_ids"=>"required",
+        ],$custom_message);
+        $colors = $this->colors->getColorsByIds($color_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_colors");
+        $data["confirm_name"] = "Colors";
+        $data["confirm_data"] = $colors;
+        $data["confirm_delete_url"]=route('delete_colors');
+        $data["page_title"]="Confirm colors for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteColors(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $color_ids = $request["item_ids"];
+                foreach($color_ids as $color){
+                   $color = $this->colors->find($color);
+                    $color->delete();
+                }
+               return redirect()->route("admin_colors")->with('success','Colors Deleted successfully.');
     }
 }

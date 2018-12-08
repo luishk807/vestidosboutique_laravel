@@ -37,7 +37,7 @@ class adminProductImagesController extends Controller
                 "name"=>"Import Image"
             ]
         ];
-
+        $data["delete_menu"] =route('confirm_delete_images');
         $data["product_id"]=$product->id;
         $data["images"]=$product->images()->get();
         $data["page_title"]="Images For ".$product->products_name;
@@ -208,5 +208,40 @@ class adminProductImagesController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmImages(Request $request){
+        $image_ids = $request["image_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "image_ids"=>"required",
+        ],$custom_message);
+        $images = $this->images->getImagesByIds($image_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_images");
+        $data["confirm_name"] = "Images";
+        $data["confirm_data"] = $images;
+        $data["confirm_delete_url"]=route('delete_images');
+        $data["page_title"]="Confirm images for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteImages(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $image_ids = $request["item_ids"];
+                foreach($image_ids as $image){
+                   $image = $this->images->find($image);
+                   $img_path =public_path().'/images/products/'.$image->img_url;
+                   if(file_exists($img_path)){
+                        @unlink($img_path);
+                    }
+                    $image->delete();
+                }
+               return redirect()->route("admin_images")->with('success','Images Deleted successfully.');
     }
 }

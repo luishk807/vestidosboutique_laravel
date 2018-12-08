@@ -40,6 +40,7 @@ class adminUsersController extends Controller
                 "name"=>"Add Address"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_addresses');
         $data["page_title"]="Address Page For ".$user->getFullName();
         return view("admin/users/addresses/home",$data);
     }

@@ -28,6 +28,7 @@ class adminProductTypesController extends Controller
                 "name"=>"Import Product Types"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_types');
         $data["page_title"]="ProductTypes";
         return view("admin/product_types/home",$data);
     }
@@ -121,5 +122,36 @@ class adminProductTypesController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmProductTypes(Request $request){
+        $product_type_ids = $request["product_type_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "product_type_ids"=>"required",
+        ],$custom_message);
+        $product_types = $this->product_types->getProductTypesByIds($product_type_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_product_types");
+        $data["confirm_name"] = "Product Types";
+        $data["confirm_data"] = $product_types;
+        $data["confirm_delete_url"]=route('delete_product_types');
+        $data["page_title"]="Confirm product_types for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteProductTypes(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $product_type_ids = $request["item_ids"];
+                foreach($product_type_ids as $product_type){
+                   $product_type = $this->product_types->find($product_type);
+                    $product_type->delete();
+                }
+               return redirect()->route("admin_product_types")->with('success','Product Types Deleted successfully.');
     }
 }

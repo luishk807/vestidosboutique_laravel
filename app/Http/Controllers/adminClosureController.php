@@ -29,6 +29,7 @@ class adminClosureController extends Controller
                 "name"=>"Import Closure"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_closures');
         return view("admin/closures/home",$data);
     }
     public function newClosures(Request $request){
