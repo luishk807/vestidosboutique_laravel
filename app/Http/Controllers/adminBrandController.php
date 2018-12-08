@@ -15,7 +15,7 @@ class adminBrandController extends Controller
     //
     public function __construct(vestidosStatus $vestidosStatus, vestidosBrands $vestidosBrands){
         $this->statuses=$vestidosStatus;
-        $this->brand=$vestidosBrands;
+        $this->brands=$vestidosBrands;
     }
     public function index(){
         $data=[];
@@ -30,6 +30,7 @@ class adminBrandController extends Controller
                 "name"=>"Import Brands"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_brands');
         return view("admin/brands/home",$data);
     }
     public function newBrands(Request $request){
@@ -45,7 +46,7 @@ class adminBrandController extends Controller
             );
             $data["created_at"]=carbon::now();
             $date["updated_at"]=carbon::now();
-            $this->brand->insert($data);
+            $this->brands->insert($data);
             return redirect()->route("admin_brands");
         }
         $data["page_title"]="New Brand";
@@ -53,7 +54,7 @@ class adminBrandController extends Controller
     }
     public function editBrand($brand_id,Request $request){
         $data=[];
-        $brand =$this->brand->find($brand_id);
+        $brand =$this->brands->find($brand_id);
         $data["page_title"]="Edit Brand";
         $data["brand"]=$brand;
         $data["brand_id"]=$brand_id;
@@ -64,7 +65,7 @@ class adminBrandController extends Controller
                 "name"=>"required",
                 "status"=>"required",
             ]);
-            $brand =$this->brand->find($brand_id);
+            $brand =$this->brands->find($brand_id);
             $brand->name=$request->input("name");
             $brand->status=(int)$request->input("status");
             $brand->updated_at=carbon::now();
@@ -79,11 +80,11 @@ class adminBrandController extends Controller
     public function deleteBrand($brand_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
-            $brand = $this->brand->find($brand_id);
+            $brand = $this->brands->find($brand_id);
             $brand->delete();
             return redirect()->route("admin_brands");
         }
-        $data["brand"]=$this->brand->find($brand_id);
+        $data["brand"]=$this->brands->find($brand_id);
         $data["page_title"]="Delete Brands";
         return view("admin/brands/confirm",$data);
     }
@@ -123,5 +124,36 @@ class adminBrandController extends Controller
             ]);
         }
        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmBrands(Request $request){
+        $brand_ids = $request["brand_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "brand_ids"=>"required",
+        ],$custom_message);
+        $brands = $this->brands->getBrandsByIds($brand_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_brands");
+        $data["confirm_name"] = "Brands";
+        $data["confirm_data"] = $brands;
+        $data["confirm_delete_url"]=route('delete_brands');
+        $data["page_title"]="Confirm brands for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteBrands(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $brand_ids = $request["item_ids"];
+                foreach($brand_ids as $brand){
+                   $brand = $this->brands->find($brand);
+                    $brand->delete();
+                }
+               return redirect()->route("admin_brands")->with('success','Brands Deleted successfully.');
     }
 }

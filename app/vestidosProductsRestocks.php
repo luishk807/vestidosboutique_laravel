@@ -28,4 +28,18 @@ class vestidosProductsRestocks extends Model
     public function vendor(){
         return $this->belongsTo('App\vestidosVendors',"vendor_id","id");
     }
+    public function getRestocksByIds($ids){
+        $id_list =[];
+         foreach($ids as $id){
+             $id_list[]=$id;
+         }
+         $products = DB::table("vestidos_products_restocks as restock")
+         ->select("restock.id","restock.name as col_1",
+         "status.name as col_2","restock.created_at as col_3","restock.updated_at as col_4")
+         ->join("vestidos_statuses as status","status.id","restock.status")
+         ->whereIn('restock.id',$id_list)
+         ->groupBy("restock.id")
+         ->get();
+         return $products;
+     }
 }

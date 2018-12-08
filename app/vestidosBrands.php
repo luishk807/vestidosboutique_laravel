@@ -19,10 +19,12 @@ class vestidosBrands extends Model
          foreach($ids as $id){
              $id_list[]=$id;
          }
-         $products = DB::table("vestidos_brands")
-         ->select("vestidos_brands.*")
-         ->whereIn('vestidos_brands.id',$id_list)
-         ->groupBy("vestidos_brands.id")
+         $products = DB::table("vestidos_brands as brand")
+         ->select("brand.id","brand.name as col_1",
+         "status.name as col_2","brand.created_at as col_3","brand.updated_at as col_4")
+         ->join("vestidos_statuses as status","status.id","brand.status")
+         ->whereIn('brand.id',$id_list)
+         ->groupBy("brand.id")
          ->get();
          return $products;
      }
