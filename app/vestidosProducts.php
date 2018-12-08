@@ -164,6 +164,7 @@ class vestidosProducts extends Model
         ->join("vestidos_brands as brands","brands.id","vestidos_products.brand_id")
         ->join("vestidos_categories as category","category.id","vestidos_products.category_id")
         ->whereIn('vestidos_products.id',$id_list)
+        ->groupBy("vestidos_products.id")
         ->get();
        // dd($products);
         return $products;

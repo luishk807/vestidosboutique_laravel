@@ -272,35 +272,29 @@ class adminProductController extends Controller
         ],$custom_message);
         $products = $this->products->getProductsByIds($product_ids);
         $data["confirm_data"] = $products;
-        return redirect()->route('show_delete_products',$data);
-    }
-    public function showConfirmProducts(Request $request){
-        dd($request);
+        $data["confirm_delete_url"]=route('delete_products');
+        $data["page_title"]="Confirm products for deletion";
+       return view("admin/confirm_delete",$data);
     }
     public function deleteProducts(Request $request){
-        if($request->input("_method")=="DELETE"){
+    
             $this->validate($request,[
                 "product_ids"=>"required",
             ],[
                 'required'=>"Please select a product"
             ]);
                 $product_ids = $request["product_ids"];
-                //dd($product_ids);
                 foreach($product_ids as $product){
-                    echo $product;
-                  //  $product = $this->products->find($product_id);
-                    // $img_path =public_path().'/images/products/'.$image->img_url;
-                    // if(file_exists($img_path)){
-                    //     @unlink($img_path);
-                    // }
-                    // $product->delete();
+                   $product = $this->products->find($product);
+                   foreach($product->images as $image){
+                        $img_path =public_path().'/images/products/'.$image->img_url;
+                        if(file_exists($img_path)){
+                            @unlink($img_path);
+                        }
+                    }
+                    $product->delete();
                 }
-             //   return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
-         }
-         $data["confirm_delete_url"]=route('delete_products');
-        $data["page_title"]="Confirm products for deletion";
-        return view("admin/confirm_delete",$data);
-
+               return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
     }
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");
