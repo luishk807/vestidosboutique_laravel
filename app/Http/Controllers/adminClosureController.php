@@ -123,4 +123,35 @@ class adminClosureController extends Controller
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
+    public function deleteConfirmClosures(Request $request){
+        $closure_ids = $request["closure_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "closure_ids"=>"required",
+        ],$custom_message);
+        $closures = $this->closures->getClosuresByIds($closure_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_closures");
+        $data["confirm_name"] = "Closures";
+        $data["confirm_data"] = $closures;
+        $data["confirm_delete_url"]=route('delete_closures');
+        $data["page_title"]="Confirm closures for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteClosures(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $closure_ids = $request["item_ids"];
+                foreach($closure_ids as $closure){
+                   $closure = $this->closures->find($closure);
+                    $closure->delete();
+                }
+               return redirect()->route("admin_closures")->with('success','Closures Deleted successfully.');
+    }
 }

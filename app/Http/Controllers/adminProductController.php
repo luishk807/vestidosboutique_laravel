@@ -262,43 +262,7 @@ class adminProductController extends Controller
         $data["page_title"]="Delete Product";
         return view("admin/products/confirm",$data);
     }
-    public function deleteConfirmProducts(Request $request){
-        $product_ids = $request["product_ids"];
-        $custom_message = [
-            'required'=>"Please select a item to delete"
-        ];
-        $this->validate($request,[
-            "product_ids"=>"required",
-        ],$custom_message);
-        $products = $this->products->getProductsByIds($product_ids);
-        $data["confirm_type"] = "img";
-        $data["confirm_return"] = route("admin_products");
-        $data["confirm_name"] = "Products";
-        $data["confirm_data"] = $products;
-        $data["confirm_delete_url"]=route('delete_products');
-        $data["page_title"]="Confirm products for deletion";
-       return view("admin/confirm_delete",$data);
-    }
-    public function deleteProducts(Request $request){
-    
-            $this->validate($request,[
-                "item_ids"=>"required",
-            ],[
-                'required'=>"Please select a item to delete"
-            ]);
-                $product_ids = $request["item_ids"];
-                foreach($product_ids as $product){
-                   $product = $this->products->find($product);
-                   foreach($product->images as $image){
-                        $img_path =public_path().'/images/products/'.$image->img_url;
-                        if(file_exists($img_path)){
-                            @unlink($img_path);
-                        }
-                    }
-                    $product->delete();
-                }
-               return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
-    }
+
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");
         $product = new Products();
@@ -507,6 +471,7 @@ class adminProductController extends Controller
                 "name"=>"Add Restock Data"
             ]
         ];
+        $data["delete_menu"] =route('confirm_delete_restocks');
         $data["page_title"]="Restock Data";
         return view("admin/products/restocks/home",$data);
     }
@@ -715,4 +680,72 @@ class adminProductController extends Controller
              return redirect()->route("admin_products")->with("success","import successfully entered");
          }
       }
+      public function deleteConfirmProducts(Request $request){
+        $product_ids = $request["product_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "product_ids"=>"required",
+        ],$custom_message);
+        $products = $this->products->getProductsByIds($product_ids);
+        $data["confirm_type"] = "img";
+        $data["confirm_return"] = route("admin_products");
+        $data["confirm_name"] = "Products";
+        $data["confirm_data"] = $products;
+        $data["confirm_delete_url"]=route('delete_products');
+        $data["page_title"]="Confirm products for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteProducts(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $product_ids = $request["item_ids"];
+                foreach($product_ids as $product){
+                   $product = $this->products->find($product);
+                   foreach($product->images as $image){
+                        $img_path =public_path().'/images/products/'.$image->img_url;
+                        if(file_exists($img_path)){
+                            @unlink($img_path);
+                        }
+                    }
+                    $product->delete();
+                }
+               return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
+    }
+    public function deleteConfirmRestocks(Request $request){
+        $restock_ids = $request["restock_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "restock_ids"=>"required",
+        ],$custom_message);
+        $restocks = $this->restocks->getRestocksByIds($restock_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_restocks");
+        $data["confirm_name"] = "Restocks";
+        $data["confirm_data"] = $restocks;
+        $data["confirm_delete_url"]=route('delete_restocks');
+        $data["page_title"]="Confirm restocks for deletion";
+         return view("admin/confirm_delete",$data);
+    }
+    public function deleteRestocks(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $restock_ids = $request["item_ids"];
+                foreach($restock_ids as $restock){
+                   $restock = $this->restocks->find($restock);
+                    $restock->delete();
+                }
+               return redirect()->route("admin_restocks")->with('success','Restocks Deleted successfully.');
+    }
 }

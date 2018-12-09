@@ -187,8 +187,8 @@
                 Route::post('/edit/{dressstyle_id}','adminDressStylesController@editDressStyle')->name('save_dressstyle');
                 Route::get('/import','adminDressStylesController@showImportDressStyle')->name('show_import_dressstyle');
                 Route::post('/import','adminDressStylesController@saveImportDressStyle')->name('save_import_dressstyle');
-                Route::post('/confirm_dressstyles','adminDressStylesController@deleteConfirmDressStyle')->name('confirm_delete_dressstyles');
-                Route::delete('/show_confirm_dressstyles','adminDressStylesController@deleteDressStyle')->name('delete_dressstyles');
+                Route::post('/confirm_dressstyles','adminDressStylesController@deleteConfirmDressStyles')->name('confirm_delete_dressstyles');
+                Route::delete('/show_confirm_dressstyles','adminDressStylesController@deleteDressStyles')->name('delete_dressstyles');
             });
             //Admin Category
             Route::prefix("categories")->group(function(){

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class vestidosProductsRestocks extends Model
 {
@@ -34,12 +35,14 @@ class vestidosProductsRestocks extends Model
              $id_list[]=$id;
          }
          $products = DB::table("vestidos_products_restocks as restock")
-         ->select("restock.id","restock.name as col_1",
-         "status.name as col_2","restock.created_at as col_3","restock.updated_at as col_4")
-         ->join("vestidos_statuses as status","status.id","restock.status")
+         ->select("restock.id","product.products_name as col_1",
+         "color.name as col_2","size.name as col_3","restock.created_at as col_4")
+         ->join("vestidos_products as product","product.id","restock.product_id")
+         ->join("vestidos_colors as color","color.product_id","product.id")
+         ->join("vestidos_sizes as size","size.color_id","color.id")
          ->whereIn('restock.id',$id_list)
          ->groupBy("restock.id")
          ->get();
-         return $products;
+            return $products;
      }
 }

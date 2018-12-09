@@ -137,7 +137,7 @@ class adminDressStylesController extends Controller
         $dressstyles = $this->dressstyles->getDressStylesByIds($dressstyle_ids);
         $data["confirm_type"] = "name";
         $data["confirm_return"] = route("admin_dressstyles");
-        $data["confirm_name"] = "Dress styles";
+        $data["confirm_name"] = "DressStyles";
         $data["confirm_data"] = $dressstyles;
         $data["confirm_delete_url"]=route('delete_dressstyles');
         $data["page_title"]="Confirm dressstyles for deletion";
@@ -155,6 +155,6 @@ class adminDressStylesController extends Controller
                    $dressstyle = $this->dressstyles->find($dressstyle);
                     $dressstyle->delete();
                 }
-               return redirect()->route("admin_dressstyles")->with('success','Dress styles Deleted successfully.');
+               return redirect()->route("admin_dressstyles")->with('success','DressStyles Deleted successfully.');
     }
 }

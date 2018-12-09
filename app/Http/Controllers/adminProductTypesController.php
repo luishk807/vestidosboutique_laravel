@@ -28,7 +28,7 @@ class adminProductTypesController extends Controller
                 "name"=>"Import Product Types"
             ]
         ];
-        $data["delete_menu"] =route('confirm_delete_types');
+        $data["delete_menu"] =route('confirm_delete_product_types');
         $data["page_title"]="ProductTypes";
         return view("admin/product_types/home",$data);
     }

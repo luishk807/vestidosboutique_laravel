@@ -93,7 +93,7 @@ class adminPaymentTypesController extends Controller
             'required'=>"Please select a item to delete"
         ];
         $this->validate($request,[
-            "payment_ids"=>"required",
+            "payment_types_ids"=>"required",
         ],$custom_message);
         $payments = $this->payment_types->getPaymentsByIds($payment_ids);
         $data["confirm_type"] = "name";
@@ -102,8 +102,7 @@ class adminPaymentTypesController extends Controller
         $data["confirm_data"] = $payments;
         $data["confirm_delete_url"]=route('delete_payments');
         $data["page_title"]="Confirm payments for deletion";
-       dd($payments);
-        //return view("admin/confirm_delete",$data);
+        return view("admin/confirm_delete",$data);
     }
     public function deletePayments(Request $request){
     

@@ -125,7 +125,7 @@ class categoriesController extends Controller
         ],$custom_message);
         $categories = $this->categories->getCategoriesByIds($category_ids);
         $data["confirm_type"] = "name";
-        $data["confirm_return"] = route("admin_categories");
+        $data["confirm_return"] = route("admin_category");
         $data["confirm_name"] = "Categories";
         $data["confirm_data"] = $categories;
         $data["confirm_delete_url"]=route('delete_categories');
@@ -144,6 +144,6 @@ class categoriesController extends Controller
                    $category = $this->categories->find($category);
                     $category->delete();
                 }
-               return redirect()->route("admin_categories")->with('success','Categories Deleted successfully.');
+               return redirect()->route("admin_category")->with('success','Categories Deleted successfully.');
     }
 }
