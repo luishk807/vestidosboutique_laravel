@@ -114,9 +114,9 @@
             @endif
             <div class="row">
                 <div class="col">
-                <div class="container">
-                    @if(isset($page_submenus) && count($page_submenus)>0)
-                    <div class="row sub-menu">
+                    <div class="container">
+                        @if(isset($page_submenus) && count($page_submenus)>0)
+                        <div class="row sub-menu">
                             <div class="col text-center">
                                 <nav class="navbar navbar navbar-expand-lg">
                                 <ul class="navbar-nav">
@@ -130,19 +130,19 @@
                                 </nav>
                             </div>
                         </div>
-                    </div>
-                    @endif
-                    @if(isset($delete_menu)) 
-                    <form id="custom_home_form" method="post" action="{{ $delete_menu }}">
-                    @endif
+                        @endif
                         <div class="row">
                             <div class="col">
-                            @yield('content')
+                            @if(isset($delete_menu)) 
+                            <form id="custom_home_form" method="post" action="{{ $delete_menu }}">
+                            @endif
+                                @yield('content')
+                            @if(isset($delete_menu)) 
+                            </form>
+                            @endif
                             </div>
                         </div>
-                    @if(isset($delete_menu)) 
-                    </form>
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>
