@@ -17,7 +17,7 @@ class adminLengthController extends Controller
     }
     public function index(){
         $data=[];
-        $data["lengths"]=$this->lengths->all();
+        $data["main_items"]=$this->lengths->paginate(10);
         $data["page_title"]="Length Types";
         $data["page_submenus"]=[
             [

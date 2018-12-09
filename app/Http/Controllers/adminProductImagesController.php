@@ -39,7 +39,7 @@ class adminProductImagesController extends Controller
         ];
         $data["delete_menu"] =route('confirm_delete_images');
         $data["product_id"]=$product->id;
-        $data["images"]=$product->images()->get();
+        $data["main_items"]=$product->images()->paginate(10);
         $data["page_title"]="Images For ".$product->products_name;
         return view("admin/products/images/home",$data);
     }

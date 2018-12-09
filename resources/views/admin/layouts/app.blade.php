@@ -136,7 +136,9 @@
                             @if(isset($delete_menu)) 
                             <form id="custom_home_form" method="post" action="{{ $delete_menu }}">
                             @endif
-                                @yield('content')
+                            @include('admin.includes.nav_template')
+                            @yield('content')
+                            @include('admin.includes.nav_template')
                             @if(isset($delete_menu)) 
                             </form>
                             @endif

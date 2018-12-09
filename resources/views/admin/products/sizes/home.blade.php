@@ -11,7 +11,7 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-2">Action</div>
     </div>
-    @foreach($sizes as $size)
+    @foreach($main_items as $size)
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-2">{{$size->color_name}}</div>

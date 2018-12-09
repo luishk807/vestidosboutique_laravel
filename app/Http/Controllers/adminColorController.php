@@ -43,7 +43,7 @@ class adminColorController extends Controller
         $data["delete_menu"] =route('confirm_delete_colors');
         $data["page_title"]="Colors For Product: ".$product->products_name;
         $data["product_id"]=$product_id;
-        $data["colors"]=$product->colors()->get();
+        $data["main_items"]=$product->colors()->paginate(10);
         $data["products"]=$this->products->all();
         return view("admin/products/colors/home",$data);
     }

@@ -27,7 +27,7 @@ class adminShippingListsController extends Controller
             ]
         ];
         $data["delete_menu"] =route('confirm_delete_shipping_lists');
-        $data["shipping_lists"]=$this->shipping_lists->all();
+        $data["main_items"]=$this->shipping_lists->paginate(10);
         $data["page_title"]="Shipping List Page";
         return view("admin/shipping_lists/home",$data);
     }

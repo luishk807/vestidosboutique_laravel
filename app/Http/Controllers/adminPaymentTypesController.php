@@ -29,7 +29,7 @@ class adminPaymentTypesController extends Controller
             ]
         ];
         $data["delete_menu"] =route('confirm_delete_payments');
-        $data["payment_types"]=$this->payment_types->all();
+        $data["main_items"]=$this->payment_types->paginate(10);
         $data["page_title"]="Payment Page";
         return view("admin/payment_types/home",$data);
     }

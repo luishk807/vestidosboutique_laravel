@@ -8,7 +8,7 @@
         <div class="col-md-3">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($rates as $rate)
+    @foreach($main_items as $rate)
     <div class="row container-data row-even">
         <div class="col-md-1"><input  class="form-control" type="checkbox" name="rate_ids[]" value="{{ $rate->id }}"></div>
         <div class="col-md-3">{{$rate->user->getFullName()}}</div>

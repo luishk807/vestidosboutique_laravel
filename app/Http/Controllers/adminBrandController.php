@@ -30,6 +30,7 @@ class adminBrandController extends Controller
                 "name"=>"Import Brands"
             ]
         ];
+        $data["main_items"]=$this->brands->paginate(10);
         $data["delete_menu"] =route('confirm_delete_brands');
         return view("admin/brands/home",$data);
     }

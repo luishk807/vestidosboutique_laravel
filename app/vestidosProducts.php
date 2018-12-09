@@ -107,7 +107,7 @@ class vestidosProducts extends Model
         ->join("vestidos_products","vestidos_products.id","=","vestidos_colors.product_id")
         ->join("vestidos_statuses","vestidos_statuses.id","=","vestidos_sizes.status")
         ->where("vestidos_products.id",$this->getKey())
-        ->get();
+        ->paginate(10);
     }
     public function is_rated(){
         $user_id = Auth::guard("vestidosUsers")->user()->getId();

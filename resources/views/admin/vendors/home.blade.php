@@ -1,21 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="shoplist-nav">
-                <ul>
-                        @if(!empty($vendors->previousPageUrl()))
-                    <li><a href="{{ $vendors->previousPageUrl()}}">&lt; Back</a></li>
-                    @endif
-                    <li>{{ $vendors->currentPage()}} {{ __('pagination.of') }} {{ $vendors->count() }}</li>
-                    @if($vendors->nextPageUrl())
-                    <li><a href="{{ $vendors->nextPageUrl() }}">Next &gt;</a></li>
-                    @endif
-                </ul>
-            </div><!--end of nav container-->
-        </div>
-    </div>
     <div class="row container-title">
         <div class="col-md-2"></div>
         <div class="col-md-3">Company Name</div>
@@ -23,7 +8,7 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-2">Action</div>
     </div>
-    @foreach($vendors as $vendor)
+    @foreach($main_items as $vendor)
     <div class="row container-data row-even">
         <div class="col-md-2"><input  class="form-control" type="checkbox" name="vendor_ids[]" value="{{ $vendor->id }}"></div>
         <div class="col-md-3">{{$vendor->company_name}}</div>
@@ -35,20 +20,5 @@
         </div>
     </div>
     @endforeach
-    <div class="row">
-        <div class="col">
-            <div class="shoplist-nav">
-                <ul>
-                        @if(!empty($vendors->previousPageUrl()))
-                    <li><a href="{{ $vendors->previousPageUrl()}}">&lt; Back</a></li>
-                    @endif
-                    <li>{{ $vendors->currentPage()}} {{ __('pagination.of') }} {{ $vendors->count() }}</li>
-                    @if($vendors->nextPageUrl())
-                    <li><a href="{{ $vendors->nextPageUrl() }}">Next &gt;</a></li>
-                    @endif
-                </ul>
-            </div><!--end of nav container-->
-        </div>
-    </div>
 </div>
 @endsection

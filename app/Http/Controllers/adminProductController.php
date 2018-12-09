@@ -44,8 +44,7 @@ class adminProductController extends Controller
     }
     function index(){
         $data=[];
-        $data["products"]=$this->products->paginate(10);
-
+        $data["main_items"]= $this->products->paginate(10);
         $data["page_submenus"]=[
             [
                 "url"=>route('new_product'),

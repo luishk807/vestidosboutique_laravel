@@ -7,7 +7,7 @@
         <div class="col-md-3">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($fabrics as $fabric)
+    @foreach($main_items as $fabric)
     <div class="row container-data row-even">
         <div class="col-md-2"><input  class="form-control" type="checkbox" name="fabric_ids[]" value="{{ $fabric->id }}"></div>
         <div class="col-md-4">{{$fabric->name}}</div>

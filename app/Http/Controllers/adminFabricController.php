@@ -28,7 +28,7 @@ class adminFabricController extends Controller
             ]
         ];
         $data["delete_menu"] =route('confirm_delete_fabrics');
-        $data["fabrics"]=$this->fabrics->all();
+        $data["main_items"]=$this->fabrics->paginate(10);
         $data["page_title"]="Fabrics";
         return view("admin/fabrics/home",$data);
     }

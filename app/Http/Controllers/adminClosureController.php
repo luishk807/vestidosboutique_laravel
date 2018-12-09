@@ -17,7 +17,7 @@ class adminClosureController extends Controller
     }
     public function index(){
         $data=[];
-        $data["closures"]=$this->closures->all();
+        $data["main_items"]=$this->closures->paginate(10);
         $data["page_title"]="Closure Types";
         $data["page_submenus"]=[
             [

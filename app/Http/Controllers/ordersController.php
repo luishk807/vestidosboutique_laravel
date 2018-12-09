@@ -56,7 +56,7 @@ class ordersController extends Controller
     }
     public function index(){
         $data=[];
-        $data["orders"]=$this->orders->orderBy('created_at','desc')->paginate(10);
+        $data["main_items"]=$this->orders->orderBy('created_at','desc')->paginate(10);
         $data["page_submenus"]=[
             [
                 "url"=>route('admin_new_order'),

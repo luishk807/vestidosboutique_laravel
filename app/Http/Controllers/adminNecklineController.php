@@ -28,7 +28,7 @@ class adminNecklineController extends Controller
             ]
         ];
         $data["delete_menu"] =route('confirm_delete_necklines');
-        $data["necklines"]=$this->necklines->all();
+        $data["main_items"]=$this->necklines->paginate(10);
         $data["page_title"]="Necklines";
         return view("admin/necklines/home",$data);
     }

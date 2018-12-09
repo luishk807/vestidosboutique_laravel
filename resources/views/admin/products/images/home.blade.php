@@ -13,7 +13,7 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($images as $image)
+    @foreach($main_items as $image)
     <div class="row container-data row-even">
         <div class="col-md-2"><input  class="form-control" type="checkbox" name="image_ids[]" value="{{ $image->id }}"></div>
         <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_url}}" alt="{{$image->img_name}}" class="img-fluid"/></div>

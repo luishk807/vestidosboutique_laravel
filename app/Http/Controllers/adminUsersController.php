@@ -58,7 +58,7 @@ class adminUsersController extends Controller
                 "name"=>"Import User"
             ]
         ];
-        $data["users"]=$this->users->paginate(10);
+        $data["main_items"]=$this->users->paginate(10);
         return view("admin/users/home",$data);
     }
     public function showNewUserForm(){

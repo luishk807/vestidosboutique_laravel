@@ -25,6 +25,7 @@ class categoriesController extends Controller
                 "name"=>"Import Categories"
             ]
         ];
+        $data["main_items"]=$this->categories->paginate(10);
         $data["delete_menu"] =route('confirm_delete_categories');
         $data["page_title"]="Categories";
         return view("admin/categories/home",$data);

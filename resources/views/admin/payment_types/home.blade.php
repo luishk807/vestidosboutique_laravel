@@ -8,7 +8,7 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-2">Action</div>
     </div>
-    @foreach($payment_types as $payment_type)
+    @foreach($main_items as $payment_type)
     <div class="row container-data row-even">
         <div class="col-md-2"><input  class="form-control" type="checkbox" name="payment_types_ids[]" value="{{ $payment_type->id }}"></div>
         <div class="col-md-3">{{$payment_type->name}}</div>
@@ -20,6 +20,5 @@
         </div>
     </div>
     @endforeach
-</div>
 </div>
 @endsection

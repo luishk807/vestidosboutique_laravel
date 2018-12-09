@@ -17,7 +17,7 @@ class adminDressStylesController extends Controller
     }
     public function index(){
         $data=[];
-        $data["dressstyles"]=$this->dressstyles->all();
+        $data["main_items"]=$this->dressstyles->paginate(10);
         $data["page_title"]="Dress Styles";
         $data["page_submenus"]=[
             [

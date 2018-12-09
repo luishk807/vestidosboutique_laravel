@@ -22,7 +22,7 @@ class vendorsController extends Controller
     }
     function index(){
         $data=[];
-        $data["vendors"]=$this->vendors->paginate(10);
+        $data["main_items"]=$this->vendors->paginate(10);
         $data["page_submenus"]=[
             [
                 "url"=>route('new_vendor'),

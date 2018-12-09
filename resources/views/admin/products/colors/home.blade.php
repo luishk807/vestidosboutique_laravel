@@ -16,7 +16,7 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($colors as $color)
+    @foreach($main_items as $color)
     <div class="row container-data row-even">
 
         <div class="col-md-2"><input  class="form-control" type="checkbox" name="color_ids[]" value="{{ $color->id }}"></div>

@@ -29,6 +29,7 @@ class adminProductTypesController extends Controller
             ]
         ];
         $data["delete_menu"] =route('confirm_delete_product_types');
+        $data["main_items"]=$this->product_types->paginate(10);
         $data["page_title"]="ProductTypes";
         return view("admin/product_types/home",$data);
     }

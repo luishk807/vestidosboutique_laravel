@@ -26,6 +26,7 @@ class adminEventsController extends Controller
                 "name"=>"Import Events"
             ]
         ];
+        $data["main_items"]=$this->events->paginate(10);
         $data["delete_menu"] =route('confirm_delete_events');
         return view("admin/events/home",$data);
     }

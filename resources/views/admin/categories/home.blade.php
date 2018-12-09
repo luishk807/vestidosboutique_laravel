@@ -7,7 +7,7 @@
         <div class="col-md-1">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($categories as $category)
+    @foreach($main_items as $category)
     <div class="row container-data row-even">
     <div class="col-md-1"><input  class="form-control" type="checkbox" name="category_ids[]" value="{{ $category->id }}"></div>
         <div class="col-md-3">{{$category->name}}</div>

@@ -1,21 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="shoplist-nav">
-                <ul>
-                    @if(!empty($products->previousPageUrl()))
-                    <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
-                    @endif
-                    <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->count() }}</li>
-                    @if($products->nextPageUrl())
-                    <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
-                    @endif
-                </ul>
-            </div><!--end of nav container-->
-        </div>
-    </div>
     <div class="row container-title">
         <div class="col-md-1"></div>
         <div class="col-md-2">Image</div>
@@ -26,7 +11,7 @@
         <div class="col-md-1">Status</div>
         <div class="col-md-2">Action</div>
     </div>
-    @foreach($products as $product)
+    @foreach($main_items as $product)
     <div class="row container-data row-even">
         <div class="col-md-1"><input  class="form-control" type="checkbox" name="product_ids[]" value="{{ $product->id }}"></div>
         <div class="col-md-2"><img src="
@@ -47,20 +32,5 @@
         </div>
     </div>
     @endforeach
-    <div class="row">
-        <div class="col">
-            <div class="shoplist-nav">
-                <ul>
-                        @if(!empty($products->previousPageUrl()))
-                    <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
-                    @endif
-                    <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->count() }}</li>
-                    @if($products->nextPageUrl())
-                    <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
-                    @endif
-                </ul>
-            </div><!--end of nav container-->
-        </div>
-    </div>
 </div>
 @endsection

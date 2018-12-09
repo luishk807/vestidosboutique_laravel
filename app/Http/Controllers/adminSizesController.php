@@ -41,7 +41,7 @@ class adminSizesController extends Controller
         ];
         $data["delete_menu"] =route('confirm_delete_sizes');
         $product = $this->products->find($product_id);
-        $data["sizes"]=$product->getAllSizes();
+        $data["main_items"]=$product->getAllSizes();
         $data["product_id"]=$product_id;
         $data["products"]=$this->products->all();
         $data["page_title"]="Dress Sizes For ".$product->products_name;

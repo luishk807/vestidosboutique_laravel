@@ -9,7 +9,7 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-2">Action</div>
     </div>
-    @foreach($shipping_lists as $shipping_list)
+    @foreach($main_items as $shipping_list)
     <div class="row container-data row-even">
         <div class="col-md-2"><input  class="form-control" type="checkbox" name="shipping_list_ids[]" value="{{ $shipping_list->id }}"></div>
         <div class="col-md-2">{{$shipping_list->name}}</div>

@@ -37,7 +37,7 @@ class adminProductRatesController extends Controller
             ]
         ];
         $data["delete_menu"] =route('confirm_delete_rates');
-        $data["rates"]=$product->rates()->get();
+        $data["main_items"]=$product->rates()->paginate(10);
         $data["page_title"]="Rates For ".$product->products_name;
         $data["product_id"]=$product_id;
         return view("admin/products/rates/home",$data);
