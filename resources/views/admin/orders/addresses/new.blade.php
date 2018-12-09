@@ -142,7 +142,7 @@
     
     @endforeach
     <div class="container">
-        <div class="row">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_new_order') }}">
                     Back To Product

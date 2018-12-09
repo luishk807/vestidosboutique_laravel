@@ -94,6 +94,12 @@ class adminSizesController extends Controller
     }
     public function editSize($size_id,Request $request){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_products'),
+                "name"=>"Back to Products"
+            ]
+        ];
         $size =$this->sizes->find($size_id);
         $color = $this->colors->find($size->color_id);
         $product = $this->products->find($color->product_id);

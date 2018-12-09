@@ -82,7 +82,7 @@ var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
         @endforeach
     </div>
     <div class="container">
-        <div class="row text-center">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a href="{{ route('admin_show_new_order_address') }}" class="admin-btn">Back To Addresses</a>
             </div>

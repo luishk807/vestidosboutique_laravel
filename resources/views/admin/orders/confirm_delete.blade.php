@@ -10,7 +10,7 @@
             Are you sure want to delete {{ $order->order_number }}<br/>
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_orders') }}">
                     Back To Orders

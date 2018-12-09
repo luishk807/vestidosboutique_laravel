@@ -39,7 +39,7 @@
         <div class="col-md-2">{{$item->col_4 }}</div>
     </div>
     @endforeach
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ $confirm_return }}">
                     Back To {{$confirm_name}}

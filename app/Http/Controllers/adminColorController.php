@@ -73,9 +73,17 @@ class adminColorController extends Controller
 
     public function editColor($color_id, Request $request){
         $data =[];
-        $data["page_title"]="Colors";
-        $data["color"]=$this->colors->find($color_id);
+        $color=$this->colors->find($color_id);
+        $data["color"]=$color;
         $data["products"]=$this->products->all();
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_size',['product_id'=>$color->product_id]),
+                "name"=>"Add Sizes"
+            ]
+        ];
+        $data["page_title"]="Colors";
+
         $color=$this->colors->find($color_id);
         if($request->isMethod("post")){
             $color->name=$request->input("name");

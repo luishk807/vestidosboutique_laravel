@@ -40,7 +40,7 @@
     @include('includes.country_province_edit')
 
     <div class="container">
-        <div class="row text-center">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_edit_order',['order_id'=>$order->id]) }}">
                     Back To Product

@@ -8,7 +8,7 @@
             are you sure want to delete restock info date {{ $restock->date }}
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_restocks',['restock_id'=>$restock->restock_id]) }}">
                     Back To Sizes
