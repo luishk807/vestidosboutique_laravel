@@ -207,13 +207,14 @@ class adminSizesController extends Controller
             "size_ids"=>"required",
         ],$custom_message);
         $sizes = $this->sizes->getSizesByIds($size_ids);
+        $color = $this->sizes->getColor();
         $data["confirm_type"] = "name";
-        $data["confirm_return"] = route("admin_sizes");
+        // $data["confirm_return"] = route("admin_sizes",["product_id"=>$color->product_id]);
         $data["confirm_name"] = "Sizes";
         $data["confirm_data"] = $sizes;
         $data["confirm_delete_url"]=route('delete_sizes');
         $data["page_title"]="Confirm sizes for deletion";
-       return view("admin/confirm_delete",$data);
+      return view("admin/confirm_delete",$data);
     }
     public function deleteSizes(Request $request){
     
