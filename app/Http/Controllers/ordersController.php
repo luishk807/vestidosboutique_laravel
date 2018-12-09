@@ -764,6 +764,7 @@ class ordersController extends Controller
         ],$custom_message);
         $orders = $this->orders->getOrdersByIds($order_ids);
         $data["confirm_type"] = "name";
+        $data["confirm_show_warning"]=true;
         $data["confirm_return"] = route("admin_orders");
         $data["confirm_name"] = "Orders";
         $data["confirm_data"] = $orders;
