@@ -55,6 +55,7 @@
                     </li>
                     <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Home Config</a>
                         <div class="dropdown-menu  navbar-dark bg-vestidos-admin">
+                            <a href="{{ route('cache_cleared')}}" class="nav-link">Clear Cache</a>
                             <a href="{{ route('main_sliders_page')}}" class="nav-link">Main Sliders</a>
                             <a href="{{ route('shop_banners_page')}}" class="nav-link">Shop Banners</a>
                             <a href="{{ route('top_quinces_page')}}" class="nav-link">Top Quince</a>
@@ -107,6 +108,17 @@
                     <div class="warning-cont text-center">
                     <P>
                         {{ session('error') }}
+                    </P>
+                    </div>
+                </div>
+            </div>
+            @endif
+            @if(Session::has("msg"))
+            <div class="row result-mg error">
+                <div class="col">
+                    <div class="warning-cont text-center">
+                    <P>
+                        {{ Session::get("msg") }}
                     </P>
                     </div>
                 </div>

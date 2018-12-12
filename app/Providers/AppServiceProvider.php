@@ -13,6 +13,7 @@ use App\vestidosBrands as Brands;
 use App\vestidosEvents as Events;
 use App\vestidosProductTypes as ProductTypes;
 use App\vestidosProductEvents as ProductEvents;
+use Braintree;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,10 +26,13 @@ class AppServiceProvider extends ServiceProvider
     {
         //from Schema use
         Schema::defaultStringLength(191);
-        \Braintree\Configuration::environment(env('BRAINTREE_ENV'));
-        \Braintree\Configuration::merchantId(env('BRAINTREE_MERCHANT_ID'));
-        \Braintree\Configuration::publicKey(env('BRAINTREE_PUBLIC_KEY'));
-        \Braintree\Configuration::privateKey(env('BRAINTREE_PRIVATE_KEY'));
+        Braintree\Configuration::reset();
+        Braintree\Configuration::environment(env('BRAINTREE_ENV'));
+        Braintree\Configuration::merchantId(env('BRAINTREE_MERCHANT_ID'));
+        Braintree\Configuration::publicKey(env('BRAINTREE_PUBLIC_KEY'));
+        Braintree\Configuration::privateKey(env('BRAINTREE_PRIVATE_KEY'));
+
+
         view()->share('categories', Categories::all());
         view()->share('vestidos_styles', Styles::all());
         view()->share('statuses', Statuses::all());

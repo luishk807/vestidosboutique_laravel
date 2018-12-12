@@ -101,12 +101,12 @@
         Route::post("/admin/login","adminHomeController@login")->name("admin_login");
         Route::get("/admin/logout",'adminHomeController@logout')->name("admin_logout_user");
         Route::prefix("admin")->middleware("auth:vestidosAdmins")->group(function(){
-        
-
+    
             Route::get('/','adminHomeController@home')->name("admin");
             
             //Admin Main Sliders
             Route::prefix('home_config')->group(function(){
+                Route::get('/clear_cache',"adminHomeController@cacheClear")->name("cache_cleared");
                 Route::prefix('main_sliders')->group(function(){
                     Route::get('/','adminConfigSectionMainSliders@index')->name('main_sliders_page');
                     Route::get('/new','adminConfigSectionMainSliders@newMainSlider')->name('new_main_slider');

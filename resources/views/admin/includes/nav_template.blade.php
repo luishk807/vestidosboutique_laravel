@@ -6,7 +6,7 @@
                 @if(!empty($main_items->previousPageUrl()))
                 <li><a href="{{ $main_items->previousPageUrl()}}">&lt; Back</a></li>
                 @endif
-                <li>{{ $main_items->currentPage()}} {{ __('pagination.of') }} {{ $main_items->count() }}</li>
+                <li>{{ $main_items->currentPage()}} {{ __('pagination.of') }} {{ $main_items->lastPage() }}</li>
                 @if($main_items->nextPageUrl())
                 <li><a href="{{ $main_items->nextPageUrl() }}">Next &gt;</a></li>
                 @endif

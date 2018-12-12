@@ -25,7 +25,7 @@ use App\vestidosAddressTypes as AddressTypes;
 use App\vestidosOrderAddresses as OrderAddresses;
 use App\vestidosTaxInfos as Tax;
 use App\vestidosPaymentTypes as PaymentTypes;
-use Braintree_Transaction;
+use Braintree;
 use Mail;
 use Auth;
 use Session;
@@ -460,7 +460,7 @@ class ordersController extends Controller
 
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
         $data["payment_type"]=$request->input("payment_type");
-        $data["status"]=$is_credit_card ? 9 : 14;
+        $data["status"]=$is_credit_card ? 9 : 12;
         if($is_credit_card){
             $status = Braintree_Transaction::sale([
                 'amount' => $grand_total,
@@ -514,14 +514,6 @@ class ordersController extends Controller
             $data["created_at"]=carbon::now();
             // $data["products"]=$cart_p;
             foreach($cart["products"] as $product){
-                $new_product["product_id"]=$product["id"];
-                $new_product["order_id"]=$order->id;
-                $new_product["quantity"]=$product["quantity"];
-                $new_product["total"]=$product["total"];
-                $new_product["color_id"]=$product["color_id"];
-                $new_product["size_id"]=$product["size_id"];
-                $new_product["status"]=9;
-                $new_product["created_at"]=$today;
                 $check_size = $this->sizes->find($product["size_id"]);
                 $check_product = $this->products->find($product["id"]);
                 $check_color =  $this->colors->find($product["color_id"]);
