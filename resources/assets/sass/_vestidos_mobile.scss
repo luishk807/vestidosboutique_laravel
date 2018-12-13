@@ -214,6 +214,7 @@ and (-webkit-device-pixel-ratio : 3) {
 
 
 }
+
 /*************************************************/
 /*          IPAD PORTRAIT                       */
 /************************************************/
@@ -322,7 +323,12 @@ and (orientation : landscape) {
     #top_middle_sec_row{
         height:550px;
     }
-
+    #home_main_slider .text-cont{
+        position: absolute;
+        bottom: 200px;
+        font-size: 3rem;
+        color: white;
+    }
     #top_middle_sec_row #top_middle_img1.active{
      left:0px;
      }
@@ -335,166 +341,7 @@ and (orientation : landscape) {
 
      
 }
-/*************************************************/
-/*          IPHONE LANDSCAPE                     */
-/************************************************/
-@media only screen and (max-device-width: 812px) and (orientation: landscape) {
-    .warning-cont{
-        width: 100% !important;
-    }
-    /**********shop page**************/
-    #mobile-sort-nav{
-        display:block;
-    }
-    #desktop-sort-nav{
-        display:none;
-    }
 
-    /**************MAIN SLIDER**************/
-    #home_main_slider .text-cont{
-        position: absolute;
-        bottom: 0px!important;
-        max-width:100% !important;
-    }
-    #main_slider_arrow_cont{
-        display:none;
-    }
-    .main_slider_txt{
-     padding-top: 20px;
-    }
-    .fp-controlArrow.fp-prev, .fp-controlArrow.fp-next{
-        display:none;
-    }
-    .main_slider_in, .main_slider_txt {
-        text-align: center;
-    }
-    #home_main_slider .fp-tableCell{
-     vertical-align: middle;
-    }
-    #home_main_slider .main_slider_btn{
-     text-align: center;
-    }
-    #home_main_slider .container .main_slider_txt span:nth-child(1),
-    #home_main_slider .container .main_slider_txt span:nth-child(3){
-     font-size: 2rem !important;
-     color: #fff;
-    text-shadow: 0 2px 8px #000;
-    }
-    #home_main_slider .container .main_slider_txt .main_slider_in{
-     padding-right: 33px;
-    }
-    .slide-slide{
-        background-position: top center;
-       }
-    .btn-vesti-slide {
-        border: 1px solid $main_vest_color_b;
-        padding: 10px 80px;
-        font-size: .8rem;
-        margin: 20px 0;
-        background-color: $main_vest_color_b;
-        color: #fff;
-    }
-
-    /************HOME PAGE *************/
-    #quince_main {
-    background-image:none;
-}
-    #top_middle_sec #top_middle_sec_row img{
-        width:220px;
-    }
-    #top_middle_sec .container{
-        max-width:770px;
-    }
-    #top_middle_sec #top_middle_sec_row{
-     height: 381px;
-    }
-     #top_middle_sec_row #top_middle_img1{
-     left:0px;
-     }
-     #top_middle_sec_row #top_middle_img2{
-     left:240px;
-     }
-     #top_middle_sec_row #top_middle_img3{
-     left:478px;
-     }
-     #top_middle_sec_row .vesti-heart-link{
-         right: 8px;
-     }
-     #top_middle_sec_row .vesti-new-txt-a, 
-     #quince_selec_sec .vesti-new-txt-a {
-        font-size: .8rem;
-        top: 12px !important;
-        left: 9px !important;
-    }
-     #top_middle_sec_row .vesti-new-border-a,
-     #quince_selec_sec .vesti-new-border-a{
-         border-top: 70px solid $main_vest_color;
-         border-right: 70px solid transparent;
-     }
-     #fp-nav{
-         display:none
-     }
-     #top_middle_sec .top_middle_sec_title2{
-         font-size: 1.6rem;
-     }
-     .brands_txt > div,
-     .quince_txt > div{
-         max-width: 412px;
-     }
-     .brands_txt>div{
-         margin-left: auto !important;
-     }
-     #brands_section .brands_txt div:first-child,
-     #quince_main .quince_txt div:first-child{
-         font-size: 2rem;
-         text-align: left;
-     }
-     #quince_main,
-     #brands_section{
-         padding-bottom:20px !important;
-     }
-     #brands_section .brands_txt div:last-child,
-     #quince_main .quince_txt div:last-child{
-         font-size: 1rem;
-     }
-     #quince_selec_sec .quince-select-title{
-         font-size: 2rem;
-     }
-     /***********ABOUT PAGE**************/
-    .col-lg-9{
-        padding:0px;
-    }
-    .container-in-space{
-        width:auto !important;
-        margin: 50px auto 0px auto !important;
-    }
-    /**** CART PAGE *****/
-      .cart-container-in h2{
-        position:static;
-    }
-    .cart-container-in .cart-item-img{
-        width:100%;
-    }
-    .cart-item-items .cart-item-1 .col:nth-child(2) div p{
-        line-height: 1rem;
-    }
-    .cart-item-items .cart-item-1 .col:nth-child(2) div p:not(:first-child){
-        line-height: 1rem;
-        margin: 5px 0px;
-    }
-    /*****************USER ACCOUNT**************/
-    #user-account-menu{
-        display:none;
-    }
-     /*********CHECKOUT******************/
-     .checkout-status-confirm div:first-child{
-        text-align:center !important;
-    }
-    .checkout-status-confirm div:last-child{
-         text-align:center !important;
-    }
-
- }
  
 /*************************************************/
 /*  IPHONE 6,7,8  LANDSCAPE                      */
