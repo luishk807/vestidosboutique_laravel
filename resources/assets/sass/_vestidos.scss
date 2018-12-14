@@ -760,7 +760,7 @@ background-size: cover;
   background-color:$vesti-light-gray;
   padding: 10px 0px;
 }
-.cart-container-in .cart-item-items:not(:nth-child(4)){
+.cart-container-in .cart-item-items:not(:first-child){
   border-top: $vesti-light-bars;
   padding-top: 20px;
 }
@@ -768,6 +768,9 @@ background-size: cover;
   width:75%;
 }
 .cart-item-items {
+  .col{
+    padding:10px;
+  }
   .cart-item-1 {
     .col:nth-child(1){
       padding-left:0px;

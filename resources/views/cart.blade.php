@@ -32,15 +32,15 @@
                         </div>
                         @if(!empty(Session::get("vestidos_shop")))
                         <div class="row">
-                            <div class="col-md-3 col-lg-3 col-sm-12 col-12">
+                            <div class="col-md-4 col-lg-3 col-sm-12 col-xs-12">
                                 <div class="vesti_in_btn_pnl">
                                     <a class="btn-block vesti_in_btn_oval_white" href="{{ route('shop_page') }}">{{ __('buttons.back_shopping') }}</a>
                                 </div>
                             </div>
-                            <div class="col-md-5 col-lg-5 col-sm-12 col-12">
+                            <div class="col-md-4 col-lg-5 col-sm-1 col-xs-1">
                                 &nbsp;
                             </div>
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-12">
+                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                 <div class="vesti_in_btn_pnl">
                                     <a class="btn-block vesti_in_btn_oval" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="col cart-item-2">
-                                <select name="quantity" class="vesti-cart-quantity-input" onchange="updateCart('{{ $keyIndex }}',this.value)">
+                                <select name="quantity" class="form-control vesti-cart-quantity-input" onchange="updateCart('{{ $keyIndex }}',this.value)">
                                     @for ($i = 1; $i < 10; $i++)
                                     <option value="{{$i}}"
                                         @if($i==$item['quantity'])
@@ -148,15 +148,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3 col-lg-3 col-sm-12 col-12">
+                            <div class="col-md-4 col-lg-3 col-sm-12 col-xs-12">
                                 <div class="vesti_in_btn_pnl">
                                     <a class="btn-block  vesti_in_btn_oval_white" href="{{ route('shop_page') }}">{{ __('buttons.back_shopping') }}</a>
                                 </div>
                             </div>
-                            <div class="col-md-5 col-lg-5 col-sm-12 col-12">
+                            <div class="col-md-4 col-lg-5 col-sm-1 col-xs-1">
                                 &nbsp;
                             </div>
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-12">
+                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                 <div class="vesti_in_btn_pnl">
                                     <a class="btn-block vesti_in_btn_oval" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
