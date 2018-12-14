@@ -9,11 +9,11 @@
                 <div class="row">
                     <div class="col-md-6 footer-top-col text-center">
                         <ul class="list-unstyled">
-                            <li>{{ __('header.about') }}</li>
-                            <li>{{ __('header.contact') }}</li>
-                            <li>{{ __('header.faqs') }}</li>
-                            <li>{{ __('header.terms') }}</li>
-                            <li>{{ __('header.privacy') }}</li>
+                            <li><a class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.about') }}</a></li>
+                            <li><a  class="vestidos-simple-link-white" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a></li>
+                            <li><a  class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.faqs') }}</a></li>
+                            <li><a  class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.terms') }}</a></li>
+                            <li><a  class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.privacy') }}</a></li>
                         </ul>
 
                     </div>
@@ -21,9 +21,9 @@
                         <ul class="list-unstyled">
                             <li>{{ __('general.got_question') }}</li>
                             <li>{{ trans_choice('general.form.telephone',1) }}: +507 203-5848</li>
-                            <a href="https://api.whatsapp.com/send?phone=+67266556&text=Hello.">
+                            <a  class="vestidos-simple-link-white" href="https://api.whatsapp.com/send?phone=+67266556&text=Hello.">
                                 <img src="{{ asset('images/social-whatssap.svg') }}" class="vesti-svg vestidos-icons-social-b"/>
-                            </a>+6726-6556
+                                +6726-6556</a>
                             <li>{{ __('general.form.email') }}: info@vestidosboutique.com</li>
                         </ul>
 
