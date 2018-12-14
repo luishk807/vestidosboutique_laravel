@@ -15,6 +15,9 @@
 .vesti-search-cont ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3)
 }
+.bg-vestidos-admin{
+    background-color:$main_vest_color!important;
+}
 body{
     background-color:white;
 }
@@ -35,9 +38,136 @@ body,html{
 #admin-wrap .container .row a:not(:first-child){
     padding-left:5px;
 }
+.bg_color_1{
+    background-color:#1b96f0;
+    & .orders_links{
+        background-color:#1377cc;
+        &:hover{
+            background-color:#0f5f99;
+        }
+    }
+}
+.bg_color_2{
+    background-color:#860ba7cf;
+    & .orders_links{
+        background-color:#690c82cf;
+        &:hover{
+            background-color:#4e0961cf;
+        }
+    }
+}
+
+.bg_color_3{
+    background-color:#d21a60e3;
+    & .orders_links{
+        background-color:#ce185de3;
+        &:hover{
+            background-color:#a51249e3;
+        }
+    }
+}
+.bg_color_4{
+    background-color:#1cc199;
+    & .orders_links{
+        background-color:#199476;
+        &:hover{
+            background-color:#146d57;
+        }
+    }
+}
+.bg_color_5{
+    background-color:#e49102;
+    & .orders_links{
+        background-color:#d67424;
+        &:hover{
+            background-color:#c7691b;
+        }
+    }
+}
 #admin-wrap{
+    .custom-ul{
+        -moz-column-count: 4;
+        -moz-column-gap: 20px;
+        -webkit-column-count: 4;
+        -webkit-column-gap: 20px;
+        column-count: 4;
+        column-gap: 20px;
+        list-style-type: none;
+        padding: 0px;
+        margin: 5px 0px;
+    }
+    .sub-menu .nav-link{
+        background-color: rgba(0,0,0,0.03);
+        margin: 0px 5px;
+        color: black;
+        border: 1px solid rgba(0,0,0,0.1);
+        font-size: .8rem;
+        padding: 8px 15px !important;
+        font-family: Arial;
+        font-weight: bold;
+        box-shadow: 0 0 3px rgba(0,0,0,0.1);
+        border-radius: 5px;
+    }
+    .shoplist-nav{
+        text-align: right;
+        margin: 10px;
+        & ul{
+            padding: 0px;
+            margin: 0px;
+            & li{
+                display: inline-block;
+                margin: 5px;
+            }
+        }
+    }
+    .container-title{
+        margin: 15px 0px;
+        font-weight: bold;
+        text-align: center;
+        & div{
+            text-align:center;
+        }
+        & div:first-child{
+            text-align:left;
+        }
+        & div:last-child{
+            text-align:right;
+        }
+    }
+    .container-data{
+        text-align: center;
+        margin: 10px 0px;
+        padding: 20px 0px;
+    
+        & div:first-child{
+            text-align:left;
+        }
+        & div:last-child{
+            text-align:right;
+        }
+        & .container-button a{
+            background-color: rgba(0,0,0,.02);
+            padding: 8px 10px;
+            color: black;
+            border-radius: 5px;
+            font-size: .9rem;
+            border: 1px solid rgba(0,0,0,.1);
+            font-family: arial;
+            &:hover{
+                text-decoration:none;
+                background-color:$main-vest-color-dark;
+                color:white;
+            }
+        }
+        &.row-even:nth-child(even){
+            background-color:rgba(0,0,0,.02);
+        }
+    }
+    .dropdown-menu{
+        border:$main_vest_color;
+    }
     .nav-link:hover, .navbar-link:hover {
-        background-color: black;
+        background-color:$main-vest-color-dark;
         text-decoration: none;
         color: white;
     }
@@ -66,6 +196,9 @@ body,html{
     .warning-text{
         font-size:1.5rem;
         font-weight:bold;
+    }
+    .form-btn-container div{
+        text-align:center;
     }
     .admin-btn{
         background-color: white;

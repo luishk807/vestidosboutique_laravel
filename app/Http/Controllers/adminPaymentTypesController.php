@@ -22,7 +22,14 @@ class adminPaymentTypesController extends Controller
     }
     function index(){
         $data=[];
-        $data["payment_types"]=$this->payment_types->all();
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_payment'),
+                "name"=>"Add Payment Types"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_payments');
+        $data["main_items"]=$this->payment_types->paginate(10);
         $data["page_title"]="Payment Page";
         return view("admin/payment_types/home",$data);
     }
@@ -79,5 +86,36 @@ class adminPaymentTypesController extends Controller
         $payment_type = $this->payment_types->find($payment_type_id);
         $payment_type->delete();
         return redirect()->route("admin_payments");
+    }
+    public function deleteConfirmPayments(Request $request){
+        $payment_ids = $request["payment_types_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "payment_types_ids"=>"required",
+        ],$custom_message);
+        $payments = $this->payment_types->getPaymentsByIds($payment_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_payments");
+        $data["confirm_name"] = "Payments";
+        $data["confirm_data"] = $payments;
+        $data["confirm_delete_url"]=route('delete_payments');
+        $data["page_title"]="Confirm payments for deletion";
+        return view("admin/confirm_delete",$data);
+    }
+    public function deletePayments(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $payment_ids = $request["item_ids"];
+                foreach($payment_ids as $payment){
+                   $payment = $this->payment_types->find($payment);
+                    $payment->delete();
+                }
+               return redirect()->route("admin_payments")->with('success','Payments Deleted successfully.');
     }
 }

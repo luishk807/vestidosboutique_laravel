@@ -22,7 +22,22 @@ class adminProductRatesController extends Controller
     public function index($product_id){
         $data=[];
         $product=$this->products->find($product_id);
-        $data["rates"]=$product->rates()->get();
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin'),
+                "name"=>"Home"
+            ],
+            [
+                "url"=>route('edit_product',['product_id'=>$product_id]),
+                "name"=>"Back to Edit"
+            ],
+            [
+                "url"=>route('new_rate',['product_id'=>$product_id]),
+                "name"=>"Add Product Rate"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_rates');
+        $data["main_items"]=$product->rates()->paginate(10);
         $data["page_title"]="Rates For ".$product->products_name;
         $data["product_id"]=$product_id;
         return view("admin/products/rates/home",$data);
@@ -105,5 +120,36 @@ class adminProductRatesController extends Controller
         $data["page_title"]="Delete Rates";
         $data["product_id"]=$rate->product_id;
         return view("admin/products/rates/confirm",$data);
+    }
+    public function deleteConfirmRates(Request $request){
+        $rate_ids = $request["rate_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "rate_ids"=>"required",
+        ],$custom_message);
+        $rates = $this->rates->getRatesByIds($rate_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_rates");
+        $data["confirm_name"] = "Rates";
+        $data["confirm_data"] = $rates;
+        $data["confirm_delete_url"]=route('delete_rates');
+        $data["page_title"]="Confirm rates for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteRates(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $rate_ids = $request["item_ids"];
+                foreach($rate_ids as $rate){
+                   $rate = $this->rates->find($rate);
+                    $rate->delete();
+                }
+               return redirect()->route("admin_rates")->with('success','Rates Deleted successfully.');
     }
 }

@@ -19,35 +19,12 @@
 }
 </style>
 <div class="container">
-    <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('admin_new_order') }}" class="nav-link">Add Order</a></li>
-            </ul>
-            </nav>
-            
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="shoplist-nav">
-                <ul>
-                        @if(!empty($orders->previousPageUrl()))
-                    <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
-                    @endif
-                    <li>{{ $orders->currentPage()}} {{ __('pagination.of') }} {{ $orders->count() }}</li>
-                    @if($orders->nextPageUrl())
-                    <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
-                    @endif
-                </ul>
-            </div><!--end of nav container-->
-        </div>
-    </div>
+
     <!--start of orders-->
-    @foreach($orders as $order)
+    @foreach($main_items as $order)
     <div class="row admin_orders_row">
-        <div class="col">
+        <div class="col-md-1"><input  class="form-control" type="checkbox" name="order_ids[]" value="{{ $order->id }}"></div>
+        <div class="col-md-11">
             <div class="row py-3 order_admin_header">
                 <div class="col">
                     <div class="row">
@@ -120,21 +97,6 @@
     </div><!--end of order detail-->
     @endforeach
     <!--end of row orders-->
-    <div class="row">
-        <div class="col">
-            <div class="shoplist-nav">
-                <ul>
-                        @if(!empty($orders->previousPageUrl()))
-                    <li><a href="{{ $orders->previousPageUrl()}}">&lt; Back</a></li>
-                    @endif
-                    <li>{{ $orders->currentPage()}} {{ __('pagination.of') }} {{ $orders->count() }}</li>
-                    @if($orders->nextPageUrl())
-                    <li><a href="{{ $orders->nextPageUrl() }}">Next &gt;</a></li>
-                    @endif
-                </ul>
-            </div><!--end of nav container-->
-        </div>
-    </div>
 
 </div>
 @endsection

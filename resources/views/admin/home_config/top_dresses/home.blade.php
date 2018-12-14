@@ -6,17 +6,7 @@
 }
 </style>
 <div class="container">
-    <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('new_top_dress') }}" class="nav-link">Select Top Dresses</a></li>
-            </ul>
-            </nav>
-            
-        </div>
-    </div>
-    <div class="row">
+    <div class="row container-title">
         <div class="col-md-2"></div>
         <div class="col-md-2">Image</div>
         <div class="col-md-3">Name</div>
@@ -24,8 +14,9 @@
         <div class="col-md-3">Rate</div>
     </div>
     @foreach($products as $indexKey=>$product)
-    <div class="row">
+    <div class="row container-data row-even">
         <div class="col-md-2">
+        <input  class="form-control" type="checkbox" name="product_ids[]" value="{{ $product->id }}">
         </div>
         <div class="col-md-2">
         <img src="

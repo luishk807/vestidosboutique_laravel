@@ -17,7 +17,18 @@ class adminFabricController extends Controller
     }
     public function index(){
         $data=[];
-        $data["fabrics"]=$this->fabrics->all();
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_fabric'),
+                "name"=>"Add Fabric"
+            ],
+            [
+                "url"=>route('show_import_fabrics'),
+                "name"=>"Import Fabrics"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_fabrics');
+        $data["main_items"]=$this->fabrics->paginate(10);
         $data["page_title"]="Fabrics";
         return view("admin/fabrics/home",$data);
     }
@@ -112,5 +123,36 @@ class adminFabricController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmFabrics(Request $request){
+        $fabric_ids = $request["fabric_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "fabric_ids"=>"required",
+        ],$custom_message);
+        $fabrics = $this->fabrics->getFabricsByIds($fabric_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_fabrics");
+        $data["confirm_name"] = "Fabrics";
+        $data["confirm_data"] = $fabrics;
+        $data["confirm_delete_url"]=route('delete_fabrics');
+        $data["page_title"]="Confirm fabrics for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteFabrics(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $fabric_ids = $request["item_ids"];
+                foreach($fabric_ids as $fabric){
+                   $fabric = $this->fabrics->find($fabric);
+                    $fabric->delete();
+                }
+               return redirect()->route("admin_fabrics")->with('success','Fabrics Deleted successfully.');
     }
 }

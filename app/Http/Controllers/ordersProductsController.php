@@ -37,9 +37,16 @@ class ordersProductsController extends Controller
     }
     public function index($order_id){
         $data=[];
+        $order = $this->orders->find($order_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_edit_order',['order_id'=>$order->id]),
+                "name"=>"Back to Previous"
+            ]
+        ];
         $data["order"]=$this->orders->find($order_id);
         $data["orders"]=$this->orders->all();
-        $data["page_title"]=__('header.orders');
+        $data["page_title"]=__('header.orders')." ".$order->order_number;
         return view("admin/orders/products/home",$data);
     }
     public function newOrderProducts(){
@@ -110,7 +117,7 @@ class ordersProductsController extends Controller
         $user=$this->users->find($order->user_id);
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
-        $data["page_title"]=__('general.order_section.edit_order');
+        $data["page_title"]=__('general.order_section.edit_order')." ".$order->order_number;
         return view("admin/orders/products/edit",$data);
     }
     public function saveOrderProduct($order_id,Request $request){

@@ -19,7 +19,7 @@
             <small class="error">{{$errors->first("cancel_reason")}}</small>
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_orders') }}">
                     Back To Orders

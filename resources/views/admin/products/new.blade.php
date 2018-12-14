@@ -1,18 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<style>
-.custom-ul{
-    -moz-column-count: 4;
-    -moz-column-gap: 20px;
-    -webkit-column-count: 4;
-    -webkit-column-gap: 20px;
-    column-count: 4;
-    column-gap: 20px;
-    list-style-type: none;
-    padding: 0px;
-    margin: 5px 0px;
-}
-</style>
 <form action="{{ route('create_product') }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
@@ -172,7 +159,7 @@
     
 
     <div class="container">
-        <div class="row">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_products') }}">
                     Back To Products

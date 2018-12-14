@@ -22,9 +22,28 @@ class adminColorController extends Controller
     public function index($product_id){
         $data =[];
         $product=$this->products->find($product_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin'),
+                "name"=>"Home"
+            ],
+            [
+                "url"=>route('admin_products'),
+                "name"=>"Back to Products"
+            ],
+            [
+                "url"=>route('new_color',['product_id'=>$product_id]),
+                "name"=>"Add Color"
+            ],
+            [
+                "url"=>route('show_import_color',['product_id'=>$product_id]),
+                "name"=>"Import Color"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_colors');
         $data["page_title"]="Colors For Product: ".$product->products_name;
         $data["product_id"]=$product_id;
-        $data["colors"]=$product->colors()->get();
+        $data["main_items"]=$product->colors()->paginate(10);
         $data["products"]=$this->products->all();
         return view("admin/products/colors/home",$data);
     }
@@ -54,9 +73,17 @@ class adminColorController extends Controller
 
     public function editColor($color_id, Request $request){
         $data =[];
-        $data["page_title"]="Colors";
-        $data["color"]=$this->colors->find($color_id);
+        $color=$this->colors->find($color_id);
+        $data["color"]=$color;
         $data["products"]=$this->products->all();
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_size',['product_id'=>$color->product_id]),
+                "name"=>"Add Sizes"
+            ]
+        ];
+        $data["page_title"]="Colors";
+
         $color=$this->colors->find($color_id);
         if($request->isMethod("post")){
             $color->name=$request->input("name");
@@ -121,5 +148,36 @@ class adminColorController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmColors(Request $request){
+        $color_ids = $request["color_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "color_ids"=>"required",
+        ],$custom_message);
+        $colors = $this->colors->getColorsByIds($color_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_colors");
+        $data["confirm_name"] = "Colors";
+        $data["confirm_data"] = $colors;
+        $data["confirm_delete_url"]=route('delete_colors');
+        $data["page_title"]="Confirm colors for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteColors(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $color_ids = $request["item_ids"];
+                foreach($color_ids as $color){
+                   $color = $this->colors->find($color);
+                    $color->delete();
+                }
+               return redirect()->route("admin_colors")->with('success','Colors Deleted successfully.');
     }
 }

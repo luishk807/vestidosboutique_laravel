@@ -12,6 +12,8 @@ use App\vestidosProductRates as Rates;
 use App\vestidosSizes as Sizes;
 use App\vestidosLanguages as Languages;
 use Auth;
+use Session;
+use Artisan;
 use Illuminate\Support\Facades\DB;
 
 class adminHomeController extends Controller
@@ -60,8 +62,8 @@ class adminHomeController extends Controller
 
         $data["age_ranges"]=$this->users->getRangeAges();
 
-        //dd($data["popular_dresses"]);
-        return view("admin/home",$data);
+       //dd($data["order_week"]);
+       return view("admin/home",$data);
     }
     public function signin(){
         $data=[];
@@ -108,5 +110,12 @@ class adminHomeController extends Controller
             return redirect()->route('admin_show_login',$data)->with("msg","you are succefully logout");
         }
         return redirect()->back();
+    }
+    public function cacheClear(){
+        Artisan::call('config:cache');
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        return redirect()->back()->with("msg","Cached Cleared!");
     }
 }

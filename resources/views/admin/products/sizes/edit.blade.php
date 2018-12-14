@@ -1,17 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
-                </ul>
-            </nav>
-            
-        </div>
-    </div>
-</div>
 <form action="{{ route('save_size',['size_id'=>$size_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
@@ -71,7 +59,7 @@
         <small class="error">{{$errors->first("status")}}</small>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_sizes',['product_id'=>$product_id]) }}">
                     Back To Sizes

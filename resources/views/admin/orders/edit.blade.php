@@ -5,18 +5,6 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('admin_orders') }}" class="nav-link">Back to Orders</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_order_products',['order_id'=>$order_id]) }}" class="nav-link">[{{ $order->products()->count()}}] View products</a></li>
-                    <li class="nav-item"><a href="{{ route('admin_show_order_payment',['order_id'=>$order_id]) }}" class="nav-link">Re-process Payment</a></li>
-                </ul>
-            </nav>
-            
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-                <ul class="navbar-nav">
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
                             <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>1]) }}">Edit</a>]</p>

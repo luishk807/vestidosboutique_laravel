@@ -49,9 +49,6 @@
 .admin-checkout-total .row:last-child .total{
     font-weight:bold;
 }
-</style>
-
-<style>
 .billing-payment-section{
     margin:20px 0px 30px 0px;
 }

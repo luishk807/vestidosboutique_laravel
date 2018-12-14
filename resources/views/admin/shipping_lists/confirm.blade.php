@@ -8,7 +8,7 @@
             are you sure want to delete {{ $shipping_list->name }}
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_shipping_lists') }}">
                     Back To Shipping_lists

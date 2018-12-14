@@ -8,9 +8,11 @@
 {{ csrf_field() }}
     <div class="form-group">
         <small class="error">
+            <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
+            </ul>
         </small>
     </div>
     <input type="hidden" name="product_id" value="{{ $product_id }}">
@@ -19,7 +21,7 @@
         <input type="file" name="file" class="form-control-file" id="file">
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_sizes',['product_id'=>$product_id]) }}">
                     Back To Sizes

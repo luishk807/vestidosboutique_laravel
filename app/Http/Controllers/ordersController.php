@@ -25,7 +25,7 @@ use App\vestidosAddressTypes as AddressTypes;
 use App\vestidosOrderAddresses as OrderAddresses;
 use App\vestidosTaxInfos as Tax;
 use App\vestidosPaymentTypes as PaymentTypes;
-use Braintree_Transaction;
+use Braintree;
 use Mail;
 use Auth;
 use Session;
@@ -56,7 +56,14 @@ class ordersController extends Controller
     }
     public function index(){
         $data=[];
-        $data["orders"]=$this->orders->orderBy('created_at','desc')->paginate(10);
+        $data["main_items"]=$this->orders->orderBy('created_at','desc')->paginate(10);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_new_order'),
+                "name"=>"Add Order"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_orders');
         $data["page_title"]=__('header.orders');
         return view("admin/orders/home",$data);
     }
@@ -107,6 +114,20 @@ class ordersController extends Controller
     public function editOrder($order_id){
         $data=[];
         $order =$this->orders->find($order_id);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_orders'),
+                "name"=>"Back to Orders"
+            ],
+            [
+                "url"=>route('admin_order_products',['order_id'=>$order_id]),
+                "name"=>"[".$order->products()->count()."] View products"
+            ],
+            [
+                "url"=>route('admin_show_order_payment',['order_id'=>$order_id]),
+                "name"=>"Re-process Payment"
+            ]
+        ];
         $data["order"]=$order;
         $data["order_id"]=$order_id;
       
@@ -118,7 +139,7 @@ class ordersController extends Controller
         $order_billing = $order->getOrderBillingAddress();
         $data["order_shipping"]=$order_shipping[0];
         $data["order_billing"]=$order_billing[0];
-        $data["page_title"]=__('general.order_section.edit_order');
+        $data["page_title"]=__('general.order_section.edit_order')." ".$order->order_number;
         return view("admin/orders/edit",$data);
     }
     public function showOrderAddress(){
@@ -128,6 +149,12 @@ class ordersController extends Controller
             $session=Session::get("vestidos_admin_shop");
             $user = $this->users->find($session["user_id"]);
         }
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_newaddress',['user_id'=>$user->id]),
+                "name"=>"Add New Address"
+            ]
+        ];
         $data["user"]=$user;
         $data["shipping_lists"]=$this->shipping_lists->all();
         $data["address_types"]=$this->address_types->all();
@@ -260,7 +287,7 @@ class ordersController extends Controller
         $order_billing = $order->getOrderBillingAddress();
         $data["order_id"]=$order_id;
         $data["address_var"]=$address_var;
-        $data["page_title"]=__('general.order_section.edit_order_address',["name"=>$address_var]);
+        $data["page_title"]=__('general.order_section.edit_order_address',["name"=>$address_var])." ".$order->order_number;
         $data["address_type_id"]=$address_type_id;
         $data["name"]=$request->input("name");
         $data["email"]=$request->input("email");
@@ -433,7 +460,7 @@ class ordersController extends Controller
 
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
         $data["payment_type"]=$request->input("payment_type");
-        $data["status"]=$is_credit_card ? 9 : 14;
+        $data["status"]=$is_credit_card ? 9 : 12;
         if($is_credit_card){
             $status = Braintree_Transaction::sale([
                 'amount' => $grand_total,
@@ -487,14 +514,6 @@ class ordersController extends Controller
             $data["created_at"]=carbon::now();
             // $data["products"]=$cart_p;
             foreach($cart["products"] as $product){
-                $new_product["product_id"]=$product["id"];
-                $new_product["order_id"]=$order->id;
-                $new_product["quantity"]=$product["quantity"];
-                $new_product["total"]=$product["total"];
-                $new_product["color_id"]=$product["color_id"];
-                $new_product["size_id"]=$product["size_id"];
-                $new_product["status"]=9;
-                $new_product["created_at"]=$today;
                 $check_size = $this->sizes->find($product["size_id"]);
                 $check_product = $this->products->find($product["id"]);
                 $check_color =  $this->colors->find($product["color_id"]);
@@ -568,8 +587,9 @@ class ordersController extends Controller
     }
     public function showAdminOrderPayment($order_id){
         $data=[];
+        $order = $this->orders->find($order_id);
         $data["order"]=$this->orders->find($order_id);
-        $data["page_title"]=__('general.order_section.process_order');
+        $data["page_title"]=__('general.order_section.process_order')." ".$order->order_number;
         return view("admin/orders/payments/edit",$data);
     }
     public function orderAdminProcessPayment(Request $request,$order_id){
@@ -725,5 +745,37 @@ class ordersController extends Controller
             return redirect()->route("admin_orders")->with('success',__('general.order_section.order_success_deleted'));
         }
         return redirect()->route("admin_orders")->with('error',__('general.order_section.unable_delete'));
+    }
+    public function deleteConfirmOrders(Request $request){
+        $order_ids = $request["order_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "order_ids"=>"required",
+        ],$custom_message);
+        $orders = $this->orders->getOrdersByIds($order_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_show_warning"]=true;
+        $data["confirm_return"] = route("admin_orders");
+        $data["confirm_name"] = "Orders";
+        $data["confirm_data"] = $orders;
+        $data["confirm_delete_url"]=route('delete_orders');
+        $data["page_title"]="Confirm orders for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteOrders(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $order_ids = $request["item_ids"];
+                foreach($order_ids as $order){
+                   $order = $this->orders->find($order);
+                    $order->delete();
+                }
+               return redirect()->route("admin_orders")->with('success','Orders Deleted successfully.');
     }
 }

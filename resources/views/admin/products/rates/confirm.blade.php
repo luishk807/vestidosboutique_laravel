@@ -8,7 +8,7 @@
             are you sure want to delete rate from {{ $rate->user->getFullName() }}
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_rates',['product_id'=>$rate->product_id]) }}">
                     Back To Rates

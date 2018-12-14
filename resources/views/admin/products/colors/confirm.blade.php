@@ -8,7 +8,7 @@
             are you sure want to delete {{ $color->name }}
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_colors',['product_id'=>$product_id]) }}">
                     Back To Colors

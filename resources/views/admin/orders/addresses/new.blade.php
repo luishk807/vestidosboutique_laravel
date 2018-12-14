@@ -14,20 +14,13 @@
         switchStatesDropByIndex(1);
     })
 </script>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <a href="{{ route('admin_newaddress',['user_id'=>$user->id])}}">Add New Address</a>
-        </div>
-    </div>
-</div>
 <form action="{{ route('admin_create_new_order_address') }}" method="post">
 {{ csrf_field() }}
     <input type="hidden" value="{{ url('api/loadStates') }}" id="loadStateUrl">
     <input type="hidden" value="{{ url('api/loadDistricts') }}" id="loadDistrictUrl">
     <input type="hidden" value="{{ url('api/loadCorregimientos') }}" id="loadCorregimientoUrl">
     <div class="container admin-address-container">
-        <div class="row">
+        <div class="row container-title">
             <div class="col header">
                 <h3>Delivery Address</h3>
             </div>
@@ -48,7 +41,7 @@
     @foreach($address_types as $addressindex=>$address_type)
     <input type="hidden" name="addresses[{{$addressindex}}][address_type]" value="{{ $address_type->id }}"/>
     <div class="container admin-address-container">
-        <div class="row">
+        <div class="row container-data row-even">
             <div class="col header">
                 <h3>{{ $address_type->name }} Address</h3>
             </div>
@@ -149,7 +142,7 @@
     
     @endforeach
     <div class="container">
-        <div class="row">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_new_order') }}">
                     Back To Product

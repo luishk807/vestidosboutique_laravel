@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon as carbon;
 
 class vestidosOrders extends Model
 {
@@ -65,32 +66,74 @@ class vestidosOrders extends Model
         $start_date = $this_year."-01-01 00:00:00";
         $end_date = $this_year."-12-31 00:00:00";
         $order_year = DB::table('vestidos_orders as order')
-        ->select(DB::raw("COUNT(*) as count"))
-        ->whereBetween('created_at',[$start_date,$end_date])
+        ->select(DB::raw("COUNT(*) as count"),DB::raw("MONTH(purchase_date) as month"))
+        ->whereBetween('purchase_date',[$start_date,$end_date])
         ->orderBy("purchase_date")
         ->groupBy(DB::raw("MONTH(purchase_date)"))
         ->get()->toArray();
+        $month = 1;
+        $order_arrays = [];
+        while($month < 13){
+            $added = false;
+            foreach($order_year as $order){
+                if($order->month === $month){
+                    $order_arrays[]=$order->count;
+                    $added = true;
+                    break;
+                }
+            }
+            if(!$added){
+                $order_arrays[]=0;
+            }
+            $month++;
+        }
 
-        $order_year = array_column($order_year, 'count');
-        $order_year = json_encode($order_year,JSON_NUMERIC_CHECK);
+      //  $order_year = array_column($order_year, 'count');
+      $order_arrays= json_encode($order_arrays,JSON_NUMERIC_CHECK);
 
-        return $order_year;
+       return $order_arrays;
     }
-
+    public function getOrdersByIds($ids){
+        $id_list =[];
+         foreach($ids as $id){
+             $id_list[]=$id;
+         }
+         $products = DB::table("vestidos_orders as order")
+         ->select("order.id as id","order.order_number as col_1","order.purchase_date as col_2","user.first_name as col_3","status.name as col_4")
+         ->whereIn('order.id',$id_list)
+         ->join("vestidos_users as user","user.id","order.user_id")
+         ->join("vestidos_statuses as status","status.id","order.status")
+         ->groupBy("order.id")
+         ->get();
+         return $products;
+     }
     public function getTotalOrderWeek(){
-        $this_year = date("Y");
-        $start_date = $this_year."-01-01 00:00:00";
-        $end_date = $this_year."-12-31 00:00:00";
         $order_week = DB::table('vestidos_orders as order')
-        ->select(DB::raw("COUNT(*) as count"))
-        ->whereBetween('created_at',[$start_date,$end_date])
-        ->orderBy("purchase_date")
-        ->groupBy(DB::raw("WEEK(purchase_date)"))
+        ->select(DB::raw("COUNT(*) as count"),DB::raw("WEEKDAY(purchase_date) as week"))
+        ->whereBetween('purchase_date',[carbon::now()->startOfWeek(),carbon::now()->endOfWeek()])
+        ->orderBy("week",'asc')
+        ->groupBy("week")
         ->get()->toArray();
-        $order_week = array_column($order_week, 'count');
-        $order_week = json_encode($order_week,JSON_NUMERIC_CHECK);
-
-        return $order_week;
+        $week = 0;
+        $order_arrays = [];
+        while($week < 7){
+            $added = false;
+            foreach($order_week as $order){
+                if($order->week === $week){
+                    $order_arrays[]=$order->count;
+                    $added = true;
+                    break;
+                }
+            }
+            if(!$added){
+                $order_arrays[]=0;
+            }
+            $week++;
+        }
+      //  $order_week = array_column($order_week, 'count');
+      $order_arrays = json_encode($order_arrays,JSON_NUMERIC_CHECK);
+        
+      return $order_arrays;
     }
     public function getOrderBillingAddress(){
         $address = DB::table('vestidos_order_addresses')

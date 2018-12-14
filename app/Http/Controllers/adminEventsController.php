@@ -16,6 +16,18 @@ class adminEventsController extends Controller
     public function index(){
         $data=[];
         $data["page_title"]="Events";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_event'),
+                "name"=>"Add Event"
+            ],
+            [
+                "url"=>route('show_import_event'),
+                "name"=>"Import Events"
+            ]
+        ];
+        $data["main_items"]=$this->events->paginate(10);
+        $data["delete_menu"] =route('confirm_delete_events');
         return view("admin/events/home",$data);
     }
     public function newevents(Request $request){
@@ -103,5 +115,36 @@ class adminEventsController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmEvents(Request $request){
+        $event_ids = $request["event_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "event_ids"=>"required",
+        ],$custom_message);
+        $events = $this->events->getEventsByIds($event_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_events");
+        $data["confirm_name"] = "Events";
+        $data["confirm_data"] = $events;
+        $data["confirm_delete_url"]=route('delete_events');
+        $data["page_title"]="Confirm events for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteEvents(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $event_ids = $request["item_ids"];
+                foreach($event_ids as $event){
+                   $event = $this->events->find($event);
+                    $event->delete();
+                }
+               return redirect()->route("admin_events")->with('success','Events Deleted successfully.');
     }
 }

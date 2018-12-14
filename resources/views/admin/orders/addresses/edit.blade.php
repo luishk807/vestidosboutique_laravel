@@ -40,14 +40,14 @@
     @include('includes.country_province_edit')
 
     <div class="container">
-        <div class="row text-center">
+        <div class="row form-btn-container">
             <div class="col-md-6">
-                <a class="admin-new" href="{{ route('admin_edit_order',['order_id'=>$order->id]) }}">
+                <a class="admin-btn" href="{{ route('admin_edit_order',['order_id'=>$order->id]) }}">
                     Back To Product
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="admin-new" value="Save {{$address_var}} Address"/>
+                <input type="submit" class="admin-btn" value="Save {{$address_var}} Address"/>
             </div>
         </div>
     </div>

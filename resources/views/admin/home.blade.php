@@ -9,7 +9,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Yearly Orders'
+                text: 'This Year Orders'
             },
             xAxis: {
                 categories: ['Jan','Feb','Mar','Abr','May','Jun',"Jul","Aug",'Sep','Oct','Nov','Dec']
@@ -24,27 +24,6 @@
                 data: $order_year
             }]
         });
-        var $order_week = <?php echo $order_week; ?>;
-        $('#container_week').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Weekly Orders'
-            },
-            xAxis: {
-                categories: ['Mon','Tue','Wed','Thr','Fri','Sat','Sun']
-            },
-            yAxis: {
-                title: {
-                    text: 'Orders'
-                }
-            },
-            series: [{
-                name: 'Orders',
-                data: $order_week
-            }]
-        });
 
         var $order_week = <?php echo $order_week; ?>;
         $('#container_week').highcharts({
@@ -52,7 +31,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Weekly Orders'
+                text: 'This Week Order'
             },
             xAxis: {
                 categories: ['Mon','Tue','Wed','Thr','Fri','Sat','Sun']
@@ -144,35 +123,44 @@
     text-align: center;
     text-decoration:underline;
 }
-.homesection-orders li,
-.homesection-products li{
-    margin:10px;
-
+.home_button_box{
+    padding: 10px;
+    text-align: center;
 }
-.homesection-orders li a,
-.homesection-products li a{
-    text-align:center;
+.home_button_box .number_links{
+    color:white;
     text-decoration:none;
-    color:black;
+    font-family:Arial;
+    font-size:.9rem;
+    padding:0px 5px;
 }
-.homesection-orders li a:hover,
-.homesection-products li a:hover{
+.home_button_box .number_links:hover{
     text-decoration:underline;
 }
-.homesection-orders li a .orders-content,
-.homesection-products li a .products-content{
-    display: inline-block;
-    text-align: center;
-    vertical-align: top;
+.homesection-orders .title{
+    padding:10px 0px;
+    color:white;
 }
-.homesection-orders li a .orders-content >.title{
-    border-right:1px solid;
-    padding-right:5px;
-
+.home_button_box .orders_links{
+    width:100%;
+    padding:5px 0px;
+    color:white;
+    font-family:Arial;
+    margin:2px 0px;
 }
-.homesection-orders li a .orders-content span,
-.homesection-products li a .products-content span{
-    font-weight:bold;
+.home_button_box .orders_links:hover{
+    text-decoration:none;
+}
+.home_button_box .orders_links .orders-content .col-left,
+.home_button_box .orders_links .orders-content .col-center,
+.home_button_box .orders_links .orders-content .col-right{
+    display:inline-block;
+    padding-right:0px;
+    padding-left:0px;
+}
+.home_button_box .orders-content{
+    display:inline-block;
+    width:100%;
 }
 </style>
 <div class="container">
@@ -191,84 +179,96 @@
     </div>
     <div class="row sub-main-row">
         <div class="col-md-4 homesection-orders">
-            <div class="text-center pv-4 home-title">Latest Orders</div>
-            <ol>
-            @foreach($orders as $order)
-                <li>
-                    <a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
-                        <span class="orders-content">
-                            <span class="title">{{ $order->order_number }}</span>
-                            Total: <span class="total">${{ $order->order_total }}</span><br/>
-                            Status: <span class="status">{{ $order->getStatusName->name }}</span><br/>
-                            Order Date: <span class="pdate">{{ $order->purchase_date }}</span>
-                        </span>
-                    </a>
-                </li>
-            @endforeach
-            </ol>
+            <div class="home_button_box bg_color_1">
+                <div class="title">Latest Orders [<a class="number_links" href="{{ route('admin_orders')}}">{{ $orders->count() }}</a>]</div>
+                <div class="container">
+                    <div class="row">
+                        @foreach($orders as $order)
+                        <a class="orders_links" href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
+                            <span class="orders-content">
+                                <span class="col-md-6 text-left col-left">{{ $order->order_number }}</span>
+                                <span class="col-md-5 text-right col-right">{{ $order->purchase_date }}</span>
+                            </span>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-4 homesection-orders">
-            <div class="text-center pv-4 home-title">Orders Unshipped</div>
-            <ol>
-            @foreach($unshipped_orders as $unshipped_order)
-                <li>
-                    <a href="{{ route('admin_edit_order',['order_id'=>$order->id])}}">
-                        <span class="orders-content">
-                            <span class="title">{{ $unshipped_order->getOrderInfo->order_number }}</span>
-                            Total: <span class="total">${{ $unshipped_order->total }}</span><br/>
-                            Status: <span class="status">{{ $unshipped_order->getStatusName->name }}</span><br/>
-                            Order Date: <span class="pdate">{{ $unshipped_order->getOrderInfo->purchase_date }}</span>
-                        </span>
-                    </a>
-                </li>
-            @endforeach
-            </ol>
+            <div class="home_button_box bg_color_2">
+                <div class="title">Unshipped Orders [<a class="number_links" href="{{ route('admin_orders')}}">{{ $unshipped_orders->count() }}</a>]</div>
+                <div class="container">
+                    <div class="row">
+                        @foreach($unshipped_orders as $unshipped_order)
+                        <a class="orders_links" href="{{ route('admin_edit_order',['order_id'=>$unshipped_order->order_id])}}">
+                            <span class="orders-content">
+                                <span class="col-md-6 text-left col-left">{{ $unshipped_order->getOrderInfo->order_number }}</span>
+                                <span class="col-md-5 text-right col-right">{{ $unshipped_order->getOrderInfo->purchase_date }}</span>
+                            </span>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="col-md-4 homesection-products">
-            <div class="text-center pv-4 home-title">Product Low Stock</div>
-            <ol>
-            @foreach($product_stocks as $product_stock)
-                <li>
-                    <a href="{{ route('edit_product',['product_id'=>$product_stock->getColor->product->id])}}">
-                        <span class="products-content">
-                            Name:<span class="name">{{ $product_stock->getColor->product->products_name }}</span><br/>
-                            Stock: <span class="stock">{{ $product_stock->stock }}</span>
-                            Size: <span class="color">{{ $product_stock->name }}</span><br/>
-                            Size: <span class="color">{{ $product_stock->getColor->name }}</span>
-                            Status:<span class="status">{{ $product_stock->getStatusName->name }}</span>
-                        </span>
-                    </a>
-                </li>
-            @endforeach
-            </ol>
+        <div class="col-md-4 homesection-orders">
+            <div class="home_button_box bg_color_3">
+                <div class="title">Product Low Stock [<a class="number_links" href="{{ route('admin_orders')}}">{{ $product_stocks->count() }}</a>]</div>
+                <div class="container">
+                    <div class="row">
+                        @foreach($product_stocks as $product_stock)
+                        <a class="orders_links" href="{{ route('edit_product',['product_id'=>$product_stock->getColor->product->id])}}">
+                            <span class="orders-content">
+                                <span class="col-md-4 text-left col-left">{{ $product_stock->getColor->product->products_name }}</span>
+                                <span class="col-md-5 text-center col-center">{{ $product_stock->getColor->name }}</span>
+                                <span class="col-md-2 text-right col-right">{{ $product_stock->stock }}</span>
+                            </span>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row sub-main-row">
-        <div class="col">
-            <div class="text-center pv-4 home-title">Unapproved Users</div>
-            <ol>
-            @foreach($unapproved_users as $user)
-                <li>
-                    <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">
-                        {{ $user->first_name }} {{ $user->last_name }}
-                        {{ $user->status_name }}
-                        {{ $user->gender_name}}
-                    </a>
-                </li>
-            @endforeach
-            </ol>
+        <div class="col homesection-orders">
+
+             <div class="home_button_box bg_color_4">
+                <div class="title">Unapproved Users [<a class="number_links" href="{{ route('admin_orders')}}">{{ $unapproved_users->count() }}</a>]</div>
+                <div class="container">
+                    <div class="row">
+                        @foreach($unapproved_users as $user)
+                        <a class="orders_links" href="{{ route('admin_edituser',['user_id'=>$user->id])}}">
+                            <span class="orders-content">
+                                <span class="col-md-4 text-left col-left">{{ $user->first_name }} {{ $user->last_name }}</span>
+                                <span class="col-md-5 text-center col-center">{{ $user->status_name }}</span>
+                                <span class="col-md-2 text-right col-right">{{ $user->gender_name}}</span>
+                            </span>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <div class="text-center pv-4 home-title">Latest Users</div>
-            <ol>
-            @foreach($last_ten_users as $user)
-                <li>
-                    <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">
-                        {{ $user->first_name }} {{ $user->last_name }} {{ $user->date_of_birth }} {{ $user->gender_name}}
-                    </a>
-                </li>
-            @endforeach
-            </ol>
+        <div class="col homesection-orders">
+            <div class="home_button_box bg_color_5">
+                <div class="title">Latest Users [<a class="number_links" href="{{ route('admin_users')}}">{{ $last_ten_users->count() }}</a>]</div>
+                <div class="container">
+                    <div class="row">
+                        @foreach($last_ten_users as $user)
+                        <a class="orders_links" href="{{ route('admin_edituser',['user_id'=>$user->id])}}">
+                            <span class="orders-content">
+                                <span class="col-md-4 text-left col-left">{{ $user->first_name }} {{ $user->last_name }}</span>
+                                <span class="col-md-5 text-center col-center">{{ $user->date_of_birth }}</span>
+                                <span class="col-md-2 text-right col-right">{{ $user->gender_name}}</span>
+                            </span>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col">
             <div id="container_age_range"></div>

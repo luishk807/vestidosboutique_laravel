@@ -8,20 +8,7 @@
 }
 </style>
 <div class="container">
-    <div class="row">
-        <div class="col text-center">
-            <nav class="navbar navbar navbar-expand-lg">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="{{ route('admin') }}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Back to Products</a></li>
-                <li class="nav-item"><a href="{{ route('new_color',['product_id'=>$product_id]) }}" class="nav-link">Add Color</a></li>
-                <li class="nav-item"><a href="{{ route('show_import_color',['product_id'=>$product_id]) }}" class="nav-link">Import Color</a></li>
-            </ul>
-            </nav>
-            
-        </div>
-    </div>
-    <div class="row">
+    <div class="row container-title">
         <div class="col-md-2"></div>
         <div class="col-md-2">Name</div>
         <div class="col-md-2">Color</div>
@@ -29,15 +16,15 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($colors as $color)
-    <div class="row">
+    @foreach($main_items as $color)
+    <div class="row container-data row-even">
 
-        <div class="col-md-2"></div>
+        <div class="col-md-2"><input  class="form-control" type="checkbox" name="color_ids[]" value="{{ $color->id }}"></div>
         <div class="col-md-2">{{$color->name}}</div>
         <div class="col-md-2"><span class="color_cubes color_cubes_btn_b"  style="background-color:{{ $color->color_code }}">&nbsp;</span></div>
         <div class="col-md-1"><a href='{{ route("admin_sizes",["product_id"=>$color->product_id])}}'>{{ $color->sizes()->count() }}</a></div>
         <div class="col-md-2">{{ $color->getStatusName->name }}</div>
-        <div class="col-md-3">
+        <div class="col-md-3 container-button">
             <a href="{{ route('confirm_color',['color_id'=>$color->id])}}">delete</a>
             <a href="{{ route('edit_color',['color_id'=>$color->id])}}">edit</a>
         </div>

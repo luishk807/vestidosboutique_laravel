@@ -53,7 +53,7 @@ var urlColorSizes = "{{ url('api/loadSizes') }}";
         <small class="error">{{$errors->first("vendor")}}</small>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row form-btn-container">
             <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_restocks') }}">
                     Back To Restocks

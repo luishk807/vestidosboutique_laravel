@@ -15,6 +15,18 @@ class categoriesController extends Controller
     }
     public function index(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_category'),
+                "name"=>"Add Category"
+            ],
+            [
+                "url"=>route('show_import_category'),
+                "name"=>"Import Categories"
+            ]
+        ];
+        $data["main_items"]=$this->categories->paginate(10);
+        $data["delete_menu"] =route('confirm_delete_categories');
         $data["page_title"]="Categories";
         return view("admin/categories/home",$data);
     }
@@ -103,5 +115,36 @@ class categoriesController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmCategories(Request $request){
+        $category_ids = $request["category_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "category_ids"=>"required",
+        ],$custom_message);
+        $categories = $this->categories->getCategoriesByIds($category_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_category");
+        $data["confirm_name"] = "Categories";
+        $data["confirm_data"] = $categories;
+        $data["confirm_delete_url"]=route('delete_categories');
+        $data["page_title"]="Confirm categories for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteCategories(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $category_ids = $request["item_ids"];
+                foreach($category_ids as $category){
+                   $category = $this->categories->find($category);
+                    $category->delete();
+                }
+               return redirect()->route("admin_category")->with('success','Categories Deleted successfully.');
     }
 }

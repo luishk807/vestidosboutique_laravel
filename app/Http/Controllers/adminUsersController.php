@@ -30,13 +30,35 @@ class adminUsersController extends Controller
         $data["addresses"]=$user->getAddresses()->get();
         $data["user"]=$user;
         $data["user_id"]=$user_id;
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_edituser',['user_id'=>$user_id]),
+                "name"=>"Back to Edit"
+            ],
+            [
+                "url"=>route('admin_newaddress',['user_id'=>$user_id]),
+                "name"=>"Add Address"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_addresses');
         $data["page_title"]="Address Page For ".$user->getFullName();
         return view("admin/users/addresses/home",$data);
     }
     public function index(){
         $data = [];
+        $data["delete_menu"] =route('confirm_delete_users');
         $data["page_title"]="Users";
-        $data["users"]=$this->users->paginate(10);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_newuser'),
+                "name"=>"Add User"
+            ],
+            [
+                "url"=>route('show_import_adminuser'),
+                "name"=>"Import User"
+            ]
+        ];
+        $data["main_items"]=$this->users->paginate(10);
         return view("admin/users/home",$data);
     }
     public function showNewUserForm(){
@@ -92,6 +114,16 @@ class adminUsersController extends Controller
         $data=[];
         $user = $this->users->find($user_id);
         $data["user"]=$user;
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin_users'),
+                "name"=>"Back to Users"
+            ],
+            [
+                "url"=>route('admin_address',['user_id'=>$user_id]),
+                "name"=>"[".$user->getAddresses()->count()."] View Address"
+            ]
+        ];
         $data["page_title"]="Edit Info For ".$user->first_name;
         $data["user_id"]=$user_id;
         $data["user_types"]=$this->user_types->all();
@@ -260,7 +292,37 @@ class adminUsersController extends Controller
             redirect()->back();
         }
     }
+    public function deleteConfirmUsers(Request $request){
+        $user_ids = $request["user_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "user_ids"=>"required",
+        ],$custom_message);
+        $users = $this->users->getUsersByIds($user_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_users");
+        $data["confirm_name"] = "Users";
+        $data["confirm_data"] = $users;
+        $data["confirm_delete_url"]=route('delete_users');
+        $data["page_title"]="Confirm users for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteUsers(Request $request){
     
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $user_ids = $request["item_ids"];
+                foreach($user_ids as $user){
+                   $user = $this->users->find($user);
+                    $user->delete();
+                }
+               return redirect()->route("admin_users")->with('success','Users Deleted successfully.');
+    }
     public function deleteUser($user_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){

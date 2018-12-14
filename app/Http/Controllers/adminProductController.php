@@ -44,7 +44,22 @@ class adminProductController extends Controller
     }
     function index(){
         $data=[];
-        $data["products"]=$this->products->paginate(10);
+        $data["main_items"]= $this->products->paginate(10);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_product'),
+                "name"=>"Add Product Manually"
+            ],
+            [
+                "url"=>route('show_import_product'),
+                "name"=>"Add Product From File"
+            ],
+            [
+                "url"=>route('admin_restocks'),
+                "name"=>"Restock"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_products');
         $data["page_title"]="Product Page";
         return view("admin/products/home",$data);
     }
@@ -71,10 +86,9 @@ class adminProductController extends Controller
             'purchase_date'=>"required",
             "neckline"=>"required",
             "products_description"=>"required",
-            "total_rent"=>"required",
         ]);
         
-        $categories = $request->input("categories");
+        $events = $request->input("events");
 
         $data["products_name"]=$request->input("products_name");
         $data["brand"]=(int)$request->input("brand");
@@ -102,11 +116,11 @@ class adminProductController extends Controller
         $product = Products::create($data);
         if($product->id){
             $catData = [];
-            if(count($categories)>0){
-                foreach($categories as $category){
-                    $this->product_categories->insert([
+            if(count($events)>0){
+                foreach($events as $event){
+                    $this->product_events->insert([
                         "product_id"=>$product->id,
-                        "category_id"=>$category,
+                        "event_id"=>$event,
                         "created_at"=>carbon::now()
                     ]);
                 }
@@ -117,15 +131,38 @@ class adminProductController extends Controller
     }
     function editProduct($product_id, Request $request){
         $data=[];
-        
         $product = $this->products->find($product_id);
+        $sizes = $product->getAllSizesCount()[0];
+ 
+        $data["page_submenus"]=[
+            [
+            "url"=> route('admin_products'),
+            "name"=>"Back to Products"
+            ],
+            [
+                "url"=>route('admin_images',['product_id'=>$product_id]),
+                "name"=>"[".$product->images()->count()."] View Images"
+            ],
+            [
+                "url"=>route('admin_colors',['product_id'=>$product_id]),
+                "name"=>"[".$product->colors()->count()."] View Colors"
+            ],
+            [
+                "url"=>route('admin_sizes',['product_id'=>$product_id]),
+                "name"=>"[".$sizes->count."] View Sizes"
+            ],
+            [
+                "url"=>route('admin_rates',['product_id'=>$product_id]),
+                "name"=>"[".$product->rates()->count()."]  View Rates"
+            ]
+        ];
         $data["is_news"]=[0,1];
         $data["product_id"]=$product_id;
         $data["product"]=$product;
         $data["page_title"]="Edit Product: ".$product->products_name;
         $data["lengths"]=$this->lengths->all();
         $data["closures"]=$this->closures->all();
-        $data["sizes"]=$product->getAllSizesCount()[0];
+        $data["sizes"]=$sizes;
         $data["fabrics"]=$this->fabrics->all();
         $data["vendors"]=$this->vendors->all();
         $data["necklines"]=$this->necklines->all();
@@ -224,6 +261,7 @@ class adminProductController extends Controller
         $data["page_title"]="Delete Product";
         return view("admin/products/confirm",$data);
     }
+
     public function searchByFilter(Request $request){
         $filter = $request->input("search_input");
         $product = new Products();
@@ -236,6 +274,12 @@ class adminProductController extends Controller
 
     public function showTopDress(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_top_dress'),
+                "name"=>"Select Top Dresses"
+            ]
+        ];
         $data["products"]=$this->products->where("top_dress","=","1")->get();
         $data["page_title"]="Top Dresses";
         return view("/admin/home_config/top_dresses/home",$data);
@@ -264,6 +308,12 @@ class adminProductController extends Controller
     }
     public function showTopQuince(){
         $data=[];
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_top_quince'),
+                "name"=>"Select Top Quince"
+            ]
+        ];
         $data["products"]=$this->products->where("top_quince","=","1")->get();
         $data["page_title"]="Top Quince";
         return view("/admin/home_config/top_quince/home",$data);
@@ -405,6 +455,22 @@ class adminProductController extends Controller
     public function showRestock(){
         $data=[];
         $data["restocks"]=$this->restocks->all();
+        
+        $data["page_submenus"]=[
+            [
+                "url"=>route('admin'),
+                "name"=>"Home"
+            ],
+            [
+                "url"=>route('admin_products'),
+                "name"=>"Back to Products"
+            ],
+            [
+                "url"=>route('new_restock'),
+                "name"=>"Add Restock Data"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_restocks');
         $data["page_title"]="Restock Data";
         return view("admin/products/restocks/home",$data);
     }
@@ -613,4 +679,72 @@ class adminProductController extends Controller
              return redirect()->route("admin_products")->with("success","import successfully entered");
          }
       }
+      public function deleteConfirmProducts(Request $request){
+        $product_ids = $request["product_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "product_ids"=>"required",
+        ],$custom_message);
+        $products = $this->products->getProductsByIds($product_ids);
+        $data["confirm_type"] = "img";
+        $data["confirm_return"] = route("admin_products");
+        $data["confirm_name"] = "Products";
+        $data["confirm_data"] = $products;
+        $data["confirm_delete_url"]=route('delete_products');
+        $data["page_title"]="Confirm products for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteProducts(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $product_ids = $request["item_ids"];
+                foreach($product_ids as $product){
+                   $product = $this->products->find($product);
+                   foreach($product->images as $image){
+                        $img_path =public_path().'/images/products/'.$image->img_url;
+                        if(file_exists($img_path)){
+                            @unlink($img_path);
+                        }
+                    }
+                    $product->delete();
+                }
+               return redirect()->route("admin_products")->with('success','Products Deleted successfully.');
+    }
+    public function deleteConfirmRestocks(Request $request){
+        $restock_ids = $request["restock_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "restock_ids"=>"required",
+        ],$custom_message);
+        $restocks = $this->restocks->getRestocksByIds($restock_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_restocks");
+        $data["confirm_name"] = "Restocks";
+        $data["confirm_data"] = $restocks;
+        $data["confirm_delete_url"]=route('delete_restocks');
+        $data["page_title"]="Confirm restocks for deletion";
+         return view("admin/confirm_delete",$data);
+    }
+    public function deleteRestocks(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $restock_ids = $request["item_ids"];
+                foreach($restock_ids as $restock){
+                   $restock = $this->restocks->find($restock);
+                    $restock->delete();
+                }
+               return redirect()->route("admin_restocks")->with('success','Restocks Deleted successfully.');
+    }
 }

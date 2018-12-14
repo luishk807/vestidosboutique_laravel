@@ -20,7 +20,14 @@ class adminShippingListsController extends Controller
     }
     function index(){
         $data=[];
-        $data["shipping_lists"]=$this->shipping_lists->all();
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_shipping_list'),
+                "name"=>"Add Shipping Lists"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_shipping_lists');
+        $data["main_items"]=$this->shipping_lists->paginate(10);
         $data["page_title"]="Shipping List Page";
         return view("admin/shipping_lists/home",$data);
     }
@@ -82,5 +89,36 @@ class adminShippingListsController extends Controller
         $shipping_list = $this->shipping_lists->find($shipping_list_id);
         $shipping_list->delete();
         return redirect()->route("admin_shipping_lists");
+    }
+    public function deleteConfirmShippingLists(Request $request){
+        $shipping_list_ids = $request["shipping_list_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "shipping_list_ids"=>"required",
+        ],$custom_message);
+        $shipping_lists = $this->shipping_lists->getShippingListsByIds($shipping_list_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_shipping_lists");
+        $data["confirm_name"] = "ShippingLists";
+        $data["confirm_data"] = $shipping_lists;
+        $data["confirm_delete_url"]=route('delete_shipping_lists');
+        $data["page_title"]="Confirm shipping_lists for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteShippingLists(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $shipping_list_ids = $request["item_ids"];
+                foreach($shipping_list_ids as $shipping_list){
+                   $shipping_list = $this->shipping_lists->find($shipping_list);
+                    $shipping_list->delete();
+                }
+               return redirect()->route("admin_shipping_lists")->with('success','ShippingLists Deleted successfully.');
     }
 }

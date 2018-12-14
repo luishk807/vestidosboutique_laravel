@@ -8,7 +8,7 @@
             are you sure want to delete {{ $address->nick_name }}
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_address',['user_id'=>$user_id]) }}">
                     Back To Addresses

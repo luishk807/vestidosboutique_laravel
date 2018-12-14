@@ -8,7 +8,7 @@
             are you sure want to delete {{ $image->img_name }}
         </div>
     </div>
-    <div class="row">
+    <div class="row form-btn-container">
         <div class="col-md-6">
                 <a class="admin-btn" href="{{ route('admin_images',['product_id'=>$image->product_id]) }}">
                     Back To Images

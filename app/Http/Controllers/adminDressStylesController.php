@@ -17,8 +17,19 @@ class adminDressStylesController extends Controller
     }
     public function index(){
         $data=[];
-        $data["dressstyles"]=$this->dressstyles->all();
+        $data["main_items"]=$this->dressstyles->paginate(10);
         $data["page_title"]="Dress Styles";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_dressstyle'),
+                "name"=>"Add Dress Style"
+            ],
+            [
+                "url"=>route('show_import_dressstyle'),
+                "name"=>"Import Dress Style"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_dressstyles');
         return view("admin/dress_styles/home",$data);
     }
     public function newDressStyles(Request $request){
@@ -114,5 +125,36 @@ class adminDressStylesController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmDressStyles(Request $request){
+        $dressstyle_ids = $request["dressstyle_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "dressstyle_ids"=>"required",
+        ],$custom_message);
+        $dressstyles = $this->dressstyles->getDressStylesByIds($dressstyle_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_dressstyles");
+        $data["confirm_name"] = "DressStyles";
+        $data["confirm_data"] = $dressstyles;
+        $data["confirm_delete_url"]=route('delete_dressstyles');
+        $data["page_title"]="Confirm dressstyles for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteDressStyles(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $dressstyle_ids = $request["item_ids"];
+                foreach($dressstyle_ids as $dressstyle){
+                   $dressstyle = $this->dressstyles->find($dressstyle);
+                    $dressstyle->delete();
+                }
+               return redirect()->route("admin_dressstyles")->with('success','DressStyles Deleted successfully.');
     }
 }

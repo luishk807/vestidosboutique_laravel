@@ -107,7 +107,7 @@ class vestidosProducts extends Model
         ->join("vestidos_products","vestidos_products.id","=","vestidos_colors.product_id")
         ->join("vestidos_statuses","vestidos_statuses.id","=","vestidos_sizes.status")
         ->where("vestidos_products.id",$this->getKey())
-        ->get();
+        ->paginate(10);
     }
     public function is_rated(){
         $user_id = Auth::guard("vestidosUsers")->user()->getId();
@@ -149,6 +149,25 @@ class vestidosProducts extends Model
         ->join("vestidos_products","vestidos_products.id","=","vestidos_colors.product_id")
         ->where("vestidos_products.id",$this->getKey())
         ->get();
+    }
+    public function getProductsByIds($ids){
+       $id_list =[];
+        foreach($ids as $id){
+            $id_list[]=$id;
+        }
+
+        $products = DB::table("vestidos_products")
+        ->select("vestidos_products.products_name as col_2","vestidos_products.id as id",
+        DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as col_1')
+        ,"brands.name as col_3","category.name as col_4")
+        ->join("vestidos_product_events","product_id","vestidos_products.id")
+        ->join("vestidos_brands as brands","brands.id","vestidos_products.brand_id")
+        ->join("vestidos_categories as category","category.id","vestidos_products.category_id")
+        ->whereIn('vestidos_products.id',$id_list)
+        ->groupBy("vestidos_products.id")
+        ->get();
+       // dd($products);
+        return $products;
     }
     public function getPopularProduct(){
         $this_year = date("Y");

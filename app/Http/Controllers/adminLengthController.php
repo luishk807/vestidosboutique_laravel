@@ -17,8 +17,19 @@ class adminLengthController extends Controller
     }
     public function index(){
         $data=[];
-        $data["lengths"]=$this->lengths->all();
+        $data["main_items"]=$this->lengths->paginate(10);
         $data["page_title"]="Length Types";
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_length'),
+                "name"=>"Add Length"
+            ],
+            [
+                "url"=>route('show_import_length'),
+                "name"=>"Import Length"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_lengths');
         return view("admin/lengths/home",$data);
     }
     public function newLengths(Request $request){
@@ -110,5 +121,36 @@ class adminLengthController extends Controller
             ]);
         }
         return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    }
+    public function deleteConfirmLenghts(Request $request){
+        $length_ids = $request["length_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "length_ids"=>"required",
+        ],$custom_message);
+        $lengths = $this->lengths->getLenghtsByIds($length_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_lengths");
+        $data["confirm_name"] = "Lenghts";
+        $data["confirm_data"] = $lengths;
+        $data["confirm_delete_url"]=route('delete_lengths');
+        $data["page_title"]="Confirm lengths for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteLenghts(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $length_ids = $request["item_ids"];
+                foreach($length_ids as $length){
+                   $length = $this->lengths->find($length);
+                    $length->delete();
+                }
+               return redirect()->route("admin_lengths")->with('success','Lenghts Deleted successfully.');
     }
 }

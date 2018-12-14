@@ -234,4 +234,9 @@ class HomeController extends Controller
         $size = $this->sizes->find($size_id);
         return response()->json($size->stock);
     }
+    public function loadProdQuantityData(){
+        $size_id=Input::get('data');
+        $size = $this->sizes->find($size_id);
+        return response()->json(["stock"=>$size->stock,"total"=>$size->total_sale]);
+    }
 }

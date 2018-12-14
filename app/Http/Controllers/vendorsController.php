@@ -22,7 +22,18 @@ class vendorsController extends Controller
     }
     function index(){
         $data=[];
-        $data["vendors"]=$this->vendors->paginate(10);
+        $data["main_items"]=$this->vendors->paginate(10);
+        $data["page_submenus"]=[
+            [
+                "url"=>route('new_vendor'),
+                "name"=>"Add Vendor"
+            ],
+            [
+                "url"=>route('show_import_vendor'),
+                "name"=>"Import Vendor"
+            ]
+        ];
+        $data["delete_menu"] =route('confirm_delete_vendors');
         $data["page_title"]="Vendor Page";
         return view("admin/vendors/home",$data);
     }
@@ -125,6 +136,37 @@ class vendorsController extends Controller
         $data["vendor"]=$this->vendor->find($vendor_id);
         $data["page_title"]="Delete Vendor";
         return view("admin/vendors/confirm",$data);
+    }
+    public function deleteConfirmVendors(Request $request){
+        $vendor_ids = $request["vendor_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to delete"
+        ];
+        $this->validate($request,[
+            "vendor_ids"=>"required",
+        ],$custom_message);
+        $vendors = $this->vendors->getVendorsByIds($vendor_ids);
+        $data["confirm_type"] = "name";
+        $data["confirm_return"] = route("admin_vendors");
+        $data["confirm_name"] = "Vendors";
+        $data["confirm_data"] = $vendors;
+        $data["confirm_delete_url"]=route('delete_vendors');
+        $data["page_title"]="Confirm vendors for deletion";
+       return view("admin/confirm_delete",$data);
+    }
+    public function deleteVendors(Request $request){
+    
+            $this->validate($request,[
+                "item_ids"=>"required",
+            ],[
+                'required'=>"Please select a item to delete"
+            ]);
+                $vendor_ids = $request["item_ids"];
+                foreach($vendor_ids as $vendor){
+                   $vendor = $this->vendors->find($vendor);
+                    $vendor->delete();
+                }
+               return redirect()->route("admin_vendors")->with('success','Vendors Deleted successfully.');
     }
     public function showImportVendor(){
         $data=[];

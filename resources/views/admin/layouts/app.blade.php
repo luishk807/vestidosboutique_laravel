@@ -15,13 +15,21 @@
         
     }
     .right-header-menu a{
-        color:hsla(0,0%,100%,.75);
+        /* color:hsla(0,0%,100%,.75); */
+        color:white;
+    }
+    .bg-vestidos-admin .nav-link{
+        color:white !important;
+    }
+    .bg-vestidos-admin .nav-link:hover,
+    .bg-vestidos-admin .navbar-link:hover{
+        color:white !important;
     }
     </style>
 </head>
-<body>
-    <div id="admin-wrap" class="main_body_height">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<body id="admin-wrap" >
+    <div class="main_body_height">
+        <nav class="navbar navbar-expand-md navbar-dark bg-vestidos-admin">
             <a class="navbar-brand" href="{{ route('admin') }}">{{ __('header.admin_login') }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,7 +41,7 @@
                     <li class="nav-item"><a href="{{route('admin_orders')}}" class="nav-link">Orders</a></li>
                     <li class="nav-item"><a href="{{route('admin_users')}}" class="nav-link">Users</a></li>
                     <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Basic</a>
-                        <div class="dropdown-menu  navbar-dark bg-dark">
+                        <div class="dropdown-menu  navbar-dark bg-vestidos-admin">
                             <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>
                             <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>
                             <a href="{{ route('admin_dressstyles')}}" class="nav-link">Dress Styles</a>
@@ -46,7 +54,8 @@
                         </div>
                     </li>
                     <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Home Config</a>
-                        <div class="dropdown-menu  navbar-dark bg-dark">
+                        <div class="dropdown-menu  navbar-dark bg-vestidos-admin">
+                            <a href="{{ route('cache_cleared')}}" class="nav-link">Clear Cache</a>
                             <a href="{{ route('main_sliders_page')}}" class="nav-link">Main Sliders</a>
                             <a href="{{ route('shop_banners_page')}}" class="nav-link">Shop Banners</a>
                             <a href="{{ route('top_quinces_page')}}" class="nav-link">Top Quince</a>
@@ -104,9 +113,50 @@
                 </div>
             </div>
             @endif
+            @if(Session::has("msg"))
+            <div class="row result-mg error">
+                <div class="col">
+                    <div class="warning-cont text-center">
+                    <P>
+                        {{ Session::get("msg") }}
+                    </P>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col">
-                    @yield('content')
+                    <div class="container">
+                        @if(isset($page_submenus) && count($page_submenus)>0)
+                        <div class="row sub-menu">
+                            <div class="col text-center">
+                                <nav class="navbar navbar navbar-expand-lg">
+                                <ul class="navbar-nav">
+                                        @foreach($page_submenus as $submenu)
+                                            <li class="nav-item"><a href="{{ $submenu['url'] }}" class="nav-link">{{ $submenu['name'] }}</a></li>
+                                        @endforeach
+                                        @if(isset($delete_menu))
+                                            <li class="nav-item"><a href="" class="nav-link delete_button">Delete Selected</a></li>
+                                        @endif
+                                </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="row">
+                            <div class="col">
+                            @if(isset($delete_menu)) 
+                            <form id="custom_home_form" method="post" action="{{ $delete_menu }}">
+                            @endif
+                            @include('admin.includes.nav_template')
+                            @yield('content')
+                            @include('admin.includes.nav_template')
+                            @if(isset($delete_menu)) 
+                            </form>
+                            @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
