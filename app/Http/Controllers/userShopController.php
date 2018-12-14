@@ -49,51 +49,45 @@ class userShopController extends Controller
         $data["products_model"]=new Products;
         return view("shop",$data);
     }
-    function sortOption($neddle, $categories, $brands){
-        $products = $this->products;
-        if(sizeof($categories)>0){
-            $products = $this->products->getProductByCats($categories);
-        }
-        if(sizeof($brands)>0){
-            $products = $products->whereIn("brand_id",$brands);
-        }
-        switch($neddle){
-            case "brand":
-            $products = $products->orderBy("brand_id");
-            break;
-            case "low":
-            $products = $products->orderBy("total_rent","asc");
-            break;
-            case "high":
-            $products = $products->orderBy("total_rent","desc");
-            break;
-            default:
-            $products = $products->orderBy("products_name");
-            break;
-        }
-        //dd($products->paginate(15));
-        // dd($this->getImages($products->first()->id));
-        return $products;
-    }
+    // function sortOption($data){
+    //     $products = $this->products;
+    //     if(isset($categories) && sizeof($categories)>0){
+    //         $products = $this->products->getProductByEvents($categories);
+    //     }
+    //     if(isset($brands) && sizeof($brands)>0){
+    //         $products = $products->whereIn("brand_id",$brands);
+    //     }
+    //     $products = $products->getProductsBySortOptions($neddle);
+    //     return $products;
+    // }
     public function sort_page_submit(Request $request){
         $data=[];
-        // $sort = $request->get("sort");
+        $eventIn=[];
+        $brandIn=[];
+        $productIn=[];
         $sort = $request->input("shopPage_select");
         $data["page_title"]=__('header.shop');
-        // $data["sort"]=$request->get("sort");
         $data["sort"]=$sort;
         $data["sort_ops"]=$this->sort_options;
         $data["shop_banners"]=$this->shop_banners->first();
         $data["products_model"]=new Products;
+        if($request->has('products_list')){
+            $products_lists = $request->input('products_list');
+            foreach($products_lists as $products_list){
+                $productIn[]=$products_list;
+            }
+        }
+        $data_list = [
+            "sort"=>$sort,
+            "products"=>$productIn,
+            "events"=>null,
+            "brands"=>null
+        ];
         if($request->isMethod('post')){
-            $categoryIn =array();
-            $brandIn=array();
-            // $sort = $request->input("shopPage_select_input");
-            // $sort = $request->input("shopPage_select");
-            if($request->has('vestidos_categories')){
-                $categories = $request->get('vestidos_categories');
-                foreach($categories as $category){
-                    $categoryIn[]=$category;
+            if($request->has('vestidos_events')){
+                $events = $request->get('vestidos_events');
+                foreach($events as $event){
+                    $eventIn[]=$event;
                 }
             }
             if($request->has('vestidos_brands')){
@@ -102,15 +96,34 @@ class userShopController extends Controller
                     $brandIn[]=$brand;
                 }
             }
-            $data["categoryids"]=$categoryIn;
+
+            $data["eventids"]=$eventIn;
             $data["brandids"]=$brandIn;
-            $products=$this->sortOption($sort,$categoryIn,$brandIn);
-            $data["products"]=$products->paginate(15);
-             return view("shop",$data);
+            $data_list["events"]=$eventIn;
+            $data_list["brands"]=$brandIn;
+            // $products=$this->products->getProductsBySortOptions($data_list);
+            $products=$this->products->wherein("id",$data_list["products"]);
+            switch($data_list["sort"]){
+                case "brand":
+                $products->orderBy("brand_id.name");
+                break;
+                case "low":
+                $products->with("vestidos_sizes")->orderBy("vestidos_sizes.total_sale","asc");
+                break;
+                case "high":
+                $products->with("vestidos_sizes")->orderBy("vestidos_sizes.total_sale","desc");
+                break;
+                default:
+                $products->orderBy("products_name");
+                break;
+            }
+           $data["products"]=$products->paginate(15);
+           // return view("shop",$data);
+            dd($products);
         }
-        $products=$this->sortOption($sort,null,null);
-        $data["products"]=$products->paginate(15);
-        return view("shop",$data);
+        $products=$this->products->getProductsBySortOptions($data_list);
+        $data["products"]=$products;
+       return view("shop",$data);
     }
     // public function sort_page(Request $request){
     //     $data=[];
