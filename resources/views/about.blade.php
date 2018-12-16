@@ -3,7 +3,7 @@
 <div class="main_sub_body about_bg main_body_height">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-9 container-in-center">
+        <div class="col-lg-9 col-xl-9 container-in-center">
             <div>
                <div class="container-in-space white-md-bg-in about-col">
                     <h2>Our Story</h2>

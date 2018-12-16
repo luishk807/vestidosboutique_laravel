@@ -154,7 +154,7 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                         <div class="container-fluid">
                             <div class="row">
                                 @foreach($products_cat as $product_cat)
-                                <div class="col-xs-6 col-md-2  col-md-offset-1">
+                                <div class="col-sm-6 col-md-2  col-md-offset-1">
                                     <a href="{{ route('product_page',['product_id'=>$product_cat->id])}}" class="vesti-heart-link-c"><span class="vesti-svg
                                     @if(Auth::guard('vestidosUsers')->check())
                                     @if(!($product->isWishlist(Auth::guard('vestidosUsers')->user()->id, $product_cat->id))->isEmpty())

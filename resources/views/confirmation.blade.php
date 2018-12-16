@@ -3,7 +3,7 @@
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-9 container-in-center">
+        <div class="col-xl-9 container-in-center">
             <div>
                <div class="container-in-space confirm-col">
                     <div class="row text-center">
