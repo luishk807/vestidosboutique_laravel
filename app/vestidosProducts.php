@@ -52,6 +52,15 @@ class vestidosProducts extends Model
         }
         return $prod;
     }
+    public function getSize_byId($product_id){
+        $prod=null;
+        if(!empty($product_id)){
+            $prod = DB::table("vestidos_sizes as sizes")
+            ->join("vestidos_colors as colors","sizes.color_id","colors.id")
+            ->where("colors.product_id",$product_id)->first();
+        }
+        return $prod;
+    }
     public function getVendors_byId($vendor_id){
         $prod=null;
         if(!empty($vendor_id)){
@@ -139,8 +148,62 @@ class vestidosProducts extends Model
         $products = DB::table("vestidos_products")
         ->select("vestidos_products.*")
         ->join("vestidos_product_events","product_id","vestidos_products.id")
-        ->whereIn("vestidos_product_events.event_id",$cat_ids);
+        ->join("vestidos_colors as colors","colors.product_id","vestidos_products.id")
+        ->join("vestidos_sizes as sizes","sizes.color_id","colors.id")
+        ->whereIn("vestidos_product_events.event_id",$cat_ids)
+        ->groupBy("colors.id");
         return $products;
+    }
+    public function getProductsBySortOptions($data){
+        $sort = $data["sort"];
+        $products = DB::table("vestidos_products as products")
+        ->select("products.*","brands.name as brand_name","colors.name as color_name","events.event_id as event_id","sizes.name as size_name","sizes.total_sale as total_sale")
+        ->join("vestidos_colors as colors","colors.product_id","products.id")
+        ->join("vestidos_vendors as vendors","vendors.id","products.vendor_id")
+        ->join("vestidos_brands as brands","brands.id","products.brand_id")
+        ->join("vestidos_sizes as sizes","sizes.color_id","colors.id")
+        ->join("vestidos_product_events as events","events.product_id","products.id")
+        ->where("products.status",1);
+        if(isset($data["brands"]) && sizeof($data["brands"])>0){
+            $products->whereIn("products.brand_id",$data["brands"]);
+        }
+        if(isset($data["events"]) && sizeof($data["events"])>0){
+            $products->whereIn("events.id",$data["events"]);
+        }
+        if(isset($data["type"]["type"]) && isset($data["type"]["id"])){
+            switch($data["type"]["type"]){
+                case "style":
+                $products->where("products.style",$data["type"]["id"]);
+                break;
+                case "type":
+                $products->where("products.product_type_id",$data["type"]["id"]);
+                break;
+                case "event":
+                $products->where("events.event_id",$data["type"]["id"]);
+                break;
+            }
+
+        }
+        if(isset($data["products"]) && sizeof($data["products"])>0){
+            $products->whereIn("products.id",$data["products"]);
+        }
+        switch($sort){
+            case "brand":
+            $products->orderBy("brands.name");
+            break;
+            case "low":
+            $products->orderBy("total_sale","asc");
+            break;
+            case "high":
+            $products->orderBy("total_sale","desc");
+            break;
+            default:
+            $products->orderBy("products_name");
+            break;
+        }
+        $products = $products->groupBy("products.id")->paginate(15);
+       //dd($products);
+      return $products;
     }
     public function getStock(){
         return DB::table("vestidos_sizes")

@@ -34,66 +34,57 @@ class userShopController extends Controller
       $this->addresses=$addresses;
       $this->shop_banners = $shop_banners;
       $this->product_categories = $product_categories;
+      $this->data_list = array(
+        "sort"=>null,
+        "events"=>null,
+        "brands"=>null,
+        "products"=>null,
+        "type"=>array(
+            "type"=>null,
+            "id"=>null
+        )
+      );
       $this->sort_options=array("low"=>__('pagination.sort_options.low_price'),"high"=>__('pagination.sort_options.high_price'));
     }
-    public function index(){
+    public function index($type=null,$type_id = null){
         $data=[];
+        if(isset($type) && isset($type_id)){
+            $this->data_list["type"]["type"]=$type;
+            $this->data_list["type"]["id"]=$type_id;
+        }
         $data["page_title"]=__('header.shop');
         $data["sort"]="low";
         $data["shop_banners"]=$this->shop_banners->first();
-        $products = $this->products->orderBy('products_name');
-        $data["products"]=$products->where("status",1)->paginate(15);
+        $products = $this->products->getProductsBySortOptions($this->data_list);
+        $data["products"]=$products;
         $data["sort_ops"]=$this->sort_options;
-        $data["categoryids"]=array();
-        $data["brandids"]=array();
         $data["products_model"]=new Products;
         return view("shop",$data);
     }
-    function sortOption($neddle, $categories, $brands){
-        $products = $this->products;
-        if(sizeof($categories)>0){
-            $products = $this->products->getProductByCats($categories);
-        }
-        if(sizeof($brands)>0){
-            $products = $products->whereIn("brand_id",$brands);
-        }
-        switch($neddle){
-            case "brand":
-            $products = $products->orderBy("brand_id");
-            break;
-            case "low":
-            $products = $products->orderBy("total_rent","asc");
-            break;
-            case "high":
-            $products = $products->orderBy("total_rent","desc");
-            break;
-            default:
-            $products = $products->orderBy("products_name");
-            break;
-        }
-        //dd($products->paginate(15));
-        // dd($this->getImages($products->first()->id));
-        return $products;
-    }
     public function sort_page_submit(Request $request){
         $data=[];
-        // $sort = $request->get("sort");
+        $eventIn=[];
+        $brandIn=[];
+        $productIn=[];
         $sort = $request->input("shopPage_select");
         $data["page_title"]=__('header.shop');
-        // $data["sort"]=$request->get("sort");
         $data["sort"]=$sort;
         $data["sort_ops"]=$this->sort_options;
         $data["shop_banners"]=$this->shop_banners->first();
         $data["products_model"]=new Products;
+        if($request->has('product_lists')){
+            $productLists = $request->get('product_lists');
+            foreach($productLists as $productList){
+                $productIn[]=$productList;
+            }
+            $this->data_list["products"]=$productIn;
+        }
+        $this->data_list["sort"] = $sort;
         if($request->isMethod('post')){
-            $categoryIn =array();
-            $brandIn=array();
-            // $sort = $request->input("shopPage_select_input");
-            // $sort = $request->input("shopPage_select");
-            if($request->has('vestidos_categories')){
-                $categories = $request->get('vestidos_categories');
-                foreach($categories as $category){
-                    $categoryIn[]=$category;
+            if($request->has('vestidos_events')){
+                $events = $request->get('vestidos_events');
+                foreach($events as $event){
+                    $eventIn[]=$event;
                 }
             }
             if($request->has('vestidos_brands')){
@@ -102,30 +93,14 @@ class userShopController extends Controller
                     $brandIn[]=$brand;
                 }
             }
-            $data["categoryids"]=$categoryIn;
-            $data["brandids"]=$brandIn;
-            $products=$this->sortOption($sort,$categoryIn,$brandIn);
-            $data["products"]=$products->paginate(15);
-             return view("shop",$data);
+            $data_list["events"]=$eventIn;
+            $data_list["brands"]=$brandIn;
+            $products=$this->products->getProductsBySortOptions($this->data_list);
+            $data["products"]=$products;
+            return view("shop",$data);
         }
-        $products=$this->sortOption($sort,null,null);
-        $data["products"]=$products->paginate(15);
-        return view("shop",$data);
+        $products=$this->products->getProductsBySortOptions($this->data_list);
+        $data["products"]=$products;
+       return view("shop",$data);
     }
-    // public function sort_page(Request $request){
-    //     $data=[];
-    //     $data["categoryids"]=array();
-    //     $data["brandids"]=array();
-    //     $sort = $request->get("sort");
-    //     $data["brands"]=$this->brands->all();
-    //     $data["categories"]=$this->categories->all();
-    //     $data["page_title"]="Shop";
-    //     $data["sort"]=$request->get("sort");
-    //     $data["sort_ops"]=array("name","brand","low","high");
-    //     $data["shop_banners"]=$this->shop_banners->first();
-    //     $products = $this->products->all;
-    //     $products=$this->sortOption($sort,array(),array());
-    //     $data["products"]=$products->paginate(15);
-    //     return view("shop",$data);
-    // }
 }
