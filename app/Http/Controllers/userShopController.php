@@ -34,18 +34,30 @@ class userShopController extends Controller
       $this->addresses=$addresses;
       $this->shop_banners = $shop_banners;
       $this->product_categories = $product_categories;
+      $this->data_list = array(
+        "sort"=>null,
+        "events"=>null,
+        "brands"=>null,
+        "products"=>null,
+        "type"=>array(
+            "type"=>null,
+            "id"=>null
+        )
+      );
       $this->sort_options=array("low"=>__('pagination.sort_options.low_price'),"high"=>__('pagination.sort_options.high_price'));
     }
-    public function index(){
+    public function index($type=null,$type_id = null){
         $data=[];
+        if(isset($type) && isset($type_id)){
+            $this->data_list["type"]["type"]=$type;
+            $this->data_list["type"]["id"]=$type_id;
+        }
         $data["page_title"]=__('header.shop');
         $data["sort"]="low";
         $data["shop_banners"]=$this->shop_banners->first();
-        $products = $this->products->orderBy('products_name');
-        $data["products"]=$products->where("status",1)->paginate(15);
+        $products = $this->products->getProductsBySortOptions($this->data_list);
+        $data["products"]=$products;
         $data["sort_ops"]=$this->sort_options;
-        $data["categoryids"]=array();
-        $data["brandids"]=array();
         $data["products_model"]=new Products;
         return view("shop",$data);
     }
@@ -60,18 +72,14 @@ class userShopController extends Controller
         $data["sort_ops"]=$this->sort_options;
         $data["shop_banners"]=$this->shop_banners->first();
         $data["products_model"]=new Products;
-        if($request->has('products_list')){
-            $products_lists = $request->input('products_list');
-            foreach($products_lists as $products_list){
-                $productIn[]=$products_list;
+        if($request->has('product_lists')){
+            $productLists = $request->get('product_lists');
+            foreach($productLists as $productList){
+                $productIn[]=$productList;
             }
+            $this->data_list["products"]=$productIn;
         }
-        $data_list = [
-            "sort"=>$sort,
-            "products"=>$productIn,
-            "events"=>null,
-            "brands"=>null
-        ];
+        $this->data_list["sort"] = $sort;
         if($request->isMethod('post')){
             if($request->has('vestidos_events')){
                 $events = $request->get('vestidos_events');
@@ -85,15 +93,13 @@ class userShopController extends Controller
                     $brandIn[]=$brand;
                 }
             }
-            $data["eventids"]=$eventIn;
-            $data["brandids"]=$brandIn;
             $data_list["events"]=$eventIn;
             $data_list["brands"]=$brandIn;
-            $products=$this->products->getProductsBySortOptions($data_list);
+            $products=$this->products->getProductsBySortOptions($this->data_list);
             $data["products"]=$products;
             return view("shop",$data);
         }
-        $products=$this->products->getProductsBySortOptions($data_list);
+        $products=$this->products->getProductsBySortOptions($this->data_list);
         $data["products"]=$products;
        return view("shop",$data);
     }

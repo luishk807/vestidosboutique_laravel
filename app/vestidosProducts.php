@@ -156,18 +156,36 @@ class vestidosProducts extends Model
     }
     public function getProductsBySortOptions($data){
         $sort = $data["sort"];
-        $products_id = $data["products"];
         $products = DB::table("vestidos_products as products")
-        ->select("products.*","brands.name as brand_name","colors.name as color_name","sizes.name as size_name","sizes.total_sale as total_sale")
+        ->select("products.*","brands.name as brand_name","colors.name as color_name","events.event_id as event_id","sizes.name as size_name","sizes.total_sale as total_sale")
         ->join("vestidos_colors as colors","colors.product_id","products.id")
+        ->join("vestidos_vendors as vendors","vendors.id","products.vendor_id")
         ->join("vestidos_brands as brands","brands.id","products.brand_id")
         ->join("vestidos_sizes as sizes","sizes.color_id","colors.id")
-        ->whereIn("products.id",$products_id);
+        ->join("vestidos_product_events as events","events.product_id","products.id")
+        ->where("products.status",1);
         if(isset($data["brands"]) && sizeof($data["brands"])>0){
             $products->whereIn("products.brand_id",$data["brands"]);
         }
         if(isset($data["events"]) && sizeof($data["events"])>0){
             $products->whereIn("events.id",$data["events"]);
+        }
+        if(isset($data["type"]["type"]) && isset($data["type"]["id"])){
+            switch($data["type"]["type"]){
+                case "style":
+                $products->where("products.style",$data["type"]["id"]);
+                break;
+                case "type":
+                $products->where("products.product_type_id",$data["type"]["id"]);
+                break;
+                case "event":
+                $products->where("events.event_id",$data["type"]["id"]);
+                break;
+            }
+
+        }
+        if(isset($data["products"]) && sizeof($data["products"])>0){
+            $products->whereIn("products.id",$data["products"]);
         }
         switch($sort){
             case "brand":
@@ -184,8 +202,8 @@ class vestidosProducts extends Model
             break;
         }
         $products = $products->groupBy("products.id")->paginate(15);
-
-        return $products;
+       //dd($products);
+      return $products;
     }
     public function getStock(){
         return DB::table("vestidos_sizes")

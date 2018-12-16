@@ -51,7 +51,7 @@ $(document).ready(function(){
                             <li>
                                 <ul>
                                     @foreach($vestidos_styles as $style)
-                                    <li><a href="{{ $style->id }}">{{$style->name}}</a></li>
+                                    <li><a href="{{ route('shop_page',['type'=>'style','id'=>$style->id])}}">{{$style->name}}</a></li>
                                     @endforeach
                                 </ul>
 
@@ -66,6 +66,9 @@ $(document).ready(function(){
                         <ul class="nav-list-submenu">
                             <li>
                                 <ul>
+                                    @foreach($product_types as $product_type)
+                                    <li><a href="{{ route('shop_page',['type'=>'type','id'=>$product_type->id])}}">{{$product_type->name}}</a></li>
+                                    @endforeach
                                 </ul>
 
                             </li>
@@ -76,8 +79,8 @@ $(document).ready(function(){
                         <ul class="nav-list-submenu">
                             <li>
                                 <ul>
-                                    @foreach($categories as $category)
-                                    <li><a href="{{ $category->id }}">{{$category->name}}</a></li>
+                                    @foreach($events as $event)
+                                    <li><a href="{{ route('shop_page',['type'=>'event','id'=>$event->id])}}">{{$event->name}}</a></li>
                                     @endforeach
                                 </ul>
 
@@ -187,7 +190,7 @@ $(document).ready(function(){
                         <div class="collapse vesti-collapse" id="toggle-styles" style="height: 0px;">
                             <ul class="nav-list">
                                 @foreach($vestidos_styles as $style)
-                                <li><a href="#">{{$style->name}}</a></li>
+                                <li><a href="{{ route('shop_page',['type'=>'style','id'=>$style->id])}}">{{$style->name}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -196,8 +199,8 @@ $(document).ready(function(){
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.event') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
-                                @foreach($categories as $category)
-                                <li><a href="#">{{$category->name}}</a></li>
+                                @foreach($events as $event)
+                                <li><a href="{{ route('shop_page',['type'=>'event','id'=>$event->id])}}">{{$event->name}}</a></li>
                                 @endforeach
                             </ul>
                         </div>

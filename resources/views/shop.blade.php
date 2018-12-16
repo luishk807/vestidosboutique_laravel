@@ -106,7 +106,7 @@
                         <div class="container-fluid">
                             <div class="row">
                                     @foreach($products as $product)
-                                    <input type="hidden" name="products_list[]" value="{{ $product->id }}">
+                                    <input type="hidden" name="product_lists[]" value="{{ $product->id }}"/>
                                     <div class="col-md-3 p-2">
                                     <!--each pod-->
                                             @if($product->is_new)
