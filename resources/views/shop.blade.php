@@ -106,6 +106,7 @@
                         <div class="container-fluid">
                             <div class="row">
                                     @foreach($products as $product)
+                                    <input type="hidden" name="products_list[]" value="{{ $product->id }}">
                                     <div class="col-md-3 p-2">
                                     <!--each pod-->
                                             @if($product->is_new)
@@ -127,9 +128,9 @@
                                                     @php( $prod_vendor = $products_model->getVendors_byId($product->vendor_id))
                                                     <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $prod_vendor[0]->company_name }}</span>
                                                     </div>
-                                                    <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $product->colors->first()->sizes->first()->total_sale }}</span>
+                                                    <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $products_model->getSize_byId($product->id)->total_sale }}</span>
                                                     <br/>
-                                                    @php($p_stock = $product->colors->first()->sizes->first()->stock )
+                                                    @php($p_stock = $products_model->getSize_byId($product->id)->stock )
                                                     <span  class="shoplist-stock-txt">
                                                         @if($p_stock > 3)
                                                             <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
