@@ -456,19 +456,6 @@
         
 
         //API
-        Route::get("api/saveWishlist",'userWishlistController@addWishlist');
-        Route::get("api/updateCart",'userCartController@cart_save');
-        Route::get("api/deleteCart",'userCartController@cart_delete');
-        Route::get('api/getAddress','ordersController@getAddressDropdown');
-        Route::get('api/getProduct','ordersController@getProductDropdown');
-        Route::get("api/loadStates",'homeController@loadStatesDrop');
-        Route::get("api/loadDistricts",'homeController@loadDistrictsDrop');
-        Route::get("api/loadCorregimientos",'homeController@loadCorregimientosDrop');
-        Route::get("api/loadColors",'homeController@loadColor');
-        Route::get("api/loadSizes",'homeController@loadColorSizes');
-        Route::get("api/loadProdQuantity",'homeController@loadProdQuantity');
-        Route::get("api/loadProdQuantityArray",'homeController@loadProdQuantityData');
-        Route::get("api/loadSizeInfo",'homeController@loadSizeInfo');
    // });
    Auth::routes();
 //});
