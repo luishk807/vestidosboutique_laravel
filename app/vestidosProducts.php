@@ -52,6 +52,15 @@ class vestidosProducts extends Model
         }
         return $prod;
     }
+    public function getSize_byId($product_id){
+        $prod=null;
+        if(!empty($product_id)){
+            $prod = DB::table("vestidos_sizes as sizes")
+            ->join("vestidos_colors as colors","sizes.color_id","colors.id")
+            ->where("colors.product_id",$product_id)->first();
+        }
+        return $prod;
+    }
     public function getVendors_byId($vendor_id){
         $prod=null;
         if(!empty($vendor_id)){
@@ -174,7 +183,7 @@ class vestidosProducts extends Model
             $products->orderBy("products_name");
             break;
         }
-        $products = $products->groupBy("products.id")->pagintate(15);
+        $products = $products->groupBy("products.id")->paginate(15);
 
         return $products;
     }
