@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'vestidosAdmins',
         ],
+        'vestidosDataUsers' => [
+            'driver' => 'session',
+            'provider' => 'vestidosDataUsers',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -81,8 +85,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\vestidosUsers::class,
         ],
-
         'vestidosAdmins' => [
+            'driver' => 'eloquent',
+            'model' => App\vestidosUsers::class,
+        ],
+        'vestidosDataUsers' => [
             'driver' => 'eloquent',
             'model' => App\vestidosUsers::class,
         ],
@@ -120,6 +127,11 @@ return [
         ],
         'vestidosAdmins' => [
             'provider' => 'vestidosAdmins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'vestidosDataUsers' => [
+            'provider' => 'vestidosDataUsers',
             'table' => 'password_resets',
             'expire' => 60,
         ],

@@ -13,6 +13,7 @@ use App\vestidosLanguages as Languages;
 use Mail;
 use Excel;
 use Auth;
+use Session;
 
 class adminUsersController extends Controller
 {
@@ -133,7 +134,7 @@ class adminUsersController extends Controller
     }
     function showUpdateAdmin(){
         $data=[];
-        $user_id=Auth::guard("vestidosAdmins")->user()->getId();
+        $user_id=Auth::guard(Session::get("guard"))->user()->getId();
         $user = $this->users->find($user_id);
         $data["user"]=$user;
         $data["page_title"]="Edit Info For ".$user->first_name;
@@ -145,7 +146,7 @@ class adminUsersController extends Controller
     }
     function updateAdmin(Request $request){
         $data=[];
-        $user_id=Auth::guard("vestidosAdmins")->user()->getId();
+        $user_id=Auth::guard(Session::get("guard"))->user()->getId();
         $data["password"]=$request->input("password");
         $data["first_name"]=$request->input("first_name");
         $data["middle_name"]=$request->input("middle_name");

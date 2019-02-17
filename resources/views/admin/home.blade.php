@@ -1,6 +1,7 @@
 @extends('admin/layouts.app')
 @section('content')
 <script type="text/javascript" src="{{ asset('js/vendor/highchart/highcharts.js') }}"></script>
+@if($gIsAdmin)
 <script type="text/javascript">
     $(function () {
         var $order_year = <?php echo $order_year; ?>;
@@ -115,6 +116,7 @@
 
     });
 </script>
+@endif
 <style>
 .sub-main-row{
     margin-top:20px;
@@ -164,6 +166,7 @@
 }
 </style>
 <div class="container">
+    @if($gIsAdmin)
     <div class="row sub-main-row">
         <div class="col">
             <div id="container_year"></div>
@@ -177,6 +180,7 @@
             <div id="container_week"></div>
         </div>
     </div>
+
     <div class="row sub-main-row">
         <div class="col-md-4 homesection-orders">
             <div class="home_button_box bg_color_1">
@@ -274,5 +278,6 @@
             <div id="container_age_range"></div>
         </div>
     </div>
+    @endif
 </div>
 @endsection

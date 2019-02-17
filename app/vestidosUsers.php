@@ -45,6 +45,9 @@ class vestidosUsers extends Authenticatable
         'password', 'remember_token',
     ];
     //
+    public function isAdmin(){
+        return $this->user_type==2;
+    }
     public function getId(){
         return $this->id;
     }
