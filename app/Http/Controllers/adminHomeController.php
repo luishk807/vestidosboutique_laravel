@@ -79,34 +79,33 @@ class adminHomeController extends Controller
                 "email"=>"required | email",
                 "password"=>"required"
             ]);
-            // if(Auth::guard("vestidosAdmins")->attempt([
-            //     "email"=>$request->input("email"),
-            //     "password"=>$request->input("password"),
-            //     "user_type"=>2
-            //     ])){
-            //     $user_id=Auth::guard("vestidosAdmins")->user()->getId();
-            //     $data["user_id"]=$user_id;
-            //     return redirect()->route("admin");
-            // }else{
-            //     return redirect()->route('admin_show_login')->withInput($data)->with("msg","Invalid User");
-            // }
-            if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 2])) {
+            if (Auth::guard('vestidosAdmins')->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' =>2])) {
                 $user_id=Auth::guard("vestidosAdmins")->user()->getId();
+                Session::put("guard","vestidosAdmins");
+                Session::put("isAdmin",true);
+                $data["user_id"]=$user_id;
+                return redirect()->route("admin");
+            }else if (Auth::guard('vestidosDataUsers')->attempt(['email' => $request->email, 'password' => $request->password, 'user_type' =>3])) {
+                Session::put("guard","vestidosDataUsers");
+                $user_id=Auth::guard("vestidosDataUsers")->user()->getId();
+                Session::put("isAdmin",false);
                 $data["user_id"]=$user_id;
                 return redirect()->route("admin");
             }else{
                 return redirect()->route('admin_show_login')->withInput($data)->with("msg","Invalid User");
             }
         }
-        return view("admin/login",$data);
+      return view("admin/login",$data);
     }
     protected function guard(){
         return auth()->guard('vestidosAdmins');
     }
     public function logout(){
         $data=[];
-        if(Auth::guard("vestidosAdmins")->check()){
-            Auth::guard("vestidosAdmins")->logout();
+        $guard = Session::get("guard");
+        if(Auth::guard($guard)->check()){
+            Auth::guard($guard)->logout();
+            Session::flush();
             return redirect()->route('admin_show_login',$data)->with("msg","you are succefully logout");
         }
         return redirect()->back();

@@ -37,6 +37,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item"><a href="{{ route('admin_products') }}" class="nav-link">Products</a></li>
+                    @if($gIsAdmin)
                     <li class="nav-item"><a href="{{ route('admin_vendors') }}" class="nav-link">Vendors</a></li>
                     <li class="nav-item"><a href="{{route('admin_orders')}}" class="nav-link">Orders</a></li>
                     <li class="nav-item"><a href="{{route('admin_users')}}" class="nav-link">Users</a></li>
@@ -64,9 +65,8 @@
                             <a href="{{ route('admin_shipping_lists')}}" class="nav-link">Shipping Lists</a>
                         </div>
                     </li>
+                    @endif
                 </ul>
-
-
                 <ul class="form-inline my-2 my-lg-0 right-header-menu">
                     <li class="nav-item"><a href="{{ route('admin_logout_user') }}" class="nav-link">Sign Out</a></li>
                     <li class="nav-item"><a href="{{ route('admin_editadmin') }}" class="nav-link">My Account</a></li>

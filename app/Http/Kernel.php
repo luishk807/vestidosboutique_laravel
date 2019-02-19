@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'under-construction' => \LarsJanssen\UnderConstruction\UnderConstruction::class,
+        'roleCheck' => \App\Http\Middleware\checkRole::class,
     ];
 }

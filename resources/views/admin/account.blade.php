@@ -4,7 +4,11 @@
 {{ csrf_field() }}
     <div class="form-group">
         <label for="userEmail">Email:</label>
-        <input type="text" id="userEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $user->email }}" placeholder="Email"/>
+        <input type="text" id="userEmail" class="form-control" name="email" value="{{ old('email') ? old('email') : $user->email }}" placeholder="Email"
+        @if(!$gIsAdmin)
+        disabled
+        @endif
+        />
         <small class="error">{{$errors->first("email")}}</small>
     </div>
     <div class="form-group">
@@ -60,7 +64,11 @@
     </div>
     <div class="form-group">
         <label for="userType">User Type:</label>
-        <select class="custom-select" name="user_type" id="userType">
+        <select class="custom-select" name="user_type" id="userType" 
+        @if(!$gIsAdmin)
+        disabled
+        @endif
+        >
             <option value="">Select Type</option>
             @foreach($user_types as $user_type)
                 <option value="{{ $user_type->id }}"
@@ -88,7 +96,11 @@
     </div>
     <div class="form-group">
         <label for="userStatus">Status:</label>
-        <select class="custom-select" name="status" id="userStatus">
+        <select class="custom-select" name="status" id="userStatus"
+        @if(!$gIsAdmin)
+        disabled
+        @endif
+        >
             <option value="">Select Status</option>
             @foreach($statuses as $status)
                 <option value="{{ $status->id }}"
