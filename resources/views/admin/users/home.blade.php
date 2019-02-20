@@ -11,6 +11,7 @@
         <div class="col-md-2">Action</div>
     </div>
     @foreach($main_items as $user)
+    @if($user->id != Auth::user()->getId())
     <div class="row container-data row-even">
         <div class="col-md-1"><input  class="form-control" type="checkbox" name="user_ids[]" value="{{ $user->id }}"></div>
         <div class="col-md-2">{{$user->getFullName()}}</div>
@@ -22,6 +23,7 @@
             <a href="{{ route('admin_edituser',['user_id'=>$user->id])}}">edit</a>
         </div>
     </div>
+    @endif
     @endforeach
 </div>
 @endsection
