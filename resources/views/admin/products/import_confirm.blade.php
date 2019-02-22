@@ -1,5 +1,12 @@
 @extends('admin/layouts.app')
 @section('content')
+<style>
+.confirm-data-row:not(:first-child){
+    border-top:1px solid #ced4da;
+    margin:10px 0px;
+    padding:30px 0px;
+}
+</style>
 <div class="import-confirm">
     <div class="container">
         <div class="row">
@@ -9,6 +16,16 @@
         </div>
     </div>
     <form action="{{ route('save_confirm_import_product') }}" method="post">
+    <div class="container">
+            <div class="row form-btn-container">
+                <div class="col-md-6">
+                    <a href="{{ route('show_import_product') }}" class="admin-btn">Back To Import</a>
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" class="admin-btn" value="Confirm Import"/>
+                </div>
+            </div>
+        </div>
     {{ csrf_field() }}
         <div class="container">
             @foreach($data_confirm["insert"] as $indexKey=>$product)
@@ -35,7 +52,7 @@
                                     <option value="">Select Brand</option>
                                     @foreach($brands as $brand)
                                         <option value="{{ $brand->id }}"
-                                        @if($product['brand_id']==$brand->id)
+                                        @if($product['brand_id']==$brand->id || $product['brand_id']==$brand->name)
                                             selected="selected"
                                         @endif
                                         >{{$brand->name}} </option>
@@ -51,7 +68,7 @@
                                     <option value="">Select Vendor</option>
                                     @foreach($vendors as $vendor)
                                         <option value="{{ $vendor->id }}"
-                                        @if($product['vendor_id']==$vendor->id)
+                                        @if($product['vendor_id']==$vendor->id || $product['vendor_id']==$brand->name)
                                             selected="selected"
                                         @endif
                                         >{{$vendor->getFullVendorName()}} </option>
@@ -108,7 +125,7 @@
                                     <option value="">Select Category</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}"
-                                        @if($product['category_id']==$category->id)
+                                        @if($product['category_id']==$category->id || $product['category_id']==$category->name)
                                             selected="selected"
                                         @endif
                                         >{{$category->name}} </option>
@@ -121,7 +138,7 @@
                                     <option value="">Select Product Type</option>
                                     @foreach($product_types as $product_type)
                                         <option value="{{ $product_type->id }}"
-                                        @if($product['product_type_id']==$product_type->id)
+                                        @if($product['product_type_id']==$product_type->id || $product['product_type_id']==$product_type->name)
                                             selected="selected"
                                         @endif
                                         >{{$product_type->name}} </option>
@@ -168,7 +185,16 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="productLength">Length:</label>
-                                <input type="text" id="productLength" class="form-control" name="product_confirm[{{$indexKey}}][product_length]" value="{{ $product['product_length'] }}" placeholder="Length"/>
+                                <select class="custom-select" name="product_confirm[{{$indexKey}}][product_length]" id="productLength">
+                                    <option value="">Select Length:</option>
+                                    @foreach($lengths as $length)
+                                        <option value="{{ $length->id }}"
+                                        @if($product['product_length']==$length->id || $product['product_length']==$length->name)
+                                            selected="selected"
+                                        @endif
+                                        >{{$length->name}} </option>
+                                    @endforeach
+                                </select>
                                 <small class="error">{{$errors->first("product_length")}}</small>
                             </div>
                             <div class="form-group col-md-4">
@@ -182,9 +208,6 @@
                                 <small class="error">{{$errors->first("products_description")}}</small>
                             </div>                     
                         </div>
-
-
-
                         @if(array_key_exists($product['product_model'],$data_confirm["detail"]))
                             @foreach($data_confirm["detail"][$product['product_model']] as $key_detail=>$p_detail)
                                 
@@ -218,17 +241,25 @@
                                     </div>
                                     <div class="form-group col-md-2">    
                                         <label for="size_sale_{{$key_sizes}}" >Total Sale</label>
-                                        <input checked value="{{ $p_sizes['is_sell']}}" id="size_is_sell_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_sell]">is sell?
+                                        <input 
+                                        @if($p_sizes['total_sale'] > 0)
+                                        checked
+                                        @endif 
+                                        value="{{ $p_sizes['is_sell']}}" id="size_is_sell_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_sell]">is sell?
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="size_rent_{{$key_sizes}}" >Total Rent
-                                            <input checked value="{{ $p_sizes['is_rent']}}" id="size_is_rent_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_rent]">is Rent?
+                                            <input 
+                                            @if($p_sizes['total_rent'] > 0)
+                                            checked
+                                            @endif 
+                                            value="{{ $p_sizes['is_rent']}}" id="size_is_rent_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_rent]">is Rent?
                                         </label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-1">
-                                        <input type="checkbox" checked name="product_confirm[[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][key_size]" id="product_confirm[{{$indexKey}}][color][{{$key_sizes}}]" value="{{ $key_sizes }}"/>
+                                        <input type="checkbox" checked name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][key_size]" id="product_confirm[{{$indexKey}}][color][{{$key_sizes}}]" value="{{ $key_sizes }}"/>
                                     </div>
                                     <div class="form-group col-md-2">
                                         <input value="{{ $p_sizes['size']}}" id="size_size_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][size]">
