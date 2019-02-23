@@ -17,8 +17,8 @@ class adminProductImagesController extends Controller
         $this->statuses=$vestidosStatus;
         $this->images=$images;
         $this->products=$products;
-        $this->maxHeight=1834;
-        $this->maxWidth=2630;
+        $this->maxWidth=1834;
+        $this->maxHeight=2630;
     }
     public function index($product_id){
         $data=[];
@@ -74,7 +74,7 @@ class adminProductImagesController extends Controller
                         $maxHeight=$this->maxHeight;
                         $maxWidth=$this->maxWidth;
                         list($width,$height) = getimagesize($file);
-                        if(($width ==$maxWidth) && ($height == $maxHeight)){
+                      //  if(($width ==$maxWidth) && ($height == $maxHeight)){
                             $picture =$this->getImageName($file,$product_id);
                             $destinationPath = public_path().'/images/products/';
                             $file->move($destinationPath, $picture);
@@ -82,9 +82,9 @@ class adminProductImagesController extends Controller
                             $data["img_url"]=$picture;
                             $data["created_at"]=carbon::now();
                             $this->images->insert($data);
-                        }else{
-                            return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
-                        }
+                        //}else{
+                        //    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+                        //}
                     }
                  }
             }
@@ -118,23 +118,18 @@ class adminProductImagesController extends Controller
                 $maxHeight=$this->maxHeight;
                 $maxWidth=$this->maxWidth;
                 list($width,$height) = getimagesize($file);
-                if(($width ==$maxWidth) && ($height == $maxHeight)){
+               // if(($width ==$maxWidth) && ($height == $maxHeight)){
                     $img_path =public_path().'/images/products/'.$image->img_url;
                     if(file_exists($img_path)){
                         @unlink($img_path);
                     }
                     $picture =$this->getImageName($file,$image->product_id);
-                    //  $destinationPath = env('APP_ENV_URL').'/images/products/';
-                   $destinationPath =public_path().'/images/products/';
-                  // dd(public_path());
+                    $destinationPath =public_path().'/images/products/';
                     $file->move($destinationPath, $picture);
-                   // $url_test = '/images/products/'.$image->img_url;
-                    //dd($url_test);
-                   // $file->move($url_test);
                     $image->img_url=$picture;
-                }else{
-                    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
-                }
+               // }else{
+               //     return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+               // }
             }
             $image->img_name=$request->input("img_name");
             $image->status=(int)$request->input("status");
