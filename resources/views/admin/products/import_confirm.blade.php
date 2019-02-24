@@ -1,12 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<style>
-.confirm-data-row:not(:first-child){
-    border-top:1px solid #ced4da;
-    margin:10px 0px;
-    padding:30px 0px;
-}
-</style>
 <div class="import-confirm">
     <div class="container">
         <div class="row">

@@ -156,14 +156,16 @@
                         Route::get('/{product_id}','adminColorController@index')->name("admin_colors");
                         Route::get('/confirm/{color_id}','adminColorController@deleteColor')->name('confirm_color');
                         Route::delete('/confirm/{color_id}','adminColorController@deleteColor')->name('delete_color');
-                        Route::get('/new/{product_id}','adminColorController@newColors')->name('new_color');
-                        Route::post('/new/{product_id}','adminColorController@newColors')->name('create_color');
+                        Route::get('/new/{product_id}/{color_entries}','adminColorController@showNewColors')->name('new_color');
+                        Route::post('/createColor','adminColorController@createColors')->name('create_color');
                         Route::get('/edit/{color_id}','adminColorController@editColor')->name('edit_color');
                         Route::post('/edit/{color_id}','adminColorController@editColor')->name('save_color');
                         Route::get('/import/{product_id}','adminColorController@showImportColor')->name('show_import_color');
                         Route::post('/import','adminColorController@saveImportColor')->name('save_import_color');
                         Route::post('/confirm_colors','adminColorController@deleteConfirmColors')->name('confirm_delete_colors');
                         Route::delete('/show_confirm_colors','adminColorController@deleteColors')->name('delete_colors');
+                        Route::get('/new_color_entries/{product_id}','adminColorController@showColorEntries')->name('show_color_entries');
+                        Route::post('/color_entries_confirm','adminColorController@colorEntriesConfirm')->name('create_color_entries');
                     });
                     //Admin Size
                     Route::prefix("sizes")->group(function(){

@@ -220,6 +220,7 @@ return [
         'missing_size_color'=>"Missing Size or Colors definition for :name",
         'select_product'=>'You must select a product',
         'product_name'=>"Product: :name",
+        'color_entries'=>'How many colors will you be entering',
     ],
 
      //MENSAJES

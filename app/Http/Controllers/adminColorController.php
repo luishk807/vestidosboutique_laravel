@@ -32,7 +32,8 @@ class adminColorController extends Controller
                 "name"=>"Back to Products"
             ],
             [
-                "url"=>route('new_color',['product_id'=>$product_id]),
+                // "url"=>route('new_color',['product_id'=>$product_id]),
+                "url"=>route('show_color_entries',['product_id'=>$product_id]),
                 "name"=>"Add Color"
             ],
             [
@@ -47,30 +48,50 @@ class adminColorController extends Controller
         $data["products"]=$this->products->all();
         return view("admin/products/colors/home",$data);
     }
-
-    public function newColors($product_id,Request $request){
+    public function showColorEntries($product_id){
         $data =[];
         $product = $this->products->find($product_id);
-        $data["product_id"]=$product_id;
-        $data["name"]=$request->input("name");
-        $data["color_code"]=$request->input("color_code");
-        $data["status"]=$request->input("status");
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "name"=>"required",
-                "color_code"=>"required",
-                "status"=>"required"
-            ]);
-            $data["created_at"]=carbon::now();
-            $this->colors->insert($data);
-            return redirect()->route("admin_colors",["product_id"=>$product_id]);
-        }
         $data["page_title"]="New Color For ".$product->products_name;
+        $data["product_id"] = $product_id;
+        return view("admin/products/colors/entries",$data);
+    }
+    public function colorEntriesConfirm(Request $request){
+        $data =[];
+        $this->validate($request,[
+            'color_entries'=>"required"
+        ]);
+        $product_id = $request->input("product_id");
+        $color_entries = $request->input("color_entries");
+        return redirect()->route("new_color",['product_id'=>$product_id,'color_entries'=>$color_entries]);
+    }
+    public function showNewColors($product_id,$color_entries){
+        $product = $this->products->find($product_id);
         $data["product_id"]=$product_id;
+        $data["page_title"]="New Color For ".$product->products_name;
+        $data["color_entries"]=$color_entries;
         $data["products"]=$this->products->all();
         return view("admin/products/colors/new",$data);
     }
-
+    public function createColors(Request $request){
+        $data =[];
+        $product_id = $request->input("product_id");
+        $colors = $request->input("colors");
+        $this->validate($request,[
+            "colors.*.name"=>"required",
+            "colors.*.color_code"=>"required",
+         ]);
+        foreach($colors as $color){
+            $data[]=[
+                "name"=>$color["name"],
+                "color_code"=>$color["color_code"],
+                "status"=>$color["status"],
+                "product_id"=>$product_id,
+                "created_at"=>carbon::now(),
+            ];
+        }
+        $this->colors->insert($data);
+        return redirect()->route("admin_colors",["product_id"=>$product_id]);
+    }
     public function editColor($color_id, Request $request){
         $data =[];
         $color=$this->colors->find($color_id);
