@@ -172,14 +172,16 @@
                         Route::get('/{product_id}','adminSizesController@index')->name("admin_sizes");
                         Route::get('/confirm/{size_id}','adminSizesController@deleteSize')->name('confirm_size');
                         Route::delete('/confirm/{size_id}','adminSizesController@deleteSize')->name('delete_size');
-                        Route::get('/new/{product_id}','adminSizesController@newSizes')->name('new_size');
-                        Route::post('/new/{product_id}','adminSizesController@newSizes')->name('create_size');
+                        Route::get('/new/{product_id}/{size_entries}','adminSizesController@showNewSizes')->name('new_size');
+                        Route::post('/createSize','adminSizesController@createSizes')->name('create_size');
                         Route::get('/edit/{size_id}','adminSizesController@editSize')->name('edit_size');
                         Route::post('/edit/{size_id}','adminSizesController@saveSize')->name('save_size');
                         Route::get('/import/{product_id}','adminSizesController@showImportSize')->name('show_import_size');
                         Route::post('/import','adminSizesController@saveImportSize')->name('save_import_size');
                         Route::post('/confirm_sizes','adminSizesController@deleteConfirmSizes')->name('confirm_delete_sizes');
                         Route::delete('/show_confirm_sizes','adminSizesController@deleteSizes')->name('delete_sizes');
+                        Route::get('/new_size_entries/{product_id}','adminSizesController@showSizeEntries')->name('show_size_entries');
+                        Route::post('/size_entries_confirm','adminSizesController@sizeEntriesConfirm')->name('create_size_entries');
                     });
                     //Admin Image
                     Route::prefix("images")->group(function(){

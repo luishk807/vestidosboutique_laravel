@@ -217,6 +217,7 @@ return [
         'select_product'=>'Debes seleccionar un producto',
         'product_name'=>"Producto: :name",
         'color_entries'=>'Cuántos colores desea ingresar?',
+        'size_entries'=>'Cuántos tamaños desea ingresar?',
     ],
 
 // 404

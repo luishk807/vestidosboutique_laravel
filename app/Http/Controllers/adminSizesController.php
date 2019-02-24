@@ -31,7 +31,7 @@ class adminSizesController extends Controller
                 "name"=>"Back to Product"
             ],
             [
-                "url"=>route('new_size',['product_id'=>$product_id]),
+                "url"=>route('show_size_entries',['product_id'=>$product_id]),
                 "name"=>"Add Product Size"
             ],
             [
@@ -48,49 +48,55 @@ class adminSizesController extends Controller
         return view("admin/products/sizes/home",$data);
 
     }
-    public function newSizes($product_id,Request $request){
-        $data=[];
-        $data["name"]=$request->input("size");
-        $data["color_id"]=$request->input("color");
-        $data["stock"]=$request->input("stock");
-        $data["status"]=(int)$request->input("status");
-        $is_for_rent = $request->input("is_for_rent")?true:false;
-        $data["is_rent"] = $is_for_rent;
-        $data["total_rent"] = $is_for_rent?$request->input("total_rent"):0;
-       
-        $is_for_sell = $request->input("is_for_sale")?true:false;
-        $data["is_sell"] = $is_for_sell;
-        $data["total_sale"] = $is_for_sell?$request->input("total_sale"):0;
-
-        if($request->isMethod("post")){
-            $this->validate($request,[
-                "size"=>"required",
-                "status"=>"required",
-                "color"=>"required",
-                "stock"=>"required",
-            ]
-            );
-            $data["created_at"]=carbon::now();
-            $this->sizes->insert($data);
-            return redirect()->route("admin_sizes",["product_id"=>$product_id]);
+    public function createSizes(Request $request){
+        $data =[];
+        $product_id = $request->input("product_id");
+        $sizes = $request->input("sizes");
+        $this->validate($request,[
+            "sizes.*.size"=>"required",
+            "sizes.*.color"=>"required",
+            "sizes.*.stock"=>"required",
+         ]);
+        foreach($sizes as $size){
+            $data[]=[
+                "name"=>$size["size"],
+                "color_id"=>$size["color"],
+                "status"=>$size["status"],
+                "stock"=>$size["stock"],
+                "is_rent"=>isset($size["total_rent"]) && $size["total_rent"] > 0 ? 1 : 0,
+                "total_rent"=>$size["total_rent"],
+                "is_sell"=>isset($size["total_sale"]) && $size["total_sale"] > 0  ? 1 : 0,
+                "total_sale"=>$size["total_sale"],
+                "created_at"=>carbon::now(),
+            ];
         }
-        $product=$this->products->find($product_id);
-        $data["size"]=(int)$request->input("size");
+        $this->sizes->insert($data);
+        return redirect()->route("admin_sizes",["product_id"=>$product_id]);
+    }
+    public function showNewSizes($product_id,$size_entries){
+        $product = $this->products->find($product_id);
         $data["product_id"]=$product_id;
-        $data["color"]=$request->input("color");
-
-        $is_for_rent = $request->input("is_for_rent")?true:false;
-        $data["is_rent"]=$is_for_rent;
-        $data["total_rent"] = $is_for_rent?$request->input("total_rent"):0;
-
-        $is_for_sell = $request->input("is_for_sale")?true:false;
-        $data["is_sell"] = $is_for_sell;
-        $data["total_sale"] = $is_for_sell?$request->input("total_sale"):0;
-
-        $data["stock"]=$request->input("stock");
-        $data["colors"]=$product->colors;
-        $data["page_title"]="New Dress Size For: ".$product->products_name;
+        $data["colors"]=$this->colors->all();
+        $data["page_title"]="New Size For ".$product->products_name;
+        $data["size_entries"]=$size_entries;
+        $data["products"]=$this->products->all();
         return view("admin/products/sizes/new",$data);
+    }
+    public function showSizeEntries($product_id){
+        $data =[];
+        $product = $this->products->find($product_id);
+        $data["page_title"]="New Size For ".$product->products_name;
+        $data["product_id"] = $product_id;
+        return view("admin/products/sizes/entries",$data);
+    }
+    public function sizeEntriesConfirm(Request $request){
+        $data =[];
+        $this->validate($request,[
+            'size_entries'=>"required"
+        ]);
+        $product_id = $request->input("product_id");
+        $size_entries = $request->input("size_entries");
+        return redirect()->route("new_size",['product_id'=>$product_id,'size_entries'=>$size_entries]);
     }
     public function editSize($size_id,Request $request){
         $data=[];
@@ -127,12 +133,12 @@ class adminSizesController extends Controller
         ]);
         $size->name=$request->input("dress_size");
         
-        $is_for_rent = $request->input("is_for_rent")?true:false;
-        $size->is_rent=$is_for_rent;
+        $is_for_rent =$request->input("total_rent");
+        $size->is_rent=isset($is_for_rent) && $is_for_rent > 0 ? 1 : 0;
         $size->total_rent = $is_for_rent?$request->input("total_rent"):0;
 
-        $is_for_sell = $request->input("is_for_sale")?true:false;
-        $size->is_sell = $is_for_sell;
+        $is_for_sell = $request->input("total_sale");
+        $size->is_sell = isset($is_for_sell) && $is_for_sell > 0 ? 1 : 0;
         $size->total_sale = $is_for_sell?$request->input("total_sale"):0;
 
 
@@ -213,9 +219,10 @@ class adminSizesController extends Controller
             "size_ids"=>"required",
         ],$custom_message);
         $sizes = $this->sizes->getSizesByIds($size_ids);
-        $color = $this->sizes->getColor();
+        $size = $this->sizes->find($size_ids[0]);
+        $color = $this->colors->find($size->color_id);
         $data["confirm_type"] = "name";
-        // $data["confirm_return"] = route("admin_sizes",["product_id"=>$color->product_id]);
+        $data["confirm_return"] = route("admin_sizes",["product_id"=>$color->product_id]);
         $data["confirm_name"] = "Sizes";
         $data["confirm_data"] = $sizes;
         $data["confirm_delete_url"]=route('delete_sizes');
@@ -230,10 +237,12 @@ class adminSizesController extends Controller
                 'required'=>"Please select a item to delete"
             ]);
                 $size_ids = $request["item_ids"];
+                $size = $this->sizes->find($size_ids[0]);
+                $color = $this->colors->find($size->color_id);
                 foreach($size_ids as $size){
                    $size = $this->sizes->find($size);
                     $size->delete();
                 }
-               return redirect()->route("admin_sizes")->with('success','Sizes Deleted successfully.');
+               return redirect()->route("admin_sizes",["product_id"=>$color->product_id])->with('success','Sizes Deleted successfully.');
     }
 }
