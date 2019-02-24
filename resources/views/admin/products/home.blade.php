@@ -22,10 +22,10 @@
         @endif
         " class="img-fluid"/></div>
         <div class="col-md-2">{{$product->products_name}}</div>
-        <div class="col-md-1">{{$product->getBrand->name }}</div>
-        <div class="col-md-2">{{$product->getCategory->name }}</div>
+        <div class="col-md-1">{{ $product->getBrand->name or '' }}</div>
+        <div class="col-md-2">{{$product->getCategory->name or '' }}</div>
         <div class="col-md-1">{{$product->getAllSizesCount()[0]->count > 0 ? "In Stock" : "Out of Stock"}}</div>
-        <div class="col-md-1">{{ $product->getStatus->name }}</div>
+        <div class="col-md-1">{{ $product->getStatus->name or '' }}</div>
         <div class="col-md-2 container-button">
             <a href="{{ route('confirm_product',['product_id'=>$product->id])}}">delete</a>
             <a href="{{ route('edit_product',['product_id'=>$product->id])}}">edit</a>

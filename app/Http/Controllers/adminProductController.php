@@ -362,6 +362,10 @@ class adminProductController extends Controller
             $detail_products=[];
             if(!empty($data) && $data->count()){
                 foreach ($data as $value) {
+                    if(!$value->color){
+                        Session::forget("data_confirm");
+                        return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$value->model_number]));
+                    }
                     $sizes = [];
                     $found=false;
 
@@ -445,12 +449,13 @@ class adminProductController extends Controller
                     return redirect()->route('admin_products')->with('success','Insert Record successfully.');
                 }
             }
-        }else{
+        }
+        else{
             return redirect()->back()->withErrors([
                 "required","No File Entered"
             ]);
         }
-      return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+    return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
     public function showRestock(){
         $data=[];
@@ -569,6 +574,7 @@ class adminProductController extends Controller
              $data["vendors"]=$this->vendors->all();
              $data["closures"]=$this->closures->all();
              $data["necklines"]=$this->necklines->all();
+             $data["lengths"]=$this->lengths->all();
 
              $data["data_confirm"]=$session;
              return view("admin/products/import_confirm",$data);
@@ -580,12 +586,12 @@ class adminProductController extends Controller
      public function saveConfirmImportProduct(Request $request){
          $data=[];
          $valid_array=false;
-        //  $this->validate($request,[
-        //     "product_confirm.*.product_model"=>"required",
-        //     "product_confirm.*.brand"=>"required",
-        //     "product_confirm.*.event"=>"required",
-        //     "product_confirm.*.purchased_date"=>"required",
-        //  ]);
+         $this->validate($request,[
+            "product_confirm.*.product_model"=>"required",
+            "product_confirm.*.brand"=>"required",
+            "product_confirm.*.event"=>"required",
+            "product_confirm.*.purchased_date"=>"required",
+         ]);
          $products = $request->input("product_confirm");
          foreach($products as $product){
              if(Arr::exists($product,"key")){
@@ -615,10 +621,23 @@ class adminProductController extends Controller
                 // echo "<pre>";
                 // print_r($product["color"]);
                 // echo "</pre>";
-
-                // echo "<pre>";
-                // print_r($product["cat"]);
-                // echo "</pre>";
+                $colors = $product["color"];
+                if(count($colors)>0){
+                    foreach($colors as $color_index=>$color){
+                        if(empty($color["name"])){
+                            return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$product["product_model"]]));
+                        }
+                        $sizes = $color["sizes"];
+                        if(count($sizes)>0){
+                            foreach($sizes as $size){
+                                if(empty($size["size"])){
+                                    $color_index_str = (integer)$color_index+1;
+                                    return redirect()->back()->with('error',__('general.excel_error.size_missing',["index"=>$color_index_str,"name"=>$color["name"]]));
+                                }
+                            }
+                        }
+                    }
+                };
                
                 $product_insert = Products::create($insert);
                 $product_id = null;
@@ -659,9 +678,9 @@ class adminProductController extends Controller
                                         "color_id"=>$color_id,
                                         "name"=>$size["size"],
                                         "total_sale"=>$size["total_sale"],
-                                        "is_sell"=>$size["is_sell"],
+                                        "is_sell"=>isset($size['is_sell']) ? 1 : 0,
                                         "total_rent"=>$size["total_rent"],
-                                        "is_rent"=>$size["is_rent"],
+                                        "is_rent"=>isset($size["is_rent"]) ? 1 : 0,
                                         "stock"=>$size["stock"],
                                         "created_at"=>carbon::now()
                                     ]);
