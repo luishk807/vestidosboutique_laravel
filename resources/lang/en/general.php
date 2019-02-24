@@ -221,6 +221,7 @@ return [
         'select_product'=>'You must select a product',
         'product_name'=>"Product: :name",
         'color_entries'=>'How many colors will you be entering',
+        'size_entries'=>'How many sizes will you be entering',
     ],
 
      //MENSAJES
