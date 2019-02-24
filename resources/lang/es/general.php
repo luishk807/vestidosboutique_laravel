@@ -216,6 +216,7 @@ return [
         'missing_size_color'=>"Missing Size or Colors definition for :name",
         'select_product'=>'Debes seleccionar un producto',
         'product_name'=>"Producto: :name",
+        'color_entries'=>'Cuántos colores desea ingresar?',
     ],
 
 // 404
