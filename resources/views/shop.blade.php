@@ -125,8 +125,7 @@
                                             <div class="container shoplist-list-cont-in">
                                                 <div class="row">
                                                     <div class="col-md-7"><span class="shoplist-thumb-name">{{$product->products_name}}</span><br/>
-                                                    @php( $prod_vendor = $products_model->getVendors_byId($product->vendor_id))
-                                                    <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $prod_vendor[0]->company_name }}</span>
+                                                    <span class="shoplist-thumb-auth">{{ __('general.cart_title.sell_by') }} {{ $product->brand_name }}</span>
                                                     </div>
                                                     <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $products_model->getSize_byId($product->id)->total_sale }}</span>
                                                     <br/>
