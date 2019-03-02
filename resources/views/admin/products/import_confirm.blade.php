@@ -22,6 +22,20 @@
     {{ csrf_field() }}
         <div class="container">
             @foreach($data_confirm["insert"] as $indexKey=>$product)
+            @php( $old1 = "product_confirm.".$indexKey.".products_name" )
+            @php( $old2 = "product_confirm.".$indexKey.".product_model" )
+            @php( $old3 = "product_confirm.".$indexKey.".brand" )
+            @php( $old4 = "product_confirm.".$indexKey.".vendor" )
+            @php( $old5 = "product_confirm.".$indexKey.".closure" )
+            @php( $old6 = "product_confirm.".$indexKey.".fabric" )
+            @php( $old7 = "product_confirm.".$indexKey.".category" )
+            @php( $old8 = "product_confirm.".$indexKey.".product_type" )
+            @php( $old9 = "product_confirm.".$indexKey.".neckline" )
+            @php( $old10 = "product_confirm.".$indexKey.".style" )
+            @php( $old11 = "product_confirm.".$indexKey.".product_length")
+            @php( $old12 = "product_confirm.".$indexKey.".product_detail" )
+            @php( $old13 = "product_confirm.".$indexKey.".product_description" )
+            @php( $old14 = "product_confirm.".$indexKey.".purchased_date" )
             <div class="row confirm-data-row">
                 <div class="col-md-1">
                     <span class="confirm-data-key">{{ 1+ $indexKey }}&#46;</span>&nbsp;<input type="checkbox" checked name="product_confirm[{{$indexKey}}][key]" id="productcheck[{{$indexKey}}]" value="{{ $indexKey }}"/>
@@ -31,12 +45,12 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label for="productName">Name:</label>
-                                <input type="text" id="productName" class="form-control" name="product_confirm[{{$indexKey}}][products_name]" value="{{ $product['products_name'] }}" placeholder="Product Name"/>
+                                <input type="text" id="productName" class="form-control" name="product_confirm[{{$indexKey}}][products_name]" value="{{ old($old1) ? old($old1) : $product['products_name'] }}" placeholder="Product Name"/>
                                 <small class="error">{{$errors->first("products_name")}}</small>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="productModel">Model No.:</label>
-                                <input type="text" id="productModel" class="form-control" name="product_confirm[{{$indexKey}}][product_model]" value="{{ $product['product_model'] }}" placeholder="Model No"/>
+                                <input type="text" id="productModel" class="form-control" name="product_confirm[{{$indexKey}}][product_model]" value="{{ old($old2) ? old($old2) : $product['product_model'] }}" placeholder="Model No"/>
                                 <small class="error">{{$errors->first("product_model")}}</small>
                             </div>
                             <div class="form-group col-md-4">
@@ -45,7 +59,7 @@
                                     <option value="">Select Brand</option>
                                     @foreach($brands as $brand)
                                         <option value="{{ $brand->id }}"
-                                        @if($product['brand_id']==$brand->id || $product['brand_id']==$brand->name)
+                                        @if(old($old3) ? old($old3)==$brand->id : $product['brand_id']==$brand->id || $product['brand_id']==$brand->name )
                                             selected="selected"
                                         @endif
                                         >{{$brand->name}} </option>
@@ -61,7 +75,7 @@
                                     <option value="">Select Vendor</option>
                                     @foreach($vendors as $vendor)
                                         <option value="{{ $vendor->id }}"
-                                        @if($product['vendor_id']==$vendor->id || $product['vendor_id']==$brand->name)
+                                        @if(old($old4) ? old($old4)==$vendor->id : $product['vendor_id']==$vendor->id || $product['vendor_id']==$brand->name)
                                             selected="selected"
                                         @endif
                                         >{{$vendor->getFullVendorName()}} </option>
@@ -75,7 +89,7 @@
                                     <option value="">Select Closure</option>
                                     @foreach($closures as $closure)
                                         <option value="{{ $closure->id }}"
-                                        @if($product['product_closure_id']==$closure->id)
+                                        @if(old($old5) ? old($old5)==$closure->id : $product['product_closure_id']==$closure->id)
                                             selected="selected"
                                         @endif
                                         >{{$closure->name}} </option>
@@ -89,7 +103,7 @@
                                     <option value="">Select Fabric</option>
                                     @foreach($fabrics as $fabric)
                                         <option value="{{ $fabric->id }}"
-                                        @if($product['product_fabric_id']==$fabric->id)
+                                        @if(old($old6) ? old($old6)==$fabric->id : $product['product_fabric_id']==$fabric->id)
                                             selected="selected"
                                         @endif
                                         >{{$fabric->name}} </option>
@@ -102,10 +116,21 @@
                             <div class="form-group col">
                                 Choose Events:<br/>
                                 <ul class="custom-ul">
+
                                     @foreach($events as $eventIndex => $event)
+                                    @php( $old15 = "product_confirm.".$indexKey.".event" )
                                     <li>
-                                        <input value="{{ $event->id }}" id="event_{{$eventIndex}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][event][]">
-                                        <label for="event_{{$eventIndex}}" >{{$event->name}} </label>
+                                        <input value="{{ $event->id }}" id="event_{{$eventIndex}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][event][]" 
+                                        @if(old($old15))
+                                        @foreach(old($old15) as $old_event)
+                                            @if($old_event == $event->id)
+                                                checked
+                                            @endif
+                                        @endforeach
+                                        @endif
+                                        >
+                                        <label for="event_{{$eventIndex}}" 
+                                        >{{$event->name}} </label>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -118,7 +143,7 @@
                                     <option value="">Select Category</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}"
-                                        @if($product['category_id']==$category->id || $product['category_id']==$category->name)
+                                        @if(old($old7) ? old($old7)==$category->id : $product['category_id']==$category->id || $product['category_id']==$category->name)
                                             selected="selected"
                                         @endif
                                         >{{$category->name}} </option>
@@ -131,7 +156,7 @@
                                     <option value="">Select Product Type</option>
                                     @foreach($product_types as $product_type)
                                         <option value="{{ $product_type->id }}"
-                                        @if($product['product_type_id']==$product_type->id || $product['product_type_id']==$product_type->name)
+                                        @if(old($old8) ? old($old8)==$product_type->id : $product['product_type_id']==$product_type->id || $product['product_type_id']==$product_type->name)
                                             selected="selected"
                                         @endif
                                         >{{$product_type->name}} </option>
@@ -146,7 +171,7 @@
                                     <option value="">Select Neckline</option>
                                     @foreach($necklines as $neckline)
                                         <option value="{{ $neckline->id }}"
-                                        @if($product['product_neckline_id']==$neckline->id)
+                                        @if(old($old9) ? old($old9)==$neckline->id : $product['product_neckline_id']==$neckline->id || $product['product_neckline_id']==$neckline->name)
                                             selected="selected"
                                         @endif
                                         >{{$neckline->name}} </option>
@@ -160,7 +185,7 @@
                                     <option value="">Select Style</option>
                                     @foreach($vestidos_styles as $style)
                                         <option value="{{ $style->id }}"
-                                        @if($product['product_style_id']==$style->id)
+                                        @if(old($old10) ? old($old10)==$style->id : $product['product_style_id']==$style->id || $product['product_style_id']==$style->name)
                                             selected="selected"
                                         @endif
                                         >{{$style->name}} </option>
@@ -171,7 +196,7 @@
                             <div class="form-group col-md-2">
                                 <label for="productDop">Date of Purchase:</label>
                                 @php( $date = date('Y-m-d', strtotime($product["purchase_date"])) );
-                                <input type="date" id="productDop" min="2017-01-01" class="form-control" name="product_confirm[{{$indexKey}}][purchased_date]" value="{{ $date }}" placeholder="Date of Purchase"/>
+                                <input type="date" id="productDop" min="2017-01-01" class="form-control" name="product_confirm[{{$indexKey}}][purchased_date]" value="{{ old('$old14') ? old('$old14') : $date }}" placeholder="Date of Purchase"/>
                                 <small class="error">{{$errors->first("purchase_date")}}</small>
                             </div>          
                         </div>
@@ -182,7 +207,7 @@
                                     <option value="">Select Length:</option>
                                     @foreach($lengths as $length)
                                         <option value="{{ $length->id }}"
-                                        @if($product['product_length']==$length->id || $product['product_length']==$length->name)
+                                        @if(old($old11) ? old($old11)==$length->id : $product['product_length']==$length->id || $product['product_length']==$length->name)
                                             selected="selected"
                                         @endif
                                         >{{$length->name}} </option>
@@ -192,12 +217,12 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="productDetail">Detail:</label>
-                                <input type="text" id="productDetail" class="form-control" name="product_confirm[{{$indexKey}}][product_detail]" value="{{ $product['product_detail'] }}" placeholder="Product Detail"/>
+                                <input type="text" id="productDetail" class="form-control" name="product_confirm[{{$indexKey}}][product_detail]" value="{{ old('$old12') ? old('$old12') : $product['product_detail'] }}" placeholder="Product Detail"/>
                                 <small class="error">{{$errors->first("product_detail")}}</small>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="productDescription">Description:</label>
-                                <textarea class="form-control" id="productDescription" rows="3" name="product_confirm[{{$indexKey}}][products_description]">{{ $product['products_description'] }}</textarea>
+                                <textarea class="form-control" id="productDescription" rows="3" name="product_confirm[{{$indexKey}}][products_description]">{{ old('$old13') ? old('$old13') : $product['products_description'] }}</textarea>
                                 <small class="error">{{$errors->first("products_description")}}</small>
                             </div>                     
                         </div>
