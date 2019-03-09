@@ -361,6 +361,7 @@ class adminProductController extends Controller
             $model_number=null;
             $detail_products=[];
             if(!empty($data) && $data->count()){
+                $data = isset($data[0]->product_name) ? $data : $data[2];
                 foreach ($data as $value) {
                     if(!$value->color){
                         Session::forget("data_confirm");
