@@ -365,7 +365,7 @@ class adminProductController extends Controller
                 foreach ($data as $value) {
                     if(!$value->color){
                         Session::forget("data_confirm");
-                        return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$value->model_number]));
+                        return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$value->model_number]))->withInput();
                     }
                     $sizes = [];
                     $found=false;
@@ -626,14 +626,14 @@ class adminProductController extends Controller
                 if(count($colors)>0){
                     foreach($colors as $color_index=>$color){
                         if(empty($color["name"])){
-                            return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$product["product_model"]]));
+                            return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$product["product_model"]]))->withInput();
                         }
                         $sizes = $color["sizes"];
                         if(count($sizes)>0){
                             foreach($sizes as $size){
-                                if(empty($size["size"])){
+                                if($size["size"]=="" || $size["size"] == NULL || $size["size"] < 0){
                                     $color_index_str = (integer)$color_index+1;
-                                    return redirect()->back()->with('error',__('general.excel_error.size_missing',["index"=>$color_index_str,"name"=>$color["name"]]));
+                                    return redirect()->back()->with('error',__('general.excel_error.size_missing',["index"=>$color_index_str,"name"=>$color["name"]]))->withInput();
                                 }
                             }
                         }
@@ -693,7 +693,7 @@ class adminProductController extends Controller
              }
          }
          if(!$valid_array){
-             return redirect()->back()->withErrors(["required"=>"You must select a product"]);
+             return redirect()->back()->withErrors(["required"=>"You must select a product"])->withInput();
          }else{
              Session::forget("data_confirm");
              return redirect()->route("admin_products")->with("success","import successfully entered");
