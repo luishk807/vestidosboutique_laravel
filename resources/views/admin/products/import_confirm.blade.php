@@ -196,7 +196,7 @@
                             <div class="form-group col-md-2">
                                 <label for="productDop">Date of Purchase:</label>
                                 @php( $date = date('Y-m-d', strtotime($product["purchase_date"])) );
-                                <input type="date" id="productDop" min="2017-01-01" class="form-control" name="product_confirm[{{$indexKey}}][purchased_date]" value="{{ old('$old14') ? old('$old14') : $date }}" placeholder="Date of Purchase"/>
+                                <input type="date" id="productDop" min="2017-01-01" class="form-control" name="product_confirm[{{$indexKey}}][purchased_date]" value="{{ old($old14) ? old($old14) : $date }}" placeholder="Date of Purchase"/>
                                 <small class="error">{{$errors->first("purchase_date")}}</small>
                             </div>          
                         </div>
@@ -217,28 +217,28 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="productDetail">Detail:</label>
-                                <input type="text" id="productDetail" class="form-control" name="product_confirm[{{$indexKey}}][product_detail]" value="{{ old('$old12') ? old('$old12') : $product['product_detail'] }}" placeholder="Product Detail"/>
+                                <input type="text" id="productDetail" class="form-control" name="product_confirm[{{$indexKey}}][product_detail]" value="{{ old($old12) ? old($old12) : $product['product_detail'] }}" placeholder="Product Detail"/>
                                 <small class="error">{{$errors->first("product_detail")}}</small>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="productDescription">Description:</label>
-                                <textarea class="form-control" id="productDescription" rows="3" name="product_confirm[{{$indexKey}}][products_description]">{{ old('$old13') ? old('$old13') : $product['products_description'] }}</textarea>
+                                <textarea class="form-control" id="productDescription" rows="3" name="product_confirm[{{$indexKey}}][products_description]">{{ old($old13) ? old($old13) : $product['products_description'] }}</textarea>
                                 <small class="error">{{$errors->first("products_description")}}</small>
                             </div>                     
                         </div>
                         @if(array_key_exists($product['product_model'],$data_confirm["detail"]))
                             @foreach($data_confirm["detail"][$product['product_model']] as $key_detail=>$p_detail)
-                                
-
+                            @php( $oldcolor_name= "product_confirm.".$indexKey.".color.".$key_detail.".name" )
+                            @php( $oldcolor_code  = "product_confirm.".$indexKey.".color.".$key_detail.".code" )
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="product_color_{{$indexKey}}">Color Name:</label>
-                                        <input type="text" id="product_color_{{$indexKey}}" class="form-control" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][name]" value="{{$key_detail}}" placeholder="Color Name"/>
+                                        <input type="text" id="product_color_{{$indexKey}}" class="form-control" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][name]" value="{{ old($oldcolor_name) ? old($oldcolor_name) : $key_detail}}" placeholder="Color Name"/>
                                         <small class="error">{{$errors->first("product_length")}}</small>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="productDetail">Color Code:</label><br/>
-                                        <input type="color" id="colorCode" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][code]" value=""/>
+                                        <input type="color" id="colorCode" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][code]" value="{{ old($oldcolor_code) ? old($oldcolor_code) : ''}}"/>
                                         <small class="error">{{$errors->first("product_detail")}}</small>
                                     </div>                  
                                 </div>
@@ -246,6 +246,12 @@
                                 Choose Sizes For {{$key_detail}}:<br/>
 
                                     @foreach($p_detail as $key_sizes => $p_sizes)
+                                    @php( $oldsize_sell = "product_confirm.".$indexKey.".color.".$key_detail.".sizes.".$key_sizes.".is_sell" )
+                                    @php( $oldsize_rent  = "product_confirm.".$indexKey.".color.".$key_detail.".sizes.".$key_sizes.".is_rent")
+                                    @php( $oldsize_size  = "product_confirm.".$indexKey.".color.".$key_detail.".sizes.".$key_sizes.".size")
+                                    @php( $oldsize_stock  = "product_confirm.".$indexKey.".color.".$key_detail.".sizes.".$key_sizes.".stock")
+                                    @php( $oldsize_sale  = "product_confirm.".$indexKey.".color.".$key_detail.".sizes.".$key_sizes.".total_sale")
+                                    @php( $oldsize_rent  = "product_confirm.".$indexKey.".color.".$key_detail.".sizes.".$key_sizes.".total_rent")
                                 <div class="row">
                                     <div class="form-group col-md-1">
                                         <span class="confirm-data-key">{{ 1+ $key_sizes }}&#46;</span>
@@ -260,7 +266,7 @@
                                     <div class="form-group col-md-2">    
                                         <label for="size_sale_{{$key_sizes}}" >Total Sale</label>
                                         <input 
-                                        @if($p_sizes['total_sale'] > 0)
+                                        @if($p_sizes['total_sale'] > 0 || old($oldsize_sell)=='0')
                                         checked
                                         @endif 
                                         value="{{ $p_sizes['is_sell']}}" id="size_is_sell_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_sell]">is sell?
@@ -268,7 +274,7 @@
                                     <div class="form-group col-md-3">
                                         <label for="size_rent_{{$key_sizes}}" >Total Rent
                                             <input 
-                                            @if($p_sizes['total_rent'] > 0)
+                                            @if($p_sizes['total_rent'] > 0 || old($oldsize_rent)=='0')
                                             checked
                                             @endif 
                                             value="{{ $p_sizes['is_rent']}}" id="size_is_rent_{{$key_sizes}}" type="checkbox" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][is_rent]">is Rent?
@@ -277,20 +283,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-1">
-                                        <input type="checkbox" checked name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][key_size]" id="product_confirm[{{$indexKey}}][color][{{$key_sizes}}]" value="{{ $key_sizes }}"/>
+                                        <input type="checkbox" onclick="return false;" checked name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][key_size]" id="product_confirm[{{$indexKey}}][color][{{$key_sizes}}]" value="{{ $key_sizes }}"/>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <input value="{{ $p_sizes['size']}}" id="size_size_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][size]">
+                                        <input value="{{ old($oldsize_size) ? old($oldsize_size) : $p_sizes['size']}}" id="size_size_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][size]">
 
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <input value="{{ $p_sizes['stock']}}" id="size_stock_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][stock]">
+                                        <input value="{{ old($oldsize_stock) ? old($oldsize_stock) : $p_sizes['stock']}}" id="size_stock_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][stock]">
                                     </div>
                                     <div class="form-group col-md-2">    
-                                        <input value="{{ $p_sizes['total_sale']}}" id="size_sale_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][total_sale]">
+                                        <input value="{{ old($oldsize_sale) ? old($oldsize_sale) : $p_sizes['total_sale']}}" id="size_sale_{{$key_sizes}}"  type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][total_sale]">
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <input value="{{ $p_sizes['total_rent']}}" id="size_rent_{{$key_sizes}}" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][total_rent]">
+                                        <input value="{{ old($oldsize_rent) ? old($oldsize_rent) : $p_sizes['total_rent']}}" id="size_rent_{{$key_sizes}}" type="text" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][sizes][{{$key_sizes}}][total_rent]">
                                     </div>
                                 </div>
                                     @endforeach
