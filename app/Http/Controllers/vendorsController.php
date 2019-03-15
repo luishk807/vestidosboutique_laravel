@@ -129,11 +129,11 @@ class vendorsController extends Controller
     public function deleteVendor($vendor_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
-            $product = $this->vendor->find($vendor_id);
+            $product = $this->vendors->find($vendor_id);
             $vendor->delete();
             return redirect()->route("admin_vendors");
         }
-        $data["vendor"]=$this->vendor->find($vendor_id);
+        $data["vendor"]=$this->vendors->find($vendor_id);
         $data["page_title"]="Delete Vendor";
         return view("admin/vendors/confirm",$data);
     }
