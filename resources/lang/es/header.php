@@ -32,4 +32,6 @@ return [
     'registration'=>"Regístrate",
     'accessories'=>"Accesorios",
     'by_styles'=>"Por Estilos",
+    'product'=>"Pagina de Productos",
+    'product_type'=>"Tipo de Producto",
 ];
