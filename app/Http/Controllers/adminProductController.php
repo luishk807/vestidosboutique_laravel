@@ -363,75 +363,73 @@ class adminProductController extends Controller
             if(!empty($data) && $data->count()){
                 $data = isset($data[0]->product_name) ? $data : $data[2];
                 foreach ($data as $value) {
-                    if(!$value->color){
-                        Session::forget("data_confirm");
-                        return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$value->model_number]))->withInput();
-                    }
-                    $sizes = [];
-                    $found=false;
-
-                    if(count($insert)>0){
-                        foreach($insert as $check){
-                            if($check["product_model"]==$value->model_number){
-                                $found=true;
-                            
-                                $color = $detail_products[$model_number];
-                                if(!array_key_exists($value->color,$color)){
-                                    $detail_products[$model_number][$value->color]=[];
+                    if(!empty($value->model_number)){
+                        if(empty($value->color)){
+                            Session::forget("data_confirm");
+                            return redirect()->back()->with('error',__('general.excel_error.color_missing',["name"=>$value->model_number]))->withInput();
+                        }
+                        $sizes = [];
+                        $found=false;
+    
+                        if(count($insert)>0){
+                            foreach($insert as $check){
+                                if($check["product_model"]==$value->model_number){
+                                    $found=true;
+                                
+                                    $color = $detail_products[$model_number];
+                                    if(!array_key_exists($value->color,$color)){
+                                        $detail_products[$model_number][$value->color]=[];
+                                    }
+                                    $sizes = $detail_products[$model_number][$value->color];
+                                    $sizes[]=[
+                                        "size"=>$value->size,
+                                        "stock"=>$value->stock,
+                                        "total_sale"=>$value->total_sale,
+                                        "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
+                                        "total_rent"=>$value->total_rent,
+                                        "is_rent"=>$value->is_for_rent=="yes" ?1:0,
+                                    ];
+                                    $detail_products[$model_number][$value->color]=$sizes;
+                                    break;
                                 }
-                                $sizes = $detail_products[$model_number][$value->color];
-                                $sizes[]=[
-                                    "size"=>$value->size,
-                                    "stock"=>$value->stock,
-                                    "total_sale"=>$value->total_sale,
-                                    "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
-                                    "total_rent"=>$value->total_rent,
-                                    "is_rent"=>$value->is_for_rent=="yes" ?1:0,
-                                ];
-                                $detail_products[$model_number][$value->color]=$sizes;
-                                break;
                             }
                         }
+    
+                        if(!$found){
+                            $model_number = $value->model_number;
+                            $insert[]=[
+                                "products_name"=>$value->product_name,
+                                "category_id"=>$value->category,
+                                "product_type_id"=>$value->product_type,
+                                "product_model"=>$value->model_number,
+                                "products_description"=>$value->full_description,
+                                "brand_id"=>$value->brand,
+                                "product_closure_id"=>$value->closure,
+                                "product_detail"=>$value->short_detail,
+                                "product_fabric_id"=>$value->fabric,
+                                "product_length"=>$value->product_length,
+                                "product_neckline_id"=>$value->neckline,
+                                "product_style_id"=>$value->style,
+                                "purchase_date"=>$value->purchased_date,
+                                "vendor_id"=>$value->vendor,
+                                "status"=>1,
+                                "ip"=>$request->ip(),
+                                "created_at"=>carbon::now(),
+                            ];
+    
+                            // get the color based on model
+                            $detail_products[$model_number][$value->color]=[];
+                            $sizes[]=[
+                                "size"=>$value->size,
+                                "stock"=>$value->stock,
+                                "total_sale"=>$value->total_sale,
+                                "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
+                                "total_rent"=>$value->total_rent,
+                                "is_rent"=>$value->is_for_rent=="yes" ?1:0,
+                            ];
+                            $detail_products[$model_number][$value->color]=$sizes;
+                        }
                     }
-
-                    if(!$found){
-                        $model_number = $value->model_number;
-                        $insert[]=[
-                            "products_name"=>$value->product_name,
-                            "category_id"=>$value->category,
-                            "product_type_id"=>$value->product_type,
-                            "product_model"=>$value->model_number,
-                            "products_description"=>$value->full_description,
-                            "brand_id"=>$value->brand,
-                            "product_closure_id"=>$value->closure,
-                            "product_detail"=>$value->short_detail,
-                            "product_fabric_id"=>$value->fabric,
-                            "product_length"=>$value->product_length,
-                            "product_neckline_id"=>$value->neckline,
-                            "product_style_id"=>$value->style,
-                            "purchase_date"=>$value->purchased_date,
-                            "vendor_id"=>$value->vendor,
-                            "status"=>1,
-                            "ip"=>$request->ip(),
-                            "created_at"=>carbon::now(),
-                        ];
-
-                        // get the color based on model
-                        $detail_products[$model_number][$value->color]=[];
-                        $sizes[]=[
-                            "size"=>$value->size,
-                            "stock"=>$value->stock,
-                            "total_sale"=>$value->total_sale,
-                            "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
-                            "total_rent"=>$value->total_rent,
-                            "is_rent"=>$value->is_for_rent=="yes" ?1:0,
-                        ];
-                        $detail_products[$model_number][$value->color]=$sizes;
- 
-
-                    }
-
-
                 }
                 // echo "<pre>";
                 // print_r($insert);

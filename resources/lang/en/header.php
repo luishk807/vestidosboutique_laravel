@@ -32,4 +32,6 @@ return [
     'registration'=>"Registration",
     'accessories'=>"Accessories",
     'by_styles'=>"By Styles",
+    'product'=>"Products Page",
+    'product_type'=>"Product Type",
 ];
