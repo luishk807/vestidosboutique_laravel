@@ -99,7 +99,7 @@ class adminColorController extends Controller
         $data["products"]=$this->products->all();
         $data["page_submenus"]=[
             [
-                "url"=>route('new_size',['product_id'=>$color->product_id]),
+                "url"=>route('show_size_entries',['product_id'=>$color->product_id]),
                 "name"=>"Add Sizes"
             ]
         ];
