@@ -99,14 +99,26 @@ class adminUsersController extends Controller
 
         $data["created_at"]=carbon::now();
         $data["password"]=Hash::make($request->input("password"));
-
         if($this->users->insert($data)){
-            Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
-                $client_name = $data['first_name']." ".$data["last_name"];
-                $subject = 'Hello '.$client_name.', your account registration is completed';
-                $message->to($data["email"],$client_name)->subject($subject);
-            });
+            if($request->input("user_type")==1){
+                $data["link"]=route('login_user');
+                Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
+                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $client_name = $data['first_name']." ".$data["last_name"];
+                    $subject = 'Hello '.$client_name.', your account registration is completed';
+                    $message->to($data["email"],$client_name)->subject($subject);
+                });
+            }else{
+                $data["link"]=route('admin_show_login');
+                $u_type = $this->user_types->find($request->input("user_type"));
+                $data["account_type"]=$u_type->name;
+                Mail::send('emails.admincreation_confirmation',["data"=>$data],function($message) use($data){
+                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $client_name = $data['first_name']." ".$data["last_name"];
+                    $subject = 'Hello '.$client_name.', your account registration is completed';
+                    $message->to($data["email"],$client_name)->subject($subject);
+                });
+            }
             return redirect()->route("admin_users");
         }
         return redirect()->back();
