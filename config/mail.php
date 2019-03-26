@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME','apikey'),
+    'username' => env('MAIL_USERNAME','vestidossend'),
 
-    'password' => env('MAIL_PASSWORD','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'),
+    'password' => env('MAIL_PASSWORD','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'),
 
     /*
     |--------------------------------------------------------------------------
