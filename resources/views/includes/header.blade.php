@@ -45,51 +45,16 @@ $(document).ready(function(){
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="vest-maincolor-left navbar-nav mr-auto">
-                    <li class="nav-item nav-toggle-li">
-                        <a id="nav-item-styles" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.by_styles') }}</a>
-                        <ul class="nav-list-submenu">
-                            <li>
-                                <ul>
-                                    @foreach($vestidos_styles as $style)
-                                    <li><a href="{{ route('shop_page',['type'=>'style','id'=>$style->id])}}">{{$style->name}}</a></li>
-                                    @endforeach
-                                </ul>
-
-                            </li>
-                        </ul>
-                    </li>
                      <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
-                    <li class="nav-item nav-toggle-li">
-                        <a id="nav-item-accessories" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.accessories') }}</a>
-                        <ul class="nav-list-submenu">
-                            <li>
-                                <ul>
-                                    @foreach($product_types as $product_type)
-                                    <li><a href="{{ route('shop_page',['type'=>'type','id'=>$product_type->id])}}">{{$product_type->name}}</a></li>
-                                    @endforeach
-                                </ul>
-
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item nav-toggle-li">
-                        <a id="nav-item-events" class="nav-link text-white playfair-display-italic dropdown-toggle" href="#">{{ __('header.event') }}</a>
-                        <ul class="nav-list-submenu">
-                            <li>
-                                <ul>
-                                    @foreach($events as $event)
-                                    <li><a href="{{ route('shop_page',['type'=>'event','id'=>$event->id])}}">{{$event->name}}</a></li>
-                                    @endforeach
-                                </ul>
-
-                            </li>
-                        </ul>
-                    </li>
+                    @foreach($events as $event)
+                    @if($event->set_menu)
                     <li class="nav-item">
-                        <a class="nav-link text-white playfair-display-italic" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a>
+                        <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page',['type'=>'event','id'=>$event->id])}}">{{$event->name}}</a>
                     </li>
+                    @endif
+                    @endforeach
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item nav-item-lang">

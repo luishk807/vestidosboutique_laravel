@@ -6,17 +6,14 @@ use Illuminate\Http\Request;
 use App\vestidosEvents as Events;
 use Carbon\Carbon as carbon;
 use Excel;
+use DB;
 
 class adminEventsController extends Controller
 {
     //
     public function __construct(Events $events){
         $this->events=$events;
-    }
-    public function index(){
-        $data=[];
-        $data["page_title"]="Events";
-        $data["page_submenus"]=[
+        $this->events_menu = [
             [
                 "url"=>route('new_event'),
                 "name"=>"Add Event"
@@ -26,9 +23,62 @@ class adminEventsController extends Controller
                 "name"=>"Import Events"
             ]
         ];
+    }
+    public function index(){
+        $data=[];
+        $data["page_title"]="Events";
+        $event_menu = $this->events_menu;
+        array_push($event_menu,[
+            "url"=>route('show_event_menu'),
+            "name"=>"Set Events To Menu"
+        ]);
+        $data["page_submenus"]= $event_menu;
         $data["main_items"]=$this->events->paginate(10);
         $data["delete_menu"] =route('confirm_delete_events');
         return view("admin/events/home",$data);
+    }
+    public function showEventMenu(){
+        $event_menu = $this->events_menu;
+        array_unshift($event_menu,[
+            "url"=>route('admin_events'),
+            "name"=>"Back To Events"
+        ]);
+        $data["page_submenus"]= $event_menu;
+        $data["page_title"]="Events";
+        $data["events"]=$this->events->all();
+        return view("admin/events/add_event",$data);
+    }
+    public function saveEventMenu(Request $request){
+        $event_ids = $request["event_ids"];
+        $this->validate($request,[
+            "event_ids"=>"required|max:".env('MENU_EVENT'),
+        ],[
+            'event_ids.max'=>"you reached the maximum number if events for the menu",
+            'event_ids.required'=>"you must select at least one event"
+        ]);
+        DB::table('vestidos_events')->update(array('set_menu'=>null));
+        foreach($event_ids as $event){
+           $event = $this->events->find($event);
+           $event->set_menu=true;
+           $event->save();
+        }
+        return redirect()->route("admin_events")->with('success','Events Updated successfully.');
+    }
+    public function updateEvents(Request $request){
+        $event_ids = $request["event_ids"];
+        $custom_message = [
+            'required'=>"Please select a item to add to menu"
+        ];
+        $this->validate($request,[
+            "event_ids"=>"required|min:4",
+        ],$custom_message);
+
+        foreach($event_ids as $event){
+           $event = $this->events->find($event);
+           $event->set_menu=true;
+           $event->save();
+        }
+       return redirect()->route("admin_events")->with('success','Events Updated successfully.');
     }
     public function newevents(Request $request){
         $data=[];
