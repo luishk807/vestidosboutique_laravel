@@ -14,3 +14,4 @@ yarn-error.log
 composer.lock
 .env
 /build
+/config/mail.php
