@@ -61,6 +61,9 @@ class userShopController extends Controller
         $data["products_model"]=new Products;
         return view("shop",$data);
     }
+    public function sort_by_event($event){
+        dd($event);
+    }
     public function sort_page_submit(Request $request){
         $data=[];
         $eventIn=[];
