@@ -14,7 +14,16 @@ var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
 </script>
 <form action="{{ route('admin_create_order_products') }}" method="post">
 {{ csrf_field() }}
-
+<div class="container">
+        <div class="row form-btn-container">
+            <div class="col-md-6">
+                <a href="{{ route('admin_show_new_order_address') }}" class="admin-btn">Back To Addresses</a>
+            </div>
+            <div class="col-md-6">
+                <input type="submit" class="admin-btn" value="Continue To Payment"/>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row container-title">
             <div class="col-md-1">

@@ -144,7 +144,13 @@
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-md-4 col-lg-4">
-                                                        <img class="img-fluid" src="{{ asset('images/products') }}/{{ $product->getProduct->images->first()->img_url}}" alt="{{ $product->getProduct->images->first()->img_name }}">
+                                                        <img class="img-fluid" 
+                                                        @if($product->getProduct->images->count()>0)
+                                                        src="{{ asset('images/products') }}/{{ $product->getProduct->images->first()->img_url}}" alt="{{ $product->getProduct->images->first()->img_name }}"
+                                                        @else
+                                                        src="{{asset('images/no-image.jpg')}}" alt="no image" 
+                                                        @endif
+                                                        >
                                                     </div>
                                                     <div class="col-md-8 col-lg-8">
                                                         <strong><a href="{{ route('product_page',['product_id'=>$product->getProduct->id]) }}">{{ $product->getProduct->products_name }}</a></strong><br/>

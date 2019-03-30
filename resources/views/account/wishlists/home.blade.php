@@ -35,7 +35,13 @@
                     @foreach($wishlists as $wishlist)
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-12 image">
-                            <img class="img-fluid" src="{{ asset('images/products')}}/{{$wishlist->getProduct->images->first()->img_url}}" alt="{{$wishlist->getProduct->images->first()->img_name}}">
+                            <img class="img-fluid" 
+                            @if($wishlist->getProduct->images->count()>0)
+                            src="{{ asset('images/products')}}/{{$wishlist->getProduct->images->first()->img_url}}" alt="{{$wishlist->getProduct->images->first()->img_name}}"
+                            @else
+                            src="{{asset('images/no-image.jpg')}}" alt="no image" 
+                            @endif
+                            >
                         </div>
                         <div class="col-lg-7 col-md-7 col-sm-12 desc">
                             <strong><a href="{{ route('product_page',['product_id'=>$wishlist->getProduct->id])}}">{{$wishlist->getProduct->products_name}}</a></strong><br/>

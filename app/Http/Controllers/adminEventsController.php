@@ -51,7 +51,7 @@ class adminEventsController extends Controller
     public function saveEventMenu(Request $request){
         $event_ids = $request["event_ids"];
         $this->validate($request,[
-            "event_ids"=>"max:".env('MENU_EVENT'),
+            "event_ids"=>"required|max:".env('MENU_EVENT'),
         ],[
             'event_ids.max'=>"you reached the maximum number if events for the menu"
         ]);
