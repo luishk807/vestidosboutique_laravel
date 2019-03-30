@@ -264,10 +264,10 @@
                         Route::post('/new','adminShippingListsController@createShippingLists')->name('create_shipping_list');
                         Route::get('/edit/{shipping_list_id}','adminShippingListsController@editShippingList')->name('edit_shipping_list');
                         Route::post('/edit/{shipping_list_id}','adminShippingListsController@saveShippingList')->name('save_shipping_list');
-                        Route::get('/confirm/{shipping_list_id}','adminShippingListsController@showDeleteShippingList')->name('confirm_shipping_list');
-                        Route::delete('/confirm/{shipping_list_id}','adminShippingListsController@deleteShippingList')->name('delete_shipping_list');
-                        Route::post('/confirm_shipping_lists/{shipping_list_id}','adminShippingListsController@deleteConfirmShippingLists')->name('confirm_delete_shipping_lists');
-                        Route::delete('/show_confirm_shipping_lists/{shipping_list_id}','adminShippingListsController@deleteShippingLists')->name('delete_shipping_lists');
+                        Route::get('/confirm','adminShippingListsController@showDeleteShippingList')->name('confirm_shipping_list');
+                        Route::delete('/confirm','adminShippingListsController@deleteShippingList')->name('delete_shipping_list');
+                        Route::post('/confirm_shipping_lists','adminShippingListsController@deleteConfirmShippingLists')->name('confirm_delete_shipping_lists');
+                        Route::delete('/show_confirm_shipping_lists','adminShippingListsController@deleteShippingLists')->name('delete_shipping_lists');
                     });
                 });
                 //Admin Brands
