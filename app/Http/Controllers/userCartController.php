@@ -93,10 +93,11 @@ class userCartController extends Controller
           }
         }
         if(!$found){
+            $image_save = $product->images->count() > 0 ? $product->images->first()->img_url : "no-image.jpg";
             $cart[]=array(
                 "id"=>$product->id,
                 "name"=>$product->products_name,
-                "image"=>$product->images->first()->img_url,
+                "image"=>$image_save,
                 "model"=>$product->product_model,
                 "detail"=>$product->product_detail,
                 "quantity"=>$quantity,

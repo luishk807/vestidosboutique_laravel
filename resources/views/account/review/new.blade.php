@@ -41,7 +41,13 @@ $(document).ready(function(){
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img class="img-fluid" src="{{ asset('images/products')}}/{{ $product->images->first()->img_url }}" alt="{{ $product->images->first()->img_name }}">
+                                    <img class="img-fluid" 
+                                    @if($product->images->count()>0)
+                                    src="{{ asset('images/products')}}/{{ $product->images->first()->img_url }}" alt="{{ $product->images->first()->img_name }}" 
+                                    @else
+                                    src="{{asset('images/no-image.jpg')}}" alt="no image"
+                                    @endif
+                                    >
                                 </div>
                                 <div class="col-md-8">
                                     

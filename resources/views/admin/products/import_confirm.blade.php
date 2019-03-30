@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('save_event_menu') }}" method="post">
+    <form action="{{ route('save_confirm_import_product') }}" method="post">
     <div class="container">
             <div class="row form-btn-container">
                 <div class="col-md-6">

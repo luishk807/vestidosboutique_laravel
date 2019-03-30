@@ -65,11 +65,13 @@ class ordersProductsController extends Controller
         }else{
             return redirect()->route('admin_orders')->with(__('general.access_section.denied'));
         }
-        $order_products=$request->input("order_products");
+         $order_products=$request->input("order_products");
         $order_p=[];
-        $this->validate($request,[
-            "order_products.*.product_id"=>"required",
-        ]);
+        if(empty(array_column($order_products, 'product_id'))){
+            return redirect()->back()->withErrors([
+                "required"=>"You must select at least one product"
+            ]);
+        }
         foreach($order_products as $product){
             if(!empty($product["product_id"])){
                 $prod = $this->products->find($product['product_id']);
@@ -80,17 +82,19 @@ class ordersProductsController extends Controller
                     ]);
                 }
 
-                $total = $prod->total_sale * $product['quantity'];
                 $color = $this->colors->find($product["color"]);
                 $size = $this->sizes->find($product["size"]);
+                $total = $size->total_sale * $product['quantity'];
                 if($size->stock >0){
+                    $image_save = $prod->images->count() > 0 ? $prod->images->first()->img_url : "no-image.jpg";
+                    $image_name = $prod->images->count() > 0 ? $prod->images->first()->img_name : "";
                     $subtotal += $total;
                     $order_p[]=array(
                         "id"=>$prod->id,
                         "name"=>$prod->products_name,
-                        "img"=>$prod->images->first()->img_url,
-                        "img_name"=>$prod->images->first()->img_name,
-                        "total"=>$prod->total_sale,
+                        "img"=>$image_save,
+                        "img_name"=>$image_name,
+                        "total"=>$total,
                         "color_id"=>$product["color"],
                         "color"=>$color->name,
                         "size_id"=>$product["size"],
@@ -100,6 +104,9 @@ class ordersProductsController extends Controller
                 }
             }
         }
+        // echo "<pre>";
+        // print_r($order_p);
+        // echo "</pre>";
         $shipping_list =$data["shipping_list"];
         $data["order_total"]=$subtotal;
         $data["order_tax"]=$subtotal * $tax;

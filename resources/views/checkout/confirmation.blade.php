@@ -108,7 +108,13 @@
                                                 @foreach($last_order->products as $product)
                                                 <div class="row checkout-confirm-order-details-data">
                                                     <div class="col-lg-2">
-                                                            <img class="img-fluid" src="{{ asset('/images/products') }}/{{ $product->getProduct->images->first()->img_url }}" alt width="100%"/>
+                                                            <img class="img-fluid" 
+                                                            @if($product->getProduct->images->count()>0)
+                                                            src="{{ asset('/images/products') }}/{{ $product->getProduct->images->first()->img_url }}"
+                                                            @else
+                                                            src="{{asset('images/no-image.jpg')}}" 
+                                                            @endif
+                                                             alt width="100%"/>
                                                     </div>
                                                     <div class="col-lg-7">
                                                         <span class="title">{{$product->getProduct->products_name}}</span><br/>

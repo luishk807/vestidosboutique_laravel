@@ -21,7 +21,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-5">
-                    <img class="img-fluid" src="{{ asset('images/products')}}/{{ $order_product->getProduct->images->first()->img_url}}" alt />
+                    <img class="img-fluid" 
+                    @if($order_product->getProduct->images->count()>0)
+                    src="{{ asset('images/products')}}/{{ $order_product->getProduct->images->first()->img_url}}"
+                    @else
+                    src="{{asset('images/no-image.jpg')}}" 
+                    @endif
+                     alt />
                     </div>
                     <div class="col-md-7">
                     {{$order_product->getProduct->products_name}}

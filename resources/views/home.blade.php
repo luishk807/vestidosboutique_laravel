@@ -62,7 +62,13 @@
                             @endif
                             "></span></a>
                             <a href="{{ route('product_page',['product_id'=>$top_dress->id])}}" class="flash_hover_link thumbnail">
-                                <img src="{{asset('images/products')}}/{{ $top_dress->images->first()->img_url }}"  class="img-fluid" alt="model1">
+                                <img 
+                                @if($top_dress->images->count()>0)
+                                src="{{asset('images/products')}}/{{ $top_dress->images->first()->img_url }}" 
+                                @else
+                                src="{{asset('images/no-image.jpg')}}" 
+                                @endif
+                             class="img-fluid" alt="model1">
                             </a>
                         </div>
                         @endforeach
@@ -162,7 +168,13 @@
                             @endif
                             @endif
                             "></span></a>
-                           <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="flash_hover_link thumbnail"><img style="width:100%" src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}" alt/></a>
+                           <a href="{{ route('product_page',['product_id'=>$top_quince->id])}}" class="flash_hover_link thumbnail"><img style="width:100%" 
+                           @if($top_quince->images->count()>0)
+                           src="{{asset('images/products')}}/{{ $top_quince->images->first()->img_url }}"
+                           @else
+                            src="{{asset('images/no-image.jpg')}}" 
+                            @endif
+                             alt/></a>
                         </div>
                         @endforeach
                     </div>
