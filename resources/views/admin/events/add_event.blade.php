@@ -9,7 +9,7 @@
     </div>
     <div class="row form-btn-container">
         <div class="col-md-12 text-right">
-            <input type="submit" class="admin-btn" value="Confirm Import"/>
+            <input type="submit" class="admin-btn" value="Add Events To Menu"/>
         </div>
     </div>
     <div class="row container-title">
@@ -30,7 +30,7 @@
     @endforeach
     <div class="row form-btn-container">
         <div class="col-md-12 text-right">
-            <input type="submit" class="admin-btn" value="Confirm Import"/>
+            <input type="submit" class="admin-btn" value="Add Events To Menu"/>
         </div>
     </div>
 </div>
