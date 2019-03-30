@@ -47,7 +47,7 @@ var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
                 Total (sale)
             </div>
         </div>
-        @foreach($products as $indexKey=>$product)
+        @foreach($main_items as $indexKey=>$product)
         <div class="row container-data row-even">
             <div class="col-md-1">
                 <input type="checkbox" name="order_products[{{$indexKey}}][product_id]" id="productcheck{{$indexKey}}" value="{{ $product->id }}">
