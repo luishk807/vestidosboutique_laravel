@@ -56,7 +56,7 @@ class adminEventsController extends Controller
             'event_ids.max'=>"you reached the maximum number if events for the menu"
         ]);
         DB::table('vestidos_events')->update(array('set_menu'=>null));
-        if(count($event_ids) > 0){
+        if(isset($request["event_ids"]) && count($event_ids) > 0){
             foreach($event_ids as $event){
                 $event = $this->events->find($event);
                 $event->set_menu=true;

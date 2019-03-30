@@ -45,9 +45,9 @@ $(document).ready(function(){
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="vest-maincolor-left navbar-nav mr-auto">
-                     <li class="nav-item">
+                     <!-- <li class="nav-item">
                         <a class="nav-link text-white playfair-display-italic" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
-                    </li>
+                    </li> -->
                     @foreach($events as $event)
                     @if($event->set_menu)
                     <li class="nav-item">
