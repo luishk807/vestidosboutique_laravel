@@ -31,11 +31,12 @@ class adminProductImagesController extends Controller
             [
                 "url"=>route('new_image',['product_id'=>$product_id]),
                 "name"=>"Add Image"
-            ],
-            [
-                "url"=>route('show_import_image',['product_id'=>$product_id]),
-                "name"=>"Import Image"
             ]
+            // ,
+            // [
+            //     "url"=>route('show_import_image',['product_id'=>$product_id]),
+            //     "name"=>"Import Image"
+            // ]
         ];
         $data["delete_menu"] =route('confirm_delete_images');
         $data["product_id"]=$product->id;
@@ -188,7 +189,6 @@ class adminProductImagesController extends Controller
                         "img_name"=>$value->img_name,
                         "img_url"=>$value->img_url,
                         "status"=>1,
-                        "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
                     ];
                 }
