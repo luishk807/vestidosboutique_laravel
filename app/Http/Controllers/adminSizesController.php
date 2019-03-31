@@ -195,6 +195,7 @@ class adminSizesController extends Controller
                         "status"=>1,
                         "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now(),
                     ];
                 }
                 if(!empty($insert)){

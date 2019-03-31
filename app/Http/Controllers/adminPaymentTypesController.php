@@ -72,6 +72,7 @@ class adminPaymentTypesController extends Controller
         $payment_type->name = $request->input("name");
         $payment_type->description = $request->input("description");
         $payment_type->status = $request->input("status");
+        $payment_type->updated_at = carbon::now();
         $payment_type->save();
         return redirect()->route("admin_payments");
     }

@@ -68,6 +68,7 @@ class userAddressController extends Controller
             ]);
             $data["status"]=1;
             $data["created_at"]=carbon::now();
+            $data["updated_at"]=carbon::now();
             $this->addresses->insert($data);
             return redirect()->route("user_account",['user_id'=>$user_id]);
         }

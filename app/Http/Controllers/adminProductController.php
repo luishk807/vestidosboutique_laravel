@@ -236,7 +236,8 @@ class adminProductController extends Controller
                     $this->product_events->insert([
                         "product_id"=>$product->id,
                         "event_id"=>$event,
-                        "created_at"=>carbon::now()
+                        "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now()
                     ]);
                 }
             }
@@ -415,6 +416,7 @@ class adminProductController extends Controller
                                 "status"=>1,
                                 "ip"=>$request->ip(),
                                 "created_at"=>carbon::now(),
+                                "updated_at"=>carbon::now(),
                             ];
     
                             // get the color based on model
@@ -494,6 +496,7 @@ class adminProductController extends Controller
         $data["size"]=$request->input("size");
         $data["quantity"]=$request->input("quantity");
         $data["created_at"]=carbon::now();
+        $data["updated_at"]=carbon::now();
         $this->validate($request,[
             "restock_date"=>"required",
             "product"=>"required",
@@ -545,7 +548,7 @@ class adminProductController extends Controller
         $restock->color =$request->input("color");
         $restock->size =$request->input("size");
         $restock->vendor_id =$request->input("vendor");
-
+        $restock->updated_at = carbon::now();
         if($restock->save()){
             return redirect()->route("admin_restocks",$data)->with('success','Restock saved successfully.');;
         }
@@ -612,6 +615,7 @@ class adminProductController extends Controller
                     "vendor_id"=>$product["vendor"],
                     "status"=>1,
                     "created_at"=>carbon::now(),
+                    "updated_at"=>carbon::now(),
                  ];
                 //  echo "<pre>";
                 // print_r($insert);

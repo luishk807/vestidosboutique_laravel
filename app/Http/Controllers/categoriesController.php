@@ -102,6 +102,7 @@ class categoriesController extends Controller
                         "name"=>$value->name,
                         "status"=>1,
                         "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now(),
                     ];
                 }
                 if(!empty($insert)){

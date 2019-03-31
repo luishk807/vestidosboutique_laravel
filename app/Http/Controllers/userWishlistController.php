@@ -34,7 +34,7 @@ class userWishlistController extends Controller
             $data["user_id"]=$user_id;
             $data["product_id"]=$product_id;
             $data["created_at"]=carbon::now();
-
+            $data["updated_at"]=carbon::now();
             $wishlist = $this->wishlists::where('product_id',$product_id)->where('user_id',$user_id)->get();
             if($wishlist->first()){
                 $wishlist->first()->delete();

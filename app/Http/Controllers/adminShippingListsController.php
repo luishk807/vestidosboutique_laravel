@@ -49,6 +49,7 @@ class adminShippingListsController extends Controller
             "status"=>"required",
         ]);
         $data["created_at"]=carbon::now();
+        $data["updated_at"]=carbon::now();
         $this->shipping_lists->insert($data);
         return redirect()->route("admin_shipping_lists");
     }

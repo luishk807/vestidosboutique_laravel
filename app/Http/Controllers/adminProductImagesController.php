@@ -82,6 +82,7 @@ class adminProductImagesController extends Controller
                             $data["product_id"]=$product_id;
                             $data["img_url"]=$picture;
                             $data["created_at"]=carbon::now();
+                            $data["updated_at"]=carbon::now();
                             $this->images->insert($data);
                         //}else{
                         //    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
@@ -190,6 +191,7 @@ class adminProductImagesController extends Controller
                         "img_url"=>$value->img_url,
                         "status"=>1,
                         "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now(),
                     ];
                 }
                 if(!empty($insert)){

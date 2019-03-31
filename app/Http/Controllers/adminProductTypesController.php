@@ -40,6 +40,7 @@ class adminProductTypesController extends Controller
             $data["category_id"] = $request->input("category");
             $data["status"] = (int)$request->input("status");
             $data["created_at"] = carbon::now();
+            $data["updated_at"]=carbon::now();
             $this->validate($request,[
                 "name"=>"required",
                 "category"=>"required",
@@ -110,6 +111,7 @@ class adminProductTypesController extends Controller
                         "name"=>$value->name,
                         "status"=>1,
                         "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now(),
                     ];
                 }
                 if(!empty($insert)){

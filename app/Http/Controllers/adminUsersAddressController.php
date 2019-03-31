@@ -68,6 +68,7 @@ class adminUsersAddressController extends Controller
                 "status"=>"required",
             ]);
             $data["created_at"]=carbon::now();
+            $data["updated_at"]=carbon::now();
             $this->addresses->insert($data);
             return redirect()->route("admin_address",["user_id"=>$user_id]);
         }

@@ -59,6 +59,7 @@ class adminProductRatesController extends Controller
             ]
             );
             $data["created_at"]=carbon::now();
+            $data["updated_at"]=carbon::now();
             $this->rates->insert($data);
             return redirect()->route("admin_rates",["product_id"=>$product_id]);
         }

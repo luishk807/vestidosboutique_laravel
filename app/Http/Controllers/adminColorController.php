@@ -110,6 +110,7 @@ class adminColorController extends Controller
             $color->name=$request->input("name");
             $color->color_code=$request->input("color_code");
             $color->status=(int)$request->input("status");
+            $color->updated_at=carbon::now();
             $color->save();
             return redirect()->route("admin_colors",["product_id"=>$color->product_id]);
         }
@@ -155,6 +156,7 @@ class adminColorController extends Controller
                         "status"=>1,
                         "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now(),
                     ];
                 }
                 if(!empty($insert)){

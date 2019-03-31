@@ -98,6 +98,7 @@ class adminUsersController extends Controller
         $data["ip"]=$request->ip();
 
         $data["created_at"]=carbon::now();
+        $data["updated_at"]=carbon::now();
         $data["password"]=Hash::make($request->input("password"));
         if($this->users->insert($data)){
             if($request->input("user_type")==1){
@@ -379,6 +380,7 @@ class adminUsersController extends Controller
                         "status"=>1,
                         "ip"=>$request->ip(),
                         "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now(),
                     ];
                 }
                 if(!empty($insert)){

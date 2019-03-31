@@ -67,6 +67,7 @@ class vendorsController extends Controller
                 "status"=>"required",
             ]);
             $data["created_at"]=carbon::now();
+            $data["updated_at"]=carbon::now();
             $this->vendors->insert($data);
             return redirect()->route("admin_vendors");
         }
@@ -203,6 +204,7 @@ class vendorsController extends Controller
                         "status"=>1,
                         "ip_address"=>$request->ip(),
                         "created_at"=>carbon::now(),
+                        "updated_at"=>carbon::now(),
                     ];
                 }
                 Session::forget("data_confirm");
@@ -263,6 +265,7 @@ class vendorsController extends Controller
                     "status"=>1,
                     "ip_address"=>$request->ip(),
                     "created_at"=>carbon::now(),
+                    "updated_at"=>carbon::now(),
                 ];
 
                  Vendors::insert($insert);
