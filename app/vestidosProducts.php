@@ -213,14 +213,6 @@ class vestidosProducts extends Model
         ->where("vestidos_products.id",$this->getKey())
         ->get();
     }
-    public function getRecentUpdated(){
-        return DB::table("vestidos_sizes")
-        ->select(DB::raw('sum(vestidos_sizes.stock) as stock'))
-        ->join("vestidos_colors","vestidos_colors.id","=","vestidos_sizes.color_id")
-        ->join("vestidos_products","vestidos_products.id","=","vestidos_colors.product_id")
-        ->where("vestidos_products.id",$this->getKey())
-        ->get();
-    }
     public function getProductsByIds($ids){
        $id_list =[];
         foreach($ids as $id){
