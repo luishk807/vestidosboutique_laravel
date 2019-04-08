@@ -11,6 +11,9 @@ use App\vestidosProductsRestocks as ProductRestocks;
 use App\vestidosProducts as Products;
 use App\vestidosStatus as vestidosStatus;
 use Excel;
+use Auth;
+use Session;
+use DB;
 
 class adminSizesController extends Controller
 {
@@ -71,6 +74,16 @@ class adminSizesController extends Controller
             ];
         }
         $this->sizes->insert($data);
+        // update modified and updated date
+        $guard = Session::get("guard");
+        if(Auth::guard(Session::get("guard"))->check()){
+            $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+            $product = $this->products->find($product_id);
+            $product->modified_by = $session_user;
+            $product->updated_at = carbon::now();
+            $product->save();
+        }
+        //end
         return redirect()->route("admin_sizes",["product_id"=>$product_id]);
     }
     public function showNewSizes($product_id,$size_entries){
@@ -156,8 +169,16 @@ class adminSizesController extends Controller
 
 
         $size->save();
-
-        return redirect()->route("admin_sizes",["product_id"=>$color->product_id]);
+        // update modified and updated date
+        $guard = Session::get("guard");
+        if(Auth::guard(Session::get("guard"))->check()){
+            $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+            $product->modified_by = $session_user;
+            $product->updated_at = carbon::now();
+            $product->save();
+        }
+        //end
+      return redirect()->route("admin_sizes",["product_id"=>$color->product_id]);
     }
     public function deleteSize($size_id,Request $request){
         $data=[];
@@ -199,6 +220,16 @@ class adminSizesController extends Controller
                 }
                 if(!empty($insert)){
                     Sizes::insert($insert);
+                    // update modified and updated date
+                    $guard = Session::get("guard");
+                    if(Auth::guard(Session::get("guard"))->check()){
+                        $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+                        $product = Products::find($request->input("product_id"));
+                        $product->modified_by = $session_user;
+                        $product->updated_at = carbon::now();
+                        $product->save();
+                    }
+                    //end
                     $data["product_id"]=$request->input("product_id");
                     return redirect()->route('admin_sizes',$data)->with('success','Insert Record successfully.');
                 }
