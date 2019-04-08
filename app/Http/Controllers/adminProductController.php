@@ -21,6 +21,8 @@ use Carbon\Carbon as carbon;
 use Illuminate\Support\Arr;
 use Session;
 use File;
+use Auth;
+use DB;
 
 class adminProductController extends Controller
 {
@@ -44,7 +46,7 @@ class adminProductController extends Controller
     }
     function index(){
         $data=[];
-        $data["main_items"]= $this->products->paginate(10);
+        $data["main_items"]= $this->products->orderBy('updated_at', 'desc')->paginate(10);
         $data["page_submenus"]=[
             [
                 "url"=>route('new_product'),
@@ -113,6 +115,11 @@ class adminProductController extends Controller
         $data["status"]=(int)$request->input("status");
         $data["is_new"]=(int)$request->input("is_new");
         $data["created_at"]=carbon::now();
+
+        $guard = Session::get("guard");
+        if(Auth::guard($guard)->check()){
+            $data["modified_by"]=Auth::guard($guard)->user()->getId();
+        }
         $product = Products::create($data);
         if($product->id){
             $catData = [];
@@ -220,6 +227,10 @@ class adminProductController extends Controller
         $product->product_model = $request->input("product_model");
         $product->products_description = $request->input("products_description");
         $product->status = (int)$request->input("status");
+        $guard = Session::get("guard");
+        if(Auth::guard($guard)->check()){
+            $product->modified_by=Auth::guard($guard)->user()->getId();
+        }
         $product->updated_at = carbon::now();
         $product->is_new=(int)$request->input("is_new");
 
@@ -353,6 +364,11 @@ class adminProductController extends Controller
         $this->validate($request,[
             "file"=>"required"
         ]);
+        $guard = Session::get("guard");
+        $session_user=null;
+        if(Auth::guard(Session::get("guard"))->check()){
+            $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+        }
         $insert=[];
         if($request->hasFile('file')) {
             $path = $request->file->getRealPath();
@@ -413,6 +429,7 @@ class adminProductController extends Controller
                                 "purchase_date"=>$value->purchased_date,
                                 "vendor_id"=>$value->vendor,
                                 "status"=>1,
+                                "modified_by"=>$session_user,
                                 "ip"=>$request->ip(),
                                 "created_at"=>carbon::now(),
                             ];
@@ -585,6 +602,11 @@ class adminProductController extends Controller
      public function saveConfirmImportProduct(Request $request){
          $data=[];
          $valid_array=false;
+         $guard = Session::get("guard");
+        $session_user=null;
+        if(Auth::guard(Session::get("guard"))->check()){
+            $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+        }
          $this->validate($request,[
             "product_confirm.*.product_model"=>"required",
             "product_confirm.*.brand"=>"required",
@@ -611,6 +633,7 @@ class adminProductController extends Controller
                     "purchase_date"=>$product["purchased_date"],
                     "vendor_id"=>$product["vendor"],
                     "status"=>1,
+                    "modified_by"=>$session_user,
                     "created_at"=>carbon::now(),
                  ];
                 //  echo "<pre>";

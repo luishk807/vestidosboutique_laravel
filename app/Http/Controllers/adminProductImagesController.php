@@ -9,6 +9,9 @@ use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use Illuminate\Support\Str;
 use Excel;
+use Session;
+use Auth;
+use DB;
 
 class adminProductImagesController extends Controller
 {
@@ -83,6 +86,17 @@ class adminProductImagesController extends Controller
                             $data["img_url"]=$picture;
                             $data["created_at"]=carbon::now();
                             $this->images->insert($data);
+
+                            // update modified and updated date
+                            $guard = Session::get("guard");
+                            if(Auth::guard(Session::get("guard"))->check()){
+                                $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+                                $product = Products::find($product_id);
+                                $product->modified_by = $session_user;
+                                $product->updated_at = carbon::now();
+                                $product->save();
+                            }
+                            //end
                         //}else{
                         //    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
                         //}
@@ -137,6 +151,17 @@ class adminProductImagesController extends Controller
             $image->updated_at=carbon::now();
 
             $image->save();
+
+            // update modified and updated date
+            $guard = Session::get("guard");
+            if(Auth::guard(Session::get("guard"))->check()){
+                $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+                $product = Products::find($image->product_id);
+                $product->modified_by = $session_user;
+                $product->updated_at = carbon::now();
+                $product->save();
+            }
+            //end
 
             return redirect()->route("admin_images",['product_id'=>$image->product_id]);
         }
@@ -194,6 +219,16 @@ class adminProductImagesController extends Controller
                 }
                 if(!empty($insert)){
                     Images::insert($insert);
+                    // update modified and updated date
+                    $guard = Session::get("guard");
+                    if(Auth::guard(Session::get("guard"))->check()){
+                        $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+                        $product = Products::find($value->product_id);
+                        $product->modified_by = $session_user;
+                        $product->updated_at = carbon::now();
+                        $product->save();
+                    }
+                    //end
                     return redirect()->route('admin_products')->with('success','Insert Record successfully.');
                 }
             }

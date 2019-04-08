@@ -14,7 +14,8 @@ class vestidosColors extends Model
         "color_code",
         "status",
         "created_at",
-        "updated_at"
+        "updated_at",
+        "modified_by"
     ];
     public function product(){
         return $this->belongsTo('App\vestidosProducts',"product_id");

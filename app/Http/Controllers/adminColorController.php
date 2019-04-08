@@ -8,7 +8,9 @@ use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use App\vestidosStatus as Statuses;
 use Excel;
-
+use Session;
+use Auth;
+use DB;
 
 class adminColorController extends Controller
 {
@@ -90,6 +92,17 @@ class adminColorController extends Controller
             ];
         }
         $this->colors->insert($data);
+        // update modified and updated date
+        $guard = Session::get("guard");
+        if(Auth::guard(Session::get("guard"))->check()){
+            $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+            $color_insert = $this->colors->find(DB::getPdo()->lastInsertId());
+            $product = Products::find($color_insert->product->id);
+            $product->modified_by = $session_user;
+            $product->updated_at = carbon::now();
+            $product->save();
+        }
+        //end
         return redirect()->route("admin_colors",["product_id"=>$product_id]);
     }
     public function editColor($color_id, Request $request){
@@ -111,6 +124,18 @@ class adminColorController extends Controller
             $color->color_code=$request->input("color_code");
             $color->status=(int)$request->input("status");
             $color->save();
+
+            // update modified and updated date
+            $guard = Session::get("guard");
+            if(Auth::guard(Session::get("guard"))->check()){
+                $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+                $product = Products::find($color->product->id);
+                $product->modified_by = $session_user;
+                $product->updated_at = carbon::now();
+                $product->save();
+            }
+            // end
+
             return redirect()->route("admin_colors",["product_id"=>$color->product_id]);
         }
         return view("admin/products/colors/edit",$data);
@@ -160,6 +185,17 @@ class adminColorController extends Controller
                 if(!empty($insert)){
                     $data["product_id"]=$request->input("product_id");
                     Colors::insert($insert);
+                    // update modified and updated date
+                    $guard = Session::get("guard");
+                    if(Auth::guard(Session::get("guard"))->check()){
+                        $session_user=Auth::guard(Session::get("guard"))->user()->getId();
+                        $color_insert = $this->colors->find(DB::getPdo()->lastInsertId());
+                        $product = Products::find($color_insert->product->id);
+                        $product->modified_by = $session_user;
+                        $product->updated_at = carbon::now();
+                        $product->save();
+                    }
+                    //end
                     return redirect()->route('admin_colors',$data)->with('success','Insert Record successfully.');
                 }
             }
