@@ -124,7 +124,7 @@ class vendorsController extends Controller
         $data["vendor"]=$vendor;
         $data["page_title"]="Edit Vendors";
         $data["vendor_id"]=$vendor_id;
-        return view("admin/vendors/new",$data);
+       return view("admin/vendors/edit",$data);
     }
     public function deleteVendor($vendor_id,Request $request){
         $data=[];
