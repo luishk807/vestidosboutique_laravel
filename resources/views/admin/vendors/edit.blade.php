@@ -74,7 +74,7 @@
                     @if($vendor->country_id==$country->id)
                         selected="selected"
                     @endif
-                    >{{$country->name}} </option>
+                    >{{$country->countryName}} </option>
                 @endforeach
             </select>
             <small class="error">{{$errors->first("country")}}</small>
