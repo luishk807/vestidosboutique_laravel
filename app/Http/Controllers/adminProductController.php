@@ -203,13 +203,8 @@ class adminProductController extends Controller
             "products_name"=>"required",
             "status"=>"required",
             "brand"=>"required",
-            "style"=>"required",
-            "events"=>"required",
             "vendor"=>"required",
-            "closure"=>"required",
-            "fabric"=>"required",
             "purchase_date"=>"required",
-            "neckline"=>"required",
             "products_description"=>"required",
         ]);
         $product->products_name = $request->input("products_name");
@@ -610,7 +605,6 @@ class adminProductController extends Controller
          $this->validate($request,[
             "product_confirm.*.product_model"=>"required",
             "product_confirm.*.brand"=>"required",
-            "product_confirm.*.event"=>"required",
             "product_confirm.*.purchased_date"=>"required",
          ]);
          $products = $request->input("product_confirm");
