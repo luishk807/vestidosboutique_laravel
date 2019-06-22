@@ -3,7 +3,6 @@
 <form action="{{ route('edit_vendor',['vendor_id'=>$vendor_id]) }}" method="post">
 {{ csrf_field() }}
 
-{{$vendor}}
     <div class="form-group">
         <label for="vendorCompany">Company Name:</label>
         <input type="text" id="vendorCompany" class="form-control" name="company_name" value="{{ old('company_name') ? old('company_name') : $vendor->company_name }}" placeholder="Company Name"/>
