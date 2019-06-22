@@ -8,6 +8,12 @@
         <small class="error">{{$errors->first("name")}}</small>
     </div>
     <div class="form-group">
+        <label for="categoryMenu">Show In Menu?:</label>
+        <!-- TODO: show checked if user selected to show -->
+        <input type="checkbox" class="form-control"  name="showmenu" id="categoryMenu"/>
+        <small class="error">{{$errors->first("showmenu")}}</small>
+    </div>
+    <div class="form-group">
         <label for="categoryStatus">Status:</label>
         <select class="custom-select" name="status" id="categoryStatus">
             @foreach($statuses as $status)

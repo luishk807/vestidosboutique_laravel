@@ -51,6 +51,11 @@ class categoriesController extends Controller
         if($request->isMethod("post")){
             $category = $this->categories->find($category_id);
             $category->name = $request->input("name");
+            $category->status = $request->input("status");
+            $category->showmenu = $request->input("showmenu");
+            // TODO: make sure check if maximum showmenu is set 3
+            // TODO: make sure data base has colum
+            // TODO: create migrate file to update category table make nullable
             $category->updated_at =  carbon::now();
             $this->validate($request,[
                 "name"=>"required",
