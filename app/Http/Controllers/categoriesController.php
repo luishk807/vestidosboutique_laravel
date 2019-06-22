@@ -51,6 +51,7 @@ class categoriesController extends Controller
         if($request->isMethod("post")){
             $category = $this->categories->find($category_id);
             $category->name = $request->input("name");
+            $category->status = $request->input("status");
             $category->updated_at =  carbon::now();
             $this->validate($request,[
                 "name"=>"required",
