@@ -455,10 +455,10 @@ class adminProductController extends Controller
                     "detail"=>$detail_products
                 ]);
                 return redirect()->route('show_confirm_import_product');
-                if(!empty($insert)){
-                    Products::insert($insert);
-                    return redirect()->route('admin_products')->with('success','Insert Record successfully.');
-                }
+                // if(!empty($insert)){
+                //     Products::insert($insert);
+                //     return redirect()->route('admin_products')->with('success','Insert Record successfully.');
+                // }
             }
         }
         else{
@@ -466,7 +466,7 @@ class adminProductController extends Controller
                 "required","No File Entered"
             ]);
         }
-    return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
     public function showRestock(){
         $data=[];

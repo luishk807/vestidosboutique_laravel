@@ -75,7 +75,7 @@
                                     <option value="">Select Vendor</option>
                                     @foreach($vendors as $vendor)
                                         <option value="{{ $vendor->id }}"
-                                        @if(old($old4) ? old($old4)==$vendor->id : $product['vendor_id']==$vendor->id || $product['vendor_id']==$brand->name)
+                                        @if(old($old4) ? old($old4)==$vendor->id : $product['vendor_id']==$vendor->id || $product['vendor_id']==$vendor->company_name)
                                             selected="selected"
                                         @endif
                                         >{{$vendor->getFullVendorName()}} </option>
@@ -89,7 +89,7 @@
                                     <option value="">Select Closure</option>
                                     @foreach($closures as $closure)
                                         <option value="{{ $closure->id }}"
-                                        @if(old($old5) ? old($old5)==$closure->id : $product['product_closure_id']==$closure->id)
+                                        @if(old($old5) ? old($old5)==$closure->id : $product['product_closure_id']==$closure->id || $product['product_closure_id']==$closure->name)
                                             selected="selected"
                                         @endif
                                         >{{$closure->name}} </option>
@@ -103,7 +103,7 @@
                                     <option value="">Select Fabric</option>
                                     @foreach($fabrics as $fabric)
                                         <option value="{{ $fabric->id }}"
-                                        @if(old($old6) ? old($old6)==$fabric->id : $product['product_fabric_id']==$fabric->id)
+                                        @if(old($old6) ? old($old6)==$fabric->id : $product['product_fabric_id']==$fabric->id || $product['product_fabric_id']==$fabric->name)
                                             selected="selected"
                                         @endif
                                         >{{$fabric->name}} </option>
