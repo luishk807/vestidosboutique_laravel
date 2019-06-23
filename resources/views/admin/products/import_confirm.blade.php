@@ -122,11 +122,17 @@
                                     <li>
                                         <input value="{{ $event->id }}" id="event_{{$eventIndex}}" class="custom-checkbox" type="checkbox" name="product_confirm[{{$indexKey}}][event][]" 
                                         @if(old($old15))
-                                        @foreach(old($old15) as $old_event)
-                                            @if($old_event == $event->id)
+                                            @foreach(old($old15) as $old_event)
+                                                @if($old_event == $event->id)
+                                                    checked
+                                                @endif
+                                            @endforeach
+                                        @elseif($product["product_events"])
+                                            @if(
+                                                array_search($event->id,$product["product_events"]) > -1
+                                            )
                                                 checked
                                             @endif
-                                        @endforeach
                                         @endif
                                         >
                                         <label for="event_{{$eventIndex}}" 

@@ -408,6 +408,12 @@ class adminProductController extends Controller
     
                         if(!$found){
                             $model_number = $value->model_number;
+                            $product_events = explode(",",$value->events);
+                            if($value->events && sizeof($product_events) < 2){
+                                $product_events = array($value->events);
+                            }elseif(!$value->events){
+                                $product_events = null;
+                            }
                             $insert[]=[
                                 "products_name"=>$value->product_name,
                                 "category_id"=>$value->category,
@@ -423,6 +429,7 @@ class adminProductController extends Controller
                                 "product_style_id"=>$value->style,
                                 "purchase_date"=>$value->purchased_date,
                                 "vendor_id"=>$value->vendor,
+                                "product_events"=>$product_events,
                                 "status"=>1,
                                 "modified_by"=>$session_user,
                                 "ip"=>$request->ip(),
@@ -466,7 +473,7 @@ class adminProductController extends Controller
                 "required","No File Entered"
             ]);
         }
-        return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+       return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
     public function showRestock(){
         $data=[];
