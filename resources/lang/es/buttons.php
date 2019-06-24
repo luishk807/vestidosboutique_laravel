@@ -35,6 +35,7 @@ return [
     'continue_shop'=>"Seguir Comprando",
     'reset_password'=>"Restablecer contraseña",
     'resend_activation'=>"Re-enviar email de activation",
+    'pre_order'=>"Pre-ordene",
 
     //cart
       'proceed_billing'=>"Proceder a Facturacion",

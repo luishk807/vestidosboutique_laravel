@@ -404,11 +404,12 @@ class userPaymentController extends Controller
 
                 //decrease stock number
                 $size_dec = $this->sizes->find($cart[$i]["size_id"]);
-
-                $newstock_quant = (int)$cart[$i]["quantity"];
-                $newstock = $size_dec->stock - $newstock_quant;
-                $size_dec->stock = $newstock;
-                $size_dec->save();
+                if($size_dec->stock > 0){
+                    $newstock_quant = (int)$cart[$i]["quantity"];
+                    $newstock = $size_dec->stock - $newstock_quant;
+                    $size_dec->stock = $newstock;
+                    $size_dec->save();
+                }
 
                 $data_products_email[] = array(
                     "quantity"=>$cart[$i]["quantity"],

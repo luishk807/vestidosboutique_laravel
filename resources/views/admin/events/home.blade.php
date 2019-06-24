@@ -20,7 +20,7 @@
         Yes
         @endif
         </div>
-        <div class="col-md-3 container-button">
+        <div class="col-md-3 container-button text-right">
              <a href="{{ route('confirm_event',['event_id'=>$event->id])}}">delete</a>
             <a href="{{ route('edit_event',['event_id'=>$event->id])}}">edit</a>
         </div>

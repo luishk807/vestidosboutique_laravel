@@ -78,7 +78,7 @@
                                         <div class="col">
                                             <div>
                                                 <p>{{$item["name"]}}</p>
-                                                <p>{{ $item['stock'] > 0 ?  __('general.product_title.in_stock') :__('general.product_title.out_stock') }}</p>
+                                                <p>{{ $item['stock'] > 0 ?  __('general.product_title.in_stock') :__('general.product_title.pre_order') }}</p>
                                                 <p><span class="cart-item-subtitle">{{ __('general.product_title.model_id') }}:</span>{{ $item["model"]}}</p>
                                                 <p><span class="cart-item-subtitle">{{ trans_choice('general.product_title.color',1) }}:</span>{{ $item["color"] }}</p>
                                                 <p><span class="cart-item-subtitle">{{ trans_choice('general.product_title.size',1) }}:</span>{{ $item["size"] }}</p>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="col cart-item-2">
                                 <select name="quantity" class="form-control vesti-cart-quantity-input" onchange="updateCart('{{ $keyIndex }}',this.value)">
-                                    @for ($i = 1; $i < 10; $i++)
+                                    @for ($i = 1; $i <= $item['quantity']; $i++)
                                     <option value="{{$i}}"
                                         @if($i==$item['quantity'])
                                         selected=selected

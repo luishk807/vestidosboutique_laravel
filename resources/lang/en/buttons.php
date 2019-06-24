@@ -35,6 +35,7 @@ return [
     'order_detail'=>'Order Detail',
     'reset_password'=>"Reset Password",
     'resend_activation'=>"Resend Email Activation",
+    'pre_order'=>"Pre-order",
 
     //cart
     'proceed_billing'=>"Proceed to Billing",

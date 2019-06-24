@@ -141,8 +141,6 @@ class adminSizesController extends Controller
             "dress_size"=>"required",
             "color"=>"required",
             "status"=>"required",
-            "stock"=>"required",
-            "total_rent"=>"required",
         ]);
         $size->name=$request->input("dress_size");
         
@@ -162,7 +160,7 @@ class adminSizesController extends Controller
             $size->total_sale_old=$request->input("total_sale");
         }
 
-
+        $size->stock=$request->input("stock");
         $size->color_id=$request->input("color");
         $size->status=(int)$request->input("status");
         $size->updated_at=carbon::now();
