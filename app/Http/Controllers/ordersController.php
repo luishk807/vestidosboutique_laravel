@@ -564,11 +564,12 @@ class ordersController extends Controller
 
                  //decrease stock number
                  $size_dec = $this->sizes->find($new_product["size_id"]);
-
-                 $newstock_quant = $product["quantity"];
-                 $newstock = $size_dec->stock - $newstock_quant;
-                 $size_dec->stock = $newstock;
-                 $size_dec->save();
+                if($size_dec->stock>0){
+                    $newstock_quant = $product["quantity"];
+                    $newstock = $size_dec->stock - $newstock_quant;
+                    $size_dec->stock = $newstock;
+                    $size_dec->save();
+                }
             }
              //send email to user
             $order_detail = $this->sendEmail($order->id);

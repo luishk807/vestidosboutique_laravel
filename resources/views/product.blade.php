@@ -102,7 +102,7 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                                         @elseif($stock > 0 && $stock < 4)
                                             <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$stock])}}</span>
                                         @elseif($stock < 1)
-                                            <span class='out-stock'>{{ __('general.product_title.out_stock')}}</span>
+                                            <span class='out-stock'>{{ __('general.product_title.pre_order')}}</span>
                                         @endif
                                     </div>
                                     @if(!empty($product->style))
@@ -142,7 +142,8 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                                     </div>
                                     <div class="vesti_in_btn_pnl">
                                             <input id="product_addCart_btn" class="btn-block vesti_in_btn"  type="submit" value="{{ __('buttons.add_cart') }}"/>
-                                            <div id="product_out_stock_btn" class="vesti_out_stock_btn">{{ __('general.product_title.out_stock') }}</div>
+                                            <!-- <div id="product_out_stock_btn" class="vesti_out_stock_btn">{{ __('general.product_title.out_stock') }}</div> -->
+                                            <input id="product_out_stock_btn" class="btn-block vesti_in_btn" type="submit" value="{{ __('buttons.pre_order') }}">
                                     </div>
                                     <div class="product_in_social">
                                         

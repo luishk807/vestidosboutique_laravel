@@ -218,6 +218,7 @@ return [
         'product_name'=>"Producto: :name",
         'color_entries'=>'Cuántos colores desea ingresar?',
         'size_entries'=>'Cuántos tamaños desea ingresar?',
+        'pre_order'=>'Reserve su vestido!',
     ],
 
 // 404

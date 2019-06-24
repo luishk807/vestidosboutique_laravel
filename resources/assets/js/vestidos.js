@@ -260,6 +260,10 @@ function loadSizeDropDown(size){
             },
             success: function(data) {
                 var total_size = 0;
+                if(data < 1 || !data){
+                    // if out of stock , set 10 for pre-orders
+                    data = 11;
+                }
                 total_size = data > 10 ? 10 : data;
                 var product_quantity = $("#product_quantity");
                 product_quantity.empty();
@@ -310,11 +314,11 @@ function getPriceInfo(size){
                 }
 
                 if(data.stock > 0){
-                    $("#roduct_out_stock_btn").css("display","none");
+                    $("#product_out_stock_btn").css("display","none");
                     $("#product_addCart_btn").css("display","block");
                 }
                 else{
-                    $("#roduct_out_stock_btn").css("display","block");
+                    $("#product_out_stock_btn").css("display","block");
                     $("#product_addCart_btn").css("display","none");
                 }
             }
