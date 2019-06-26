@@ -63,7 +63,7 @@
                                         <input type="password" id="accountRePassword" class="form-control" name="repassword" value="" placeholder="{{ __('general.form.retype_password') }}"/>
                                 </div>
                                 <div class="form-group">
-                                        <label class="accountTitleSelect" for="accountGender">{{ trans_choice('general.form.select_language',1) }}:</label>
+                                        <label class="accountTitleSelect" for="accountGender">{{ trans_choice('general.form.select_gender',1) }}:</label>
                                         <select class="custom-select accountTitleSelect" name="gender" id="accountGender">
                                             @foreach($genders as $gender)
                                                 <option value="{{$gender->id}}"
@@ -74,6 +74,19 @@
                                             @endforeach
                                         </select>
                                         <small class="error">{{$errors->first("gender")}}</small>
+                                </div>
+                                <div class="form-group">
+                                        <label class="accountTitleSelect" for="accountLanguage">{{ trans_choice('general.form.select_language',1) }}:</label>
+                                        <select class="custom-select accountTitleSelect" name="language" id="accountLanguage">
+                                            @foreach($languages as $language)
+                                                <option value="{{$language->id}}"
+                                                @if(old('language')==$language->id)
+                                                    selected="selected"
+                                                @endif
+                                                >{{$language->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <small class="error">{{$errors->first("language")}}</small>
                                 </div>
                                 <div class="vesti_in_btn_pnl">
                                     <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>

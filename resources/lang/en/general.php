@@ -33,6 +33,7 @@ return [
         'dob'=>"Date of Birth",
         'language'=>"Language | Languages",
         'select_country'=>"Select Country",
+        'select_gender'=>"Select Your Gender",
         'select_language'=>"Select Language | Select Languages",
         'no_email_match'=>"No match found under that email",
         'save_password_error'=>"ERROR: the password could not be updated, try again later.",
