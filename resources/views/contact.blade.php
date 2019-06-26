@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="form-group">
                                             <label for="accountQuestion">{{ __('general.form.question') }}:</label>
-                                            <textarea class="form-control" id="accountQuestion" rows="3" name="{{ __('general.form.question') }}"></textarea>
+                                            <textarea class="form-control" id="accountQuestion" rows="3" name="question" placeholder="{{ __('general.form.question') }}"></textarea>
                                             <small class="error">{{$errors->first("question")}}</small>
                                     </div>
                                     <div class="vesti_in_btn_pnl">
