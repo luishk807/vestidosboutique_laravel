@@ -36,6 +36,7 @@ return [
         'language'=>"Idioma | Idiomas",
         'select_country'=>"Seleccione su País",
         'select_language'=>"Seleccione tu idioma | Seleccione tu idiomas",
+        'select_gender'=>"Seleccione tu Género",
         'no_email_match'=>"No se encontraron coincidencias en ese correo electrónico",
         'save_password_error'=>"ERROR: la contraseña no se pudo actualizar, intente de nuevo mas tarde",
         'user_updated'=>":name, tu cuenta ha sido actualizado",
