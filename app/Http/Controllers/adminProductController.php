@@ -208,12 +208,12 @@ class adminProductController extends Controller
             "products_description"=>"required",
         ]);
         $product->products_name = $request->input("products_name");
-        $product->brand_id = (int)$request->input("brand");
-        $product->vendor_id = (int)$request->input("vendor");
-        $product->style = (int)$request->input("style");
-        $product->product_closure_id = (int)$request->input("closure");
-        $product->product_fabric_id = (int)$request->input("fabric");
-        $product->product_neckline_id = (int)$request->input("neckline");
+        $product->brand_id = $request->input("brand");
+        $product->vendor_id = $request->input("vendor");
+        $product->style = $request->input("style");
+        $product->product_closure_id =$request->input("closure");
+        $product->product_fabric_id = $request->input("fabric");
+        $product->product_neckline_id = $request->input("neckline");
 
         $product->search_labels = $request->input("search_labels");
         $product->purchase_date=$request->input("purchase_date");
@@ -221,14 +221,13 @@ class adminProductController extends Controller
         $product->product_detail = $request->input("product_detail");
         $product->product_model = $request->input("product_model");
         $product->products_description = $request->input("products_description");
-        $product->status = (int)$request->input("status");
+        $product->status = $request->input("status");
         $guard = Session::get("guard");
         if(Auth::guard($guard)->check()){
             $product->modified_by=Auth::guard($guard)->user()->getId();
         }
         $product->updated_at = carbon::now();
         $product->is_new=(int)$request->input("is_new");
-
         if($product->save()){
             $eventData = [];
             //delete all categories for the products
@@ -248,7 +247,7 @@ class adminProductController extends Controller
             }
             return redirect()->route("admin_products");
         }
-        return redirect()->back()->width($data);
+       return redirect()->back()->width($data);
     }
     public function deleteProduct($product_id,Request $request){
         $data=[];
