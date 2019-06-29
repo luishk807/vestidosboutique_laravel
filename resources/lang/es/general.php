@@ -263,7 +263,11 @@ return [
      'removed'=>"Removido",
      'unable_save'=>"No se puede guardar",
      'thank_you'=>"Gracias",
+     'success_email'=>"Su email ha sido enviado",
      'failed_email'=>'Email no se pude enviar',
+     'hello'=>"Hola",
+     'attn'=>"Sinceramente",
+     'chosen'=>"Gracias por preferirnos.",
      'excel_error'=>[
         'color_missing'=>"Modelo :name requiere el nombre del color en el archivo de excel, favor de ingresar el color y intente de nuevo.",
         'size_missing'=>"Un tamaño para el color :name en el no. :index debe que ser definida",

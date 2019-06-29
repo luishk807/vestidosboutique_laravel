@@ -34,4 +34,5 @@ return [
     'by_styles'=>"By Styles",
     'product'=>"Products Page",
     'product_type'=>"Product Type",
+    'confirmation'=>"Confirmation",
 ];
