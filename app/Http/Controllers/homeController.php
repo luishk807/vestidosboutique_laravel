@@ -133,7 +133,11 @@ class HomeController extends Controller
                 $subject = __('general.user_section.to_admin.thank_you',['name'=>$client_name]);
                 $message->to("info@vestidosboutique.com","Admin")->subject($subject);
             });
-            return view("thankyou.contact",$data);
+            $data["thankyou_title"]=__('general.thank_you');
+            $data["thankyou_msg"]=__('general.success_email');
+            $data["thankyou_img"]="checked.svg";
+            $data["page_title"]=__('header.confirmation');
+            return view("/confirmation",$data);
         }
     }
     public function signin(){

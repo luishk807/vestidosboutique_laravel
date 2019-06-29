@@ -263,7 +263,11 @@ return [
      'removed'=>"Removed",
      'unable_save'=>"Unable to Save",
      'thank_you'=>"Thank You",
+     'success_email'=>"Your email was sent",
      'failed_email'=>'Unable to send email',
+     'hello'=>"Hello",
+     'attn'=>"Sincerely",
+     'chosen'=>"Thank you for choosing us.",
      'excel_error'=>[
         'color_missing'=>"Product model :name is missing color name in the excel file, please provide a color and try again.",
         'size_missing'=>"A size for color :name for :index must be defined",
