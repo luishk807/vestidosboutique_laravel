@@ -248,8 +248,8 @@ class adminProductImagesController extends Controller
             "image_ids"=>"required",
         ],$custom_message);
         $images = $this->images->getImagesByIds($image_ids);
-        $data["confirm_type"] = "name";
-        $data["confirm_return"] = route("admin_images");
+        $data["confirm_type"] = "img";
+        $data["confirm_return"] = route("admin_images",["product_id"=>$images[0]->col_5]);
         $data["confirm_name"] = "Images";
         $data["confirm_data"] = $images;
         $data["confirm_delete_url"]=route('delete_images');
@@ -266,12 +266,13 @@ class adminProductImagesController extends Controller
                 $image_ids = $request["item_ids"];
                 foreach($image_ids as $image){
                    $image = $this->images->find($image);
+                   $product_id = $image->product_id;
                    $img_path =public_path().'/images/products/'.$image->img_url;
                    if(file_exists($img_path)){
                         @unlink($img_path);
                     }
                     $image->delete();
                 }
-               return redirect()->route("admin_images")->with('success','Images Deleted successfully.');
+               return redirect()->route("admin_images",["product_id"=>$product_id])->with('success','Images Deleted successfully.');
     }
 }

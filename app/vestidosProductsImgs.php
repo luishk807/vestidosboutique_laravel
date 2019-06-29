@@ -20,8 +20,8 @@ class vestidosProductsImgs extends Model
              $id_list[]=$id;
          }
          $products = DB::table("vestidos_products_imgs as img")
-         ->select("img.id","img.name as col_1",
-         "status.name as col_2","img.created_at as col_3","img.updated_at as col_4")
+         ->select("img.id","img.img_url as col_1",
+         "status.name as col_2","img.created_at as col_3","img.updated_at as col_4","img.product_id as col_5")
          ->join("vestidos_statuses as status","status.id","img.status")
          ->whereIn('img.id',$id_list)
          ->groupBy("img.id")
