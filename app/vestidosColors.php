@@ -26,6 +26,16 @@ class vestidosColors extends Model
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }
+    public function getColorsByProduct($p_id){
+        
+        $colors = DB::table("vestidos_colors as colors")
+        ->select("colors.id","colors.name as name",
+        "colors.status as status","colors.created_at","colors.updated_at")
+        ->where('colors.product_id',$p_id)
+        ->groupBy("colors.id")
+        ->get();
+        return $colors;
+   }
     public function getColorsByIds($ids){
         $id_list =[];
          foreach($ids as $id){
