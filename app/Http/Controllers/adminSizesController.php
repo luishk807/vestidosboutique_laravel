@@ -89,7 +89,7 @@ class adminSizesController extends Controller
     public function showNewSizes($product_id,$size_entries){
         $product = $this->products->find($product_id);
         $data["product_id"]=$product_id;
-        $data["colors"]=$this->colors->all();
+        $data["colors"]=$this->colors->getColorsByProduct($product_id);
         $data["page_title"]="New Size For ".$product->products_name;
         $data["size_entries"]=$size_entries;
         $data["products"]=$this->products->all();
@@ -181,9 +181,11 @@ class adminSizesController extends Controller
     public function deleteSize($size_id,Request $request){
         $data=[];
         $size = $this->sizes->find($size_id);
+        $size_name = $size->name;
         if($request->input("_method")=="DELETE"){
+            $color = $this->colors->find($size->color_id);
             $size->delete();
-            return redirect()->route("admin_sizes",["product_id"=>$size->product_id]);
+            return redirect()->route("admin_sizes",["product_id"=>$color->product_id])->with('success','Size deleted successfully.');
         }
         $data["size"]=$size;
         $data["page_title"]="Delete Dress Sizes ".$size->name;
@@ -268,10 +270,11 @@ class adminSizesController extends Controller
                 $size_ids = $request["item_ids"];
                 $size = $this->sizes->find($size_ids[0]);
                 $color = $this->colors->find($size->color_id);
+                $product_id = $color->product_id;
                 foreach($size_ids as $size){
                    $size = $this->sizes->find($size);
                     $size->delete();
                 }
-               return redirect()->route("admin_sizes",["product_id"=>$color->product_id])->with('success','Sizes Deleted successfully.');
+               return redirect()->route("admin_sizes",["product_id"=>$product_id])->with('success','Sizes Deleted successfully.');
     }
 }
