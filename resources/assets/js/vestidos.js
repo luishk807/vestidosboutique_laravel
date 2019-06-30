@@ -250,6 +250,32 @@ function loadSizes(color){
         });
     }
 }
+function searchBarProductName(event){
+    $("#search-result-holder").hide();
+    if(event.target.value.length > 3){
+        $.ajax({
+            type: "GET",
+            url: searchBarUrl,
+            data: {
+                data:event.target.value
+            },
+            success: function(data) {
+                if(data.length>0){
+                    $("#search-result-holder").show();
+                    var listul=$("#search-result-holder ul");
+                    listul.empty();
+                    $.each(data, function(index,element){
+                        var purl = "/admin/products/edit/"+element.id;
+                        listul.append('<li><a href="'+purl+'">'+element.products_name+' '+' '+element.product_model+' '+element.brand_name+'</a></li>');
+                    });
+                    setTimeout(function(){
+                        $("#search-result-holder ul li a")[0].focus();
+                    },1000)
+                }
+            }
+        });
+    }
+}
 function loadSizeDropDown(size){
     if(typeof urlProductQuantity !== "undefined"){
         $.ajax({
