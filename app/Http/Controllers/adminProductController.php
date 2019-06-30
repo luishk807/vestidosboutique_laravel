@@ -398,6 +398,7 @@ class adminProductController extends Controller
                                         "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
                                         "total_rent"=>$value->total_rent,
                                         "is_rent"=>$value->is_for_rent=="yes" ?1:0,
+                                        'color_code'=>strpos($value->color_code, '#') === true ? $value->color_code : "#".$value->color_code,
                                     ];
                                     $detail_products[$model_number][$value->color]=$sizes;
                                     break;
@@ -444,6 +445,7 @@ class adminProductController extends Controller
                                 "is_sell"=>$value->is_for_sale=="yes" ? 1:0,
                                 "total_rent"=>$value->total_rent,
                                 "is_rent"=>$value->is_for_rent=="yes" ?1:0,
+                                'color_code'=>strpos($value->color_code, '#') === true ? $value->color_code : "#".$value->color_code,
                             ];
                             $detail_products[$model_number][$value->color]=$sizes;
                         }
@@ -461,10 +463,6 @@ class adminProductController extends Controller
                     "detail"=>$detail_products
                 ]);
                 return redirect()->route('show_confirm_import_product');
-                // if(!empty($insert)){
-                //     Products::insert($insert);
-                //     return redirect()->route('admin_products')->with('success','Insert Record successfully.');
-                // }
             }
         }
         else{
@@ -472,7 +470,7 @@ class adminProductController extends Controller
                 "required","No File Entered"
             ]);
         }
-       return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
+      return redirect()->back()->with('error','Please Check your file, Something is wrong there.');
     }
     public function showRestock(){
         $data=[];
@@ -664,18 +662,22 @@ class adminProductController extends Controller
                 $product_insert = Products::create($insert);
                 $product_id = null;
                 $product_id = $product_insert->id;
-                 $events = $product["event"];
-                // //insert new events
-                if(count($events)>0){
-                    foreach($events as $event){
-                        //echo $event."<br/>";
-                        $this->product_events->insert([
-                            "product_id"=>$product_id,
-                            "event_id"=>$event,
-                            "created_at"=>carbon::now()
-                        ]);
+
+                if(array_key_exists("event",$product)){
+                    $events = $product["event"];
+                    // //insert new events
+                    if(count($events)>0){
+                        foreach($events as $event){
+                            //echo $event."<br/>";
+                            $this->product_events->insert([
+                                "product_id"=>$product_id,
+                                "event_id"=>$event,
+                                "created_at"=>carbon::now()
+                            ]);
+                        }
                     }
                 }
+
                 //insert colors
                 $colors = $product["color"];
                 if(count($colors)>0){
