@@ -236,6 +236,7 @@
                             @foreach($data_confirm["detail"][$product['product_model']] as $key_detail=>$p_detail)
                             @php( $oldcolor_name= "product_confirm.".$indexKey.".color.".$key_detail.".name" )
                             @php( $oldcolor_code  = "product_confirm.".$indexKey.".color.".$key_detail.".code" )
+                            @php ( $color_code = array_key_exists('color_code',$data_confirm["detail"][$product['product_model']][$key_detail][0]) ? $data_confirm["detail"][$product['product_model']][$key_detail][0]['color_code'] : '' );
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="product_color_{{$indexKey}}">Color Name:</label>
@@ -244,7 +245,7 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="productDetail">Color Code:</label><br/>
-                                        <input type="color" id="colorCode" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][code]" value="{{ old($oldcolor_code) ? old($oldcolor_code) : ''}}"/>
+                                        <input type="color" id="colorCode" name="product_confirm[{{$indexKey}}][color][{{$key_detail}}][code]" value="{{ old($oldcolor_code) ? old($oldcolor_code) : $color_code }}"/>
                                         <small class="error">{{$errors->first("product_detail")}}</small>
                                     </div>                  
                                 </div>
