@@ -1,3 +1,81 @@
+function searchBarProductName(event){
+    $("#search-result-holder").hide();
+    if(event.target.value.length > 3){
+        $.ajax({
+            type: "GET",
+            url: "/api/searchProductList",
+            data: {
+                data:event.target.value
+            },
+            success: function(data) {
+                if(data.length>0){
+                    $("#search-result-holder").show();
+                    var listul=$("#search-result-holder ul");
+                    listul.empty();
+                    $.each(data, function(index,element){
+                        var purl = "/admin/products/edit/"+element.id;
+                        listul.append('<li><a href="'+purl+'">'+element.products_name+' '+' '+element.product_model+' '+element.brand_name+'</a></li>');
+                    });
+                    setTimeout(function(){
+                        var test = $("#search-result-holder ul li").children();
+                        $.each(test,function(elem,data){
+                            searchlist.push(data);
+                        })
+                    },50)
+                }
+            }
+        });
+    }
+}
+function inputSearchKeyDown(event){
+    event.stopPropagation();
+    if(event.keyCode==9){
+        setTimeout(function(){
+            if(searchlist[0]){
+                searchlist[0].focus();
+            }
+        },100)
+    }
+}
+function searchOnKeyDown(event){
+    event.preventDefault();
+    event.stopPropagation();
+    var current = searchlist.indexOf(event.target) !== -1 ? searchlist.indexOf(event.target) : null;
+    var setFocus = false;
+    var newIndex = null;
+    if(event.keyCode==40){
+        if(searchlist[current+1] && current <= searchlist.length){
+            setFocus = true;
+            newIndex = current+1;
+        }
+    }else if(event.keyCode==38){
+        if(searchlist[current-1]){
+            setFocus = true;
+            newIndex = current-1;
+        }
+    }else if(event.keyCode==13){
+        if(searchlist[current]){
+            searchlist[current].click();
+        }
+    }else if(event.keyCode==27){
+        $("#search-result-holder").hide();
+        setTimeout(function(){
+            $("#search-input-text").focus();
+            $("#search-input-text").val("");
+        })
+
+    }
+    if(setFocus && searchlist[newIndex]){
+        searchlist[newIndex].focus();
+    }
+}
+var searchlist = [];
+$(document.body).click(function (e) {
+    if($("#search-result-holder").is(":visible")){
+        $("#search-result-holder").hide();
+    }
+});
+
 function switchStatesDropByIndex(indx){
     var getLoadStatesUrl = $("#loadStateUrl").val();
     $.ajax({
