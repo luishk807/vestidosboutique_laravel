@@ -97,7 +97,7 @@
                                 @if(!empty($products->previousPageUrl()))
                                 <li><a href="{{ $products->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                                 @endif
-                                <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->count() }}</li>
+                                <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->lastPage() }}</li>
                                 @if($products->nextPageUrl())
                                 <li><a href="{{ $products->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
                                 @endif
