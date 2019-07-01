@@ -1,6 +1,17 @@
 @extends('admin/layouts.app')
 @section('content')
 <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="search-bar-holder">
+                <input id="search-input-text" onKeyDown="inputSearchKeyDown(event)" onKeyUp="searchBarProductName(event)" class="form-control" type="text" placeholder="Find a Product"/>
+                <div id="search-result-holder">
+                    <ul onKeyDown="searchOnKeyDown(event)"></ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div class="row container-title">
         <div class="col-md-1"></div>
         <div class="col-md-2">Image</div>

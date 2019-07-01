@@ -493,6 +493,7 @@
         Route::get("api/loadProdQuantity",'homeController@loadProdQuantity');
         Route::get("api/loadProdQuantityArray",'homeController@loadProdQuantityData');
         Route::get("api/loadSizeInfo",'homeController@loadSizeInfo');
+        Route::get("api/searchProductList",'adminProductController@searchProductByName')->name("search_product_by_name");
    // });
    Auth::routes();
 //});
