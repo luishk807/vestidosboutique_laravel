@@ -45,7 +45,8 @@ class adminProductImagesController extends Controller
         $data["product_id"]=$product->id;
         $data["main_items"]=$product->images()->paginate(10);
         $data["page_title"]="Images For ".$product->products_name;
-        return view("admin/products/images/home",$data);
+        dd(Images::find(1)::where("status",'=',1));
+       // return view("admin/products/images/home",$data);
     }
     public function getImageName($file,$product_id){
         $picture="";
@@ -121,6 +122,7 @@ class adminProductImagesController extends Controller
         $data["image_id"]=$image_id;
         $data["name"]=$image->name;
         $data["status"]=$image->status;
+        $data["main_image"]=$image->main_image;
         if($request->isMethod("post")){
 
             $this->validate($request,[
@@ -128,6 +130,7 @@ class adminProductImagesController extends Controller
                 "status"=>"required"
              ]
             );
+
             $file = $request->file('image');
             if ($request->hasFile('image')) {
                 $maxHeight=$this->maxHeight;
@@ -145,6 +148,12 @@ class adminProductImagesController extends Controller
                // }else{
                //     return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
                // }
+            }
+            // admin set image to main image
+            if($request->input("main_image")){
+                 // set all main image to all relevant image to false
+                DB::table('vestidos_product_imgs')->where('product_id', '=', $image->product_id)->update(array('main_image' => false));
+                $image->main_image = true;
             }
             $image->img_name=$request->input("img_name");
             $image->status=(int)$request->input("status");
