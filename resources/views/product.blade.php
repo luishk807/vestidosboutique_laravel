@@ -61,7 +61,7 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                                     <input type="hidden" id="product_color" name="product_color" value=""/>
                                     <input type="hidden" id="product_size" name="product_size" value=""/>
                                     <h2 class="product_in_title">{{ $product->products_name }}</h2>
-                                    <h3 class="product_in_model">{{$product->product_model}}</h3>
+                                    <h3 class="py-2 product_in_model">{{$product->product_model}}</h3>
                                     <div class="product_in_vendor">{{ __('general.cart_title.sell_by') }} {{ $product->getBrand->name }}</div>
                                     <div class="product_in_rate">
                                         <div class='rate-view' data-rate-value="{{ $product->getRatesByStatus(1)->avg('user_rate') }}"></div>
