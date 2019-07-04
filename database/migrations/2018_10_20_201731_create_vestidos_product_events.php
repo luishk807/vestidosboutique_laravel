@@ -17,8 +17,8 @@ class CreateVestidosProductEvents extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned()->default(1)->nullable();
             $table->foreign("product_id")->references("id")->on("vestidos_products")->onDelete('cascade');
-            $table->integer('events_id')->unsigned()->default(1)->nullable();
-            $table->foreign("events_id")->references("id")->on("vestidos_events")->onDelete('cascade');
+            $table->integer('event_id')->unsigned()->default(1)->nullable();
+            $table->foreign("event_id")->references("id")->on("vestidos_events")->onDelete('cascade');
             $table->integer('status')->unsigned()->default(1)->nullable();
             $table->foreign("status")->references("id")->on("vestidos_statuses")->onDelete('set null');
             $table->timestamps();
