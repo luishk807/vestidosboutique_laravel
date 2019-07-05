@@ -45,8 +45,7 @@ class adminProductImagesController extends Controller
         $data["product_id"]=$product->id;
         $data["main_items"]=$product->images()->paginate(10);
         $data["page_title"]="Images For ".$product->products_name;
-        dd(Images::find(1)::where("status",'=',1));
-       // return view("admin/products/images/home",$data);
+        return view("admin/products/images/home",$data);
     }
     public function getImageName($file,$product_id){
         $picture="";
@@ -126,7 +125,6 @@ class adminProductImagesController extends Controller
         if($request->isMethod("post")){
 
             $this->validate($request,[
-                'img_name' => 'required',
                 "status"=>"required"
              ]
             );
@@ -152,8 +150,8 @@ class adminProductImagesController extends Controller
             // admin set image to main image
             if($request->input("main_image")){
                  // set all main image to all relevant image to false
-                DB::table('vestidos_product_imgs')->where('product_id', '=', $image->product_id)->update(array('main_image' => false));
-                $image->main_image = true;
+                DB::table('vestidos_products_imgs')->where('product_id', '=', $image->product_id)->update(array('main_img' => false));
+                $image->main_img = true;
             }
             $image->img_name=$request->input("img_name");
             $image->status=(int)$request->input("status");

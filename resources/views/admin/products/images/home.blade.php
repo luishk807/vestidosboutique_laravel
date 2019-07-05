@@ -14,11 +14,11 @@
         <div class="col-md-2">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($main_items as $image)
+    @foreach($main_items->sortByDesc('main_img') as $image)
     <div class="row container-data row-even">
         <div class="col-md-1"><input  class="form-control" type="checkbox" name="image_ids[]" value="{{ $image->id }}"></div>
         <div class="col-md-1"><input type="radio" disabled name="main_image" 
-        @if($image->main_image)
+        @if($image->main_img)
             checked
         @endif
         /></div>

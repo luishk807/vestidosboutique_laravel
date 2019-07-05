@@ -45,6 +45,18 @@ class vestidosProducts extends Model
         }
         return $prod;
     }
+    public function getMainImage(){
+        $product = DB::table("vestidos_products_imgs as img")
+        ->select("img.id","img.main_img","img.img_url",
+        "status.name","img.created_at","img.updated_at","img.product_id")
+        ->join("vestidos_statuses as status","status.id","img.status")
+        ->where('product_id',$this->getKey())
+        ->orderBy("img.main_img","desc")
+        ->orderBy("img.created_at","asc")
+        ->limit(1)
+        ->get();
+        return collect($product);
+    }
     public function getColors_byId($product_id){
         $prod=null;
         if(!empty($product_id)){

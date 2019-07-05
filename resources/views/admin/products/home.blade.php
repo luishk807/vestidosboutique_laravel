@@ -28,7 +28,7 @@
         <div class="col-md-1"><input  class="form-control" type="checkbox" name="product_ids[]" value="{{ $product->id }}"></div>
         <div class="col-md-2"><img src="
         @if($product->images->count()>0)
-            {{asset('images/products')}}/{{$product->images->first()->img_url}}
+            {{asset('images/products')}}/{{$product->getMainImage()[0]->img_url}}
         @else
            {{asset('images/no-image.jpg')}}
         @endif
