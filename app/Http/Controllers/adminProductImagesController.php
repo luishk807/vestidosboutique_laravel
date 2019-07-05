@@ -121,13 +121,14 @@ class adminProductImagesController extends Controller
         $data["image_id"]=$image_id;
         $data["name"]=$image->name;
         $data["status"]=$image->status;
+        $data["main_image"]=$image->main_image;
         if($request->isMethod("post")){
 
             $this->validate($request,[
-                'img_name' => 'required',
                 "status"=>"required"
              ]
             );
+
             $file = $request->file('image');
             if ($request->hasFile('image')) {
                 $maxHeight=$this->maxHeight;
@@ -145,6 +146,12 @@ class adminProductImagesController extends Controller
                // }else{
                //     return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
                // }
+            }
+            // admin set image to main image
+            if($request->input("main_image")){
+                 // set all main image to all relevant image to false
+                DB::table('vestidos_products_imgs')->where('product_id', '=', $image->product_id)->update(array('main_img' => false));
+                $image->main_img = true;
             }
             $image->img_name=$request->input("img_name");
             $image->status=(int)$request->input("status");

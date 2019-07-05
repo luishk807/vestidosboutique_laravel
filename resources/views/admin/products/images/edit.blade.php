@@ -22,6 +22,14 @@
         <input type="file" name="image" class="form-control-file" id="imageLabels">
     </div>
     <div class="form-group">
+        <label for="imageMain">Set Image to Main:</label>
+        <select class="custom-select" name="main_image" id="imageMain">
+                <option value="1" @if($image->main_img) selected @endif>Yes</option>
+                <option value="0" @if(!$image->main_img) selected @endif>No</option>
+        </select>
+        <small class="error">{{$errors->first("status")}}</small>
+    </div>
+    <div class="form-group">
         <label for="imageStatus">Status:</label>
         <select class="custom-select imageStatus" name="status" id="imageStatus">
             @foreach($statuses as $status)

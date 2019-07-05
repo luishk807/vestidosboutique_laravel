@@ -7,15 +7,21 @@
 </style>
 <div class="container">
     <div class="row container-title">
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1">Main</div>
         <div class="col-md-2">Image</div>
         <div class="col-md-3">Name</div>
         <div class="col-md-2">Status</div>
         <div class="col-md-3">Action</div>
     </div>
-    @foreach($main_items as $image)
+    @foreach($main_items->sortByDesc('main_img') as $image)
     <div class="row container-data row-even">
-        <div class="col-md-2"><input  class="form-control" type="checkbox" name="image_ids[]" value="{{ $image->id }}"></div>
+        <div class="col-md-1"><input  class="form-control" type="checkbox" name="image_ids[]" value="{{ $image->id }}"></div>
+        <div class="col-md-1"><input type="radio" disabled name="main_image" 
+        @if($image->main_img)
+            checked
+        @endif
+        /></div>
         <div class="col-md-2"><img src="{{asset('images/products')}}/{{$image->img_url}}" alt="{{$image->img_name}}" class="img-fluid"/></div>
         <div class="col-md-3">{{$image->img_name}}</div>
         <div class="col-md-2">{{ $image->getStatusName->name }}</div>

@@ -45,6 +45,18 @@ class vestidosProducts extends Model
         }
         return $prod;
     }
+    public function getMainImage(){
+        $product = DB::table("vestidos_products_imgs as img")
+        ->select("img.id","img.main_img","img.img_url","img.img_name",
+        "status.name","img.created_at","img.updated_at","img.product_id")
+        ->join("vestidos_statuses as status","status.id","img.status")
+        ->where('product_id',$this->getKey())
+        ->orderBy("img.main_img","desc")
+        ->orderBy("img.created_at","asc")
+        ->limit(1)
+        ->get();
+        return collect($product);
+    }
     public function getColors_byId($product_id){
         $prod=null;
         if(!empty($product_id)){
@@ -157,7 +169,8 @@ class vestidosProducts extends Model
     public function getProductsBySortOptions($data){
         $sort = $data["sort"];
         $products = DB::table("vestidos_products as products")
-        ->select("products.*","brands.name as brand_name","colors.name as color_name","events.event_id as event_id","sizes.name as size_name","sizes.total_sale as total_sale")
+        ->select("products.*","brands.name as brand_name","colors.name as color_name","events.event_id as event_id","sizes.name as size_name","sizes.total_sale as total_sale",
+        DB::raw('(select img_url from vestidos_products_imgs where product_id=products.id order by main_img desc, created_at asc limit 1) as img_url'))
         ->join("vestidos_colors as colors","colors.product_id","products.id")
         ->join("vestidos_vendors as vendors","vendors.id","products.vendor_id")
         ->join("vestidos_brands as brands","brands.id","products.brand_id")

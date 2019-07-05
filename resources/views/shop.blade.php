@@ -112,11 +112,10 @@
                                             @if($product->is_new)
                                             <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>
                                             @endif
-                                            @php( $prod_img = $products_model->getImages_byId($product->id))
                                             <a href='/product/{{$product->id}}' class="flash_hover_link thumbnail">
                                             <img class="img-fluid" src="
-                                            @if($prod_img)
-                                                {{asset('images/products')}}/{{$prod_img->img_url}}
+                                            @if($product->img_url)
+                                                {{asset('images/products')}}/{{$product->img_url}}
                                             @else
                                                 {{asset('images/no-image.jpg')}}
                                             @endif
