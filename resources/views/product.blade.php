@@ -41,7 +41,7 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                             @endif
                             "></span></a>
                             @if($product->images->count()>0)
-                            <a target="_black" href="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" data-large-img-url="{{ asset('/images/products/') }}/{{ $product->images->first()->img_url }}" class="img-fluid" alt="{{ $product->images->first()->img_name }}" /></a>
+                            <a target="_black" href="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}" data-large-img-url="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}" class="img-fluid" alt="{{ $product->getMainImage()[0]->img_name }}" /></a>
                             @else
                             <img src="{{asset('images/no-image.jpg')}}" class="img-fluid" alt="no image" />
                             @endif
