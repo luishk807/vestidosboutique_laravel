@@ -223,7 +223,7 @@ class HomeController extends Controller
             $size["stock_msg"]=__('general.product_title.in_stock_number',['name'=>$size["stock"]]);
         }
         else if($size["stock"] < 1){
-            $size["stock_msg"]=__('general.product_title.pre_order');
+            $size["stock_msg"]=__('general.product_title.per_order');
         }
         return response()->json($size);
     }
