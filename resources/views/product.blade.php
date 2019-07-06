@@ -103,7 +103,7 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                                         @elseif($stock > 0 && $stock < 4)
                                             <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$stock])}}</span>
                                         @elseif($stock < 1)
-                                            <span class='out-stock'>{{ __('general.product_title.pre_order')}}</span>
+                                            <span class='out-stock'>{{ __('general.product_title.per_order')}}</span>
                                         @endif
                                     </div>
                                     @if(!empty($product->style))

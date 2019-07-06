@@ -128,14 +128,13 @@
                                                     </div>
                                                     <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $products_model->getSize_byId($product->id)->total_sale }}</span>
                                                     <br/>
-                                                    @php($p_stock = $products_model->getSize_byId($product->id)->stock )
                                                     <span  class="shoplist-stock-txt">
-                                                        @if($p_stock > 3)
+                                                        @if($product->stock > 3)
                                                             <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
-                                                        @elseif($p_stock > 0 && $p_stock < 4)
-                                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$p_stock])}}</span>
-                                                        @elseif($p_stock < 1)
-                                                            <span class='out-stock'>{{ __('general.product_title.out_stock')}}</span>
+                                                        @elseif($product->stock > 0 && $product->stock < 4)
+                                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$product->stock])}}</span>
+                                                        @elseif($product->stock < 1)
+                                                            <span class='out-stock'>{{ __('general.product_title.per_order')}}</span>
                                                         @endif
                                                     </span>
                                                     </div>

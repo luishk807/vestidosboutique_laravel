@@ -73,6 +73,15 @@ class vestidosProducts extends Model
         }
         return $prod;
     }
+    public function getSizeStock(){
+        $prod=null;
+        $colors = DB::table("vestidos_colors")->select("id")->where("product_id",$this->getKey())->get();
+        $stock =0;        
+        forEach($colors as $color){
+            $stock += DB::table("vestidos_sizes")->where("color_id",$color->id)->sum("stock");
+        }
+        return $stock;
+    }
     public function getVendors_byId($vendor_id){
         $prod=null;
         if(!empty($vendor_id)){
@@ -170,6 +179,7 @@ class vestidosProducts extends Model
         $sort = $data["sort"];
         $products = DB::table("vestidos_products as products")
         ->select("products.*","brands.name as brand_name","colors.name as color_name","events.event_id as event_id","sizes.name as size_name","sizes.total_sale as total_sale",
+        DB::raw('(select SUM(stock) from vestidos_sizes where color_id=colors.id) as stock'),
         DB::raw('(select img_url from vestidos_products_imgs where product_id=products.id order by main_img desc, created_at asc limit 1) as img_url'))
         ->join("vestidos_colors as colors","colors.product_id","products.id")
         ->join("vestidos_vendors as vendors","vendors.id","products.vendor_id")
