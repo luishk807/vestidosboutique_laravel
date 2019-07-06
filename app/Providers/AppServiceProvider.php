@@ -31,16 +31,18 @@ class AppServiceProvider extends ServiceProvider
         Braintree\Configuration::merchantId(env('BRAINTREE_MERCHANT_ID'));
         Braintree\Configuration::publicKey(env('BRAINTREE_PUBLIC_KEY'));
         Braintree\Configuration::privateKey(env('BRAINTREE_PRIVATE_KEY'));
-
-
-        view()->share('categories', Categories::all());
-        view()->share('vestidos_styles', Styles::all());
-        view()->share('statuses', Statuses::all());
-        view()->share('brands', Brands::all());
-        view()->share('countries', Countries::all());
-        view()->share('product_types', ProductTypes::all());
-        view()->share('product_events', ProductEvents::all());
-        view()->share('events', Events::all());
+        if (! $this->app->runningInConsole()) {
+            // App is not running in CLI context
+            // Do HTTP-specific stuff here
+            view()->share('categories', Categories::all());
+            view()->share('vestidos_styles', Styles::all());
+            view()->share('statuses', Statuses::all());
+            view()->share('brands', Brands::all());
+            view()->share('countries', Countries::all());
+            view()->share('product_types', ProductTypes::all());
+            view()->share('product_events', ProductEvents::all());
+            view()->share('events', Events::all());
+        }
     }
 
     /**
