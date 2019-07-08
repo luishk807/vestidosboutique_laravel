@@ -260,7 +260,7 @@ function loadSizeDropDown(size){
             },
             success: function(data) {
                 var total_size = 0;
-                if(data < 1 || !data){
+                if(data < 1 || !data || (typeof data == "object" && !data.length)){
                     // if out of stock , set 10 for pre-orders
                     data = 11;
                 }
