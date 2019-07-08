@@ -159,6 +159,10 @@ function loadSizeDropDown(size,ind){
             },
             success: function(data) {
                 var total_size = 0;
+                if(data < 1 || !data || (typeof data == "object" && !data.length)){
+                    // if out of stock , set 10 for pre-orders
+                    data = 11;
+                }
                 total_size = data > 10 ? 10 : data;
                 var product_quantity = $("#quantity_drop_"+ind);
                 product_quantity.empty();
@@ -180,7 +184,12 @@ function loadSizeDropDownArray(size,ind){
             },
             success: function(data) {
                 var total_size = 0;
-                total_size = data["stock"] > 10 ? 10 : data["stock"];
+                var data_stock = data["stock"];
+                if(data_stock < 1 || !data_stock){
+                    // if out of stock , set 10 for pre-orders
+                    data_stock = 11;
+                }
+                total_size = data_stock > 10 ? 10 : data_stock;
                 var product_quantity = $("#quantity_drop_"+ind);
                 product_quantity.empty();
                 $("#admin_new_order_total").text("");
