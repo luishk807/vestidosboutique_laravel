@@ -43,7 +43,7 @@ $(document).ready(function(){
                                 <div class="col-md-4">
                                     <img class="img-fluid" 
                                     @if($product->images->count()>0)
-                                    src="{{ asset('images/products')}}/{{ $product->images->first()->img_url }}" alt="{{ $product->images->first()->img_name }}" 
+                                    src="{{ asset('images/products')}}/{{ $product->getMainImage()[0]->img_url }}" alt="{{ $product->getMainImage()[0]->img_name }}" 
                                     @else
                                     src="{{asset('images/no-image.jpg')}}" alt="no image"
                                     @endif
