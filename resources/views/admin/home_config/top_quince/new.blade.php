@@ -46,7 +46,7 @@ function checkSubmit(){
                 </td>
                 <td class="item"><img src="
                 @if($product->images->count()>0)
-                    {{asset('images/products')}}/{{$product->images->first()->img_url}}
+                    {{asset('images/products')}}/{{$product->getMainImage()[0]->img_url}}
                 @else
                 {{asset('images/no-image.jpg')}}
                 @endif
