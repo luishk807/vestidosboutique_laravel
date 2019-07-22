@@ -11,6 +11,7 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
     display:none;
 }
 </style>
+<script>
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick-theme.css') }}">
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick.css') }}">
 <div id="popup_bgOverlay">
@@ -41,7 +42,7 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                             @endif
                             "></span></a>
                             @if($product->images->count()>0)
-                            <a target="_black" href="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}" data-large-img-url="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}" class="img-fluid" alt="{{ $product->getMainImage()[0]->img_name }}" /></a>
+                            <a class="product_main_link_in" target="_black" href="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}"><img id="thumb" src="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}" data-large-img-url="{{ asset('/images/products/') }}/{{ $product->getMainImage()[0]->img_url }}" class="img-fluid" alt="{{ $product->getMainImage()[0]->img_name }}" /></a>
                             @else
                             <img src="{{asset('images/no-image.jpg')}}" class="img-fluid" alt="no image" />
                             @endif

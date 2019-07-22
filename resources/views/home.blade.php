@@ -116,9 +116,6 @@
                 <div class="container">
                     <div class="row" style="margin: 0px auto;">
                         <div class="col brands_txt">
-                            <div class="brands_img">
-                                <img src="{{asset('images/home_main_img2_minb.jpg')}}" alt="model1">
-                            </div>
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
@@ -136,9 +133,6 @@
                 <div class="container">
                     <div class="row"  style="margin: 0px auto;">
                         <div class="col-lg-12 col-md-9 quince_txt ">
-                            <div class="quince_img">
-                                <img src="{{asset('images/home_main_img3-minb.jpg')}}" alt="model1">
-                            </div>
                             <div>
                                 <div class="vesti_font_color_b">Lorem Ipsum has?</div>
                                 <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
