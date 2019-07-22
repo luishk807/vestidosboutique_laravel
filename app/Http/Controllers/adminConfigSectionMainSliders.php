@@ -92,32 +92,34 @@ class adminConfigSectionMainSliders extends Controller
              ]
             );
             $file = $request->file('main_slider');
-            $maxHeight=$this->maxHeight;
-            $maxWidth=$this->maxWidth;
-            list($width,$height) = getimagesize($file);
-            $picture =$this->getMainSliderName($file);
-            if(($width ==$maxWidth) && ($height == $maxHeight)){
-                if ($request->hasFile('main_slider')) {
-                    $img_path =public_path().'/images/main_sliders/'.$main_slider->slider_img;
-                    if(file_exists($img_path)){
-                        @unlink($img_path);
+            if ($request->hasFile('image')) {
+                $maxHeight=$this->maxHeight;
+                $maxWidth=$this->maxWidth;
+                list($width,$height) = getimagesize($file);
+                $picture =$this->getMainSliderName($file);
+                if(($width ==$maxWidth) && ($height == $maxHeight)){
+                    if ($request->hasFile('main_slider')) {
+                        $img_path =public_path().'/images/main_sliders/'.$main_slider->slider_img;
+                        if(file_exists($img_path)){
+                            @unlink($img_path);
+                        }
+                        $picture =$this->getMainSliderName($file);
+                        $destinationPath = public_path().'/images/main_sliders/';
+                        $file->move($destinationPath, $picture);
+                        $main_slider->image_url=$picture;
                     }
-                    $picture =$this->getMainSliderName($file);
-                    $destinationPath = public_path().'/images/main_sliders/';
-                    $file->move($destinationPath, $picture);
-                    $main_slider->image_url=$picture;
+                    $main_slider->image_name=$request->input("image_name");
+                    $main_slider->image_name_2=$request->input("image_name_2");
+                    $main_slider->image_destination = $request->input("image_destination");
+                    $main_slider->updated_at=carbon::now();
+        
+                    $main_slider->save();
+        
+                    return redirect()->route("main_sliders_page",['product_id'=>$main_slider->product_id]);
                 }
-                $main_slider->image_name=$request->input("image_name");
-                $main_slider->image_name_2=$request->input("image_name_2");
-                $main_slider->image_destination = $request->input("image_destination");
-                $main_slider->updated_at=carbon::now();
-    
-                $main_slider->save();
-    
-                return redirect()->route("main_sliders_page",['product_id'=>$main_slider->product_id]);
-            }
-            else{
-                return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+                else{
+                    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+                }
             }
         }
         $data["page_title"]="Edit Slider";

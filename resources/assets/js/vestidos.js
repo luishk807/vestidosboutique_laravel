@@ -161,6 +161,7 @@ $(document).ready(function() {
            'src':getImg,
            'data-large-img-url':getImg
         });
+        $(".product_main_img_in .product_main_link_in").attr("href",getImg);
     });
     $("#popup_bgOverlay").click(function(){
         closeCartPopUp();
