@@ -120,7 +120,15 @@ class adminConfigSectionMainSliders extends Controller
                 else{
                     return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
                 }
+            }else{
+                    $main_slider->image_name=$request->input("image_name");
+                    $main_slider->image_name_2=$request->input("image_name_2");
+                    $main_slider->image_destination = $request->input("image_destination");
+                    $main_slider->updated_at=carbon::now();
+                    $main_slider->save();
+                    return redirect()->route("main_sliders_page",['product_id'=>$main_slider->product_id]);
             }
+
         }
         $data["page_title"]="Edit Slider";
         return view("/admin/home_config/main_sliders/edit",$data);
