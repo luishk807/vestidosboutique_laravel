@@ -11,7 +11,6 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
     display:none;
 }
 </style>
-<script>
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick-theme.css') }}">
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick.css') }}">
 <div id="popup_bgOverlay">
