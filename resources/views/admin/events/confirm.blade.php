@@ -10,7 +10,7 @@
     </div>
     <div class="row form-btn-container">
         <div class="col-md-6">
-                <a class="admin-btn" href="{{ route('admin_event') }}">
+                <a class="admin-btn" href="{{ route('admin_events') }}">
                     Back To Events
                 </a>
         </div>

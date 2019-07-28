@@ -79,7 +79,9 @@
                     <div class="col-md-9">
                     --}}
                     <div class="col">
-                        <div class="text-center"><img src="{{ asset('images/shop_banners') }}/{{$shop_banners->image_url}}" class="img-fluid" alt/></div>
+                        @if($event->image_url)
+                        <div class="text-center"><img src="{{ asset('images/shop_banners') }}/{{$event->image_url}}" class="img-fluid" alt/></div>
+                        @endif
                         <div class="shoplist-nav">
                             <ul>
                                 <li>{{ $products->total() }} {{ trans_choice('general.cart_title.product',3) }}</li>
