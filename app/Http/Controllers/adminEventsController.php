@@ -13,6 +13,8 @@ class adminEventsController extends Controller
     //
     public function __construct(Events $events){
         $this->events=$events;
+        $this->maxHeight=579;
+        $this->maxWidth=1503;
         $this->events_menu = [
             [
                 "url"=>route('new_event'),
@@ -91,7 +93,25 @@ class adminEventsController extends Controller
                 "name"=>"required",
                 "status"=>"required"
             ]);
-            $this->events->insert($data);
+            if ($request->hasFile('image')) {
+
+                $maxHeight=$this->maxHeight;
+                $maxWidth=$this->maxWidth;
+                list($width,$height) = getimagesize($file);
+                $picture =$this->getMainSliderName($file);
+                if(($width ==$maxWidth) && ($height == $maxHeight)){
+                    $destinationPath = public_path().'/images/shop_banners/';
+                    $file->move($destinationPath, $picture);
+                    $data["image_url"]=$picture;
+                    $data["created_at"]=carbon::now();
+                    $this->events->insert($data);
+                }
+                else{
+                    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+                }
+            }else{
+                $this->events->insert($data);
+            }
             return redirect()->route("admin_events");
         }
         $data["page_title"]="New Events";
@@ -107,7 +127,33 @@ class adminEventsController extends Controller
                 "name"=>"required",
                 "status"=>"required"
             ]);
-            $event->save();
+            $file = $request->file('event_banner');
+            if ($request->hasFile('image')) {
+                $maxHeight=$this->maxHeight;
+                $maxWidth=$this->maxWidth;
+                list($width,$height) = getimagesize($file);
+                $picture =$this->getMainSliderName($file);
+                if(($width ==$maxWidth) && ($height == $maxHeight)){
+                    if ($request->hasFile('event_banner')) {
+                        $img_path =public_path().'/images/shop_banners/'.$main_slider->slider_img;
+                        if(file_exists($img_path)){
+                            @unlink($img_path);
+                        }
+                        $picture =$this->getMainSliderName($file);
+                        $destinationPath = public_path().'/images/shop_banners/';
+                        $file->move($destinationPath, $picture);
+                        $event->image_url=$picture;
+                    }
+                    $event->updated_at=carbon::now();
+                    $event->save();
+                    return redirect()->route("admin_events");
+                }
+                else{
+                    return redirect()->back()->withErrors(["Incorrect Image Size, Must be ".$this->maxWidth." x ".$this->maxHeight]);
+                }
+            }else{
+                $event->save();
+            }
             return redirect()->route("admin_events");
         }
         $data["name"] = $request->input("name");
@@ -194,6 +240,10 @@ class adminEventsController extends Controller
                 $event_ids = $request["item_ids"];
                 foreach($event_ids as $event){
                    $event = $this->events->find($event);
+                    $img_path =public_path().'/images/shop_banners/'.$event->image_url;
+                    if(file_exists($img_path)){
+                        @unlink($img_path);
+                    }
                     $event->delete();
                 }
                return redirect()->route("admin_events")->with('success','Events Deleted successfully.');

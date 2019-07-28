@@ -16,8 +16,10 @@
         </select>
         <small class="error">{{$errors->first("status")}}</small>
     </div>
-    
-
+    <div class="form-group">
+        <label for="eventBanner">Choose Banner</label>
+        <input type="file" name="event_banner" class="form-control-file" id="eventBanner">
+    </div>
     <div class="container">
         <div class="row form-btn-container">
             <div class="col-md-6">

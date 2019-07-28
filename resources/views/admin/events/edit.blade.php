@@ -3,6 +3,9 @@
 <form action="{{ route('save_event',['event_id'=>$event_id]) }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
+        <div class="col-md-2"><img src="{{asset('images/shop_banners')}}/{{$event->image_url}}" alt="{{$event->image_name}}" class="img-fluid"/></div>
+    </div>
+    <div class="form-group">
         <label for="eventName">Name:</label>
         <input type="text" id="eventName" class="form-control" name="name" value="{{ $event->name }}" placeholder="Event Name"/>
         <small class="error">{{$errors->first("name")}}</small>
@@ -20,7 +23,10 @@
         </select>
         <small class="error">{{$errors->first("status")}}</small>
     </div>
-    
+    <div class="form-group">
+        <label for="eventBanner">Replace Banner</label>
+        <input type="file" name="event_banner" class="form-control-file" id="eventBanner">
+    </div>
 
     <div class="container">
         <div class="row form-btn-container">
