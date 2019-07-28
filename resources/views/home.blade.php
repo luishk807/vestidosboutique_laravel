@@ -90,7 +90,10 @@
                         </svg>
                         </div>
                         <div class="col-md-8 top_middle_sec_title2">
-                            I love how easy it was for me and my bridesmaids. The Dresses turned out perfect! Everyone was very comfortable and they looked amazing
+                        <blockquote class="blockquote">
+  <p>Sabemos que cuando creamos un vestido, no sólo estamos haciendo algo para usar. Estamos haciendo Magia</p>
+  <footer class="blockquote-footer">Madeline Gardner</footer>
+</blockquote>
                         </div>
                         <div class="col-md-2">
                             <svg version="1.1" class="vector-excla" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -117,10 +120,12 @@
                     <div class="row" style="margin: 0px auto;">
                         <div class="col brands_txt">
                             <div>
-                                <div class="vesti_font_color_b">Lorem Ipsum has?</div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
+                                <div class="vesti_font_color_b">Tu estilo</div>
                                 <div>
-                                    <a href="" class="btn btn-vesti-slide vesti_font_color_a">{{ __('buttons.see_more') }}</a>
+                                    Decide lo que eres, lo que quieres expresar con tu manera de vestir y el modo en que vives
+                                </div>
+                                <div>
+                                    <a href="http://127.0.0.1:8000/shop/event/1" class="btn btn-vesti-slide vesti_font_color_a">{{ __('buttons.see_more') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -134,8 +139,8 @@
                     <div class="row"  style="margin: 0px auto;">
                         <div class="col-lg-12 col-md-9 quince_txt ">
                             <div>
-                                <div class="vesti_font_color_b">Lorem Ipsum has?</div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque condimentum elit justo, sed iaculis ipsum elementum eget. Nullam sed nibh justo. Maecenas sed enim at ante dignissim maximus quis eget elit</div>
+                                <div class="vesti_font_color_b">Tu gran dia</div>
+                                <div>A la hora de buscar vestidos para el baile de graduación opten por looks “frescos” y con un toque divertido, sin dejar de lado lo más importante siempre: su estilo personal…</div>
                                
                             </div>
                         </div>
