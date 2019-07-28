@@ -79,7 +79,7 @@
                     <div class="col-md-9">
                     --}}
                     <div class="col">
-                        @if($product->img_url)
+                        @if($event->image_url)
                         <div class="text-center"><img src="{{ asset('images/shop_banners') }}/{{$event->image_url}}" class="img-fluid" alt/></div>
                         @endif
                         <div class="shoplist-nav">
