@@ -7,6 +7,7 @@ use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
 use App\vestidosCountries as vestidosCountries;
 use App\vestidosUsers as Users;
+use App\vestidosEvents as Events;
 use Carbon\Carbon as carbon;
 use App\vestidosProducts as Products;
 use App\vestidosCountries as Countries;
@@ -22,7 +23,7 @@ use Session;
 class userShopController extends Controller
 {
     //
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, ShopBanners $shop_banners,ProductsCategories $product_categories)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, ShopBanners $shop_banners,ProductsCategories $product_categories, Events $events)
     {
       $this->brands=$brands;
       $this->country=$countries->all();
@@ -33,6 +34,7 @@ class userShopController extends Controller
       $this->languages=$languages;
       $this->addresses=$addresses;
       $this->shop_banners = $shop_banners;
+      $this->events = $events;
       $this->product_categories = $product_categories;
       $this->data_list = array(
         "sort"=>null,
@@ -52,9 +54,10 @@ class userShopController extends Controller
             $this->data_list["type"]["type"]=$type;
             $this->data_list["type"]["id"]=$type_id;
         }
+        $event = $this->events->find($type_id);
         $data["page_title"]=__('header.shop');
         $data["sort"]="low";
-        $data["shop_banners"]=$this->shop_banners->first();
+        $data["event"]=$event;
         $products = $this->products->getProductsBySortOptions($this->data_list);
         $data["products"]=$products;
         $data["sort_ops"]=$this->sort_options;

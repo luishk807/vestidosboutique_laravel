@@ -1,6 +1,6 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('create_event') }}" method="post">
+<form action="{{ route('create_event') }}" method="post" enctype="multipart/form-data">
 {{ csrf_field() }}
     <div class="form-group">
         <label for="eventName">Name:</label>

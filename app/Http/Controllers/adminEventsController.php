@@ -7,6 +7,7 @@ use App\vestidosEvents as Events;
 use Carbon\Carbon as carbon;
 use Excel;
 use DB;
+use Illuminate\Support\Str;
 
 class adminEventsController extends Controller
 {
@@ -93,12 +94,12 @@ class adminEventsController extends Controller
                 "name"=>"required",
                 "status"=>"required"
             ]);
-            if ($request->hasFile('image')) {
-
+            if ($request->hasFile('event_banner')) {
+                $file = $request->file('event_banner');
                 $maxHeight=$this->maxHeight;
                 $maxWidth=$this->maxWidth;
                 list($width,$height) = getimagesize($file);
-                $picture =$this->getMainSliderName($file);
+                $picture =$this->getSliderName($file);
                 if(($width ==$maxWidth) && ($height == $maxHeight)){
                     $destinationPath = public_path().'/images/shop_banners/';
                     $file->move($destinationPath, $picture);
@@ -117,6 +118,19 @@ class adminEventsController extends Controller
         $data["page_title"]="New Events";
         return view("admin/events/new",$data);
     }
+    public function getSliderName($file){
+        $picture="";
+        $date = carbon::now();
+        $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
+        $filename = Str::lower($file->getClientOriginalName());
+        $filename = pathinfo($filename, PATHINFO_FILENAME); // file
+        $extension = $file->getClientOriginalExtension();
+        $filename = preg_replace("![^a-z0-9]+!i", "-", $filename);
+        $filename = $filename.".".$extension;
+        $picture = $time_converted."-".$filename;
+
+        return $picture;
+    }
     public function editevent(Request $request,$event_id){
         $data=[];
         if($request->isMethod("post")){
@@ -128,18 +142,18 @@ class adminEventsController extends Controller
                 "status"=>"required"
             ]);
             $file = $request->file('event_banner');
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('event_banner')) {
                 $maxHeight=$this->maxHeight;
                 $maxWidth=$this->maxWidth;
                 list($width,$height) = getimagesize($file);
-                $picture =$this->getMainSliderName($file);
+                $picture =$this->getSliderName($file);
                 if(($width ==$maxWidth) && ($height == $maxHeight)){
                     if ($request->hasFile('event_banner')) {
-                        $img_path =public_path().'/images/shop_banners/'.$main_slider->slider_img;
+                        $img_path =public_path().'/images/shop_banners/'.$event->image_url;
                         if(file_exists($img_path)){
                             @unlink($img_path);
                         }
-                        $picture =$this->getMainSliderName($file);
+                        $picture =$this->getSliderName($file);
                         $destinationPath = public_path().'/images/shop_banners/';
                         $file->move($destinationPath, $picture);
                         $event->image_url=$picture;
@@ -155,7 +169,7 @@ class adminEventsController extends Controller
                 $event->save();
             }
             return redirect()->route("admin_events");
-        }
+        }else{
         $data["name"] = $request->input("name");
         $data["event"]=$this->events->find($event_id);
         $data["event_id"]=$event_id;
@@ -163,11 +177,16 @@ class adminEventsController extends Controller
 
         $data["page_title"]="Edit Events";
         return view("admin/events/edit",$data);
+        }
     }
     public function deleteevent($event_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
             $event = $this->events->find($event_id);
+            $img_path =public_path().'/images/shop_banners/'.$event->image_url;
+            if(file_exists($img_path)){
+                @unlink($img_path);
+            }
             $event->delete();
             return redirect()->route("admin_events");
         }
@@ -189,7 +208,7 @@ class adminEventsController extends Controller
             "file"=>"required"
         ]);
 
-        if($request->hasFile('file')) {
+        if($request->hasFile('event_banner')) {
             $path = $request->file->getRealPath();
             $data = Excel::load($path, function($reader) {})->get();
             

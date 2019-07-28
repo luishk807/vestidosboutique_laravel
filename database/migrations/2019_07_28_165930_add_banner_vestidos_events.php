@@ -15,7 +15,7 @@ class AddBannerVestidosEvents extends Migration
     {
         //
         Schema::table('vestidos_events', function($table) {
-            $table->text('img_url')->after('name')->nullable();
+            $table->text('image_url')->after('name')->nullable();
         });
     }
 
@@ -28,7 +28,7 @@ class AddBannerVestidosEvents extends Migration
     {
         //
         Schema::table('vestidos_events', function($table) {
-            $table->dropColumn('img_url');
+            $table->dropColumn('image_url');
         });
     }
 }

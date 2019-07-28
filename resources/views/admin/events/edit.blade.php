@@ -1,9 +1,9 @@
 @extends('admin/layouts.app')
 @section('content')
-<form action="{{ route('save_event',['event_id'=>$event_id]) }}" method="post">
+<form action="{{ route('save_event',['event_id'=>$event_id]) }}" method="post" enctype="multipart/form-data">
 {{ csrf_field() }}
     <div class="form-group">
-        <div class="col-md-2"><img src="{{asset('images/shop_banners')}}/{{$event->image_url}}" alt="{{$event->image_name}}" class="img-fluid"/></div>
+        <div class="col"><img src="{{asset('images/shop_banners')}}/{{$event->image_url}}" alt="{{$event->image_name}}" class="img-fluid"/></div>
     </div>
     <div class="form-group">
         <label for="eventName">Name:</label>
