@@ -32,6 +32,11 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col text-center my-3">
+            &copy; {{ now()->year }} vestidosboutique.com. Todos los Derechos Reservados.
+        </div>
+    </div>
     <div class="row vesti-footer-section-2">
         <div class="col-md-8 footer-bottom-col text-center">
         {{ __('header.payment') }}:
