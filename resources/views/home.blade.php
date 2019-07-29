@@ -91,7 +91,7 @@
                         </div>
                         <div class="col-md-8 top_middle_sec_title2">
                         <blockquote class="blockquote">
-  <p>Sabemos que cuando creamos un vestido, no sólo estamos haciendo algo para usar. Estamos haciendo Magia</p>
+  <p>Sabemos que cuando creamos un vestido, no sólo estamos haciendo algo para usar. Estamos haciendo Magia.</p>
   <footer class="blockquote-footer">Madeline Gardner</footer>
 </blockquote>
                         </div>
@@ -122,7 +122,10 @@
                             <div>
                                 <div class="vesti_font_color_b">Tu estilo</div>
                                 <div>
-                                    Decide lo que eres, lo que quieres expresar con tu manera de vestir y el modo en que vives
+                                    <blockquote class="blockquote">
+                                    <p>Decide lo que eres, lo que quieres expresar con tu manera de vestir y el modo en que vives.</p>
+                                    <footer class="blockquote-footer">Gianni Versace</footer>
+                                    </blockquote>
                                 </div>
                                 <div>
                                     <a href="http://127.0.0.1:8000/shop/event/1" class="btn btn-vesti-slide vesti_font_color_a">{{ __('buttons.see_more') }}</a>
