@@ -16,6 +16,19 @@
         width: 117px;
 
     }
+    .vesti-footer-section-1 .footer-top-col:not(:last-child) {
+        text-align: center!important;
+    }
+    .vesti-footer-section-1 .footer-top-col:last-child {
+        text-align: center!important;
+    }
+    .vesti-footer-section-2 .footer-bottom-col:last-child {
+        text-align: center!important;
+    }
+
+    .vesti-footer-section-2 div:first-child {
+        border-right: none;
+    }
     .nav-link {
         padding: 22px 10px!important;
     }
@@ -44,21 +57,6 @@
     .vestidos-main-nav-top {
         margin-top: -20px;
     }
-
-    .vesti-footer-section-1 .footer-top-col:not(:last-child) {
-        text-align: center!important;
-    }
-    .vesti-footer-section-1 .footer-top-col:last-child {
-        text-align: center!important;
-    }
-    .vesti-footer-section-2 .footer-bottom-col:last-child {
-        text-align: center!important;
-    }
-
-    .vesti-footer-section-2 div:first-child {
-        border-right: none;
-    }
-
 
     .vestidos-footer{
      padding-top: 50px;

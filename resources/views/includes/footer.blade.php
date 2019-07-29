@@ -7,7 +7,7 @@
         <div class="col-md-8  text-center">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 footer-top-col text-center">
+                    <div class="col-md-6 footer-top-col">
                         <ul class="list-unstyled">
                             <li><a class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.about') }}</a></li>
                             <li><a  class="vestidos-simple-link-white" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a></li>
@@ -17,7 +17,7 @@
                         </ul>
 
                     </div>
-                    <div class="col-md-6 footer-top-col text-center">
+                    <div class="col-md-6 footer-top-col">
                         <ul class="list-unstyled">
                             <li>{{ __('general.got_question') }}</li>
                             <li>{{ trans_choice('general.form.telephone',1) }}: +507 203-5848</li>
