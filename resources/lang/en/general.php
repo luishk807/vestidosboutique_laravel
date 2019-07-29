@@ -78,6 +78,7 @@ return [
         'logout'=>"Logout Page",
         'order_received'=>"Order Received",
         'error_page'=>"Error Page",
+        'terms_use'=>"Terms of Use",
     ],
     'order_section' =>[
         'order_updated'=>'order updated',

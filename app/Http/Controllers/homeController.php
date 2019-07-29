@@ -67,6 +67,13 @@ class HomeController extends Controller
         $data["products"]=$this->products;
         return view("home",$data);
     }
+    public function termsuse()
+    {
+        $data=[];
+        $data["page_title"]=__('general.page_header.terms_use');
+        $data["languages"]=$this->languages->all();
+        return view("terms",$data);
+    }
     public function setLocale($lang)
     {
         App::setLocale($lang);
