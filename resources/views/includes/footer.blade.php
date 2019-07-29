@@ -34,7 +34,7 @@
     </div>
     <div class="row">
         <div class="col text-center my-3">
-            &copy; {{ now()->year }} vestidosboutique.com. Todos los Derechos Reservados.
+            &copy; {{ now()->year }} vestidosboutique.com. {{ __('general.all_right_reserved') }}.
         </div>
     </div>
     <div class="row vesti-footer-section-2">

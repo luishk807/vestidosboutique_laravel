@@ -274,4 +274,5 @@ return [
         'color_missing'=>"Product model :name is missing color name in the excel file, please provide a color and try again.",
         'size_missing'=>"A size for color :name for :index must be defined",
      ],
+     'all_right_reserved'=>'All rights reserved',
 ];
