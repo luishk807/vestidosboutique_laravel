@@ -81,6 +81,7 @@ return [
         'logout'=>"Cierre de Sesión",
         'order_received'=>"Orden Recibida",
         'error_page'=>"Página de Error",
+        'terms_use'=>"Terminos de Uso",
     ],
     'order_section' =>[
         'order_updated'=>'Orden actualizado',
