@@ -254,6 +254,8 @@
                         Route::post('/edit/{tax_id}','adminTaxController@saveTax')->name('save_tax');
                         Route::get('/confirm/{tax_id}','adminTaxController@deleteTax')->name('confirm_delete_tax');
                         Route::delete('/confirm/{tax_id}','adminTaxController@deleteTax')->name('delete_tax');
+                        Route::post('/confirm_taxes','adminTaxController@deleteConfirmTaxes')->name('confirm_delete_taxes');
+                        Route::delete('/show_confirm_taxes','adminTaxController@deleteTaxes')->name('delete_taxes');
                     });
     
                     //Admin Payment TYpe

@@ -26,10 +26,11 @@ class adminTaxController extends Controller
         $data["page_submenus"]=[
             [
                 "url"=>route('new_tax'),
-                "name"=>"Add Vendor"
+                "name"=>"Add Taxes"
             ]
         ];
-        $data["delete_menu"] =route('confirm_delete_tax');
+        $data["taxes"]=$this->taxes->all();
+        $data["delete_menu"] =route('confirm_delete_taxes');
         $data["page_title"]="Tax Page";
         return view("admin/home_config/tax/home",$data);
     }
@@ -41,23 +42,26 @@ class adminTaxController extends Controller
     function createTax(Request $request){
         $data=[];
         $data["name"]=$request->input("name");
-        $data["country_id"]=$request->input("country_id");
+        $data["country"]=$request->input("country_id");
         $data["tax"]=$request->input("tax");
         $data["status"]=$request->input("status");
         $this->validate($request,[
-            "country_id"=>"required",
+            "country"=>"required",
             "status"=>"required",
             "tax"=>"required",
-            "code"=>"required"
+            "name"=>"required"
         ]);
-        $data["created_at"]=carbon::now();
-        $this->taxes->insert($data);
+        $data_save["code"]=$request->input("name");
+        $data_save["tax"]=$request->input("tax");
+        $data_save["status"]=$request->input("status");
+        $data_save["country_id"]=$request->input("country");
+        $data_save["created_at"]=carbon::now();
+        $this->taxes->insert($data_save);
         return redirect()->route("admin_taxes");
     }
     function editTax($tax_id){
         $data=[];
         $tax= $this->taxes->find($tax_id);
-        $data["country"]=$request->input("country");
         $data["tax"]=$tax;
         $data["page_title"]="Edit Taxes";
        return view("admin/home_config/tax/edit",$data);
@@ -68,13 +72,13 @@ class adminTaxController extends Controller
         $data["country_id"]=$request->input("country_id");
         $data["tax"]=$request->input("tax");
         $data["status"]=$request->input("status");
-        $vendor = $this->vendors->find($tax_id);
+        $vendor = $this->taxes->find($tax_id);
 
         $this->validate($request,[
-            "country_id"=>"required",
+            "country"=>"required",
             "status"=>"required",
             "tax"=>"required",
-            "code"=>"required"
+            "name"=>"required"
         ]);
         $vendor->code = $request->input("name");
         $vendor->tax = $request->input("tax");
@@ -83,7 +87,6 @@ class adminTaxController extends Controller
         $vendor->updated_at = carbon::now();
         $vendor->save();
         return redirect()->route("admin_taxes");
-        
     }
     public function deleteTax($tax_id,Request $request){
         $data=[];
@@ -122,7 +125,7 @@ class adminTaxController extends Controller
             ]);
                 $taxes_ids = $request["item_ids"];
                 foreach($taxes_ids as $tax){
-                   $tax = $this->taxes->find($vendor);
+                   $tax = $this->taxes->find($tax);
                     $tax->delete();
                 }
                return redirect()->route("admin_taxes")->with('success','Taxes deleted successfully.');

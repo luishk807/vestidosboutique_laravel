@@ -9,7 +9,7 @@
     </div>
     <div class="form-group">
         <label for="taxTotal">Tax Total:</label>
-        <input type="number" id="taxTotal" class="form-control" name="tax" min="0" step="0.01" value="{{ old('tax') ? old('tax') : $tax->code }}" placeholder="0.00"/>
+        <input type="number" id="taxTotal" class="form-control" name="tax" min="0" step="0.01" value="{{ old('tax') ? old('tax') : $tax->tax }}" placeholder="0.00"/>
     </div>
     <div class="form-group">
         <label for="taxStatus">Status:</label>
@@ -47,7 +47,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <input type="submit" class="admin-btn" value="Create Tax"/>
+                <input type="submit" class="admin-btn" value="Save Tax"/>
             </div>
         </div>
     </div>
