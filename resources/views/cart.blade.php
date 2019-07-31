@@ -34,7 +34,7 @@
                         <div class="row">
                             <div class="col-md-4 col-lg-3 col-sm-12 col-xs-12">
                                 <div class="vesti_in_btn_pnl">
-                                    <a class="btn-block vesti_in_btn_oval_white" href="{{ route('shop_page') }}">{{ __('buttons.back_shopping') }}</a>
+                                    <a class="btn-block vesti_in_btn_oval_white" href="{{ $prev_shop }}">{{ __('buttons.back_shopping') }}</a>
                                 </div>
                             </div>
                             <div class="col-md-4 col-lg-5 col-sm-1 col-xs-1">

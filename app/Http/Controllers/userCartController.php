@@ -64,6 +64,7 @@ class userCartController extends Controller
         }
         Session::forget("vestidos_shop");
         Session::put("vestidos_shop",$cart);
+        $data["prev_shop"]=str_replace(url('/'), '', url()->previous());
         $data["subtotal"]=0;
         $data["tax"]=$tax_amt;
         return view("cart",$data);
