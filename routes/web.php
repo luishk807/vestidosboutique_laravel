@@ -245,6 +245,18 @@
                         Route::get('/confirm/{shop_banner_id}','adminConfigShopBannerController@deleteShopBanner')->name('confirm_shop_banner');
                         Route::delete('/confirm/{shop_banner_id}','adminConfigShopBannerController@deleteShopBanner')->name('delete_shop_banner');
                     });
+
+                    Route::prefix('tax')->group(function(){
+                        Route::get('/','adminTaxController@index')->name('admin_taxes');
+                        Route::get('/new','adminTaxController@newTax')->name('new_tax');
+                        Route::post('/new','adminTaxController@createTax')->name('create_tax');
+                        Route::get('/edit/{tax_id}','adminTaxController@editTax')->name('edit_tax');
+                        Route::post('/edit/{tax_id}','adminTaxController@saveTax')->name('save_tax');
+                        Route::get('/confirm/{tax_id}','adminTaxController@deleteTax')->name('confirm_delete_tax');
+                        Route::delete('/confirm/{tax_id}','adminTaxController@deleteTax')->name('delete_tax');
+                        Route::post('/confirm_taxes','adminTaxController@deleteConfirmTaxes')->name('confirm_delete_taxes');
+                        Route::delete('/show_confirm_taxes','adminTaxController@deleteTaxes')->name('delete_taxes');
+                    });
     
                     //Admin Payment TYpe
                     Route::prefix("payment_types")->group(function(){
