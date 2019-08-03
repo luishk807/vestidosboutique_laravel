@@ -133,9 +133,9 @@
                                                     <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $products_model->getSize_byId($product->id)->total_sale }}</span>
                                                     <br/>
                                                     <span  class="shoplist-stock-txt">
-                                                        @if($product->stock > 3)
+                                                        @if($product->stock > 1)
                                                             <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
-                                                        @elseif($product->stock > 0 && $product->stock < 4)
+                                                        @elseif($product->stock == 1)
                                                             <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$product->stock])}}</span>
                                                         @elseif($product->stock < 1)
                                                             <span class='out-stock'>{{ __('general.product_title.per_order')}}</span>

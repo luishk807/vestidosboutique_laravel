@@ -90,13 +90,7 @@
                                         </div>
                                     </div>
                                     <div class="shoplist-stock-txt">
-                                        @if($stock > 3)
-                                            <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
-                                        @elseif($stock > 0 && $stock < 4)
-                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$stock])}}</span>
-                                        @elseif($stock < 1)
-                                            <span class='out-stock'>{{ __('general.product_title.per_order')}}</span>
-                                        @endif
+                                        <span></span>
                                     </div>
                                     @if(!empty($product->style))
                                     <div class="product_in_styles">

@@ -299,14 +299,11 @@ function getPriceInfo(size){
         success: function(data) {
             $(".product_in_price span").text(data.total_sale);
             $(".shoplist-stock-txt span").removeClass();
-            if(data.stock > 3)
+            if(data.stock > 1)
             {
                 $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
             }
-            else if(data.stock > 0 && data.stock < 4)
-            {
-                $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
-            }else if( data.stock < 1){
+            else{
                 $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
             }
 
