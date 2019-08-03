@@ -79,8 +79,10 @@
                     <div class="col-md-9">
                     --}}
                     <div class="col">
-                        @if($event->image_url)
+                        @if($event && $event->image_url)
                         <div class="text-center"><img src="{{ asset('images/shop_banners') }}/{{$event->image_url}}" class="img-fluid" alt/></div>
+                        @else
+                        <div class="text-center"><img src="{{ asset('images') }}/event_misc.jpg" class="img-fluid" alt/></div>
                         @endif
                         <div class="shoplist-nav">
                             <ul>
