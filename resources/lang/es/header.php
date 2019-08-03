@@ -27,7 +27,7 @@ return [
     'payment' => 'Acceptamos',
     'faqs' => 'Preguntas Frequentes',
     'terms' => 'Terminos de Uso',
-    'privacy' => 'Terminos de Privacidad',
+    'privacy' => 'Politica de Privacidad',
     'language' => 'Lenguages',
     'registration'=>"Regístrate",
     'accessories'=>"Accesorios",
