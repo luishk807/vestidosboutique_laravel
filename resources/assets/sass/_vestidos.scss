@@ -853,6 +853,16 @@ background-size: cover;
   font-weight:bold;
 }
 // PRODUCT PAGE
+#product_addCart_btn,
+#product_out_stock_btn{
+    display:none;
+}
+.product_in_colors .colors_cubes_name span{
+  font-size: 1.1rem;
+  font-style: italic;
+  text-transform: capitalize;
+  font-family: "Playfair Display";
+}
 .product_in_model{
   font-size:1.2rem;
   font-weight: bold;
