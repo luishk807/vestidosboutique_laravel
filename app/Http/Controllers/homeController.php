@@ -238,7 +238,7 @@ class HomeController extends Controller
         $color_id=Input::get('data');
         $color = $this->colors->find($color_id);
         $data["color"]["info"]=$color;
-        $data["color"]["colors"]=$color->sizes()->get();;
+        $data["color"]["colors"]=$color->sizes()->get();
         return response()->json($data["color"]);
     }
     public function loadProdQuantity(){
