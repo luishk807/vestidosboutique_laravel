@@ -1,16 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<script>
-var urlColorSizes = "{{ url('api/loadSizes') }}";
-var urlProductQuantity = "{{ url('api/loadProdQuantity') }}";
-var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
-</script>
-<style>
-#product_addCart_btn,
-#product_out_stock_btn{
-    display:none;
-}
-</style>
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick-theme.css') }}">
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick.css') }}">
 <div id="popup_bgOverlay">
@@ -74,6 +63,9 @@ var urlLoadSizeInfo= "{{ url('api/loadSizeInfo') }}";
                                     <div class="product_in_colors">
                                         <div class="product_in_sub_title">
                                         {{ __('general.product_title.select_color') }}
+                                        </div>
+                                        <div class="my-2 px-0 col colors_cubes_name">
+                                        <span></span>
                                         </div>
                                         @foreach($product->colors as $colorIndex => $color)
                                         @php( $colorSelected= $colorIndex==0 ? "selected":"" )

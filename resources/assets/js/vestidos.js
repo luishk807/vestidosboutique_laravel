@@ -223,10 +223,9 @@ function loadDropDown(select1, select2,url){
     });
 }
 function loadSizes(color){
-    if(typeof urlColorSizes !== "undefined"){
         $.ajax({
             type: "GET",
-            url: urlColorSizes,
+            url: "/api/loadSizes",
             data: {
                 data:color
             },
@@ -235,7 +234,8 @@ function loadSizes(color){
                 sizeContainer.empty();
                 var size_counter=0;
                 $total_size = 0;
-                $.each(data, function(index,element){
+                $(".product_in_colors .colors_cubes_name span").text(data.info.name)
+                $.each(data.colors, function(index,element){
                     if(size_counter==0){
                         loadSizeDropDown(element.id);
                         sizeContainer.append("<button class='size_spheres selected' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
@@ -249,32 +249,29 @@ function loadSizes(color){
 
             }
         });
-    }
 }
 function loadSizeDropDown(size){
-    if(typeof urlProductQuantity !== "undefined"){
-        $.ajax({
-            type: "GET",
-            url: urlProductQuantity,
-            data: {
-                data:size
-            },
-            success: function(data) {
-                var total_size = 0;
-                if(data < 1 || !data || (typeof data == "object" && !data.length)){
-                    // if out of stock , set 10 for pre-orders
-                    data = 11;
-                }
-                total_size = data > 10 ? 10 : data;
-                var product_quantity = $("#product_quantity");
-                product_quantity.empty();
-                for(var i=0;i<total_size;i++){
-                    var data_index =i+1;
-                    product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
-                }
+    $.ajax({
+        type: "GET",
+        url: "/api/loadProdQuantity",
+        data: {
+            data:size
+        },
+        success: function(data) {
+            var total_size = 0;
+            if(data < 1 || !data || (typeof data == "object" && !data.length)){
+                // if out of stock , set 10 for pre-orders
+                data = 11;
             }
-        });
-    }
+            total_size = data > 10 ? 10 : data;
+            var product_quantity = $("#product_quantity");
+            product_quantity.empty();
+            for(var i=0;i<total_size;i++){
+                var data_index =i+1;
+                product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
+            }
+        }
+    });
 }
 
 function addCart(event){
@@ -293,38 +290,36 @@ function addCart(event){
     }
 }
 function getPriceInfo(size){
-    if(typeof urlLoadSizeInfo !== "undefined"){
-        $.ajax({
-            type: "GET",
-            url: urlLoadSizeInfo,
-            data: {
-                data:size
-            },
-            success: function(data) {
-                $(".product_in_price span").text(data.total_sale);
-                $(".shoplist-stock-txt span").removeClass();
-                if(data.stock > 3)
-                {
-                    $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
-                }
-                else if(data.stock > 0 && data.stock < 4)
-                {
-                    $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
-                }else if( data.stock < 1){
-                    $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
-                }
-
-                if(data.stock > 0){
-                    $("#product_out_stock_btn").css("display","none");
-                    $("#product_addCart_btn").css("display","block");
-                }
-                else{
-                    $("#product_out_stock_btn").css("display","block");
-                    $("#product_addCart_btn").css("display","none");
-                }
+    $.ajax({
+        type: "GET",
+        url: "/api/loadSizeInfo",
+        data: {
+            data:size
+        },
+        success: function(data) {
+            $(".product_in_price span").text(data.total_sale);
+            $(".shoplist-stock-txt span").removeClass();
+            if(data.stock > 3)
+            {
+                $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
             }
-        });
-    }
+            else if(data.stock > 0 && data.stock < 4)
+            {
+                $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
+            }else if( data.stock < 1){
+                $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
+            }
+
+            if(data.stock > 0){
+                $("#product_out_stock_btn").css("display","none");
+                $("#product_addCart_btn").css("display","block");
+            }
+            else{
+                $("#product_out_stock_btn").css("display","block");
+                $("#product_addCart_btn").css("display","none");
+            }
+        }
+    });
 }
 function checkCartSubmit(){
     if(!$("#product_color").val()){
