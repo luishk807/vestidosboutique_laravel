@@ -229,11 +229,11 @@ class HomeController extends Controller
     public function loadSizeInfo(){
         $size_id=Input::get('data');
         $size = $this->sizes->find($size_id);
-        if($size["stock"] > 3)
+        if($size["stock"] > 1)
         {
             $size["stock_msg"]=__('general.product_title.in_stock');
         }
-        else if($size["stock"] > 0 && $size["stock"] < 4){
+        else if($size["stock"] == 1){
             $size["stock_msg"]=__('general.product_title.in_stock_number',['name'=>$size["stock"]]);
         }
         else if($size["stock"] < 1){
