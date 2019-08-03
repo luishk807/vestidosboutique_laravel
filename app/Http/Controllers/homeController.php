@@ -74,6 +74,13 @@ class HomeController extends Controller
         $data["languages"]=$this->languages->all();
         return view("terms",$data);
     }
+    public function privacyuse()
+    {
+        $data=[];
+        $data["page_title"]=__('general.page_header.privacy_use');
+        $data["languages"]=$this->languages->all();
+        return view("privacy",$data);
+    }
     public function setLocale($lang)
     {
         App::setLocale($lang);

@@ -79,6 +79,7 @@ return [
         'order_received'=>"Order Received",
         'error_page'=>"Error Page",
         'terms_use'=>"Terms of Use",
+        'privacy_use'=>"Privacy Terms",
     ],
     'order_section' =>[
         'order_updated'=>'order updated',

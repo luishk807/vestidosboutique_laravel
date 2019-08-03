@@ -82,6 +82,7 @@ return [
         'order_received'=>"Orden Recibida",
         'error_page'=>"Página de Error",
         'terms_use'=>"Terminos de Uso",
+        'privacy_use'=>"Politica de Privacidad",
     ],
     'order_section' =>[
         'order_updated'=>'Orden actualizado',

@@ -11,9 +11,8 @@
                         <ul class="list-unstyled">
                             <li><a class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.about') }}</a></li>
                             <li><a  class="vestidos-simple-link-white" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a></li>
-                            <li><a  class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.faqs') }}</a></li>
                             <li><a  class="vestidos-simple-link-white" href="{{ route('terms_use') }}">{{ __('header.terms') }}</a></li>
-                            <li><a  class="vestidos-simple-link-white" href="{{ route('about_page') }}">{{ __('header.privacy') }}</a></li>
+                            <li><a  class="vestidos-simple-link-white" href="{{ route('privacy_use') }}">{{ __('header.privacy') }}</a></li>
                         </ul>
 
                     </div>

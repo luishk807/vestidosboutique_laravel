@@ -25,6 +25,7 @@
     Route::get("/contact","homeController@contact")->name("viewContactPage");
     Route::post("/contact","homeController@sendEmail")->name("sendEmail");
     Route::get("/terms-use","homeController@termsuse")->name("terms_use");
+    Route::get("/privacy-use","homeController@privacyuse")->name("privacy_use");
     Route::get("/set_lang/{lang}",'homeController@setLocale')->name("set_language");
 
     Route::get("/cart",'userCartController@index')->name("cart_page");
