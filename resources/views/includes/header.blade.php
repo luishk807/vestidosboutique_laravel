@@ -165,7 +165,9 @@ $(document).ready(function(){
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
                             <ul class="nav-list">
                                 @foreach($events as $event)
+                                @if($event->set_menu)
                                 <li><a href="{{ route('shop_page',['type'=>'event','id'=>$event->id])}}">{{$event->name}}</a></li>
+                                @endif
                                 @endforeach
                             </ul>
                         </div>
