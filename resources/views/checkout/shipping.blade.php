@@ -171,7 +171,7 @@
                                             </td>
                                         </tr><!--end of cart session listing-->
                                        <!--start of total-->
-                                        @php( $cart_checkout_tax = $cart_checkout_total * $tax_info->tax )
+                                        @php( $cart_checkout_tax = $cart_checkout_total * ($tax_info->tax/100) )
                                         <tr class="subtotal">
                                             <td>
                                                 {{ __('general.cart_title.subtotal') }}

@@ -110,6 +110,7 @@ function openRadioContent(content){
     <input type="hidden" id="is_credit_card" name="is_credit_card" value="no">
     <div class="container admin-checkout-address">
         <div class="row address-row">
+            @if($main_config->allow_shipping)
             <div class="col shipping">
                 <h3>Shipping Address</h3>
                 <p>
@@ -121,6 +122,7 @@ function openRadioContent(content){
                     {{ $shipping_phone_number_2 }}
                 </p>
             </div><!--shipping-->
+            @endif
             <div class="col billing">
                 <h3>Billing Address</h3>
                 <p>
@@ -192,6 +194,7 @@ function openRadioContent(content){
                 ${{number_format($order_tax,'2','.',',')}}
             </div>
         </div>
+        @if($main_config->allow_shipping)
         <div class="row">
             <div class="col-md-10 header">
                 Shipping:
@@ -200,6 +203,7 @@ function openRadioContent(content){
                 ${{number_format($order_shipping,'2','.',',')}}
             </div>
         </div>
+        @endif
         <div class="row">
             <div class="col-md-10 header">
                 Grand Total:
@@ -215,10 +219,11 @@ function openRadioContent(content){
         <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" /> -->
         <div class="container billing-payment-section">
          @foreach($payment_types as $ptype_index=>$payment_type)
+         @if(!$payment_type->is_credit_card || ($payment_type->is_credit_card && $main_config->allow_credit_card))
         <div class="row button">
             <div class="col">
                 <input name="payment_type" value="{{ $payment_type->id }}" 
-                @if(empty($payment_type->description))
+                @if($payment_type->is_credit_card))
                 credit-card='yes'
                 @else
                 credit-card='no' 
@@ -239,12 +244,14 @@ function openRadioContent(content){
             @endif
             </div>
         </div>
+        @endif
         @endforeach
         </div>
         <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
         <button class="btn-block admin-btn-b checkout-button" type="submit" id="submit-button">Submit payment</button>
     </div>
 </form>
+@if($main_config->allow_credit_card)
 <script>
     var form = document.querySelector("#vestidos-checkout-form");
     braintree.dropin.create({
@@ -268,4 +275,5 @@ function openRadioContent(content){
         });
     });
   </script>
+@endif
 @endsection

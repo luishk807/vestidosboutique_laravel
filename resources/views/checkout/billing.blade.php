@@ -89,10 +89,10 @@ function openRadioContent(content){
                             <ul>
                             @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
                                 @if($checkout_menu["name"]==$checkout_header_key)
-                                <li class="active">
+                                <li class="active {{ isset($shipping_info) ? 'checkout-header-ship':'checkout-header-noship' }}">
                                     <div class="checkout-arrow-down"></div>
                                 @else
-                                <li>
+                                <li class="{{ isset($shipping_info) ? 'checkout-header-ship':'checkout-header-noship' }}">
                                 @endif
                                 @if(count($checkout_menu_prev_link)>0 && $checkout_menu_prev_link["name"]==$checkout_menu["name"])
                                 <a href="{{ $checkout_menu_prev_link['url'] }}">
@@ -117,6 +117,7 @@ function openRadioContent(content){
                             </span>
                         </div>
                     </div>
+                    @if(isset($shipping_info))
                     <div class="row" >
                         <div class="col text-center">
                             <table width="100%" class="shipping-info">
@@ -144,6 +145,7 @@ function openRadioContent(content){
                             </table>
                         </div>
                     </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-7">
                             <div>
@@ -224,10 +226,11 @@ function openRadioContent(content){
 
                                 <div class="container billing-payment-section">
                                     @foreach($payment_types as $ptype_index=>$payment_type)
+                                    @if(!$payment_type->is_credit_card || ($payment_type->is_credit_card && $main_config->allow_credit_card))
                                     <div class="row button">
                                         <div class="col">
                                             <input name="payment_type" value="{{ $payment_type->id }}" 
-                                            @if(empty($payment_type->description))
+                                            @if($payment_type->is_credit_card)
                                             credit-card='yes'
                                             @else
                                             credit-card='no' 
@@ -240,7 +243,7 @@ function openRadioContent(content){
                                     </div>
                                     <div class="row content" target-data="payment_content_{{ $ptype_index }}">
                                         <div class="col">
-                                        @if($payment_type->description)
+                                        @if(!$payment_type->is_credit_card)
                                         {{ $payment_type->description }}
                                         @else
                                             <div id="dropin-container"></div>
@@ -248,6 +251,7 @@ function openRadioContent(content){
                                         @endif
                                         </div>
                                     </div>
+                                    @endif
                                     @endforeach
                                 </div>
                                 <div id="vesti-load-oval"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
@@ -293,7 +297,7 @@ function openRadioContent(content){
                                             </td>
                                         </tr><!--end of cart session listing-->
                                        <!--start of total-->
-                                        @php( $cart_checkout_tax = $cart_checkout_total * $tax_info->tax )
+                                        @php( $cart_checkout_tax = $cart_checkout_total * ($tax_info->tax/100) )
                                         <tr class="subtotal">
                                             <td>
                                             {{ __('general.cart_title.subtotal') }}
@@ -325,11 +329,29 @@ function openRadioContent(content){
                                             {{ __('general.cart_title.order_total') }}
                                             </td>
                                             <td>
+                                                @if($main_config->allow_shipping)
+                                                ${{number_format(($cart_checkout_total + $cart_checkout_tax + $shipping_cost),'2','.',',')}}
+                                                @else
                                                 ${{number_format(($cart_checkout_total + $cart_checkout_tax),'2','.',',')}}
+                                                @endif
                                             </td>
                                         </tr>
                                     <!--end of total-->
                                     </tbody>
+                                </table>
+                                <table class="table">
+                                        <tr class="subtotal">
+                                            <td>
+                                                Page minimo 50% para proceder con la orden
+                                            </td>
+                                            <td>
+                                                @if($main_config->allow_shipping)
+                                                ${{number_format((($cart_checkout_total + $cart_checkout_tax + $shipping_cost) /2),'2','.',',')}}
+                                                @else
+                                                ${{number_format((($cart_checkout_total + $cart_checkout_tax) /2),'2','.',',')}}
+                                                @endif
+                                            </td>
+                                        </tr>
                                 </table>
                         </div><!-- end of load session-->
                     </div>
@@ -350,6 +372,7 @@ function openRadioContent(content){
     </div>
 </div>
 </div>
+@if($main_config->allow_credit_card)
 <script>
     var form = document.querySelector("#vestidos-checkout-form");
     braintree.dropin.create({
@@ -375,4 +398,5 @@ function openRadioContent(content){
         
     });
   </script>
+@endif
 @endsection

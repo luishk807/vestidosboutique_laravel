@@ -13,6 +13,7 @@ use App\vestidosCountries as Countries;
 use App\vestidosGenders as Genders;
 use App\vestidosLanguages as Languages;
 use App\vestidosUserAddresses as Addresses;
+use App\vestidosMainConfigs as MainConfig;
 use App\vestidosColors as Colors;
 use App\vestidosSizes as Sizes;
 use App\vestidosTaxInfos as Taxes;
@@ -23,7 +24,7 @@ use Session;
 class userCartController extends Controller
 {
     //
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users,Colors $colors, Sizes $sizes, Taxes $taxes)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users,Colors $colors, Sizes $sizes, Taxes $taxes, MainConfig $main_config)
     {
       //  $this->middleware('auth');
       $this->brands=$brands;
@@ -36,14 +37,15 @@ class userCartController extends Controller
       $this->addresses=$addresses;
       $this->colors=$colors;
       $this->sizes=$sizes;
+      $this->main_config = $main_config->first();
+      $this->tax_info = $taxes->first();
       $this->taxes=$taxes;
     }
     public function index(){
         $data=[];
         $data["page_title"]=__('header.cart');
         $cart = Session::get("vestidos_shop");
-        $tax = $this->taxes->find(1);
-        $tax_amt = (float) $tax->tax;
+        $tax_amt = $this->tax_info->tax / 100;
         $cart_remove="";
         if(!empty($cart)){
             for($i=0;$i<sizeof($cart);$i++){
@@ -66,6 +68,7 @@ class userCartController extends Controller
         Session::put("vestidos_shop",$cart);
         $data["prev_shop"]=str_replace(url('/'), '', url()->previous());
         $data["subtotal"]=0;
+        $data["tax_info"]=$this->tax_info;
         $data["tax"]=$tax_amt;
         return view("cart",$data);
     }
@@ -80,8 +83,7 @@ class userCartController extends Controller
         $color = $this->colors->find($color_id);
         $size_id = (int)$request->input("product_size");
         $size = $this->sizes->find($size_id);
-        $tax = $this->taxes->find(1);
-        $tax_amt = (float) $tax->tax;
+        $tax_amt = $this->tax_info->tax / 100;
         $found=false;
         if(Session::has("vestidos_shop")){
           $cart=Session::get("vestidos_shop");

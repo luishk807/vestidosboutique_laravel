@@ -30,12 +30,14 @@
         <td colspan="2">
             <table width="100%">
                 <tr>
-                    <td width="50%" align="left" valign="top">
+                    <td width="{{ $order_detail['order']['allow_shipping']=='true'? '50%' : '100%'}}" align="left" valign="top">
                         <strong>Billing Address</strong>
                     </td>
+                    @if($order_detail['order']['allow_shipping']=="true")
                     <td width="50%" align="left" valign="top">
                         <strong>Shipping Address</strong>
                     </td>
+                    @endif
                 </tr>
             </table>
         </td>
@@ -44,20 +46,22 @@
         <td colspan="2">
             <table width="100%">
                 <tr>
+                <td width="{{ $order_detail['order']['allow_shipping']=='true'? '50%' : '100%'}}" align="left" valign="top">
+                    {{ $order_detail["order"]["billing_name"] }}<br/>
+                    {{ $order_detail["order"]["billing_address_1"] }}<br/>
+                    {{ $order_detail["order"]["billing_address_2"] }}<br/>
+                    {{ $order_detail["order"]["billing_province"] }} {{ $order_detail["order"]["billing_district"] }} {{ $order_detail["order"]["billing_corregimiento"] }} {{ $order_detail["order"]["billing_zip_code"] }}<br/>
+                    {{ $order_detail["order"]["billing_country"] }}<br/>
+                </td>
+                @if($order_detail['order']['allow_shipping']=="true")
                 <td width="50%" align="left" valign="top">
-                        {{ $order_detail["order"]["shipping_name"] }}<br/>
-                        {{ $order_detail["order"]["shipping_address_1"] }}<br/>
-                        {{ $order_detail["order"]["shipping_address_2"] }}<br/>
-                        {{ $order_detail["order"]["shipping_province"] }} {{ $order_detail["order"]["shipping_district"] }} {{ $order_detail["order"]["shipping_corregimiento"] }} {{ $order_detail["order"]["shipping_zip_code"] }}<br/>
-                        {{ $order_detail["order"]["shipping_country"] }}<br/>
-                    </td>
-                    <td width="50%" align="left" valign="top">
-                        {{ $order_detail["order"]["billing_name"] }}<br/>
-                        {{ $order_detail["order"]["billing_address_1"] }}<br/>
-                        {{ $order_detail["order"]["billing_address_2"] }}<br/>
-                        {{ $order_detail["order"]["billing_province"] }} {{ $order_detail["order"]["billing_district"] }} {{ $order_detail["order"]["billing_corregimiento"] }} {{ $order_detail["order"]["billing_zip_code"] }}<br/>
-                        {{ $order_detail["order"]["billing_country"] }}<br/>
-                    </td>
+                    {{ $order_detail["order"]["shipping_name"] }}<br/>
+                    {{ $order_detail["order"]["shipping_address_1"] }}<br/>
+                    {{ $order_detail["order"]["shipping_address_2"] }}<br/>
+                    {{ $order_detail["order"]["shipping_province"] }} {{ $order_detail["order"]["shipping_district"] }} {{ $order_detail["order"]["shipping_corregimiento"] }} {{ $order_detail["order"]["shipping_zip_code"] }}<br/>
+                    {{ $order_detail["order"]["shipping_country"] }}<br/>
+                </td>
+                @endif
                 </tr>
             </table>
         </td>
@@ -120,6 +124,7 @@
                         ${{ number_format($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"],'2','.',',') }}
                     </td>
                 </tr>
+                @if($order_detail['order']['allow_shipping']=="true")
                 <tr>
                     <td colspan="3" align="right">
                         <strong>Shipping</strong>
@@ -128,12 +133,17 @@
                         ${{ number_format($order_detail["order"]["shipping_total"],'2','.',',') }}
                     </td>
                 </tr>
+                @endif
                 <tr>
                     <td colspan="3" align="right">
                         <strong>Grandtotal</strong>
                     </td>
                     <td align="right">
+                        @if($order_detail['order']['allow_shipping']=="true")
                         ${{ number_format($order_detail["order"]["order_total"] + ($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"]) + $order_detail["order"]["shipping_total"],'2','.',',') }}
+                        @else
+                        ${{ number_format($order_detail["order"]["order_total"] + ($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"]),'2','.',',') }}
+                        @endif
                     </td>
                 </tr>
             </table>

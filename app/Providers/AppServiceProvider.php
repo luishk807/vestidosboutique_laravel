@@ -13,6 +13,7 @@ use App\vestidosBrands as Brands;
 use App\vestidosEvents as Events;
 use App\vestidosProductTypes as ProductTypes;
 use App\vestidosProductEvents as ProductEvents;
+use App\vestidosMainConfigs as MainConfig;
 use Braintree;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Braintree\Configuration::merchantId(env('BRAINTREE_MERCHANT_ID'));
         Braintree\Configuration::publicKey(env('BRAINTREE_PUBLIC_KEY'));
         Braintree\Configuration::privateKey(env('BRAINTREE_PRIVATE_KEY'));
-        if (! $this->app->runningInConsole()) {
+        if (!$this->app->runningInConsole()) {
             // App is not running in CLI context
             // Do HTTP-specific stuff here
             view()->share('categories', Categories::all());
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
             view()->share('product_types', ProductTypes::all());
             view()->share('product_events', ProductEvents::all());
             view()->share('events', Events::all());
+            view()->share('main_config', MainConfig::first());
         }
     }
 

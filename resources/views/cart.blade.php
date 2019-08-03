@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                 <div class="vesti_in_btn_pnl">
-                                    <a class="btn-block vesti_in_btn_oval" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
+                                    <a class="btn-block vesti_in_btn_oval" href="{{ route('checkout_show_billing') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                             </div>
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                 <div class="vesti_in_btn_pnl">
-                                    <a class="btn-block vesti_in_btn_oval" href="{{ route('checkout_show_shipping') }}">{{ __('buttons.proceed_checkout') }}</a>
+                                    <a class="btn-block vesti_in_btn_oval" href="{{ $main_config->allow_shipping ? route('checkout_show_shipping') : route('checkout_show_billing') }}">{{ __('buttons.proceed_checkout') }}</a>
                                 </div>
                             </div>
                         </div>

@@ -24,7 +24,7 @@ class userOrderController extends Controller
     //
     public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax){
         $this->statuses=$vestidosStatus;
-        $this->tax_info = $tax->find(1);
+        $this->tax_info = $tax->first();
         $this->orders=$orders;
         $this->users=$users;
         $this->products=$products;

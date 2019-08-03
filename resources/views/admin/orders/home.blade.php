@@ -31,14 +31,14 @@
                         <div class="col-md-2">Client</div>
                         <div class="col-md-2">Order Placed</div>
                         <div class="col-md-2">Total</div>
-                        <div class="col-md-2">Ship To</div>
+                        <div class="col-md-2">Payment Type</div>
                         <div class="col-md-4 text-right">Order Number:{{$order->order_number}}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-2">{{$order->client->getFullName()}}</div>
                         <div class="col-md-2">{{$order->purchase_date}}</div>
                         <div class="col-md-2">${{$order->order_total + $order->order_tax + $order->order_shipping }}</div>
-                        <div class="col-md-2">{{ $order->shipping_zip_code }}</div>
+                        <div class="col-md-2">{{ $order->getPaymentType->name }}</div>
                         <div class="col-md-4 order_action_label text-right">
                             <!--actions go here-->
                             <span><a href="{{ route('admin_confirm_delete_order',['order_id'=>$order->id])}}">Delete</a></span>
@@ -84,8 +84,10 @@
                             <h4>{{$order_product->getProduct->products_name}}</h4><br/>
                             <small>by {{$order_product->getProduct->getBrand->name}}</small><br/>
                             <small>{{$order_product->getProduct->product_model}}</small><br/>
-                            {{$order_product->getProduct->product_detail}}<br/>
-                            {{$order_product->getProduct->total_rent}}<br/>
+                            {{$order_product->getProduct->product_detail}}<br/><br/>
+                            Quantity:{{$order_product->quantity}}<br/>
+                            Total:{{$order_product->getSize->total_sale}}<br/>
+                            Color Name: {{$order_product->getColor->name}}<br/>
                         </div>
                     </div>
                 </div>

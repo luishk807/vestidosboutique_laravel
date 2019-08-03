@@ -1,8 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-
-</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
     <div class="row">
@@ -15,10 +12,10 @@
                                 <ul>
                                 @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
                                     @if($checkout_menu["name"]==$checkout_header_key)
-                                    <li class="active">
+                                    <li class="active {{ $main_config->allow_shipping ? 'checkout-header-ship':'checkout-header-noship' }}">
                                         <div class="checkout-arrow-down"></div>
                                     @else
-                                    <li>
+                                    <li class="{{ $main_config->allow_shipping ? 'checkout-header-ship':'checkout-header-noship' }}">
                                     @endif
                                     @if($checkout_menu_prev_link && $checkout_menu["name"]==$checkout_header_key)
                                     <a href="{{ $checkout_menu_prev_link }}">
@@ -87,6 +84,7 @@
                                                         ${{number_format($last_order->order_tax,'2','.',',')}}
                                                     </div>
                                                 </div>
+                                                @if($main_config->allow_shipping)
                                                 <div class="row header2">
                                                     <div class="col">
                                                         {{ __('general.cart_title.shipping') }}
@@ -95,19 +93,25 @@
                                                         ${{number_format($last_order->order_shipping,'2','.',',')}}
                                                     </div>
                                                 </div>
+                                                @endif
                                                 <div class="row header3">
                                                     <div class="col">
                                                         {{ __('general.cart_title.grand_total') }}
                                                     </div>
                                                     <div class="col">
-                                                        ${{number_format($last_order->order_tax,'2','.',',')}}
+                                                        @if($main_config->allow_shipping)
+                                                            ${{number_format(($last_order->order_tax + $last_order->order_total + $last_order->order_shipping),'2','.',',')}}
+                                                        @else
+                                                            ${{number_format(($last_order->order_tax + $last_order->order_total),'2','.',',')}}
+                                                        @endif
+
                                                     </div>
                                                 </div>
                                                 <!--end of header-->
                                                 <!--listing products-->
                                                 @foreach($last_order->products as $product)
-                                                <div class="row checkout-confirm-order-details-data">
-                                                    <div class="col-lg-2">
+                                                <div class="row checkout-confirm-order-details-data my-1">
+                                                    <div class="col-lg-2 col-md-2 col-sm-12">
                                                             <img class="img-fluid" 
                                                             @if($product->getProduct->images->count()>0)
                                                             src="{{ asset('/images/products') }}/{{ $product->getProduct->images->first()->img_url }}"
@@ -116,12 +120,20 @@
                                                             @endif
                                                              alt width="100%"/>
                                                     </div>
-                                                    <div class="col-lg-7">
-                                                        <span class="title">{{$product->getProduct->products_name}}</span><br/>
-                                                        {{ __('general.vendor') }}:{{ $product->getProduct->vendor->first_name." ".$product->getProduct->vendor->last_name}}
+                                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                                        <span class="title">{{$product->getProduct->products_name}}</span>
                                                     </div>
-                                                    <div class="col-lg-3">
-                                                        ${{number_format($product->getProduct->total_rent,'2','.',',')}}
+                                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                                        {{ $product->getColor->name }}
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-12">
+                                                        {{ $product->getSize->name }}
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-12">
+                                                        {{ $product->quantity }}
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                                        ${{number_format($product->getSize->total_sale,'2','.',',')}}
                                                     </div>
                                                 </div>
                                                 @endforeach
