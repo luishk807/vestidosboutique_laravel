@@ -88,6 +88,7 @@
                             Quantity:{{$order_product->quantity}}<br/>
                             Total:{{$order_product->getSize->total_sale}}<br/>
                             Color Name: {{$order_product->getColor->name}}<br/>
+                            Size: {{$order_product->getSize->name}}<br/>
                         </div>
                     </div>
                 </div>
