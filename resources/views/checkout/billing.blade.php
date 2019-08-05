@@ -342,7 +342,7 @@ function openRadioContent(content){
                                 <table class="table">
                                         <tr class="subtotal">
                                             <td>
-                                                Page minimo 50% para proceder con la orden
+                                                {{ __('general.cart_title.min_payment') }}
                                             </td>
                                             <td>
                                                 @if($main_config->allow_shipping)

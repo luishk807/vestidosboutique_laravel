@@ -174,6 +174,7 @@ return [
         'item_added'=>"Item Added",
         'cart_updated'=>"Cart Updated",
         'cart_error'=>"Ops!, Something Happened!",
+        'min_payment'=>"Minimum payment of 50% is required to proceed",
     ],
     'rate_title'=>[
         'your_rate'=>"Your Rate",
