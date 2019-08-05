@@ -35,4 +35,5 @@ return [
     'product'=>"Products Page",
     'product_type'=>"Product Type",
     'confirmation'=>"Confirmation",
+    'admin_home_config'=>"Main Configuration",
 ];

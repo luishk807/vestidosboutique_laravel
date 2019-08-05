@@ -21,6 +21,13 @@
         <small class="error">{{$errors->first("description")}}</small>
     </div>
     <div class="form-group">
+        <label for="paymentDescription">Is this credit card?:</label>
+        <select class="form-control"  name="is_credit_card" id="is_credit_card">
+            <option value="false" selected>No</option>
+            <option value="true">Yes</option>
+        </select>
+    </div>
+    <div class="form-group">
         <label for="paymentStatus">Status:</label>
         <select class="custom-select" name="status" id="paymentStatus">
             @foreach($statuses as $status)

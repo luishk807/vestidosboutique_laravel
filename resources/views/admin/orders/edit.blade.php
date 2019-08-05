@@ -5,6 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
                 <ul class="navbar-nav">
+                    @if($order_shipping)
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
                             <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>1]) }}">Edit</a>]</p>
@@ -16,6 +17,7 @@
                             Phone 2:{{$order_shipping->phone_number_2}}
                         </div>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
                             <p><span class="title">Billing Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>2]) }}">Edit</a>]</p>

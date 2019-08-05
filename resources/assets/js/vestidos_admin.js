@@ -142,7 +142,7 @@ function loadSizes(color,ind){
                 var sizeContainer = $("#size_drop_"+ind);
                 sizeContainer.empty();
                 sizeContainer.append("<option value=''>Select Size</option>");
-                $.each(data, function(index,element){
+                $.each(data.colors, function(index,element){
                     sizeContainer.append("<option value='"+element.id+"'>"+element.name+"</option>");
                 });
             }

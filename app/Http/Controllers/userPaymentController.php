@@ -26,6 +26,7 @@ use App\vestidosSizes as Sizes;
 use App\vestidosProducts as Products;
 use App\vestidosPaymentHistories as PaymentHistories;
 use App\vestidosPaymentTypes as PaymentTypes;
+use App\vestidosMainConfigs as MainConfig;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -36,7 +37,8 @@ use Auth;
 class userPaymentController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes){
+    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes, MainConfig $main_config){
+        $this->main_config = $main_config->first();
         $this->country=$countries;
         $this->users = $users;
         $this->order_products = $order_products;
@@ -57,7 +59,7 @@ class userPaymentController extends Controller
         $this->provinces=$provinces;
         $this->districts=$districts;
         $this->corregimientos=$corregimientos;
-        $this->tax_info = $tax->find(1);
+        $this->tax_info = $tax->first();
     }
     public function showShipping(){
         if(empty(Session::has("vestidos_shop"))){
@@ -118,9 +120,6 @@ class userPaymentController extends Controller
             );
         }
         else{
-
-
-
             $this->validate($request,[
                 "shipping_name"=>"required",
                 "shipping_address_1"=>"required",
@@ -176,20 +175,35 @@ class userPaymentController extends Controller
         return redirect()->route("checkout_show_billing")->with($data);
     }
     public function getCheckoutMenu(){
-        return array(
-            array(
-                "name"=>__('general.cart_title.shipping'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.billing'),
-                "url"=>route("checkout_show_shipping")
-            ),
-            array(
-                "name"=>__('general.cart_title.confirmation'),
-                "url"=>route("checkout_show_shipping")
-            )
-        );
+        if($this->main_config->allow_shipping){
+            $options = array(
+                array(
+                    "name"=>__('general.cart_title.shipping'),
+                    "url"=>route("checkout_show_shipping")
+                ),
+                array(
+                    "name"=>__('general.cart_title.billing'),
+                    "url"=>route("checkout_show_shipping")
+                ),
+                array(
+                    "name"=>__('general.cart_title.confirmation'),
+                    "url"=>route("checkout_show_shipping")
+                )
+            );
+        }else{
+            $options = array(
+                array(
+                    "name"=>__('general.cart_title.billing'),
+                    "url"=>route("checkout_show_shipping")
+                ),
+                array(
+                    "name"=>__('general.cart_title.confirmation'),
+                    "url"=>route("checkout_show_shipping")
+                )
+            );
+        };
+
+        return $options;
     }
     public function showBilling(Request $request){
         if(empty(Session::has("vestidos_shop"))){
@@ -207,22 +221,26 @@ class userPaymentController extends Controller
 
         $data["checkout_menus"]=$this->getCheckoutMenu();
         $cart = $request->session()->get('cart_session');
-        $shipping_cost=$this->shipping_lists->find($cart["shipping_method"]);
         $data["payment_types"]=$this->payment_types->where("status",1)->get();
-        $data["shipping_cost"]=$shipping_cost->total;
         $data["tax_info"]=$this->tax_info;
-        $data["shipping_info"] = $cart;
-        $data["shipping_method"]=$this->shipping_lists->find($cart["shipping_method"]);
+        if($this->main_config->allow_shipping){
+            $shipping_cost=$this->shipping_lists->find($cart["shipping_method"]);
+            $data["shipping_cost"]=$shipping_cost->total;
+            $data["shipping_info"] = $cart;
+            $data["shipping_method"]=$this->shipping_lists->find($cart["shipping_method"]);
+            $data["shipping_lists"]=$this->shipping_lists->all();
+        }
+        $data["main_config"]=$this->main_config;
         $data["provinces"]=$this->provinces->all();
         $data["address_id"]=$request->input("address_id");
         $data["checkout_header_key"]=__('general.cart_title.billing');
         $data["checkout_btn_name"]=__('buttons.submit_payment');
-        $data["shipping_lists"]=$this->shipping_lists->all();
+
         return view("/checkout/billing",$data);
     }
     public function processPayment(Request $request){
         //if no session is available, redirect
-        if(empty($request->session()->has('cart_session'))){
+        if($this->main_config->allow_shipping && empty($request->session()->has('cart_session'))){
             return redirect()->back()->withErrors([
                 'required' => __('general.empty_msg.cart')
             ]);
@@ -232,23 +250,24 @@ class userPaymentController extends Controller
         $user = $this->users->find($user_id);
         $has_address = $user->getAddresses->first() ? true : false; 
 
-        $cart_address = $request->session()->get('cart_session');
-
-        $data_shipping["name"]=$cart_address["shipping_name"];
-        $data_shipping["address_1"]=$cart_address["shipping_address_1"];
-        $data_shipping["address_2"]=$cart_address["shipping_address_2"];
-        $data_shipping["district_id"]=$cart_address["shipping_district_id"];
-        $data_shipping["province_id"]=$cart_address["shipping_province_id"];
-        $data_shipping["corregimiento_id"]=$cart_address["shipping_corregimiento_id"];
-        $data_shipping["country_id"]=$cart_address["shipping_country_id"];
-        $data_shipping["zip_code"]=$cart_address["shipping_zip_code"];
-        $data_shipping["phone_number_1"]=$cart_address["shipping_phone_number_1"];
-        $data_shipping["phone_number_2"]=$cart_address["shipping_phone_number_2"];
-        $data_shipping["email"]=$cart_address["shipping_email"];
-        $data_shipping["address_type"]=1;
-
-
-        $shipping_list = $this->shipping_lists->find($cart_address["shipping_method"]);
+        if($this->main_config->allow_shipping){
+            $cart_address = $request->session()->get('cart_session');
+            $data_shipping["name"]=$cart_address["shipping_name"];
+            $data_shipping["address_1"]=$cart_address["shipping_address_1"];
+            $data_shipping["address_2"]=$cart_address["shipping_address_2"];
+            $data_shipping["district_id"]=$cart_address["shipping_district_id"];
+            $data_shipping["province_id"]=$cart_address["shipping_province_id"];
+            $data_shipping["corregimiento_id"]=$cart_address["shipping_corregimiento_id"];
+            $data_shipping["country_id"]=$cart_address["shipping_country_id"];
+            $data_shipping["zip_code"]=$cart_address["shipping_zip_code"];
+            $data_shipping["phone_number_1"]=$cart_address["shipping_phone_number_1"];
+            $data_shipping["phone_number_2"]=$cart_address["shipping_phone_number_2"];
+            $data_shipping["email"]=$cart_address["shipping_email"];
+            $data_shipping["address_type"]=1;
+            $shipping_list = $this->shipping_lists->find($cart_address["shipping_method"]);
+            $data["order_shipping_type"]=$shipping_list->id;
+            $data["order_shipping"]=$shipping_list->total;
+        }
         $province_id=null;
         $province_name=null;
         $city=null;
@@ -350,9 +369,9 @@ class userPaymentController extends Controller
         for($i=0;$i<sizeof($cart);$i++){
             $total += $cart[$i]["quantity"] * $cart[$i]["total"];
         }
-        $tax = $this->tax_info->tax;
+        $tax = $this->tax_info->tax / 100;
         $subtotal = ($total * $tax) + $total;
-        $grand_total = $subtotal+$shipping_list->total;
+        $grand_total = $this->main_config->allow_shipping ? $subtotal+$shipping_list->total : $subtotal;
         
         //PREPARE DATA
         $data["user_id"]=$user_id;
@@ -363,8 +382,7 @@ class userPaymentController extends Controller
 
         $data["order_total"]=$total;
         $data["order_tax"]=$total * $tax;
-        $data["order_shipping_type"]=$shipping_list->id;
-        $data["order_shipping"]=$shipping_list->total;
+
         $data["ip"]=$request->ip();
         $data["created_at"]=$today;
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
@@ -390,6 +408,7 @@ class userPaymentController extends Controller
                     "product_id"=>$cart[$i]["id"],
                     "quantity"=>$cart[$i]["quantity"],
                     "total"=>$cart[$i]["total"],
+                    "color_id"=>$cart[$i]["color_id"],
                     "color_id"=>$cart[$i]["color_id"],
                     "size_id"=>$cart[$i]["size_id"],
                     "status"=>9,
@@ -458,10 +477,10 @@ class userPaymentController extends Controller
 
                     
                     //SEND EMAIL
-                    $ds_country = $this->country->find($cart_address["shipping_country_id"]);
-                    $order_detail=[
-                        "user"=>$this->users->find($user_id),
-                        "order"=>array(                        
+
+                    if($this->main_config->allow_shipping){
+                        $ds_country = $this->country->find($cart_address["shipping_country_id"]);
+                        $package = array(                        
                             "order_number"=>$order_number,
                             "purchase_date"=>$today,
                             "shipping_name"=>$cart_address["shipping_name"],
@@ -475,6 +494,7 @@ class userPaymentController extends Controller
                             "shipping_phone_number_1"=>$cart_address["shipping_phone_number_1"],
                             "shipping_phone_number_2"=>$cart_address["shipping_phone_number_2"],
                             "shipping_email"=>$cart_address["shipping_email"],
+                            "shipping_total"=>$shipping_list->total,
                             "billing_name"=>$data_billing["name"],
                             "billing_address_1"=>$data_billing["address_1"],
                             "billing_address_2"=>$data_billing["address_2"],
@@ -490,8 +510,33 @@ class userPaymentController extends Controller
                             "order_total"=>$total,
                             "order_tax"=>$tax,
                             "status"=>$get_order->getStatusName->name,
-                            "shipping_total"=>$shipping_list->total
-                        )
+                            "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
+                        );
+                    }else{
+                        $package = array(                        
+                            "order_number"=>$order_number,
+                            "purchase_date"=>$today,
+                            "billing_name"=>$data_billing["name"],
+                            "billing_address_1"=>$data_billing["address_1"],
+                            "billing_address_2"=>$data_billing["address_2"],
+                            "billing_district"=>$billing_district,
+                            "billing_province"=>$billing_province,
+                            "billing_corregimiento"=>$billing_corregimiento,
+                            "billing_country"=>$billing_country,
+                            "billing_zip_code"=>$data_billing["zip_code"],
+                            "billing_phone_number_1"=>$data_billing["phone_number_1"],
+                            "billing_phone_number_2"=>$data_billing["phone_number_2"],
+                            "billing_email"=>$data_billing["email"],
+                            "products"=>$data_products_email,
+                            "order_total"=>$total,
+                            "order_tax"=>$tax,
+                            "status"=>$get_order->getStatusName->name,
+                            "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
+                        );
+                    }
+                    $order_detail=[
+                        "user"=>$this->users->find($user_id),
+                        "order"=>$package
                     ];
                     
                     $email_msg = [];
@@ -557,7 +602,7 @@ class userPaymentController extends Controller
             $data["thankyou_img"]="close_2.svg";
             $data["thankyou_status"]=false;
         }
-        return view("/checkout/confirmation",$data);
+       return view("/checkout/confirmation",$data);
     }
     
 }

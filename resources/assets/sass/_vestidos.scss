@@ -1412,10 +1412,15 @@ text-align:left;
   padding: 0px;
   margin: 0px;
 }
+.checkout-header-ship{
+  width: 33.33%;
+}
+.checkout-header-noship{
+  width: 50%;
+}
 .checkout-header ul li,
 .checkout-header ul li.active{
   float: left;
-  width: 33.33%;
   text-align: center;
   margin: 10px 0px 30px 0px;
   border-top: $vesti-light-bars;
@@ -1441,6 +1446,10 @@ text-align:left;
 }
 .checkout-header ul li:last-child{
   border-right:$vesti-light-bars;
+}
+.checkout-header .checkout-arrow-down,
+.checkout-header .checkout-arrow-down-b{
+  position: absolute;
 }
 .checkout-cart-list-cell .info-data ul li{
  display:inline-block;
@@ -1468,10 +1477,6 @@ text-align:left;
 }
 .checkout-shipping-method-list{
   margin-top:60px;
-}
-.checkout-header .checkout-arrow-down,
-.checkout-header .checkout-arrow-down-b{
-  position: absolute;
 }
 .subtotal td:nth-child(1),
 .grand-total td:nth-child(1){

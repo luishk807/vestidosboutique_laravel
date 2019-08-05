@@ -163,7 +163,7 @@ return [
         'order'=>"Order | Orders",
         'order_total'=>"Order Total",
         'shipping_handling'=>"Shipping Handling",
-        'estimated_tax'=>"Estimated Tax to be collected",
+        'estimated_tax'=>"Tax",
         'total_price'=>"Total Price",
         'order_total'=>"Total",
         'grand_total'=>"Grand Total",

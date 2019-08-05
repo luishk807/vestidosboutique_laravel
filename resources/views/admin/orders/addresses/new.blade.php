@@ -19,6 +19,7 @@
     <input type="hidden" value="{{ url('api/loadStates') }}" id="loadStateUrl">
     <input type="hidden" value="{{ url('api/loadDistricts') }}" id="loadDistrictUrl">
     <input type="hidden" value="{{ url('api/loadCorregimientos') }}" id="loadCorregimientoUrl">
+    @if($main_config->allow_shipping)
     <div class="container admin-address-container">
         <div class="row container-title">
             <div class="col header">
@@ -38,7 +39,9 @@
             </div>
         </div>
     </div>
+    @endif
     @foreach($address_types as $addressindex=>$address_type)
+    @if($address_type->id != '1' || ($address_type->id == '1' && $main_config->allow_shipping))
     <input type="hidden" name="addresses[{{$addressindex}}][address_type]" value="{{ $address_type->id }}"/>
     <div class="container admin-address-container">
         <div class="row container-data row-even">
@@ -138,7 +141,7 @@
             </div><!--end of form cols-->
         </div>
     </div>
-
+    @endif
     
     @endforeach
     <div class="container">

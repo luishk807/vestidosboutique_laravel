@@ -108,7 +108,7 @@ $(document).ready(function(){
                                </div>
                                <div class="row cart-top-buttons">
                                    <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('cart_page') }}">{{ __('header.cart') }}</a></div>
-                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ route('checkout_show_shipping') }}">{{ __('header.checkout') }}</a></div>
+                                   <div class="col"><a class="btn-block vesti_in_btn_b" href="{{ $main_config->allow_shipping ? route('checkout_show_shipping') : route('checkout_show_billing') }}">{{ __('header.checkout') }}</a></div>
                                </div>
                                
                            </div>

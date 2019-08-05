@@ -48,6 +48,7 @@ class adminPaymentTypesController extends Controller
             "description"=>"required",
             "status"=>"required",
         ]);
+        $data["is_credit_card"]=$request->input("is_credit_card")=="true"?true:false;
         $data["created_at"]=carbon::now();
         $this->payment_types->insert($data);
         return redirect()->route("admin_payments");
@@ -65,10 +66,9 @@ class adminPaymentTypesController extends Controller
         $payment_type = $this->payment_types->find($payment_type_id);
         $this->validate($request,[
             "name"=>"required",
-            "description"=>"required",
             "status"=>"required",
         ]);
-        
+        $payment_type->is_credit_card = $request->input("is_credit_card")=="true"?true:false;
         $payment_type->name = $request->input("name");
         $payment_type->description = $request->input("description");
         $payment_type->status = $request->input("status");

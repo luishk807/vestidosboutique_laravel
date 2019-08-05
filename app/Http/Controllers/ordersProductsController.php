@@ -13,6 +13,7 @@ use App\vestidosCountries as Countries;
 use Illuminate\Support\Arr;
 use App\vestidosTaxInfos as Tax;
 use Illuminate\Support\Facades\Input;
+use App\vestidosMainConfigs as MainConfig;
 use App\vestidosUserAddresses as Addresses;
 use App\vestidosShippingLists as ShippingLists;
 use App\vestidosColors as Colors;
@@ -22,8 +23,9 @@ use Session;
 class ordersProductsController extends Controller
 {
     //
-    public function __construct(Countries $countries, Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,Tax $tax,ShippingLists $shippingLists,Colors $colors, Sizes $sizes){
-        $this->tax_info = $tax->find(1);
+    public function __construct(Countries $countries, Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,Tax $tax,ShippingLists $shippingLists,Colors $colors, Sizes $sizes, MainConfig $main_config){
+        $this->tax_info = $tax->first();
+        $this->main_config = $main_config->first();
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -57,7 +59,7 @@ class ordersProductsController extends Controller
     }
     public function createOrderProducts(Request $request){
         $data=[];
-        $tax = $this->tax_info->tax;
+        $tax = $this->tax_info->tax / 100;
         $subtotal = 0;
         if(Session::has("vestidos_admin_shop")){
             $data=Session::get("vestidos_admin_shop");
@@ -107,11 +109,11 @@ class ordersProductsController extends Controller
         // echo "<pre>";
         // print_r($order_p);
         // echo "</pre>";
-        $shipping_list =$data["shipping_list"];
+        $shipping_list=$this->main_config->allow_shipping ? $data["shipping_list"] : null;
         $data["order_total"]=$subtotal;
         $data["order_tax"]=$subtotal * $tax;
-        $data["order_shipping"]=$shipping_list->total;
-        $data["grand_total"]=$subtotal + ($subtotal * $tax) + $shipping_list->total;
+        $data["order_shipping"]=$this->main_config->allow_shipping ? $shipping_list->total : null;
+        $data["grand_total"]=$this->main_config->allow_shipping ? $subtotal + ($subtotal * $tax) + $shipping_list->total : $subtotal + ($subtotal * $tax);
         $data["products"]=$order_p;
         Session::forget('vestidos_admin_shop');
         Session::put('vestidos_admin_shop',$data);

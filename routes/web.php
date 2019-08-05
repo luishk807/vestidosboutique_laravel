@@ -112,6 +112,9 @@
                     Route::get("/edit",'adminUsersController@showUpdateAdmin')->name("admin_editadmin");
                     Route::post("/edit",'adminUsersController@updateAdmin')->name("admin_updateadmin");
                 });
+                // Admin Main Configuration
+                Route::get('/show_home_config','adminHomeConfigController@home')->name("admin_home_config");
+                Route::post('/save_home_config','adminHomeConfigController@saveHomeConfig')->name("admin_home_config_save");
                  //Admin AdminProductType
                  Route::prefix("product_types")->group(function(){
                     Route::get('/','adminProductTypesController@index')->name("admin_product_types");
