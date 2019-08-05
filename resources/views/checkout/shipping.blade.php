@@ -182,7 +182,7 @@
                                         </tr>
                                         <tr class="subtotal">
                                             <td>
-                                                {{ __('general.product_title.tax') }}
+                                                {{ __('general.product_title.tax') }} {{ $tax_info->tax + 0 }}&#37;
                                             </td>
                                             <td>
                                                 ${{number_format($cart_checkout_tax,'2','.',',')}}

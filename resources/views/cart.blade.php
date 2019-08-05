@@ -128,7 +128,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                        {{ __('general.product_title.tax') }}
+                                        {{ __('general.product_title.tax') }} {{ $tax_info->tax + 0 }}&#37;
                                         </div>
                                         <div class="col">
                                             ${{ number_format($taxtotal,2) }}

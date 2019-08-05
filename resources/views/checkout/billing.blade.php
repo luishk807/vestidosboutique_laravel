@@ -308,7 +308,7 @@ function openRadioContent(content){
                                         </tr>
                                         <tr class="subtotal">
                                             <td>
-                                            {{ __('general.cart_title.estimated_tax') }}
+                                            {{ __('general.cart_title.estimated_tax') }} {{ $tax_info->tax + 0 }}&#37;
                                             </td>
                                             <td>
                                                 ${{number_format($cart_checkout_tax,'2','.',',')}}
