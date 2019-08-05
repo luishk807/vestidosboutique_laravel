@@ -35,7 +35,7 @@
                         <div class="col-md-4 text-right">Order Number:{{$order->order_number}}</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2">{{$order->client->getFullName()}}</div>
+                        <div class="col-md-2"><a href="{{ route('admin_edituser',['user_id'=>$order->client->id])}}">{{$order->client->getFullName()}}</a></div>
                         <div class="col-md-2">{{$order->purchase_date}}</div>
                         <div class="col-md-2">${{$order->order_total + $order->order_tax + $order->order_shipping }}</div>
                         <div class="col-md-2">{{ $order->getPaymentType->name }}</div>
