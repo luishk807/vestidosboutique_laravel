@@ -75,19 +75,6 @@
                                         </select>
                                         <small class="error">{{$errors->first("gender")}}</small>
                                 </div>
-                                <div class="form-group">
-                                        <label class="accountTitleSelect" for="accountLanguage">{{ trans_choice('general.form.select_language',1) }}:</label>
-                                        <select class="custom-select accountTitleSelect" name="language" id="accountLanguage">
-                                            @foreach($languages as $language)
-                                                <option value="{{$language->id}}"
-                                                @if(old('language')==$language->id)
-                                                    selected="selected"
-                                                @endif
-                                                >{{$language->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <small class="error">{{$errors->first("language")}}</small>
-                                </div>
                                 <div class="vesti_in_btn_pnl">
                                     <div id="vesti-load"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
                                     <input type="submit" class="btn-block vesti_in_btn loader-button" value="{{ __('buttons.submit') }}"/>
