@@ -13,9 +13,9 @@
                     <li><b>Para pedido</b>
                         <ol>
                             <li>Para los pedidos online realizados en <b>www.vestidosboutique.com</b>  debe registrarse en nuestra página. </li>
-                            <li>Al "Proceder a Pago", está realizando un pedido de los artículos que aparecen en el CARRITO. Una vez procesado el pedido, recibirá la notificación vía email o/y whatsaap con la confirmación con detalle de la orden, la disponibilidad del artículo, detalle de forma de pago y la fecha estimada de entrega del producto.</li>
-                            <li>El contrato se formaliza en el momento en que reciba la confirmación de pedido por nuestra parte y una vez realizado el pago del abono del 50% del precio total del pedido y gasto adicional de envió en caso necesario.</li>
-                            <li>El saldo restante del 50% se debe cancelar en la entrega del producto o artículo.</li>
+                            <li>Al &#34;Proceder a Pago&#34;, está realizando un pedido de los artículos que aparecen en el CARRITO. Una vez procesado el pedido, recibirá la notificación vía email o&#47;y whatsaap con la confirmación con detalle de la orden, la disponibilidad del artículo, detalle de forma de pago y la fecha estimada de entrega del producto.</li>
+                            <li>El contrato se formaliza en el momento en que reciba la confirmación de pedido por nuestra parte y una vez realizado el pago del abono del 50&#37; del precio total del pedido y gasto adicional de envió en caso necesario.</li>
+                            <li>El saldo restante del 50&#37; se debe cancelar en la entrega del producto o artículo.</li>
                         </ol>
                     </li>
                     <li><b>Forma de Pago</b>
@@ -39,21 +39,21 @@
                     </li>
                     <li><b>Plazo de Entrega</b>
                         <ol>
-                            <li>Los artículos categorizado como *en STOCK* esta disponible para entrega inmediata y los artículos categorizado como *Pedido Especial* tiene una fecha estimada de entrega entre 4 a 14 semanas dependiendo de nuestros proveedores. </li>
+                            <li>Los artículos categorizado como &#42;en STOCK&#42; esta disponible para entrega inmediata y los artículos categorizado como &#42;Pedido Especial&#42; tiene una fecha estimada de entrega entre 4 a 14 semanas dependiendo de nuestros proveedores.</li>
                         </ol>
                     </li>
                     <li><b>Devolución y Cambios</b>
                         <ol>
                             <li>La solicitud de devolución debe hacer dentro de los 10 días posteriores a la entrega y recepción del pedido. Si pasan 10 días, no podemos aceptar su solicitud.</li>
                             <li>Los artículos devueltos deber estar sin usar, sin lavar, sin modificaciones, con etiquetas y embalajes. Accesorios deben devolverse juntos.</li>
-                            <li>Se le aplicará una tasa de reposición del 20% sobre el valor del producto de las ordenes procesado como *PEDIDO ESPECIAL* y para las ordenes procesada con productos *EN STOCK* se le aplicará una tasa de reposición del 20% sobre el valor del producto para los casos con envíos hacia el interior del país.</li>
+                            <li>Se le aplicará una tasa de reposición del 20&#37; sobre el valor del producto de las ordenes procesado como &#42;PEDIDO ESPECIAL&#42; y para las ordenes procesada con productos &#42;EN STOCK&#42; se le aplicará una tasa de reposición del 20&#37; sobre el valor del producto para los casos con envíos hacia el interior del país.</li>
                         </ol>
                     </li>
                     <li><b>Cancelación</b>
                         <ol>
-                            <li>Si no se ha efectuado un pago a su pedido, puede cancelarla fácilmente enviando los datos a nuestro email info@vestidosboutique.com </li>
-                            <li>Si su pedido ha sido pagado y aún está en status “en proceso”, puede solicitar la cancelación a través de nuestro email info@vestidosboutique.com. Por favor contáctenos si desea cancelar algunos artículos en el pedido. Si se comunica con nosotros para cancelar dentro de las 24 horas posteriores al pago, le daremos un reembolso completo. Si han transcurrido más de 24 horas, le cobraremos un cargo por cancelación de 25% del valor pagado.</li>
-                            <li>Una vez que su pedido ha sido "procesado", no se podrá cancelar. Aplica la política de *Devolución y Cambios*</li>
+                            <li>Si no se ha efectuado un pago a su pedido, puede cancelarla fácilmente enviando los datos a nuestro email <b>info@vestidosboutique.com</b> </li>
+                            <li>Si su pedido ha sido pagado y aún está en status &#34;en proceso&#34;, puede solicitar la cancelación a través de nuestro email <b>info@vestidosboutique.com</b>. Por favor contáctenos si desea cancelar algunos artículos en el pedido. Si se comunica con nosotros para cancelar dentro de las 24 horas posteriores al pago, le daremos un reembolso completo. Si han transcurrido más de 24 horas, le cobraremos un cargo por cancelación de 25&#37; del valor pagado.</li>
+                            <li>Una vez que su pedido ha sido &#34;procesado&#34;, no se podrá cancelar. Aplica la política de &#42;Devolución y Cambios&#42;</li>
                         </ol>
                     </li>
                     <li><b>Reembolsos</b>
