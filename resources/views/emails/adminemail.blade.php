@@ -5,26 +5,26 @@
     </tr>
     <tr>
         <td colspan='2'>
-            <h1>New Email Received</h1>
+            <h1>{{ __('emails.new_email_admin.line_1') }}</h1>
             <table>
                 <tr>
-                    <td>Name:</td>
+                    <td>{{ __('emails.new_email_admin.line_2') }}</td>
                     <td>{{$client["first_name"]." ".$client["last_name"]}}</td>
                 </tr>
                 <tr>
-                    <td>Email:</td>
+                    <td>{{ __('emails.new_email_admin.line_3') }}</td>
                     <td>{{$client["email"]}}</td>
                 </tr>
                 <tr>
-                    <td>Phone:</td>
+                    <td>{{ __('emails.new_email_admin.line_4') }}</td>
                     <td>{{$client["phone"]}}</td>
                 </tr>
                 <tr>
-                    <td>Country</td>
+                    <td>{{ __('emails.new_email_admin.line_5') }}</td>
                     <td>{{$client["country"]}}</td>
                 </tr>
                 <tr>
-                    <td>Message:</td>
+                    <td>{{ __('emails.new_email_admin.line_6') }}</td>
                     <td>{{$client["message"]}}</td>
                 </tr>
             </table>

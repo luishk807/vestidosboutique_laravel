@@ -5,14 +5,14 @@
     </tr>
     <tr>
         <td colspan='2'>
-            Hello {{ $data["first_name"]}}, <br/><br/>
-            <p>Welcome to Vestidos Boutique.</p>
-            <p>To active your account, please click the link below for verification</p>
-            <p><a href="{{ $data['link'] }}" target="_blank">Active Account</a></p>
-            <p>To log in when visiting our site just click on:<br/>
+            {{ __('emails.user_registry_resend.line_hello',['name'=>$data["first_name"]]) }},<br/><br/>
+            <p>{{ __('emails.user_registry_resend.line_1') }}</p>
+            <p>{{ __('emails.user_registry_resend.line_2') }}</p>
+            <p><a href="{{ $data['link'] }}" target="_blank">{{ __('emails.user_registry_resend.line_3') }}</a></p>
+            <p>{{ __('emails.user_registry_resend.line_4') }}<br/>
             <a href="https://www.vestidosboutique.com/signin/" target="_blank">www.vestidosboutique.com/signin/</a></p>
             <br/><br/>
-            Email: {{ $data["email"] }}<br/>
+            {{ __('emails.user_registry_resend.line_4') }}: {{ $data["email"] }}<br/>
         </td>
     </tr>
     <tr>

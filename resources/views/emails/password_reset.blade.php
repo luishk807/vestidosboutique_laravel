@@ -5,10 +5,10 @@
     </tr>
     <tr>
         <td colspan='2'>
-            Hello {{ $data["first_name"]}}, <br/><br/>
-            <p>You requested a password request email.</p>
-            <p>Please click the link bellow to begin:<br/>
-            <a href="{{ $data['link']}}" target="_blank">Reset Password</a></p>
+            {{ __('emails.password_reset.line_hello',['name'=>$data["first_name"]]) }},<br/><br/>
+            <p>{{ __('emails.password_reset.line_1') }}</p>
+            <p>{{ __('emails.password_reset.line_2') }}<br/>
+            <a href="{{ $data['link']}}" target="_blank">{{ __('emails.password_reset.line_3') }}</a></p>
             <br/><br/>
         </td>
     </tr>
