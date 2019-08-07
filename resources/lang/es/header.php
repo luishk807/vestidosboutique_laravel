@@ -14,7 +14,7 @@ return [
     'shop' => 'Comprar',
     'about' => 'Nosotros',
     'event' => 'Eventos',
-    'contact' => 'Contáctenos',
+    'contact' => 'Contactanos',
     'account'=>'Tu Cuenta',
     'profile' => 'Perfil',
     'brands'=>"Marcas",

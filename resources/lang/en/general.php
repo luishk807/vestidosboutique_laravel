@@ -18,6 +18,7 @@ return [
         'last_name'=>"Last Name",
         'email'=>"Email",
         'telephone'=>"Phone Number",
+        'whatssap'=>"Whatsapp",
         'address'=>"Address | Addresses",
         'city'=>"City",
         'state'=>"State",
@@ -271,6 +272,7 @@ return [
      'failed_email'=>'Unable to send email',
      'hello'=>"Hello",
      'attn'=>"Sincerely",
+     'contact_line_1'=>"We are here to serve you, contact us:",
      'chosen'=>"Thank you for choosing us.",
      'excel_error'=>[
         'color_missing'=>"Product model :name is missing color name in the excel file, please provide a color and try again.",

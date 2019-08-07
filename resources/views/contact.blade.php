@@ -57,7 +57,7 @@
 
                             </div><!--end of contact form-->
                             <div class="col-md-6 col-lg-6 contact-section-right">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vel earum ut tempore similique sint quam fugiat, sunt beatae reprehenderit voluptatum
+                                {{ __('general.contact_line_1') }}:
                                 <div class="container contact-address">
                                     <div class="row">
                                         <div class="col">
@@ -67,7 +67,8 @@
                                     </div>
                                     <div class="row">
                                         <div class="col address-phone">
-                                            <a target="_blank" class="footer-link" href="tel:5265848">(507) 203-5848</a> &#05; <a target="_blank" class="footer-link" href="67266556">(507) 6726-6556</a>
+                                        {{ __('general.form.telephone') }}: <a target="_blank" class="footer-link" href="tel:5265848">(507) 203-5848</a><br/>
+                                        {{ __('general.form.whatssap') }}: <a target="_blank" class="footer-link" href="67266556">(507) 6726-6556</a>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -80,7 +81,7 @@
                                         {{ __('general.weekdays.monday') }}-{{ __('general.weekdays.friday') }}
                                         </div>
                                         <div class="col-md-6">
-                                            10:00 a.m. - 9:00 p.m.
+                                        10:00 a.m. - 7:00 p.m.
                                         </div>
                                     </div>
                                     <div class="row address-hour">
@@ -88,7 +89,7 @@
                                         {{ __('general.weekdays.sunday') }}
                                         </div>
                                         <div class="col-md-6">
-                                            10:00 a.m. - 9:00 p.m.
+                                        10:00 a.m. - 5:00 p.m.
                                         </div>
                                     </div>
                                 </div><!--end of address-->
