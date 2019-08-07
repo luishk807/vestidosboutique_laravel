@@ -32,6 +32,7 @@
                 </div><!--end of order header 1-->
                 
                 <div class="row view-order-top">
+                    @if($order_shipping)
                     <div class="col-md-6 left">
                         <ul>
                             <li>{{ __('general.page_header.shipping_address') }}</li>
@@ -45,7 +46,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-6 right">
+                    @endif
+                    <div class="{{ $order_shipping ? 'col-md-6':'col'}} right">
                         <ul>
                             <li>{{ __('general.page_header.billing_address') }}</li>
                             <li class="view-order-header-info">
@@ -155,7 +157,8 @@
                                                     <div class="col-md-8 col-lg-8">
                                                         <strong><a href="{{ route('product_page',['product_id'=>$product->getProduct->id]) }}">{{ $product->getProduct->products_name }}</a></strong><br/>
                                                         {{ $product->getProduct->products_description }}<br/>
-                                                        {{ __('general.cart_title.sell_by') }}:{{ $product->getProduct->vendor->first_name }} {{ $product->getProduct->vendor->last_name }}<br/>
+                                                        {{ trans_choice('general.product_title.color',1) }}:{{ $product->getColor->name }}<br/>
+                                                        {{ trans_choice('general.product_title.size',1) }}:{{ $product->getSize->name }}<br/>
                                                         {{ trans_choice('general.cart_title.quantity',1) }}:{{ $product->quantity }}<br/>
                                                         <span>${{ number_format($product->total,'2','.',',') }}</span>
                                                         <br/>

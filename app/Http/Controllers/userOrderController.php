@@ -51,7 +51,7 @@ class userOrderController extends Controller
         $data["page_title"]=__('general.page_header.order_detail');;
         $data["order"]=$order;
         $getOrderShipping = $order->getOrderShippingAddress();
-        $data["order_shipping"]=$getOrderShipping[0];
+        $data["order_shipping"]=$getOrderShipping ? $getOrderShipping[0] : null;
         $getOrderBilling = $order->getOrderBillingAddress();
         $data["order_billing"]=$getOrderBilling[0];
         $data["user"]=$this->users->find($order->user_id);

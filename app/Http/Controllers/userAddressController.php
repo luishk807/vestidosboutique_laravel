@@ -64,7 +64,6 @@ class userAddressController extends Controller
                 "province"=>"required",
                 "corregimiento"=>"required",
                 "country"=>"required",
-                "zip_code"=>"required"
             ]);
             $data["status"]=1;
             $data["created_at"]=carbon::now();
@@ -110,7 +109,6 @@ class userAddressController extends Controller
                 "province"=>"required",
                 "corregimiento"=>"required",
                 "country"=>"required",
-                "zip_code"=>"required"
             ]);
             $address->nick_name = $request->input("nick_name");
             $address->first_name = $request->input("first_name");

@@ -48,7 +48,10 @@
                             {{ __('general.page_header.shipping_address') }}
                         </p>
                         @php( $shipping_info = $order->getOrderShippingAddress() )
-                        <p><a href="{{ route('view_order',['order_id'=>$order->id]) }}">...{{$shipping_info[0]->zip_code}}</a></p>
+                        <p><a href="{{ route('view_order',['order_id'=>$order->id]) }}">
+                            @if($shipping_info)
+                            ...{{$shipping_info[0]->zip_code}}
+                            @endif</a></p>
                     </div>
                     <div class="col-md-6  col-lg-4 col-sm-10 header">
                         <p>
@@ -84,7 +87,8 @@
                                 <div class="col">
                                     <a class="product-title" href="{{ route('product_page',['product_id'=>$product->product_id])}}">{{ $product->getProduct->products_name}}</a><br/>
                                     <span class="product-subtitle">{{ __('general.product_title.model_id') }}</span>: {{ $product->getProduct->product_model}}<br/>
-                                    <span class="product-subtitle">{{ __('general.cart_title.sell_by') }}</span>: {{ $product->getProduct->vendor->getFullVendorName()}}<br/>
+                                    <span class="product-subtitle">{{ trans_choice('general.product_title.color',1) }}</span>: {{ $product->getColor->name}}<br/>
+                                    <span class="product-subtitle">{{ trans_choice('general.product_title.size',1) }}</span>: {{ $product->getSize->name}}<br/>
                                     <span class="product-subtitle">{{ trans_choice('general.cart_title.quantity',1) }}</span>: {{ $product->quantity}}<br/>
                                     <span class="product-total">${{number_format($product->total,'2','.',',')}}
                                     </span>
