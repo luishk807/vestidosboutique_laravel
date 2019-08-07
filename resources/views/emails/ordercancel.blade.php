@@ -5,9 +5,9 @@
     </tr>
     <tr>
         <td colspan='2'>
-            Hello {{ $order_detail["user"]["first_name"]}}, <br/><br/>
-            Your request for order cancellation is sent. Please allow 48 hours to complete the process.<br/><br/>
-            We will determine if the cancellation is allowed.  We will send you another email for confirmation.
+            {{ __('emails.order_cancel_request.line_hello',['name'=>$order_detail["user"]["first_name"]]) }},<br/><br/>
+            {{ __('emails.order_cancel_request.line_1') }}<br/><br/>
+            {{ __('emails.order_cancel_request.line_2') }}
         </td>
     </tr>
     <tr>
@@ -18,7 +18,7 @@
             <table width="100%">
                 <tr>
                     <td width="30%" align="left" valign="top">
-                        <strong>Order Number:</strong>
+                        <strong>{{ __('emails.order_cancel_request.line_3') }}</strong>
                     </td>
                     <td width="70%" align="left" valign="top">
                         {{ $order_detail["order"]["order_number"] }}
@@ -31,12 +31,15 @@
         <td colspan="2">
             <table width="100%">
                 <tr>
+                    @if($order_detail['order']['allow_shipping']=="true")
                     <td width="50%" align="left" valign="top">
-                        <strong>Billing Address</strong>
+                        <strong>{{ __('emails.order_cancel_request.line_4') }}</strong>
                     </td>
-                    <td width="50%" align="left" valign="top">
-                        <strong>Shipping Address</strong>
+                    @endif
+                    <td width="{{ $order_detail['order']['allow_shipping']=='true'? '50%' : '100%'}}" align="left" valign="top">
+                        <strong>{{ __('emails.order_cancel_request.line_5') }}</strong>
                     </td>
+
                 </tr>
             </table>
         </td>
@@ -45,14 +48,16 @@
         <td colspan="2">
             <table width="100%">
                 <tr>
-                <td width="50%" align="left" valign="top">
+                    @if($order_detail['order']['allow_shipping']=="true")
+                    <td width="50%" align="left" valign="top">
                         {{ $order_detail["order"]["shipping_name"] }}<br/>
                         {{ $order_detail["order"]["shipping_address_1"] }}<br/>
                         {{ $order_detail["order"]["shipping_address_2"] }}<br/>
                         {{ $order_detail["order"]["shipping_province"] }} {{ $order_detail["order"]["shipping_district"] }} {{ $order_detail["order"]["shipping_corregimiento"] }} {{ $order_detail["order"]["shipping_zip_code"] }}<br/>
                         {{ $order_detail["order"]["shipping_country"] }}<br/>
                     </td>
-                    <td width="50%" align="left" valign="top">
+                    @endif
+                    <td width="{{ $order_detail['order']['allow_shipping']=='true'? '50%' : '100%'}}" align="left" valign="top">
                         {{ $order_detail["order"]["billing_name"] }}<br/>
                         {{ $order_detail["order"]["billing_address_1"] }}<br/>
                         {{ $order_detail["order"]["billing_address_2"] }}<br/>
@@ -67,7 +72,7 @@
         <td colspan="2">&nbsp;</td>
     </tr>
     <tr>
-        <td colspan='2'><strong>Item Purchased</strong></td>
+        <td colspan='2'><strong>{{ __('emails.order_cancel_request.line_6') }}</strong></td>
     </tr>
 
     <tr>
@@ -78,13 +83,13 @@
 
                     </th>
                     <th width="40%" align="center">
-                        Item
+                    {{ __('emails.order_cancel_request.line_7') }}
                     </th>
                     <th width="10%" align="center">
-                        Quant
+                    {{ __('emails.order_cancel_request.line_8') }}
                     </th>
                     <th width="20%" align="right">
-                        Total
+                    {{ __('emails.order_cancel_request.line_9') }}
                     </th>
                 </tr>
                 @foreach($order_detail["order"]["products"] as $product)
@@ -94,8 +99,8 @@
                     </td>
                     <td valign="top" align="center">
                         {{ $product["name"] }}<br/>
-                        Size: {{ $product["size"] }}<br/>
-                        Color: {{ $product["color"] }}
+                        {{ __('emails.order_cancel_request.line_10') }}: {{ $product["size"] }}<br/>
+                        {{ __('emails.order_cancel_request.line_11') }}: {{ $product["color"] }}
                     </td>
                     <td valign="top" align="center">
                         {{ $product["quantity"] }}
@@ -107,7 +112,7 @@
                 @endforeach
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Subtotal</strong>
+                        <strong>{{ __('emails.order_cancel_request.line_12') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["order"]["order_total"],'2','.',',') }}
@@ -115,26 +120,32 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Tax</strong>
+                        <strong>{{ __('emails.order_cancel_request.line_13') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"],'2','.',',') }}
                     </td>
                 </tr>
+                @if($order_detail['order']['allow_shipping']=="true")
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Shipping</strong>
+                        <strong>{{ __('emails.order_cancel_request.line_14') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["order"]["shipping_total"],'2','.',',') }}
                     </td>
                 </tr>
+                @endif
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Grandtotal</strong>
+                        <strong>{{ __('emails.order_cancel_request.line_15') }}</strong>
                     </td>
                     <td align="right">
+                        @if($order_detail['order']['allow_shipping']=="true")
                         ${{ number_format($order_detail["order"]["order_total"] + ($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"]) + $order_detail["order"]["shipping_total"],'2','.',',') }}
+                        @else
+                        ${{ number_format($order_detail["order"]["order_total"] + ($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"]),'2','.',',') }}
+                        @endif
                     </td>
                 </tr>
             </table>

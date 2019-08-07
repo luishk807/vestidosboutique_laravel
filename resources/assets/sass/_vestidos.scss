@@ -1666,8 +1666,17 @@ text-align:left;
   padding-right:0px;
 }
 //Sign In Page
-.signin-container .signin-signup-section{
-  border-left:$vesti-light-bars;
+.signin-container{
+  .signin-signup-section{
+    border-left:$vesti-light-bars;
+  }
+  a.vesti-small-link{
+    color: black;
+    font-size: .9rem;
+  }
+  .signin-login-section .form-text{
+    margin-top: .9rem;
+  }
 }
 //custom vestidos mobile scss
 @import "vestidos_mobile";

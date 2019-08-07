@@ -5,8 +5,8 @@
     </tr>
     <tr>
         <td colspan='2'>
-            Hello Admin, <br/><br/>
-            A new order placed {{ $order_detail["order"]["purchase_date"] }} by {{ $order_detail["user"]["first_name"]}} and has been received.
+            {{ __('emails.order_admin.line_hello') }},<br/><br/>
+            {{ __('emails.order_admin.line_1',['date'=>$order_detail["order"]["purchase_date"],'name'=>$order_detail["user"]["first_name"]]) }} 
         </td>
     </tr>
     <tr>
@@ -17,7 +17,7 @@
             <table width="100%">
                 <tr>
                     <td width="30%" align="left" valign="top">
-                        <strong>Order Number:</strong>
+                        <strong>{{ __('emails.order_admin.line_2') }}</strong>
                     </td>
                     <td width="70%" align="left" valign="top">
                         {{ $order_detail["order"]["order_number"] }}
@@ -31,11 +31,11 @@
             <table width="100%">
                 <tr>
                     <td width="{{ $order_detail['order']['allow_shipping']=='true'? '50%' : '100%'}}" align="left" valign="top">
-                        <strong>Billing Address</strong>
+                        <strong>{{ __('emails.order_admin.line_3') }}</strong>
                     </td>
                     @if($order_detail['order']['allow_shipping']=="true")
                     <td width="50%" align="left" valign="top">
-                        <strong>Shipping Address</strong>
+                        <strong>{{ __('emails.order_admin.line_4') }}</strong>
                     </td>
                     @endif
                 </tr>
@@ -70,7 +70,7 @@
         <td colspan="2">&nbsp;</td>
     </tr>
     <tr>
-        <td colspan='2'><strong>Item Purchased</strong></td>
+        <td colspan='2'><strong>{{ __('emails.order_admin.line_5') }}</strong></td>
     </tr>
 
     <tr>
@@ -81,13 +81,13 @@
 
                     </th>
                     <th width="40%" align="center">
-                        Item
+                    {{ __('emails.order_admin.line_6') }}
                     </th>
                     <th width="10%" align="center">
-                        Quant
+                    {{ __('emails.order_admin.line_7') }}
                     </th>
                     <th width="20%" align="right">
-                        Total
+                    {{ __('emails.order_admin.line_8') }}
                     </th>
                 </tr>
                 @foreach($order_detail["order"]["products"] as $product)
@@ -97,8 +97,8 @@
                     </td>
                     <td valign="top" align="center">
                         {{ $product["name"] }}<br/>
-                        Size: {{ $product["size"] }}<br/>
-                        Color: {{ $product["color"] }}
+                        {{ __('emails.order_admin.line_9') }}: {{ $product["size"] }}<br/>
+                        {{ __('emails.order_admin.line_10') }}: {{ $product["color"] }}
                     </td>
                     <td valign="top" align="center">
                         {{ $product["quantity"] }}
@@ -110,7 +110,7 @@
                 @endforeach
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Subtotal</strong>
+                        <strong>{{ __('emails.order_admin.line_11') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["order"]["order_total"],'2','.',',') }}
@@ -118,7 +118,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Tax</strong>
+                        <strong>{{ __('emails.order_admin.line_12') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"],'2','.',',') }}
@@ -127,7 +127,7 @@
                 @if($order_detail['order']['allow_shipping']=="true")
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Shipping</strong>
+                        <strong>{{ __('emails.order_admin.line_13') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["order"]["shipping_total"],'2','.',',') }}
@@ -136,7 +136,7 @@
                 @endif
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>Grandtotal</strong>
+                        <strong>{{ __('emails.order_admin.line_14') }}</strong>
                     </td>
                     <td align="right">
                         @if($order_detail['order']['allow_shipping']=="true")
