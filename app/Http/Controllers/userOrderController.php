@@ -166,7 +166,7 @@ class userOrderController extends Controller
             Mail::send('emails.ordercanceladmin',["order_detail"=>$order_detail],function($message) use($order_detail){
                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                $subject = __('general.order_section.to_admin.cancelled',['name'=>$client_name]);
+                $subject = __('general.order_section.to_admin.cancel_confirmation',['name'=>$client_name]);
                 $message->to("info@vestidosboutique.com","Admin")->subject($subject);
             });
             return redirect()->route("user_account",["user_id"=>$order->user_id])->with(
