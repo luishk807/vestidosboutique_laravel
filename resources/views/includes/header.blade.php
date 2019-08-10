@@ -17,16 +17,6 @@
 <script type="text/javascript" src="{{ asset('js/vendor/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
-<script>
-    var addWishlistUrl = "{{ url('api/saveWishlist') }}";
-</script>
-<script>
-$(document).ready(function(){
-    $("#vesti-navbar-top-lang,#nav-item-events").click(function(e){
-        e.preventDefault();
-    });
-});
-</script>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >
@@ -142,23 +132,6 @@ $(document).ready(function(){
                     </li>
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">{{ __('header.about') }}</a>
-                    </li>
-                    <li class="nav-item mobile">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-accessories">{{ __('header.accessories') }}</a>
-                        <div class="collapse vesti-collapse" id="toggle-accessories" style="height: 0px;">
-                            <ul class="nav-list">
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="nav-item mobile">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-styles">{{ __('header.by_styles') }}</a>
-                        <div class="collapse vesti-collapse" id="toggle-styles" style="height: 0px;">
-                            <ul class="nav-list">
-                                @foreach($vestidos_styles as $style)
-                                <li><a href="{{ route('shop_page',['type'=>'style','id'=>$style->id])}}">{{$style->name}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
                     </li>
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.event') }}</a>

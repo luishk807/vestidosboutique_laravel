@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    $("#vesti-navbar-top-lang,#nav-item-events").click(function(e){
+        e.preventDefault();
+    });
+
     $("#main-body").fadeIn();
     var slideTimeout = null;
     function setSlider(){
@@ -184,7 +188,7 @@ $(document).ready(function() {
 function addWishlist(product_id){
     $.ajax({
         type: "GET",
-        url: addWishlistUrl,
+        url: '/api/saveWishlist',
         data: {
             data:product_id
         },

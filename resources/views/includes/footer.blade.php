@@ -45,11 +45,11 @@
             <img src="{{ asset('images/cc-discover.svg') }}" class="vesti-svg vestidos-icons-payment"/>
         </div>
 
-        <div class="col-md-4 footer-bottom-col text-center">
-            <img src="{{ asset('images/social-facebook.svg') }}" class="vesti-svg vestidos-icons-social-b"/>
-            <img src="{{ asset('images/social-instagram.svg') }}" class="vesti-svg vestidos-icons-social"/>
-            <img src="{{ asset('images/social-twitter.svg') }}" class="vesti-svg vestidos-icons-social"/>
-            <img src="{{ asset('images/social-pinterest.svg') }}" class="vesti-svg vestidos-icons-social"/>
+        <div class="col-md-4 footer-bottom-col text-right">
+            <a href="https://www.facebook.com/vesti2/" target="_blank"><img src="{{ asset('images/social-facebook.svg') }}" class="vesti-svg vestidos-icons-social-b"/></a>
+            <a href="https://www.instagram.com/vestidos_boutique/" target="_blank"><img src="{{ asset('images/social-instagram.svg') }}" class="vesti-svg vestidos-icons-social"/></a>
+            <!-- <img src="{{ asset('images/social-twitter.svg') }}" class="vesti-svg vestidos-icons-social"/>
+            <img src="{{ asset('images/social-pinterest.svg') }}" class="vesti-svg vestidos-icons-social"/> -->
         </div>
     </div>
 </div>
