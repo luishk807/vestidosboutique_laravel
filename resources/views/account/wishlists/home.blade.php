@@ -25,10 +25,10 @@
                         <div class="col image">
 
                         </div>
-                        <div class="col desc">
+                        <div class="col text-center desc">
                             Description
                         </div>
-                        <div class="col action">
+                        <div class="col text-center action">
                             Action
                         </div>
                     </div>
