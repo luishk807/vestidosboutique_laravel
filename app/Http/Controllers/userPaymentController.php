@@ -37,7 +37,7 @@ use Auth;
 class userPaymentController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes, MainConfig $main_config){
+    public function __construct(Request $request, AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes, MainConfig $main_config){
         $this->main_config = $main_config->first();
         $this->country=$countries;
         $this->users = $users;
@@ -60,6 +60,7 @@ class userPaymentController extends Controller
         $this->districts=$districts;
         $this->corregimientos=$corregimientos;
         $this->tax_info = $tax->first();
+        $this->config=$request->instance()->query('configData');
     }
     public function showShipping(){
         if(empty(Session::has("vestidos_shop"))){
@@ -535,6 +536,7 @@ class userPaymentController extends Controller
                         );
                     }
                     $order_detail=[
+                        "vestidos_email"=>$request->input("configData")["sales_email"],
                         "user"=>$this->users->find($user_id),
                         "order"=>$package
                     ];
@@ -543,20 +545,18 @@ class userPaymentController extends Controller
                     try{
                         //send email to client
                         Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                            $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                            $message->from($order_detail["vestidos_email"],"Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
-                            //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                            $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                            $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
                         });
 
                         //send email to admin
                         Mail::send('emails.admin_orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                            $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                            $message->from($order_detail["vestidos_email"],"Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
-                            //$message->to("info@vestidosboutique.com","Admin")->subject($subject);
-                            $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                            $message->to($order_detail["vestidos_email"],"Admin")->subject($subject);
                         });
                         $email_msg[]=__('general.order_section.payment_success');
                     }catch(Exception $e){

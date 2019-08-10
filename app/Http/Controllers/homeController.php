@@ -39,7 +39,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders,Sizes $sizes, Districts $districts, Provinces $provinces, Corregimientos $corregimientos,Colors $colors)
+    public function __construct(Request $request, Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders,Sizes $sizes, Districts $districts, Provinces $provinces, Corregimientos $corregimientos,Colors $colors)
     {
       $this->brands=$brands;
       $this->country=$countries;
@@ -55,6 +55,7 @@ class HomeController extends Controller
       $this->districts = $districts;
       $this->provinces = $provinces;
       $this->corregimientos = $corregimientos;
+      $this->config=$request->instance()->query('configData');
     }
     public function index()
     {
@@ -94,7 +95,7 @@ class HomeController extends Controller
         $data["products"]=$this->products;
         return view("home",$data);
     }
-    public function about(){
+    public function about(Request $request){
         $data=[];
         $data["page_title"]=__('header.about');
         return view("about",$data);
@@ -133,10 +134,12 @@ class HomeController extends Controller
                 'email'=>$request->input("email"),
                 'phone'=>$request->input("phone"),
                 'country'=>$request->input("country"),
-                'message'=>$request->input("question")
+                'message'=>$request->input("question"),
+                'vestidos_email'=>$request->input("configData")["support_email"]
             ];
+            
            Mail::send('emails.emailcontent',["client"=>$client],function($message) use($client){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($client["vestidos_email"],"Vestidos Boutique");
                 $client_name = $client['first_name']." ".$client["last_name"];
                 $subject = __('general.user_section.to_user.thank_you',['name'=>$client_name]);
                 $message->to($client["email"],$client_name)->subject($subject);
@@ -145,7 +148,7 @@ class HomeController extends Controller
                 $client_name = $client['first_name']." ".$client["last_name"];
                 $message->from($client["email"],$client_name);
                 $subject = __('general.user_section.to_admin.thank_you',['name'=>$client_name]);
-                $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                $message->to($client["vestidos_email"],"Admin")->subject($subject);
             });
             $data["thankyou_title"]=__('general.thank_you');
             $data["thankyou_msg"]=__('general.success_email');

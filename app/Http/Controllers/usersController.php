@@ -23,7 +23,7 @@ use Redirect;
 class usersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories){
+    public function __construct(Request $request, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories){
         $this->country=$countries->all();
         $this->users = $users;
         $this->genders=$genders;
@@ -31,6 +31,7 @@ class usersController extends Controller
         $this->addresses=$addresses;
         $this->brands=$brands;
         $this->categories = $categories;
+        $this->config=$request->instance()->query('configData');
     }
     public function index(){
         $data=[];
@@ -83,15 +84,15 @@ class usersController extends Controller
         $data["password"]=Hash::make($request->input("password"));
         $data["remember_token"]=str_random(60);
         $user = Users::create($data);
+        $data["vestidos_email"]=$request->input("configData")["support_email"];
         if(!empty($user->id)){
             $link = url('/account/activate/'. $user->remember_token);
             $data["link"]=$link;
             Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($data["vestidos_email"],"Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = __('general.user_section.registration_complete',['name'=>$client_name]);
                 $message->to($data["email"],$client_name)->subject($subject);
-                //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
             });
             return redirect()->route('account_create_confirmed');
         }else{
@@ -134,8 +135,9 @@ class usersController extends Controller
             $data["last_name"]=$user->last_name;
             $data["middle_name"]=$user->middle_name;
             $data["email"]=$user->email;
+            $data["vestidos_email"]=$request->input("configData")["support_email"];
             Mail::send('emails.usercreation_resend_confirmation',["data"=>$data],function($message) use($data){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($data["vestidos_email"],"Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = __('general.user_section.to_user.activate',['name'=>$client_name]);
                 $message->to($data["email"],$client_name)->subject($subject);
@@ -208,8 +210,9 @@ class usersController extends Controller
             $data["last_name"]=$user->last_name;
             $data["middle_name"]=$user->middle_name;
             $data["email"]=$user->email;
+            $data["vestidos_email"] = $request->input("configData")["support_email"];
             Mail::send('emails.password_reset',["data"=>$data],function($message) use($data){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($data["vestidos_email"],"Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = __('general.forgot_password.send_title',['name'=>$client_name]);
                 $message->to($data["email"],$client_name)->subject($subject);
@@ -251,8 +254,9 @@ class usersController extends Controller
             $data["email"]=$user->email;
             $data["name"]=__('general.forgot_password.reset_confirm_email',["name"=>$user->first_name]);
             $data["message"]=__('general.forgot_password.reset_confirm_message');
+            $data["vestidos_email"] = $request->input("configData")["support_email"];
             Mail::send('emails.default',["data"=>$data],function($message) use($data){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($data["vestidos_email"],"Vestidos Boutique");
                 $client_name = $data['first_name']." ".$data["last_name"];
                 $subject = __('general.user_section.to_user.update',['name'=>$client_name]);
                 $message->to($data["email"],$client_name)->subject($subject);

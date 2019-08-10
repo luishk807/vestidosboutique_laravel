@@ -22,7 +22,7 @@ use App\vestidosUserAddresses as Addresses;
 class userOrderController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax){
+    public function __construct(Request $request, Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax){
         $this->statuses=$vestidosStatus;
         $this->tax_info = $tax->first();
         $this->orders=$orders;
@@ -34,6 +34,7 @@ class userOrderController extends Controller
         $this->categories = $categories;
         $this->sizes=$sizes;
         $this->colors=$colors;
+        $this->config=$request->instance()->query('configData');
     }
 
     public function index(){
@@ -98,6 +99,7 @@ class userOrderController extends Controller
             if($shipping_add){
                 $order_detail=[
                     "user"=>$this->users->find($user_id),
+                    "vestidos_email"=>$request->input("configData")["sales_email"],
                     "order"=>array(                        
                         "order_number"=>$order->order_number,
                         "allow_shipping"=>"true",
@@ -134,6 +136,7 @@ class userOrderController extends Controller
             }else{
                 $order_detail=[
                     "user"=>$this->users->find($user_id),
+                    "vestidos_email"=>$request->input("configData")["sales_email"],
                     "order"=>array(                        
                         "order_number"=>$order->order_number,
                         "allow_shipping"=>"false",
@@ -158,16 +161,16 @@ class userOrderController extends Controller
             }
 
             Mail::send('emails.ordercancel',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($order_detail["vestidos_email"],"Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_user.cancel_confirmation',['name'=>$client_name]);
                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
             });
             Mail::send('emails.ordercanceladmin',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($order_detail["vestidos_email"],"Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_admin.cancel_confirmation',['name'=>$client_name]);
-                $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                $message->to($order_detail["vestidos_email"],"Admin")->subject($subject);
             });
             return redirect()->route("user_account",["user_id"=>$order->user_id])->with(
                 "success",__('general.order_section.cancel_request'));

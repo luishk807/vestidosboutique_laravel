@@ -34,7 +34,7 @@ use Session;
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config){
+    public function __construct(Request $request, Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -55,6 +55,7 @@ class ordersController extends Controller
         $this->tax_info = $tax->first();
         $this->address_types = $address_types;
         $this->main_config = $main_config->first();
+        $this->config=$request->instance()->query('configData');
     }
     public function index(){
         $data=[];
@@ -415,10 +416,10 @@ class ordersController extends Controller
             $order_detail = $this->sendEmail($order_id);
 
             Mail::send('emails.orderstatus_update',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($order_detail["vestidos_email"],"Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_user.updated',['name'=>$client_name]);
-                $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                $message->to($order_detail["vestidos_email"],"Admin")->subject($subject);
             });
         }
         return redirect()->route("admin_orders");
@@ -579,7 +580,7 @@ class ordersController extends Controller
              
              //send email to client
              Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                 $message->from($prder_detail["vestidos_email"],"Vestidos Boutique");
                  $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                  $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
                  $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
@@ -667,7 +668,7 @@ class ordersController extends Controller
             $order_detail = $this->sendEmail($order_id);
 
             Mail::send('emails.ordercancel_confirm',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from($order_detail["vestidos_email"],"Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_user.cancel',['name'=>$client_name]);
                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
@@ -702,6 +703,7 @@ class ordersController extends Controller
         if($this->main_config->allow_shipping){
             $order_detail=[
                 "user"=>$this->users->find($user_id),
+                "vestidos_email"=>$request->input("configData")["sales_email"],
                 "order"=>array(                        
                     "order_number"=>$order->order_number,
                     "purchase_date"=>$today,
@@ -739,6 +741,7 @@ class ordersController extends Controller
         }else{
             $order_detail=[
                 "user"=>$this->users->find($user_id),
+                "vestidos_email"=>$request->input("configData")["sales_email"],
                 "order"=>array(                        
                     "order_number"=>$order->order_number,
                     "purchase_date"=>$today,

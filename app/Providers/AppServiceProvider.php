@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Braintree\Configuration::merchantId(env('BRAINTREE_MERCHANT_ID'));
         Braintree\Configuration::publicKey(env('BRAINTREE_PUBLIC_KEY'));
         Braintree\Configuration::privateKey(env('BRAINTREE_PRIVATE_KEY'));
+
         if (!$this->app->runningInConsole()) {
             // App is not running in CLI context
             // Do HTTP-specific stuff here

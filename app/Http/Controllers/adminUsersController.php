@@ -18,12 +18,13 @@ use Session;
 class adminUsersController extends Controller
 {
     //
-    public function __construct(UserTypes $user_types, Genders $genders, Users $users, Statuses $statuses,Languages $languages){
+    public function __construct(Request $request,UserTypes $user_types, Genders $genders, Users $users, Statuses $statuses,Languages $languages){
         $this->users = $users;
         $this->statuses=$statuses;
         $this->languages=$languages;
         $this->user_types=$user_types;
         $this->genders = $genders;
+        $this->config=$request->instance()->query('configData');
     }
     public function userAddress($user_id){
         $data=[];
@@ -100,10 +101,11 @@ class adminUsersController extends Controller
         $data["created_at"]=carbon::now();
         $data["password"]=Hash::make($request->input("password"));
         if($this->users->insert($data)){
+            $data["vestidos_email"]=$request->input("configData")["support_email"];
             if($request->input("user_type")==1){
                 $data["link"]=route('login_user');
                 Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
-                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $message->from($data["vestidos_email"],"Vestidos Boutique");
                     $client_name = $data['first_name']." ".$data["last_name"];
                     $subject = 'Hello '.$client_name.', your account registration is completed';
                     $message->to($data["email"],$client_name)->subject($subject);
@@ -113,7 +115,7 @@ class adminUsersController extends Controller
                 $u_type = $this->user_types->find($request->input("user_type"));
                 $data["account_type"]=$u_type->name;
                 Mail::send('emails.admincreation_confirmation',["data"=>$data],function($message) use($data){
-                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $message->from($data["vestidos_email"],"Vestidos Boutique");
                     $client_name = $data['first_name']." ".$data["last_name"];
                     $subject = 'Hello '.$client_name.', your account registration is completed';
                     $message->to($data["email"],$client_name)->subject($subject);
@@ -219,8 +221,9 @@ class adminUsersController extends Controller
                         $data["message"]="Your account has been updated!.";
                 }
                 $data["status_name"]=$user->getStatusName->name;
+                $data["vestidos_email"]=$request->input("configData")["support_email"];
                 Mail::send('emails.adminuser_update',["data"=>$data],function($message) use($data){
-                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $message->from($data["vestidos_email"],"Vestidos Boutique");
                     $client_name = $data['first_name']." ".$data["last_name"];
                     $subject = 'Hello '.$client_name.', your account is updated';
                     $message->to($data["email"],$client_name)->subject($subject);
@@ -293,8 +296,9 @@ class adminUsersController extends Controller
                         $data["message"]="Your account has been updated!.";
                 }
                 $data["status_name"]=$user->getStatusName->name;
+                $data["vestidos_email"]=$request->input("configData")["support_email"];
                 Mail::send('emails.adminuser_update',["data"=>$data],function($message) use($data){
-                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $message->from($data["vestidos_email"],"Vestidos Boutique");
                     $client_name = $data['first_name']." ".$data["last_name"];
                     $subject = 'Hello '.$client_name.', your account is updated';
                     $message->to($data["email"],$client_name)->subject($subject);
