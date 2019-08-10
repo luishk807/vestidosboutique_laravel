@@ -75,6 +75,8 @@ class userOrderController extends Controller
         $order->status=11;
         $order->cancel_reason = $request->input("cancel_reason");
         $order->cancel_user=$user_id;
+        $billing_add = $order->getOrderBillingAddress();
+        $shipping_add = $order->getOrderShippingAddress();
         if($order->save()){
             //send email to user
             foreach($order->products as $product){
@@ -93,33 +95,35 @@ class userOrderController extends Controller
                     "id"=>$product_detail->id
                 );
             }
-            if($order->order_shipping){
+            if($shipping_add){
                 $order_detail=[
                     "user"=>$this->users->find($user_id),
                     "order"=>array(                        
                         "order_number"=>$order->order_number,
                         "allow_shipping"=>"true",
                         "purchase_date"=>$today,
-                        "shipping_name"=>$order->shipping_name,
-                        "shipping_address_1"=>$order->shipping_address_1,
-                        "shipping_address_2"=>$order->shipping_address_2,
-                        "shipping_city"=>$order->shipping_city,
-                        "shipping_state"=>$order->shipping_state,
-                        "shipping_country"=>$order->getShippingCountry->countryCode,
-                        "shipping_zip_code"=>$order->shipping_zip_code,
-                        "shipping_phone_number_1"=>$order->shipping_phone_number_1,
-                        "shipping_phone_number_2"=>$order->shipping_phone_number_2,
-                        "shipping_email"=>$order->shipping_email,
-                        "billing_name"=>$order->billing_name,
-                        "billing_address_1"=>$order->billing_address_1,
-                        "billing_address_2"=>$order->billing_address_2,
-                        "billing_city"=>$order->billing_city,
-                        "billing_state"=>$order->billing_state,
-                        "billing_country"=>$order->getBillingCountry->countryCode,
-                        "billing_zip_code"=>$order->billing_zip_code,
-                        "billing_phone_number_1"=>$order->billing_phone_number_1,
-                        "billing_phone_number_2"=>$order->billing_phone_number_2,
-                        "billing_email"=>$order->billing_email,
+                        "shipping_name"=>$shipping_add[0]->name,
+                        "shipping_address_1"=>$shipping_add[0]->address_1,
+                        "shipping_address_2"=>$shipping_add[0]->address_2,
+                        "shipping_district"=>$shipping_add[0]->district_name,
+                        "shipping_corregimiento"=>$shipping_add[0]->corregimiento_name,
+                        "shipping_province"=>$shipping_add[0]->province_name,
+                        "shipping_country"=>$shipping_add[0]->country_name,
+                        "shipping_zip_code"=>$shipping_add[0]->zip_code,
+                        "shipping_phone_number_1"=>$shipping_add[0]->phone_number_1,
+                        "shipping_phone_number_2"=>$shipping_add[0]->phone_number_2,
+                        "shipping_email"=>$shipping_add[0]->email,
+                        "billing_name"=>$billing_add[0]->name,
+                        "billing_address_1"=>$billing_add[0]->address_1,
+                        "billing_address_2"=>$billing_add[0]->address_2,
+                        "billing_district"=>$billing_add[0]->district_name,
+                        "billing_corregimiento"=>$billing_add[0]->corregimiento_name,
+                        "billing_province"=>$billing_add[0]->province_name,
+                        "billing_country"=>$billing_add[0]->country_name,
+                        "billing_zip_code"=>$billing_add[0]->zip_code,
+                        "billing_phone_number_1"=>$billing_add[0]->phone_number_1,
+                        "billing_phone_number_2"=>$billing_add[0]->phone_number_2,
+                        "billing_email"=>$billing_add[0]->email,
                         "products"=>$data_products_email,
                         "order_total"=>$order->order_total,
                         "order_tax"=>$order->order_tax,
@@ -134,16 +138,17 @@ class userOrderController extends Controller
                         "order_number"=>$order->order_number,
                         "allow_shipping"=>"false",
                         "purchase_date"=>$today,
-                        "billing_name"=>$order->billing_name,
-                        "billing_address_1"=>$order->billing_address_1,
-                        "billing_address_2"=>$order->billing_address_2,
-                        "billing_city"=>$order->billing_city,
-                        "billing_state"=>$order->billing_state,
-                        "billing_country"=>$order->getBillingCountry->countryCode,
-                        "billing_zip_code"=>$order->billing_zip_code,
-                        "billing_phone_number_1"=>$order->billing_phone_number_1,
-                        "billing_phone_number_2"=>$order->billing_phone_number_2,
-                        "billing_email"=>$order->billing_email,
+                        "billing_name"=>$billing_add[0]->name,
+                        "billing_address_1"=>$billing_add[0]->address_1,
+                        "billing_address_2"=>$billing_add[0]->address_2,
+                        "billing_district"=>$billing_add[0]->district_name,
+                        "billing_corregimiento"=>$billing_add[0]->corregimiento_name,
+                        "billing_province"=>$billing_add[0]->province_name,
+                        "billing_country"=>$billing_add[0]->country_name,
+                        "billing_zip_code"=>$billing_add[0]->zip_code,
+                        "billing_phone_number_1"=>$billing_add[0]->phone_number_1,
+                        "billing_phone_number_2"=>$billing_add[0]->phone_number_2,
+                        "billing_email"=>$billing_add[0]->email,
                         "products"=>$data_products_email,
                         "order_total"=>$order->order_total,
                         "order_tax"=>$order->order_tax,
@@ -166,7 +171,7 @@ class userOrderController extends Controller
             });
             return redirect()->route("user_account",["user_id"=>$order->user_id])->with(
                 "success",__('general.order_section.cancel_request'));
-        }
+       }
         return redirect()->route("user_account")->with("error",__('general.order_section.unable_delete'));
  
     }

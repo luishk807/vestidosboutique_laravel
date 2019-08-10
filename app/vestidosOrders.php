@@ -50,7 +50,7 @@ class vestidosOrders extends Model
         $address = DB::table('vestidos_order_addresses')
                    ->select("vestidos_order_addresses.*","vestidos_provinces.name as province_name","vestidos_provinces.id as province_id","vestidos_districts.name as district_name","vestidos_districts.id as district_id",
                    "vestidos_corregimientos.name as corregimiento_name",
-                   "vestidos_corregimientos.id as corregimiento_id", "vestidos_countries.countryCode as country_name", "vestidos_countries.id as country_id")
+                   "vestidos_corregimientos.id as corregimiento_id", "vestidos_countries.isoAlpha3 as country_name", "vestidos_countries.id as country_id")
                    ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province_id")
                    ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district_id")
                    ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento_id")
@@ -139,7 +139,7 @@ class vestidosOrders extends Model
         $address = DB::table('vestidos_order_addresses')
                     ->select("vestidos_order_addresses.*","vestidos_provinces.name as province_name","vestidos_provinces.id as province_id","vestidos_districts.name as district_name","vestidos_districts.id as district_id",
                     "vestidos_corregimientos.name as corregimiento_name",
-                    "vestidos_corregimientos.id as corregimiento_id", "vestidos_countries.countryCode as country_name", "vestidos_countries.id as country_id")
+                    "vestidos_corregimientos.id as corregimiento_id", "vestidos_countries.isoAlpha3 as country_name", "vestidos_countries.id as country_id")
                     ->join("vestidos_provinces","vestidos_provinces.id","vestidos_order_addresses.province_id")
                     ->join("vestidos_districts","vestidos_districts.id","vestidos_order_addresses.district_id")
                     ->join("vestidos_corregimientos","vestidos_corregimientos.id","vestidos_order_addresses.corregimiento_id")
