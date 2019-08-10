@@ -32,7 +32,7 @@ class CreateVestidosUserAddress extends Migration
             $table->foreign("district_id")->references("id")->on("vestidos_districts");
             $table->integer('country_id')->unsigned()->nullable();
             $table->foreign("country_id")->references("id")->on("vestidos_countries");
-            $table->string('zip_code');
+            $table->string('zip_code')->nullable();
             $table->string('phone_number_1');
             $table->string('phone_number_2')->nullable();
             $table->string('email');
