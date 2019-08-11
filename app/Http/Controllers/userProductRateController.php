@@ -58,10 +58,11 @@ class userProductRateController extends Controller
             "user_headline"=>"required"
         ]
         );
-        $data["status"]=13;
+        $data["status"]=4;
         $data["created_at"]=carbon::now();
-        if($this->rates->insert($data)){
-            return redirect()->route("user_account");
+        $rate = Rates::create($data);
+        if($rate->id){
+            return redirect()->route("user_account")->with('success',__('general.user_section.profile_review_created'));
         }
         return redirect()->back();
     }
@@ -104,7 +105,7 @@ class userProductRateController extends Controller
         $rate->updated_at=carbon::now();
 
         if($rate->save()){
-            return redirect()->route("user_account");
+            return redirect()->route("user_account")->with('success',__('general.user_section.profile_review_saved'));
         }
 
         return redirect()->back();
@@ -114,7 +115,7 @@ class userProductRateController extends Controller
         $rate = $this->rates->find($rate_id);
         if($request->input("_method")=="DELETE"){
             $rate->delete();
-            return redirect()->route("admin_rates");
+            return redirect()->route("admin_rates")->with('success',__('general.user_section.profile_review_deleted'));
         }
         $data["rate"]=$rate;
         $data["page_title"]=__('general.rate_title.delete_rate');

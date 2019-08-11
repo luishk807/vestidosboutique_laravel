@@ -183,7 +183,7 @@ class usersController extends Controller
                 Session::forget("locale");
                 Session::put("locale",$lang);
             }
-            return redirect()->route("user_account",['user_id'=>$user->id]);
+            return redirect()->route("user_account",['user_id'=>$user->id])->with('success',__('general.user_section.to_user.update',['name'=>$user->first_name]));
         }
         return view("account/edit",$data);
     }
@@ -215,7 +215,7 @@ class usersController extends Controller
                 $message->to($data["email"],$client_name)->subject($subject);
                 //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
             });
-            return redirect()->route('forgot_password_confirm_sent',$data);
+            return redirect()->route('forgot_password_confirm_sent',$data)->with('success',__('general.forgot_password.confirm_title'));;
         }else{
             return redirect()->back()->withErrors(['required'=>__('general.form.no_email_match')]);
         }

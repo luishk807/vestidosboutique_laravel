@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\DB;
 class vestidosProductRates extends Model
 {
     //
+    protected $fillable = [
+        'user_id',
+        'product_id',
+        'user_headline',
+        'user_comment',
+        'status',
+        'created_at',
+        'updated_at'
+    ];
     public function getStatusName(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }
