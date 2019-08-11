@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col">
             <P>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vehicula eros vitae lorem finibus faucibus. Morbi vitae blandit diam, id interdum risus. Cras sodales felis augue, efficitur suscipit magna aliquet at. 
+            {{ __('general.user_section.profile_address_edit_title') }}
             </P>
         </div>
     </div>

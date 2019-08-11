@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col">
             <P>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vehicula eros vitae lorem finibus faucibus. Morbi vitae blandit diam, id interdum risus. Cras sodales felis augue, efficitur suscipit magna aliquet at. 
+            {{ __('general.user_section.profile_address_delete_title') }}
             </P>
         </div>
     </div>
@@ -21,7 +21,7 @@
 <div class="container">
     <div class="row">
         <div class="col text-center">
-            are you sure want to delete {{ $address->nick_name }}
+        {{ __('general.user_section.profile_address_delete_title2',['name'=>$address->nick_name]) }}
         </div>
     </div>
     <div class="row">
