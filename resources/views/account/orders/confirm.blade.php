@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col">
             <P>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vehicula eros vitae lorem finibus faucibus. Morbi vitae blandit diam, id interdum risus. Cras sodales felis augue, efficitur suscipit magna aliquet at. 
+            {{ __('general.user_section.profile_order_cancel') }}
             </P>
         </div>
     </div>
@@ -19,12 +19,12 @@
         <div class="container cancel-container">
             <div class="row">
                 <div class="col text-center">
-                    <h3>Are you sure want to cancel order {{ $order->order_number }}?</h3>
+                    <h3>{{ __('general.user_section.profile_order_cancel_title2',['name'=>$order->order_number]) }}?</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col text-center">
-                    <label class="cancelReasonSelect" for="cancelRason">Please choose reason for cancellation:</label>
+                    <label class="cancelReasonSelect" for="cancelRason">{{ __('general.user_section.profile_order_cancel_title3') }}:</label>
                     <select class="custom-select cancelReasonSelect" name="cancel_reason" id="cancelRason">
                         @foreach($cancel_reasons as $cancel_reason)
                             <option value="{{$cancel_reason->id}}">{{$cancel_reason->name}}</option>

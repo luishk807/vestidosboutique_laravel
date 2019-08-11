@@ -75,7 +75,7 @@
                                         <div class="col"><h2>{{ __('header.registration') }}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores,</div>
+                                        <div class="col">{{ __('general.user_section.register_text') }}</div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
