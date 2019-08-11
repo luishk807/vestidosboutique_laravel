@@ -11,6 +11,12 @@
             <P>
             {{ __('general.user_section.profile_order_cancel') }}
             </P>
+            <ul>
+                <li>Si no se ha efectuado pago a su pedido, se puede cancelarla fácilmente desde su perfil con la cuenta registrada en nuestra web.</li>
+                <li>Si ha realizado pago y su pedido está en status &#34;EN PROCESO&#34;, puede solicitar la cancelación a través de nuestro email <b>pedidos@vestidosboutique.com</b>.</li>
+                <li>Penalidad de cancelación: Si se comunica con nosotros para cancelar dentro de las 24 horas posteriores al pago, le daremos un reembolso completo del valor pagado. Si han transcurrido más de 24 horas, aplicará un cargo por manejo administrativo de $25.</li>
+                <li>Una vez que su pedido está en status &#34;PROCESADO&#34;, no se podrá cancelar. Aplica la política de <a href="{{ route('terms_use')}}" target="_blank">DEVOLUCION y CAMBIOS punto 3.</a></li>
+            </ul>
         </div>
     </div>
     <div class="container account-container">
