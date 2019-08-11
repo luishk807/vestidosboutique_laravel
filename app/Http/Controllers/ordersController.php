@@ -229,7 +229,7 @@ class ordersController extends Controller
             }
             elseif($address["address_type"]==2){
                 if(array_key_exists('user_address_id', $address)){
-                    $address=$this->addresses->find($address["user_address_id"]);
+                    $user_address=$this->addresses->find($address["user_address_id"]);
                     $country = $this->countries->find($user_address->country_id);
                     $data["billing_name"]=$user_address->getFullName();
                     $data["billing_address_1"]=$user_address->address_1;
@@ -522,11 +522,11 @@ class ordersController extends Controller
                 $check_size = $this->sizes->find($product["size_id"]);
                 $check_product = $this->products->find($product["id"]);
                 $check_color =  $this->colors->find($product["color_id"]);
-                if($check_size->stock < 1){
-                    return redirect()->back()->withErrors([
-                        "required"=>$check_product->products_name." ".$check_color->name." / ".$check_size->name." is out of stock"
-                    ]);
-                }
+                // if($check_size->stock < 1){
+                //     return redirect()->back()->withErrors([
+                //         "required"=>$check_product->products_name." ".$check_color->name." / ".$check_size->name." is out of stock"
+                //     ]);
+                // }
             }
             $order = Orders::create($data);
             //save addresese
@@ -698,7 +698,6 @@ class ordersController extends Controller
         }
         $order_shipping = $order->getOrderShippingAddress();
         $order_billing = $order->getOrderBillingAddress();
-       // dd($getOrderShipping);
         if($this->main_config->allow_shipping){
             $order_detail=[
                 "user"=>$this->users->find($user_id),

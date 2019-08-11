@@ -87,7 +87,8 @@ class ordersProductsController extends Controller
                 $color = $this->colors->find($product["color"]);
                 $size = $this->sizes->find($product["size"]);
                 $total = $size->total_sale * $product['quantity'];
-                if($size->stock >0){
+                //dd($size->stock);
+                //if($size->stock >0){
                     $image_save = $prod->images->count() > 0 ? $prod->images->first()->img_url : "no-image.jpg";
                     $image_name = $prod->images->count() > 0 ? $prod->images->first()->img_name : "";
                     $subtotal += $total;
@@ -103,7 +104,7 @@ class ordersProductsController extends Controller
                         "size"=>$size->name,
                         "quantity"=>$product['quantity']
                     );
-                }
+                //}
             }
         }
         // echo "<pre>";
