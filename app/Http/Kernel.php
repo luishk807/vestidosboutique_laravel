@@ -63,5 +63,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'under-construction' => \LarsJanssen\UnderConstruction\UnderConstruction::class,
         'roleCheck' => \App\Http\Middleware\checkRole::class,
+        'checkOrderAccess' => \App\Http\Middleware\checkOrderAccess::class,
+        'checkUserAddressAccess' => \App\Http\Middleware\checkUserAddressAccess::class,
+        'checkUserReviewAccess' => \App\Http\Middleware\checkUserReviewAccess::class,
+        'checkUserWishlistAccess' => \App\Http\Middleware\checkUserWishlistAccess::class,
     ];
 }

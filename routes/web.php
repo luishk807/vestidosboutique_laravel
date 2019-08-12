@@ -71,30 +71,38 @@
         Route::prefix("addresses")->group(function(){
             Route::get("/new",'userAddressController@newAddress')->name("newaddress");
             Route::post("/new",'userAddressController@newAddress')->name("createaddress");
-            Route::get("/edit/{address_id}",'userAddressController@editAddress')->name("editaddress");
-            Route::post("/edit/{address_id}",'userAddressController@editAddress')->name("updateaddress");
-            Route::get('/confirm/{address_id}','userAddressController@deleteAddress')->name('confirmaddress');
-            Route::delete('/confirm/{address_id}','userAddressController@deleteAddress')->name('deleteaddress');
+            Route::middleware('checkUserAddressAccess')->group(function(){
+                Route::get("/edit/{address_id}",'userAddressController@editAddress')->name("editaddress");
+                Route::post("/edit/{address_id}",'userAddressController@editAddress')->name("updateaddress");
+                Route::get('/confirm/{address_id}','userAddressController@deleteAddress')->name('confirmaddress');
+                Route::delete('/confirm/{address_id}','userAddressController@deleteAddress')->name('deleteaddress');
+            });
         });
 
         Route::prefix("wishlists")->group(function(){
             Route::get("/",'userWishlistController@index')->name("user_wishlists");
-            Route::get('/delete/{wishlist_id}','userWishlistController@deleteWishlist')->name('deletewishlist');
+            Route::middleware('checkUserWishlistAccess')->group(function(){
+                Route::get('/delete/{wishlist_id}','userWishlistController@deleteWishlist')->name('deletewishlist');
+            });
         });
 
         Route::prefix("reviews")->group(function(){
             Route::get("/",'userProductRateController@index')->name("user_review");
             Route::get('/new/{product_id}','userProductRateController@newReview')->name('user_new_review');
             Route::post('/create/{product_id}','userProductRateController@createReview')->name('user_create_review');
-            Route::get('/edit/{review_id}','userProductRateController@editReview')->name('user_edit_review');
-            Route::post('/save/{review_id}','userProductRateController@saveReview')->name('user_save_review');
+            Route::middleware('checkUserReviewAccess')->group(function(){
+                Route::get('/edit/{review_id}','userProductRateController@editReview')->name('user_edit_review');
+                Route::post('/save/{review_id}','userProductRateController@saveReview')->name('user_save_review');
+            });
         });
 
         Route::prefix("orders")->group(function(){
             Route::get("/",'userOrderController@index')->name("user_orders");
-            Route::get("/view/{order_id}",'userOrderController@viewOrder')->name("view_order");
-            Route::get('/confirm/{order_id}','userOrderController@showCancelIndex')->name('confirm_order_cancel');
-            Route::post('/confirm/{order_id}','userOrderController@deleteOrder')->name('delete_order');
+            Route::middleware('checkOrderAccess')->group(function(){
+                Route::get("/view/{order_id}",'userOrderController@viewOrder')->name("view_order");
+                Route::get('/confirm/{order_id}','userOrderController@showCancelIndex')->name('confirm_order_cancel');
+                Route::post('/confirm/{order_id}','userOrderController@deleteOrder')->name('delete_order');
+            });
         });
 
     });
