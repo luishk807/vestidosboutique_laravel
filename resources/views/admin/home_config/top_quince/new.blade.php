@@ -12,10 +12,10 @@
 <script type="text/javascript">
 function checkSubmit(){
     $(".error > ul").empty();
-    if($("input[name*='top_quince']:checked").length==4){
+    if($("input[name*='top_quince']:checked").length==6){
         $(form).submit();
     }else{
-        $(".error > ul").append("<li>Must Be 4</li>");
+        $(".error > ul").append("<li>Must Be 6</li>");
     }
     return false;
 }
