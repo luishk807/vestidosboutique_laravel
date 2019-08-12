@@ -292,6 +292,8 @@ return [
      'attn'=>"Sinceramente",
      'chosen'=>"Gracias por preferirnos.",
      'contact_line_1'=>"Estamos para servirles contáctanos:",
+     'under_main_title'=>'Bajo Construccion',
+     'under_main_text'=>'Ops! lo sentimos! Estamos trabajando en esta parte de la pagina.  Favor de regresar despues',
      'excel_error'=>[
         'color_missing'=>"Modelo :name requiere el nombre del color en el archivo de excel, favor de ingresar el color y intente de nuevo.",
         'size_missing'=>"Un tamaño para el color :name en el no. :index debe que ser definida",
