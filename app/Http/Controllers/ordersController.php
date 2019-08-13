@@ -690,7 +690,7 @@ class ordersController extends Controller
                 "color"=>$color_detail->name,
                 "size"=>$size_detail->name,
                 "name"=>$product_detail->products_name,
-                "total"=>$product_detail->total_rent,
+                "total"=>$product->total_sale,
                 "model"=>$product_detail->product_model,
                 "img"=>$product_detail->images()->first()->img_url,
                 "id"=>$product_detail->id
