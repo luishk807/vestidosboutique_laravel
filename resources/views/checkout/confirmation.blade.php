@@ -109,6 +109,25 @@
                                                 </div>
                                                 <!--end of header-->
                                                 <!--listing products-->
+                                                <div class="row checkout-confirm-order-details-data my-1">
+                                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                                        {{ __('general.product_title.description') }}
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                                        {{ trans_choice('general.product_title.color',1)}}
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-12">
+                                                        {{ __('general.product_title.size') }}
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-sm-12">
+                                                        {{ __('general.cart_title.quantity') }}
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                                        {{ __('general.cart_title.total') }}
+                                                    </div>
+                                                </div>
                                                 @foreach($last_order->products as $product)
                                                 <div class="row checkout-confirm-order-details-data my-1">
                                                     <div class="col-lg-2 col-md-2 col-sm-12">
