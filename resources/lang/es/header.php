@@ -28,7 +28,7 @@ return [
     'faqs' => 'Preguntas Frequentes',
     'terms' => 'Terminos de Uso',
     'privacy' => 'Politica de Privacidad',
-    'language' => 'Lenguages',
+    'language' => 'Lenguaje',
     'registration'=>"Regístrate",
     'accessories'=>"Accesorios",
     'by_styles'=>"Por Estilos",

@@ -16,7 +16,11 @@
                                         <label class="accountTitleSelect" for="accountLanguage">{{ trans_choice('general.form.select_language',1) }}:</label>
                                         <select class="custom-select accountTitleSelect" name="preferred_language" id="accountLanguage">
                                             @foreach($languages as $language)
-                                                <option value="{{$language->id}}">{{$language->name}}</option>
+                                                <option value="{{$language->id}}"
+                                                @if($language->id == 2)
+                                                selected
+                                                @endif 
+                                                >{{$language->name}}</option>
                                             @endforeach
                                         </select>
                                         <small class="error">{{$errors->first("preferred_language")}}</small>
