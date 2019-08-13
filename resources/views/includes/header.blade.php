@@ -173,6 +173,12 @@
                         </div>
                     </li>
                     <li class="nav-item mobile">
+                        <a class="nav-link text-white collapse-link" href="{{ route('terms_use') }}">{{ __('header.terms') }}</a>
+                    </li>
+                    <li class="nav-item mobile">
+                        <a class="nav-link text-white collapse-link" href="{{ route('privacy_use') }}">{{ __('header.privacy') }}</a>
+                    </li>
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{ route('viewContactPage') }}">{{ __('header.contact') }}</a>
                     </li>
                 </ul>
