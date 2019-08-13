@@ -220,9 +220,6 @@ class vestidosProducts extends Model
             case "high":
             $products->orderBy("total_sale","desc");
             break;
-            case "date":
-            $products->orderBy("created_at","desc");
-            break;
             default:
             $products->orderBy("products_name");
             break;
