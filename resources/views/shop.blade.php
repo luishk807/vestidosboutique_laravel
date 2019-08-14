@@ -1,7 +1,7 @@
 @extends("layouts.sub-layout")
 @section('content')
 <div class="main_sub_body main_body_height">
-<div class="container-fluid">
+<div class="container-fluid vest-shop-container">
     <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
     <div class="row">
         <div class="col container-in-center">
@@ -111,7 +111,7 @@
                             <div class="row">
                                     @foreach($products as $product)
                                     <input type="hidden" name="product_lists[]" value="{{ $product->id }}"/>
-                                    <div class="col-md-3 p-2">
+                                    <div class="col-md-3 p-2 product-rows">
                                     <!--each pod-->
                                             @if($product->is_new)
                                             <div class="vesti-new-txt vesti-new-txt-b">{{ __('general.product_title.new') }}</div><div class="vesti-new-border vesti-new-border-b"></div>

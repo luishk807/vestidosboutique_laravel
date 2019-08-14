@@ -40,7 +40,7 @@ return [
     //cart
       'proceed_billing'=>"Proceder a Facturacion",
       'proceed_shipping'=>"Proceder a Envio",
-      'proceed_checkout'=>"Proceder a Pago",
+      'proceed_checkout'=>"Tramitar Pedido",
       'submit_payment'=>"Finalizar Orden",
       'edit_cart'=>"Editar Carrito",
       'back_shopping'=>'Seguir Comprando',

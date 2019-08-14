@@ -18,6 +18,17 @@
     #desktop-sort-nav{
         display:none;
     }
+    .vest-shop-container{
+        padding-left:0px;
+        padding-right:0px;
+        .product-rows{
+            border-top:1px solid rgba(0,0,0,.1);
+            padding:20px 0px !important;
+        }
+        .shoplist-list-cont-in .row div{
+            text-align:left;
+        }
+    }
 }
 /*************************************************/
 /*           PHONE PORTRAIT                      */

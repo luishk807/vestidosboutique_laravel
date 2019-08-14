@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="row address-hour">
                                         <div class="col-md-6">
-                                        {{ __('general.weekdays.sunday') }}
+                                        {{ __('general.weekdays.saturday') }}-{{ __('general.weekdays.sunday') }}
                                         </div>
                                         <div class="col-md-6">
                                         10:00 a.m. - 5:00 p.m.
