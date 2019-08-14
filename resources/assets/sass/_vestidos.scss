@@ -1660,18 +1660,26 @@ text-align:left;
 .table .account-wishlist-table{
   background-color: white !important;
 }
-.account-wishlist-table th{
-  text-align:center;
+.account-wishlist-table{
+  .row.content{
+    padding:15px 0px;
+    border-top:1px solid rgba(0,0,0,.1);
+  }
+  th{
+    text-align:center;
+  }
+  td{
+    text-align:center;
+  }
+  td.desc{
+    text-align:left;
+  }
+  .no-wishlist{ 
+    border-top:none;
+  }
 }
-.account-wishlist-table td{
-  text-align:center;
-}
-.account-wishlist-table td.desc{
-  text-align:left;
-}
-.account-wishlist-table .no-wishlist{ 
-  border-top:none;
-}
+
+
 //ORDER
 //IMPORT CONFIRM PAGE
 .import-confirm .confirm-data-row{
