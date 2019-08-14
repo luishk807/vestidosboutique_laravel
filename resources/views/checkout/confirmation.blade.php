@@ -109,28 +109,22 @@
                                                 </div>
                                                 <!--end of header-->
                                                 <!--listing products-->
-                                                <div class="row checkout-confirm-order-details-data my-1">
-                                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                                    </div>
+                                                <div class="row checkout-confirm-order-details-data my-1 header">
                                                     <div class="col-lg-3 col-md-3 col-sm-12">
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-12">
                                                         {{ __('general.product_title.description') }}
                                                     </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                                        {{ trans_choice('general.product_title.color',1)}}
+                                                    <div class="col-lg-2 col-md-2 col-sm-12 text-center">
+                                                        {{ trans_choice('general.cart_title.quantity',1)}}
                                                     </div>
-                                                    <div class="col-lg-1 col-md-1 col-sm-12">
-                                                        {{ __('general.product_title.size') }}
-                                                    </div>
-                                                    <div class="col-lg-1 col-md-1 col-sm-12">
-                                                        {{ __('general.cart_title.quantity') }}
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-2 col-sm-12">
-                                                        {{ __('general.cart_title.total') }}
+                                                    <div class="col-lg-2 col-md-3 col-sm-12 text-right">
+                                                    {{ trans_choice('general.cart_title.total',1)}}
                                                     </div>
                                                 </div>
                                                 @foreach($last_order->products as $product)
-                                                <div class="row checkout-confirm-order-details-data my-1">
-                                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                                <div class="row checkout-confirm-order-details-data my-1 list">
+                                                    <div class="col-lg-3 col-md-3 col-sm-12">
                                                             <img class="img-fluid" 
                                                             @if($product->getProduct->images->count()>0)
                                                             src="{{ asset('/images/products') }}/{{ $product->getProduct->images->first()->img_url }}"
@@ -139,19 +133,17 @@
                                                             @endif
                                                              alt width="100%"/>
                                                     </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-12">
+                                                    <div class="col-lg-5 col-md-5 col-sm-12">
                                                         <span class="title">{{$product->getProduct->products_name}}</span>
+                                                        <br/>
+                                                        {{ trans_choice('general.product_title.color',1)}}: {{ $product->getColor->name }}
+                                                        <br/>
+                                                        {{ __('general.product_title.size') }}: {{ $product->getSize->name }}
                                                     </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-12">
-                                                        {{ $product->getColor->name }}
-                                                    </div>
-                                                    <div class="col-lg-1 col-md-1 col-sm-12">
-                                                        {{ $product->getSize->name }}
-                                                    </div>
-                                                    <div class="col-lg-1 col-md-1 col-sm-12">
+                                                    <div class="col-lg-2 col-md-2 col-sm-12 text-center">
                                                         {{ $product->quantity }}
                                                     </div>
-                                                    <div class="col-lg-2 col-md-2 col-sm-12">
+                                                    <div class="col-lg-2 col-md-2 col-sm-12 text-right">
                                                         ${{number_format($product->getSize->total_sale,'2','.',',')}}
                                                     </div>
                                                 </div>

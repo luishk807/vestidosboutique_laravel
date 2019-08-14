@@ -1590,6 +1590,15 @@ text-align:left;
 }
 .checkout-confirm-info-cont{
   margin:0px auto;
+  .checkout-confirm-order-details-data{
+    &.header{
+      border-top:$vesti-light-bars;
+    }
+    &.list{
+      border-top: $vesti-light-bars;
+      padding: 15px 0px;
+    }
+  }
 }
 .checkout-status-confirm div:first-child{
   text-align:right;

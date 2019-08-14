@@ -92,7 +92,7 @@
                             </div>
                             <div class="col cart-item-2">
                                 <select name="quantity" class="form-control vesti-cart-quantity-input" onchange="updateCart('{{ $keyIndex }}',this.value)">
-                                    @for ($i = 1; $i <= $item['quantity']; $i++)
+                                    @for ($i = 1; $i <= 10; $i++)
                                     <option value="{{$i}}"
                                         @if($i==$item['quantity'])
                                         selected=selected

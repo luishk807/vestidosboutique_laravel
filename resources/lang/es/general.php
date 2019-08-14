@@ -206,7 +206,7 @@ return [
         'item_added'=>"Articulo Agregado",
         'cart_updated'=>"Carrito Actualizado",
         'cart_error'=>"Ops!, Error Sucedido!",
-        'min_payment'=>"Page minimo 50% para proceder con la orden",
+        'min_payment'=>"Pago minimo 50% para proceder con la orden",
     ],
 
     //DATES

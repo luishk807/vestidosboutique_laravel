@@ -546,8 +546,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
-                            //$message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                            $message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                            $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
+                            //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
                         });
 
                         //send email to admin
@@ -555,8 +555,8 @@ class userPaymentController extends Controller
                             $message->from("info@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
-                            //$message->to("info@vestidosboutique.com","Admin")->subject($subject);
-                            $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                            $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                            // $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
                         });
                         $email_msg[]=__('general.order_section.payment_success');
                     }catch(Exception $e){
