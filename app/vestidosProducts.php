@@ -220,12 +220,17 @@ class vestidosProducts extends Model
             case "high":
             $products->orderBy("total_sale","desc");
             break;
+            case "newest":
+            $products->orderBy("created_at","desc");
+            break;
+            case "oldest":
+            $products->orderBy("created_at","asc");
+            break;
             default:
             $products->orderBy("products_name");
             break;
         }
         $products = $products->groupBy("products.id")->paginate(15);
-       //dd($products);
       return $products;
     }
     public function getStock(){

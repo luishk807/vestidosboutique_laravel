@@ -1,5 +1,13 @@
 @extends("layouts.sub-layout")
 @section('content')
+<script>
+$(document).ready(function(){
+    $("#shopPage_selectx").change(function(evt){
+       let sort_opt = $(evt.target).val();
+       location.href="/shop_sort/event/1/"+sort_opt;
+    });
+})
+</script>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid vest-shop-container">
     <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
@@ -88,7 +96,7 @@
                             <ul>
                                 <li>{{ $products->total() }} {{ trans_choice('general.cart_title.product',3) }}</li>
                                 <li>{{ __('pagination.sort_by') }}
-                                    <select id="shopPage_select" name="shopPage_select">
+                                    <select id="shopPage_selectx" name="shopPage_select">
                                         @foreach($sort_ops as $keySort=>$sort_op)
                                         <option value='{{ $keySort }}'
                                         @if($keySort==$sort)

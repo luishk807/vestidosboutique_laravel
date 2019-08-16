@@ -46,7 +46,7 @@ class userShopController extends Controller
             "id"=>null
         )
       );
-      $this->sort_options=array("low"=>__('pagination.sort_options.low_price'),"high"=>__('pagination.sort_options.high_price'));
+      $this->sort_options=array("low"=>__('pagination.sort_options.low_price'),"high"=>__('pagination.sort_options.high_price'),"newest"=>__('pagination.sort_options.newest'));
     }
     public function index($type=null,$type_id = null){
         $data=[];
@@ -105,5 +105,22 @@ class userShopController extends Controller
         $products=$this->products->getProductsBySortOptions($this->data_list);
         $data["products"]=$products;
        return view("shop",$data);
+    }
+    public function sort_product_list($type=null,$type_id = null,$sort_option){
+        $data=[];
+        if(isset($type) && isset($type_id)){
+            $this->data_list["type"]["type"]=$type;
+            $this->data_list["type"]["id"]=$type_id;
+        }
+        $this->data_list["sort"] =$sort_option;
+        $event = $this->events->find($type_id);
+        $data["page_title"]=__('header.shop');
+        $data["sort"]=$sort_option;
+        $data["event"]=$event;
+        $products=$this->products->getProductsBySortOptions($this->data_list);
+        $data["products"]=$products;
+        $data["sort_ops"]=$this->sort_options;
+        $data["products_model"]=new Products;
+        return view("shop",$data);
     }
 }

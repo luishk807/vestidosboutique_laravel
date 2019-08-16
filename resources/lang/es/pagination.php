@@ -20,5 +20,6 @@ return [
     'sort_options'=>[
         'low_price'=>"Precio Más Bajo",
         'high_price'=>"Precio Más Alto",
+        'newest'=>"Nuevos Vestidos",
     ]
 ];

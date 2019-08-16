@@ -20,5 +20,6 @@ return [
     'sort_options'=>[
         'low_price'=>"Lowest Price",
         'high_price'=>"Highest Price",
+        'newest'=>"Newest Arrival",
     ]
 ];
