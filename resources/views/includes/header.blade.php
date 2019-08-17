@@ -38,7 +38,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand text-white" href="/" >
-                    <img src="{{ asset('images/logo_text_only_white.svg') }}" class="vesti-svg vestidos-logo"/>
+                    <img src="{{ asset('images/logo_text_vestidos_online.svg') }}" class="vesti-svg vestidos-logo"/>
                 </a>
             </div>
             <button id='vesti-main-nav-btn' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
