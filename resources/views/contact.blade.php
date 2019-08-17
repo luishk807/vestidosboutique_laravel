@@ -68,7 +68,7 @@
                                     <div class="row">
                                         <div class="col address-phone">
                                         {{ __('general.form.telephone') }}: <a target="_blank" class="footer-link" href="tel:5265848">(507) 203-5848</a><br/>
-                                        {{ __('general.form.whatssap') }}: <a target="_blank" class="footer-link" href="67266556">(507) 6726-6556</a>
+                                        {{ __('general.form.whatssap') }}: <a target="_blank" class="footer-link" href="https://api.whatsapp.com/send?phone=+50767266556&text=Hello">(507) 6726-6556</a>
                                         </div>
                                     </div>
                                     <div class="row">
