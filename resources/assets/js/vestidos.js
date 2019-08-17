@@ -57,8 +57,8 @@ $(document).ready(function() {
    $(".rate-shop").rate({
         readonly:true
     });
-    $("#shopPage_select").change(function(){
-        let sort_opt = $(evt.target).val();
+    $("#shopPage_select").change(function(evt){
+        var sort_opt = $(evt.target).val();
         location.href="/shop_sort/event/1/"+sort_opt;
     });
     $(".vestidos-check").on("click",function(){
