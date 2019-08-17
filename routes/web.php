@@ -31,11 +31,15 @@
     Route::prefix("checkout")->middleware("auth:vestidosUsers")->group(function(){
         Route::get("/checkout",'userPaymentController@showBilling')->name("checkout_checkout_page");
         Route::get("/payment/process",'userPaymentController@process')->name("checkout_payment_process");
-        Route::get("/shipping",'userPaymentController@showShipping')->name("checkout_show_shipping");
-        Route::post("/save_shipping",'userPaymentController@saveShipping')->name("checkout_save_shipping");
-        Route::get("/billing",'userPaymentController@showBilling')->name("checkout_show_billing");
-        Route::post("/save_billing",'userPaymentController@processPayment')->name("checkout_save_billing");
-        Route::get("/orderconfirmed",'userPaymentController@showOrderReceived')->name("checkout_order_received");
+        Route::middleware('checkShippingAllowed')->group(function(){
+            Route::get("/shipping",'userPaymentController@showShipping')->name("checkout_show_shipping");
+            Route::post("/save_shipping",'userPaymentController@saveShipping')->name("checkout_save_shipping");
+        });
+        Route::middleware('checkShippingMissing')->group(function(){
+            Route::get("/billing",'userPaymentController@showBilling')->name("checkout_show_billing");
+            Route::post("/save_billing",'userPaymentController@processPayment')->name("checkout_save_billing");
+            Route::get("/orderconfirmed",'userPaymentController@showOrderReceived')->name("checkout_order_received");
+        });
     });
 
 

@@ -13,10 +13,10 @@
                                 <ul>
                                 @foreach($checkout_menus as $checkoutKey=>$checkout_menu)
                                     @if($checkout_menu["name"]==$checkout_header_key)
-                                    <li class="active">
+                                    <li class="active checkout-header-ship">
                                         <div class="checkout-arrow-down"></div>
                                     @else
-                                    <li>
+                                    <li class="checkout-header-ship">
                                     @endif
                                     @if($checkout_menu_prev_link && $checkout_menu["name"]==$checkout_header_key)
                                     <a href="{{ $checkout_menu_prev_link }}">
