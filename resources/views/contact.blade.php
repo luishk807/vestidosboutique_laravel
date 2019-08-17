@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-5 contact-container container-in-center">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 contact-container container-in-center">
             <div>
                <div class="container-in-space white-md-bg-in">
                     <div class="container">
