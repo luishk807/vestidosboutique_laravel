@@ -31,7 +31,7 @@
             <table width="100%">
                 <tr>
                     <td width="{{ $order_detail['order']['allow_shipping']=='true'? '50%' : '100%'}}" align="left" valign="top">
-                        <strong>{{ __('emails.order_user_received.line_3') }}/strong>
+                        <strong>{{ __('emails.order_user_received.line_3') }}</strong>
                     </td>
                     @if($order_detail['order']['allow_shipping']=="true")
                     <td width="50%" align="left" valign="top">
