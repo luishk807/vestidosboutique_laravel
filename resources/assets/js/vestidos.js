@@ -173,6 +173,21 @@ $(document).ready(function() {
         readonly:true
     });
     //checkout
+    var firstOpenChecked = $("input:radio[name='payment_type']:checked").attr("target-data");
+    if(firstOpenChecked){
+        openRadioContent(firstOpenChecked)
+        $("input[name='payment_type']").click(function(e){
+            var target_data= $(e.target).attr("target-data");
+            openRadioContent(target_data)
+        })
+    }
+    $("#checkoutForm #accept_terms").click(function(){
+        if($(this)[0].checked){
+            $("#checkoutForm #submit-button").removeClass("disabled-btn").prop("disabled",false)
+        }else{
+            $("#checkoutForm #submit-button").addClass("disabled-btn").prop("disabled",true)
+        }
+    })
     $(".checkout-button,.loader-button").on("click",function(){
         $(this).css("display","none");
         // $(this).prop('disabled', true);
@@ -180,10 +195,25 @@ $(document).ready(function() {
     });
     $(".oval-button").on("click",function(){
         $(this).css("display","none");
-        // $(this).prop('disabled', true);
         $("#vesti-load-oval").css("display","block");
     });
 });
+function openRadioContent(content){
+    var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
+    if(is_credit=="yes"){
+        $("#is_credit_card").val("yes");
+    }else{
+        $("#is_credit_card").val("no");
+    }
+    $("div.row.content").css("display","none");
+    $("div[target-data='"+content+"']").css("display","block");
+}
+function checkPaymentForm(){
+    if($("#checkoutForm #accept_terms")[0].checked){
+        return true;
+    }
+    return false;
+}
 function addWishlist(product_id){
     $.ajax({
         type: "GET",

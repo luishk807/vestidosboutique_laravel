@@ -109,6 +109,7 @@ return [
         'cancel_success'=>"Orden cancelada con éxito",
         'delete_name'=>'Eliminar :name de las órdenes',
         'order_address'=>"Dirección del pedido",
+        'agree_terms_use'=>'Estoy de acuerdo con los términos y condiciones',
         'to_user'=>[
             'received'=>'Hola :name, gracias por tu pedido',
             'cancel_confirmation'=>'Hola :name, tu confirmación de cancelación',

@@ -1,80 +1,5 @@
 @extends("layouts.sub-layout")
 @section('content')
-<style>
-.billing-payment-section{
-    margin:20px 0px 30px 0px;
-}
-/* .billing-payment-section .row{
-    border-left: 1px solid rgba(0,0,0,.1);
-    border-right: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row:not(:first-child),
-.billing-payment-section .row:not(:last-child)
-{
-    border-top: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row:first-child {
-    border-top: 1px solid rgba(0,0,0,.1);
-    border-left: 1px solid rgba(0,0,0,.1);
-    border-right: 1px solid rgba(0,0,0,.1);
-
-    border-radius: 10px 10px 0px 0px;
-}
-.billing-payment-section .row:last-child {
-    border-left: 1px solid rgba(0,0,0,.1);
-    border-right: 1px solid rgba(0,0,0,.1);
-    border-bottom: 1px solid rgba(0,0,0,.1);
-    border-radius: 0px 0px 10px 10px;
-} */
-.billing-payment-section .row.button{
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row.button:first-child{
-    border-top: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row{
-    border-left: 1px solid rgba(0,0,0,.1);
-    border-right: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row .col{
-    padding:10px;
-}
-.billing-payment-section .row.content .col{
-    padding:20px;
-    background-color:#fafafa;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row.content{
-    display:none;
-}
-.braintree-sheet__header{
-    display:none !important;
-}
-.braintree-sheet{
-    background-color: #fafafa;
-    border: none;
-}
-</style>
-<script>
-$(document).ready(function(){
-    var firstOpenChecked = $("input:radio[name='payment_type']:checked").attr("target-data");
-    openRadioContent(firstOpenChecked)
-    $("input[name='payment_type']").click(function(e){
-        var target_data= $(e.target).attr("target-data");
-        openRadioContent(target_data)
-    })
-})
-function openRadioContent(content){
-    var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
-    if(is_credit=="yes"){
-        $("#is_credit_card").val("yes");
-    }else{
-        $("#is_credit_card").val("no");
-    }
-    $("div.row.content").css("display","none");
-    $("div[target-data='"+content+"']").css("display","block");
-}
-</script>
 <script src="https://js.braintreegateway.com/web/dropin/1.11.0/js/dropin.min.js"></script>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid">
@@ -82,7 +7,7 @@ function openRadioContent(content){
         <div class="col-lg-9 container-in-center">
             <div>
                <div class="container-in-space">
-                  <form action="{{ route('checkout_save_billing') }}" id="vestidos-checkout-form" method="post">
+                  <form id="checkoutForm" action="{{ route('checkout_save_billing') }}" onsubmit="return checkPaymentForm()" id="vestidos-checkout-form" method="post">
                     <input type="hidden" id="is_credit_card" name="is_credit_card" value="no">
                     <div class="row">
                         <div class="col checkout-header">
@@ -254,8 +179,11 @@ function openRadioContent(content){
                                     @endif
                                     @endforeach
                                 </div>
+                                <div class='text-left pb-5 px-1 pt-2'>
+                                    <input id='accept_terms' name='accept_terms' type="checkbox">&nbsp; <a href='{{ route("terms_use")}}' target="_blank">{{ __('general.order_section.agree_terms_use') }}</a>
+                                </div>
                                 <div id="vesti-load-oval"><img src="{{ asset('/images/vesti_load.gif') }}"/></div>
-                                <button class="btn-block vesti_in_btn_oval checkout-button oval-button" type="submit" id="submit-button">{{ __('buttons.submit_payment') }}</button>
+                                <button disabled class="btn-block disabled-btn vesti_in_btn_oval checkout-button oval-button" type="submit" id="submit-button">{{ __('buttons.submit_payment') }}</button>
                                 <p><strong><center>{{ __('general.payment_final_step_msg') }}</center></strong></p>
                             </div>
 

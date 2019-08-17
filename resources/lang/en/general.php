@@ -106,6 +106,7 @@ return [
         'cancel_success'=>"Order Successfully Cancelled",
         'delete_name'=>'Delete Product :name From Orders',
         'order_address'=>"Order Address",
+        'agree_terms_use'=>'I agree to the terms and conditions',
         'to_user'=>[
             'received'=>'Hello :name, thank you for your order',
             'cancel_confirmation'=>'Hello :name, your cancellation confirmation',
