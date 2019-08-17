@@ -62,6 +62,19 @@
                     <!--noticed if product was dilvered-->
                 </div>
             </div>
+            <div class="row order_admin_grid">
+                <div class="col">
+                    <!--amount paid-->
+                    @php($amount_due = $order->order_total - $order->paymentHistories->sum('total'))
+                    <b>Amount Due: <span class="
+                    @if($amount_due > 0)
+                    text-danger
+                    @else
+                    text-success
+                    @endif
+                    ">${{ number_format($amount_due,2) }}</span></b> 
+                </div>
+            </div>
             <!--starts list of products-->
             @foreach($order->products()->get() as $order_product)
             <!--product info-->

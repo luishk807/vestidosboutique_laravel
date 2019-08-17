@@ -82,6 +82,15 @@ return [
         'terms_use'=>"Terms of Use",
         'privacy_use'=>"Privacy Terms",
     ],
+    'payment_section' =>[
+        'payment_completed'=>'Payment successfully completed',
+        'payment_updated'=>'payment updated',
+        'unable_delete'=>'Unable to Delete Payment',
+        'success_deleted'=>'Payment Successfully Deleted',
+        'confirm_cancellation'=>'Confirm Payment Cancellation',
+        'confirm_cancellations'=>'Confirm payments for deletion',
+        'delete_cancellations'=>'Payments Deleted successfully.',
+    ],
     'order_section' =>[
         'order_updated'=>'order updated',
         'payment_success'=>'Payment was successfully processed!',
