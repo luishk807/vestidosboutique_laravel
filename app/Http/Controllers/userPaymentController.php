@@ -543,7 +543,7 @@ class userPaymentController extends Controller
                     try{
                         //send email to client
                         Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                            $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                            $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
                             $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
@@ -552,10 +552,10 @@ class userPaymentController extends Controller
 
                         //send email to admin
                         Mail::send('emails.admin_orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                            $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                            $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
-                            $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                            $message->to("pedidos@vestidosboutique.com","Admin")->subject($subject);
                             // $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
                         });
                         $email_msg[]=__('general.order_section.payment_success');

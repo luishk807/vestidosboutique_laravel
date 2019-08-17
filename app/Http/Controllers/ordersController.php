@@ -415,10 +415,10 @@ class ordersController extends Controller
             $order_detail = $this->sendEmail($order_id);
 
             Mail::send('emails.orderstatus_update',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_user.updated',['name'=>$client_name]);
-                $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                $message->to("pedidos@vestidosboutique.com","Admin")->subject($subject);
             });
         }
         return redirect()->route("admin_orders");
@@ -579,7 +579,7 @@ class ordersController extends Controller
              
              //send email to client
              Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                 $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                 $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
                  $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                  $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
                  $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
@@ -667,7 +667,7 @@ class ordersController extends Controller
             $order_detail = $this->sendEmail($order_id);
 
             Mail::send('emails.ordercancel_confirm',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_user.cancel',['name'=>$client_name]);
                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
