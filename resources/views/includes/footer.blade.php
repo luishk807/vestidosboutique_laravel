@@ -20,10 +20,10 @@
                         <ul class="list-unstyled">
                             <li>{{ __('general.got_question') }}</li>
                             <li>{{ trans_choice('general.form.telephone',1) }}: +507 203-5848</li>
-                            <a  class="vestidos-simple-link-white" href="https://api.whatsapp.com/send?phone=+67266556&text=Hello.">
+                            <a  class="vestidos-simple-link-white" href="https://api.whatsapp.com/send?phone=67266556&text=Hello.">
                                 <img src="{{ asset('images/social-whatssap.svg') }}" class="vesti-svg vestidos-icons-social-b"/>
                                 +6726-6556</a>
-                            <li>{{ __('general.form.email') }}: info@vestidosboutique.com</li>
+                            <li>{{ __('general.form.email') }}: <a href='mailto:info@vestidosboutique.com'>info@vestidosboutique.com</a></li>
                         </ul>
 
                     </div>

@@ -122,7 +122,7 @@ return [
     ],
     'user_section'=>[
         'profile_review_title'=>'Tu opinión es muy importante para nosotros! Que todos sepan sobre tu experiencia!',
-        'profile_review_created'=>'Tu comentario ha sido creado! una vez que se apruebe su opinión, se mostrará.',
+        'profile_review_created'=>'Gracias por sus comentarios! Su opinion es importante para nosotros!.',
         'profile_review_saved'=>'Tu comentario está guardado! una vez que se apruebe su opinión, se mostrará.',
         'profile_review_deleted'=>'Tu comentario ha sido eliminado!',
         'register_text'=>'Crea una cuenta para disfrutar de la facilidad online.  Podrá guardar su perfil con su dirección, dar seguimiento de pedidos, guardar favoritos y mucho más.',

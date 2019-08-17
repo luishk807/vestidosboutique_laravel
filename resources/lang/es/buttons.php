@@ -36,6 +36,7 @@ return [
     'reset_password'=>"Restablecer contraseña",
     'resend_activation'=>"Re-enviar email de activation",
     'pre_order'=>"Pre-ordene",
+    'register_account'=>'Crear cuenta nueva',
 
     //cart
       'proceed_billing'=>"Proceder a Facturacion",

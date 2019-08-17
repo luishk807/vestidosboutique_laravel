@@ -80,7 +80,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="vesti_in_btn_pnl">
-                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">{{ __('buttons.submit') }}</a>
+                                                <a class="btn-block vesti_in_btn" href="{{route('newuser')}}">{{ __('buttons.register_account') }}</a>
                                             </div>
                                         </div>
                                     </div>

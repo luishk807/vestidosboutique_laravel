@@ -119,7 +119,7 @@ return [
     ],
     'user_section'=>[
         'profile_review_title'=>'Your review is very important to us!.  Let everyone know about your experience!',
-        'profile_review_created'=>'Your review is created! once your review is approved, it will be displayed.',
+        'profile_review_created'=>'Thank you for your review! Your review is very important to us!.',
         'profile_review_saved'=>'Your review is saved! once your review is approved, it will be displayed.',
         'profile_review_deleted'=>'Your review is deleted!',
         'register_text'=>'Create an account to enjoy the online facility. You can save your profile with your address, track orders, save favorites and much more.',
