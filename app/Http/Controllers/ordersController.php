@@ -593,6 +593,7 @@ class ordersController extends Controller
         $data=[];
         $order = $this->orders->find($order_id);
         $data["order"]=$this->orders->find($order_id);
+        $data["payment_types"]=$this->payment_types->all();
         $data["page_title"]=__('general.order_section.process_order')." ".$order->order_number;
         return view("admin/orders/payments/edit",$data);
     }
