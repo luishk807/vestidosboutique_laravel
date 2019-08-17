@@ -1,378 +1,3 @@
-$(document).ready(function() {
-    $("#vesti-navbar-top-lang,#nav-item-events").click(function(e){
-        e.preventDefault();
-    });
-    $("#main-body").fadeIn();
-    var slideTimeout = null;
-    function setSlider(){
-        if(!slideTimeout){
-            slideTimeout = setInterval(function () {
-                    $.fn.fullpage.moveSlideRight();
-            },5000);
-        }
-    }
-    $("#orderUser").change(function(){
-        $.ajax({
-           type: "GET",
-           url: urlGetAddress,
-           data: {
-               data:$(this).val()
-           },
-           success: function(data) {
-               var orderShipAddress = $("#orderShipAddress");
-               var orderBillingAddress = $("#orderBillingAddress");
-               orderShipAddress.empty();
-               orderBillingAddress.empty();
-               orderShipAddress.append("<option value=''>Select Shipping Address</option>");
-               orderBillingAddress.append("<option value=''>Select Billing Address</option>");
-               $.each(data, function(index,element){
-                   orderShipAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
-                   orderBillingAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
-               });
-           }
-       }); 
-   });
-
-   $("#orderProduct").change(function(){
-        $.ajax({
-           type: "GET",
-           url: urlGetProduct,
-           data: {
-               data:$(this).val()
-           },
-           success: function(data) {
-               var orderShipAddress = $("#orderTotal");
-               orderShipAddress.val("");
-               orderShipAddress.val(data.product_total);
-           }
-       }); 
-   });
-   /******PRODUCT PAGE ***/
-   var color_selected = $(".product_in_colors button.selected");
-   if(color_selected){
-       color_selected.trigger( "click" );
-       loadSizes(color_selected.attr('data-value'));
-   }
-   /*******SHOP PAGE *************/
-   $(".rate-shop").rate({
-        readonly:true
-    });
-    $("#shopPage_select").change(function(evt){
-        var sort_opt = $(evt.target).val();
-        location.href="/shop/event/1/"+sort_opt;
-    });
-    $(".vestidos-check").on("click",function(){
-        $("#shop_sort_form").submit();
-    })
-    /****CART TOP HOVER****/
-    // $(".nav-toggle-li").hover(function(){
-    //     $(".nav-list-submenu, .nav-list-submenu ul").toggleClass("active"); 
-    // })
-    $(".nav-toggle-li").hover(function(){
-        $(this).toggleClass("active"); 
-        $(this).find("ul").toggleClass("active");
-    })
-
-     $(".navbar-vesti-cart").hover(function(){
-        $(".vesti-cart-top").toggleClass("active"); 
-    })
-    $(".nav-item-lang").hover(function(){
-        $(".vesti-lang-top").toggleClass("active"); 
-    })
-    /***END ***/
-    var isReponsive =false;
-    function initialization(){
-        $('#fullpage').fullpage({
-            // scrollOverflow: true,
-            navigation: false,
-            autoScrolling: false,
-            responsiveWidth: 900,
-            scrollBar: true,
-            menu: '.navbar',
-            afterRender: function () {
-                //on page load, start the slideshow
-                setSlider();
-            },
-            afterResponsive: function(isResponsivex){
-                isReponsive = isResponsivex;
-                if(isResponsivex){
-                    $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').removeClass('active');
-                    // $("#home_main_slider .main_slider_btn").removeClass("col").addClass("col-md-4")
-                    $('.brands_txt > div').css("margin-left","auto");
-                    $(".quince_thumb").addClass("active");
-                }else{
-                    $(".vestidos-main-nav-top").removeClass("show");
-                }
-            },
-            afterLoad: function(anchorLink, index){
-                //set slider when in slide 1
-                if (index == '1' && !slideTimeout) {
-                    setSlider();
-                }
-                if(index == 2 && !isReponsive){
-                    $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').addClass('active');
-                }
-                // if(index == 3 && !isReponsive){
-                //     $('.brands_txt > div').addClass('active');
-                // }
-                if(index == 5 && !isReponsive){
-                    $('#quince_thumb_1').addClass('active');
-                    var divs = $('.quince_thumb');
-                    var index = 1;
-                    var delay = setInterval( function(){
-                        if ( index <= divs.length ){
-                            $( divs[index] ).addClass('active');
-                            index += 1;
-                        }else{
-                            clearInterval( delay );
-                        }
-                    },300);
-                }
-            },
-            onLeave: function (index, direction) {
-                //remove slider when leaving
-                if (index == '1') {
-                    clearInterval(slideTimeout);
-                    slideTimeout =null;
-                }
-                
-            }
-        });
-    }
-    initialization();
-    $(window).on("resize",function() {
-        $('#vesti-main-nav-btn').removeClass('open');
-        $(".vestidos-main-nav-top").removeClass("show");
-    });
-    $("#main_slider_arrow_cont .vesti-down-arrow").click(function(e){
-        e.preventDefault();
-        $.fn.fullpage.moveSectionDown();
-    });
-    $('#vesti-main-nav-btn').click(function(){
-        $(this).toggleClass('open');
-    });
-    $(".collapse-link").click(function(){
-        $(this).closest(".nav-item").toggleClass("hover");
-    })
-    $(".vesti-cart-quantity-input").click(function () {
-        $(this).select();
-    });
-    $(".product_thumnb_link").click(function(e){
-        e.preventDefault();
-       var getImg = $($(e.target).closest("img")).attr("src");
-       $(".product_main_img_in").find("img").attr({
-           'src':getImg,
-           'data-large-img-url':getImg
-        });
-        $(".product_main_img_in .product_main_link_in").attr("href",getImg);
-    });
-    $("#popup_bgOverlay").click(function(){
-        closeCartPopUp();
-    })
-    $(".rate-view").rate({
-        readonly:true
-    });
-    //checkout
-    var firstOpenChecked = $("input:radio[name='payment_type']:checked").attr("target-data");
-    if(firstOpenChecked){
-        openRadioContent(firstOpenChecked)
-        $("input[name='payment_type']").click(function(e){
-            var target_data= $(e.target).attr("target-data");
-            openRadioContent(target_data)
-        })
-    }
-    $("#checkoutForm #accept_terms").click(function(){
-        if($(this)[0].checked){
-            $("#checkoutForm #submit-button").removeClass("disabled-btn").prop("disabled",false)
-        }else{
-            $("#checkoutForm #submit-button").addClass("disabled-btn").prop("disabled",true)
-        }
-    })
-    $(".checkout-button,.loader-button").on("click",function(){
-        $(this).css("display","none");
-        // $(this).prop('disabled', true);
-        $("#vesti-load").css("display","block");
-    });
-    $(".oval-button").on("click",function(){
-        $(this).css("display","none");
-        $("#vesti-load-oval").css("display","block");
-    });
-});
-function openRadioContent(content){
-    var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
-    if(is_credit=="yes"){
-        $("#is_credit_card").val("yes");
-    }else{
-        $("#is_credit_card").val("no");
-    }
-    $("div.row.content").css("display","none");
-    $("div[target-data='"+content+"']").css("display","block");
-}
-function checkPaymentForm(){
-    if($("#checkoutForm #accept_terms")[0].checked){
-        return true;
-    }
-    return false;
-}
-function addWishlist(product_id){
-    $.ajax({
-        type: "GET",
-        url: '/api/saveWishlist',
-        data: {
-            data:product_id
-        },
-        success: function(data) {
-            if(data["status"]=="login"){
-                window.location.href="/signin";
-            }
-            else if(data["status"]=="insert"){
-                $(".product_main_img_in a >.vesti-svg").addClass("active");
-            }else if(data["status"]=="deleted"){
-                $(".product_main_img_in a > .vesti-svg").removeClass("active");
-            }
-        }
-    });
-}
-function updateCart(index,quant){
-    document.location='api/updateCart?key='+index+"&quantity="+quant;
-}
-function deleteCart(index){
-    document.location='api/deleteCart?key='+index;
-}
-function loadDropDown(select1, select2,url){
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: {
-            data:$(select1).val()
-        },
-        success: function(data) {
-            var product_quantity = $(select2);
-            product_quantity.empty();
-            $.each(data, function(index,element){
-                product_quantity.append("<option value='"+element.id+"'>"+element.name+"</option>");
-            });
-        }
-    });
-}
-function loadSizes(color){
-        $.ajax({
-            type: "GET",
-            url: "/api/loadSizes",
-            data: {
-                data:color
-            },
-            success: function(data) {
-                var sizeContainer = $("#size-container");
-                sizeContainer.empty();
-                var size_counter=0;
-                $total_size = 0;
-                $(".product_in_colors .colors_cubes_name span").text(data.info.name)
-                $.each(data.colors, function(index,element){
-                    if(size_counter==0){
-                        loadSizeDropDown(element.id);
-                        sizeContainer.append("<button class='size_spheres selected' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
-                        $('#product_size').val(element.id)
-                        getPriceInfo(element.id);
-                    }else{
-                        sizeContainer.append("<button class='size_spheres' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
-                    }
-                    size_counter++;
-                });
-
-            }
-        });
-}
-function loadSizeDropDown(size){
-    $.ajax({
-        type: "GET",
-        url: "/api/loadProdQuantity",
-        data: {
-            data:size
-        },
-        success: function(data) {
-            var total_size = 0;
-            if(data < 1 || !data || (typeof data == "object" && !data.length)){
-                // if out of stock , set 10 for pre-orders
-                data = 11;
-            }
-            total_size = data > 10 ? 10 : data;
-            var product_quantity = $("#product_quantity");
-            product_quantity.empty();
-            for(var i=0;i<total_size;i++){
-                var data_index =i+1;
-                product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
-            }
-        }
-    });
-}
-
-function addCart(event){
-    event.preventDefault();
-    var dataValue=$(event.target).attr("data-value");
-    var hiddenInput=$(event.target).attr("data-input");
-    var dataClass=$(event.target).attr("data-class");
-    $("."+dataClass).removeClass("selected");
-    $(event.target).addClass("selected");
-    $("#"+hiddenInput).val(dataValue);
-    if(hiddenInput=="product_size"){
-        loadSizeDropDown(dataValue);
-        getPriceInfo(dataValue);
-    }else if(hiddenInput=="product_color"){
-        loadSizes($(event.target).attr("data-value"));
-    }
-}
-function getPriceInfo(size){
-    $.ajax({
-        type: "GET",
-        url: "/api/loadSizeInfo",
-        data: {
-            data:size
-        },
-        success: function(data) {
-            $(".product_in_price span").text(data.total_sale);
-            $(".shoplist-stock-txt span").removeClass();
-            if(data.stock > 1)
-            {
-                $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
-            }
-            else{
-                $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
-            }
-
-            if(data.stock > 0){
-                $("#product_out_stock_btn").css("display","none");
-                $("#product_addCart_btn").css("display","block");
-            }
-            else{
-                $("#product_out_stock_btn").css("display","block");
-                $("#product_addCart_btn").css("display","none");
-            }
-        }
-    });
-}
-function checkCartSubmit(){
-    if(!$("#product_color").val()){
-        openCartPopUp("Please Select Color");
-        return false;
-    }else if(!$("#product_size").val()){
-        openCartPopUp("Please Select Size");
-        return false;
-    }
-    return true;
-}
-function closeCartPopUp(){
-    $("#popup_bgOverlay").css("display","none");
-    var div = document.getElementById('popup_text_in');
-    div.innerHTML = '';
-    $('body').css('overflow','auto');
-}
-function openCartPopUp(txt){
-    $("#popup_bgOverlay").css("display","block");
-    var div = document.getElementById('popup_text_in');
-    div.innerHTML += txt;
-    $('body').css('overflow','hidden');
-}
 /**
 * Magnifier.js is a Javascript library enabling magnifying glass effect on an images.
 *
@@ -1021,3 +646,379 @@ var Magnifier = function (evt, options) {
         }
     });
 };
+/******** main *************** */
+$(document).ready(function() {
+    $("#vesti-navbar-top-lang,#nav-item-events").click(function(e){
+        e.preventDefault();
+    });
+    $("#main-body").fadeIn();
+    var slideTimeout = null;
+    function setSlider(){
+        if(!slideTimeout){
+            slideTimeout = setInterval(function () {
+                    $.fn.fullpage.moveSlideRight();
+            },5000);
+        }
+    }
+    $("#orderUser").change(function(){
+        $.ajax({
+           type: "GET",
+           url: urlGetAddress,
+           data: {
+               data:$(this).val()
+           },
+           success: function(data) {
+               var orderShipAddress = $("#orderShipAddress");
+               var orderBillingAddress = $("#orderBillingAddress");
+               orderShipAddress.empty();
+               orderBillingAddress.empty();
+               orderShipAddress.append("<option value=''>Select Shipping Address</option>");
+               orderBillingAddress.append("<option value=''>Select Billing Address</option>");
+               $.each(data, function(index,element){
+                   orderShipAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
+                   orderBillingAddress.append("<option value='"+element.id+"'>"+element.nick_name+" [ "+element.zip_code+" ]</option>");
+               });
+           }
+       }); 
+   });
+
+   $("#orderProduct").change(function(){
+        $.ajax({
+           type: "GET",
+           url: urlGetProduct,
+           data: {
+               data:$(this).val()
+           },
+           success: function(data) {
+               var orderShipAddress = $("#orderTotal");
+               orderShipAddress.val("");
+               orderShipAddress.val(data.product_total);
+           }
+       }); 
+   });
+   /******PRODUCT PAGE ***/
+   var color_selected = $(".product_in_colors button.selected");
+   if(color_selected){
+       color_selected.trigger( "click" );
+       loadSizes(color_selected.attr('data-value'));
+   }
+   /*******SHOP PAGE *************/
+   $(".rate-shop").rate({
+        readonly:true
+    });
+    $("#shopPage_select").change(function(evt){
+        var sort_opt = $(evt.target).val();
+        location.href="/shop/event/1/"+sort_opt;
+    });
+    $(".vestidos-check").on("click",function(){
+        $("#shop_sort_form").submit();
+    })
+    /****CART TOP HOVER****/
+    // $(".nav-toggle-li").hover(function(){
+    //     $(".nav-list-submenu, .nav-list-submenu ul").toggleClass("active"); 
+    // })
+    $(".nav-toggle-li").hover(function(){
+        $(this).toggleClass("active"); 
+        $(this).find("ul").toggleClass("active");
+    })
+
+     $(".navbar-vesti-cart").hover(function(){
+        $(".vesti-cart-top").toggleClass("active"); 
+    })
+    $(".nav-item-lang").hover(function(){
+        $(".vesti-lang-top").toggleClass("active"); 
+    })
+    /***END ***/
+    var isReponsive =false;
+    function initialization(){
+        $('#fullpage').fullpage({
+            // scrollOverflow: true,
+            navigation: false,
+            autoScrolling: false,
+            responsiveWidth: 900,
+            scrollBar: true,
+            menu: '.navbar',
+            afterRender: function () {
+                //on page load, start the slideshow
+                setSlider();
+            },
+            afterResponsive: function(isResponsivex){
+                isReponsive = isResponsivex;
+                if(isResponsivex){
+                    $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').removeClass('active');
+                    // $("#home_main_slider .main_slider_btn").removeClass("col").addClass("col-md-4")
+                    $('.brands_txt > div').css("margin-left","auto");
+                    $(".quince_thumb").addClass("active");
+                }else{
+                    $(".vestidos-main-nav-top").removeClass("show");
+                }
+            },
+            afterLoad: function(anchorLink, index){
+                //set slider when in slide 1
+                if (index == '1' && !slideTimeout) {
+                    setSlider();
+                }
+                if(index == 2 && !isReponsive){
+                    $('#top_middle_sec_row #top_middle_img1,#top_middle_sec_row #top_middle_img2,#top_middle_sec_row #top_middle_img3').addClass('active');
+                }
+                // if(index == 3 && !isReponsive){
+                //     $('.brands_txt > div').addClass('active');
+                // }
+                if(index == 5 && !isReponsive){
+                    $('#quince_thumb_1').addClass('active');
+                    var divs = $('.quince_thumb');
+                    var index = 1;
+                    var delay = setInterval( function(){
+                        if ( index <= divs.length ){
+                            $( divs[index] ).addClass('active');
+                            index += 1;
+                        }else{
+                            clearInterval( delay );
+                        }
+                    },300);
+                }
+            },
+            onLeave: function (index, direction) {
+                //remove slider when leaving
+                if (index == '1') {
+                    clearInterval(slideTimeout);
+                    slideTimeout =null;
+                }
+                
+            }
+        });
+    }
+    initialization();
+    $(window).on("resize",function() {
+        $('#vesti-main-nav-btn').removeClass('open');
+        $(".vestidos-main-nav-top").removeClass("show");
+    });
+    $("#main_slider_arrow_cont .vesti-down-arrow").click(function(e){
+        e.preventDefault();
+        $.fn.fullpage.moveSectionDown();
+    });
+    $('#vesti-main-nav-btn').click(function(){
+        $(this).toggleClass('open');
+    });
+    $(".collapse-link").click(function(){
+        $(this).closest(".nav-item").toggleClass("hover");
+    })
+    $(".vesti-cart-quantity-input").click(function () {
+        $(this).select();
+    });
+    $(".product_thumnb_link").click(function(e){
+        e.preventDefault();
+       var getImg = $($(e.target).closest("img")).attr("src");
+       $(".product_main_img_in").find("img").attr({
+           'src':getImg,
+           'data-large-img-url':getImg
+        });
+        $(".product_main_img_in .product_main_link_in").attr("href",getImg);
+    });
+    $("#popup_bgOverlay").click(function(){
+        closeCartPopUp();
+    })
+    $(".rate-view").rate({
+        readonly:true
+    });
+    //checkout
+    var firstOpenChecked = $("input:radio[name='payment_type']:checked").attr("target-data");
+    if(firstOpenChecked){
+        openRadioContent(firstOpenChecked)
+        $("input[name='payment_type']").click(function(e){
+            var target_data= $(e.target).attr("target-data");
+            openRadioContent(target_data)
+        })
+    }
+    $("#checkoutForm #accept_terms").click(function(){
+        if($(this)[0].checked){
+            $("#checkoutForm #submit-button").removeClass("disabled-btn").prop("disabled",false)
+        }else{
+            $("#checkoutForm #submit-button").addClass("disabled-btn").prop("disabled",true)
+        }
+    })
+    $(".checkout-button,.loader-button").on("click",function(){
+        $(this).css("display","none");
+        // $(this).prop('disabled', true);
+        $("#vesti-load").css("display","block");
+    });
+    $(".oval-button").on("click",function(){
+        $(this).css("display","none");
+        $("#vesti-load-oval").css("display","block");
+    });
+});
+function openRadioContent(content){
+    var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
+    if(is_credit=="yes"){
+        $("#is_credit_card").val("yes");
+    }else{
+        $("#is_credit_card").val("no");
+    }
+    $("div.row.content").css("display","none");
+    $("div[target-data='"+content+"']").css("display","block");
+}
+function checkPaymentForm(){
+    if($("#checkoutForm #accept_terms")[0].checked){
+        return true;
+    }
+    return false;
+}
+function addWishlist(product_id){
+    $.ajax({
+        type: "GET",
+        url: '/api/saveWishlist',
+        data: {
+            data:product_id
+        },
+        success: function(data) {
+            if(data["status"]=="login"){
+                window.location.href="/signin";
+            }
+            else if(data["status"]=="insert"){
+                $(".product_main_img_in a >.vesti-svg").addClass("active");
+            }else if(data["status"]=="deleted"){
+                $(".product_main_img_in a > .vesti-svg").removeClass("active");
+            }
+        }
+    });
+}
+function updateCart(index,quant){
+    document.location='api/updateCart?key='+index+"&quantity="+quant;
+}
+function deleteCart(index){
+    document.location='api/deleteCart?key='+index;
+}
+function loadDropDown(select1, select2,url){
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            data:$(select1).val()
+        },
+        success: function(data) {
+            var product_quantity = $(select2);
+            product_quantity.empty();
+            $.each(data, function(index,element){
+                product_quantity.append("<option value='"+element.id+"'>"+element.name+"</option>");
+            });
+        }
+    });
+}
+function loadSizes(color){
+        $.ajax({
+            type: "GET",
+            url: "/api/loadSizes",
+            data: {
+                data:color
+            },
+            success: function(data) {
+                var sizeContainer = $("#size-container");
+                sizeContainer.empty();
+                var size_counter=0;
+                $total_size = 0;
+                $(".product_in_colors .colors_cubes_name span").text(data.info.name)
+                $.each(data.colors, function(index,element){
+                    if(size_counter==0){
+                        loadSizeDropDown(element.id);
+                        sizeContainer.append("<button class='size_spheres selected' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
+                        $('#product_size').val(element.id)
+                        getPriceInfo(element.id);
+                    }else{
+                        sizeContainer.append("<button class='size_spheres' onclick='addCart(event)' data-class='size_spheres' data-input='product_size' data-value='"+element.id+"'>"+element.name+"</button>");
+                    }
+                    size_counter++;
+                });
+
+            }
+        });
+}
+function loadSizeDropDown(size){
+    $.ajax({
+        type: "GET",
+        url: "/api/loadProdQuantity",
+        data: {
+            data:size
+        },
+        success: function(data) {
+            var total_size = 0;
+            if(data < 1 || !data || (typeof data == "object" && !data.length)){
+                // if out of stock , set 10 for pre-orders
+                data = 11;
+            }
+            total_size = data > 10 ? 10 : data;
+            var product_quantity = $("#product_quantity");
+            product_quantity.empty();
+            for(var i=0;i<total_size;i++){
+                var data_index =i+1;
+                product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
+            }
+        }
+    });
+}
+
+function addCart(event){
+    event.preventDefault();
+    var dataValue=$(event.target).attr("data-value");
+    var hiddenInput=$(event.target).attr("data-input");
+    var dataClass=$(event.target).attr("data-class");
+    $("."+dataClass).removeClass("selected");
+    $(event.target).addClass("selected");
+    $("#"+hiddenInput).val(dataValue);
+    if(hiddenInput=="product_size"){
+        loadSizeDropDown(dataValue);
+        getPriceInfo(dataValue);
+    }else if(hiddenInput=="product_color"){
+        loadSizes($(event.target).attr("data-value"));
+    }
+}
+function getPriceInfo(size){
+    $.ajax({
+        type: "GET",
+        url: "/api/loadSizeInfo",
+        data: {
+            data:size
+        },
+        success: function(data) {
+            $(".product_in_price span").text(data.total_sale);
+            $(".shoplist-stock-txt span").removeClass();
+            if(data.stock > 1)
+            {
+                $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
+            }
+            else{
+                $(".shoplist-stock-txt span").addClass("out-stock").text(data.stock_msg);
+            }
+
+            if(data.stock > 0){
+                $("#product_out_stock_btn").css("display","none");
+                $("#product_addCart_btn").css("display","block");
+            }
+            else{
+                $("#product_out_stock_btn").css("display","block");
+                $("#product_addCart_btn").css("display","none");
+            }
+        }
+    });
+}
+function checkCartSubmit(){
+    if(!$("#product_color").val()){
+        openCartPopUp("Please Select Color");
+        return false;
+    }else if(!$("#product_size").val()){
+        openCartPopUp("Please Select Size");
+        return false;
+    }
+    return true;
+}
+function closeCartPopUp(){
+    $("#popup_bgOverlay").css("display","none");
+    var div = document.getElementById('popup_text_in');
+    div.innerHTML = '';
+    $('body').css('overflow','auto');
+}
+function openCartPopUp(txt){
+    $("#popup_bgOverlay").css("display","block");
+    var div = document.getElementById('popup_text_in');
+    div.innerHTML += txt;
+    $('body').css('overflow','hidden');
+}

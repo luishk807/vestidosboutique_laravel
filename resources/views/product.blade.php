@@ -2,6 +2,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick-theme.css') }}">
 <link rel="stylesheet" href="{{ asset('js/vendor/slick/slick.css') }}">
+<script src="{{ asset('js/vendor/slick/slick.js')}}"></script>
 <div id="popup_bgOverlay">
     <div id="popup_text">
         <div id="popup_text_in"></div>
@@ -168,10 +169,10 @@
     </div>
 </div>
 </div>
-<script src="{{ asset('js/vendor/slick/slick.js')}}"></script>
 <script type="text/javascript">
 var imgUrl = $("#thumb").attr("data-large-img-url");
-var evt = new Event(),
+$(document).ready(function(){
+    var evt = new Event(),
     m = new Magnifier(evt);
     m.attach({
         thumb: '#thumb',
@@ -180,7 +181,6 @@ var evt = new Event(),
         zoom: 2,
     zoomable: true
     });
-$(document).ready(function(){
     $('.slick').slick();
 })
 </script>
