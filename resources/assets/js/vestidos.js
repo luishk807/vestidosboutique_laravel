@@ -59,7 +59,7 @@ $(document).ready(function() {
     });
     $("#shopPage_select").change(function(evt){
         var sort_opt = $(evt.target).val();
-        location.href="/shop_sort/event/1/"+sort_opt;
+        location.href="/shop/event/1/"+sort_opt;
     });
     $(".vestidos-check").on("click",function(){
         $("#shop_sort_form").submit();

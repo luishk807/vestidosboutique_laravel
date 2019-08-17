@@ -18,7 +18,7 @@
     Route::get("/",'homeController@index')->name("home_page");
     Route::get("/about",'homeController@about')->name("about_page");
     Route::get("/shop/{type?}/{id?}",'userShopController@index')->name("shop_page");
-    Route::get("/shop_sort/{type?}/{id?}/{sort_option}",'userShopController@sort_product_list')->name("sort_product_list");
+    Route::get("/shop/{type?}/{id?}/{sort_option}",'userShopController@sort_product_list')->name("sort_product_list");
     Route::get("/product/{product_id}",'homeController@product')->name("product_page");
     Route::post("/product/{product_id}",'userCartController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");
