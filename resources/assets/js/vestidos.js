@@ -57,9 +57,12 @@ $(document).ready(function() {
    $(".rate-shop").rate({
         readonly:true
     });
+    // $("#shopPage_select").change(function(evt){
+    //     var sort_opt = $(evt.target).val();
+    //     location.href="/shop/event/1/"+sort_opt;
+    // });
     $("#shopPage_select").change(function(evt){
-        var sort_opt = $(evt.target).val();
-        location.href="/shop/event/1/"+sort_opt;
+       $("#shop_sort_form").submit();
     });
     $(".vestidos-check").on("click",function(){
         $("#shop_sort_form").submit();

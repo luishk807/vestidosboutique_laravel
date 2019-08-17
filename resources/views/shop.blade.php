@@ -2,7 +2,9 @@
 @section('content')
 <div class="main_sub_body main_body_height">
 <div class="container-fluid vest-shop-container">
-    <form method="post" id="shop_sort_form" action="">
+    <form method="post" id="shop_sort_form" action="{{ route('sort_product_post') }}">
+    <input type="hidden" id="type" name="type" value="{{ $type }}">
+    <input type="hidden" id="tyid" name="tyid" value="{{ $type_id }}">
     <div class="row">
         <div class="col container-in-center">
             <div class="container-fluid container-in-space">
@@ -98,12 +100,20 @@
                                         @endforeach
                                     </select>
                                 </li>
+                                @if(!$products->onFirstPage())
+                                    @if(!empty($products->previousPageUrl()))
+                                    <li><a href="{{ \Request::url() }}">&lt;&lt;</a></li>
+                                    @endif
+                                @endif
                                 @if(!empty($products->previousPageUrl()))
                                 <li><a href="{{ $products->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                                 @endif
                                 <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->lastPage() }}</li>
                                 @if($products->nextPageUrl())
                                 <li><a href="{{ $products->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
+                                @endif
+                                @if($products->lastPage())
+                                <li><a href="{{url()->current()}}?page={{ $products->lastPage() }}">&gt;&gt;</a></li>
                                 @endif
                             </ul>
                         </div>
@@ -162,12 +172,21 @@
                         </div><!--end of product list container-->
                         <div class="shoplist-nav">
                             <ul>
+
+                                @if(!$products->onFirstPage())
+                                    @if(!empty($products->previousPageUrl()))
+                                    <li><a href="{{ \Request::url() }}">&lt;&lt;</a></li>
+                                    @endif
+                                @endif
                                  @if(!empty($products->previousPageUrl()))
-                                <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
+                                <li><a href="{{ $products->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                                 @endif
                                 <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->lastPage() }}</li>
                                 @if($products->nextPageUrl())
-                                <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
+                                <li><a href="{{ $products->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
+                                @endif
+                                @if($products->lastPage())
+                                <li><a href="{{url()->current()}}?page={{ $products->lastPage() }}">&gt;&gt;</a></li>
                                 @endif
                             </ul>
                         </div><!--end {{ __('pagination.of') }} nav container-->
