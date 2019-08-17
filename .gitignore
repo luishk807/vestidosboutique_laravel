@@ -1,5 +1,4 @@
 /node_modules
-/public
 /storage/*.key
 /vendor
 /.idea
@@ -12,3 +11,5 @@ yarn-error.log
 composer.lock
 .env
 /build
+/public/hot
+/public/storage

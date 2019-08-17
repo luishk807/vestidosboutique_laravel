@@ -29,7 +29,7 @@ mix
 .copy('resources/assets/js/bootstrap.min.js', 'public/js/bootstrap.min.js')
 .copy('app','build/app')
 .copy('public/css','build/css')
-.copy('public/fonts','build/fonts')
+// .copy('public/fonts','build/fonts')
 .copy('public/images','build/images')
 .copy('public/js','build/js')
 .copy('database','build/database')
