@@ -230,7 +230,7 @@ class vestidosProducts extends Model
             $products->orderBy("products_name");
             break;
         }
-        $products = $products->groupBy("products.id")->paginate(5);
+        $products = $products->groupBy("products.id")->paginate(15);
       return $products;
     }
     public function getStock(){
