@@ -19,7 +19,7 @@
                     <div class="col-md-6 footer-top-col">
                         <ul class="list-unstyled">
                             <li>{{ __('general.got_question') }}</li>
-                            <li>{{ trans_choice('general.form.telephone',1) }}: +507 203-5848</li>
+                            <li>{{ trans_choice('general.form.telephone',1) }}: <a  class="vestidos-simple-link-white" href="tel:203-5848">+507 203-5848</a></li>
                             <a  class="vestidos-simple-link-white" href="https://api.whatsapp.com/send?phone=67266556&text=Hello.">
                                 <img src="{{ asset('images/social-whatssap.svg') }}" class="vesti-svg vestidos-icons-social-b"/>
                                 +6726-6556</a>
