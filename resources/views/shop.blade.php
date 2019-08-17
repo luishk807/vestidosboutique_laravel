@@ -10,7 +10,7 @@ $(document).ready(function(){
 </script>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid vest-shop-container">
-    <form method="post" id="shop_sort_form" action="{{ route('shop_sort_check') }}">
+    <form method="post" id="shop_sort_form" action="">
     <div class="row">
         <div class="col container-in-center">
             <div class="container-fluid container-in-space">
