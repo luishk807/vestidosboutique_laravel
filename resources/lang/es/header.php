@@ -25,6 +25,7 @@ return [
     'orders' => 'Pedidos',
     'wishlists' => 'Favoritos',
     'payment' => 'Acceptamos',
+    'payment_title' => 'Pagos',
     'faqs' => 'Preguntas Frequentes',
     'terms' => 'Terminos de Uso',
     'privacy' => 'Politica de Privacidad',

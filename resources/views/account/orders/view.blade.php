@@ -18,7 +18,7 @@
                         <ul class="view-order-top-list">
                             
                             @if(empty($order->cancel_reason) && $order->status != 3)
-                            <li class="col-sm-5 col-md-5 col-lg-5">{{ __('general.dates_title.date_ordered') }}: {{ $order->purchase_date }}</li>
+                            <li class="col-sm-5 col-md-5 col-lg-5">{{ __('general.dates_title.date_ordered') }}: {{ date('m-d-Y', strtotime($order->purchase_date)) }}</li>
                             <li class="col-sm-5 col-md-5 col-lg-5">{{ trans_choice('general.cart_title.order',1) }}# {{ $order->order_number }}</li>
                             <li class="col-sm-2 col-md-2 col-lg-2">
                                 <a href="{{ route('confirm_order_cancel',['order_id'=>$order->id])}}">{{ __('buttons.order_cancel') }}</a>
@@ -64,7 +64,7 @@
 
                 </div><!--end of header 2-->
                 <div class="row view-order-top">
-                    <div class="col-md-6 left">
+                    <!-- <div class="col-md-6 left">
                         <ul>
                             <li>{{ __('general.page_header.payment_method') }}</li>
                             <li class="view-order-header-info">
@@ -101,8 +101,8 @@
                             </li>
                         </ul>
                     </div>
-                    
-                    <div class="col-md-6 right">
+                     -->
+                    <div class="col-md-12 right">
                         <ul>
                             <li>{{ __('general.page_header.order_summary') }}</li>
                             <li class="view-order-header-info">
@@ -122,7 +122,20 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-7">{{ __('general.cart_title.grand_total') }}</div>
-                                        <div class="col-md-5">${{number_format($order->order_total + ($order->order_quantity * $order->order_total) + $order->order_shipping + $order->order_tax,'2','.',',')}}</div>
+                                        @php($grand_total = $order->order_total + $order->order_shipping + $order->order_tax)
+                                        <div class="col-md-5">${{number_format($order->order_total + $order->order_shipping + $order->order_tax,'2','.',',')}}</div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="container view-order-header-amt-due">
+                                    @php($total_due = $grand_total - $order->paymentHistories->sum('total'))
+                                    <div class="row">
+                                        <div class="col-md-7">{{ __('general.user_section.profile_order_amount_paid') }}</div>
+                                        <div class="col-md-5">${{number_format($order->paymentHistories->sum('total'),'2','.',',')}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-7">{{ __('general.user_section.profile_order_amount_due') }}</div>
+                                        <div class="col-md-5">${{number_format($total_due,'2','.',',')}}</div>
                                     </div>
                                 </div>
 
@@ -160,7 +173,7 @@
                                                         {{ trans_choice('general.product_title.color',1) }}:{{ $product->getColor->name }}<br/>
                                                         {{ trans_choice('general.product_title.size',1) }}:{{ $product->getSize->name }}<br/>
                                                         {{ trans_choice('general.cart_title.quantity',1) }}:{{ $product->quantity }}<br/>
-                                                        <span>${{ number_format($product->total,'2','.',',') }}</span>
+                                                        {{ trans_choice('general.product_title.unit_price',1) }}: ${{ number_format($product->getSize->total_sale,'2','.',',') }}
                                                         <br/>
                                                         <ul class="dates-ul">
                                                             @if(!empty($product->cancelled_date))

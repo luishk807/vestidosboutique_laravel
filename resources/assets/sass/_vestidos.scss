@@ -1313,7 +1313,8 @@ text-decoration:underline;
     font-size: .8rem;
     font-family: Arial;
 }
-.view-order-header-total{
+.view-order-header-total,
+.view-order-header-amt-due{
     padding-left:0px;
 }
 .view-order-top ul li:first-child{
@@ -1324,13 +1325,16 @@ text-decoration:underline;
 }
 .view-order-top,
 .view-order-items,
-.view-order-header-total{
+.view-order-header-total,
+.view-order-header-amt-due{
     background-color:white !important;
 }
-.view-order-header-total .row div:first-child{
+.view-order-header-total .row div:first-child,
+.view-order-header-amt-due .row div:first-child{
     text-align:left;
 }
-.view-order-header-total .row div:last-child{
+.view-order-header-total .row div:last-child,
+.view-order-header-amt-due .row div:last-child{
     text-align:right;
     padding:0px;
 }

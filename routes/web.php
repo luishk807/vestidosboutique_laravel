@@ -493,10 +493,15 @@
                         Route::post('/edit','ordersController@saveOrderAddress')->name('admin_save_order_address');
                     });
                     Route::prefix("payment")->group(function(){
-                        Route::get('/checkout','ordersController@showAdminOrderCheckout')->name('admin_show_checkout');
-                        Route::post('/checkout','ordersController@processAdminOrderCheckout')->name('admin_process_checkout');
-                        Route::get('/payment/{order_id}','ordersController@showAdminOrderPayment')->name('admin_show_order_payment');
-                        Route::post('/process_payment/{order_id}','ordersController@orderAdminProcessPayment')->name('admin_process_order_payment');
+                        Route::get('/home/{order_id}','adminPaymentController@index')->name('admin_order_payments');
+                        Route::get('/checkout','adminPaymentController@showAdminOrderCheckout')->name('admin_show_checkout');
+                        Route::post('/checkout','adminPaymentController@processAdminOrderCheckout')->name('admin_process_checkout');
+                        Route::get('/{order_id}','adminPaymentController@showAdminOrderPayment')->name('admin_show_order_payment');
+                        Route::post('/process_payment/{order_id}','adminPaymentController@orderAdminProcessPayment')->name('admin_process_order_payment');
+                        Route::get('/confirm/{payment_id}','adminPaymentController@confirmDelete')->name('confirm_admin_order_payment');
+                        Route::delete('/confirm/{payment_id}','adminPaymentController@deletePayment')->name('delete_admin_order_payment');
+                        Route::post('/confirm_payments','adminPaymentController@deleteConfirmPayments')->name('confirm_admin_delete_order_payments');
+                        Route::delete('/show_confirm_payments','adminPaymentController@deletePayments')->name('delete_admin_order_payments');
                     });
                 });
             });

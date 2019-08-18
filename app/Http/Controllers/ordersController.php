@@ -127,7 +127,7 @@ class ordersController extends Controller
             ],
             [
                 "url"=>route('admin_show_order_payment',['order_id'=>$order_id]),
-                "name"=>"Re-process Payment"
+                "name"=>"[".$order->paymentHistories()->count()."] Re-process Payment"
             ]
         ];
         $data["order"]=$order;
@@ -137,6 +137,9 @@ class ordersController extends Controller
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
         $data["shipping_lists"]=$this->shipping_lists->all();
+        $amount_paid = $this->payment_histories->where("order_id",$order_id)->sum('total');
+        $amount_due = $order->order_total - $amount_paid;
+        $data["amount_due"]=$amount_due;
         $order_shipping = $order->getOrderShippingAddress();
         $data["order_shipping"]=$order->order_shipping ?  $order_shipping[0] : null;
         $order_billing = $order->getOrderBillingAddress();
@@ -430,216 +433,6 @@ class ordersController extends Controller
         $data["page_title"]=__('general.order_section.confirm_cancellation');
         return view("admin/orders/confirm_cancel",$data);
     }
-    public function showAdminOrderCheckout(){
-        $data=[];
-        if(Session::has("vestidos_admin_shop")){
-            $data = Session::get("vestidos_admin_shop");
-            $user = $this->users->find($data["user_id"]);
-        }else{
-            return redirect()->route('admin_orders')->with("error",__('general.access_section.invalid_access'));
-        }
-        $data["payment_types"]=$this->payment_types->where("status",1)->get();
-        $data["page_title"]=__('general.order_section.new_order_checkout');
-        return view("admin/orders/payments/checkout",$data);
-    }
-    public function processAdminOrderCheckout(Request $request){
-
-        $grand_total = $request->input("order_total");
-        if(Session::has("vestidos_admin_shop")){
-            $cart = Session::get("vestidos_admin_shop");
-            $user = $this->users->find($cart["user_id"]);
-            $user_id=$user->id;
-        }else{
-            return redirect()->route('admin_orders')->with("error",__('general.access_section.invalid_access'));
-        }
-        $nonce = $request->input('nonce', false);
-        $today = carbon::now();
-        $todayf = $today->format("dmY");
-        $random = rand(0,99);
-        $order_number = "VES-".$todayf.$user_id.$random;
-
-        $is_credit_card = $request->input("payment_type") == 4 ? true : false;
-        $data["payment_type"]=$request->input("payment_type");
-        $data["status"]=$is_credit_card ? 9 : 12;
-        if($is_credit_card){
-            $status = Braintree_Transaction::sale([
-                'amount' => $grand_total,
-                'paymentMethodNonce' => $nonce,
-                'options' => [
-                    'submitForSettlement' => True
-                ]
-            ]);
-            if(!$status->success){
-                return redirect()->back()->withErrors([
-                    "required"=>$status->message
-                ]);
-            }
-        }
-
-            $data["user_id"]=$cart["user_id"];
-            $data["order_number"]=$order_number;
-            $data["purchase_date"]=$today;
-            if($this->main_config->allow_shipping){
-                $shipping_list = $cart["shipping_list"];
-                $data_shipping["name"]=$cart["shipping_name"];
-                $data_shipping["address_1"]=$cart["shipping_address_1"];
-                $data_shipping["address_2"]=$cart["shipping_address_2"];
-                $data_shipping["province_id"]=$cart["shipping_province_id"];
-                $data_shipping["district_id"]=$cart["shipping_district_id"];
-                $data_shipping["corregimiento_id"]=$cart["shipping_corregimiento_id"];
-                $data_shipping["country_id"]=$cart["shipping_country"];
-                $data_shipping["zip_code"]=$cart["shipping_zip_code"];
-                $data_shipping["phone_number_1"]=$cart["shipping_phone_number_1"];
-                $data_shipping["phone_number_2"]=$cart["shipping_phone_number_2"];
-                $data_shipping["email"]=$cart["shipping_email"];
-                $data_shipping["address_type"]=1;
-                $data["order_shipping"]=$cart["order_shipping"];
-                $data["order_shipping_type"] = $shipping_list->id;
-                $data_shipping["order_id"]=$order->id;
-                $this->order_addresses->insert($data_shipping);
-            }
-
-            $data_billing["name"]=$cart["billing_name"];
-            $data_billing["address_1"]=$cart["billing_address_1"];
-            $data_billing["address_2"]=$cart["billing_address_2"];
-            $data_billing["province_id"]=$cart["billing_province_id"];
-            $data_billing["district_id"]=$cart["billing_district_id"];
-            $data_billing["corregimiento_id"]=$cart["billing_corregimiento_id"];
-            $data_billing["country_id"]=$cart["billing_country"];
-            $data_billing["zip_code"]=$cart["billing_zip_code"];
-            $data_billing["phone_number_1"]=$cart["billing_phone_number_1"];
-            $data_billing["phone_number_2"]=$cart["billing_phone_number_2"];
-            $data_billing["email"]=$cart["billing_email"];
-            $data_billing["address_type"]=2;
-
-            $data["order_total"]=$grand_total;
-            $data["order_tax"]=$cart["order_tax"];
-            $data["grand_total"]=$grand_total;
-            $data["ip"] = $request->ip();
-            $data["created_at"]=carbon::now();
-            // $data["products"]=$cart_p;
-            foreach($cart["products"] as $product){
-                $check_size = $this->sizes->find($product["size_id"]);
-                $check_product = $this->products->find($product["id"]);
-                $check_color =  $this->colors->find($product["color_id"]);
-                // if($check_size->stock < 1){
-                //     return redirect()->back()->withErrors([
-                //         "required"=>$check_product->products_name." ".$check_color->name." / ".$check_size->name." is out of stock"
-                //     ]);
-                // }
-            }
-            $order = Orders::create($data);
-            //save addresese
-            $data_billing["order_id"]=$order->id;
-            $this->order_addresses->insert($data_billing);
-            
-            if($is_credit_card){
-                if($status->success){
-                    //SAVE PAYMENT HISTORIES
-                    $new_payment=[];
-                    $new_payment["order_id"]=$order->id;
-                    $new_payment["total"]=$grand_total;
-                    $new_payment["user_id"]=$order->user_id;
-                    $new_payment["transaction_id"]=$status->transaction->id;
-                    $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
-                    $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
-                    $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
-                    $new_payment["payment_status"]=$status->transaction->processorResponseText;
-                    $new_payment["ip"]=$request->ip();
-                    $new_payment["created_at"]=carbon::now();
-                    $this->payment_histories->insert($new_payment);
-                }
-            }
-            //save to products
-            $new_product=[];
-            $data_products_email=[];
-            foreach($cart["products"] as $product){
-                $new_product["product_id"]=$product["id"];
-                $new_product["order_id"]=$order->id;
-                $new_product["quantity"]=$product["quantity"];
-                $new_product["total"]=$product["total"];
-                $new_product["color_id"]=$product["color_id"];
-                $new_product["size_id"]=$product["size_id"];
-                $new_product["status"]=9;
-                $new_product["created_at"]=$today;
-
-                $this->order_products->insert($new_product);
-
-                 //decrease stock number
-                 $size_dec = $this->sizes->find($new_product["size_id"]);
-                if($size_dec->stock>0){
-                    $newstock_quant = $product["quantity"];
-                    $newstock = $size_dec->stock - $newstock_quant;
-                    $size_dec->stock = $newstock;
-                    $size_dec->save();
-                }
-            }
-             //send email to user
-            $order_detail = $this->sendEmail($order->id);
-             
-             //send email to client
-             Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                 $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
-                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
-                 $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
-                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
-                 //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
-             });
-             Session::forget("vestidos_admin_shop");
-            return redirect()->route('admin_orders')->with("success",__('general.order_section.order_success_created_none'));
-
-    }
-    public function showAdminOrderPayment($order_id){
-        $data=[];
-        $order = $this->orders->find($order_id);
-        $data["order"]=$this->orders->find($order_id);
-        $data["payment_types"]=$this->payment_types->all();
-        $data["page_title"]=__('general.order_section.process_order')." ".$order->order_number;
-        return view("admin/orders/payments/edit",$data);
-    }
-    public function orderAdminProcessPayment(Request $request,$order_id){
-
-        $this->validate($request,[
-            'order_total' => "required"
-        ]);
-        $grand_total = $request->input("order_total");
-        $order=$this->orders->find($order_id);
-        $nonce = $request->input('nonce', false);
-        $today = carbon::now();
-        
-        $status = Braintree_Transaction::sale([
-            'amount' => $grand_total,
-            'paymentMethodNonce' => $nonce,
-            'options' => [
-                'submitForSettlement' => True
-            ]
-        ]);
-        if($status->success){
-            $order->order_total = $request->input('order_total');
-            $order->updated_at=$today;
-            $order->payment_method=$request->input("payment_method");
-            $order->save();
-
-            //SAVE PAYMENT HISTORIES
-            $new_payment=[];
-            $new_payment["order_id"]=$order->id;
-            $new_payment["user_id"]=$order->user_id;
-            $new_payment["total"]=$grand_total;
-            $new_payment["transaction_id"]=$status->transaction->id;
-            $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
-            $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
-            $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
-            $new_payment["payment_status"]=$status->transaction->processorResponseText;
-            $new_payment["ip"]=$request->ip();
-            $new_payment["created_at"]=carbon::now();
-            $this->payment_histories->insert($new_payment);
-
-            return redirect()->route('admin_edit_order',["order_id"=>$order_id])->with("success",__('general.order_section.order_completed'));
-        }
-        return redirect()->back()->withErrors([
-            "required"=>$status->message
-        ]);
-    }
     public function cancelOrder($order_id,Request $request){
         $data=[];
         $order = $this->orders->find($order_id);
@@ -691,7 +484,7 @@ class ordersController extends Controller
                 "color"=>$color_detail->name,
                 "size"=>$size_detail->name,
                 "name"=>$product_detail->products_name,
-                "total"=>$product->total_sale,
+                "total"=>$size_detail->total_sale,
                 "model"=>$product_detail->product_model,
                 "img"=>$product_detail->images()->first()->img_url,
                 "id"=>$product_detail->id
