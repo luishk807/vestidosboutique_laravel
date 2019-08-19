@@ -20,8 +20,8 @@ class globalConfig
             "support_phone"=>"+507 203-5848",
             "sales_email"=>"pedidos@vestidosboutique.com",
             "url"=>"www.vestidosboutique.com",
-            "recapchav3_site"=>"6LdAnLMUAAAAAFtmPcpuBsNuc4nTQbTn0MN5mRxF",
-            "recapchav3_private"=>"6LdAnLMUAAAAANHW4qhYwlI3XBJLnqW_BFIKvMii",
+            "recapchav3_site"=>env('RECAPTCHA_SITE'),
+            "recapchav3_private"=>env('RECAPTCHA_PRIVATE'),
         ];
         $request->merge(array("configData" => $data));
         view()->share('configData',$data);
