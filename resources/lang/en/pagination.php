@@ -15,6 +15,8 @@ return [
 
     'previous' => 'Previous',
     'next' => 'Next',
+    'last'     => 'End',
+    'inicio'     => 'Start',
     'sort_by'=>"Sort By",
     'of'=>"of",
     'sort_options'=>[

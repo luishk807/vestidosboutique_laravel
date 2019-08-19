@@ -981,7 +981,7 @@ function getPriceInfo(size){
         success: function(data) {
             $(".product_in_price span").text(data.total_sale);
             $(".shoplist-stock-txt span").removeClass();
-            if(data.stock > 1)
+            if(data.stock > 0)
             {
                 $(".shoplist-stock-txt span").addClass("stock").text(data.stock_msg);
             }

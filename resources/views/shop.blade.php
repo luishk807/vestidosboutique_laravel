@@ -133,11 +133,9 @@
                                                     <div class="col-md-5"><span  class="shoplist-thumb-price">${{ $products_model->getSize_byId($product->id)->total_sale }}</span>
                                                     <br/>
                                                     <span  class="shoplist-stock-txt">
-                                                        @if($product->stock > 1)
+                                                        @if($product->stock > 0)
                                                             <span class='stock'>{{ __('general.product_title.in_stock')}}</span>
-                                                        @elseif($product->stock == 1)
-                                                            <span class='out-stock'>{{ __('general.product_title.in_stock_number',['name'=>$product->stock])}}</span>
-                                                        @elseif($product->stock < 1)
+                                                        @else
                                                             <span class='out-stock'>{{ __('general.product_title.per_order')}}</span>
                                                         @endif
                                                     </span>
@@ -163,11 +161,11 @@
                         <div class="shoplist-nav">
                             <ul>
                                  @if(!empty($products->previousPageUrl()))
-                                <li><a href="{{ $products->previousPageUrl()}}">&lt; Back</a></li>
+                                <li><a href="{{ $products->previousPageUrl()}}">&lt; {{ __('pagination.previous') }}</a></li>
                                 @endif
                                 <li>{{ $products->currentPage()}} {{ __('pagination.of') }} {{ $products->lastPage() }}</li>
                                 @if($products->nextPageUrl())
-                                <li><a href="{{ $products->nextPageUrl() }}">Next &gt;</a></li>
+                                <li><a href="{{ $products->nextPageUrl() }}">{{ __('pagination.next') }} &gt;</a></li>
                                 @endif
                             </ul>
                         </div><!--end {{ __('pagination.of') }} nav container-->
