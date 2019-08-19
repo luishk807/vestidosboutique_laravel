@@ -16,7 +16,7 @@
                         <ol>
                             <li>La mayoría de los productos que ofrecemos vienen en variedad de colores y tallas, y podrás elegir aquello que mas te gusten. La fecha de entrega estimada puede tomar entre 4 a 12 semanas.</li>
                             <li>Una vez elegido el producto por color, talla y cantidad, deberá pulsar el botón &#34;Pre-ordene&#34;. Y deberá crear una cuenta y registrarse en nuestra página para proceder con el pedido.</li>
-                            <li>Al &#34;Proceder a Pago&#34;, está realizando un pedido de los artículos que aparecen en el CARRITO. Al &#34;Finalizar su orden&#34;, en un plazo de 24 horas recibirá la notificación vía email la confirmación de su pedido con detalle de la disponibilidad del artículo y la fecha estimada de entrega del producto.</li>
+                            <li>Al &#34;Tramitar Pedido&#34;, está realizando un pedido de los artículos que aparecen en el CARRITO. Al &#34;Finalizar su orden&#34;, en un plazo de 24 horas recibirá la notificación vía email la confirmación de su pedido con detalle de la disponibilidad del artículo y la fecha estimada de entrega del producto.</li>
                             <li>El contrato se formaliza en el momento en que reciba la confirmación de pedido por nuestra parte y una vez realizado el pago del abono del 50&#37; del precio total del pedido y el saldo restante del 50&#37; se cancela contra entrega. </li>
                         </ol>
                     </li>
