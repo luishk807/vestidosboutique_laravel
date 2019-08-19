@@ -77,6 +77,7 @@ return [
         'payment'=>"Pago",
         'confirmation'=>"Confirmación",
         'account_created'=>'Cuenta Creada',
+        'account_not_created_friendly'=>'Ops!, Algo inesperado sucedió al crear su cuenta. Vuelva a intentarlo más tarde.',
         'account_not_created'=>"Ops! Su Cuenta No Pudo Ser Creada",
         'ops'=>"Ops!",
         'logout'=>"Cierre de Sesión",

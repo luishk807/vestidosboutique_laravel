@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Classes\ReCaptcha as ReCaptcha;
 use App\vestidosUsers as Users;
 use Carbon\Carbon as carbon;
 use App\vestidosBrands as Brands;
@@ -23,7 +24,8 @@ use Redirect;
 class usersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories){
+    public function __construct(Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories,ReCaptcha $recaptcha){
+        $this->recaptcha = $recaptcha;
         $this->country=$countries->all();
         $this->users = $users;
         $this->genders=$genders;
@@ -65,38 +67,38 @@ class usersController extends Controller
             "email"=>"required | email | unique:vestidos_users,email",
             "phone_number"=>"required",
         ]);
-        
-        $data["preferred_language"]=$request->input("preferred_language");
-        $data["password"]=$request->input("password");
-        $data["first_name"]=$request->input("first_name");
-        $data["middle_name"]=$request->input("middle_name");
-        $data["last_name"]=$request->input("last_name");
-        $data["email"]=$request->input("email");
-        $data["phone_number"]=$request->input("phone_number");
-        $data["gender"]=$request->input("gender");
-        $data["date_of_birth"]=$request->input("date_of_birth");
-        
-        $data["ip"]=$request->ip();
-        $data["status"]=6;
-        $data["user_type"]=1;
-        $data["created_at"]=carbon::now();
-        $data["password"]=Hash::make($request->input("password"));
-        $data["remember_token"]=str_random(60);
-        $user = Users::create($data);
-        if(!empty($user->id)){
-            $link = url('/account/activate/'. $user->remember_token);
-            $data["link"]=$link;
-            Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
-                $client_name = $data['first_name']." ".$data["last_name"];
-                $subject = __('general.user_section.registration_complete',['name'=>$client_name]);
-                $message->to($data["email"],$client_name)->subject($subject);
-                //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
-            });
-            return redirect()->route('account_create_confirmed');
-        }else{
-            return redirect()->back();
+        if($this->recaptcha->getResponse($request)){
+            $data["preferred_language"]=$request->input("preferred_language");
+            $data["password"]=$request->input("password");
+            $data["first_name"]=$request->input("first_name");
+            $data["middle_name"]=$request->input("middle_name");
+            $data["last_name"]=$request->input("last_name");
+            $data["email"]=$request->input("email");
+            $data["phone_number"]=$request->input("phone_number");
+            $data["gender"]=$request->input("gender");
+            $data["date_of_birth"]=$request->input("date_of_birth");
+            
+            $data["ip"]=$request->ip();
+            $data["status"]=6;
+            $data["user_type"]=1;
+            $data["created_at"]=carbon::now();
+            $data["password"]=Hash::make($request->input("password"));
+            $data["remember_token"]=str_random(60);
+            $user = Users::create($data);
+            if(!empty($user->id)){
+                $link = url('/account/activate/'. $user->remember_token);
+                $data["link"]=$link;
+                Mail::send('emails.usercreation_confirmation',["data"=>$data],function($message) use($data){
+                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $client_name = $data['first_name']." ".$data["last_name"];
+                    $subject = __('general.user_section.registration_complete',['name'=>$client_name]);
+                    $message->to($data["email"],$client_name)->subject($subject);
+                    //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
+                });
+                return redirect()->route('account_create_confirmed');
+            }
         }
+        return redirect()->back()->withErrors(['required'=>__('general.page_header.account_not_created')]);
     }
     public function activeUserAccount($token){
         $userRaw = DB::table('vestidos_users')->where('remember_token',$token)->first();
