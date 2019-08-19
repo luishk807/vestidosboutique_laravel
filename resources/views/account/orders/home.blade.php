@@ -1,5 +1,13 @@
 @extends("layouts.sub-layout-account")
 @section('content')
+<style>
+.order-product-amt-due{
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding-top: 7px;
+    margin: 10px 0;
+    font-size: 1rem;
+}
+</style>
 <div class="container container-in-space white-md-bg-in">
     <div class="row">
         <div class="col">
@@ -30,18 +38,19 @@
             </div>
         </div>
         @foreach($orders as $order)
+        @php($grand_total = $order->order_total + $order->order_tax)
         <div class="row orders-main-col">
             <div class="container order-container-in">
                 <div class="row order-first-row text-center">
                     <div class="col-md-6 col-lg-3 col-sm-10 header">
                         <p>{{ __('general.dates_title.date_ordered') }}</p>
-                        <p>{{$order->purchase_date}}</p>
+                        <p>{{ date('m-d-Y', strtotime($order->purchase_date)) }}</p>
                     </div>
                     <div class="col-md-6 col-lg-2 col-sm-10 header">
                         <p>
                             {{ trans_choice('general.cart_title.total',1) }}
                         </p>
-                        <p>${{ number_format($order->order_total,'2','.',',') }}</p>
+                        <p>${{ number_format($grand_total,'2','.',',') }}</p>
                     </div>
                     <div class="col-md-6  col-lg-3 col-sm-10 header">
                         <p>
@@ -68,6 +77,18 @@
                         @endif
                     </div>
                 </div>
+                <div class="row order-product-amt-due">
+                    <div class="col td">
+                        @php($total_due =$grand_total - $order->paymentHistories->sum('total'))
+                        {{ __('general.user_section.profile_order_amount_due') }}: <span class="
+                        @if($total_due > 0)
+                        text-danger
+                        @else
+                        text-success
+                        @endif
+                        ">${{ number_format($total_due,'2','.',',') }}</span>
+                    </div>
+                </div>
                 <!--list of products-->
                 @if(count($order->products)>0)
                 @foreach($order->products as $product)
@@ -90,8 +111,8 @@
                                     <span class="product-subtitle">{{ trans_choice('general.product_title.color',1) }}</span>: {{ $product->getColor->name}}<br/>
                                     <span class="product-subtitle">{{ trans_choice('general.product_title.size',1) }}</span>: {{ $product->getSize->name}}<br/>
                                     <span class="product-subtitle">{{ trans_choice('general.cart_title.quantity',1) }}</span>: {{ $product->quantity}}<br/>
-                                    <span class="product-total">${{number_format($product->total,'2','.',',')}}
-                                    </span>
+                                    <span class="product-subtitle">{{ trans_choice('general.product_title.unit_price',1) }}</span>:${{number_format($product->getSize->total_sale,'2','.',',')}}
+                                    
                                 </div>
                             </div>
                         </div>

@@ -81,6 +81,10 @@
         <small class="error">{{$errors->first("order_total")}}</small>
     </div>
     <div class="form-group">
+        <label for="orderDueTotal">Total Due:</label>
+        <input type="number" id="orderDueTotal" readonly class="form-control" name="order_due_total" min="0" step="0.01" value="{{ $amount_due }}" placeholder="0.00"/>
+    </div>
+    <div class="form-group">
         <label for="orderTax">Total Tax:</label>
         <input type="number" id="orderTax" class="form-control" name="order_tax" min="0" step="0.01" value="{{ old('order_tax') ? old('order_tax') : $order->order_tax }}" placeholder="0.00"/>
         <small class="error">{{$errors->first("order_tax")}}</small>

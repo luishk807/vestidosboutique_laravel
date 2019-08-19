@@ -25,6 +25,7 @@ return [
     'orders' => 'Orders',
     'wishlists' => 'Wishlists',
     'payment' => 'We Accept',
+    'payment_title' => 'Payments',
     'faqs' => 'Faqs',
     'terms' => 'Terms of Use',
     'privacy' => 'Privacy',

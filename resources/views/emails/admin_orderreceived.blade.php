@@ -6,7 +6,7 @@
     <tr>
         <td colspan='2'>
             {{ __('emails.order_admin.line_hello') }},<br/><br/>
-            {{ __('emails.order_admin.line_1',['date'=>$order_detail["order"]["purchase_date"],'name'=>$order_detail["user"]["first_name"]]) }} 
+            {{ __('emails.order_admin.line_1',['date'=>date('m-d-Y', strtotime($order_detail["order"]["purchase_date"])),'name'=>$order_detail["user"]["first_name"]]) }} 
         </td>
     </tr>
     <tr>
