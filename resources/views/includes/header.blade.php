@@ -30,7 +30,7 @@
 <script type="text/javascript" src="{{ asset('js/vendor/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
-
+<script src="https://www.google.com/recaptcha/api.js?render={{ $configData['recapchav3_site'] }}"></script>
 </head>
 <body id="main-body">
 <div class="pos-f-t" >

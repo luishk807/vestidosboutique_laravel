@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Classes\ReCaptcha as ReCaptcha;
 use App\vestidosBrands as Brands;
 use App\vestidosCategories as Categories;
 use App\vestidosCountries as vestidosCountries;
@@ -39,8 +40,9 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders,Sizes $sizes, Districts $districts, Provinces $provinces, Corregimientos $corregimientos,Colors $colors)
+    public function __construct(Products $products, vestidosCountries $countries, Brands $brands, Categories $categories, Addresses $addresses, Genders $genders, Languages $languages, Users $users, MainSliders $main_sliders,Sizes $sizes, Districts $districts, Provinces $provinces, Corregimientos $corregimientos,Colors $colors,ReCaptcha $recaptcha)
     {
+      $this->recaptcha = $recaptcha;
       $this->brands=$brands;
       $this->country=$countries;
       $this->categories = $categories;
@@ -135,23 +137,27 @@ class HomeController extends Controller
                 'country'=>$request->input("country"),
                 'message'=>$request->input("question")
             ];
-           Mail::send('emails.emailcontent',["client"=>$client],function($message) use($client){
-                $message->from("info@vestidosboutique.com","Vestidos Boutique");
-                $client_name = $client['first_name']." ".$client["last_name"];
-                $subject = __('general.user_section.to_user.thank_you',['name'=>$client_name]);
-                $message->to($client["email"],$client_name)->subject($subject);
-            });
-            Mail::send('emails.adminemail',["client"=>$client],function($message) use($client){
-                $client_name = $client['first_name']." ".$client["last_name"];
-                $message->from($client["email"],$client_name);
-                $subject = __('general.user_section.to_admin.thank_you',['name'=>$client_name]);
-                $message->to("info@vestidosboutique.com","Admin")->subject($subject);
-            });
-            $data["thankyou_title"]=__('general.thank_you');
-            $data["thankyou_msg"]=__('general.success_email');
-            $data["thankyou_img"]="checked.svg";
-            $data["page_title"]=__('header.confirmation');
-            return view("/confirmation",$data);
+           
+            if($this->recaptcha->getResponse($request)){
+                Mail::send('emails.emailcontent',["client"=>$client],function($message) use($client){
+                    $message->from("info@vestidosboutique.com","Vestidos Boutique");
+                    $client_name = $client['first_name']." ".$client["last_name"];
+                    $subject = __('general.user_section.to_user.thank_you',['name'=>$client_name]);
+                    $message->to($client["email"],$client_name)->subject($subject);
+                });
+                Mail::send('emails.adminemail',["client"=>$client],function($message) use($client){
+                    $client_name = $client['first_name']." ".$client["last_name"];
+                    $message->from($client["email"],$client_name);
+                    $subject = __('general.user_section.to_admin.thank_you',['name'=>$client_name]);
+                    $message->to("info@vestidosboutique.com","Admin")->subject($subject);
+                });
+                $data["thankyou_title"]=__('general.thank_you');
+                $data["thankyou_msg"]=__('general.success_email');
+                $data["thankyou_img"]="checked.svg";
+                $data["page_title"]=__('header.confirmation');
+                return view("/confirmation",$data);
+            }
+            return redirect()->back();
         }
     }
     public function signin(){

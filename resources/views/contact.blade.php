@@ -3,7 +3,6 @@
 <div class="main_sub_body contact_bg main_body_height">
 <div class="container-fluid">
     <div class="row">
-
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-6 contact-container container-in-center">
             <div>
                <div class="container-in-space white-md-bg-in">
@@ -12,6 +11,7 @@
                             <div class="col-md-6 col-lg-6">
                                 <form action="{{ route('sendEmail') }}" method="post" role="email">
                                 {{ csrf_field() }}
+                                    <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value=""/>
                                     <h2>{{ __('header.contact') }}</h2>
                                     <div class="form-group">
                                             <label for="accountFirstName">{{ __('general.form.first_name') }}:</label>
@@ -96,8 +96,6 @@
                             </div><!--end of company info-->
                         </div>
                     </div>
-
-
                </div>
             </div>
         </div>
@@ -105,4 +103,11 @@
     </div>
 </div>
 </div>
+<script>
+grecaptcha.ready(function() {
+    grecaptcha.execute("{{ $configData['recapchav3_site'] }}", {action: 'homepage'}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value=token;
+    });
+});
+</script>
 @endsection

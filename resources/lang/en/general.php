@@ -74,6 +74,7 @@ return [
         'payment'=>"Payment",
         'confirmation'=>"Confirmation",
         'account_created'=>'Account Created',
+        'account_not_created_friendly'=>'Ops!, Something unexpected happened while creating your account, please try again later',
         'account_not_created'=>"Ops! Account Not Created",
         'ops'=>"Ops!",
         'logout'=>"Logout Page",

@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-md-8 account-form-section">
                                 <h2>{{$page_title}}</h2>
-                                <form action="{{ route('createuser')}}" method="post">
+                                <form action="{{ route('createuser2')}}" method="post">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value=""/>
                                 <div class="form-group">
