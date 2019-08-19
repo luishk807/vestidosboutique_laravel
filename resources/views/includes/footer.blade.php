@@ -42,7 +42,6 @@
             <img src="{{ asset('images/cc-visa.svg') }}" class="vesti-svg vestidos-icons-payment"/>
             <img src="{{ asset('images/cc-master.svg') }}" class="vesti-svg vestidos-icons-payment"/>
             <img src="{{ asset('images/cc-amex.svg') }}" class="vesti-svg vestidos-icons-payment"/>
-            <img src="{{ asset('images/cc-discover.svg') }}" class="vesti-svg vestidos-icons-payment"/>
         </div>
 
         <div class="col-md-4 footer-bottom-col text-right">
