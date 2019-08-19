@@ -292,7 +292,7 @@ return [
          'reset_confirm_message'=>"Su contraseña ha sido actualizada satisfactoriamente",
      ],
      'also_loved'=>"Otras Recomendaciones",
-     'got_question'=>"Llámenos",
+     'got_question'=>"Tiene Preguntas? Llámenos",
      'payment_final_step_msg'=>"Aqui es la etapa final para tu orden",
      'optimized_search'=>"Mejorar Busqueda",
      'vendor'=>'Vendedor',
