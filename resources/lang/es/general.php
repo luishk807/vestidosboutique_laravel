@@ -276,7 +276,7 @@ return [
         'wednesday'=>"Miercoles",
         'thursday'=>"Jueves",
         'friday'=>"Viernes",
-        'saturday'=>"Sabado",
+        'saturday'=>"Sábado",
         'sunday'=>"Domingo",
      ],
 
