@@ -7,6 +7,7 @@ use App\vestidosUsers as Users;
 use App\Exceptions\Handler;
 use Carbon\Carbon as carbon;
 use App\vestidosBrands as Brands;
+use App\vestidosCoupons as Coupons;
 use App\vestidosCategories as Categories;
 use App\vestidosCountries as Countries;
 use App\vestidosProvinces as Provinces;
@@ -37,7 +38,7 @@ use Auth;
 class userPaymentController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes, MainConfig $main_config){
+    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons){
         $this->main_config = $main_config->first();
         $this->country=$countries;
         $this->users = $users;
@@ -58,6 +59,7 @@ class userPaymentController extends Controller
         $this->shipping_lists = $shippingLists;
         $this->provinces=$provinces;
         $this->districts=$districts;
+        $this->coupons = $coupons;
         $this->corregimientos=$corregimientos;
         $this->tax_info = $tax->first();
     }
@@ -210,6 +212,7 @@ class userPaymentController extends Controller
             return redirect()->route("home_page");
         }
         $data=[];
+        $product_items = Session::get('vestidos_shop');
         $user_id=Auth::guard("vestidosUsers")->user()->getId();
         $user = $this->users->find($user_id);
         $data["user"]=$user;
@@ -235,6 +238,30 @@ class userPaymentController extends Controller
         $data["address_id"]=$request->input("address_id");
         $data["checkout_header_key"]=__('general.cart_title.billing');
         $data["checkout_btn_name"]=__('buttons.submit_payment');
+
+        // calculate totals
+        $cart_checkout_total = 0;
+        foreach($product_items as $cart_checkout_key=>$cart_checkout){
+            $cart_checkout_total +=$cart_checkout["total"] * $cart_checkout["quantity"];
+        }
+        $cart_checkout_tax = $cart_checkout_total * ($this->tax_info->tax/100);
+        $data["cart_checkout_total"] = $cart_checkout_total;
+        $data["cart_checkout_tax"] = $cart_checkout_tax;
+
+        // total without discount
+        $grand_total = $this->main_config->allow_shipping ? $cart_checkout_total + $cart_checkout_tax + $shipping_cost : $cart_checkout_total + $cart_checkout_tax;
+
+        //if user applied discount
+        $discount_app = Session::has('discount_apply') ? Session::get('discount_apply')["discount"] : null;
+        $discount_total = $grand_total * ($discount_app/100);
+        $data["grand_total_before_discount"] = $grand_total;
+        $data["discount_total"] = $discount_total;
+
+        //calculate with discount
+        $grand_total = $discount_app ? $grand_total - $discount_total : $grand_total;
+
+        $data["grand_total"]=$grand_total;
+        $data["half_pay"] = $grand_total / 2;
 
         return view("/checkout/billing",$data);
     }
@@ -373,6 +400,18 @@ class userPaymentController extends Controller
         $subtotal = ($total * $tax) + $total;
         $grand_total = $this->main_config->allow_shipping ? $subtotal+$shipping_list->total : $subtotal;
         
+        //if user applied discount
+        $discount_app = Session::has('discount_apply') ? Session::get('discount_apply')["discount"] : null;
+        $discount_total = 0;
+        if($discount_app){
+            $discount_total = $grand_total * ($discount_app/100);
+            $data["discount_total"] = $discount_total;
+            $data["coupon_id"] = Session::get('discount_apply')["id"]; 
+            $data["order_discount"] =$discount_total;
+            //calculate with discount
+            $grand_total = $discount_app ? $grand_total - $discount_total : $grand_total;
+        }
+        
         //PREPARE DATA
         $data["user_id"]=$user_id;
         $data["order_number"]=$order_number;
@@ -508,6 +547,7 @@ class userPaymentController extends Controller
                             "billing_email"=>$data_billing["email"],
                             "products"=>$data_products_email,
                             "order_total"=>$total,
+                            "discount_app"=>$discount_total,
                             "order_tax"=>$tax,
                             "status"=>$get_order->getStatusName->name,
                             "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
@@ -530,6 +570,7 @@ class userPaymentController extends Controller
                             "products"=>$data_products_email,
                             "order_total"=>$total,
                             "order_tax"=>$tax,
+                            "discount_app"=>$discount_total,
                             "status"=>$get_order->getStatusName->name,
                             "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
                         );
@@ -570,7 +611,7 @@ class userPaymentController extends Controller
                     // DESTROY SESSION
                     $request->session()->forget('cart_session');
                     $request->session()->forget('vestidos_shop');
-                    
+                    Session::forget("discount_apply");
                     $request->session()->flash('alert-success',$email_msg);
                     return redirect()->route("checkout_order_received");
                 }
@@ -604,5 +645,42 @@ class userPaymentController extends Controller
         }
        return view("/checkout/confirmation",$data);
     }
-    
+    public function applyDiscount(){
+        $coupon_code=Input::get('data');
+        $discount = [];
+        $coupon = $this->coupons->where("code","=",$coupon_code)->where("status",1)->limit(1)->get();
+        if(count($coupon)){
+            // dd($coupon[0]->code);
+           if(Session::has("discount_apply")){
+                return response()->json(["status"=>false,"msg"=>__('general.cart_title.discount_restriction_applied')]);
+           }
+           $discount = [
+            "id"=>$coupon[0]->id,
+            "code"=>$coupon[0]->code,
+            "discount"=>$coupon[0]->discount,
+            "description"=>$coupon[0]->description,
+            "short_desc"=>$coupon[0]->short_desc,
+            "exp_date"=>$coupon[0]->exp_date,
+            "status"=>true,
+            "msg"=>"",
+           ];
+           Session::forget("discount_apply");
+           Session::put("discount_apply",
+           $discount
+           );
+        }else{
+            $discount = ["status"=>false,"msg"=>__('general.cart_title.discount_not_found')];
+        }
+        return response()->json($discount);
+    }
+    public function removeDiscount(){
+        $result = [
+            "result"=>false
+        ];
+        if(Session::has("discount_apply")){
+            Session::forget("discount_apply");
+            $result["result"]=true;
+        }
+        return response()->json($result);
+    }
 }

@@ -77,6 +77,9 @@ class userOrderController extends Controller
         $order->cancel_user=$user_id;
         $billing_add = $order->getOrderBillingAddress();
         $shipping_add = $order->getOrderShippingAddress();
+
+        $discount_app = $order->order_discount ? $order->order_discount : null;
+        
         if($order->save()){
             //send email to user
             foreach($order->products as $product){
@@ -126,6 +129,7 @@ class userOrderController extends Controller
                         "billing_email"=>$billing_add[0]->email,
                         "products"=>$data_products_email,
                         "order_total"=>$order->order_total,
+                        "discount_app"=>$discount_app ? $discount_app : 0,
                         "order_tax"=>$order->order_tax,
                         "status"=>$order->getStatusName->name,
                         "shipping_total"=>$order->order_shipping
@@ -151,6 +155,7 @@ class userOrderController extends Controller
                         "billing_email"=>$billing_add[0]->email,
                         "products"=>$data_products_email,
                         "order_total"=>$order->order_total,
+                        "discount_app"=>$discount_app ? $discount_app : 0,
                         "order_tax"=>$order->order_tax,
                         "status"=>$order->getStatusName->name,
                     )

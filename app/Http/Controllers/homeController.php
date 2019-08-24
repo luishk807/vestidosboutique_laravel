@@ -246,10 +246,12 @@ class HomeController extends Controller
     }
     public function loadColorSizes(){
         $color_id=Input::get('data');
-        $color = $this->colors->find($color_id);
-        $data["color"]["info"]=$color;
-        $data["color"]["colors"]=$color->sizes()->get();
-        return response()->json($data["color"]);
+        if(!empty($color_id)){
+            $color = $this->colors->find($color_id);
+            $data["color"]["info"]=$color;
+            $data["color"]["colors"]=$color->sizes()->get();
+            return response()->json($data["color"]);
+        }
     }
     public function loadProdQuantity(){
         $size_id=Input::get('data');

@@ -59,7 +59,9 @@ return [
         'line_11'=>'Subtotal',
         'line_12'=>'Tax',
         'line_13'=>'Shipping',
-        'line_14'=>'Grandtotal',
+        'line_14'=>'Total',
+        'line_15'=>'Discount',
+        'line_16'=>'Grandtotal',
     ],
 
     'order_user_cancel'=>[
@@ -77,7 +79,9 @@ return [
         'line_11'=>'Subtotal',
         'line_12'=>'Tax',
         'line_13'=>'Shipping',
-        'line_14'=>'Grandtotal',
+        'line_14'=>'Total',
+        'line_15'=>'Discount',
+        'line_16'=>'Grandtotal',
     ],
 
     'order_user_received'=>[
@@ -95,7 +99,9 @@ return [
         'line_11'=>'Subtotal',
         'line_12'=>'Tax',
         'line_13'=>'Shipping',
-        'line_14'=>'Grandtotal',
+        'line_14'=>'Total',
+        'line_15'=>'Discount',
+        'line_16'=>'Grandtotal',
     ],
 
     'order_user_update'=>[
@@ -113,7 +119,9 @@ return [
         'line_11'=>'Subtotal',
         'line_12'=>'Tax',
         'line_13'=>'Shipping',
-        'line_14'=>'Grandtotal',
+        'line_14'=>'Total',
+        'line_15'=>'Discount',
+        'line_16'=>'Grandtotal',
     ],
 
     'order_payment_update'=>[
@@ -134,9 +142,11 @@ return [
         'line_13'=>'Subtotal',
         'line_14'=>'Tax',
         'line_15'=>'Shipping',
-        'line_16'=>'Grandtotal',
-        'line_17'=>'Total Paid',
-        'line_18'=>'Amount Due',
+        'line_16'=>'Total',
+        'line_17'=>'Discount',
+        'line_18'=>'Grandtotal',
+        'line_19'=>'Total Paid',
+        'line_20'=>'Amount Due',
     ],
 
     'order_payment_removed'=>[
@@ -157,9 +167,11 @@ return [
         'line_13'=>'Subtotal',
         'line_14'=>'Tax',
         'line_15'=>'Shipping',
-        'line_16'=>'Grandtotal',
-        'line_17'=>'Total Paid',
-        'line_18'=>'Amount Due',
+        'line_16'=>'Total',
+        'line_17'=>'Discount',
+        'line_18'=>'Grandtotal',
+        'line_19'=>'Total Paid',
+        'line_20'=>'Amount Due',
     ],
 
     'order_cancel_request'=>[
@@ -178,7 +190,9 @@ return [
         'line_12'=>'Subtotal',
         'line_13'=>'Tax',
         'line_14'=>'Shipping',
-        'line_15'=>'Grandtotal',
+        'line_15'=>'Total',
+        'line_16'=>'Discount',
+        'line_17'=>'Grandtotal',
     ],
 
     'order_cancel_admin'=>[
@@ -196,7 +210,9 @@ return [
         'line_12'=>'Subtotal',
         'line_13'=>'Tax',
         'line_14'=>'Shipping',
-        'line_15'=>'Grandtotal',
+        'line_15'=>'Total',
+        'line_16'=>'Discount',
+        'line_17'=>'Grandtotal',
     ],
     
     'new_email_admin'=>[

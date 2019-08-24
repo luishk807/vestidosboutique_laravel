@@ -207,6 +207,11 @@ return [
         'cart_updated'=>"Cart Updated",
         'cart_error'=>"Ops!, Something Happened!",
         'min_payment'=>"Minimum payment of 50% is required to proceed",
+        'discount_applied'=>"Discount applied",
+        'discount_apply'=>"Enter Promotion Code",
+        'discount_restriction'=>"Please note only one code can be applied per order",
+        'discount_restriction_applied'=>"Only one code can be applied per order",
+        'discount_not_found'=>"The promo code entered has expired or has not been recognised, please check your spelling and try again",
     ],
     'rate_title'=>[
         'your_rate'=>"Your Rate",

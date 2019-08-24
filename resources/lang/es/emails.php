@@ -59,7 +59,9 @@ return [
       'line_11'=>'Subtotal',
       'line_12'=>'Impuesto',
       'line_13'=>'Envío',
-      'line_14'=>'Gran total',
+      'line_14'=>'Total',
+      'line_15'=>'Descuento',
+      'line_16'=>'Gran total',
   ],
 
   'order_user_cancel'=>[
@@ -77,7 +79,9 @@ return [
       'line_11'=>'Subtotal',
       'line_12'=>'Impuesto',
       'line_13'=>'Envío',
-      'line_14'=>'Gran total',
+      'line_14'=>'Total',
+      'line_15'=>'Descuento',
+      'line_16'=>'Gran total',
   ],
 
   'order_user_received'=>[
@@ -95,7 +99,9 @@ return [
       'line_11'=>'Subtotal',
       'line_12'=>'Impuesto',
       'line_13'=>'Envío',
-      'line_14'=>'Gran total',
+      'line_14'=>'Total',
+      'line_15'=>'Descuento',
+      'line_16'=>'Gran total',
   ],
 
   'order_user_update'=>[
@@ -113,7 +119,9 @@ return [
       'line_11'=>'Subtotal',
       'line_12'=>'Impuesto',
       'line_13'=>'Envío',
-      'line_14'=>'Gran total',
+      'line_14'=>'Total',
+      'line_15'=>'Descuento',
+      'line_16'=>'Gran total',
   ],
 
   'order_payment_update'=>[
@@ -134,9 +142,11 @@ return [
     'line_13'=>'Subtotal',
     'line_14'=>'Impuesto',
     'line_15'=>'Envío',
-    'line_16'=>'Gran total',
-    'line_17'=>'Total Pagado',
-    'line_18'=>'Monto Por Pagar',
+    'line_16'=>'Total',
+    'line_17'=>'Descuento',
+    'line_18'=>'Gran total',
+    'line_19'=>'Total Pagado',
+    'line_20'=>'Monto Por Pagar',
 ],
 
 'order_payment_removed'=>[
@@ -157,9 +167,11 @@ return [
     'line_13'=>'Subtotal',
     'line_14'=>'Impuesto',
     'line_15'=>'Envío',
-    'line_16'=>'Gran total',
-    'line_17'=>'Total Pagado',
-    'line_18'=>'Monto Por Pagar',
+    'line_16'=>'Total',
+    'line_17'=>'Descuento',
+    'line_18'=>'Gran total',
+    'line_19'=>'Total Pagado',
+    'line_20'=>'Monto Por Pagar',
 ],
 
   'order_cancel_request'=>[
@@ -178,7 +190,9 @@ return [
       'line_12'=>'Subtotal',
       'line_13'=>'Impuesto',
       'line_14'=>'Envío',
-      'line_15'=>'Gran total',
+      'line_15'=>'Total',
+      'line_16'=>'Descuento',
+      'line_17'=>'Gran total',
   ],
 
   'order_cancel_admin'=>[
@@ -196,7 +210,9 @@ return [
       'line_12'=>'Subtotal',
       'line_13'=>'Impuesto',
       'line_14'=>'Envío',
-      'line_15'=>'Gran total',
+      'line_15'=>'Total',
+      'line_16'=>'Descuento',
+      'line_17'=>'Gran total',
   ],
   
   'new_email_admin'=>[
