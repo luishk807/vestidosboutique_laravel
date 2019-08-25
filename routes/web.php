@@ -119,6 +119,19 @@
                     Route::get("/edit",'adminUsersController@showUpdateAdmin')->name("admin_editadmin");
                     Route::post("/edit",'adminUsersController@updateAdmin')->name("admin_updateadmin");
                 });
+                // coupons
+                Route::prefix('coupons')->group(function(){
+                    Route::get('/','adminCouponController@index')->name('admin_coupons');
+                    Route::get('/new','adminCouponController@showNewCoupon')->name('new_coupon');
+                    Route::post('/new','adminCouponController@createNewCoupon')->name('create_coupon');
+                    Route::get('/edit/{coupon_id}','adminCouponController@editCoupon')->name('edit_coupon');
+                    Route::post('/edit/{coupon_id}','adminCouponController@saveCoupon')->name('save_coupon');
+                    Route::get('/confirm/{coupon_id}','adminCouponController@deleteCoupon')->name('confirm_coupon');
+                    Route::delete('/confirm/{coupon_id}','adminCouponController@deleteCoupon')->name('delete_coupon');
+                    Route::get('/import','adminCouponController@showImportCoupon')->name('show_import_coupon');
+                    Route::post('/import','adminCouponController@saveImportCoupon')->name('save_import_coupon');
+                    Route::post('/confirm_coupons','adminCouponController@deleteConfirmCoupons')->name('confirm_delete_coupons');
+                });
                 // Admin Main Configuration
                 Route::get('/show_home_config','adminHomeConfigController@home')->name("admin_home_config");
                 Route::post('/save_home_config','adminHomeConfigController@saveHomeConfig')->name("admin_home_config_save");
@@ -510,6 +523,8 @@
 
         //API
         Route::get("api/saveWishlist",'userWishlistController@addWishlist');
+        Route::get("api/applyDiscount",'userPaymentController@applyDiscount');
+        Route::get("api/removeDiscount",'userPaymentController@removeDiscount');
         Route::get("api/updateCart",'userCartController@cart_save');
         Route::get("api/deleteCart",'userCartController@cart_delete');
         Route::get('api/getAddress','ordersController@getAddressDropdown');

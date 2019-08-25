@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-md-2"><a href="{{ route('admin_edituser',['user_id'=>$order->client->id])}}">{{$order->client->getFullName()}}</a></div>
                         <div class="col-md-2">{{date('m-d-Y', strtotime($order->purchase_date))}}</div>
-                        <div class="col-md-2">${{$order->order_total + $order->order_tax + $order->order_shipping }}</div>
+                        <div class="col-md-2">${{ ($order->order_total + $order->order_tax + $order->order_shipping) - $order->order_discount }}</div>
                         <div class="col-md-2">{{ $order->getPaymentType->name }}</div>
                         <div class="col-md-4 order_action_label text-right">
                             <!--actions go here-->
@@ -65,7 +65,7 @@
             <div class="row order_admin_grid">
                 <div class="col">
                     <!--amount paid-->
-                    @php($amount_due = ($order->order_total + $order->order_tax) - $order->paymentHistories->sum('total'))
+                    @php($amount_due = (($order->order_total + $order->order_tax) - $order->order_discount) - $order->paymentHistories->sum('total'))
                     <b>Amount Due: <span class="
                     @if($amount_due > 0)
                     text-danger

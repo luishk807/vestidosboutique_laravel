@@ -286,6 +286,114 @@ body,html{
     //order page
     .admin-checkout-address{
         margin:10px 0px;
+    }
+    .admin-checkout-address .address-row{
+        text-align:center;
+    }
+    .admin-checkout-address .shipping h3,
+    .admin-checkout-address .billing h3{
+        text-decoration:underline;
+    }
+    .admin-checkout-address .shipping,
+    .admin-checkout-address .billing,
+    .admin-checkout-product .quantity{
+        text-align:center;
+    }
+    .admin-checkout-product .index,
+    .admin-checkout-product .image{
+        text-align:center;
+    }
+    .admin-checkout-product .description{
+        text-align:left;
+    }
+    .admin-checkout-product .total{
+        text-align:right;
+    }
+    .admin-checkout-product .row{
+        border-top: 1px solid rgba(0,0,0,.1);
+    }
+    .admin-checkout-product .row:last-child{
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    .admin-checkout-product .headers-row{
+        padding:10px 0px;
+    }
+    .admin-checkout-product .products-row{
+        padding:10px 0px;
+    }
+    .admin-checkout-total{
+        margin:10px 0px;
+    }
+    .admin-checkout-total .header,
+    .admin-checkout-total .total{
+        margin:2px 0px;
+    }
+    .admin-checkout-total .row:last-child .header,
+    .admin-checkout-total .row:last-child .total{
+        font-weight:bold;
+    }
+    .billing-payment-section{
+        margin:20px 0px 30px 0px;
+    }
+    .billing-payment-section .row.button{
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    .billing-payment-section .row.button:first-child{
+        border-top: 1px solid rgba(0,0,0,.1);
+    }
+    .billing-payment-section .row{
+        border-left: 1px solid rgba(0,0,0,.1);
+        border-right: 1px solid rgba(0,0,0,.1);
+    }
+    .billing-payment-section .row .col{
+        padding:10px;
+    }
+    .billing-payment-section .row.content .col{
+        padding:20px;
+        background-color:#fafafa;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    .billing-payment-section .row.content{
+        display:none;
+    }
+    .braintree-sheet__header{
+        display:none !important;
+    }
+    .braintree-sheet{
+        background-color: #fafafa;
+        border: none;
+    }
+    #coupon_code{
+        width: 70%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .coupon-container{
+        border: 1px solid rgba(0,0,0,.1);
+        margin-top:40px;
+    }
+    #coupon_code_link{
+        width: 25%;
+        background: white;
+        color: black;
+        border: 1px solid black;
+    }
+    #coupon_code_link:hover{
+        background: black;
+        color: white;
+    }
+    #coupon_section .table td, .table th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: none;
+    }
+    
+    #coupon_section .table th {
+        background:#fafafa;
+    }
+    .admin-checkout-address{
+        margin:10px 0px;
+
         .address-row{
             text-align:center;
         }
@@ -293,11 +401,11 @@ body,html{
         .billing h3{
             text-decoration:underline;
         }
-        .admin-checkout-address{
-            .shipping,
-            .billing{
-                text-align:center;
-            }
+    }
+    .admin-checkout-address{
+        .shipping,
+        .billing{
+            text-align:center;
         }
     }
     .admin-checkout-product{

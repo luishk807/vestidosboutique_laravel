@@ -138,12 +138,34 @@
                                             </td>
                                         </tr>
                                         @endif
-
                                     </tbody>
                                 </table>
 
                             </div>
+                            <div class="row">
+                                <div class="col text-left" id="coupon_section">
+                                    <table width="100%" class="table">
+                                        <tr>
+                                            <!-- <th class="checkout-subtitle" colspan="2">{{ trans_choice('general.form.address',2) }}</th> -->
+                                            <th class="checkout-subtitle pl-2" colspan="2">{{ __('general.cart_title.discount_apply') }}</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ __('general.cart_title.discount_restriction') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input onKeyUp="clearCouponError()" type="text" id="coupon_code" class="form-control" name="coupon_code" value=""/>
+                                                    <a href="javascript:applyDiscount()" id="coupon_code_link" class="btn form-control vestidos-link-btn text-uppercase">{{ __('buttons.add') }}</a>
+                                                    <br/>
+                                                    <small class="error">{{$errors->first("coupon_code")}}</small>
+                                                </div>
 
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                             <div id="dropin-wrapper">
                                 <div id="checkout-message"></div>
                                 <!-- <div id="dropin-container"></div>
@@ -200,8 +222,6 @@
                                                 <div class="checkout-cart-list-cell-panel">
                                                 <table class="table checkout-lists-panel">
                                                     <tbody>
-                                                    @php( $cart_checkout_total=0 )
-                                                    @php( $cart_checkout_tax=0 )
                                                     @foreach(Session::get('vestidos_shop') as $cart_checkout_key=>$cart_checkout)
                                                     <tr>
                                                         <td class="img-data">
@@ -217,7 +237,6 @@
                                                             <p>{{ trans_choice('general.product_title.unit_price',1) }}: ${{ number_format($cart_checkout["total"],2) }}</p>
                                                         </td>
                                                     </tr>
-                                                     @php( $cart_checkout_total +=$cart_checkout["total"] * $cart_checkout["quantity"] )
                                                      @endforeach
                                                     </tbody>
                                                 </table>
@@ -225,13 +244,13 @@
                                             </td>
                                         </tr><!--end of cart session listing-->
                                        <!--start of total-->
-                                        @php( $cart_checkout_tax = $cart_checkout_total * ($tax_info->tax/100) )
                                         <tr class="subtotal">
                                             <td>
                                             {{ __('general.cart_title.subtotal') }}
                                             </td>
                                             <td>
                                                 ${{number_format($cart_checkout_total,'2','.',',')}}
+                                                <input type="hidden" id="cart_checkout_total" name="cart_checkout_total" value="{{ $cart_checkout_total }}"/>
                                             </td>
                                         </tr>
                                         <tr class="subtotal">
@@ -240,6 +259,7 @@
                                             </td>
                                             <td>
                                                 ${{number_format($cart_checkout_tax,'2','.',',')}}
+                                                <input id="cart_checkout_tax" type="hidden" name="cart_checkout_tax" value="{{ $cart_checkout_tax }}"/>
                                             </td>
                                         </tr>
                                         @if(isset($shipping_cost))
@@ -252,16 +272,33 @@
                                             </td>
                                         </tr>
                                         @endif
-                                        <tr class="grand-total">
+                                        @if(Session::has("discount_apply"))
+                                        <tr id="discount_sec" class="subtotal">
                                             <td>
                                             {{ __('general.cart_title.order_total') }}
                                             </td>
                                             <td>
-                                                @if($main_config->allow_shipping)
-                                                ${{number_format(($cart_checkout_total + $cart_checkout_tax + $shipping_cost),'2','.',',')}}
-                                                @else
-                                                ${{number_format(($cart_checkout_total + $cart_checkout_tax),'2','.',',')}}
-                                                @endif
+                                               <span id="discount">${{number_format( $grand_total_before_discount,'2','.',',')}}</span>
+                                               <input type="hidden" id="grand_total_before_discount" name="grand_total_before_discount" value="{{ $grand_total_before_discount }}"/>
+                                            </td>
+                                        </tr>
+                                        <tr id="discount_sec" class="subtotal">
+                                            <td>
+                                            {{ __('general.cart_title.discount_applied') }}<br/>[ <a href='javascript:removeDiscount()'>{{ __('buttons.remove') }}</a> ]
+                                            </td>
+                                            <td>
+                                               <span id="discount">- ${{number_format( $discount_total,'2','.',',')}}</span>
+                                               <input type="hidden" id="discount_total" name="discount_total" value="{{ $discount_total }}"/>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        <tr class="grand-total">
+                                            <td>
+                                            {{ __('general.cart_title.grand_total') }}
+                                            </td>
+                                            <td id="total">
+                                                ${{number_format( $grand_total,'2','.',',')}}
+                                                <input type="hidden" id="grand_total" name="grand_total" value="{{ $grand_total}}"/>
                                             </td>
                                         </tr>
                                     <!--end of total-->
@@ -273,11 +310,8 @@
                                                 {{ __('general.cart_title.min_payment') }}
                                             </td>
                                             <td>
-                                                @if($main_config->allow_shipping)
-                                                ${{number_format((($cart_checkout_total + $cart_checkout_tax + $shipping_cost) /2),'2','.',',')}}
-                                                @else
-                                                ${{number_format((($cart_checkout_total + $cart_checkout_tax) /2),'2','.',',')}}
-                                                @endif
+                                                ${{number_format($half_pay,'2','.',',')}}
+                                                <input type="hidden" name="half_pay" id="half_pay" value="{{ $half_pay }}"/>
                                             </td>
                                         </tr>
                                 </table>

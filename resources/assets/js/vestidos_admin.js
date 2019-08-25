@@ -237,6 +237,55 @@ function switchCorregimientosDropByIndex(indx){
         }
     });
 }
+function openRadioContent(content){
+    var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
+    if(is_credit=="yes"){
+        $("#is_credit_card").val("yes");
+    }else{
+        $("#is_credit_card").val("no");
+    }
+    $("div.row.content").css("display","none");
+    $("div[target-data='"+content+"']").css("display","block");
+}
+function applyDiscount(){
+    var discount = $("#coupon_code").val();
+    if(discount.length){
+        $.ajax({
+           type: "GET",
+           url: "/api/applyDiscount",
+           data: {
+               data:discount,
+               type:"add",
+           },
+           success: function(data) {
+               if(!data["status"]){
+                $("#coupon_section .error").text(data["msg"]);
+                return;
+               }
+               window.location.reload();
+           }
+       }); 
+    }
+}
+function clearCouponError(){
+    $("#coupon_section .error").text("");
+}
+function removeDiscount(){
+    var discount = $("#discount_total").val();
+    if(!discount){
+        return;
+    }
+    $.ajax({
+        type: "GET",
+        url: "/api/removeDiscount",
+        data: "",
+        success: function(data) {
+            if(data){
+            window.location.reload();
+            }
+        }
+    });
+}
 $(document).ready(function() {
     $('.delete_button').click(function(event) {
         event.preventDefault();

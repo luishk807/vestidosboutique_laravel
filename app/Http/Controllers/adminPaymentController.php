@@ -7,6 +7,7 @@ use App\vestidosOrders as Orders;
 use App\vestidosOrdersProducts as OrdersProducts;
 use App\vestidosStatus as vestidosStatus;
 use App\vestidosUsers as Users;
+use App\vestidosCoupons as Coupons;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
 use App\vestidosCountries as Countries;
@@ -34,7 +35,7 @@ use Session;
 class adminPaymentController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -52,6 +53,7 @@ class adminPaymentController extends Controller
         $this->colors=$colors;
         $this->order_addresses = $orderaddresses;
         $this->sizes=$sizes;
+        $this->coupons = $coupons;
         $this->tax_info = $tax->first();
         $this->address_types = $address_types;
         $this->main_config = $main_config->first();
@@ -78,9 +80,15 @@ class adminPaymentController extends Controller
         }else{
             return redirect()->route('admin_orders')->with("error",__('general.access_section.invalid_access'));
         }
+        $discount_app = null;
+        if(Session::has("discount_apply")){
+            $discount_app = $data["grand_total"] - ($data["grand_total"] * Session::get("discount_apply")["discount"] / 100);
+        }
+        $data["discount_app"]= $discount_app;
         $data["payment_types"]=$this->payment_types->where("status",1)->get();
         $data["page_title"]=__('general.order_section.new_order_checkout');
-        return view("admin/orders/payments/checkout",$data);
+         return view("admin/orders/payments/checkout",$data);
+        //dd($data);
     }
     public function showAdminOrderPayment($order_id){
         $data=[];
@@ -192,6 +200,13 @@ class adminPaymentController extends Controller
         $today = carbon::now();
         $todayf = $today->format("dmY");
         $random = rand(0,99);
+        
+
+        if(Session::has("discount_apply")){
+            $discount_app = $grand_total - ($grand_total * (Session::get("discount_apply")["discount"] / 100));
+            $data["coupon_id"] = Session::get("discount_apply")["id"];
+            $data["order_discount"] = $discount_app;
+        }
         $order_number = "VES-".$todayf.$user_id.$random;
 
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
@@ -248,7 +263,7 @@ class adminPaymentController extends Controller
             $data_billing["email"]=$cart["billing_email"];
             $data_billing["address_type"]=2;
 
-            $data["order_total"]=$grand_total;
+            $data["order_total"]=$cart["order_total"];
             $data["order_tax"]=$cart["order_tax"];
             $data["grand_total"]=$grand_total;
             $data["ip"] = $request->ip();
@@ -264,6 +279,7 @@ class adminPaymentController extends Controller
                 //     ]);
                 // }
             }
+            // dd($data);
             $order = Orders::create($data);
             //save addresese
             $data_billing["order_id"]=$order->id;
@@ -312,8 +328,8 @@ class adminPaymentController extends Controller
             }
              //send email to user
             $order_detail = $this->sendEmail($order->id);
-             
-             //send email to client
+            //dd($order_detail);
+           //  send email to client
              Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
                  $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
                  $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
@@ -322,6 +338,7 @@ class adminPaymentController extends Controller
                  //$message->to("evil_luis@hotmail.com",$client_name)->subject($subject);
              });
              Session::forget("vestidos_admin_shop");
+             Session::forget("discount_apply");
             return redirect()->route('admin_orders')->with("success",__('general.order_section.order_success_created_none'));
 
     }
@@ -387,6 +404,8 @@ class adminPaymentController extends Controller
         }
         $order_shipping = $order->getOrderShippingAddress();
         $order_billing = $order->getOrderBillingAddress();
+
+        $order_tax = $this->tax_info->tax / 100;
         if($this->main_config->allow_shipping){
             $order_detail=[
                 "user"=>$this->users->find($user_id),
@@ -417,7 +436,8 @@ class adminPaymentController extends Controller
                     "billing_email"=>$order_billing[0]->email,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
-                    "order_tax"=>$order->order_tax,
+                    "order_tax"=>$order_tax,
+                    "discount_app"=>$order->order_discount,
                     "status"=>$order->getStatusName->name,
                     "shipping_total"=>$order->order_shipping,
                     "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
@@ -443,7 +463,8 @@ class adminPaymentController extends Controller
                     "billing_email"=>$order_billing[0]->email,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
-                    "order_tax"=>$order->order_tax,
+                    "order_tax"=>$order_tax,
+                    "discount_app"=>$order->order_discount,
                     "status"=>$order->getStatusName->name,
                     "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
                     "order_grand_total"=>$order->order_total + $order->order_tax,
@@ -485,5 +506,44 @@ class adminPaymentController extends Controller
             $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
         });
         return redirect()->route("admin_orders")->with('success',__('general.payment_section.delete_cancellations'));
+    }
+
+    public function applyDiscount(){
+        $coupon_code=Input::get('data');
+        $discount = [];
+        $coupon = $this->coupons->where("code","=",$coupon_code)->limit(1)->get();
+        if(count($coupon)){
+            // dd($coupon[0]->code);
+           if(Session::has("discount_apply")){
+                return response()->json(["status"=>false,"msg"=>__('general.cart_title.discount_restriction_applied')]);
+           }
+           $discount = [
+            "id"=>$coupon[0]->id,
+            "code"=>$coupon[0]->code,
+            "discount"=>$coupon[0]->discount,
+            "description"=>$coupon[0]->description,
+            "short_desc"=>$coupon[0]->short_desc,
+            "exp_date"=>$coupon[0]->exp_date,
+            "status"=>true,
+            "msg"=>"",
+           ];
+           Session::forget("discount_apply");
+           Session::put("discount_apply",
+           $discount
+           );
+        }else{
+            $discount = ["status"=>false,"msg"=>__('general.cart_title.discount_not_found')];
+        }
+        return response()->json($discount);
+    }
+    public function removeDiscount(){
+        $result = [
+            "result"=>false
+        ];
+        if(Session::has("discount_apply")){
+            Session::forget("discount_apply");
+            $result["result"]=true;
+        }
+        return response()->json($result);
     }
 }

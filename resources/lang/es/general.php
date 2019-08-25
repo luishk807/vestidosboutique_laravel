@@ -220,6 +220,11 @@ return [
         'cart_updated'=>"Carrito Actualizado",
         'cart_error'=>"Ops!, Error Sucedido!",
         'min_payment'=>"Pago minimo 50% para proceder con la orden",
+        'discount_applied'=>"Descuento applicado",
+        'discount_apply'=>"Ingrese el código de promoción",
+        'discount_restriction'=>"Tenga en cuenta que solo se puede aplicar un código por pedido",
+        'discount_restriction_applied'=>"Solo se puede aplicar un código por pedido",
+        'discount_not_found'=>"El código promocional ingresado esta expirado o no ha sido reconocido, revise la ortografía e intente nuevamente",
     ],
 
     //DATES

@@ -44,6 +44,7 @@
                     <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Basic</a>
                         <div class="dropdown-menu  navbar-dark bg-vestidos-admin">
                             <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>
+                            <a href="{{ route('admin_coupons')}}" class="nav-link">Coupons</a>
                             <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>
                             <a href="{{ route('admin_dressstyles')}}" class="nav-link">Dress Styles</a>
                             <a href="{{ route('admin_lengths')}}" class="nav-link">Dress Length Types</a>

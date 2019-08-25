@@ -112,23 +112,36 @@
                                         <div class="col-md-7">{{ trans_choice('general.cart_title.item',1) }}(s) {{ __('general.cart_title.subtotal') }}</div>
                                         <div class="col-md-5">${{number_format($order->order_total,'2','.',',')}}</div>
                                     </div>
+                                    @if($order->order_shipping > 0)
                                     <div class="row">
                                         <div class="col-md-7">{{ __('general.cart_title.shipping_handling') }}</div>
                                         <div class="col-md-5">${{number_format($order->order_shipping,'2','.',',')}}</div>
                                     </div>
+                                    @endif
                                     <div class="row">
                                         <div class="col-md-7">{{ __('general.cart_title.estimated_tax') }}</div>
                                         <div class="col-md-5">${{number_format($order->order_tax,'2','.',',')}}</div>
                                     </div>
+                                    @if($order->order_discount > 0)
+                                    <div class="row">
+                                        <div class="col-md-7">{{ trans_choice('general.cart_title.total',1) }}</div>
+                                        @php($grand_total = $order->order_total + $order->order_shipping + $order->order_tax)
+                                        <div class="col-md-5">${{number_format($order->order_total + $order->order_shipping + $order->order_tax,'2','.',',')}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-7">{{ __('general.cart_title.discount_applied') }}</div>
+                                        <div class="col-md-5">- ${{number_format($order->order_discount,'2','.',',')}}</div>
+                                    </div>
+                                    @endif
                                     <div class="row">
                                         <div class="col-md-7">{{ __('general.cart_title.grand_total') }}</div>
                                         @php($grand_total = $order->order_total + $order->order_shipping + $order->order_tax)
-                                        <div class="col-md-5">${{number_format($order->order_total + $order->order_shipping + $order->order_tax,'2','.',',')}}</div>
+                                        <div class="col-md-5">${{number_format(($order->order_total + $order->order_shipping + $order->order_tax) - $order->order_discount,'2','.',',')}}</div>
                                     </div>
                                 </div>
                                 <br/>
                                 <div class="container view-order-header-amt-due">
-                                    @php($total_due = $grand_total - $order->paymentHistories->sum('total'))
+                                    @php($total_due = ($grand_total - $order->order_discount) - $order->paymentHistories->sum('total'))
                                     <div class="row">
                                         <div class="col-md-7">{{ __('general.user_section.profile_order_amount_paid') }}</div>
                                         <div class="col-md-5">${{number_format($order->paymentHistories->sum('total'),'2','.',',')}}</div>

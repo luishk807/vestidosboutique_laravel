@@ -9,6 +9,7 @@ use App\vestidosStatus as vestidosStatus;
 use App\vestidosUsers as Users;
 use App\vestidosProducts as Products;
 use Carbon\Carbon as carbon;
+use App\vestidosCoupons as Coupons;
 use App\vestidosCountries as Countries;
 use Illuminate\Support\Facades\Input;
 use App\vestidosUserAddresses as Addresses;
@@ -34,7 +35,7 @@ use Session;
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -52,6 +53,7 @@ class ordersController extends Controller
         $this->colors=$colors;
         $this->order_addresses = $orderaddresses;
         $this->sizes=$sizes;
+        $this->coupons = $coupons;
         $this->tax_info = $tax->first();
         $this->address_types = $address_types;
         $this->main_config = $main_config->first();
@@ -132,13 +134,15 @@ class ordersController extends Controller
         ];
         $data["order"]=$order;
         $data["order_id"]=$order_id;
-      
+        
+        $data["coupons"] = $this->coupons->where("status",1)->orderBy("created_at","desc")->get();
+
         $user=$this->users->find($order->user_id);
         $data["users"]=$this->users->all();
         $data["products"]=$this->products->all();
         $data["shipping_lists"]=$this->shipping_lists->all();
         $amount_paid = $this->payment_histories->where("order_id",$order_id)->sum('total');
-        $amount_due = $order->order_total - $amount_paid;
+        $amount_due = (($order->order_total + $order->order_tax)- $order->order_discount) - $amount_paid;
         $data["amount_due"]=$amount_due;
         $order_shipping = $order->getOrderShippingAddress();
         $data["order_shipping"]=$order->order_shipping ?  $order_shipping[0] : null;
@@ -492,6 +496,10 @@ class ordersController extends Controller
         }
         $order_shipping = $order->getOrderShippingAddress();
         $order_billing = $order->getOrderBillingAddress();
+
+        //if user applied discount
+        $discount_app = $order->order_discount ? $order->order_discount : null;
+
         if($this->main_config->allow_shipping){
             $order_detail=[
                 "user"=>$this->users->find($user_id),
@@ -522,6 +530,7 @@ class ordersController extends Controller
                     "billing_email"=>$order_billing[0]->email,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
+                    "discount_app"=>$discount_app ? $discount_app : 0,
                     "order_tax"=>$order->order_tax,
                     "status"=>$order->getStatusName->name,
                     "shipping_total"=>$order->order_shipping,
@@ -548,6 +557,7 @@ class ordersController extends Controller
                     "billing_email"=>$order_billing[0]->email,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
+                    "discount_app"=>$discount_app ? $discount_app : 0,
                     "order_tax"=>$order->order_tax,
                     "status"=>$order->getStatusName->name,
                     "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",

@@ -847,6 +847,47 @@ $(document).ready(function() {
         $("#vesti-load-oval").css("display","block");
     });
 });
+// checkout section
+function applyDiscount(){
+    var discount = $("#coupon_code").val();
+    if(discount.length){
+        $.ajax({
+           type: "GET",
+           url: "/api/applyDiscount",
+           data: {
+               data:discount,
+               type:"add",
+           },
+           success: function(data) {
+               if(!data["status"]){
+                $("#coupon_section .error").text(data["msg"]);
+                return;
+               }
+               window.location.reload();
+           }
+       }); 
+    }
+}
+function clearCouponError(){
+    $("#coupon_section .error").text("");
+}
+function removeDiscount(){
+    var discount = $("#discount_total").val();
+    if(!discount){
+        return;
+    }
+    $.ajax({
+        type: "GET",
+        url: "/api/removeDiscount",
+        data: "",
+        success: function(data) {
+            if(data){
+            window.location.reload();
+            }
+        }
+    });
+}
+// end checkout 
 function openRadioContent(content){
     var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
     if(is_credit=="yes"){
@@ -905,6 +946,9 @@ function loadDropDown(select1, select2,url){
     });
 }
 function loadSizes(color){
+        if(!color){
+            return;
+        }
         $.ajax({
             type: "GET",
             url: "/api/loadSizes",

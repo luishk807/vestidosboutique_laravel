@@ -77,9 +77,15 @@
     </div>
     <div class="form-group">
         <label for="orderTotal">Total:</label>
-        <input type="number" id="orderTotal" class="form-control" name="order_total" min="0" step="0.01" value="{{ old('order_total') ? old('order_total') : $order->order_total }}" placeholder="0.00"/>
+        <input type="number" id="orderTotal" class="form-control" name="order_total" min="0" step="0.01" value="{{ old('order_total') ? old('order_total') : $order->order_total + $order->order_tax }}" placeholder="0.00"/>
         <small class="error">{{$errors->first("order_total")}}</small>
     </div>
+    @if($order->order_discount > 0)
+    <div class="form-group">
+        <label for="orderDiscount">Discount Applied:</label>
+        <input type="number" id="orderDiscount" readonly class="form-control" name="order_discount" min="0" step="0.01" value="{{ $order->order_discount }}" placeholder="0.00"/>
+    </div>
+    @endif
     <div class="form-group">
         <label for="orderDueTotal">Total Due:</label>
         <input type="number" id="orderDueTotal" readonly class="form-control" name="order_due_total" min="0" step="0.01" value="{{ $amount_due }}" placeholder="0.00"/>

@@ -1,88 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<style>
-.admin-checkout-address{
-    margin:10px 0px;
-}
-.admin-checkout-address .address-row{
-    text-align:center;
-}
-.admin-checkout-address .shipping h3,
-.admin-checkout-address .billing h3{
-    text-decoration:underline;
-}
-.admin-checkout-address .shipping,
-.admin-checkout-address .billing,
-.admin-checkout-product .quantity{
-    text-align:center;
-}
-.admin-checkout-product .index,
-.admin-checkout-product .image{
-    text-align:center;
-}
-.admin-checkout-product .description{
-    text-align:left;
-}
-.admin-checkout-product .total{
-    text-align:right;
-}
-.admin-checkout-product .row{
-    border-top: 1px solid rgba(0,0,0,.1);
-}
-.admin-checkout-product .row:last-child{
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
-.admin-checkout-product .headers-row{
-    padding:10px 0px;
-}
-.admin-checkout-product .products-row{
-    padding:10px 0px;
-}
-.admin-checkout-total{
-    margin:10px 0px;
-}
-.admin-checkout-total .header,
-.admin-checkout-total .total{
-    margin:2px 0px;
-}
-.admin-checkout-total .row:last-child .header,
-.admin-checkout-total .row:last-child .total{
-    font-weight:bold;
-}
-.billing-payment-section{
-    margin:20px 0px 30px 0px;
-}
-.billing-payment-section .row.button{
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row.button:first-child{
-    border-top: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row{
-    border-left: 1px solid rgba(0,0,0,.1);
-    border-right: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row .col{
-    padding:10px;
-}
-.billing-payment-section .row.content .col{
-    padding:20px;
-    background-color:#fafafa;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
-.billing-payment-section .row.content{
-    display:none;
-}
-.braintree-sheet__header{
-    display:none !important;
-}
-.braintree-sheet{
-    background-color: #fafafa;
-    border: none;
-}
-</style>
-
-
 <script>
 $(document).ready(function(){
     var firstOpenChecked = $("input:radio[name='payment_type']:checked").attr("target-data");
@@ -92,16 +9,7 @@ $(document).ready(function(){
         openRadioContent(target_data)
     })
 })
-function openRadioContent(content){
-    var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
-    if(is_credit=="yes"){
-        $("#is_credit_card").val("yes");
-    }else{
-        $("#is_credit_card").val("no");
-    }
-    $("div.row.content").css("display","none");
-    $("div[target-data='"+content+"']").css("display","block");
-}
+
 </script>
 <script src="https://js.braintreegateway.com/web/dropin/1.11.0/js/dropin.min.js"></script>
 <form action="{{ route('admin_process_checkout') }}" id="vestidos-checkout-form" method="post">
@@ -195,6 +103,7 @@ function openRadioContent(content){
             </div>
         </div>
         @if($main_config->allow_shipping)
+        @php($order_total = $order_total + $order_shipping + $order_tax)
         <div class="row">
             <div class="col-md-10 header">
                 Shipping:
@@ -204,15 +113,63 @@ function openRadioContent(content){
             </div>
         </div>
         @endif
+
+        @if($discount_app)
+        <div class="row">
+            <div class="col-md-10 header">
+                Total:
+            </div>
+            <div class="col-md-2 total">
+                ${{ number_format($order_total + $order_tax,'2','.',',') }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 header">
+                Discount:
+                <br/>[ <a href='javascript:removeDiscount()'>{{ __('buttons.remove') }}</a> ]
+            </div>
+            <div class="col-md-2 total">
+                - ${{ number_format($discount_app,'2','.',',') }}
+                <input type="hidden" id="discount_total" name="discount_total" value="{{ $discount_app }}"/>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-md-10 header">
                 Grand Total:
             </div>
             <div class="col-md-2 total">
-                ${{number_format($grand_total,'2','.',',')}}
+                ${{number_format($grand_total - $discount_app,'2','.',',')}}
             </div>
         </div>
     </div><!--end of total-->
+    <div class="container-fluid px-0 coupon-container">
+        <div class="row">
+                <div class="col text-left" id="coupon_section">
+                    <table width="100%" class="table">
+                    <tr>
+                        <!-- <th class="checkout-subtitle" colspan="2">{{ trans_choice('general.form.address',2) }}</th> -->
+                        <th class="checkout-subtitle pl-2" colspan="2">{{ __('general.cart_title.discount_apply') }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ __('general.cart_title.discount_restriction') }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <input onKeyUp="clearCouponError()" type="text" id="coupon_code" class="form-control" name="coupon_code" value=""/>
+                                <a href="javascript:applyDiscount()" id="coupon_code_link" class="btn form-control vestidos-link-btn text-uppercase">{{ __('buttons.add') }}</a>
+                                <br/>
+                                <small class="error">{{$errors->first("coupon_code")}}</small>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
    <div id="dropin-wrapper">
         <div id="checkout-message"></div>
         <!-- <div id="dropin-container"></div>

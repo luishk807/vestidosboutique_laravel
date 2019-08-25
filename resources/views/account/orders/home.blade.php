@@ -50,7 +50,7 @@
                         <p>
                             {{ trans_choice('general.cart_title.total',1) }}
                         </p>
-                        <p>${{ number_format($grand_total,'2','.',',') }}</p>
+                        <p>${{ number_format($grand_total - $order->order_discount,'2','.',',') }}</p>
                     </div>
                     <div class="col-md-6  col-lg-3 col-sm-10 header">
                         <p>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="row order-product-amt-due">
                     <div class="col td">
-                        @php($total_due =$grand_total - $order->paymentHistories->sum('total'))
+                        @php($total_due =($grand_total  - $order->order_discount) - $order->paymentHistories->sum('total'))
                         {{ __('general.user_section.profile_order_amount_due') }}: <span class="
                         @if($total_due > 0)
                         text-danger

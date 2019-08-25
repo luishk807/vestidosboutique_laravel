@@ -154,9 +154,31 @@
                     </td>
                 </tr>
                 @endif
+                @if($order_detail['order']['discount_app'] > 0)
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>{{ __('emails.order_payment_removed.line_16') }}</strong>
+                        <strong>{{ __('emails.order_admin.line_16') }}</strong>
+                    </td>
+                    <td align="right">
+                        @if($order_detail['order']['allow_shipping']=="true")
+                        ${{ number_format($order_detail["order"]["order_total"] + ($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"]) + $order_detail["order"]["shipping_total"],'2','.',',') }}
+                        @else
+                        ${{ number_format($order_detail["order"]["order_total"] + ($order_detail["order"]["order_total"] * $order_detail["order"]["order_tax"]),'2','.',',') }}
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>{{ __('emails.order_admin.line_17') }}</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["discount_app"],'2','.',',') }}
+                    </td>
+                </tr>
+                @endif
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>{{ __('emails.order_payment_removed.line_18') }}</strong>
                     </td>
                     <td align="right">
                         @if($order_detail['order']['allow_shipping']=="true")
@@ -172,7 +194,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>{{ __('emails.order_payment_removed.line_17') }}</strong>
+                        <strong>{{ __('emails.order_payment_removed.line_19') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["payment"]["total_paid"],'2','.',',') }}
@@ -180,14 +202,14 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>{{ __('emails.order_payment_removed.line_18') }}</strong>
+                        <strong>{{ __('emails.order_payment_removed.line_20') }}</strong>
                     </td>
                     <td align="right">
                         @if($order_detail['order']['allow_shipping']=="true")
-                        @php( $amount_total = $order_detail["order"]["order_total"] + $order_detail["order"]["order_tax"] + $order_detail["order"]["shipping_total"] )
+                        @php( $amount_total = ($order_detail["order"]["order_total"] + $order_detail["order"]["order_tax"] + $order_detail["order"]["shipping_total"]) - $order_detail["order"]["discount_app"] )
                         ${{ number_format($amount_total - $order_detail["payment"]["total_paid"],'2','.',',') }}
                         @else
-                        @php( $amount_total = $order_detail["order"]["order_total"] + $order_detail["order"]["order_tax"])
+                        @php( $amount_total = ($order_detail["order"]["order_total"] + $order_detail["order"]["order_tax"]) - $order_detail["order"]["discount_app"])
                         ${{ number_format($amount_total - $order_detail["payment"]["total_paid"] ,'2','.',',') }}
                         @endif
                     </td>

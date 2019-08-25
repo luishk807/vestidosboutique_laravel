@@ -19,12 +19,17 @@ class vestidosOrders extends Model
         "order_tax",
         "order_shipping",
         "order_shipping_type",
+        "order_discount",
         "payment_type",
         "ip",
+        "coupon_id",
         "status",
         "created_at",
         "updated_at"
     ];
+    public function getDiscount(){
+        return $this->hasOne('App\vestidosCoupons','id','coupon_id');
+    }
     public function paymentHistories(){
         return $this->hasMany('App\vestidosPaymentHistories','order_id');
     }
@@ -99,8 +104,9 @@ class vestidosOrders extends Model
              $id_list[]=$id;
          }
          $products = DB::table("vestidos_orders as order")
-         ->select("order.id as id","order.order_number as col_1","order.purchase_date as col_2","user.first_name as col_3","status.name as col_4")
+         ->select("order.id as id","order.order_number as col_1","order.purchase_date as col_2","user.first_name as col_3","status.name as col_4","coupon.code as col_5","coupon.discount as col_6")
          ->whereIn('order.id',$id_list)
+         ->join("vestidos_coupons as coupon","coupon.id","order.coupon_id")
          ->join("vestidos_users as user","user.id","order.user_id")
          ->join("vestidos_statuses as status","status.id","order.status")
          ->groupBy("order.id")
