@@ -6,10 +6,10 @@
         <div class="col-lg-9 container-in-center">
             <div>
                <div class="container-in-space white-md-bg-in about-col">
-                    <h2>Our Story</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ac lacus sed finibus. Integer auctor urna a magna tristique porttitor. Aliquam nec tortor tellus. Nunc dignissim enim feugiat euismod ullamcorper. Sed sed purus porta, dictum lorem vitae, elementum nulla. Nunc consequat at nibh quis molestie. Nullam ut dictum orci. Mauris mollis odio eu justo tincidunt tristique. Sed vehicula massa quis magna semper volutpat. Sed gravida purus a neque tincidunt molestie. Suspendisse eget condimentum nibh, in tincidunt dui. Donec lorem tellus, rutrum posuere risus in, malesuada rutrum dolor. Fusce quis facilisis dui. Aliquam vitae leo a elit mattis cursus.</p>
-                    <h2>Our Mission</h2>
-        <p>Suspendisse eros lorem, fermentum auctor leo quis, convallis aliquet tellus. Proin dictum ullamcorper interdum. Aliquam quis justo pharetra, malesuada ligula at, tempor risus. Proin ullamcorper ipsum nec ex facilisis, quis aliquam ex sollicitudin. Donec pretium tincidunt imperdiet. Morbi consectetur sit amet ex quis scelerisque. Sed nec sollicitudin justo, quis dapibus turpis. Duis volutpat dui tempor nisl luctus iaculis. In ut dui interdum, pulvinar ex a, tempor urna. Maecenas ullamcorper diam dolor, mattis posuere ante tempus vitae. Pellentesque nec elit quis augue pulvinar fermentum.</p>
+                    <h2>Vestidos Boutique Online</h2>
+                    <p>Somos una tienda de alquiler y ventas de vestidos de gala que nace con el sueño de vestir a mujeres para eventos especiales, ubicado en la ciudad de Panamá, y ahora queremos dar un paso más al lanzar nuestra tienda online exclusivo para compras y pedidos especiales (pre-orden).</p>
+                    <p>A través de nuestra plataforma online podrás encontrar una amplia variedad en vestidos de fiesta, Quinceañeras, damas de honor, vestidos para ocasiones especiales, reinados, debutantes, vestidos para baile de graduación, complementos y accesorios de la última tendencia de moda de las mejores marcas para que seas la invitada perfecta en tu próximo evento.</p>
+                    <p>Es un placer para nosotros ofrecer a nuestros clientes una experiencia de compra online intuitiva y sencilla. Visita nuestra tienda online de vestidos de fiesta y comienza a brillar con tu look ideal para eventos.</p>
                     <div><img src="{{ asset('images/vesti-signature.png') }}" alt/></div>
                </div>
             </div>
