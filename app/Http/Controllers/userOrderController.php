@@ -78,7 +78,11 @@ class userOrderController extends Controller
         $billing_add = $order->getOrderBillingAddress();
         $shipping_add = $order->getOrderShippingAddress();
 
-        $discount_app = $order->order_discount ? $order->order_discount : null;
+        $discount_app = $order->order_discount ? $order->order_discount : 0;
+
+        $subtotal = $order->order_total - $order->order_discount;
+
+        $grand_total = $subtotal + $order->order_tax + $order->order_shipping;
         
         if($order->save()){
             //send email to user
@@ -129,8 +133,10 @@ class userOrderController extends Controller
                         "billing_email"=>$billing_add[0]->email,
                         "products"=>$data_products_email,
                         "order_total"=>$order->order_total,
-                        "discount_app"=>$discount_app ? $discount_app : 0,
+                        "discount_app"=>$discount_app,
                         "order_tax"=>$order->order_tax,
+                        "subtotal"=>$subtotal,
+                        "grand_total"=>$grand_total,
                         "status"=>$order->getStatusName->name,
                         "shipping_total"=>$order->order_shipping
                     )
@@ -154,8 +160,10 @@ class userOrderController extends Controller
                         "billing_phone_number_2"=>$billing_add[0]->phone_number_2,
                         "billing_email"=>$billing_add[0]->email,
                         "products"=>$data_products_email,
+                        "subtotal"=>$subtotal,
+                        "grand_total"=>$grand_total,
                         "order_total"=>$order->order_total,
-                        "discount_app"=>$discount_app ? $discount_app : 0,
+                        "discount_app"=>$discount_app,
                         "order_tax"=>$order->order_tax,
                         "status"=>$order->getStatusName->name,
                     )

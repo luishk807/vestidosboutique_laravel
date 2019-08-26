@@ -498,7 +498,11 @@ class ordersController extends Controller
         $order_billing = $order->getOrderBillingAddress();
 
         //if user applied discount
-        $discount_app = $order->order_discount ? $order->order_discount : null;
+        $discount_app = $order->order_discount ? $order->order_discount : 0;
+
+        $subtotal = $order->order_total - $order->order_discount;
+
+        $grand_total = $subtotal + $order->order_tax + $order->order_shipping;
 
         if($this->main_config->allow_shipping){
             $order_detail=[
@@ -530,8 +534,10 @@ class ordersController extends Controller
                     "billing_email"=>$order_billing[0]->email,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
-                    "discount_app"=>$discount_app ? $discount_app : 0,
+                    "discount_app"=>$discount_app,
                     "order_tax"=>$order->order_tax,
+                    "subtotal"=>$subtotal,
+                    "grand_total"=>$grand_total,
                     "status"=>$order->getStatusName->name,
                     "shipping_total"=>$order->order_shipping,
                     "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
@@ -557,8 +563,10 @@ class ordersController extends Controller
                     "billing_email"=>$order_billing[0]->email,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
-                    "discount_app"=>$discount_app ? $discount_app : 0,
+                    "discount_app"=>$discount_app,
                     "order_tax"=>$order->order_tax,
+                    "subtotal"=>$subtotal,
+                    "grand_total"=>$grand_total,
                     "status"=>$order->getStatusName->name,
                     "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
                     "order_grand_total"=>$order->order_total + $order->order_tax,

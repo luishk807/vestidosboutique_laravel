@@ -246,22 +246,33 @@
                                        <!--start of total-->
                                         <tr class="subtotal">
                                             <td>
-                                            {{ __('general.cart_title.subtotal') }}
+                                            {{ __('general.cart_title.order_total') }}
                                             </td>
                                             <td>
                                                 ${{number_format($cart_checkout_total,'2','.',',')}}
                                                 <input type="hidden" id="cart_checkout_total" name="cart_checkout_total" value="{{ $cart_checkout_total }}"/>
                                             </td>
                                         </tr>
-                                        <tr class="subtotal">
+                                        @if(Session::has("discount_apply"))
+                                        <tr id="discount_sec" class="subtotal">
                                             <td>
-                                            {{ __('general.cart_title.estimated_tax') }} {{ $tax_info->tax + 0 }}&#37;
+                                            {{ __('general.cart_title.discount_applied') }} [ {{ $discount_rate}}&#37; ]<br/>[ <a href='javascript:removeDiscount()'>{{ __('buttons.remove') }}</a> ]
                                             </td>
                                             <td>
-                                                ${{number_format($cart_checkout_tax,'2','.',',')}}
-                                                <input id="cart_checkout_tax" type="hidden" name="cart_checkout_tax" value="{{ $cart_checkout_tax }}"/>
+                                               <span id="discount">- ${{number_format( $discount_total,'2','.',',')}}</span>
+                                               <input type="hidden" id="discount_total" name="discount_total" value="{{ $discount_total }}"/>
                                             </td>
                                         </tr>
+                                        <tr id="discount_sec" class="subtotal">
+                                            <td>
+                                            {{ __('general.cart_title.subtotal') }}
+                                            </td>
+                                            <td>
+                                               <span id="discount">${{number_format( $grand_total_before_discount,'2','.',',')}}</span>
+                                               <input type="hidden" id="grand_total_before_discount" name="grand_total_before_discount" value="{{ $grand_total_before_discount }}"/>
+                                            </td>
+                                        </tr>
+                                        @endif
                                         @if(isset($shipping_cost))
                                         <tr class="subtotal">
                                             <td>
@@ -272,26 +283,15 @@
                                             </td>
                                         </tr>
                                         @endif
-                                        @if(Session::has("discount_apply"))
-                                        <tr id="discount_sec" class="subtotal">
+                                        <tr class="subtotal">
                                             <td>
-                                            {{ __('general.cart_title.order_total') }}
+                                            {{ __('general.cart_title.estimated_tax') }} {{ $tax_info->tax + 0 }}&#37;
                                             </td>
                                             <td>
-                                               <span id="discount">${{number_format( $grand_total_before_discount,'2','.',',')}}</span>
-                                               <input type="hidden" id="grand_total_before_discount" name="grand_total_before_discount" value="{{ $grand_total_before_discount }}"/>
-                                            </td>
-                                        </tr>
-                                        <tr id="discount_sec" class="subtotal">
-                                            <td>
-                                            {{ __('general.cart_title.discount_applied') }}<br/>[ <a href='javascript:removeDiscount()'>{{ __('buttons.remove') }}</a> ]
-                                            </td>
-                                            <td>
-                                               <span id="discount">- ${{number_format( $discount_total,'2','.',',')}}</span>
-                                               <input type="hidden" id="discount_total" name="discount_total" value="{{ $discount_total }}"/>
+                                                ${{number_format($cart_checkout_tax,'2','.',',')}}
+                                                <input id="cart_checkout_tax" type="hidden" name="cart_checkout_tax" value="{{ $cart_checkout_tax }}"/>
                                             </td>
                                         </tr>
-                                        @endif
                                         <tr class="grand-total">
                                             <td>
                                             {{ __('general.cart_title.grand_total') }}

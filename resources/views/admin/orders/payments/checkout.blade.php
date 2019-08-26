@@ -88,41 +88,13 @@ $(document).ready(function(){
     <div class="container admin-checkout-total">
         <div class="row total-row">
             <div class="col-md-10 header">
-                Subtotal:
+                Total:
             </div>
             <div class="col-md-2 total">
                 ${{number_format($order_total,'2','.',',')}}
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-10 header">
-                Tax:
-            </div>
-            <div class="col-md-2 total">
-                ${{number_format($order_tax,'2','.',',')}}
-            </div>
-        </div>
-        @if($main_config->allow_shipping)
-        @php($order_total = $order_total + $order_shipping + $order_tax)
-        <div class="row">
-            <div class="col-md-10 header">
-                Shipping:
-            </div>
-            <div class="col-md-2 total">
-                ${{number_format($order_shipping,'2','.',',')}}
-            </div>
-        </div>
-        @endif
-
         @if($discount_app)
-        <div class="row">
-            <div class="col-md-10 header">
-                Total:
-            </div>
-            <div class="col-md-2 total">
-                ${{ number_format($order_total + $order_tax,'2','.',',') }}
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-10 header">
                 Discount:
@@ -133,13 +105,39 @@ $(document).ready(function(){
                 <input type="hidden" id="discount_total" name="discount_total" value="{{ $discount_app }}"/>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-10 header">
+                Subtotal:
+            </div>
+            <div class="col-md-2 total">
+                ${{ number_format($order_total - $discount_app,'2','.',',') }}
+            </div>
+        </div>
+        @endif
+        <div class="row">
+            <div class="col-md-10 header">
+                Tax:
+            </div>
+            <div class="col-md-2 total">
+                ${{number_format($order_tax,'2','.',',')}}
+            </div>
+        </div>
+        @if($main_config->allow_shipping)
+        <div class="row">
+            <div class="col-md-10 header">
+                Shipping:
+            </div>
+            <div class="col-md-2 total">
+                ${{number_format($order_shipping,'2','.',',')}}
+            </div>
+        </div>
         @endif
         <div class="row">
             <div class="col-md-10 header">
                 Grand Total:
             </div>
             <div class="col-md-2 total">
-                ${{number_format($grand_total - $discount_app,'2','.',',')}}
+                ${{number_format($grand_total,'2','.',',')}}
             </div>
         </div>
     </div><!--end of total-->

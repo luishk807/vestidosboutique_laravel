@@ -82,7 +82,10 @@ class adminPaymentController extends Controller
         }
         $discount_app = null;
         if(Session::has("discount_apply")){
-            $discount_app = $data["grand_total"] - ($data["grand_total"] * Session::get("discount_apply")["discount"] / 100);
+            $discount_app = $data["order_total"] - ($data["order_total"] * Session::get("discount_apply")["discount"] / 100);
+            $data["grand_total"] = ($data["order_total"] + $data["order_shipping"] + $data["order_tax"]) - $discount_app;
+            Session::forget("vestidos_admin_shop");
+            Session::put("vestidos_admin_shop",$data);
         }
         $data["discount_app"]= $discount_app;
         $data["payment_types"]=$this->payment_types->where("status",1)->get();
@@ -97,7 +100,7 @@ class adminPaymentController extends Controller
         $data["payment_types"]=$this->payment_types->all();
 
         $payment_made = $this->payment_histories->where("order_id",$order_id)->sum("total");
-        $data["amount_due"]=$order->order_total - $payment_made;
+        $data["amount_due"]=($order->order_total - $order->order_discount + $order->order_tax) - $payment_made;
         $data["page_submenus"]=[
             [
                 "url"=>route('admin_edit_order',['order_id'=>$order_id]),
@@ -201,9 +204,9 @@ class adminPaymentController extends Controller
         $todayf = $today->format("dmY");
         $random = rand(0,99);
         
-
+        $total = $cart["order_total"];
         if(Session::has("discount_apply")){
-            $discount_app = $grand_total - ($grand_total * (Session::get("discount_apply")["discount"] / 100));
+            $discount_app = $total - ($total * (Session::get("discount_apply")["discount"] / 100));
             $data["coupon_id"] = Session::get("discount_apply")["id"];
             $data["order_discount"] = $discount_app;
         }
@@ -279,7 +282,7 @@ class adminPaymentController extends Controller
                 //     ]);
                 // }
             }
-            // dd($data);
+        // dd($data);
             $order = Orders::create($data);
             //save addresese
             $data_billing["order_id"]=$order->id;
@@ -405,7 +408,12 @@ class adminPaymentController extends Controller
         $order_shipping = $order->getOrderShippingAddress();
         $order_billing = $order->getOrderBillingAddress();
 
-        $order_tax = $this->tax_info->tax / 100;
+        $order_tax = $order->order_tax;
+        
+        $subtotal = $order->order_total - $order->order_discount;
+
+        $grand_total = ($order->order_total + $order->order_shipping + $order_tax) - $order->order_discount;
+
         if($this->main_config->allow_shipping){
             $order_detail=[
                 "user"=>$this->users->find($user_id),
@@ -439,6 +447,8 @@ class adminPaymentController extends Controller
                     "order_tax"=>$order_tax,
                     "discount_app"=>$order->order_discount,
                     "status"=>$order->getStatusName->name,
+                    "subtotal"=>$subtotal,
+                    "grand_total"=>$grand_total,
                     "shipping_total"=>$order->order_shipping,
                     "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
                     "order_grand_total"=>$order->order_total + $order->order_tax + $order->order_shipping,
@@ -465,6 +475,8 @@ class adminPaymentController extends Controller
                     "order_total"=>$order->order_total,
                     "order_tax"=>$order_tax,
                     "discount_app"=>$order->order_discount,
+                    "subtotal"=>$subtotal,
+                    "grand_total"=>$grand_total,
                     "status"=>$order->getStatusName->name,
                     "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
                     "order_grand_total"=>$order->order_total + $order->order_tax,

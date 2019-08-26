@@ -244,21 +244,23 @@ class userPaymentController extends Controller
         foreach($product_items as $cart_checkout_key=>$cart_checkout){
             $cart_checkout_total +=$cart_checkout["total"] * $cart_checkout["quantity"];
         }
-        $cart_checkout_tax = $cart_checkout_total * ($this->tax_info->tax/100);
         $data["cart_checkout_total"] = $cart_checkout_total;
-        $data["cart_checkout_tax"] = $cart_checkout_tax;
-
-        // total without discount
-        $grand_total = $this->main_config->allow_shipping ? $cart_checkout_total + $cart_checkout_tax + $shipping_cost : $cart_checkout_total + $cart_checkout_tax;
-
+        
         //if user applied discount
         $discount_app = Session::has('discount_apply') ? Session::get('discount_apply')["discount"] : null;
-        $discount_total = $grand_total * ($discount_app/100);
+        
+        $data["discount_rate"]=$discount_app; 
+        $discount_total = $cart_checkout_total * ($discount_app/100);
+        $grand_total = $this->main_config->allow_shipping ? ($cart_checkout_total + $shipping_cost) - $discount_total: $cart_checkout_total - $discount_total;
+
         $data["grand_total_before_discount"] = $grand_total;
         $data["discount_total"] = $discount_total;
 
+        $cart_checkout_tax = $grand_total * ($this->tax_info->tax/100);
+        $data["cart_checkout_tax"] = $cart_checkout_tax;
+
         //calculate with discount
-        $grand_total = $discount_app ? $grand_total - $discount_total : $grand_total;
+        $grand_total = $grand_total + $cart_checkout_tax;
 
         $data["grand_total"]=$grand_total;
         $data["half_pay"] = $grand_total / 2;
@@ -397,30 +399,31 @@ class userPaymentController extends Controller
             $total += $cart[$i]["quantity"] * $cart[$i]["total"];
         }
         $tax = $this->tax_info->tax / 100;
-        $subtotal = ($total * $tax) + $total;
-        $grand_total = $this->main_config->allow_shipping ? $subtotal+$shipping_list->total : $subtotal;
+
+        $subtotal = $total;
         
         //if user applied discount
         $discount_app = Session::has('discount_apply') ? Session::get('discount_apply')["discount"] : null;
         $discount_total = 0;
         if($discount_app){
-            $discount_total = $grand_total * ($discount_app/100);
+            $discount_total = $subtotal * ($discount_app/100);
             $data["discount_total"] = $discount_total;
             $data["coupon_id"] = Session::get('discount_apply')["id"]; 
             $data["order_discount"] =$discount_total;
             //calculate with discount
-            $grand_total = $discount_app ? $grand_total - $discount_total : $grand_total;
+            $subtotal = $discount_app ? $subtotal - $discount_total : $subtotal;
         }
-        
+        $grand_total = $this->main_config->allow_shipping ? $subtotal + $shipping_list->total : $subtotal;
+
         //PREPARE DATA
         $data["user_id"]=$user_id;
         $data["order_number"]=$order_number;
         $data["purchase_date"]=$today;
         
-
-
         $data["order_total"]=$total;
-        $data["order_tax"]=$total * $tax;
+
+        $order_tax = $grand_total * $tax;
+        $data["order_tax"]=$order_tax;
 
         $data["ip"]=$request->ip();
         $data["created_at"]=$today;
@@ -429,6 +432,7 @@ class userPaymentController extends Controller
         $data["payment_type"]=$request->input("payment_type");
          //dd($data);
         // dd($data_shipping);
+
         $order = Orders::create($data);
 
         $data["user"]=$user;
@@ -548,7 +552,9 @@ class userPaymentController extends Controller
                             "products"=>$data_products_email,
                             "order_total"=>$total,
                             "discount_app"=>$discount_total,
-                            "order_tax"=>$tax,
+                            "order_tax"=>$order_tax,
+                            "subtotal"=>$subtotal,
+                            "grand_total"=>$grand_total,
                             "status"=>$get_order->getStatusName->name,
                             "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
                         );
@@ -569,8 +575,10 @@ class userPaymentController extends Controller
                             "billing_email"=>$data_billing["email"],
                             "products"=>$data_products_email,
                             "order_total"=>$total,
-                            "order_tax"=>$tax,
+                            "order_tax"=>$order_tax,
                             "discount_app"=>$discount_total,
+                            "subtotal"=>$subtotal,
+                            "grand_total"=>$grand_total,
                             "status"=>$get_order->getStatusName->name,
                             "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
                         );
@@ -618,7 +626,7 @@ class userPaymentController extends Controller
             }
        }
 
-    //    return redirect()->route("checkout_order_received");
+       return redirect()->route("checkout_order_received");
     }
     public function showOrderReceived(){
         $data=[];
