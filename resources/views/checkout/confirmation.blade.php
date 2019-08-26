@@ -70,12 +70,30 @@
                                                 </div>
                                                 <div class="row header2">
                                                     <div class="col">
-                                                        {{ __('general.cart_title.subtotal') }}
+                                                        {{ __('general.cart_title.order_total') }}
                                                     </div>
                                                     <div class="col">
                                                         ${{number_format($last_order->order_total,'2','.',',')}}
                                                     </div>
                                                 </div>
+                                                @if($last_order->coupon_id)
+                                                <div class="row header2">
+                                                    <div class="col">
+                                                        {{ __('general.cart_title.discount_applied') }}
+                                                    </div>
+                                                    <div class="col">
+                                                        ${{number_format($last_order->order_discount,'2','.',',')}}
+                                                    </div>
+                                                </div>
+                                                <div class="row header2">
+                                                    <div class="col">
+                                                        {{ __('general.cart_title.subtotal') }}
+                                                    </div>
+                                                    <div class="col">
+                                                         ${{number_format(($last_order->order_total - $last_order->order_discount),'2','.',',')}}
+                                                    </div>
+                                                </div>
+                                                @endif
                                                 <div class="row header2">
                                                     <div class="col">
                                                         {{ __('general.product_title.tax') }}
@@ -94,29 +112,6 @@
                                                     </div>
                                                 </div>
                                                 @endif
-                                                @if($last_order->coupon_id)
-                                                <div class="row header2">
-                                                    <div class="col">
-                                                        {{ __('general.cart_title.order_total') }}
-                                                    </div>
-                                                    <div class="col">
-                                                        @if($main_config->allow_shipping)
-                                                            ${{number_format(($last_order->order_tax + $last_order->order_total + $last_order->order_shipping),'2','.',',')}}
-                                                        @else
-                                                            ${{number_format(($last_order->order_tax + $last_order->order_total),'2','.',',')}}
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="row header2">
-                                                    <div class="col">
-                                                        {{ __('general.cart_title.discount_applied') }}
-                                                    </div>
-                                                    <div class="col">
-                                                        ${{number_format($last_order->order_discount,'2','.',',')}}
-                                                    </div>
-                                                </div>
-                                                @endif
-
                                                 <div class="row header3">
                                                     <div class="col">
                                                         {{ __('general.cart_title.grand_total') }}
