@@ -708,7 +708,9 @@ $(document).ready(function() {
     });
     $("#shopPage_select").change(function(evt){
         var sort_opt = $(evt.target).val();
-        location.href="/shop/event/1/"+sort_opt;
+        var evtid = $("#evtid").val();
+        var evtype = $("#evtype").val();
+        location.href="/shop/"+evtype+"/"+evtid+"/"+sort_opt;
     });
     $(".vestidos-check").on("click",function(){
         $("#shop_sort_form").submit();

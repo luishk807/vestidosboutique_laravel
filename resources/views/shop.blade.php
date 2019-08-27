@@ -3,6 +3,8 @@
 <div class="main_sub_body main_body_height">
 <div class="container-fluid vest-shop-container">
     <form method="post" id="shop_sort_form" action="">
+    <input type="hidden" id="evtid" name="evtid" value="{{ $evtid }}">
+    <input type="hidden" id="evtype" name="evtype" value="{{ $evtype }}">
     <div class="row">
         <div class="col container-in-center">
             <div class="container-fluid container-in-space">
