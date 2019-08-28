@@ -144,9 +144,9 @@
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
-                    <!-- <li class="nav-item mobile">
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">{{ __('header.about') }}</a>
-                    </li> -->
+                    </li>
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.event') }}</a>
                         <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
