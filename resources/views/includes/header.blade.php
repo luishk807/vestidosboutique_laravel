@@ -32,7 +32,57 @@
 <script src="{{ asset('js/vestidos.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render={{ $configData['recapchav3_site'] }}"></script>
 </head>
+<style>
+#modal-black-bg{
+    position: absolute;
+    z-index:100000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.9);
+}
+#modal-pnl{
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left:0;
+    right:0;
+    margin: -100px auto auto auto;
+}
+#modal-close-pnl{
+    text-align: right;
+    padding: 0px 10px;
+    font-size: 1.2rem;
+}
+#modal-title-pnl{
+    text-align:center;
+}
+#modal-in-pnl{
+    padding: 10px 10px 20px 10px;
+    text-align: center;
+}
+</style>
+<script>
+function openModalAlert(){
+    $("html,body").css("overflow","hidden");
+    $("#modal-black-bg").fadeIn();
+}
+function closeModalAlert(){
+    $("#modal-black-bg").fadeOut();
+    $("html,body").css("overflow","auto");
+}
+$(document).ready(function(){
+    openModalAlert();
+})
+</script>
 <body id="main-body">
+<div id="modal-black-bg">
+    <div id="modal-pnl" class="col-lg-5 col-sm-12">
+        <div id="modal-close-pnl"><a href="javascript:closeModalAlert()">x</a></div>
+        <div id="modal-title-pnl">Title</div>
+        <div id="modal-in-pnl">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet adipisci sit, qui neque aperiam minus unde cum explicabo libero commodi quisquam natus, repudiandae nam dolor enim a, itaque expedita assumenda? Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio quos nihil cum dicta, sed maxime porro nobis error voluptatibus commodi quaerat libero hic eveniet aut rem. Explicabo voluptates dolorem fugiat?</div>
+    </div>
+</div>
 <div class="pos-f-t" >
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-md navbar-light">
         <div class="container-fluid">
