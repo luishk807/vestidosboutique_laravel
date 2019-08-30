@@ -38,11 +38,13 @@
     z-index:100000;
     width: 100%;
     height: 100%;
+    display:none;
     background-color: rgba(255,255,255,0.4);
 }
 #modal-pnl{
     background-color: white;
     position: absolute;
+
     top: 50%;
     left:0;
     right:0;
@@ -104,8 +106,10 @@ function closeModalAlert(){
     $("html,body").css("overflow","auto");
 }
 $(document).ready(function(){
-    openModalAlert();
-    // rotation();
+    setTimeout(function(){
+        openModalAlert();
+    },2000)
+
     $("#modal-close-pnl a").hover(function(){
         $("#modal-close-pnl a div").removeClass("rerotate").stop(true,true).addClass("rotate")
     },function(){
