@@ -60,7 +60,7 @@ class userShopController extends Controller
         $data["event"]=$event;
         $products = $this->products->getProductsBySortOptions($this->data_list);
         $data["products"]=$products;
-        $data["evtid"]=$type_id ? $type : 0;
+        $data["evtid"]=$type_id ? $type_id : 0;
         $data["evtype"]=$type ? $type : "event";
         $data["sort_ops"]=$this->sort_options;
         $data["products_model"]=new Products;
@@ -125,7 +125,7 @@ class userShopController extends Controller
         $data["products_model"]=new Products;
         $data["type"]=$type;
         $data["id"]=$type_id;
-        $data["evtid"]=$type_id ? $type : 0;
+        $data["evtid"]=$type_id ? $type_id : 0;
         $data["evtype"]=$type ? $type : "event";
         return view("shop",$data);
     }
