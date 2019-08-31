@@ -59,6 +59,7 @@ class adminAlertsController extends Controller
         $data["title"]=$request->input("title");
         $data["line_1"]=$request->input("line_1");
         $data["line_2"]=$request->input("line_2");
+        $data["line_single"]=$request->input("line_single");
         $data["action_tab"]= $action_tab;
         $data["action_text"]=$action_text;
         $data["action_link"]=$action_link;
@@ -115,6 +116,7 @@ class adminAlertsController extends Controller
         $alert->title=$request->input("title");
         $alert->line_1=$request->input("line_1");
         $alert->line_2=$request->input("line_2");
+        $alert->line_single = $request->input("line_single");
         $alert->action_text=$action_text;
         $alert->action_link=$action_link;
         $alert->action_tab = $action_tab;

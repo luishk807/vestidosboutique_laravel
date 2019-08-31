@@ -33,6 +33,7 @@ class adminHomeConfigController extends Controller
         $this->main_config->allow_credit_card = $request->input("allow_credit_card")=="true" ? true : false;
         $this->main_config->allow_shipping = $request->input("allow_shipping")=="true" ? true : false;
         $this->main_config->alert_id = $request->input("alert_id") ? $request->input("alert_id") : null;
+        $this->main_config->alert_id_single = $request->input("alert_id_single") ? $request->input("alert_id_single") : null;
         $this->main_config->save();
         $data["page_title"]=__('header.admin_home_config');
         $data["main_config"] = $this->main_config;

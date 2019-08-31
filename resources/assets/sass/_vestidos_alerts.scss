@@ -63,6 +63,12 @@
         border:$vesti-light-bars;
     }
 }
+#single-alert-warning{
+    background: #202223;
+    text-align: center;
+    color: white;
+    padding: 2px 0px;
+}
 // image rotate
 .img_rotate{
 -webkit-transform: rotate(90deg);
