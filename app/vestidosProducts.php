@@ -202,7 +202,9 @@ class vestidosProducts extends Model
                 $products->where("products.product_type_id",$data["type"]["id"]);
                 break;
                 case "event":
-                $products->where("events.event_id",$data["type"]["id"]);
+                if($data["type"]["id"]){
+                    $products->where("events.event_id",$data["type"]["id"]);
+                }
                 break;
             }
 
@@ -231,7 +233,7 @@ class vestidosProducts extends Model
             break;
         }
         $products = $products->groupBy("products.id")->paginate(15);
-      return $products;
+        return $products;
     }
     public function getStock(){
         return DB::table("vestidos_sizes")
