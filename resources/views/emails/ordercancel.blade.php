@@ -124,7 +124,7 @@
                         <strong>{{ __('emails.order_cancel_request.line_13') }}</strong>
                     </td>
                     <td align="right">
-                        ${{ number_format($order_detail["order"]["discount_app"],'2','.',',') }}
+                        - ${{ number_format($order_detail["order"]["discount_app"],'2','.',',') }}
                     </td>
                 </tr>
                 <tr>
