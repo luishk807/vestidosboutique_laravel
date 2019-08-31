@@ -13,6 +13,7 @@ class vestidosAlerts extends Model
         'line_2',
         'action_text',
         'action_link',
+        'action_tab',
         'status',
         'created_at',
         'updated_at'

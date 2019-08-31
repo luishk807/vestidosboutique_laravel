@@ -286,7 +286,24 @@ function removeDiscount(){
         }
     });
 }
+// popupmodal 
+function openModalAlert(){
+    $("html,body").css("overflow","hidden");
+    $("#modal-black-bg").fadeIn();
+}
+function closeModalAlert(){
+    $("#modal-black-bg").fadeOut();
+    $("html,body").css("overflow","auto");
+}
+//end
 $(document).ready(function() {
+       // popup modal
+       $("#modal-close-pnl a").hover(function(){
+           $("#modal-close-pnl a div").removeClass("img_rerotate").stop(true,true).addClass("img_rotate")
+       },function(){
+           $("#modal-close-pnl a div").removeClass("img_rotate").stop(true,true).addClass("img_rerotate")
+       }) 
+       // end popup
     $('.delete_button').click(function(event) {
         event.preventDefault();
         $("#custom_home_form").submit();

@@ -4,8 +4,8 @@
 {{ csrf_field() }}
     <div class="form-group">
         <label for="alertTitle">Pop Up Title:</label>
-        <input type="text" id="alertTitle" class="form-control" name="name" value="" placeholder="Pop Up Title"/>
-        <small class="error">{{$errors->first("name")}}</small>
+        <input type="text" id="alertTitle" class="form-control" name="title" value="" placeholder="Pop Up Title"/>
+        <small class="error">{{$errors->first("title")}}</small>
     </div>
     <div class="form-group">
         <label for="alertLine1">Line 1:</label>
@@ -18,7 +18,7 @@
         <small class="error">{{$errors->first("line_2")}}</small>
     </div>
     <div class="form-row">
-        <div class="form-group col-md-9">
+        <div class="form-group col-md-7">
             <label for="alertLink">Type Link (optional):</label>
             <input type="text" id="alertLink" class="form-control" name="action_link" value="{{ old('action_link')}}" placeholder="Type button link"/>
             <small class="error">{{$errors->first("action_link")}}</small>
@@ -27,6 +27,14 @@
             <label for="alertText">Type Button Text (optional):</label>
             <input type="text" id="alertText" class="form-control" name="action_text" value="{{ old('action_text')}}" placeholder="Type button text"/>
             <small class="error">{{$errors->first("action_text")}}</small>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="alertTab">Open New Tab?:</label>
+            <select class="custom-select" name="action_tab" id="alertTab">
+                    <option value="0" selected>No</option>
+                    <option value="1">Yes</option>
+            </select>
+            <small class="error">{{$errors->first("action_tab")}}</small>
         </div>
     </div>
     <div class="form-group">

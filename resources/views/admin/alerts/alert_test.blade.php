@@ -1,0 +1,1 @@
+@include('admin.includes.alert_modal')

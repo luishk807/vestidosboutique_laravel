@@ -32,51 +32,7 @@
 <script src="{{ asset('js/vestidos.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render={{ $configData['recapchav3_site'] }}"></script>
 </head>
-<script>
-function openModalAlert(){
-    $("html,body").css("overflow","hidden");
-    $("#modal-black-bg").fadeIn();
-}
-function closeModalAlert(){
-    localStorage.setItem("vestidos_pop_show",true)
-    $("#modal-black-bg").fadeOut();
-    $("html,body").css("overflow","auto");
-}
-$(document).ready(function(){
-    if(!localStorage.getItem("vestidos_pop_show")){
-        setTimeout(function(){
-            openModalAlert();
-        },2000)
-    }
-    $("#modal-close-pnl a").hover(function(){
-        $("#modal-close-pnl a div").removeClass("img_rerotate").stop(true,true).addClass("img_rotate")
-    },function(){
-        $("#modal-close-pnl a div").removeClass("img_rotate").stop(true,true).addClass("img_rerotate")
-    })
-})
-</script>
 <body id="main-body">
-<div id="modal-black-bg">
-    <div id="modal-pnl" class="col-lg-5 col-sm-12">
-        <div id="modal-close-pnl">
-            <a href="javascript:closeModalAlert()">
-                <div>
-                    <svg version="1.1" id="modal-close-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                        viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve"><g><path fill="black" d="M9.1,8L14,3.1c0.3-0.3,0.3-0.8,0-1.1c-0.3-0.3-0.8-0.3-1.1,0L8,6.9L3.1,2C2.8,1.7,2.3,1.7,2,2
-                            C1.7,2.3,1.7,2.8,2,3.1L6.9,8L2,12.9c-0.3,0.3-0.3,0.8,0,1.1c0.2,0.2,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.5-0.2L8,9.1l4.9,4.9
-                            c0.2,0.2,0.3,0.2,0.5,0.2s0.4-0.1,0.5-0.2c0.3-0.3,0.3-0.8,0-1.1L9.1,8z"/></g></svg>
-                </div>
-            </a>
-        </div>
-        <div id="modal-title-pnl">Title</div>
-        <div id="modal-in-pnl">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet adipisci sit, qui neque aperiam minus unde cum explicabo libero commodi quisquam natus, repudiandae nam dolor enim a, itaque expedita assumenda? Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio quos nihil cum dicta, sed maxime porro nobis error voluptatibus commodi quaerat libero hic eveniet aut rem. Explicabo voluptates dolorem fugiat?
-            <p>
-                <a href="" class='modal-in-link'>Button</a>
-            </p>
-        </div>
-    </div>
-</div>
 <div class="pos-f-t" >
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-md navbar-light">
         <div class="container-fluid">
@@ -244,3 +200,4 @@ $(document).ready(function(){
             </div>
         </div>
 </div>
+@include('includes.alert_modal')

@@ -13,6 +13,7 @@ class adminAlertsController extends Controller
     public function __construct(vestidosStatus $vestidosStatus, Alerts $alerts){
         $this->statuses=$vestidosStatus;
         $this->alerts=$alerts;
+        $this->alert_tabs = [0,1];
     }
     public function index(){
         $data=[];
@@ -30,6 +31,7 @@ class adminAlertsController extends Controller
     public function newAlert(){
         $data=[];
         $data["page_title"]="New Alert";
+        $data["alert_tabs"] = $this->alert_tabs;
         return view("admin/alerts/new",$data);
     }
     public function createNewAlert(Request $request){
@@ -43,13 +45,14 @@ class adminAlertsController extends Controller
         $data["title"]=$request->input("title");
         $data["line_1"]=$request->input("line_1");
         $data["line_2"]=$request->input("line_2");
+        $data["action_tab"]=(bool)$request->input("action_tab");
         $data["action_text"]=$request->input("action_text");
         $data["action_link"]=$request->input("action_link");
         $data["status"]=(int)$request->input("status");
         $data["created_at"]=carbon::now();
         $date["updated_at"]=carbon::now();
         $this->alerts->insert($data);
-        return redirect()->route("admin_alerts");
+        return redirect()->route("admin_alerts")->with("msg","Alert Created");
     }
     public function editAlert($alert_id){
         $data=[];
@@ -59,6 +62,7 @@ class adminAlertsController extends Controller
         $data["alert_id"]=$alert_id;
         $data["title"]=$alert->title;
         $data["status"]=$alert->status;
+        $data["alert_tabs"] = $this->alert_tabs;
         $data["page_title"]="Edit Alert";
         return view("admin/alerts/edit",$data);
     }
@@ -66,7 +70,7 @@ class adminAlertsController extends Controller
         $data=[];
         $alert =$this->alerts->find($alert_id);
         $this->validate($request,[
-            "name"=>"required",
+            "title"=>"required",
             "status"=>"required",
         ]);
         $alert =$this->alerts->find($alert_id);
@@ -75,19 +79,19 @@ class adminAlertsController extends Controller
         $alert->line_2=$request->input("line_2");
         $alert->action_text=$request->input("action_text");
         $alert->action_link=$request->input("action_link");
+        $alert->action_tab = (bool)$request->input("action_tab");
         $alert->status=(int)$request->input("status");
         $alert->updated_at=carbon::now();
-
         $alert->save();
 
-        return redirect()->route("admin_alerts");
+       return redirect()->route("admin_alerts")->with("msg","Alert Saved");
     }
     public function deleteAlert($alert_id,Request $request){
         $data=[];
         if($request->input("_method")=="DELETE"){
             $alert = $this->alerts->find($alert_id);
             $alert->delete();
-            return redirect()->route("admin_alerts");
+            return redirect()->route("admin_alerts")->with("msg","Alert deleted");
         }
         $data["alert"]=$this->alerts->find($alert_id);
         $data["page_title"]="Delete Alerts";

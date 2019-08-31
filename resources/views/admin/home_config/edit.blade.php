@@ -17,10 +17,16 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="allow_shipping">Show Pop Up?:</label>
-        <select class="form-control"  name="allow_shipping" id="allow_shipping">
-            <option value="false" {{ !$main_config->allow_shipping ? 'selected': '' }}>No</option>
-            <option value="true" {{ $main_config->allow_shipping ? 'selected': '' }}>Yes</option>
+        <label for="alert_id">Select Pop up?:</label>
+        <select class="form-control"  name="alert_id" id="alert_id">
+            <option value="">No Pop Up</option>
+            @foreach($alerts as $alert)
+            <option value="{{ $alert->id }}"
+            @if($alert->id == $main_config->alert_id)
+            selected
+            @endif
+            >{{ $alert->title }}</option>
+            @endforeach
         </select>
     </div>
     <div class="container">

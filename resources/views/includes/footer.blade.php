@@ -51,4 +51,6 @@
             <img src="{{ asset('images/social-pinterest.svg') }}" class="vesti-svg vestidos-icons-social"/> -->
         </div>
     </div>
+        <!--should show popup-->
+        <input type="hidden" name="showpoup" id="showpopup" value="{{ $main_config->alert_id }}"/>
 </div>
