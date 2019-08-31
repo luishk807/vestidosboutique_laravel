@@ -12,6 +12,9 @@
         left:0;
         right:0;
         margin: -100px auto auto auto;
+        p:first-child{
+            white-space: pre-line;
+        }
         #modal-close-pnl{
             text-align: right;
             padding:10px 10px 5px 10px;
@@ -50,6 +53,14 @@
                 }
             }
         }
+    }
+}
+.modal-admin-section{
+   #line_2{
+        display:none;
+    }
+   #modal-pnl{
+        border:$vesti-light-bars;
     }
 }
 // image rotate

@@ -22,9 +22,11 @@
                 {{ $popupInfo->line_2}}
             </p>
             @endif
+            @if($popupInfo->action_link)
             <p>
                 <a href="{{ $popupInfo->action_link }}" target="{{ $popupInfo->action_tab == 0 ? '_self' : '_blank' }}" class='modal-in-link'>{{ $popupInfo->action_text }}</a>
             </p>
+            @endif
         </div>
         @endif
     </div>

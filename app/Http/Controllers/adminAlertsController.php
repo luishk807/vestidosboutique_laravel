@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\vestidosAlerts as Alerts;
 use App\vestidosStatus as vestidosStatus;
 use Carbon\Carbon as carbon;
+use Illuminate\Support\Facades\Input;
 
 use Illuminate\Http\Request;
 
@@ -42,12 +43,25 @@ class adminAlertsController extends Controller
             "status"=>"required",
         ]
         );
+        $action_text = $request->input("action_text");
+        $action_link = $request->input("action_link");
+        $action_tab = (bool)$request->input("action_tab");
+        if(!$this->validateLinkAction($request)){
+            return redirect()->back()->withErrors([
+                "required","Please complete link and button text field.  Leave empty if no link is needed"
+            ]);
+        }
+        if(empty($action_text) && empty($action_link)){
+            $action_text=null;
+            $action_link=null;
+            $action_tab=null;
+        }
         $data["title"]=$request->input("title");
         $data["line_1"]=$request->input("line_1");
         $data["line_2"]=$request->input("line_2");
-        $data["action_tab"]=(bool)$request->input("action_tab");
-        $data["action_text"]=$request->input("action_text");
-        $data["action_link"]=$request->input("action_link");
+        $data["action_tab"]= $action_tab;
+        $data["action_text"]=$action_text;
+        $data["action_link"]=$action_link;
         $data["status"]=(int)$request->input("status");
         $data["created_at"]=carbon::now();
         $date["updated_at"]=carbon::now();
@@ -66,6 +80,15 @@ class adminAlertsController extends Controller
         $data["page_title"]="Edit Alert";
         return view("admin/alerts/edit",$data);
     }
+    public function validateLinkAction($request){
+        $action_text = $request->input("action_text");
+        $action_link = $request->input("action_link");
+       if(empty($action_text) && empty($action_link)){
+            return true;
+       }else{
+            return !((empty($action_link) && !empty($action_text)) || (!empty($action_link) && empty($action_text)) );
+       }
+    }
     public function saveAlert($alert_id,Request $request){
         $data=[];
         $alert =$this->alerts->find($alert_id);
@@ -73,13 +96,28 @@ class adminAlertsController extends Controller
             "title"=>"required",
             "status"=>"required",
         ]);
+
+        $action_text = $request->input("action_text");
+        $action_link = $request->input("action_link");
+        $action_tab = (bool)$request->input("action_tab");
+        if(!$this->validateLinkAction($request)){
+            return redirect()->back()->withErrors([
+                "required","Please complete link and button text field.  Leave empty if no link is needed"
+            ]);
+        }
+        if(empty($action_text) && empty($action_link)){
+            $action_text=null;
+            $action_link=null;
+            $action_tab=null;
+        }
+
         $alert =$this->alerts->find($alert_id);
         $alert->title=$request->input("title");
         $alert->line_1=$request->input("line_1");
         $alert->line_2=$request->input("line_2");
-        $alert->action_text=$request->input("action_text");
-        $alert->action_link=$request->input("action_link");
-        $alert->action_tab = (bool)$request->input("action_tab");
+        $alert->action_text=$action_text;
+        $alert->action_link=$action_link;
+        $alert->action_tab = $action_tab;
         $alert->status=(int)$request->input("status");
         $alert->updated_at=carbon::now();
         $alert->save();
@@ -127,5 +165,10 @@ class adminAlertsController extends Controller
                     $alert->delete();
                 }
                return redirect()->route("admin_alerts")->with('success','Alerts Deleted successfully.');
+    }
+    public function getAlertInfo(){
+        $id = Input::get("data");
+        $alert = $this->alerts->find($id);
+        return response()->json($alert);
     }
 }

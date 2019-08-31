@@ -534,6 +534,7 @@
 
 
         //API
+        Route::get("api/getAlertInfo",'adminAlertsController@getAlertInfo');
         Route::get("api/saveWishlist",'userWishlistController@addWishlist');
         Route::get("api/applyDiscount",'userPaymentController@applyDiscount');
         Route::get("api/removeDiscount",'userPaymentController@removeDiscount');

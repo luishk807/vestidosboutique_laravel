@@ -14,7 +14,7 @@
     </div>
     <div class="form-group">
         <label for="alertLine2">Line 2 (optional):</label>
-        <textarea class="form-control" id="alertLine2" rows="3" name="line_2">{{ old('line_2') ? old('line_2') : $alert->line_2 }}</textarea>
+        <input type="text" id="alertLine2"  class="form-control" name="line_2" value="{{ old('line_2') ? old('line_2') : $alert->line_2 }}" placeholder=""/>
         <small class="error">{{$errors->first("line_2")}}</small>
     </div>
     <div class="form-row">

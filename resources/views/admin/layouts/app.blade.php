@@ -28,6 +28,7 @@
     </style>
 </head>
 <body id="admin-wrap" >
+@include('admin.includes.alert_modal')
     <div class="main_body_height">
         <nav class="navbar navbar-expand-md navbar-dark bg-vestidos-admin">
             <a class="navbar-brand" href="{{ route('admin') }}">{{ __('header.admin_login') }}</a>

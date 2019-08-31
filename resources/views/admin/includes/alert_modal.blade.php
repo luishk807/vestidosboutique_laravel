@@ -1,5 +1,5 @@
-<div id="modal-black-bg">
-    <div id="modal-pnl" id="col-lg-5 col-sm-12">
+<div id="modal-black-bg" class="modal-admin-section">
+    <div id="modal-pnl" class="col-lg-5 col-md-5 col-sm-12">
         <div id="modal-close-pnl">
             <a href="javascript:closeModalAlert()">
                 <div>
@@ -10,21 +10,15 @@
                 </div>
             </a>
         </div>
-        @if(isset($popupInfo))
-        <div id="modal-title-pnl">{{ $popupInfo->title}}</div>
+        <div id="modal-title-pnl"></div>
         <div id="modal-in-pnl">
-            <p>
-                {{ $popupInfo->line_1}}
+            <p id="line_1">
             </p>
-            @if($popupInfo->line_2)
-            <p>
-                {{ $popupInfo->line_2}}
+            <p id="line_2">
             </p>
-            @endif
-            <p>
-                <a href="{{ $popupInfo->action_link }}" target="{{ $popupInfo->action_tab == 0 ? '_self' : '_blank' }}" class='modal-in-link'>{{ $popupInfo->action_text }}</a>
+            <p id="action_link">
+                <a href="" target="" class='modal-in-link'></a>
             </p>
         </div>
-        @endif
     </div>
 </div>

@@ -14,13 +14,13 @@
     </div>
     <div class="form-group">
         <label for="alertLine2">Line 2 (optional):</label>
-        <textarea class="form-control" id="alertLine2" rows="3" name="line_2">{{ old('line_2')}}</textarea>
+        <input type="text" id="alertLine2"  class="form-control" name="line_2" value="{{ old('line_2')}}" placeholder=""/>
         <small class="error">{{$errors->first("line_2")}}</small>
     </div>
     <div class="form-row">
         <div class="form-group col-md-7">
             <label for="alertLink">Type Link (optional):</label>
-            <input type="text" id="alertLink" class="form-control" name="action_link" value="{{ old('action_link')}}" placeholder="Type button link"/>
+            <input type="text" id="alertLink" class="form-control" name="action_link" value="{{ old('action_link') }}" placeholder="Type button link"/>
             <small class="error">{{$errors->first("action_link")}}</small>
         </div>
         <div class="form-group col-md-3">
