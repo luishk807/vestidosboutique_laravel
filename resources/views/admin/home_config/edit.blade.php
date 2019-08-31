@@ -16,6 +16,13 @@
             <option value="true" {{ $main_config->allow_shipping ? 'selected': '' }}>Yes</option>
         </select>
     </div>
+    <div class="form-group">
+        <label for="allow_shipping">Show Pop Up?:</label>
+        <select class="form-control"  name="allow_shipping" id="allow_shipping">
+            <option value="false" {{ !$main_config->allow_shipping ? 'selected': '' }}>No</option>
+            <option value="true" {{ $main_config->allow_shipping ? 'selected': '' }}>Yes</option>
+        </select>
+    </div>
     <div class="container">
         <div class="row form-btn-container">
             <div class="col">
