@@ -26,6 +26,7 @@
     Route::get("/terms-use","homeController@termsuse")->name("terms_use");
     Route::get("/privacy-use","homeController@privacyuse")->name("privacy_use");
     Route::get("/set_lang/{lang}",'homeController@setLocale')->name("set_language");
+    Route::get("/how-to",'homeController@howto')->name("how_to");
 
     Route::get("/cart",'userCartController@index')->name("cart_page");
     Route::prefix("checkout")->middleware("auth:vestidosUsers")->group(function(){

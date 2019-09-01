@@ -35,6 +35,7 @@ return [
     'by_styles'=>"Por Estilos",
     'product'=>"Página de Productos",
     'product_type'=>"Tipo de Producto",
+    'how_to'=>"Como functiona VestidosBoutique.com?",
     'confirmation'=>"Confirmación",
     'admin_home_config'=>"Configuración Principal",
 ];

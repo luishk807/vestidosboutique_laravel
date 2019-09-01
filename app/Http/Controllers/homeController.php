@@ -160,6 +160,11 @@ class HomeController extends Controller
             return redirect()->back();
         }
     }
+    public function howto(){
+        $data=[];
+        $data["page_title"]=__('header.how_to');
+        return view("/howto",$data);
+    }
     public function signin(){
         $data=[];
         $data["page_title"]=__('header.log_in');
