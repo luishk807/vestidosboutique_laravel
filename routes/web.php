@@ -394,6 +394,18 @@
                     Route::post('/confirm_closures','adminClosureController@deleteConfirmClosures')->name('confirm_delete_closures');
                     Route::delete('/show_confirm_closures','adminClosureController@deleteClosures')->name('delete_closures');
                 });
+                // alerts
+                Route::prefix('alerts')->group(function(){
+                    Route::get('/','adminAlertsController@index')->name('admin_alerts');
+                    Route::get('/new','adminAlertsController@newAlert')->name('new_alert');
+                    Route::post('/new','adminAlertsController@createNewAlert')->name('create_alert');
+                    Route::get('/edit/{alert_id}','adminAlertsController@editAlert')->name('edit_alert');
+                    Route::post('/edit/{alert_id}','adminAlertsController@saveAlert')->name('save_alert');
+                    Route::get('/confirm/{alert_id}','adminAlertsController@deleteAlert')->name('confirm_alert');
+                    Route::delete('/confirm/{alert_id}','adminAlertsController@deleteAlert')->name('delete_alert');
+                    Route::post('/confirm_alerts','adminAlertsController@deleteConfirmAlerts')->name('confirm_delete_alerts');
+                    Route::delete('/show_confirm_alerts','adminAlertsController@deleteAlerts')->name('delete_alerts');
+                });
                 //Admin Lengths
                 Route::prefix("lengths")->group(function(){
                     Route::get('/','adminLengthController@index')->name("admin_lengths");
@@ -523,6 +535,7 @@
 
 
         //API
+        Route::get("api/getAlertInfo",'adminAlertsController@getAlertInfo');
         Route::get("api/saveWishlist",'userWishlistController@addWishlist');
         Route::get("api/applyDiscount",'userPaymentController@applyDiscount');
         Route::get("api/removeDiscount",'userPaymentController@removeDiscount');

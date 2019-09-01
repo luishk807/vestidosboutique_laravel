@@ -648,6 +648,19 @@ var Magnifier = function (evt, options) {
 };
 /******** main *************** */
 $(document).ready(function() {
+    // popup modal
+    var showPop=$("#showpopup").val();
+    if(showPop && !localStorage.getItem("vestidos_pop_show")){
+        setTimeout(function(){
+            openModalAlert();
+        },2000)
+    }
+    $("#modal-close-pnl a").hover(function(){
+        $("#modal-close-pnl a div").removeClass("img_rerotate").stop(true,true).addClass("img_rotate")
+    },function(){
+        $("#modal-close-pnl a div").removeClass("img_rotate").stop(true,true).addClass("img_rerotate")
+    }) 
+    // end popup
     $("#vesti-navbar-top-lang,#nav-item-events").click(function(e){
         e.preventDefault();
     });
@@ -890,6 +903,17 @@ function removeDiscount(){
     });
 }
 // end checkout 
+// popupmodal 
+function openModalAlert(){
+    $("html,body").css("overflow","hidden");
+    $("#modal-black-bg").fadeIn();
+}
+function closeModalAlert(){
+    localStorage.setItem("vestidos_pop_show",true)
+    $("#modal-black-bg").fadeOut();
+    $("html,body").css("overflow","auto");
+}
+//end
 function openRadioContent(content){
     var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
     if(is_credit=="yes"){
