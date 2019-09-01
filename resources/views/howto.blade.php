@@ -6,7 +6,6 @@
         <div class="col-lg-8 col-sm-12 px-0 container-in-center">
             <div>
                 <div class="container-in-space white-md-bg-in">
-                <h2>{{$page_title}}</h2>
                     <img class="img-fluid" src="{{ asset('images/how-to/how-to.png') }}" alt="">
                 </div>
             </div>
