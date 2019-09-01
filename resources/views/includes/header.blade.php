@@ -27,11 +27,22 @@
  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <script type="text/javascript" src="{{ asset('js/vendor/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render={{ $configData['recapchav3_site'] }}"></script>
 </head>
+<style>
+.vestidos-search-pnl{
+    margin:22px 0px;
+}
+.vestidos-search-pnl .vestidos-search-icon span,
+.vestidos-search-pnl .vestidos-search-input{
+    background-color: white;
+    border: none !important;
+}
+</style>
 <body id="main-body">
 <div class="pos-f-t" >
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-md navbar-light">
@@ -61,6 +72,21 @@
                     @endforeach
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <div class="vestidos-search-pnl input-group md-form form-sm form-2 pl-0">
+                            <input class="vestidos-search-input form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search">
+                            <div class="vestidos-search-icon input-group-append">
+                                <span class="input-group-text red" id="basic-text1"><i class="fas fa-search"></i></span>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>
+                                        hey
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
                     <li class="nav-item nav-item-lang">
                         <a id="vesti-navbar-top-lang" class="text-white navbar-link-lang" href=''>
                             
