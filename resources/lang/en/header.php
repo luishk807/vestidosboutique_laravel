@@ -36,5 +36,6 @@ return [
     'product'=>"Products Page",
     'product_type'=>"Product Type",
     'confirmation'=>"Confirmation",
+    'how_to'=>"How VestidosBoutique.com works?",
     'admin_home_config'=>"Main Configuration",
 ];
