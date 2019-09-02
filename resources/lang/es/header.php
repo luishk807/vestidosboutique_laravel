@@ -33,6 +33,7 @@ return [
     'registration'=>"Regístrate",
     'accessories'=>"Accesorios",
     'by_styles'=>"Por Estilos",
+    'search'=>"Buscar",
     'product'=>"Página de Productos",
     'product_type'=>"Tipo de Producto",
     'how_to'=>"Cómo funciona VestidosBoutique.com?",

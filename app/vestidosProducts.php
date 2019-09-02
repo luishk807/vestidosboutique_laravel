@@ -317,8 +317,10 @@ class vestidosProducts extends Model
         ->join("vestidos_colors as colors","colors.product_id","vestidos_products.id")
         ->whereRaw("vestidos_products.search_labels like '%{$filter}%'")
         ->orWhereRaw("vestidos_products.products_name like '%{$filter}%'")
+        ->orWhereRaw("brands.name like '%{$filter}%'")
         ->orWhere("vestidos_products.product_model",$model_search)
         ->orWhereRaw("colors.name like '%{$filter}%'")
+        ->Where("vestidos_products.status",1)
         ->orderBy("vestidos_products.products_name")
         ->get();
         return $products;

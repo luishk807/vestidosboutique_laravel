@@ -19,7 +19,7 @@
     Route::get("/about",'homeController@about')->name("about_page");
     Route::get("/shop/{type?}/{id?}",'userShopController@index')->name("shop_page");
     Route::get("/shop/{type?}/{id?}/{sort_option}",'userShopController@sort_product_list')->name("sort_product_list");
-    Route::get("/shop/{search?}/{sort_option}",'userShopController@search_product_list')->name("shop_page_search");
+    Route::get("/shop/search/product/{search}/{sort_option?}",'userShopController@search_product_list')->name("shop_page_search");
     Route::get("/product/{product_id}",'homeController@product')->name("product_page");
     Route::post("/product/{product_id}",'userCartController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");

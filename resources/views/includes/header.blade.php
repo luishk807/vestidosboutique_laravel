@@ -50,7 +50,8 @@
     margin:22px 0px;
 }
 #vestidos-search-results-pnl{
-    height: 90%;
+    max-height: 65%;
+    min-height: 80vh;
     overflow: auto;
     -webkit-transition: -webkit-transform .4s ease-in-out;
     transition:transform .4s ease-in-out;
@@ -112,6 +113,9 @@
     -webkit-box-shadow: none;
     box-shadow:none;
 }
+.vestidos-search-loader{
+    display:none;
+}
 </style>
 <script>
 // popupmodal 
@@ -129,6 +133,7 @@ function closeModalSearch(){
 //end
 function searchBarProductName(event){
     $("#vestidos-search-results-pnl").hide();
+    $(".vestidos-search-loader").show();
     if(event.target.value.length > 3){
         $.ajax({
             type: "GET",
@@ -138,6 +143,7 @@ function searchBarProductName(event){
             },
             success: function(data) {
                 if(data.length>0){
+                    $(".vestidos-search-loader").hide();
                     $("#vestidos-search-results-pnl").show();
                     var listul=$("#vestidos-search-results-pnl ul");
                     listul.empty();
@@ -165,9 +171,20 @@ function inputSearchKeyDown(event){
             }
         },100)
     }else if(event.keyCode==13){
-        console.log("enter")
+        var sstring = $(event.target).val();
+        var sort_opt = "low";
+        location.href="/shop/search/product/"+sstring+"/"+sort_opt;
     }
 }
+$(document).ready(function(){
+    $("#shopPage_selectx").change(function(evt){
+        var sort_opt = $(evt.target).val();
+        var evtid = $("#evtid").val();
+        var sstring = $("#sstring").val();
+        var evtype = $("#evtype").val();
+        location.href=sstring ? "/shop/search/product/"+sstring+"/"+sort_opt : "/shop/"+evtype+"/"+evtid+"/"+sort_opt;
+    });
+})
 function searchOnKeyDown(event){
     event.preventDefault();
     event.stopPropagation();
@@ -207,11 +224,11 @@ var searchlist = [];
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-9 text-center mx-auto mt-4">
-                <div class="form-row vestido-search-input-row">
-                    <div class="form-group col-lg-11">
+                <div class="form-row px-0 mx-0 vestido-search-input-row">
+                    <div class="form-group col-10 col-lg-11">
                         <input id="search-input-text" onKeyDown="inputSearchKeyDown(event)" onKeyUp="searchBarProductName(event)" class="vestidos-search-input form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
                     </div>
-                    <div class="form-group col-lg-1">
+                    <div class="form-group col-2 col-lg-1">
                         <div id="modal-close-pnl">
                             <a href="javascript:closeModalSearch()">
                                 <div>
@@ -224,6 +241,11 @@ var searchlist = [];
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row vestidos-search-loader">
+            <div class="col text-center">
+                <img class="img-fluid" src="{{ asset('images/vest_load_b.gif')}}" alt="">
             </div>
         </div>
         <div class="row">
@@ -272,7 +294,7 @@ var searchlist = [];
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item">
                         <a href="javascript:openModalSearch()" class="navbar-link text-white playfair-display-italic">
-                            Search <i class="fas fa-search"></i>
+                        {{ __('header.search') }}&nbsp;<i class="fas fa-search"></i>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -346,6 +368,9 @@ var searchlist = [];
                     @endif
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
+                    </li>
+                    <li class="nav-item mobile">
+                        <a class="nav-link text-white collapse-link" href="javascript:openModalSearch()">{{ __('header.search') }}</a>
                     </li>
                     <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">{{ __('header.about') }}</a>

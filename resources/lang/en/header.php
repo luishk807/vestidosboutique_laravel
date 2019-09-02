@@ -34,6 +34,7 @@ return [
     'accessories'=>"Accessories",
     'by_styles'=>"By Styles",
     'product'=>"Products Page",
+    'search'=>"Search",
     'product_type'=>"Product Type",
     'confirmation'=>"Confirmation",
     'how_to'=>"How VestidosBoutique.com works?",

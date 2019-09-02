@@ -3,8 +3,9 @@
 <div class="main_sub_body main_body_height">
 <div class="container-fluid vest-shop-container">
     <form method="post" id="shop_sort_form" action="">
-    <input type="hidden" id="evtid" name="evtid" value="{{ $evtid }}">
-    <input type="hidden" id="evtype" name="evtype" value="{{ $evtype }}">
+    <input type="hidden" id="evtid" name="evtid" value="{{ isset($evtid) ? $evtid : null }}">
+    <input type="hidden" id="evtype" name="evtype" value="{{ isset($evtype) ? $evtype : null }}">
+    <input type="hidden" id="sstring" name="sstring" value="{{ isset($sstring) ? $sstring : null }}">
     <div class="row">
         <div class="col container-in-center">
             <div class="container-fluid container-in-space">
@@ -81,7 +82,7 @@
                     <div class="col-md-9">
                     --}}
                     <div class="col">
-                        @if($event && $event->image_url)
+                        @if(isset($event) && $event->image_url)
                         <div class="text-center"><img src="{{ asset('images/shop_banners') }}/{{$event->image_url}}" class="img-fluid" alt/></div>
                         @else
                         <div class="text-center"><img src="{{ asset('images') }}/event_misc.jpg" class="img-fluid" alt/></div>
@@ -90,7 +91,7 @@
                             <ul>
                                 <li>{{ $products->total() }} {{ trans_choice('general.cart_title.product',3) }}</li>
                                 <li>{{ __('pagination.sort_by') }}
-                                    <select id="shopPage_select" name="shopPage_select">
+                                    <select id="shopPage_selectx" name="shopPage_select">
                                         @foreach($sort_ops as $keySort=>$sort_op)
                                         <option value='{{ $keySort }}'
                                         @if($keySort==$sort)
