@@ -28,6 +28,7 @@
     </style>
 </head>
 <body id="admin-wrap" >
+@include('admin.includes.alert_modal')
     <div class="main_body_height">
         <nav class="navbar navbar-expand-md navbar-dark bg-vestidos-admin">
             <a class="navbar-brand" href="{{ route('admin') }}">{{ __('header.admin_login') }}</a>
@@ -43,6 +44,7 @@
                     <li class="nav-item"><a href="{{route('admin_users')}}" class="nav-link">Users</a></li>
                     <li class="nav-item  dropdown"><a href="#" id="navbardrop" class="nav-link dropdown-toggle" data-toggle="dropdown">Basic</a>
                         <div class="dropdown-menu  navbar-dark bg-vestidos-admin">
+                            <a href="{{ route('admin_alerts')}}" class="nav-link">Alerts</a>
                             <a href="{{ route('admin_brands')}}" class="nav-link">Brands</a>
                             <a href="{{ route('admin_coupons')}}" class="nav-link">Coupons</a>
                             <a href="{{ route('admin_closures')}}" class="nav-link">Closures</a>

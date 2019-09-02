@@ -45,6 +45,11 @@
 </style>
 <body id="main-body">
 <div class="pos-f-t" >
+    @if($main_config->alert_id_single)
+        @if($main_config->getAlert->line_single)
+        <div id="single-alert-warning">{{$main_config->getAlert->line_single}}</div>
+        @endif
+    @endif
     <nav class="navbar vest-maincolor vestidos-main-nav navbar-inverse navbar-fixed-top navbar-expand-md navbar-light">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -229,3 +234,4 @@
             </div>
         </div>
 </div>
+@include('includes.alert_modal')

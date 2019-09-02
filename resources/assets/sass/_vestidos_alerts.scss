@@ -1,0 +1,94 @@
+#modal-black-bg{
+    position: absolute;
+    z-index:100000;
+    width: 100%;
+    height: 100%;
+    display:none;
+    background-color: rgba(255,255,255,0.4);
+    #modal-pnl{
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left:0;
+        right:0;
+        margin: -100px auto auto auto;
+        p:first-child{
+            white-space: pre-line;
+        }
+        #modal-close-pnl{
+            text-align: right;
+            padding:10px 10px 5px 10px;
+            font-size: 1.2rem;
+            a{
+                color:black;
+                text-decoration:none;
+                &:hover{
+                    text-decoration:none;
+                }
+                div{
+                    display:inline-flex;
+                    -webkit-transition: -webkit-transform .4s ease-in-out;
+                    transition:transform .4s ease-in-out;
+                }
+            }
+            #modal-close-svg{
+                width:15px;
+            }
+        }
+        #modal-title-pnl{
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        #modal-in-pnl{
+            padding: 10px 10px 20px 10px;
+            text-align: center;
+            .modal-in-link{
+                color: black;
+                display: inline-block;
+                margin-top: 25px;
+                text-align: center;
+                &:hover{
+                    color: black;
+                }
+            }
+        }
+    }
+}
+.modal-admin-section{
+   #line_2{
+        display:none;
+    }
+   #modal-pnl{
+        border:$vesti-light-bars;
+    }
+}
+#single-alert-warning{
+    background: #202223;
+    text-align: center;
+    color: white;
+    padding: 2px 0px;
+}
+// image rotate
+.img_rotate{
+-webkit-transform: rotate(90deg);
+transform: rotate(90deg);
+transform-origin:center;
+-ms-transform-origin:center; /* IE 9 */
+-webkit-transform-origin:center; /* Safari 3-8 */
+-moz-transform: rotate(90deg);
+-ms-transform: rotate(90deg);
+-o-transform: rotate(90deg);
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+.img_rerotate{
+-webkit-transform: rotate(-90deg);
+transform: rotate(-90deg);
+transform-origin:center;
+-ms-transform-origin:center; /* IE 9 */
+-webkit-transform-origin:center; /* Safari 3-8 */
+-moz-transform: rotate(-90deg);
+-ms-transform: rotate(-90deg);
+-o-transform: rotate(-90deg);
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}

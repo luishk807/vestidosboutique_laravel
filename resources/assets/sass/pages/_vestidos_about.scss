@@ -1,0 +1,37 @@
+//*****ABOUT PAGE**************/
+.contact-col{
+    width:680px;
+  }
+  .about-col{
+    width: 540px;
+  }
+  .about_bg{
+    background: url("/images/about_bg.jpg") no-repeat center center; 
+    @include transform-background(cover);
+  }
+  .contact_bg{
+    background: url("/images/contact_bg.jpg") no-repeat center center; 
+    @include transform-background(cover);
+  }
+  .white-md-bg-in{
+    background-color: white;
+    padding:50px 20px;
+  }
+  .about_panel_in p{
+    margin-bottom:40px;
+  }
+  .main_sub_body h2{
+    font-family:$playfair_display;
+    font-weight: 500;
+    color:$main_vest_color_b;
+    font-style: italic;
+    padding-bottom:16px;
+  }
+  .container-in-space{
+    padding-top: 50px;
+    padding-bottom:50px;
+    margin: 100px auto 50px auto;
+  }
+  .container-in-center{
+    margin: 0px auto;
+  }

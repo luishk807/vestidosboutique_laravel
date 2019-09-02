@@ -286,7 +286,60 @@ function removeDiscount(){
         }
     });
 }
+// popupmodal 
+function openModalAlert(){
+    $("html,body").css("overflow","hidden");
+    $("#modal-black-bg").fadeIn();
+}
+function closeModalAlert(){
+    $("#modal-black-bg").fadeOut();
+    $("html,body").css("overflow","auto");
+}
+//end
 $(document).ready(function() {
+               // popup modal
+            $("#modal-close-pnl a").hover(function(){
+                $("#modal-close-pnl a div").removeClass("img_rerotate").stop(true,true).addClass("img_rotate")
+            },function(){
+                $("#modal-close-pnl a div").removeClass("img_rotate").stop(true,true).addClass("img_rerotate")
+            }) 
+  
+     
+            $(".alert_test_link").on("click",function(){
+                 var id = $(this).attr("data");
+                 $.ajax({
+                     type: "GET",
+                     url: "/api/getAlertInfo",
+                     data: {
+                         data:id
+                     },
+                     success: function(data) {
+                        if(!$.isEmptyObject(data)){
+                            $(".modal-admin-section #modal-title-pnl").text(data.title);
+                            $(".modal-admin-section #modal-in-pnl #line_1").text(data.line_1);
+                            $(".modal-admin-section #modal-in-pnl #line_2").text(data.line_2);
+                            if(data.line_2){
+                                 $(".modal-admin-section #modal-in-pnl #line_2").show();
+                            }else{
+                             $(".modal-admin-section #modal-in-pnl #line_2").hide();
+                            }
+                            if(data.action_link){
+                                 $(".modal-admin-section #modal-in-pnl #action_link").show();
+                            }else{
+                             $(".modal-admin-section #modal-in-pnl #action_link").hide();
+                            }
+                            $(".modal-admin-section #modal-in-pnl .modal-in-link").text(data.action_text);
+                            $(".modal-admin-section #modal-in-pnl .modal-in-link").attr("href",data.action_link);
+                            var action_tab = data.action_tab == 0 ? "_self":"_blank";
+                            $(".modal-admin-section #modal-in-pnl .modal-in-link").attr("target",action_tab);
+                            setTimeout(function(){
+                             openModalAlert();
+                            })
+                        }
+                     }
+                 }); 
+            });
+    // end of popup
     $('.delete_button').click(function(event) {
         event.preventDefault();
         $("#custom_home_form").submit();

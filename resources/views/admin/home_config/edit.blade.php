@@ -16,6 +16,32 @@
             <option value="true" {{ $main_config->allow_shipping ? 'selected': '' }}>Yes</option>
         </select>
     </div>
+    <div class="form-group">
+        <label for="alert_id">Select Pop up?:</label>
+        <select class="form-control"  name="alert_id" id="alert_id">
+            <option value="">No Pop Up</option>
+            @foreach($alerts as $alert)
+            <option value="{{ $alert->id }}"
+            @if($alert->id == $main_config->alert_id)
+            selected
+            @endif
+            >{{ $alert->title }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="alert_id_single">Show Single Alert?:</label>
+        <select class="form-control"  name="alert_id_single" id="alert_id_single">
+            <option value="">No Alert</option>
+            @foreach($alerts as $alert)
+            <option value="{{ $alert->id }}"
+            @if($alert->id == $main_config->alert_id_single)
+            selected
+            @endif
+            >{{ $alert->title }}</option>
+            @endforeach
+        </select>
+    </div>
     <div class="container">
         <div class="row form-btn-container">
             <div class="col">

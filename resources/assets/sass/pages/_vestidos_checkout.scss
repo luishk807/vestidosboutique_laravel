@@ -1,0 +1,278 @@
+//CHECKOUT PAGE
+// BILLING
+#coupon_code{
+    width: 70%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  #coupon_code_link{
+    width:25%;
+  }
+  .billing-payment-section{
+    margin:20px 0px 30px 0px;
+      .row{
+        border-left: 1px solid rgba(0,0,0,.1);
+        border-right: 1px solid rgba(0,0,0,.1);
+        
+        &.button{
+          border-bottom: 1px solid rgba(0,0,0,.1);
+          &:first-child{
+            border-top: 1px solid rgba(0,0,0,.1);
+          }
+        }
+        .col{
+          padding:10px;
+        }
+        &.content{
+          display:none;
+          .col{
+            padding:20px;
+            background-color:#fafafa;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+          }
+        }
+      }
+  }
+  .braintree-sheet__header{
+    display:none !important;
+  }
+  .braintree-sheet{
+    background-color: #fafafa;
+    border: none;
+  }
+  .checkout-cart-list-cell-panel{
+    max-height: 400px;
+    overflow: auto;
+  }
+  .checkout-cart-list-cell-panel::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+  }
+  .checkout-cart-list-cell-panel::-webkit-scrollbar-thumb{
+    background-color: rgba(0,0,0,.3);
+  }
+  .checkout-cart-list-cell-panel::-webkit-scrollbar{
+    width: 6px;
+    background-color: #F5F5F5;
+  }
+  .checkout-lists-panel{
+    background-color:rgba(0,0,0,.03) !important;
+  }
+  .checkout-btn-pnl{
+    margin:40px auto 20px auto;
+  }
+  .checkout-subtitle{
+    font-weight:bold;
+    background-color:rgba(0,0,0,.03);
+  }
+  .checkout-header ul,
+  .checkout-cart-list-cell .info-data ul{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+  }
+  .checkout-header-ship{
+    width: 33.33%;
+  }
+  .checkout-header-noship{
+    width: 50%;
+  }
+  .checkout-header ul li,
+  .checkout-header ul li.active{
+    float: left;
+    text-align: center;
+    margin: 10px 0px 30px 0px;
+    border-top: $vesti-light-bars;
+    border-bottom: $vesti-light-bars;
+    border-left:$vesti-light-bars;
+    position: relative;
+    padding: 10px 0px;
+  }
+  .checkout-header ul li{
+    background-color:white;
+  }
+  .checkout-header ul li.active{
+    background-color:rgba(0,0,0,.03);
+  }
+  .checkout-header .checkout-arrow-down{
+    width: 0px;
+    height: 0px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(0,0,0,.1);
+    left: 48%;
+    top:43px;
+  }
+  .checkout-header ul li:last-child{
+    border-right:$vesti-light-bars;
+  }
+  .checkout-header .checkout-arrow-down,
+  .checkout-header .checkout-arrow-down-b{
+    position: absolute;
+  }
+  .checkout-cart-list-cell .info-data ul li{
+   display:inline-block;
+   float:left;
+  }
+  .checkout-cart-list-cell .info-data ul li:first-child{
+    padding-right:5px;
+  }
+  .checkout-cart-list-cell .info-data p{
+    clear:left;
+  }
+  .checkout-cart-list-cell{
+    padding:0px !important;
+    border-top:none !important;
+  }
+  .checkout-cart-list-cell .img-data{
+    width:30%;
+  }
+  .checkout-cart-list-cell .info-data{
+    width:80%;
+  }
+  .checkout-cart-list-cell .info-data ul li:not(:first-child){
+    border-left:$vesti-light-bars;
+    padding:0px 5px;
+  }
+  .checkout-shipping-method-list{
+    margin-top:60px;
+  }
+  .subtotal td:nth-child(1),
+  .grand-total td:nth-child(1){
+    font-weight:bold;
+  }
+  .subtotal td:nth-child(2),
+  .grand-total td:nth-child(2){
+    text-align:right;
+  }
+  .grand-total{
+    font-size:1.2rem;
+  }
+  .checkout-lists-panel .info-data a{
+    font-size:1rem;
+  }
+  //CHECKOUT CONFIRMATION
+  .shipping-info div{
+    display: inline-block;
+    padding: 20px 50px;
+    margin-bottom: 13px;
+  }
+  .shipping-info td{
+   vertical-align:top;
+  }
+  .shipping-info strong{
+    border-bottom:$vesti-light-bars;
+  }
+  .shipping-info th{
+    padding: 10px 0px;
+    border-top:$vesti-light-bars;
+    border-bottom:$vesti-light-bars;
+  }
+  #vesti-load{
+    background-color:$main_vest_color_b;
+    padding: 11px 0px;
+    text-align: center;
+    display:none;
+  }
+  #vesti-load-oval{
+    background-color:$main_vest_color_b;
+    padding: 11px 0px;
+    text-align: center;
+    display:none;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+  }
+  #vesti-load img,
+  #vesti-load-oval img{
+    width:80px;
+    opacity:.7;
+  }
+  .checkout-subtitle-confirm{
+    font-weight:bold;
+    font-size:1.5rem;
+    padding-bottom: 24px;
+    text-align:center;
+  }
+  .vestidos-icons-globe{
+    width: 19px;
+    height: 19px;
+    background-size: 19px 19px;
+  }
+  .vestidos-icons-confirm-b {
+    width: 70px;
+    background-size: 70px 70px;
+  }
+  .checkout-confirm-text{
+    padding: 25px;
+    font-size: 1rem;
+  }
+  .checkout-confirm-order-details{
+    width:100%;
+    margin-top:30px;
+  }
+  .checkout-confirm-order-details-data div{
+    vertical-align:top;
+  }
+  .checkout-confirm-order-details-data div:not(:first-child){
+    padding:10px;
+  }
+  .checkout-confirm-order-details-data .title{
+    font-size:1.2rem;
+  }
+  .checkout-confirm-order-details .header1 div{
+    text-align:right;
+  }
+  .checkout-confirm-order-details .header2 div,
+  .checkout-confirm-order-details .header3 div{
+    text-align:right;
+  }
+  .checkout-confirm-order-details .header3 div{
+    font-size:1rem;
+    font-weight:bold;
+    padding-bottom: 23px;
+  }
+  .checkout-confirm-info-cont{
+    margin:0px auto;
+    .checkout-confirm-order-details-data{
+      &.header{
+        border-top:$vesti-light-bars;
+      }
+      &.list{
+        border-top: $vesti-light-bars;
+        padding: 15px 0px;
+      }
+    }
+  }
+  .checkout-status-confirm div:first-child{
+    text-align:right;
+    padding:25px;
+  }
+  .checkout-status-confirm div:last-child{
+    text-align:left;
+  }
+  // CONFIRMATION PAGES
+  .vestidos-icons-confirm{
+    width: 100px;
+    background-size: 100px 100px;
+  }
+  .confirm-col h3{
+      font-size: 2rem;
+      font-weight: bold;
+  }
+  .confirm-col .error_msg {
+      font-size: 1rem;
+  }
+  .confirm-col {
+      width: 644px;
+  }
+  .confirm-col .col:nth-child(1){
+      text-align:center;
+  }
+  .checkout-confirm-order-details .header1 div{
+    text-align: left;
+    font-size: 1.2rem;
+    padding-bottom: 36px;
+  }
