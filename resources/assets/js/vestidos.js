@@ -740,9 +740,6 @@ $(document).ready(function() {
      $(".navbar-vesti-cart").hover(function(){
         $(".vesti-cart-top").toggleClass("active"); 
     })
-    $(".nav-item-lang").hover(function(){
-        $(".vesti-lang-top").toggleClass("active"); 
-    })
     /***END ***/
     var isReponsive =false;
     function initialization(){

@@ -34,16 +34,209 @@
 <script src="https://www.google.com/recaptcha/api.js?render={{ $configData['recapchav3_site'] }}"></script>
 </head>
 <style>
+/** scrollbar **/
+#vestidos-search-results-pnl::-webkit-scrollbar {
+    width: .3em;
+}
+#vestidos-search-results-pnl::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+#vestidos-search-results-pnl::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+/** scrollbar **/
 .vestidos-search-pnl{
     margin:22px 0px;
 }
-.vestidos-search-pnl .vestidos-search-icon span,
-.vestidos-search-pnl .vestidos-search-input{
-    background-color: white;
-    border: none !important;
+#vestidos-search-results-pnl{
+    height: 90%;
+    overflow: auto;
+    -webkit-transition: -webkit-transform .4s ease-in-out;
+    transition:transform .4s ease-in-out;
+}
+#vestidos-search-results-pnl ul{    
+    list-style: none;
+    list-style-type: none;
+    background: white;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+#vestidos-search-results-pnl ul li{
+    padding: 7px;
+    font-size: 1rem;
+}
+#vestidos-search-results-pnl ul li:not(first-child){
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+#vestidos-search-main-pnl{
+    background: white;
+    display:none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100000;
+}
+#modal-close-pnl{
+    text-align: right;
+    padding: 0px 10px;
+    font-size: 1.2rem;
+}
+#modal-close-pnl a{
+    color:black;
+    text-decoration:none;
+}
+#modal-close-pnl a:hover{
+    text-decoration:none;
+}
+#modal-close-pnl a div{
+    display:inline-flex;
+    -webkit-transition: -webkit-transform .4s ease-in-out;
+    transition:transform .4s ease-in-out;
+}
+#modal-close-svg{
+    width:25px;
+}
+.vestidos-search-input{
+    border: 0;
+    font-size: 1.5rem;
+    text-align: center;
+    box-shadow: none; 
+}
+.vestido-search-input-row{
+    border-bottom: 1px solid black;
+}
+.vestidos-search-input:focus {
+    outline-width: 0;
+    -webkit-box-shadow: none;
+    box-shadow:none;
 }
 </style>
+<script>
+// popupmodal 
+function openModalSearch(){
+    $("html,body").css("overflow","hidden");
+    $("#vestidos-search-main-pnl").fadeIn();
+}
+function closeModalSearch(){
+    $("#vestidos-search-main-pnl").fadeOut();
+    searchlist = [];
+    $("#vestidos-search-results-pnl").hide();
+    $("#search-input-text").val("");
+    $("html,body").css("overflow","auto");
+}
+//end
+function searchBarProductName(event){
+    $("#vestidos-search-results-pnl").hide();
+    if(event.target.value.length > 3){
+        $.ajax({
+            type: "GET",
+            url: "/api/searchCompProductList",
+            data: {
+                data:event.target.value
+            },
+            success: function(data) {
+                if(data.length>0){
+                    $("#vestidos-search-results-pnl").show();
+                    var listul=$("#vestidos-search-results-pnl ul");
+                    listul.empty();
+                    $.each(data, function(index,element){
+                        var purl = "/product/"+element.id;
+                        listul.append('<li><a href="'+purl+'">'+element.products_name+' '+' '+element.product_model+' '+element.brand_name+'</a></li>');
+                    });
+                    setTimeout(function(){
+                        var test = $("#vestidos-search-results-pnl ul li").children();
+                        $.each(test,function(elem,data){
+                            searchlist.push(data);
+                        })
+                    },50)
+                }
+            }
+        });
+    }
+}
+function inputSearchKeyDown(event){
+    event.stopPropagation();
+    if(event.keyCode==9){
+        setTimeout(function(){
+            if(searchlist[0]){
+                searchlist[0].focus();
+            }
+        },100)
+    }else if(event.keyCode==13){
+        console.log("enter")
+    }
+}
+function searchOnKeyDown(event){
+    event.preventDefault();
+    event.stopPropagation();
+    var current = searchlist.indexOf(event.target) !== -1 ? searchlist.indexOf(event.target) : null;
+    var setFocus = false;
+    var newIndex = null;
+    if(event.keyCode==40){
+        if(searchlist[current+1] && current <= searchlist.length){
+            setFocus = true;
+            newIndex = current+1;
+        }
+    }else if(event.keyCode==38){
+        if(searchlist[current-1]){
+            setFocus = true;
+            newIndex = current-1;
+        }
+    }else if(event.keyCode==13){
+        if(searchlist[current]){
+            searchlist[current].click();
+        }
+    }else if(event.keyCode==27){
+        $("#vestidos-search-results-pnl").hide();
+        setTimeout(function(){
+            $("#search-input-text").focus();
+            $("#search-input-text").val("");
+        })
+
+    }
+    if(setFocus && searchlist[newIndex]){
+        searchlist[newIndex].focus();
+    }
+}
+var searchlist = [];
+</script>
 <body id="main-body">
+<div id="vestidos-search-main-pnl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 text-center mx-auto mt-4">
+                <div class="form-row vestido-search-input-row">
+                    <div class="form-group col-lg-11">
+                        <input id="search-input-text" onKeyDown="inputSearchKeyDown(event)" onKeyUp="searchBarProductName(event)" class="vestidos-search-input form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+                    </div>
+                    <div class="form-group col-lg-1">
+                        <div id="modal-close-pnl">
+                            <a href="javascript:closeModalSearch()">
+                                <div>
+                                    <svg version="1.1" id="modal-close-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                        viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve"><g><path fill="black" d="M9.1,8L14,3.1c0.3-0.3,0.3-0.8,0-1.1c-0.3-0.3-0.8-0.3-1.1,0L8,6.9L3.1,2C2.8,1.7,2.3,1.7,2,2
+                                            C1.7,2.3,1.7,2.8,2,3.1L6.9,8L2,12.9c-0.3,0.3-0.3,0.8,0,1.1c0.2,0.2,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.5-0.2L8,9.1l4.9,4.9
+                                            c0.2,0.2,0.3,0.2,0.5,0.2s0.4-0.1,0.5-0.2c0.3-0.3,0.3-0.8,0-1.1L9.1,8z"/></g></svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 mx-auto mt-4">
+                <div id="vestidos-search-results-pnl">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="pos-f-t" >
     @if($main_config->alert_id_single)
         @if($main_config->getAlert->line_single)
@@ -78,42 +271,21 @@
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
                     <li class="nav-item">
-                        <div class="vestidos-search-pnl input-group md-form form-sm form-2 pl-0">
-                            <input class="vestidos-search-input form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search">
-                            <div class="vestidos-search-icon input-group-append">
-                                <span class="input-group-text red" id="basic-text1"><i class="fas fa-search"></i></span>
-                            </div>
-                            <div>
-                                <ul>
-                                    <li>
-                                        hey
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item nav-item-lang">
-                        <a id="vesti-navbar-top-lang" class="text-white navbar-link-lang" href=''>
-                            
-                            <img src="{{ asset('images/globe.svg') }}" class="vesti-svg vestidos-icons-globe"/><span>{{ strtoupper(Session::get('locale') ? Session::get('locale'):App::getLocale()) }}</span>
+                        <a href="javascript:openModalSearch()" class="navbar-link text-white playfair-display-italic">
+                            Search <i class="fas fa-search"></i>
                         </a>
-                        
-                        <ul class="vesti-lang-top">
-                        @foreach(\App\vestidosLanguages::where('status','=',1)->get() as $language)
-                            <li><a class="text-white" href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a></li>
-                        @endforeach
-                        </ul><!--end of hover menu-->
-
                     </li>
                     <li class="nav-item">
+                    <a class="navbar-link text-white playfair-display-italic" 
                     @if(Auth::guard('vestidosUsers')->check())
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account')}}">{{ __('header.account') }}</a>
+                        href="{{route('user_account')}}">{{ __('header.account') }}
                     @else
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">{{ __('header.log_in') }}</a>
+                        href="{{route('login_page')}}">{{ __('header.log_in') }}
                     @endif
+                    &nbsp;<i class="fas fa-user"></i></a>
                     </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
-                    {{ __('header.cart') }}<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
+                    {{ __('header.cart') }}&nbsp;<i class="fas fa-shopping-cart"></i></a>
                         @if(Session::has('vestidos_shop'))
                         <div class="vesti-cart-top">
                            

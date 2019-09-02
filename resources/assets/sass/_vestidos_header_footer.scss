@@ -29,10 +29,6 @@
     font-family: "Playfair Display";
     font-style: italic;
 }
-.nav-item-lang:hover{
-    background-color:$main-vest-color-dark;
-    text-decoration:none;
-}
 .vesti-lang-top a{
     padding:15px 40px !important;
     display:block;
@@ -224,42 +220,20 @@ margin:10px 0px;
 .vesti-collapse{
     padding-bottom:10px;
 }
-.nav-item-lang{
-    position:relative;
-}
 #vestidos-top-news{
     position:relative;
     background-color:black; color:white; text-align:center;
     z-index:9999;
 }
-/******language panel*****/
-.vesti-lang-top ul{
-    list-style-type: none;
-    margin: 0px;
-    padding: 10px;
+/*******languages *******/
+.text-font-underline{
+    border-bottom: 1px solid;
+    padding-bottom: 2px;
+    cursor:auto;
 }
-.vesti-lang-top ul li{
-    padding:10px;
-}
-.vesti-lang-top{
-    max-height: 0;
-    background-color: $main-vest-color-dark;
-    color: #fff;
-    position: absolute;
-    right: 0px;
-    top: 67px;
-    z-index: -1;
-    overflow: hidden;
-    -webkit-transition: max-height .25s ease-out;
-    transition: max-height .25s ease-out;
-    -moz-transition: max-height .25s ease-out;
-    -ms-transition: max-height .25s ease-out;
-    -o-transition: max-height .25s ease-out;
-}
-.vesti-lang-top.active{
-    max-height:800px;
-    z-index:999;
-    @include transition(max-height 0.25s ease-in);
+.footer-lang-link,
+.footer-lang-link:hover{
+    text-decoration:none;
 }
 /******cart panel *******/
 .vesti-cart-top{

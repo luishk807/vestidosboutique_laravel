@@ -305,6 +305,24 @@ class vestidosProducts extends Model
         ->get();
         return $products;
     }
+    public function searchCompProductsByString($filter){
+        $model_search = strtoupper($filter);
+        $products = DB::table("vestidos_products")
+        ->select("vestidos_products.*",
+        DB::raw('(select img_url from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_url'),
+        DB::raw('(select img_name from vestidos_products_imgs where product_id=vestidos_products.id order by id limit 1) as image_name')
+        ,"brands.name as brand_name","status.name as status_name","colors.name as color_name")
+        ->join("vestidos_brands as brands","brands.id","vestidos_products.brand_id")
+        ->join("vestidos_statuses as status","status.id","vestidos_products.status")
+        ->join("vestidos_colors as colors","colors.product_id","vestidos_products.id")
+        ->whereRaw("vestidos_products.search_labels like '%{$filter}%'")
+        ->orWhereRaw("vestidos_products.products_name like '%{$filter}%'")
+        ->orWhere("vestidos_products.product_model",$model_search)
+        ->orWhereRaw("colors.name like '%{$filter}%'")
+        ->orderBy("vestidos_products.products_name")
+        ->get();
+        return $products;
+    }
     public function getStatus(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }

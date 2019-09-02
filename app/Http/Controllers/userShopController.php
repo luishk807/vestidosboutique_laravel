@@ -129,4 +129,25 @@ class userShopController extends Controller
         $data["evtype"]=$type ? $type : "event";
         return view("shop",$data);
     }
+    public function search_product_list($search,$sort_option=null){
+        $data=[];
+        if(isset($type) && isset($type_id)){
+            $this->data_list["type"]["type"]=$type;
+            $this->data_list["type"]["id"]=$type_id;
+        }
+        $this->data_list["sort"] =$sort_option;
+        $event = $this->events->find($type_id);
+        $data["page_title"]=__('header.shop');
+        $data["sort"]=$sort_option;
+        $data["event"]=$event;
+        $products=$this->products->getProductsBySortOptions($this->data_list);
+        $data["products"]=$products;
+        $data["sort_ops"]=$this->sort_options;
+        $data["products_model"]=new Products;
+        $data["type"]=$type;
+        $data["id"]=$type_id;
+        $data["evtid"]=$type_id ? $type_id : 0;
+        $data["evtype"]=$type ? $type : "event";
+        return view("shop",$data);
+    }
 }
