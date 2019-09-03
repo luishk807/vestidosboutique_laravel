@@ -41,6 +41,7 @@ class userShopController extends Controller
         "events"=>null,
         "brands"=>null,
         "products"=>null,
+        "filter"=>null,
         "type"=>array(
             "type"=>null,
             "id"=>null
@@ -131,11 +132,12 @@ class userShopController extends Controller
     }
     public function search_product_list($search,$sort_option=null){
         $data=[];
-        $this->data_list["sort"] =$sort_option;
+        $this->data_list["sort"]=$sort_option;
+        $this->data_list["filter"]=$search;
         $data["page_title"]=__('header.shop');
         $data["sort"]=$sort_option;
-        $products=$this->products->searchCompProductsByString($search);
-        //dd($products);
+        $products=$this->products->searchCompProductsByString($this->data_list);
+       // dd($products);
         $data["products"]=$products;
         $data["sort_ops"]=$this->sort_options;
         $data["products_model"]=new Products;

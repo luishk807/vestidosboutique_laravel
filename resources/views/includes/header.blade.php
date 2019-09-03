@@ -33,90 +33,6 @@
 <script src="{{ asset('js/vestidos.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js?render={{ $configData['recapchav3_site'] }}"></script>
 </head>
-<style>
-/** scrollbar **/
-#vestidos-search-results-pnl::-webkit-scrollbar {
-    width: .3em;
-}
-#vestidos-search-results-pnl::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-}
-#vestidos-search-results-pnl::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
-/** scrollbar **/
-.vestidos-search-pnl{
-    margin:22px 0px;
-}
-#vestidos-search-results-pnl{
-    max-height: 65%;
-    min-height: 80vh;
-    overflow: auto;
-    -webkit-transition: -webkit-transform .4s ease-in-out;
-    transition:transform .4s ease-in-out;
-}
-#vestidos-search-results-pnl ul{    
-    list-style: none;
-    list-style-type: none;
-    background: white;
-    color: black;
-    padding: 0;
-    margin: 0;
-}
-#vestidos-search-results-pnl ul li{
-    padding: 7px;
-    font-size: 1rem;
-}
-#vestidos-search-results-pnl ul li:not(first-child){
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
-#vestidos-search-main-pnl{
-    background: white;
-    display:none;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 100000;
-}
-#modal-close-pnl{
-    text-align: right;
-    padding: 0px 10px;
-    font-size: 1.2rem;
-}
-#modal-close-pnl a{
-    color:black;
-    text-decoration:none;
-}
-#modal-close-pnl a:hover{
-    text-decoration:none;
-}
-#modal-close-pnl a div{
-    display:inline-flex;
-    -webkit-transition: -webkit-transform .4s ease-in-out;
-    transition:transform .4s ease-in-out;
-}
-#modal-close-svg{
-    width:25px;
-}
-.vestidos-search-input{
-    border: 0;
-    font-size: 1.5rem;
-    text-align: center;
-    box-shadow: none; 
-}
-.vestido-search-input-row{
-    border-bottom: 1px solid black;
-}
-.vestidos-search-input:focus {
-    outline-width: 0;
-    -webkit-box-shadow: none;
-    box-shadow:none;
-}
-.vestidos-search-loader{
-    display:none;
-}
-</style>
 <script>
 // popupmodal 
 function openModalSearch(){
@@ -129,11 +45,13 @@ function closeModalSearch(){
     $("#vestidos-search-results-pnl").hide();
     $("#search-input-text").val("");
     $("html,body").css("overflow","auto");
+    $("#vestidos-search-result-not-found").hide();
 }
 //end
 function searchBarProductName(event){
     $("#vestidos-search-results-pnl").hide();
     $(".vestidos-search-loader").show();
+    $("#vestidos-search-result-not-found").hide();
     if(event.target.value.length > 3){
         $.ajax({
             type: "GET",
@@ -142,7 +60,8 @@ function searchBarProductName(event){
                 data:event.target.value
             },
             success: function(data) {
-                if(data.length>0){
+                data = data.data;
+                if(data && data.length>0){
                     $(".vestidos-search-loader").hide();
                     $("#vestidos-search-results-pnl").show();
                     var listul=$("#vestidos-search-results-pnl ul");
@@ -157,6 +76,12 @@ function searchBarProductName(event){
                             searchlist.push(data);
                         })
                     },50)
+                }else{
+                    console.log("Jkjk")
+                    $(".vestidos-search-loader").hide();
+                    $("#vestidos-search-results-pnl").hide();
+                    $("#vestidos-search-result-not-found span").text(event.target.value);
+                    $("#vestidos-search-result-not-found").show();
                 }
             }
         });
@@ -207,6 +132,7 @@ function searchOnKeyDown(event){
         }
     }else if(event.keyCode==27){
         $("#vestidos-search-results-pnl").hide();
+        $("#vestidos-search-result-not-found").hide();
         setTimeout(function(){
             $("#search-input-text").focus();
             $("#search-input-text").val("");
@@ -220,45 +146,6 @@ function searchOnKeyDown(event){
 var searchlist = [];
 </script>
 <body id="main-body">
-<div id="vestidos-search-main-pnl">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-9 text-center mx-auto mt-4">
-                <div class="form-row px-0 mx-0 vestido-search-input-row">
-                    <div class="form-group col-10 col-lg-11">
-                        <input id="search-input-text" onKeyDown="inputSearchKeyDown(event)" onKeyUp="searchBarProductName(event)" class="vestidos-search-input form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
-                    </div>
-                    <div class="form-group col-2 col-lg-1">
-                        <div id="modal-close-pnl">
-                            <a href="javascript:closeModalSearch()">
-                                <div>
-                                    <svg version="1.1" id="modal-close-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                        viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve"><g><path fill="black" d="M9.1,8L14,3.1c0.3-0.3,0.3-0.8,0-1.1c-0.3-0.3-0.8-0.3-1.1,0L8,6.9L3.1,2C2.8,1.7,2.3,1.7,2,2
-                                            C1.7,2.3,1.7,2.8,2,3.1L6.9,8L2,12.9c-0.3,0.3-0.3,0.8,0,1.1c0.2,0.2,0.3,0.2,0.5,0.2c0.2,0,0.4-0.1,0.5-0.2L8,9.1l4.9,4.9
-                                            c0.2,0.2,0.3,0.2,0.5,0.2s0.4-0.1,0.5-0.2c0.3-0.3,0.3-0.8,0-1.1L9.1,8z"/></g></svg>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row vestidos-search-loader">
-            <div class="col text-center">
-                <img class="img-fluid" src="{{ asset('images/vest_load_b.gif')}}" alt="">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-9 mx-auto mt-4">
-                <div id="vestidos-search-results-pnl">
-                    <ul>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
 <div class="pos-f-t" >
     @if($main_config->alert_id_single)
         @if($main_config->getAlert->line_single)
@@ -431,4 +318,5 @@ var searchlist = [];
             </div>
         </div>
 </div>
+@include('includes.search_modal')
 @include('includes.alert_modal')

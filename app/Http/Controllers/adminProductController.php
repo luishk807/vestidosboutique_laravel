@@ -795,9 +795,4 @@ class adminProductController extends Controller
         $products = $this->products->searchProductsByString($name);
         return response()->json($products);
     }
-    public function searchCompProductByName(){
-        $name=Input::get('data');
-        $products = $this->products->searchCompProductsByString($name);
-        return response()->json($products);
-    }
 }
