@@ -1,39 +1,3 @@
-#vestidos-search-results-pnl::-webkit-scrollbar {
-    width: .3em;
-}
-#vestidos-search-results-pnl::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-}
-#vestidos-search-results-pnl::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
-/** scrollbar **/
-.vestidos-search-pnl{
-    margin:22px 0px;
-}
-#vestidos-search-results-pnl{
-    max-height: 65%;
-    min-height: 80vh;
-    overflow: auto;
-    -webkit-transition: -webkit-transform .4s ease-in-out;
-    transition:transform .4s ease-in-out;
-}
-#vestidos-search-results-pnl ul{    
-    list-style: none;
-    list-style-type: none;
-    background: white;
-    color: black;
-    padding: 0;
-    margin: 0;
-}
-#vestidos-search-results-pnl ul li{
-    padding: 7px;
-    font-size: 1rem;
-}
-#vestidos-search-results-pnl ul li:not(first-child){
-    border-bottom: 1px solid rgba(0,0,0,.1);
-}
 #vestidos-search-main-pnl{
     background: white;
     display:none;
@@ -41,47 +5,95 @@
     height: 100%;
     position: absolute;
     z-index: 100000;
-}
-#modal-close-pnl{
-    text-align: right;
-    padding: 5px 10px 0px 10px;
-    font-size: 1.2rem;
-}
-#modal-close-pnl a{
-    color:black;
-    text-decoration:none;
-}
-#modal-close-pnl a:hover{
-    text-decoration:none;
-    color:black;
-}
-#modal-close-pnl a div{
-    display:inline-flex;
-    -webkit-transition: -webkit-transform .4s ease-in-out;
-    transition:transform .4s ease-in-out;
-}
-#modal-close-svg{
-    width:25px;
-}
-.vestidos-search-input{
-    border: 0;
-    font-size: 1.5rem;
-    text-align: center;
-    box-shadow: none; 
-}
-.vestido-search-input-row{
-    border-bottom: 1px solid black;
-}
-.vestidos-search-input:focus {
-    outline-width: 0;
-    -webkit-box-shadow: none;
-    box-shadow:none;
-}
-.vestidos-search-loader{
-    display:none;
-}
-#vestidos-search-result-not-found{
-    display:none;
+    /** scrollbar **/
+    .vestidos-search-pnl{
+        margin:22px 0px;
+    }
+    #vestidos-search-results-pnl{
+        max-height: 65%;
+        min-height: 80vh;
+        overflow: auto;
+        -webkit-transition:transform .4s ease-in-out;
+        transition:transform .4s ease-in-out;
+        -moz-transition:transform .4s ease-in-out;
+        -ms-transition:transform .4s ease-in-out;
+        -o-transition:transform .4s ease-in-out;
+        &::-webkit-scrollbar {
+            width: .3em;
+        }
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: darkgrey;
+          outline: 1px solid slategrey;
+        }
+        ul{    
+            list-style: none;
+            list-style-type: none;
+            background: white;
+            color: black;
+            padding: 0;
+            margin: 0;
+           li{
+                padding: 7px;
+                font-size: 1rem;
+                &:not(first-child){
+                    border-bottom: $vesti-light-bars;
+                }
+                a{
+                    color:black;
+                    &:focus,
+                    &:hover{
+                        color:black;
+                        text-decoration:none;
+                    
+                    }
+                }
+            }
+        }
+    }
+    #modal-close-pnl{
+        text-align: right;
+        padding: 5px 10px 0px 10px;
+        font-size: 1.2rem;
+        a{
+            color:black;
+            text-decoration:none;
+            &:hover{
+                text-decoration:none;
+                color:black;
+            }
+            div{
+                display:inline-flex;
+                -webkit-transition: -webkit-transform .4s ease-in-out;
+                transition:transform .4s ease-in-out;
+            }
+        }
+    }
+    #modal-close-svg{
+        width:25px;
+    }
+    .vestidos-search-input{
+        border: 0;
+        font-size: 1.5rem;
+        text-align: center;
+        box-shadow: none; 
+    }
+    .vestido-search-input-row{
+        border-bottom: 1px solid black;
+    }
+    .vestidos-search-input:focus {
+        outline-width: 0;
+        -webkit-box-shadow: none;
+        box-shadow:none;
+    }
+    .vestidos-search-loader{
+        display:none;
+    }
+    #vestidos-search-result-not-found{
+        display:none;
+    }
 }
 .shoplist-no-result-pnl p:first-child,
 #vestidos-search-result-not-found p:first-child{
