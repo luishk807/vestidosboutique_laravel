@@ -114,10 +114,10 @@
                         @else
                         <div class="shoplist-no-result-pnl text-center py-5">
                             <p>
-                            {{ __('pagination.no_result_line1') }} "{{$sstring}}"
+                            {{ __('search.no_result_line1') }} "{{$sstring}}"
                             </p>
                             <p>
-                            {{ __('pagination.no_result_line2') }}
+                            {{ __('search.no_result_line2') }}
                             </p>
                         </div>
                         @endif
