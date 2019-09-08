@@ -79,7 +79,7 @@
                     @else
                         href="{{route('login_page')}}">{{ __('header.log_in') }}
                     @endif
-                    &nbsp;<i class="fas fa-user"></i></a>
+                    </a>
                     </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
                     {{ __('header.cart') }}&nbsp;<i class="fas fa-shopping-cart"></i></a>
