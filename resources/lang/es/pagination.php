@@ -19,6 +19,8 @@ return [
     'inicio'     => 'Inicio',
     'sort_by'=>"Ordernar Por",
     'of'=>"de",
+    'no_result_line1'=>'Su busqueda',
+    'no_result_line2'=>'Lamentablemente no hay resultados encontrados.',
     'sort_options'=>[
         'low_price'=>"Precio Más Bajo",
         'high_price'=>"Precio Más Alto",

@@ -19,6 +19,8 @@ return [
     'inicio'     => 'Start',
     'sort_by'=>"Sort By",
     'of'=>"of",
+    'no_result_line1'=>'You searched for',
+    'no_result_line2'=>'Unfortunately there are no results matching your request.',
     'sort_options'=>[
         'low_price'=>"Lowest Price",
         'high_price'=>"Highest Price",

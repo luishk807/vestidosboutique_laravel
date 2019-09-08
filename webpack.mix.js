@@ -14,7 +14,8 @@ let mix = require('laravel-mix');
 
 mix
 .scripts([
-    'resources/assets/js/vestidos.js'
+    'resources/assets/js/vestidos.js',
+    'resources/assets/js/vestidos_search.js'
 ], 'public/js/vestidos.js')
 .sass('resources/assets/sass/app.scss', 'public/css')
 .sass('resources/assets/sass/app_admin.scss', 'public/css')

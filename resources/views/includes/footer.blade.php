@@ -25,6 +25,16 @@
                                 <img src="{{ asset('images/social-whatssap.svg') }}" class="vesti-svg vestidos-icons-social-b"/>
                                 +6726-6556</a>
                             <li>{{ __('general.form.email') }}: <a href='mailto:info@vestidosboutique.com' class="vestidos-simple-link-white" >info@vestidosboutique.com</a></li>
+                            <li>
+                                @php( $session_lang = Session::get('locale') ? Session::get('locale'):App::getLocale() )
+                                @foreach(\App\vestidosLanguages::where('status','=',1)->get() as $language)
+                                @if($language->code == $session_lang)
+                                <a class="text-white footer-lang-link text-font-underline" href="javascript:void(0)">{{$language->name}}</a>
+                                @else
+                                <a class="text-white footer-lang-link" href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a>
+                                @endif
+                                @endforeach
+                            </li>
                         </ul>
 
                     </div>
