@@ -523,7 +523,7 @@ class adminPaymentController extends Controller
     public function applyDiscount(){
         $coupon_code=Input::get('data');
         $discount = [];
-        $coupon = $this->coupons->where("code","=",$coupon_code)->limit(1)->get();
+        $coupon = $this->coupons->where("code","=",$coupon_code)->where("exp_date",">",carbon::today())->limit(1)->get();
         if(count($coupon)){
             // dd($coupon[0]->code);
            if(Session::has("discount_apply")){

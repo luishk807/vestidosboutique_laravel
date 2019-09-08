@@ -656,7 +656,7 @@ class userPaymentController extends Controller
     public function applyDiscount(){
         $coupon_code=Input::get('data');
         $discount = [];
-        $coupon = $this->coupons->where("code","=",$coupon_code)->where("status",1)->limit(1)->get();
+        $coupon = $this->coupons->where("code","=",$coupon_code)->where("status",1)->where("exp_date",">",carbon::today())->limit(1)->get();
         if(count($coupon)){
             // dd($coupon[0]->code);
            if(Session::has("discount_apply")){
