@@ -2,8 +2,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-9 text-center mx-auto mt-4">
-                <div class="form-row px-0 mx-0 vestido-search-input-row">
-                    <div class="form-group col-10 col-lg-11">
+                <div class="form-row px-0 mx-0 vestido-search-input-row mb-0">
+                    <div class="form-group col-10 col-lg-11 mb-0">
                         <input id="search-input-text" onKeyDown="inputSearchKeyDown(event)" onKeyUp="searchBarProductName(event)" class="vestidos-search-input form-control my-0 py-1" type="text" placeholder="{{ __('search.type_word_search') }}" aria-label="Search">
                     </div>
                     <div class="form-group col-2 col-lg-1">
