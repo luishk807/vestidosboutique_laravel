@@ -19,6 +19,7 @@
     Route::get("/about",'homeController@about')->name("about_page");
     Route::get("/shop/{type?}/{id?}",'userShopController@index')->name("shop_page");
     Route::get("/shop/{type?}/{id?}/{sort_option}",'userShopController@sort_product_list')->name("sort_product_list");
+    Route::get("/shop/search/product/{search}/{sort_option?}",'userShopController@search_product_list')->name("shop_page_search");
     Route::get("/product/{product_id}",'homeController@product')->name("product_page");
     Route::post("/product/{product_id}",'userCartController@addToCart')->name("add_cart");
     Route::get("/contact","homeController@contact")->name("viewContactPage");
@@ -552,6 +553,7 @@
         Route::get("api/loadProdQuantityArray",'homeController@loadProdQuantityData');
         Route::get("api/loadSizeInfo",'homeController@loadSizeInfo');
         Route::get("api/searchProductList",'adminProductController@searchProductByName')->name("search_product_by_name");
+        Route::get("api/searchCompProductList",'productController@searchCompProductByName')->name("search_comp_product_by_name");
    // });
    Auth::routes();
 //});

@@ -27,6 +27,7 @@
  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <script type="text/javascript" src="{{ asset('js/vendor/fullpage/jquery.fullPage.js') }}"></script>
 <script src="{{ asset('js/vendor/rater/rater.js') }}" charset="utf-8"></script>
 <script src="{{ asset('js/vestidos.js') }}"></script>
@@ -66,28 +67,22 @@
                     @endforeach
                 </ul>
                 <ul class="vest-maincolor-right nav navbar-nav navbar-right">
-                    <li class="nav-item nav-item-lang">
-                        <a id="vesti-navbar-top-lang" class="text-white navbar-link-lang" href=''>
-                            
-                            <img src="{{ asset('images/globe.svg') }}" class="vesti-svg vestidos-icons-globe"/><span>{{ strtoupper(Session::get('locale') ? Session::get('locale'):App::getLocale()) }}</span>
+                    <li class="nav-item">
+                        <a href="javascript:openModalSearch()" class="navbar-link text-white playfair-display-italic">
+                        {{ __('header.search') }}&nbsp;<i class="fas fa-search"></i>
                         </a>
-                        
-                        <ul class="vesti-lang-top">
-                        @foreach(\App\vestidosLanguages::where('status','=',1)->get() as $language)
-                            <li><a class="text-white" href="{{ route('set_language',['lang'=>$language->code])}}">{{$language->name}}</a></li>
-                        @endforeach
-                        </ul><!--end of hover menu-->
-
                     </li>
                     <li class="nav-item">
+                    <a class="navbar-link text-white playfair-display-italic" 
                     @if(Auth::guard('vestidosUsers')->check())
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('user_account')}}">{{ __('header.account') }}</a>
+                        href="{{route('user_account')}}">{{ __('header.account') }}
                     @else
-                    <a class="navbar-link text-white playfair-display-italic" href="{{route('login_page')}}">{{ __('header.log_in') }}</a>
+                        href="{{route('login_page')}}">{{ __('header.log_in') }}
                     @endif
+                    </a>
                     </li>
                     <li class="nav-item navbar-vesti-cart"><a id="vesti-navbar-top-link" class="navbar-link text-white playfair-display-italic" href="/cart">
-                    {{ __('header.cart') }}<img class="vesti-svg vestidos-icons-header vesti-navbar-bag" src="{{ asset('images/shop-bag.svg') }}" alt="icon name"></a>
+                    {{ __('header.cart') }}&nbsp;<i class="fas fa-shopping-cart"></i></a>
                         @if(Session::has('vestidos_shop'))
                         <div class="vesti-cart-top">
                            
@@ -150,6 +145,9 @@
                         <a class="nav-link text-white collapse-link" href="{{ route('shop_page') }}">{{ __('header.shop') }}</a>
                     </li>
                     <li class="nav-item mobile">
+                        <a class="nav-link text-white collapse-link" href="javascript:openModalSearch()">{{ __('header.search') }}</a>
+                    </li>
+                    <li class="nav-item mobile">
                         <a class="nav-link text-white collapse-link" href="{{route('about_page')}}">{{ __('header.about') }}</a>
                     </li>
                     <li class="nav-item mobile">
@@ -208,4 +206,5 @@
             </div>
         </div>
 </div>
+@include('includes.search_modal')
 @include('includes.alert_modal')

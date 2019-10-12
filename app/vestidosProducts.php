@@ -305,6 +305,76 @@ class vestidosProducts extends Model
         ->get();
         return $products;
     }
+    public function searchCompProductsByString($data){
+        $sort = $data["sort"];
+        $filter = $data["filter"];
+        $model_search = strtoupper($filter);
+        $products = DB::table("vestidos_products as products")
+        ->select("products.*","brands.name as brand_name","colors.name as color_name","events.event_id as event_id","sizes.name as size_name","sizes.total_sale as total_sale",
+        DB::raw('(select SUM(stock) from vestidos_sizes where color_id=colors.id) as stock'),
+        DB::raw('(select img_url from vestidos_products_imgs where product_id=products.id order by main_img desc, created_at asc limit 1) as img_url'))
+        ->join("vestidos_colors as colors","colors.product_id","products.id")
+        ->join("vestidos_vendors as vendors","vendors.id","products.vendor_id")
+        ->join("vestidos_brands as brands","brands.id","products.brand_id")
+        ->join("vestidos_sizes as sizes","sizes.color_id","colors.id")
+        ->join("vestidos_product_events as events","events.product_id","products.id")
+        ->where("products.status",1)
+        ->whereRaw("products.search_labels like '%{$filter}%'")
+        ->orWhereRaw("products.products_name like '%{$filter}%'")
+        ->orWhereRaw("products.product_model like '%{$model_search}%'")
+        ->orWhereRaw("brands.name like '%{$filter}%'")
+        ->orWhere("products.product_model",$model_search)
+        ->orWhereRaw("colors.name like '%{$filter}%'");
+
+        if(isset($data["brands"]) && sizeof($data["brands"])>0){
+            $products->whereIn("products.brand_id",$data["brands"]);
+        }
+        if(isset($data["events"]) && sizeof($data["events"])>0){
+            $products->whereIn("events.id",$data["events"]);
+        }
+        if(isset($data["type"]["type"]) && isset($data["type"]["id"])){
+            switch($data["type"]["type"]){
+                case "style":
+                $products->where("products.style",$data["type"]["id"]);
+                break;
+                case "type":
+                $products->where("products.product_type_id",$data["type"]["id"]);
+                break;
+                case "event":
+                if($data["type"]["id"]){
+                    $products->where("events.event_id",$data["type"]["id"]);
+                }
+                break;
+            }
+
+        }
+        if(isset($data["products"]) && sizeof($data["products"])>0){
+            $products->whereIn("products.id",$data["products"]);
+        }
+        switch($sort){
+            case "brand":
+            $products->orderBy("brands.name");
+            break;
+            case "low":
+            $products->orderBy("total_sale","asc");
+            break;
+            case "high":
+            $products->orderBy("total_sale","desc");
+            break;
+            case "newest":
+            $products->orderBy("created_at","desc");
+            break;
+            case "oldest":
+            $products->orderBy("created_at","asc");
+            break;
+            default:
+            $products->orderBy("products_name");
+            break;
+        }
+        $products = $products->groupBy("products.id")->paginate(15);
+       // dd($products);
+        return $products;
+    }
     public function getStatus(){
         return $this->belongsTo('App\vestidosStatus',"status");
     }

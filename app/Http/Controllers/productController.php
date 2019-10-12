@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\vestidosProducts as Products;
+use Illuminate\Support\Facades\Input;
 
 class productController extends Controller
 {
@@ -22,5 +23,15 @@ class productController extends Controller
         $data=[];
         $data["products"]=$product->searchProductsByLabels($filter);
         return view("product",$data);
+    }
+    public function searchCompProductByName(){
+        $product = new Products();
+        $name=Input::get('data');
+        $data_list = array(
+            "sort"=>'low',
+            "filter"=>$name,
+          );
+        $products =$product->searchCompProductsByString($data_list);
+        return response()->json($products);
     }
 }

@@ -1,91 +1,31 @@
 @extends("layouts.sub-layout")
 @section('content')
+<style>
+.shoplist-no-result-pnl p:first-child{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.shoplist-no-result-pnl p:last-child{
+    font-size: 1.5rem;
+}
+</style>
 <div class="main_sub_body main_body_height">
 <div class="container-fluid vest-shop-container">
     <form method="post" id="shop_sort_form" action="">
-    <input type="hidden" id="evtid" name="evtid" value="{{ $evtid }}">
-    <input type="hidden" id="evtype" name="evtype" value="{{ $evtype }}">
-    <div class="row">
-        <div class="col container-in-center">
+    <input type="hidden" id="evtid" name="evtid" value="{{ isset($evtid) ? $evtid : null }}">
+    <input type="hidden" id="evtype" name="evtype" value="{{ isset($evtype) ? $evtype : null }}">
+    <input type="hidden" id="sstring" name="sstring" value="{{ isset($sstring) ? $sstring : null }}">
+    <div class="row px-0 mx-0">
+        <div class="col px-0 container-in-center">
             <div class="container-fluid container-in-space">
-               {{-- <div class="row">
-                    <div class="col-md-3" id="mobile-sort-nav"><!--mobile search-->
-                        <!--hiding mobile menu-->
-                        <div id="accordion">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapse-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            +{{ __('general.optimized_search') }}
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapseOne" class="collapse" aria-labelleby="headingOne" data-parent="#accordion">
-                                    <div class="shoplist-search-cont vesti-search-cont">
-                                        <div class="shoplist-search-type-cont">
-                                            <h3>{{ __('header.event') }}</h3>
-                                            <div class="shoplist-search-list-cont">
-                                                <ul>
-                                                @foreach($categories as $category)
-                                                <li><input id="vestidos_cat_3" type="checkbox" class="vestidos-check" name="vestidos_category[]" value="{{ $category->id }}"/><label for="vestidos_cat_3" class="vestidos-label"/>{{ $category->name }}</label></li>
-                                                @endforeach
-                                                </ul>
-                                            </div>   
-                                        </div><!--end of search type-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                      <!--hiding mobile menu-->
-                                      
-                    </div><!--end of mobile search-->
-                    --}}
-                    {{--<div class="col-md-3" id="desktop-sort-nav">
-                        <input type="hidden" name="shopPage_select_input" id="shopPage_select_input">
-                        <div class="shoplist-search-cont vesti-search-cont">
-                            <div class="shoplist-search-type-cont">
-                                <h3>{{ __('header.event') }}</h3>
-                                <div class="shoplist-search-list-cont">
-                                    <ul>
-                                        @foreach($categories as $keyCat=>$category)
-                                        <li><input id="vestidos_cat_{{$keyCat}}" type="checkbox" class="vestidos-check" name="vestidos_categories[]" 
-                                        @foreach($categoryids as $catid)
-                                        @if($catid==$category->id)
-                                        checked
-                                        @endif
-                                        @endforeach
-                                         value="{{ $category->id }}"/><label for="vestidos_cat_{{$keyCat}}" class="vestidos-label"/>{{ $category->name }}</label></li>
-                                        @endforeach
-                                    </ul>
-                                </div>   
-                            </div><!--end of search type-->
-                            <div class="shoplist-search-type-cont">
-                                <h3>{{ __('header.brands') }}</h3>
-                                <div class="shoplist-search-list-cont">
-                                    <ul>
-                                    @foreach($brands as $keyBrand=>$brand)
-                                    <li><input id="vestidos_cat_{{$keyBrand}}" type="checkbox" class="vestidos-check" name="vestidos_brands[]" 
-                                    @foreach($brandids as $branid)
-                                        @if($branid==$brand->id)
-                                        checked
-                                        @endif
-                                        @endforeach
-                                    value="{{ $brand->id }}"/><label for="vestidos_cat_{{$keyBrand}}" class="vestidos-label"/>{{ $brand->name }}</label></li>
-                                    @endforeach
-                                    </ul>
-                                </div>   
-                            </div><!--end of search type-->
-                        </div>
-
-                    </div>
-                    <div class="col-md-9">
-                    --}}
-                    <div class="col">
-                        @if($event && $event->image_url)
+                <div class="row">
+                <div class="col">
+                        @if(isset($event) && $event->image_url)
                         <div class="text-center"><img src="{{ asset('images/shop_banners') }}/{{$event->image_url}}" class="img-fluid" alt/></div>
                         @else
                         <div class="text-center"><img src="{{ asset('images') }}/event_misc.jpg" class="img-fluid" alt/></div>
                         @endif
+                        @if(count($products)>0)
                         <div class="shoplist-nav">
                             <ul>
                                 <li>{{ $products->total() }} {{ trans_choice('general.cart_title.product',3) }}</li>
@@ -171,11 +111,21 @@
                                 @endif
                             </ul>
                         </div><!--end {{ __('pagination.of') }} nav container-->
+                        @else
+                        <div class="shoplist-no-result-pnl text-center py-5">
+                            <p>
+                            {{ __('search.no_result_line1') }} "{{$sstring}}"
+                            </p>
+                            <p>
+                            {{ __('search.no_result_line2') }}
+                            </p>
+                        </div>
+                        @endif
                     </div><!--end of main product list container-->
                 </div>
             </div>
-        </div>
-    </div>
+        </div> <!-- end of  container-in-center -->
+    </div><!--end of first row-->
     </form>
 </div>
 </div>
