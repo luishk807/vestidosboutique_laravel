@@ -7,7 +7,69 @@
 .order-product-list td{
     width:20%;
 }
+#on_searchBar_col{
+    position:relative;
+    display:block;
+}
+#on_searchBar_result{
+    display:none;
+    width: 100%;
+    background: rgba(255,255,255,0.9);
+    position: absolute;
+    z-index: 2;
+    padding: 5px;
+    border: 1px solid rgba(0,0,0,0.1);
+    top: 50%;
+}
+#on_searchBar_result ul li:not(:first-child){
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+#on_searchBar_result ul{
+    list-style: none;
+    list-style-type: none;
+}
+#on_searchBar_result ul,
+#on_searchBar_result ul li{
+    padding: 0px;
+    margin: 0px;
+}
+.on_search_item{
+    padding: 15px 5px;
+    color: black;
+    display: block;
+}
 </style>
+<script>
+$(document).ready(function(){
+
+})
+function on_searchProduct_(event){
+    $("#on_searchBar_result").hide();
+    if(event.target.value.length > 3){
+        console.log("Hey hey ")
+        $.ajax({
+            type: "GET",
+            url: "/api/searchProductList",
+            data: {
+                data:event.target.value
+            },
+            success: function(data) {
+                if(data.length>0){
+                    $("#on_searchBar_result").show();
+                    var listul=$("#on_searchBar_result ul");
+                   listul.empty();
+                    $.each(data, function(index,element){
+                        listul.append('<li><a class="on_search_item" href="">'+element.products_name+' '+' '+element.product_model+' '+element.brand_name+'</a></li>');
+                    });
+                    $(".on_search_item").on("click",function(e){
+                        location.href="/api/adminAddProductToCart"
+                    })
+                }
+            }
+        });
+    }
+}
+</script>
 <script>
 var urlColorSizes = "{{ url('api/loadSizes') }}";
 var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
@@ -27,13 +89,15 @@ var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="form-row">
-                    <div class="col">
-                    <input type="text" class="form-control" placeholder="First name">
-                    </div>
-                    <div class="col-auto">
-                    <button class="btn">&plus;</button>
-                    </div>
+                    <input type="text" onkeyup="on_searchProduct_(event)" class="form-control" id="on_searchBar_input" placeholder="First name">
+            </div>
+        </div>
+        <div class="row">
+            <div id="on_searchBar_col" class="col">
+                <div id="on_searchBar_result">
+                    <ul>
+                        <li><a href="" class="on_search_item"></a></li>
+                    </ul>
                 </div>
             </div>
         </div>

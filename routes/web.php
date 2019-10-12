@@ -553,6 +553,7 @@
         Route::get("api/loadProdQuantityArray",'homeController@loadProdQuantityData');
         Route::get("api/loadSizeInfo",'homeController@loadSizeInfo');
         Route::get("api/searchProductList",'adminProductController@searchProductByName')->name("search_product_by_name");
+        Route::get("api/adminAddProductToCart",'adminProductController@adminAddProductCart')->name("admin_add_product_cart");
         Route::get("api/searchCompProductList",'productController@searchCompProductByName')->name("search_comp_product_by_name");
    // });
    Auth::routes();

@@ -790,6 +790,9 @@ class adminProductController extends Controller
                 }
                return redirect()->route("admin_restocks")->with('success','Restocks Deleted successfully.');
     }
+    public function adminProductController(){
+        
+    }
     public function searchProductByName(){
         $name=Input::get('data');
         $products = $this->products->searchProductsByString($name);
