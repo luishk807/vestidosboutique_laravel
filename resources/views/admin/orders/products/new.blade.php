@@ -25,6 +25,20 @@ var urlProductQuantityArray = "{{ url('api/loadProdQuantityArray') }}";
         </div>
     </div>
     <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="form-row">
+                    <div class="col">
+                    <input type="text" class="form-control" placeholder="First name">
+                    </div>
+                    <div class="col-auto">
+                    <button class="btn">&plus;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
         <div class="row container-title">
             <div class="col-md-1">
             </div>
