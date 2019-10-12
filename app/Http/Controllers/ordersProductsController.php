@@ -51,9 +51,83 @@ class ordersProductsController extends Controller
         $data["page_title"]=__('header.orders')." ".$order->order_number;
         return view("admin/orders/products/home",$data);
     }
+    public function cartAddProduct(){
+        $data=[];
+        $prd_id = Input::get('data') ? Input::get('data') : null;
+        if(!empty($prd_id)){
+            if(Session::has("vestidos_admin_shop")){
+                $data=Session::get("vestidos_admin_shop");
+            }
+            $order_p=[];
+            $prod = $this->products->find($prd_id);
+    
+            if(empty($product["color"]) || empty($product["size"]) || empty($product["quantity"])){
+                return redirect()->back()->withErrors([
+                    "required"=> __('general.product_title.missing_size_color',['name'=>$prod->products_name])
+                ]);
+            }
+
+            $color = $this->colors->find($product["color"]);
+            $size = $this->sizes->find($product["size"]);
+            $total = $size->total_sale * $product['quantity'];
+            $image_save = $prod->images->count() > 0 ? $prod->images->first()->img_url : "no-image.jpg";
+            $image_name = $prod->images->count() > 0 ? $prod->images->first()->img_name : "";
+            $subtotal += $total;
+            $order_p[]=array(
+                "id"=>$prod->id,
+                "name"=>$prod->products_name,
+                "img"=>$image_save,
+                "img_name"=>$image_name,
+                "total"=>$total,
+                "color_id"=>$product["color"],
+                "color"=>$color->name,
+                "size_id"=>$product["size"],
+                "size"=>$size->name,
+                "quantity"=>$product['quantity']
+            ); 
+            $data["products"]=$order_p;
+            Session::forget('vestidos_admin_shop');
+            Session::put('vestidos_admin_shop',$data);
+            return redirect()->route("admin_show_checkout");
+        }
+
+    }
+    public function cartRemoveProduct(){
+        $prd_id = Input::get('data');
+        if(!empty($prd_id) || !Session::has("vestidos_admin_shop")){
+            $data=Session::get("vestidos_admin_shop");
+            $order_p = $data["products"];
+            if(array_key_exists($prd_id,$data)){
+                array_splice($order_p, $prd_id, 1); 
+                $data["products"]=$order_p;
+                Session::forget('vestidos_admin_shop');
+                Session::put('vestidos_admin_shop',$data);
+            }
+            return redirect()->route("admin_show_checkout");
+        }
+    }
+    public function cartUpdateProduct(){
+        $prd_id = Input::get('data');
+        if(!empty($prd_id) || !Session::has("vestidos_admin_shop")){
+            $data=Session::get("vestidos_admin_shop");
+            $order_p = $data["products"];
+            foreach($order_p as $product){
+                if($product["id"]==$prd_id){
+                    $product["color_id"]=$product["color"];
+                    $product["size_id"]=$product["size"];
+                    $product["quantity"]=$product['quantity'];
+                }
+            }
+            $data["products"]=$order_p;
+            Session::forget('vestidos_admin_shop');
+            Session::put('vestidos_admin_shop',$data);
+            return redirect()->route("admin_show_checkout");
+        }
+    }
     public function newOrderProducts(){
         $data=[];
-        $data["main_items"]=$this->products->where("status",1)->paginate(10);
+        $prd_id = Input::get('data') ? Input::get('data') : null;
+        $data["main_items"]=empty($prd_id) ? $this->products->where("status",1)->paginate(10) : $this->products->where("status",1)->where("id",$prd_id)->paginate(10);
         $data["page_title"]=__('general.order_section.new_order_products'); 
         return view("admin/orders/products/new",$data);
     }

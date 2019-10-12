@@ -512,6 +512,9 @@
                         Route::get('/confirm/{order_product_id}','ordersProductsController@confirmDeleteOrderProduct')->name('admin_confirm_order_products');
                         Route::delete('/confirm/{order_product_id}','ordersProductsController@deleteOrderProduct')->name('admin_delete_order_products');
                         Route::get('/{order_id}','ordersProductsController@index')->name("admin_order_products");
+                        Route::get("/new/cart/add/{product_id}",'ordersProductsController@cartAddProduct')->name("admin_edit_order_cart_add");
+                        Route::get("/new/cart/remove/{product_id}",'ordersProductsController@cartRemoveProduct')->name("admin_edit_order_cart_remove");
+                        Route::get("/new/cart/edit/{product_id}",'ordersProductsController@cartUpdateProduct')->name("admin_edit_order_cart_edit");
                     });
                     Route::prefix("address")->group(function(){
                         Route::get('/new','ordersController@showOrderAddress')->name('admin_show_new_order_address');
