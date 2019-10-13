@@ -450,7 +450,68 @@ body,html{
                 }
         }
     }
-} 
+}
+// order page
+#admin_order_page_products_panel{
+    .order-product-list{
+        img {
+            max-width: 100%;
+        }
+        td{
+            width:20%;
+        }
+    }
+    #on_searchBar_col{
+        position:relative;
+        display:block;
+    }
+    #on_searchBar_result{
+        display:none;
+        width: 100%;
+        background: white;
+        position: absolute;
+        z-index: 2;
+        padding: 5px;
+        border: 1px solid rgba(0,0,0,0.1);
+        top: 50%;
+        ul li:not(:first-child){
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        ul{
+            list-style: none;
+            list-style-type: none;
+        }
+         ul,
+         ul li{
+            padding: 0px;
+            margin: 0px;
+        }
+    }
+    .on_search_item{
+        padding: 15px 5px;
+        color: black;
+        display: block;
+    }
+    .adminNewOrderActions a{
+        padding: 5px 10px;
+        display: inline-block;
+        font-size: 1.5rem;
+        color: black;
+        cursor:pointer;
+    }
+    .no-cart-btn-panel{
+        margin:20px 0px;
+    }
+    .no-cart-items-panel{
+        margin-bottom: 50px;
+        padding-bottom: 30px;
+        padding-top: 15px;
+        background: rgba(0,0,0,.04);
+       .container .container-data:not(:first-child){
+            border-top: 1px solid rgba(0,0,0,.1);
+        }
+    }
+}
 // alert css
 @import "vestidos_alerts";
 //custom vestidos mobile scss

@@ -1,3 +1,30 @@
+function on_searchProduct_(event){
+    $("#on_searchBar_result").hide();
+    if(event.target.value.length > 3){
+        $.ajax({
+            type: "GET",
+            url: "/api/searchProductList",
+            data: {
+                data:event.target.value
+            },
+            success: function(data) {
+                if(data.length>0){
+                    $("#on_searchBar_result").show();
+                    var listul=$("#on_searchBar_result ul");
+                   listul.empty();
+                    $.each(data, function(index,element){
+                        listul.append('<li><a class="on_search_item" href="" data="'+element.id+'">'+element.products_name+' '+' '+element.product_model+' '+element.brand_name+'</a></li>');
+                    });
+                    $(".on_search_item").on("click",function(e){
+                        e.preventDefault();
+                        var prd_id = $(e.target).attr("data");
+                        location.href="/admin/orders/products/new?data="+prd_id;
+                    })
+                }
+            }
+        });
+    }
+}
 function searchBarProductName(event){
     $("#search-result-holder").hide();
     if(event.target.value.length > 3){
@@ -389,4 +416,107 @@ $(document).ready(function() {
            }
        }); 
    });
+
+   // admin order page
+   $(".no_adminAddCartProduct").on("click",function(e){
+    e.preventDefault();
+    var parentSec = $(e.target).parent().parent().parent();
+    var color = parentSec.find(".no_color_select").val();
+    var size = parentSec.find(".no_size_select").val();
+    var quantity = parentSec.find(".no_quantity_select").val();
+    var prd_id = $(e.target).parent().attr('data');
+    var error_msg = $(e.target).parent().attr('data-error');
+    if(!color || !size || !quantity){
+        alert(error_msg);
+        return;
+    }else{
+            $.ajax({
+                type: "GET",
+                url: "/admin/orders/products/new/cart/add",
+                data: {
+                    id:prd_id,
+                    size:size,
+                    quantity:quantity,
+                    color:color,
+                },
+                success: function(data) {
+                if(data.status.status){
+                    location.href="/admin/orders/products/new"
+                }
+                }
+            });
+        }
+    })
+    $(".no_adminRemoveCartProduct").on("click",function(e){
+        e.preventDefault();
+        var prd_id = $(e.target).parent().attr("data");
+        $.ajax({
+            type: "GET",
+            url: "/admin/orders/products/new/cart/remove",
+            data: {
+                id:prd_id,
+            },
+            success: function(data) {
+                if(data.status.status){
+                    location.reload();
+                }
+            }
+        });
+    })
+    $(".no_update_select").on("change",function(e){
+        var quantity = $(e.target).val();
+        var prd_id = $(e.target).find('option:selected').attr("data");
+        $.ajax({
+            type: "GET",
+            url: "/admin/orders/products/new/cart/update",
+            data: {
+                id:prd_id,
+                quantity:quantity,
+            },
+            success: function(data) {
+                if(data.status.status){
+                    location.reload();
+                }
+            }
+        });
+    })
+    $(".no_color_select").on("change",function(e){
+        var size = $(e.target).parent().parent().find(".no_size_select");
+        $(e.target).parent().parent().find(".no_price_input").text('');
+        var color = $(e.target).val();
+        $.ajax({
+            type: "GET",
+            url: "/api/loadSizes",
+            data: {
+                data:color
+            },
+            success: function(data) {
+                size.empty();
+                size.append("<option value=''>Select Size</option>");
+                $.each(data.colors, function(index,element){
+                    size.append("<option price="+element.total_sale+" value='"+element.id+"'>"+element.name+"</option>");
+                });
+            }
+        });
+    })
+    $(".no_size_select").on("change",function(e){
+        var product_quantity = $(e.target).parent().parent().find(".no_quantity_select");
+        $(e.target).parent().parent().find(".no_price_input").text('');
+        product_quantity.empty();
+        for(var i=0;i<=9;i++){
+            var data_index =i+1;
+            product_quantity.append("<option value='"+data_index+"'>"+data_index+"</option>");
+        }
+    })
+    $(".no_quantity_select").on("change",function(e){
+        var product_quantity = $(e.target).parent().parent().find(".no_quantity_select").val();
+        var sizeContainer = $(e.target).parent().parent().find(".no_size_select");
+        var price = sizeContainer.find('option:selected').attr("price");
+        if(product_quantity && price){
+            var total = parseInt(product_quantity) * price;
+            var total_container = $(e.target).parent().parent().find(".no_price_input")
+            total_container.text("");
+            total_container.text("$"+total); 
+        }
+    })
 });
