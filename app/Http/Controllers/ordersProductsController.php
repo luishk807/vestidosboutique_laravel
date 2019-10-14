@@ -51,9 +51,116 @@ class ordersProductsController extends Controller
         $data["page_title"]=__('header.orders')." ".$order->order_number;
         return view("admin/orders/products/home",$data);
     }
+    public function cartAddProduct(Request $request){
+        $prd_id = Input::get("id");
+        $size = Input::get("size");
+        $quantity = Input::get("quantity");
+        $color = Input::get("color");
+        $data["status"] = array(
+            "status"=>false,
+            "msg"=>null,
+            "data"=>null,
+        );
+        if(!empty($prd_id)){
+            if($request->session()->has("vestidos_admin_shop")){
+                $data=Session::get("vestidos_admin_shop");
+            }
+            $data["status"] = array(
+                "status"=>false,
+                "msg"=>null,
+            );
+            if(isset($data["products"])){
+                $products = $data["products"];
+            }
+            $prod = $this->products->where("id",$prd_id)->where("status",1)->first();
+            if(empty($color) || empty($size) || empty($quantity)){
+                $data["status"]["msg"]=__('general.product_title.missing_size_color',['name'=>$prod->products_name]);
+                return $data;
+            }
+
+            $color = $this->colors->find($color);
+            $size = $this->sizes->find($size);
+            $total = $size->total_sale * $quantity;
+            $image_save = $prod->images->count() > 0 ? $prod->images->first()->img_url : "no-image.jpg";
+            $image_name = $prod->images->count() > 0 ? $prod->images->first()->img_name : "";
+            $products[$prod->id]=array(
+                "product_id"=>$prod->id,
+                "name"=>$prod->products_name,
+                "img"=>$image_save,
+                "img_name"=>$image_name,
+                "total"=>$total,
+                "color_id"=>$color,
+                "color"=>$color->name,
+                "size_id"=>$size,
+                "size"=>$size->name,
+                "quantity"=>$quantity
+            ); 
+            $data["status"]["status"]=true;
+            $data["products"]=$products;
+            Session::forget('vestidos_admin_shop');
+            Session::put('vestidos_admin_shop',$data);
+        }
+        return $data;
+
+    }
+    public function cartRemoveProduct(){
+        $prd_id = Input::get('id');
+        $data["status"] = array(
+            "status"=>false,
+            "msg"=>null,
+            "data"=>null,
+        );
+        if(!empty($prd_id) || !Session::has("vestidos_admin_shop")){
+            $data=Session::get("vestidos_admin_shop");
+            $order_p = $data["products"];
+            $key_delete = null;
+            foreach($order_p as $key=>$product){
+                if($product["product_id"]==$prd_id){
+                    $key_delete = $key;
+                }
+            }
+            unset($order_p[$key_delete]); 
+            $data["products"]=$order_p;
+            $data["status"]["status"]=true;
+            Session::forget('vestidos_admin_shop');
+            Session::put('vestidos_admin_shop',$data);
+        }
+        return $data;
+    }
+    public function cartUpdateProduct(){
+        $prd_id = Input::get('id');
+        $quantity = Input::get('quantity');
+        $data["status"] = array(
+            "status"=>false,
+            "msg"=>null,
+            "data"=>null,
+        );
+        if(!empty($prd_id) || !Session::has("vestidos_admin_shop")){
+            $data=Session::get("vestidos_admin_shop");
+            $order_p = $data["products"];
+            foreach($order_p as $key=>$product){
+                if($product["product_id"]==$prd_id){
+                    $order_p[$key]["quantity"]=$quantity;
+                }
+            }
+            $data["products"]=$order_p;
+            $data["status"]["status"]=true;
+            Session::forget('vestidos_admin_shop');
+            Session::put('vestidos_admin_shop',$data);
+        }
+        return $data;
+    }
     public function newOrderProducts(){
         $data=[];
-        $data["main_items"]=$this->products->where("status",1)->paginate(10);
+        $prd_id = Input::get('data') ? Input::get('data') : null;
+        if(Session::has("vestidos_admin_shop") && isset(Session::get("vestidos_admin_shop")["products"])){
+            $products = Session::get("vestidos_admin_shop")["products"];
+            if(count($products) > 0){
+                $data["cart"]=$products;
+            }
+        }
+       // dd($data);
+        $data["main_items"]=empty($prd_id) ? $this->products->where("status",1)->paginate(10) : $this->products->where("status",1)->where("id",$prd_id)->paginate(10);
         $data["page_title"]=__('general.order_section.new_order_products'); 
         return view("admin/orders/products/new",$data);
     }
@@ -61,13 +168,13 @@ class ordersProductsController extends Controller
         $data=[];
         $tax = $this->tax_info->tax / 100;
         $subtotal = 0;
-        if(Session::has("vestidos_admin_shop")){
+        if(Session::has("vestidos_admin_shop") && isset(Session::get("vestidos_admin_shop")["products"])){
             $data=Session::get("vestidos_admin_shop");
             $user = $this->users->find($data["user_id"]);
         }else{
-            return redirect()->route('admin_orders')->with(__('general.access_section.denied'));
+           return redirect()->route('admin_orders')->with(__('general.access_section.denied'));
         }
-         $order_products=$request->input("order_products");
+        $order_products=$data["products"];
         $order_p=[];
         if(empty(array_column($order_products, 'product_id'))){
             return redirect()->back()->withErrors([
@@ -84,10 +191,10 @@ class ordersProductsController extends Controller
                     ]);
                 }
 
-                $color = $this->colors->find($product["color"]);
-                $size = $this->sizes->find($product["size"]);
+                $color = $product["color_id"];
+                $size =$product["size_id"];
                 $total = $size->total_sale * $product['quantity'];
-                //dd($size->stock);
+
                 //if($size->stock >0){
                     $image_save = $prod->images->count() > 0 ? $prod->images->first()->img_url : "no-image.jpg";
                     $image_name = $prod->images->count() > 0 ? $prod->images->first()->img_name : "";
@@ -98,9 +205,9 @@ class ordersProductsController extends Controller
                         "img"=>$image_save,
                         "img_name"=>$image_name,
                         "total"=>$total,
-                        "color_id"=>$product["color"],
+                        "color_id"=>$color->id,
                         "color"=>$color->name,
-                        "size_id"=>$product["size"],
+                        "size_id"=>$size->id,
                         "size"=>$size->name,
                         "quantity"=>$product['quantity']
                     );
