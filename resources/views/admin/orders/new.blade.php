@@ -1,9 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<script>
-var getAddressUrl = "{{ url('api/getAddress') }}";
-var getProductUrl = "{{ url('api/getProduct') }}";
-</script>
 <form action="{{ route('admin_create_order') }}" method="post">
 {{ csrf_field() }}
     <div class="form-group">
@@ -18,7 +14,7 @@ var getProductUrl = "{{ url('api/getProduct') }}";
     </div>
     <div class="form-group">
         <label for="orderDoo">Date of Purchase:</label>
-        <input type="date" id="orderDoo" min="1950-01-01" class="form-control" name="purchase_date" value="{{ old('purchase_date')}}" placeholder="Date of Purchase"/>
+        <input type="date" id="orderDoo" class="form-control" name="purchase_date" value="{{ old('purchase_date') ? old('purchase_date'): date('Y-m-d') }}" placeholder="Date of Purchase"/>
         <small class="error">{{$errors->first("purchase_date")}}</small>
     </div>
 
@@ -27,7 +23,10 @@ var getProductUrl = "{{ url('api/getProduct') }}";
         <select class="custom-select" name="status" id="orderStatus">
             <option value="">Select Status</option>
             @foreach($statuses as $status)
-                <option value="{{ $status->id }}">{{$status->name}} </option>
+                <option value="{{ $status->id }}"
+                @if($status->id==1)
+                selected
+                @endif>{{$status->name}} </option>
             @endforeach
         </select>
         <small class="error">{{$errors->first("status")}}</small>

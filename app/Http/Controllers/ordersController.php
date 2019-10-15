@@ -57,6 +57,10 @@ class ordersController extends Controller
         $this->tax_info = $tax->first();
         $this->address_types = $address_types;
         $this->main_config = $main_config->first();
+        $this->sender_info = [
+            "name"=>env("MAIL_FROM_NAME"),
+            "email"=>env("MAIL_FROM_ORDER"),
+        ];
     }
     public function index(){
         $data=[];
@@ -102,11 +106,6 @@ class ordersController extends Controller
             "status"=>"required"
         ]
         );
-        // $date = carbon::now();
-        // $data["created_at"]=$date;
-        // $time_converted =carbon::createFromFormat('Y-m-d H:i:s', $date)->format('YmdHise'); //get today date time
-        // $order_number = "VB".$time_converted."-".$user_id;
-        // $data["order_number"]=$order_number;
 
         if(Session::has("vestidos_admin_shop")){
             Session::forget("vestidos_admin_shop");
@@ -147,7 +146,7 @@ class ordersController extends Controller
         $order_shipping = $order->getOrderShippingAddress();
         $data["order_shipping"]=$order->order_shipping ?  $order_shipping[0] : null;
         $order_billing = $order->getOrderBillingAddress();
-        $data["order_billing"]=$order_billing[0];
+        $data["order_billing"]=$order->order_billing ? $order_billing[0] : null;
         $data["page_title"]=__('general.order_section.edit_order')." ".$order->order_number;
         return view("admin/orders/edit",$data);
     }
@@ -234,7 +233,7 @@ class ordersController extends Controller
                     $data["shipping_email"]=$address["email"];
                 }
             }
-            elseif($address["address_type"]==2){
+            if($address["address_type"]==2  && $this->main_config->allow_billing){
                 if(array_key_exists('user_address_id', $address)){
                     $user_address=$this->addresses->find($address["user_address_id"]);
                     $country = $this->countries->find($user_address->country_id);
@@ -274,8 +273,6 @@ class ordersController extends Controller
                     $data["billing_phone_number_2"]=$address["phone_number_2"];
                     $data["billing_email"]=$address["email"];
                 }
-            }else{
-                return redirect()->back()->with("error",__('general.address_section.invalid'));
             }
         }
         $shipping_list=$this->shipping_lists->find($request->input("shipping_list"));
@@ -388,11 +385,9 @@ class ordersController extends Controller
         $shipping_list = $this->shipping_lists->find($request->input("shipping_method"));
         $data["order_id"]=$order_id;
         $data["purchase_date"]=$request->input("purchase_date");
-        $data["shipping_date"]=$request->input("shipping_date");
         $data["order_quantity"]=(int)$request->input("order_quantity");
         $data["order_total"]=$request->input("order_total");
         $data["order_tax"]=$request->input("order_tax");
-        $data["shipping_method"]=$request->input("shipping_method");
         $data["status"]=(int)$request->input("status");
         $data["ip"]=$request->ip();
         $this->validate($request,[
@@ -406,9 +401,14 @@ class ordersController extends Controller
         $order->updated_at=carbon::now();
         $order->user_id=(int)$request->input("user");
         $order->purchase_date=$request->input("purchase_date");
-        $order->shipping_date=$request->input("shipping_date");
-        $order->order_shipping_type= $this->main_config->allow_shipping ? (int)$request->input("shipping_method") : null;
-        $order->order_shipping = $this->main_config->allow_shipping ? $shipping_list->total : null;
+        if($this->main_config->allow_shipping){
+            $data["shipping_date"]=$request->input("shipping_date");
+            $data["shipping_method"]=$request->input("shipping_method");
+            $order->shipping_date=$request->input("shipping_date");
+            $order->order_shipping_type= $this->main_config->allow_shipping ? (int)$request->input("shipping_method") : null;
+            $order->order_shipping = $this->main_config->allow_shipping ? $shipping_list->total : null;
+        }
+
         $order->order_total=$request->input("order_total");
         $order->order_tax=$request->input("order_tax");
         $order->status=(int)$request->input("status");
@@ -422,10 +422,10 @@ class ordersController extends Controller
             $order_detail = $this->sendEmail($order_id);
 
             Mail::send('emails.orderstatus_update',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
+                $message->from($this->sender_info["email"],$this->sender_info["name"]);
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_user.updated',['name'=>$client_name]);
-                $message->to("pedidos@vestidosboutique.com","Admin")->subject($subject);
+                $message->to($this->sender_info["email"],"Admin")->subject($subject);
             });
         }
         return redirect()->route("admin_orders");
@@ -465,7 +465,7 @@ class ordersController extends Controller
             $order_detail = $this->sendEmail($order_id);
 
             Mail::send('emails.ordercancel_confirm',["order_detail"=>$order_detail],function($message) use($order_detail){
-                $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
+                $message->from($this->sender_info["email"],$this->sender_info["name"]);
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                 $subject = __('general.order_section.to_user.cancel',['name'=>$client_name]);
                 $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
@@ -504,76 +504,69 @@ class ordersController extends Controller
 
         $grand_total = $subtotal + $order->order_tax + $order->order_shipping;
 
+        $order_detail["user"]=$this->users->find($user_id);
+        $order_detail["order"]=array(                        
+            "order_number"=>$order->order_number,
+            "purchase_date"=>$today,
+            "products"=>$data_products_email,
+            "order_total"=>$order->order_total,
+            "discount_app"=>$discount_app,
+            "order_tax"=>$order->order_tax,
+            "subtotal"=>$subtotal,
+            "grand_total"=>$grand_total,
+            "status"=>$order->getStatusName->name,
+            "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
+            "allow_billing"=>$this->main_config->allow_billing ? "true" : "false",
+            "order_grand_total"=>$order->order_total + $order->order_tax,
+            "shipping_name"=>null,
+            "shipping_address_1"=>null,
+            "shipping_address_2"=>null,
+            "shipping_province"=>null,
+            "shipping_district"=>null,
+            "shipping_corregimiento"=>null,
+            "shipping_country"=>null,
+            "shipping_zip_code"=>null,
+            "shipping_phone_number_1"=>null,
+            "shipping_phone_number_2"=>null,
+            "shipping_email"=>null,
+            "billing_name"=>null,
+            "billing_address_1"=>null,
+            "billing_address_2"=>null,
+            "billing_province"=>null,
+            "billing_district"=>null,
+            "billing_corregimiento"=>null,
+            "billing_country"=>null,
+            "billing_zip_code"=>null,
+            "billing_phone_number_1"=>null,
+            "billing_phone_number_2"=>null,
+            "billing_email"=>null,
+        );
         if($this->main_config->allow_shipping){
-            $order_detail=[
-                "user"=>$this->users->find($user_id),
-                "order"=>array(                        
-                    "order_number"=>$order->order_number,
-                    "purchase_date"=>$today,
-                    "shipping_name"=>$order_shipping[0]->name,
-                    "shipping_address_1"=>$order_shipping[0]->address_1,
-                    "shipping_address_2"=>$order_shipping[0]->address_2,
-                    "shipping_province"=>$order_shipping[0]->province_name,
-                    "shipping_district"=>$order_shipping[0]->district_name,
-                    "shipping_corregimiento"=>$order_shipping[0]->corregimiento_name,
-                    "shipping_country"=>$order_shipping[0]->country_name,
-                    "shipping_zip_code"=>$order_shipping[0]->zip_code,
-                    "shipping_phone_number_1"=>$order_shipping[0]->phone_number_1,
-                    "shipping_phone_number_2"=>$order_shipping[0]->phone_number_2,
-                    "shipping_email"=>$order_shipping[0]->email,
-                    "billing_name"=>$order_billing[0]->name,
-                    "billing_address_1"=>$order_billing[0]->address_1,
-                    "billing_address_2"=>$order_billing[0]->address_2,
-                    "billing_province"=>$order_billing[0]->province_name,
-                    "billing_district"=>$order_billing[0]->district_name,
-                    "billing_corregimiento"=>$order_billing[0]->corregimiento_name,
-                    "billing_country"=>$order_billing[0]->country_name,
-                    "billing_zip_code"=>$order_billing[0]->zip_code,
-                    "billing_phone_number_1"=>$order_billing[0]->phone_number_1,
-                    "billing_phone_number_2"=>$order_billing[0]->phone_number_2,
-                    "billing_email"=>$order_billing[0]->email,
-                    "products"=>$data_products_email,
-                    "order_total"=>$order->order_total,
-                    "discount_app"=>$discount_app,
-                    "order_tax"=>$order->order_tax,
-                    "subtotal"=>$subtotal,
-                    "grand_total"=>$grand_total,
-                    "status"=>$order->getStatusName->name,
-                    "shipping_total"=>$order->order_shipping,
-                    "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
-                    "order_grand_total"=>$order->order_total + $order->order_tax + $order->order_shipping,
-                )
-            ];
-        }else{
-            $order_detail=[
-                "user"=>$this->users->find($user_id),
-                "order"=>array(                        
-                    "order_number"=>$order->order_number,
-                    "purchase_date"=>$today,
-                    "billing_name"=>$order_billing[0]->name,
-                    "billing_address_1"=>$order_billing[0]->address_1,
-                    "billing_address_2"=>$order_billing[0]->address_2,
-                    "billing_province"=>$order_billing[0]->province_name,
-                    "billing_district"=>$order_billing[0]->district_name,
-                    "billing_corregimiento"=>$order_billing[0]->corregimiento_name,
-                    "billing_country"=>$order_billing[0]->country_name,
-                    "billing_zip_code"=>$order_billing[0]->zip_code,
-                    "billing_phone_number_1"=>$order_billing[0]->phone_number_1,
-                    "billing_phone_number_2"=>$order_billing[0]->phone_number_2,
-                    "billing_email"=>$order_billing[0]->email,
-                    "products"=>$data_products_email,
-                    "order_total"=>$order->order_total,
-                    "discount_app"=>$discount_app,
-                    "order_tax"=>$order->order_tax,
-                    "subtotal"=>$subtotal,
-                    "grand_total"=>$grand_total,
-                    "status"=>$order->getStatusName->name,
-                    "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
-                    "order_grand_total"=>$order->order_total + $order->order_tax,
-                )
-            ];
+            $order_detail["order"]["shipping_name"]=$order_shipping[0]->name;
+            $order_detail["order"]["shipping_address_1"]=$order_shipping[0]->address_1;
+            $order_detail["order"]["shipping_address_2"]=$order_shipping[0]->address_2;
+            $order_detail["order"]["shipping_province"]=$order_shipping[0]->province_name;
+            $order_detail["order"]["shipping_district"]=$order_shipping[0]->district_name;
+            $order_detail["order"]["shipping_corregimiento"]=$order_shipping[0]->corregimiento_name;
+            $order_detail["order"]["shipping_country"]=$order_shipping[0]->country_name;
+            $order_detail["order"]["shipping_zip_code"]=$order_shipping[0]->zip_code;
+            $order_detail["order"]["shipping_phone_number_1"]=$order_shipping[0]->phone_number_1;
+            $order_detail["order"]["shipping_phone_number_2"]=$order_shipping[0]->phone_number_2;
+            $order_detail["order"]["shipping_email"]=$order_shipping[0]->email;
         }
-
+        if($this->main_config->allow_billing){            
+            $order_detail["order"]["billing_name"]=$order_billing[0]->name;
+            $order_detail["order"]["billing_address_1"]=$order_billing[0]->address_1;
+            $order_detail["order"]["billing_address_2"]=$order_billing[0]->address_2;
+            $order_detail["order"]["billing_province"]=$order_billing[0]->province_name;
+            $order_detail["order"]["billing_district"]=$order_billing[0]->district_name;
+            $order_detail["order"]["billing_corregimiento"]=$order_billing[0]->corregimiento_name;
+            $order_detail["order"]["billing_country"]=$order_billing[0]->country_name;
+            $order_detail["order"]["billing_zip_code"]=$order_billing[0]->zip_code;
+            $order_detail["order"]["billing_phone_number_1"]=$order_billing[0]->phone_number_1;
+            $order_detail["order"]["billing_phone_number_2"]=$order_billing[0]->phone_number_2;
+            $order_detail["order"]["billing_email"]=$order_billing[0]->email;
+        }
         return $order_detail;
     }
     public function confirmDelete($order_id){

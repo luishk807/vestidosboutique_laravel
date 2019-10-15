@@ -31,6 +31,7 @@ $(document).ready(function(){
                 </p>
             </div><!--shipping-->
             @endif
+            @if($main_config->allow_billing)
             <div class="col billing">
                 <h3>Billing Address</h3>
                 <p>
@@ -43,6 +44,7 @@ $(document).ready(function(){
                 </p>
             
             </div><!--billing-->
+            @endif
         </div>
     </div><!--address-->
     <div class="container admin-checkout-product">

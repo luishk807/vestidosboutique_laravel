@@ -10,6 +10,13 @@
         </select>
     </div>
     <div class="form-group">
+        <label for="allow_billing">Allow Billing?:</label>
+        <select class="form-control"  name="allow_billing" id="allow_billing">
+            <option value="false" {{ !$main_config->allow_billing ? 'selected': '' }}>No</option>
+            <option value="true" {{ $main_config->allow_billing ? 'selected': '' }}>Yes</option>
+        </select>
+    </div>
+    <div class="form-group">
         <label for="allow_shipping">Allow Shipping?:</label>
         <select class="form-control"  name="allow_shipping" id="allow_shipping">
             <option value="false" {{ !$main_config->allow_shipping ? 'selected': '' }}>No</option>

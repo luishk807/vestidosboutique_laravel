@@ -41,7 +41,7 @@
     </div>
     @endif
     @foreach($address_types as $addressindex=>$address_type)
-    @if($address_type->id != '1' || ($address_type->id == '1' && $main_config->allow_shipping))
+    @if(($address_type->id == '1' && $main_config->allow_shipping) || ($address_type->id == '2' && $main_config->allow_billing))
     <input type="hidden" name="addresses[{{$addressindex}}][address_type]" value="{{ $address_type->id }}"/>
     <div class="container admin-address-container">
         <div class="row container-data row-even">

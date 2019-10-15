@@ -5,7 +5,7 @@
         <div class="col text-center">
             <nav class="navbar navbar navbar-expand-lg">
                 <ul class="navbar-nav">
-                    @if($order_shipping)
+                    @if($order_shipping && $main_config->allow_shipping)
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
                             <p><span class="title">Shipping Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>1]) }}">Edit</a>]</p>
@@ -18,6 +18,7 @@
                         </div>
                     </li>
                     @endif
+                    @if($order_billing && $main_config->allow_billing)
                     <li class="nav-item">
                         <div class="text-left order-address-panels">
                             <p><span class="title">Billing Address</span> [<a href="{{ route('admin_edit_order_address',['order_id'=>$order->id,'address_type_id'=>2]) }}">Edit</a>]</p>
@@ -28,6 +29,7 @@
                             Phone 1:{{$order_billing->phone_number_1}}<br/>
                             Phone 2:{{$order_billing->phone_number_2}}
                         </div>
+                        @endif
                     </li>
                 </ul>
             </nav>
@@ -56,6 +58,7 @@
         <input type="date" id="orderDoo" min="1950-01-01" class="form-control" name="purchase_date" value="{{ old('purchase_date') ? old('purchase_date') : $order->purchase_date }}" placeholder="Date of Purchase"/>
         <small class="error">{{$errors->first("purchase_date")}}</small>
     </div>
+    @if($main_config->allow_shipping)
     <div class="form-group">
         <label for="orderDos">Date of Shipping:</label>
         <input type="date" id="orderDos" min="1950-01-01" class="form-control" name="shipping_date" value="{{ old('shipping_date') ? old('shipping_date') : $order->shipping_date }}" placeholder="Date of Shipping"/>
@@ -75,6 +78,7 @@
         </select>
         <small class="error">{{$errors->first("shipping_method")}}</small>
     </div>
+    @endif
     <div class="form-group">
         <label for="orderTotal">Total:</label>
         <input type="number" id="orderTotal" class="form-control" name="order_total" min="0" step="0.01" value="{{ old('order_total') ? old('order_total') : $order->order_total + $order->order_tax }}" placeholder="0.00"/>

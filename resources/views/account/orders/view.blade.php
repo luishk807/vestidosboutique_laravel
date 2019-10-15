@@ -47,6 +47,7 @@
                         </ul>
                     </div>
                     @endif
+                    @if($order_billing)
                     <div class="{{ $order_shipping ? 'col-md-6':'col'}} right">
                         <ul>
                             <li>{{ __('general.page_header.billing_address') }}</li>
@@ -60,6 +61,7 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
                    
 
                 </div><!--end of header 2-->

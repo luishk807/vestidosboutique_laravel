@@ -56,6 +56,7 @@
                         {{ $order_detail["order"]["shipping_country"] }}<br/>
                     </td>
                     @endif
+                    @if($order_detail['order']['allow_billing']=="true")
                     <td width="{{ $order_detail['order']['allow_shipping']=='true'? '50%' : '100%'}}" align="left" valign="top">
                         {{ $order_detail["order"]["billing_name"] }}<br/>
                         {{ $order_detail["order"]["billing_address_1"] }}<br/>
@@ -63,6 +64,7 @@
                         {{ $order_detail["order"]["billing_province"] }} {{ $order_detail["order"]["billing_district"] }} {{ $order_detail["order"]["billing_corregimiento"] }} {{ $order_detail["order"]["billing_zip_code"] }}<br/>
                         {{ $order_detail["order"]["billing_country"] }}<br/>
                     </td>
+                    @endif
                 </tr>
             </table>
         </td>
