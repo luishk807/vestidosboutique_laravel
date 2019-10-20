@@ -73,6 +73,7 @@
                     @endif
                     <div class="row">
                         <div class="col-md-7">
+                            @if($main_config->allow_billing)
                             <div>
                                 <table class="table">
                                     <tbody>
@@ -96,8 +97,7 @@
                                             <td class="text-right"><a class="vestidos-simple-link" href="{{ route('editaddress',['address_id'=>$address->id])}}">{{ __('buttons.edit') }}</a></td>
                                         </tr>
                                         @endforeach
-
-                                         @if(empty($user->getAddresses->first()))
+                                        @if(empty($user->getAddresses->first()))
                                         <tr>
                                             <td colspan="3">
                                                     {{ csrf_field() }}
@@ -142,6 +142,7 @@
                                 </table>
 
                             </div>
+                            @endif
                             <div class="row">
                                 <div class="col text-left" id="coupon_section">
                                     <table width="100%" class="table">

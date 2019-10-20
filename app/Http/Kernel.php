@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'checkUserAddressAccess' => \App\Http\Middleware\checkUserAddressAccess::class,
         'checkUserReviewAccess' => \App\Http\Middleware\checkUserReviewAccess::class,
         'checkUserWishlistAccess' => \App\Http\Middleware\checkUserWishlistAccess::class,
+        'checkAdminOrderBillingShipping' => \App\Http\Middleware\checkAdminOrderBillingShipping::class,
     ];
 }

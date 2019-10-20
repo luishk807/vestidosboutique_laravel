@@ -516,11 +516,13 @@
                         Route::get("/new/cart/remove",'ordersProductsController@cartRemoveProduct')->name("admin_edit_order_cart_remove");
                         Route::get("/new/cart/update",'ordersProductsController@cartUpdateProduct')->name("admin_edit_order_cart_edit");
                     });
-                    Route::prefix("address")->group(function(){
-                        Route::get('/new','ordersController@showOrderAddress')->name('admin_show_new_order_address');
-                        Route::post('/new','ordersController@createOrderAddress')->name('admin_create_new_order_address');
-                        Route::get('/edit/{order_id}/{address_type_id}','ordersController@editOrderAddress')->name('admin_edit_order_address');
-                        Route::post('/edit','ordersController@saveOrderAddress')->name('admin_save_order_address');
+                    Route::middleware('checkAdminOrderBillingShipping')->group(function(){
+                        Route::prefix("address")->group(function(){
+                            Route::get('/new','ordersController@showOrderAddress')->name('admin_show_new_order_address');
+                            Route::post('/new','ordersController@createOrderAddress')->name('admin_create_new_order_address');
+                            Route::get('/edit/{order_id}/{address_type_id}','ordersController@editOrderAddress')->name('admin_edit_order_address');
+                            Route::post('/edit','ordersController@saveOrderAddress')->name('admin_save_order_address');
+                        });
                     });
                     Route::prefix("payment")->group(function(){
                         Route::get('/home/{order_id}','adminPaymentController@index')->name('admin_order_payments');

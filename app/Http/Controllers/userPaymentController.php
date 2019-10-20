@@ -62,6 +62,10 @@ class userPaymentController extends Controller
         $this->coupons = $coupons;
         $this->corregimientos=$corregimientos;
         $this->tax_info = $tax->first();
+        $this->sender_info = [
+            "name"=>env("MAIL_FROM_NAME"),
+            "email"=>env("MAIL_FROM_ORDER"),
+        ];
     }
     public function showShipping(){
         if(empty(Session::has("vestidos_shop"))){
@@ -301,87 +305,74 @@ class userPaymentController extends Controller
         $province_name=null;
         $city=null;
         $state=null;
-        if($has_address){
-            $this->validate($request,[
-                "billing_address"=>"required"
-            ]);
-            $billing_id= $request->input("billing_address");
-           // $shipping_id=$cart_address["shipping_method"];
-
-           // $shipping= $this->addresses->find($shipping_id);
-            $billing = $this->addresses->find($billing_id);
-            $billing_province = $billing->getProvince->name;
-            $billing_district = $billing->getDistrict->name;
-            $billing_corregimiento = $billing->getCorregimiento->name;
-            $billing_country= $billing->getCountry->countryCode;
-
-            $billing_name = $billing->first_name;
-            if(!empty($billing->middle_name)){
-                $billing_name .= " ".$billing->middle_name;
-            }
-            $billing_name .= " ".$billing->last_name;
-
-            $data_billing["name"]=$billing_name;
-            $data_billing["address_1"]=$billing->address_1;
-            $data_billing["address_2"]=$billing->address_2;
-            $data_billing["province_id"]=$billing->province_id;
-            $data_billing["district_id"]=$billing->district_id;
-            $data_billing["corregimiento_id"]=$billing->corregimiento_id;
-            $data_billing["country_id"]=$billing->getCountry->id;
-            $data_billing["zip_code"]=$billing->zip_code;
-            $data_billing["phone_number_1"]=$billing->phone_number_1;
-            $data_billing["phone_number_2"]=$billing->phone_number_2;
-            $data_billing["email"]=$billing->email;
-            $data_billing["address_type"]=2;
-        
-        }else{
-
-            // $data["province"] = $request->input("province");
-            // $data["district"] = $request->input("district");
-            // $data["corregimiento"] = $request->input("corregimiento");
-
-            $this->validate($request,[
-                "billing_name"=>"required",
-                "billing_address_1"=>"required",
-                "country"=>"required",
-                "district"=>"required",
-                "corregimiento"=>"required",
-                "zip_code"=>"required",
-                "billing_phone_number_1"=>"required",
-                "billing_email"=>"required",
-            ]);
-
+        if($this->main_config->allow_billing){
+            if($has_address){
+                $this->validate($request,[
+                    "billing_address"=>"required"
+                ]);
+                $billing_id= $request->input("billing_address");
+                $billing = $this->addresses->find($billing_id);
+                $billing_province = $billing->getProvince->name;
+                $billing_district = $billing->getDistrict->name;
+                $billing_corregimiento = $billing->getCorregimiento->name;
+                $billing_country= $billing->getCountry->countryCode;
+    
+                $billing_name = $billing->first_name;
+                if(!empty($billing->middle_name)){
+                    $billing_name .= " ".$billing->middle_name;
+                }
+                $billing_name .= " ".$billing->last_name;
+    
+                $data_billing["name"]=$billing_name;
+                $data_billing["address_1"]=$billing->address_1;
+                $data_billing["address_2"]=$billing->address_2;
+                $data_billing["province_id"]=$billing->province_id;
+                $data_billing["district_id"]=$billing->district_id;
+                $data_billing["corregimiento_id"]=$billing->corregimiento_id;
+                $data_billing["country_id"]=$billing->getCountry->id;
+                $data_billing["zip_code"]=$billing->zip_code;
+                $data_billing["phone_number_1"]=$billing->phone_number_1;
+                $data_billing["phone_number_2"]=$billing->phone_number_2;
+                $data_billing["email"]=$billing->email;
+                $data_billing["address_type"]=2;
             
-            $province = $this->provinces->find($request->input("province"));
-            $district = $this->districts->find($request->input("district"));
-            $corregimiento = $this->corregimientos->find($request->input("corregimiento"));
-            $country= $this->country->find($request->input("country"));
-
-            $billing_province = $province->name;
-            $billing_district = $district->name;
-            $billing_corregimiento = $corregimiento->name;
-            $billing_country= $country->countryCode;
-
-
-            $billing_country= $country->countryCode;
-
-
-            $billing_name = $request->input("billing_name");
-            $data_billing["name"]=$billing_name;
-            $data_billing["address_1"]=$request->input("billing_address_1");
-            $data_billing["address_2"]=$request->input("billing_address_2");
-            $data_billing["district_id"]=$request->input("district");
-            $data_billing["corregimiento_id"]=$request->input("corregimiento");
-            $data_billing["province_id"]=$request->input("province");
-            $data_billing["country_id"]=$request->input("country");
-            $data_billing["zip_code"]=$request->input("zip_code");
-            $data_billing["phone_number_1"]=$request->input("billing_phone_number_1");
-            $data_billing["phone_number_2"]=$request->input("billing_phone_number_2");
-            $data_billing["email"]=$request->input("billing_email");
-            $data_billing["address_type"]=2;
-
+            }else{
+                $this->validate($request,[
+                    "billing_name"=>"required",
+                    "billing_address_1"=>"required",
+                    "country"=>"required",
+                    "district"=>"required",
+                    "corregimiento"=>"required",
+                    "zip_code"=>"required",
+                    "billing_phone_number_1"=>"required",
+                    "billing_email"=>"required",
+                ]);
+    
+                $province = $this->provinces->find($request->input("province"));
+                $district = $this->districts->find($request->input("district"));
+                $corregimiento = $this->corregimientos->find($request->input("corregimiento"));
+                $country= $this->country->find($request->input("country"));
+    
+                $billing_province = $province->name;
+                $billing_district = $district->name;
+                $billing_corregimiento = $corregimiento->name;
+                $billing_country= $country->countryCode;
+                $billing_name = $request->input("billing_name");
+                $data_billing["name"]=$billing_name;
+                $data_billing["address_1"]=$request->input("billing_address_1");
+                $data_billing["address_2"]=$request->input("billing_address_2");
+                $data_billing["district_id"]=$request->input("district");
+                $data_billing["corregimiento_id"]=$request->input("corregimiento");
+                $data_billing["province_id"]=$request->input("province");
+                $data_billing["country_id"]=$request->input("country");
+                $data_billing["zip_code"]=$request->input("zip_code");
+                $data_billing["phone_number_1"]=$request->input("billing_phone_number_1");
+                $data_billing["phone_number_2"]=$request->input("billing_phone_number_2");
+                $data_billing["email"]=$request->input("billing_email");
+                $data_billing["address_type"]=2;
+    
+            }
         }
-        
         $nonce = $request->input('nonce', false);
         $today = carbon::now();
         $todayf = $today->format("dmY");
@@ -441,10 +432,15 @@ class userPaymentController extends Controller
         $data["province_required"]=$province_required;
         if(!empty($order->id)){
             //save addresese
-            $data_shipping["order_id"]=$order->id;
-            $data_billing["order_id"]=$order->id;
-            $this->order_addresses->insert($data_shipping);
-            $this->order_addresses->insert($data_billing);
+            if($this->main_config->allow_shipping){
+                $data_shipping["order_id"]=$order->id;
+                $this->order_addresses->insert($data_shipping);
+            }
+            if($this->main_config->allow_billing){
+                $data_billing["order_id"]=$order->id;
+                $this->order_addresses->insert($data_billing);
+            }
+
             for($i=0;$i<sizeof($cart);$i++){
                 $data_products[] = array(
                     "order_id"=>$order->id,
@@ -516,73 +512,49 @@ class userPaymentController extends Controller
                                 'required' => $status->message
                             ]);
                         }
-                    }
-
-                    
-                    //SEND EMAIL
-
+                    }                   
+                    $package["order_number"]=$order_number;
+                    $package["purchase_date"]=$today;
+                    $package["products"]=$data_products_email;
+                    $package["order_total"]=$total;
+                    $package["discount_app"]=$discount_total;
+                    $package["order_tax"]=$order_tax;
+                    $package["subtotal"]=$subtotal;
+                    $package["grand_total"]=$grand_total;
+                    $package["status"]=$get_order->getStatusName->name;
+                    $package["allow_shipping"]=$this->main_config->allow_shipping==true ? "true" : "false";
+                    $package["allow_billing"]=$this->main_config->allow_billing==true ? "true" : "false";
                     if($this->main_config->allow_shipping){
-                        $ds_country = $this->country->find($cart_address["shipping_country_id"]);
-                        $package = array(                        
-                            "order_number"=>$order_number,
-                            "purchase_date"=>$today,
-                            "shipping_name"=>$cart_address["shipping_name"],
-                            "shipping_address_1"=>$cart_address["shipping_address_1"],
-                            "shipping_address_2"=>$cart_address["shipping_address_2"],
-                            "shipping_province"=>$cart_address["shipping_province"],
-                            "shipping_district"=>$cart_address["shipping_district"],
-                            "shipping_corregimiento"=>$cart_address["shipping_corregimiento"],
-                            "shipping_country"=>$ds_country->countryCode,
-                            "shipping_zip_code"=>$cart_address["shipping_zip_code"],
-                            "shipping_phone_number_1"=>$cart_address["shipping_phone_number_1"],
-                            "shipping_phone_number_2"=>$cart_address["shipping_phone_number_2"],
-                            "shipping_email"=>$cart_address["shipping_email"],
-                            "shipping_total"=>$shipping_list->total,
-                            "billing_name"=>$data_billing["name"],
-                            "billing_address_1"=>$data_billing["address_1"],
-                            "billing_address_2"=>$data_billing["address_2"],
-                            "billing_district"=>$billing_district,
-                            "billing_province"=>$billing_province,
-                            "billing_corregimiento"=>$billing_corregimiento,
-                            "billing_country"=>$billing_country,
-                            "billing_zip_code"=>$data_billing["zip_code"],
-                            "billing_phone_number_1"=>$data_billing["phone_number_1"],
-                            "billing_phone_number_2"=>$data_billing["phone_number_2"],
-                            "billing_email"=>$data_billing["email"],
-                            "products"=>$data_products_email,
-                            "order_total"=>$total,
-                            "discount_app"=>$discount_total,
-                            "order_tax"=>$order_tax,
-                            "subtotal"=>$subtotal,
-                            "grand_total"=>$grand_total,
-                            "status"=>$get_order->getStatusName->name,
-                            "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
-                        );
-                    }else{
-                        $package = array(                        
-                            "order_number"=>$order_number,
-                            "purchase_date"=>$today,
-                            "billing_name"=>$data_billing["name"],
-                            "billing_address_1"=>$data_billing["address_1"],
-                            "billing_address_2"=>$data_billing["address_2"],
-                            "billing_district"=>$billing_district,
-                            "billing_province"=>$billing_province,
-                            "billing_corregimiento"=>$billing_corregimiento,
-                            "billing_country"=>$billing_country,
-                            "billing_zip_code"=>$data_billing["zip_code"],
-                            "billing_phone_number_1"=>$data_billing["phone_number_1"],
-                            "billing_phone_number_2"=>$data_billing["phone_number_2"],
-                            "billing_email"=>$data_billing["email"],
-                            "products"=>$data_products_email,
-                            "order_total"=>$total,
-                            "order_tax"=>$order_tax,
-                            "discount_app"=>$discount_total,
-                            "subtotal"=>$subtotal,
-                            "grand_total"=>$grand_total,
-                            "status"=>$get_order->getStatusName->name,
-                            "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
-                        );
+                        $package["shipping_name"]=$cart_address["shipping_name"];
+                        $package["shipping_address_1"]=$cart_address["shipping_address_1"];
+                        $package["shipping_address_2"]=$cart_address["shipping_address_2"];
+                        $package["shipping_province"]=$cart_address["shipping_province"];
+                        $package["shipping_district"]=$cart_address["shipping_district"];
+                        $package["shipping_corregimiento"]=$cart_address["shipping_corregimiento"];
+                        $package["shipping_country"]=$ds_country->countryCode;
+                        $package["shipping_zip_code"]=$cart_address["shipping_zip_code"];
+                        $package["shipping_phone_number_1"]=$cart_address["shipping_phone_number_1"];
+                        $package["shipping_phone_number_2"]=$cart_address["shipping_phone_number_2"];
+                        $package["shipping_email"]=$cart_address["shipping_email"];
+                        $package["shipping_total"]=$shipping_list->total;
+
                     }
+                    if($this->main_config->allow_billing){
+                        $package["billing_name"]=$data_billing["name"];
+                        $package["billing_address_1"]=$data_billing["address_1"];
+                        $package["billing_address_2"]=$data_billing["address_2"];
+                        $package["billing_district"]=$billing_district;
+                        $package["billing_province"]=$billing_province;
+                        $package["billing_corregimiento"]=$billing_corregimiento;
+                        $package["billing_country"]=$billing_country;
+                        $package["billing_zip_code"]=$data_billing["zip_code"];
+                        $package["billing_phone_number_1"]=$data_billing["phone_number_1"];
+                        $package["billing_phone_number_2"]=$data_billing["phone_number_2"];
+                        $package["billing_email"]=$data_billing["email"];
+                    }
+
+  
+                    //SEND EMAIL
                     $order_detail=[
                         "user"=>$this->users->find($user_id),
                         "order"=>$package
@@ -592,7 +564,7 @@ class userPaymentController extends Controller
                     try{
                         //send email to client
                         Mail::send('emails.orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                            $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
+                            $message->from($this->sender_info["email"],$this->sender_info["name"]);
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_user.received',['name'=>$client_name]);
                             $message->to($order_detail["user"]["email"],$client_name)->subject($subject);
@@ -601,19 +573,16 @@ class userPaymentController extends Controller
 
                         //send email to admin
                         Mail::send('emails.admin_orderreceived',["order_detail"=>$order_detail],function($message) use($order_detail){
-                            $message->from("pedidos@vestidosboutique.com","Vestidos Boutique");
+                            $message->from($this->sender_info["email"],$this->sender_info["name"]);
                             $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];
                             $subject = __('general.order_section.to_admin.received',['name'=>$client_name]);
-                            $message->to("pedidos@vestidosboutique.com","Admin")->subject($subject);
-                            // $message->to("evil_luis@hotmail.com","Admin")->subject($subject);
+                            $message->to($this->sender_info["email"],"Admin")->subject($subject);
                         });
                         $email_msg[]=__('general.order_section.payment_success');
                     }catch(Exception $e){
                         $email_msg[]=__('general.order_section.payment_success');
                         $email_msg[]=__('general.failed_email');
                     }
-
-                    
 
 
                     // DESTROY SESSION
