@@ -27,6 +27,7 @@ use App\vestidosOrderAddresses as OrderAddresses;
 use App\vestidosTaxInfos as Tax;
 use App\vestidosPaymentTypes as PaymentTypes;
 use App\vestidosMainConfigs as MainConfig;
+use App\vestidosProductDeliveries as ProductDeliveries;
 use Braintree;
 use Mail;
 use Auth;
@@ -35,7 +36,7 @@ use Session;
 class ordersController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons, ProductDeliveries $product_deliveries){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -48,6 +49,7 @@ class ordersController extends Controller
         $this->payment_histories = $payment_histories;
         $this->shipping_lists = $shippingLists;
         $this->cancel_reasons=$cancel_reasons;
+        $this->product_deliveries = $product_deliveries->where("status","1")->orderBy("main",'desc')->get();
         $this->products=$products;
         $this->addresses=$addresses;
         $this->colors=$colors;
@@ -138,10 +140,11 @@ class ordersController extends Controller
 
         $user=$this->users->find($order->user_id);
         $data["users"]=$this->users->all();
+        $data["product_deliveries"]=$this->product_deliveries;
         $data["products"]=$this->products->all();
         $data["shipping_lists"]=$this->shipping_lists->all();
         $amount_paid = $this->payment_histories->where("order_id",$order_id)->sum('total');
-        $amount_due = (($order->order_total + $order->order_tax)- $order->order_discount) - $amount_paid;
+        $amount_due = ((($order->order_total + $order->order_tax)- $order->order_discount) + $order->order_shipping + $order->delivery_speed_cost) - $amount_paid;
         $data["amount_due"]=$amount_due;
         $order_shipping = $order->getOrderShippingAddress();
         $data["order_shipping"]=$order->order_shipping ?  $order_shipping[0] : null;
@@ -408,7 +411,20 @@ class ordersController extends Controller
             $order->order_shipping_type= $this->main_config->allow_shipping ? (int)$request->input("shipping_method") : null;
             $order->order_shipping = $this->main_config->allow_shipping ? $shipping_list->total : null;
         }
-
+        if($this->main_config->allow_delivery_time && $request->input("product_delivery")){
+            $delivery = $this->product_deliveries->find($request->input("product_delivery"));
+            if($delivery){
+                $order->delivery_speed_id=$delivery->id;
+                $order->delivery_speed_cost=$delivery->total;
+                $order->delivery_speed_name=$delivery->name;
+                $order->delivery_speed_description=$delivery->description;
+            }else{
+                $order->delivery_speed_id=null;
+                $order->delivery_speed_cost=null;
+                $order->delivery_speed_name=null;
+                $order->delivery_speed_description=null;
+            }
+        }
         $order->order_total=$request->input("order_total");
         $order->order_tax=$request->input("order_tax");
         $order->status=(int)$request->input("status");
@@ -502,7 +518,7 @@ class ordersController extends Controller
 
         $subtotal = $order->order_total - $order->order_discount;
 
-        $grand_total = $subtotal + $order->order_tax + $order->order_shipping;
+        $grand_total = ($subtotal + $order->order_tax) + $order->order_shipping  + $order->delivery_speed_cost;
 
         $order_detail["user"]=$this->users->find($user_id);
         $order_detail["order"]=array(                        
@@ -518,6 +534,10 @@ class ordersController extends Controller
             "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
             "allow_billing"=>$this->main_config->allow_billing ? "true" : "false",
             "order_grand_total"=>$order->order_total + $order->order_tax,
+            "allow_delivery_speed"=>$this->main_config->allow_delivery_time ? "true" : "false",
+            "delivery_speed_name"=>null,
+            "delivery_speed_total"=>null,
+            "delivery_speed_description"=>null,
             "shipping_name"=>null,
             "shipping_address_1"=>null,
             "shipping_address_2"=>null,
@@ -566,6 +586,12 @@ class ordersController extends Controller
             $order_detail["order"]["billing_phone_number_1"]=$order_billing[0]->phone_number_1;
             $order_detail["order"]["billing_phone_number_2"]=$order_billing[0]->phone_number_2;
             $order_detail["order"]["billing_email"]=$order_billing[0]->email;
+        }
+
+        if($this->main_config->allow_delivery_time){
+            $order_detail["order"]["delivery_speed_name"]=$order->delivery_speed_name;
+            $order_detail["order"]["delivery_speed_total"]=$order->delivery_speed_cost;
+            $order_detail["order"]["delivery_speed_description"]=$order->delivery_speed_description;
         }
         return $order_detail;
     }

@@ -180,7 +180,10 @@ return [
     ],
     //CART TITLES
     'cart_title'=>[
+        'select_pick_up_speed'=>"Select Pick Up Speed",
+        'select_payment_method'=>"Payment Method",
         'shipping'=>"Shipping",
+        'pick_up_speed'=>"Pick Up Speed",
         'billing'=>"Billing",
         'confirmation'=>"Confirmation",
         'subtotal'=>"Subtotal",
@@ -199,6 +202,7 @@ return [
         'total_price'=>"Total Price",
         'order_total'=>"Total",
         'grand_total'=>"Grand Total",
+        'grand_total_delivery'=>"Grand Total with Delivery",
         'subtotal'=>"Subtotal",
         'total'=>"Total | Totals",
         'item_removed'=>":name Removed",

@@ -160,9 +160,27 @@
                 <tr>
                     <td></td>
                 </tr>
+                @if($order_detail['order']['allow_delivery_speed']=="true")
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>{{ __('emails.order_payment_update.line_19') }}</strong>
+                        <strong>{{ $order_detail["order"]["delivery_speed_name"] }}</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["delivery_speed_total"],'2','.',',') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>{{ __('emails.order_payment_update.line_20') }}</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["grand_total_delivery"],'2','.',',') }}
+                    </td>
+                </tr>
+                @endif
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>{{ __('emails.order_payment_update.line_21') }}</strong>
                     </td>
                     <td align="right">
                         ${{ number_format($order_detail["payment"]["total_paid"],'2','.',',') }}
@@ -170,7 +188,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" align="right">
-                        <strong>{{ __('emails.order_payment_update.line_20') }}</strong>
+                        <strong>{{ __('emails.order_payment_update.line_22') }}</strong>
                     </td>
                     <td align="right">
                         @if($order_detail['order']['allow_shipping']=="true")

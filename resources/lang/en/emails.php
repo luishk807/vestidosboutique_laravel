@@ -62,6 +62,8 @@ return [
         'line_14'=>'Shipping',
         'line_15'=>'Tax',
         'line_16'=>'Grandtotal',
+        'line_17'=>'Speed Delivery',
+        'line_18'=>'Grandtotal with Delivery',
     ],
 
     'order_user_cancel'=>[
@@ -82,6 +84,8 @@ return [
         'line_14'=>'Shipping',
         'line_15'=>'Tax',
         'line_16'=>'Grandtotal',
+        'line_17'=>'Speed Delivery',
+        'line_18'=>'Grandtotal with Delivery',
     ],
 
     'order_user_received'=>[
@@ -102,6 +106,8 @@ return [
         'line_14'=>'Shipping',
         'line_15'=>'Tax',
         'line_16'=>'Grandtotal',
+        'line_17'=>'Speed Delivery',
+        'line_18'=>'Grandtotal with Delivery',
     ],
 
     'order_user_update'=>[
@@ -122,6 +128,8 @@ return [
         'line_14'=>'Shipping',
         'line_15'=>'Tax',
         'line_16'=>'Grandtotal',
+        'line_17'=>'Speed Delivery',
+        'line_18'=>'Grandtotal with Delivery',
     ],
 
     'order_payment_update'=>[
@@ -147,6 +155,8 @@ return [
         'line_18'=>'Grandtotal',
         'line_19'=>'Total Paid',
         'line_20'=>'Amount Due',
+        'line_21'=>'Speed Delivery',
+        'line_22'=>'Grandtotal with Delivery',
     ],
 
     'order_payment_removed'=>[
@@ -171,7 +181,9 @@ return [
         'line_17'=>'Tax',
         'line_18'=>'Grandtotal',
         'line_19'=>'Total Paid',
-        'line_20'=>'Amount Due',
+        'line_20'=>'Speed Delivery',
+        'line_21'=>'Grandtotal with Delivery',
+        'line_22'=>'Amount Due',
     ],
 
     'order_cancel_request'=>[
@@ -193,6 +205,8 @@ return [
         'line_15'=>'Shipping',
         'line_16'=>'Tax',
         'line_17'=>'Grandtotal',
+        'line_18'=>'Speed Delivery',
+        'line_19'=>'Grandtotal with Delivery',
     ],
 
     'order_cancel_admin'=>[
@@ -213,6 +227,8 @@ return [
         'line_15'=>'Shipping',
         'line_16'=>'Tax',
         'line_17'=>'Grandtotal',
+        'line_18'=>'Speed Delivery',
+        'line_19'=>'Grandtotal with Delivery',
     ],
     
     'new_email_admin'=>[

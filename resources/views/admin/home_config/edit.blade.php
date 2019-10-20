@@ -24,6 +24,13 @@
         </select>
     </div>
     <div class="form-group">
+        <label for="allow_delivery_time">Allow Pick Up Speed Option?:</label>
+        <select class="form-control"  name="allow_delivery_time" id="allow_delivery_time">
+            <option value="false" {{ !$main_config->allow_delivery_time ? 'selected': '' }}>No</option>
+            <option value="true" {{ $main_config->allow_delivery_time ? 'selected': '' }}>Yes</option>
+        </select>
+    </div>
+    <div class="form-group">
         <label for="alert_id">Select Pop up?:</label>
         <select class="form-control"  name="alert_id" id="alert_id">
             <option value="">No Pop Up</option>

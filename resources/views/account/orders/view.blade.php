@@ -121,7 +121,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-7">{{ trans_choice('general.cart_title.total',1) }}</div>
-                                        <div class="col-md-5">${{number_format(($order->order_total + $order->order_shipping) - $order->order_discount,'2','.',',')}}</div>
+                                        <div class="col-md-5">${{number_format(($order->order_total + $order->order_shipping + $order->delivery_speed_cost) - $order->order_discount,'2','.',',')}}</div>
                                     </div>
                                     @endif
                                     @if($order->order_shipping > 0)
@@ -139,6 +139,17 @@
                                         @php($grand_total = (($order->order_total + $order->order_shipping) - $order->order_discount) + $order->order_tax)
                                         <div class="col-md-5">${{number_format($grand_total,'2','.',',')}}</div>
                                     </div>
+                                    @if($main_config->allow_delivery_time && $order->delivery_speed_cost > 0)
+                                    <div class="row">
+                                        <div class="col-md-7">{{ $order->delivery_speed_name }}</div>
+                                        <div class="col-md-5">${{number_format($order->delivery_speed_cost,'2','.',',')}}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-7">{{ __('general.cart_title.grand_total_delivery') }}</div>
+                                        @php($grand_total += $order->delivery_speed_cost)
+                                        <div class="col-md-5">${{number_format($grand_total,'2','.',',')}}</div>
+                                    </div>
+                                    @endif
                                 </div>
                                 <br/>
                                 <div class="container view-order-header-amt-due">

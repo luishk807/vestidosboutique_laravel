@@ -117,14 +117,19 @@
                                                         {{ __('general.cart_title.grand_total') }}
                                                     </div>
                                                     <div class="col">
-                                                        @if($main_config->allow_shipping)
-                                                            ${{number_format(($last_order->order_tax + $last_order->order_total + $last_order->order_shipping) - $last_order->order_discount,'2','.',',')}}
-                                                        @else
-                                                            ${{number_format(($last_order->order_tax + $last_order->order_total)-$last_order->order_discount,'2','.',',')}}
-                                                        @endif
-
+                                                        ${{number_format(($last_order->order_tax + $last_order->order_total + $last_order->order_shipping)-$last_order->order_discount,'2','.',',')}}
                                                     </div>
                                                 </div>
+                                                @if($main_config->allow_delivery_time && $last_order->delivery_speed_cost > 0)
+                                                <div class="row header2">
+                                                    <div class="col">{{ $last_order->delivery_speed_name }}</div>
+                                                    <div class="col">${{number_format($last_order->delivery_speed_cost,'2','.',',')}}</div>
+                                                </div>
+                                                <div class="row header3">
+                                                    <div class="col">{{ __('general.cart_title.grand_total_delivery') }}</div>
+                                                    <div class="col">${{number_format((($last_order->order_tax + $last_order->order_total + $last_order->order_shipping) -$last_order->order_discount) + $last_order->delivery_speed_cost,'2','.',',')}}</div>
+                                                </div>
+                                                @endif
                                                 <!--end of header-->
                                                 <!--listing products-->
                                                 <div class="row checkout-confirm-order-details-data my-1 header">

@@ -99,6 +99,22 @@
         <input type="number" id="orderTax" class="form-control" name="order_tax" min="0" step="0.01" value="{{ old('order_tax') ? old('order_tax') : $order->order_tax }}" placeholder="0.00"/>
         <small class="error">{{$errors->first("order_tax")}}</small>
     </div>
+    @if($main_config->allow_delivery_time)
+    <div class="form-group">
+        <label for="orderDeliverySpeed">Delivery Speed:</label>
+        <select class="custom-select" name="product_delivery" id="orderDeliverySpeed">
+            <option value="">Select Delivery Speed</option>
+            @foreach($product_deliveries as $product_delivery)
+                <option value="{{ $product_delivery->id }}"
+                @if($order->delivery_speed_id==$product_delivery->id)
+                    selected="selected"
+                @endif
+                >{{$product_delivery->name}} </option>
+            @endforeach
+        </select>
+        <small class="error">{{$errors->first("product_delivery")}}</small>
+    </div>
+    @endif
     <div class="form-group">
         <label for="orderStatus">Status:</label>
         <select class="custom-select" name="status" id="orderStatus">

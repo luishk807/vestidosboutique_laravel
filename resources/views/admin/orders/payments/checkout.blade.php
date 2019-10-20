@@ -1,16 +1,5 @@
 @extends('admin/layouts.app')
 @section('content')
-<script>
-$(document).ready(function(){
-    var firstOpenChecked = $("input:radio[name='payment_type']:checked").attr("target-data");
-    openRadioContent(firstOpenChecked)
-    $("input[name='payment_type']").click(function(e){
-        var target_data= $(e.target).attr("target-data");
-        openRadioContent(target_data)
-    })
-})
-
-</script>
 <script src="https://js.braintreegateway.com/web/dropin/1.11.0/js/dropin.min.js"></script>
 <form action="{{ route('admin_process_checkout') }}" id="vestidos-checkout-form" method="post">
 {{ csrf_field() }}
@@ -170,16 +159,47 @@ $(document).ready(function(){
         </div>
 
     </div>
+    <!-- product delvieries-->
+    @if($main_config->allow_delivery_time)
+        <div class="container product-delivery-section">
+            <div class="row button">
+                <div class="col vestidos-checkout-radio-title">
+                    {{ __('general.cart_title.select_pick_up_speed') }}
+                </div>
+            </div>
+            @foreach($product_deliveries as $d_index_index=>$product_delivery)
+            <div class="row button">
+                <div class="col">
+                    <input class="vestidos_collapse_radio" name="product_delivery" value="{{ $product_delivery->id }}" 
+                    @if($d_index_index==0)
+                    checked='checked'
+                    @endif
+                    target-data="product_delivery_content_{{ $d_index_index }}" class-content="product_delivery_content" type="radio"/>&nbsp;{{ $product_delivery->name }}
+                </div>
+            </div>
+            <div class="row content product_delivery_content" target-data="product_delivery_content_{{ $d_index_index }}">
+                <div class="col">
+                {{ $product_delivery->description }}
+                </div>
+            </div>
+            @endforeach
+        </div>
+    @endif
    <div id="dropin-wrapper">
         <div id="checkout-message"></div>
         <!-- <div id="dropin-container"></div>
         <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" /> -->
         <div class="container billing-payment-section">
+            <div class="row button">
+                <div class="col vestidos-checkout-radio-title">
+                    {{ __('general.cart_title.select_payment_method') }}
+                </div>
+            </div>
          @foreach($payment_types as $ptype_index=>$payment_type)
          @if(!$payment_type->is_credit_card || ($payment_type->is_credit_card && $main_config->allow_credit_card))
         <div class="row button">
             <div class="col">
-                <input name="payment_type" value="{{ $payment_type->id }}" 
+                <input class="vestidos_collapse_radio" name="payment_type" value="{{ $payment_type->id }}" 
                 @if($payment_type->is_credit_card))
                 credit-card='yes'
                 @else
@@ -188,10 +208,10 @@ $(document).ready(function(){
                 @if($ptype_index==0)
                 checked='checked'
                 @endif
-                target-data="payment_content_{{ $ptype_index }}" type="radio"/>&nbsp;{{ $payment_type->name }}
+                target-data="payment_content_{{ $ptype_index }}"  class-content="payment_content"  type="radio"/>&nbsp;{{ $payment_type->name }}
             </div>
         </div>
-        <div class="row content" target-data="payment_content_{{ $ptype_index }}">
+        <div class="row content payment_content" target-data="payment_content_{{ $ptype_index }}">
             <div class="col">
             @if($payment_type->description)
             {{ $payment_type->description }}
