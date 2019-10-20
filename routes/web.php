@@ -283,7 +283,20 @@
                         Route::post('/confirm_taxes','adminTaxController@deleteConfirmTaxes')->name('confirm_delete_taxes');
                         Route::delete('/show_confirm_taxes','adminTaxController@deleteTaxes')->name('delete_taxes');
                     });
-    
+                    
+                    //Admin Deliveries option
+                    Route::prefix('deliveries')->group(function(){
+                        Route::get('/','adminProductDeliveriesController@index')->name('admin_deliveries');
+                        Route::get('/new','adminProductDeliveriesController@newDelivery')->name('new_product_delivery');
+                        Route::post('/new','adminProductDeliveriesController@createDelivery')->name('create_product_delivery');
+                        Route::get('/edit/{delivery_id}','adminProductDeliveriesController@editDelivery')->name('edit_product_delivery');
+                        Route::post('/edit/{delivery_id}','adminProductDeliveriesController@saveDelivery')->name('save_product_delivery');
+                        Route::get('/confirm/{delivery_id}','adminProductDeliveriesController@deleteDelivery')->name('confirm_delete_product_delivery');
+                        Route::delete('/confirm/{delivery_id}','adminProductDeliveriesController@deleteDelivery')->name('delete_product_delivery');
+                        Route::post('/confirm_deliveries','adminProductDeliveriesController@deleteConfirmDeliveries')->name('confirm_delete_product_deliveries');
+                        Route::delete('/show_confirm_deliveries','adminProductDeliveriesController@deleteDeliveries')->name('delete_product_deliveries');
+                    });
+
                     //Admin Payment TYpe
                     Route::prefix("payment_types")->group(function(){
                         Route::get('/','adminPaymentTypesController@index')->name("admin_payments");

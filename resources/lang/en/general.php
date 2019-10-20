@@ -180,6 +180,7 @@ return [
     ],
     //CART TITLES
     'cart_title'=>[
+        'select_pick_up_speed'=>"Select Pick Up Speed",
         'shipping'=>"Shipping",
         'billing'=>"Billing",
         'confirmation'=>"Confirmation",

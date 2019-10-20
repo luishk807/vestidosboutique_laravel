@@ -64,6 +64,7 @@
                             <a href="{{ route('admin_home_config')}}" class="nav-link">Main Settings</a>
                             <a href="{{ route('main_sliders_page')}}" class="nav-link">Main Sliders</a>
                             <a href="{{ route('shop_banners_page')}}" class="nav-link">Shop Banners</a>
+                            <a href="{{ route('admin_deliveries')}}" class="nav-link">Product Delivery</a>
                             <a href="{{ route('admin_taxes')}}" class="nav-link">Taxes</a>
                             <a href="{{ route('top_quinces_page')}}" class="nav-link">Top Quince</a>
                             <a href="{{ route('top_dresses_page')}}" class="nav-link">Top Dresses</a>

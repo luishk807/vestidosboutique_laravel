@@ -27,6 +27,7 @@ use App\vestidosOrderAddresses as OrderAddresses;
 use App\vestidosTaxInfos as Tax;
 use App\vestidosPaymentTypes as PaymentTypes;
 use App\vestidosMainConfigs as MainConfig;
+use App\vestidosProductDeliveries as ProductDeliveries;
 use Braintree;
 use Mail;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ use Session;
 class adminPaymentController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,OrdersProducts $order_products,CancelReasons $cancel_reasons,ShippingLists $shippingLists, Countries $countries,Sizes $sizes,Colors $colors,PaymentHistories $payment_histories,AddressTypes $address_types,Tax $tax,OrderAddresses $orderaddresses,Provinces $provinces, Districts $districts, Corregimientos $corregimientos,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons, ProductDeliveries $product_deliveries){
         $this->statuses=$vestidosStatus;
         $this->orders=$orders;
         $this->order_products=$order_products;
@@ -43,6 +44,7 @@ class adminPaymentController extends Controller
         $this->countries = $countries;
         $this->provinces=$provinces;
         $this->districts=$districts;
+        $this->product_deliveries = $product_deliveries->where("status","1")->orderBy("main",'desc')->get();
         $this->corregimientos=$corregimientos;
         $this->payment_types = $paymentTypes;
         $this->payment_histories = $payment_histories;
@@ -92,6 +94,7 @@ class adminPaymentController extends Controller
             Session::put("vestidos_admin_shop",$data);
         }
         $data["discount_app"]= $discount_app;
+        $data["product_deliveries"]=$this->product_deliveries;
         $data["payment_types"]=$this->payment_types->where("status",1)->get();
         $data["page_title"]=__('general.order_section.new_order_checkout');
          return view("admin/orders/payments/checkout",$data);
@@ -218,6 +221,13 @@ class adminPaymentController extends Controller
 
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
         $data["payment_type"]=$request->input("payment_type");
+        if($this->main_config->allow_delivery_time && $request->input("product_delivery")){
+            $delivery = $this->product_deliveries->find($request->input("product_delivery"));
+            $data["delivery_speed_id"]=$delivery->id;
+            $data["delivery_speed_cost"]=$delivery->total;
+            $data["delivery_speed_name"]=$delivery->name;
+            $data["delivery_speed_description"]=$delivery->description;
+        }
         $data["status"]=$is_credit_card ? 9 : 12;
         if($is_credit_card){
             $status = Braintree_Transaction::sale([
@@ -253,7 +263,7 @@ class adminPaymentController extends Controller
                 //     ]);
                 // }
             }
-        // dd($data);
+        //dd($data);
             $order = Orders::create($data);
             //save addresese
             if($this->main_config->allow_shipping){
@@ -406,6 +416,7 @@ class adminPaymentController extends Controller
                 "id"=>$product_detail->id
             );
         }
+
         $order_shipping = $order->getOrderShippingAddress();
         $order_billing = $order->getOrderBillingAddress();
 
@@ -413,7 +424,7 @@ class adminPaymentController extends Controller
         
         $subtotal = $order->order_total - $order->order_discount;
 
-        $grand_total = ($order->order_total + $order->order_shipping + $order_tax) - $order->order_discount;
+        $grand_total = ($order->order_total + $order->order_shipping + $order_tax + $order->delivery_speed_cost) - $order->order_discount;
 
 
         $order_detail=[
@@ -432,6 +443,10 @@ class adminPaymentController extends Controller
                 "allow_shipping"=>$this->main_config->allow_shipping ? "true" : "false",
                 "allow_billing"=>$this->main_config->allow_billing ? "true" : "false",
                 "order_grand_total"=>$order->order_total + $order->order_tax + $order->order_shipping,
+                "allow_delivery_speed"=>$this->main_config->allow_delivery_time ? "true" : "false",
+                "delivery_speed_name"=>null,
+                "delivery_speed_total"=>null,
+                "delivery_speed_description"=>null,
                 "shipping_name"=>null,
                 "shipping_address_1"=>null,
                 "shipping_address_2"=>null,
@@ -482,6 +497,11 @@ class adminPaymentController extends Controller
             $order_detail["order"]["billing_phone_number_1"]=$order_billing[0]->phone_number_1;
             $order_detail["order"]["billing_phone_number_2"]=$order_billing[0]->phone_number_2;
             $order_detail["order"]["billing_email"]=$order_billing[0]->email;
+        }
+        if($this->main_config->allow_delivery_time){
+            $order_detail["order"]["delivery_speed_name"]=$order->delivery_speed_name;
+            $order_detail["order"]["delivery_speed_total"]=$order->delivery_speed_total;
+            $order_detail["order"]["delivery_speed_description"]=$order->delivery_speed_description;
         }
         if($payment_id){
             $payment = $this->payment_histories->find($payment_id);

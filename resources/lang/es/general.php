@@ -196,6 +196,7 @@ return [
     ],
     //CART TITLES
     'cart_title'=>[
+        'select_pick_up_speed'=>"Escoga Tiempo de Entrega",
         'shipping'=>"Envío",
         'billing'=>"Facturación",
         'confirmation'=>"Confirmación",

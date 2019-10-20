@@ -12,6 +12,7 @@ use App\vestidosProducts as Products;
 use App\vestidosColors as Colors;
 use App\vestidosSizes as Sizes;
 use App\vestidosOrderCancelReasons as CancelReasons;
+use App\vestidosProductDeliveries as ProductDeliveries;
 use Carbon\Carbon as carbon;
 use App\vestidosTaxInfos as Tax;
 use Auth;
@@ -22,7 +23,7 @@ use App\vestidosUserAddresses as Addresses;
 class userOrderController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax, ProductDeliveries $product_deliveries){
         $this->statuses=$vestidosStatus;
         $this->tax_info = $tax->first();
         $this->orders=$orders;
@@ -31,6 +32,7 @@ class userOrderController extends Controller
         $this->addresses=$addresses;
         $this->brands=$brands;
         $this->cancel_reasons=$cancel_reasons;
+        $this->product_deliveries = $product_deliveries->where("status","1")->orderBy("main",'desc')->get();
         $this->categories = $categories;
         $this->sizes=$sizes;
         $this->colors=$colors;
