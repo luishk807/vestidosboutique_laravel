@@ -144,7 +144,7 @@ class ordersController extends Controller
         $data["products"]=$this->products->all();
         $data["shipping_lists"]=$this->shipping_lists->all();
         $amount_paid = $this->payment_histories->where("order_id",$order_id)->sum('total');
-        $amount_due = (($order->order_total + $order->order_tax)- $order->order_discount) - $amount_paid;
+        $amount_due = ((($order->order_total + $order->order_tax)- $order->order_discount) + $order->order_shipping + $order->delivery_speed_cost) - $amount_paid;
         $data["amount_due"]=$amount_due;
         $order_shipping = $order->getOrderShippingAddress();
         $data["order_shipping"]=$order->order_shipping ?  $order_shipping[0] : null;
@@ -518,7 +518,7 @@ class ordersController extends Controller
 
         $subtotal = $order->order_total - $order->order_discount;
 
-        $grand_total = $subtotal + $order->order_tax + $order->order_shipping  + $order->delivery_speed_cost;
+        $grand_total = ($subtotal + $order->order_tax) + $order->order_shipping  + $order->delivery_speed_cost;
 
         $order_detail["user"]=$this->users->find($user_id);
         $order_detail["order"]=array(                        
@@ -590,7 +590,7 @@ class ordersController extends Controller
 
         if($this->main_config->allow_delivery_time){
             $order_detail["order"]["delivery_speed_name"]=$order->delivery_speed_name;
-            $order_detail["order"]["delivery_speed_total"]=$order->delivery_speed_total;
+            $order_detail["order"]["delivery_speed_total"]=$order->delivery_speed_cost;
             $order_detail["order"]["delivery_speed_description"]=$order->delivery_speed_description;
         }
         return $order_detail;

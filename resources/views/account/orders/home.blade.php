@@ -79,7 +79,7 @@
                 </div>
                 <div class="row order-product-amt-due">
                     <div class="col td">
-                        @php($total_due =($grand_total  - $order->order_discount) - $order->paymentHistories->sum('total'))
+                        @php($total_due =(($grand_total  - $order->order_discount) + $order->delivery_speed_cost) - $order->paymentHistories->sum('total'))
                         {{ __('general.user_section.profile_order_amount_due') }}: <span class="
                         @if($total_due > 0)
                         text-danger

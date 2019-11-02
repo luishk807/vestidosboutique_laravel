@@ -27,6 +27,7 @@ use App\vestidosSizes as Sizes;
 use App\vestidosProducts as Products;
 use App\vestidosPaymentHistories as PaymentHistories;
 use App\vestidosPaymentTypes as PaymentTypes;
+use App\vestidosProductDeliveries as ProductDeliveries;
 use App\vestidosMainConfigs as MainConfig;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -38,7 +39,7 @@ use Auth;
 class userPaymentController extends Controller
 {
     //
-    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons){
+    public function __construct(AddressTypes $addresstypes, Addresses $addresses, Genders $genders, Languages $languages, Users $users, Countries $countries,Brands $brands, Categories $categories, Tax $tax,ShippingLists $shippingLists, OrderProducts $order_products, Orders $orders, Products $products, Colors $colors, Sizes $sizes, PaymentHistories $payment_histories, Provinces $provinces, Districts $districts, Corregimientos $corregimientos,OrderAddresses $orderaddresses,PaymentTypes $paymentTypes, MainConfig $main_config, Coupons $coupons, ProductDeliveries $product_deliveries){
         $this->main_config = $main_config->first();
         $this->country=$countries;
         $this->users = $users;
@@ -61,6 +62,7 @@ class userPaymentController extends Controller
         $this->districts=$districts;
         $this->coupons = $coupons;
         $this->corregimientos=$corregimientos;
+        $this->product_deliveries = $product_deliveries->where("status","1")->orderBy("main",'desc')->get();
         $this->tax_info = $tax->first();
         $this->sender_info = [
             "name"=>env("MAIL_FROM_NAME"),
@@ -238,6 +240,7 @@ class userPaymentController extends Controller
             $data["shipping_lists"]=$this->shipping_lists->all();
         }
         $data["main_config"]=$this->main_config;
+        $data["product_deliveries"]=$this->product_deliveries;
         $data["provinces"]=$this->provinces->all();
         $data["address_id"]=$request->input("address_id");
         $data["checkout_header_key"]=__('general.cart_title.billing');
@@ -385,6 +388,9 @@ class userPaymentController extends Controller
         $subtotal = 0;
         $total = 0;
         $tax = 0;
+        $delivery_speed_cost = 0;
+        $order_tax = 0;
+        $extra_fee = 0;
         $cart=Session::get("vestidos_shop");
         for($i=0;$i<sizeof($cart);$i++){
             $total += $cart[$i]["quantity"] * $cart[$i]["total"];
@@ -392,7 +398,16 @@ class userPaymentController extends Controller
         $tax = $this->tax_info->tax / 100;
 
         $subtotal = $total;
-        
+        if($this->main_config->allow_delivery_time && $request->input("product_delivery")){
+            $delivery = $this->product_deliveries->find($request->input("product_delivery"));
+            if($delivery){
+                $data["delivery_speed_id"]=$delivery->id;
+                $data["delivery_speed_cost"]=$delivery->total;
+                $data["delivery_speed_name"]=$delivery->name;
+                $data["delivery_speed_description"]=$delivery->description;
+                $delivery_speed_cost = $delivery->total;
+            }
+        }
         //if user applied discount
         $discount_app = Session::has('discount_apply') ? Session::get('discount_apply')["discount"] : null;
         $discount_total = 0;
@@ -404,7 +419,8 @@ class userPaymentController extends Controller
             //calculate with discount
             $subtotal = $discount_app ? $subtotal - $discount_total : $subtotal;
         }
-        $grand_total = $this->main_config->allow_shipping ? $subtotal + $shipping_list->total : $subtotal;
+
+        $grand_total = $this->main_config->allow_shipping ? $subtotal + $shipping_list->total: $subtotal;
 
         //PREPARE DATA
         $data["user_id"]=$user_id;
@@ -412,17 +428,17 @@ class userPaymentController extends Controller
         $data["purchase_date"]=$today;
         
         $data["order_total"]=$total;
-
         $order_tax = $grand_total * $tax;
         $data["order_tax"]=$order_tax;
 
+        //calculate grandtotal again with delivery cost
+        // granttotal + delivery cost;
+        $extra_fee = $order_tax + $delivery_speed_cost;
         $data["ip"]=$request->ip();
         $data["created_at"]=$today;
         $is_credit_card = $request->input("payment_type") == 4 ? true : false;
         $data["status"]=$is_credit_card ? 9 : 12;
         $data["payment_type"]=$request->input("payment_type");
-         //dd($data);
-        // dd($data_shipping);
 
         $order = Orders::create($data);
 
@@ -486,7 +502,7 @@ class userPaymentController extends Controller
                     $get_order = $this->orders->find($order->id);
                     if($is_credit_card){
                         $status = Braintree_Transaction::sale([
-                            'amount' => $grand_total,
+                            'amount' => $grand_total + $extra_fee,
                             'paymentMethodNonce' => $nonce,
                             'options' => [
                                 'submitForSettlement' => True
@@ -496,7 +512,7 @@ class userPaymentController extends Controller
                             //SAVE PAYMENT HISTORIES
                             $new_payment=[];
                             $new_payment["order_id"]=$get_order->id;
-                            $new_payment["total"]=$grand_total;
+                            $new_payment["total"]=$grand_total + $extra_fee;
                             $new_payment["user_id"]=$get_order->user_id;
                             $new_payment["transaction_id"]=$status->transaction->id;
                             $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
@@ -520,10 +536,12 @@ class userPaymentController extends Controller
                     $package["discount_app"]=$discount_total;
                     $package["order_tax"]=$order_tax;
                     $package["subtotal"]=$subtotal;
-                    $package["grand_total"]=$grand_total;
+                    $package["grand_total"]=$grand_total + $order_tax;
+                    $package["grand_total_delivery"]=$grand_total + $extra_fee;
                     $package["status"]=$get_order->getStatusName->name;
                     $package["allow_shipping"]=$this->main_config->allow_shipping==true ? "true" : "false";
                     $package["allow_billing"]=$this->main_config->allow_billing==true ? "true" : "false";
+                    $package["allow_delivery_speed"]=$this->main_config->allow_delivery_time ? "true" : "false";
                     if($this->main_config->allow_shipping){
                         $package["shipping_name"]=$cart_address["shipping_name"];
                         $package["shipping_address_1"]=$cart_address["shipping_address_1"];
@@ -552,8 +570,11 @@ class userPaymentController extends Controller
                         $package["billing_phone_number_2"]=$data_billing["phone_number_2"];
                         $package["billing_email"]=$data_billing["email"];
                     }
-
-  
+                    if($this->main_config->allow_delivery_time){
+                        $package["delivery_speed_name"]=$order->delivery_speed_name;
+                        $package["delivery_speed_total"]=$order->delivery_speed_cost;
+                        $package["delivery_speed_description"]=$order->delivery_speed_description;
+                    }
                     //SEND EMAIL
                     $order_detail=[
                         "user"=>$this->users->find($user_id),

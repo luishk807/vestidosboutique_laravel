@@ -62,6 +62,8 @@ return [
       'line_14'=>'Envío',
       'line_15'=>'Impuesto',
       'line_16'=>'Gran total',
+      'line_17'=>'Velocidad de Envio',
+      'line_18'=>'Gran Total con Envio',
   ],
 
   'order_user_cancel'=>[
@@ -82,6 +84,8 @@ return [
       'line_14'=>'Envío',
       'line_15'=>'Impuesto',
       'line_16'=>'Gran total',
+      'line_17'=>'Velocidad de Envio',
+      'line_18'=>'Gran Total con Envio',
   ],
 
   'order_user_received'=>[
@@ -102,6 +106,8 @@ return [
       'line_14'=>'Envío',
       'line_15'=>'Impuesto',
       'line_16'=>'Gran total',
+      'line_17'=>'Velocidad de Envio',
+      'line_18'=>'Gran Total con Envio',
   ],
 
   'order_user_update'=>[
@@ -122,6 +128,8 @@ return [
       'line_14'=>'Envío',
       'line_15'=>'Impuesto',
       'line_16'=>'Gran total',
+      'line_17'=>'Velocidad de Envio',
+      'line_18'=>'Gran Total con Envio',
   ],
 
   'order_payment_update'=>[
@@ -146,7 +154,9 @@ return [
     'line_17'=>'Impuesto',
     'line_18'=>'Gran total',
     'line_19'=>'Total Pagado',
-    'line_20'=>'Monto Por Pagar',
+    'line_20'=>'Velocidad de Envio',
+    'line_21'=>'Gran Total con Envio',
+    'line_22'=>'Monto Por Pagar',
 ],
 
 'order_payment_removed'=>[
@@ -170,8 +180,10 @@ return [
     'line_16'=>'Envío',
     'line_17'=>'Impuesto',
     'line_18'=>'Gran total',
-    'line_19'=>'Total Pagado',
-    'line_20'=>'Monto Por Pagar',
+    'line_21'=>'Total Pagado',
+    'line_22'=>'Velocidad de Envio',
+    'line_23'=>'Gran Total con Envio',
+    'line_24'=>'Monto Por Pagar',
 ],
 
   'order_cancel_request'=>[
@@ -193,6 +205,8 @@ return [
       'line_15'=>'Envío',
       'line_16'=>'Impuesto',
       'line_17'=>'Gran total',
+      'line_18'=>'Velocidad de Envio',
+      'line_19'=>'Gran Total con Envio',
   ],
 
   'order_cancel_admin'=>[
@@ -213,6 +227,8 @@ return [
       'line_15'=>'Envío',
       'line_16'=>'Impuesto',
       'line_17'=>'Gran total',
+      'line_19'=>'Velocidad de Envio',
+      'line_20'=>'Gran Total con Envio',
   ],
   
   'new_email_admin'=>[

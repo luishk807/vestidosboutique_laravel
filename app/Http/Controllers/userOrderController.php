@@ -15,6 +15,7 @@ use App\vestidosOrderCancelReasons as CancelReasons;
 use App\vestidosProductDeliveries as ProductDeliveries;
 use Carbon\Carbon as carbon;
 use App\vestidosTaxInfos as Tax;
+use App\vestidosMainConfigs as MainConfig;
 use Auth;
 use Mail;
 use Illuminate\Support\Facades\Input;
@@ -23,7 +24,7 @@ use App\vestidosUserAddresses as Addresses;
 class userOrderController extends Controller
 {
     //
-    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax, ProductDeliveries $product_deliveries){
+    public function __construct(Addresses $addresses, Products $products, Users $users, vestidosStatus $vestidosStatus, Orders $orders,Brands $brands,Categories $categories, CancelReasons $cancel_reasons,Colors $colors,Sizes $sizes,Tax $tax, ProductDeliveries $product_deliveries,MainConfig $main_config){
         $this->statuses=$vestidosStatus;
         $this->tax_info = $tax->first();
         $this->orders=$orders;
@@ -36,6 +37,7 @@ class userOrderController extends Controller
         $this->categories = $categories;
         $this->sizes=$sizes;
         $this->colors=$colors;
+        $this->main_config = $main_config->first();
         $this->sender_info = [
             "name"=>env("MAIL_FROM_NAME"),
             "email"=>env("MAIL_FROM_ORDER"),
@@ -88,7 +90,7 @@ class userOrderController extends Controller
 
         $subtotal = $order->order_total - $order->order_discount;
 
-        $grand_total = $subtotal + $order->order_tax + $order->order_shipping;
+        $grand_total = ($subtotal + $order->order_tax) + $order->order_shipping + $order->delivery_speed_cost;
         
         if($order->save()){
             //send email to user
@@ -113,6 +115,10 @@ class userOrderController extends Controller
                     "order_number"=>$order->order_number,
                     "allow_shipping"=>$this->main_config->allow_shipping==true ? "true" : "false",
                     "allow_billing"=>$this->main_config->allow_billing==true ? "true" : "false",
+                    "allow_delivery_speed"=>$this->main_config->allow_delivery_time ? "true" : "false",
+                    "delivery_speed_name"=>null,
+                    "delivery_speed_total"=>null,
+                    "delivery_speed_description"=>null,
                     "purchase_date"=>$today,
                     "products"=>$data_products_email,
                     "order_total"=>$order->order_total,
@@ -171,7 +177,11 @@ class userOrderController extends Controller
                 $order_detail["order"]["billing_phone_number_2"]=$billing_add[0]->phone_number_2;
                 $order_detail["order"]["billing_email"]=$billing_add[0]->email;
             }
-
+            if($this->main_config->allow_delivery_time){
+                $order_detail["order"]["delivery_speed_name"]=$order->delivery_speed_name;
+                $order_detail["order"]["delivery_speed_total"]=$order->delivery_speed_cost;
+                $order_detail["order"]["delivery_speed_description"]=$order->delivery_speed_description;
+            }
             Mail::send('emails.ordercancel',["order_detail"=>$order_detail],function($message) use($order_detail){
                 $message->from($this->sender_info["email"],$this->sender_info["name"]);
                 $client_name = $order_detail["user"]['first_name']." ".$order_detail["user"]["last_name"];

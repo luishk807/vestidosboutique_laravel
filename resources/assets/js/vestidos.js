@@ -834,14 +834,13 @@ $(document).ready(function() {
         readonly:true
     });
     //checkout
-    var firstOpenChecked = $("input:radio[name='payment_type']:checked").attr("target-data");
-    if(firstOpenChecked){
-        openRadioContent(firstOpenChecked)
-        $("input[name='payment_type']").click(function(e){
-            var target_data= $(e.target).attr("target-data");
-            openRadioContent(target_data)
-        })
-    }
+    // radio buttons checkout
+    $("input.vestidos_collapse_radio:checked").each(function(){
+        openRadioContent($(this));
+    })
+    $("input.vestidos_collapse_radio").click(function(e){
+        openRadioContent($(e.target))
+    })
     $("#checkoutForm #accept_terms").click(function(){
         if($(this)[0].checked){
             $("#checkoutForm #submit-button").removeClass("disabled-btn").prop("disabled",false)
@@ -912,14 +911,14 @@ function closeModalAlert(){
 }
 //end
 function openRadioContent(content){
-    var is_credit = $("input:radio[name='payment_type']:checked").attr("credit-card");
+    var is_credit = $(content).attr("credit-card");
     if(is_credit=="yes"){
         $("#is_credit_card").val("yes");
     }else{
         $("#is_credit_card").val("no");
     }
-    $("div.row.content").css("display","none");
-    $("div[target-data='"+content+"']").css("display","block");
+    $("."+content.attr("class-content")).hide();
+    $("div[target-data='"+content.attr("target-data")+"']").show();
 }
 function checkPaymentForm(){
     if($("#checkoutForm #accept_terms")[0].checked){

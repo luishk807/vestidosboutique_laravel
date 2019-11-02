@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
         <label for="deliveryTotal">Total:</label>
-        <input type="number" id="deliveryTotal" class="form-control" name="total" min="0" step="0.01" value="" placeholder="0.00"/>
+        <input type="number" id="deliveryTotal" class="form-control" name="total" min="0" step="0.01" value="0" placeholder="0.00"/>
         <small class="error">{{$errors->first("total")}}</small>
     </div>
     <div class="form-group">

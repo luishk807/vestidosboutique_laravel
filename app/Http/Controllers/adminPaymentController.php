@@ -98,7 +98,6 @@ class adminPaymentController extends Controller
         $data["payment_types"]=$this->payment_types->where("status",1)->get();
         $data["page_title"]=__('general.order_section.new_order_checkout');
          return view("admin/orders/payments/checkout",$data);
-        //dd($data);
     }
     public function showAdminOrderPayment($order_id){
         $data=[];
@@ -107,7 +106,7 @@ class adminPaymentController extends Controller
         $data["payment_types"]=$this->payment_types->all();
 
         $payment_made = $this->payment_histories->where("order_id",$order_id)->sum("total");
-        $data["amount_due"]=($order->order_total - $order->order_discount + $order->order_tax) - $payment_made;
+        $data["amount_due"]=(($order->order_total - $order->order_discount + $order->order_tax) + $order->order_shipping + $order->delivery_speed_cost) - $payment_made;
         $data["page_submenus"]=[
             [
                 "url"=>route('admin_edit_order',['order_id'=>$order_id]),
@@ -223,10 +222,12 @@ class adminPaymentController extends Controller
         $data["payment_type"]=$request->input("payment_type");
         if($this->main_config->allow_delivery_time && $request->input("product_delivery")){
             $delivery = $this->product_deliveries->find($request->input("product_delivery"));
-            $data["delivery_speed_id"]=$delivery->id;
-            $data["delivery_speed_cost"]=$delivery->total;
-            $data["delivery_speed_name"]=$delivery->name;
-            $data["delivery_speed_description"]=$delivery->description;
+            if($delivery){
+                $data["delivery_speed_id"]=$delivery->id;
+                $data["delivery_speed_cost"]=$delivery->total;
+                $data["delivery_speed_name"]=$delivery->name;
+                $data["delivery_speed_description"]=$delivery->description;
+            }
         }
         $data["status"]=$is_credit_card ? 9 : 12;
         if($is_credit_card){
@@ -252,18 +253,11 @@ class adminPaymentController extends Controller
             $data["grand_total"]=$grand_total;
             $data["ip"] = $request->ip();
             $data["created_at"]=carbon::now();
-            // $data["products"]=$cart_p;
             foreach($cart["products"] as $product){
                 $check_size = $this->sizes->find($product["size_id"]);
                 $check_product = $this->products->find($product["id"]);
                 $check_color =  $this->colors->find($product["color_id"]);
-                // if($check_size->stock < 1){
-                //     return redirect()->back()->withErrors([
-                //         "required"=>$check_product->products_name." ".$check_color->name." / ".$check_size->name." is out of stock"
-                //     ]);
-                // }
             }
-        //dd($data);
             $order = Orders::create($data);
             //save addresese
             if($this->main_config->allow_shipping){
@@ -301,22 +295,20 @@ class adminPaymentController extends Controller
                 $data_billing["order_id"]=$order->id;
                 $this->order_addresses->insert($data_billing);
             }
-            if($is_credit_card){
-                if($status->success){
-                    //SAVE PAYMENT HISTORIES
-                    $new_payment=[];
-                    $new_payment["order_id"]=$order->id;
-                    $new_payment["total"]=$grand_total;
-                    $new_payment["user_id"]=$order->user_id;
-                    $new_payment["transaction_id"]=$status->transaction->id;
-                    $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
-                    $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
-                    $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
-                    $new_payment["payment_status"]=$status->transaction->processorResponseText;
-                    $new_payment["ip"]=$request->ip();
-                    $new_payment["created_at"]=carbon::now();
-                    $this->payment_histories->insert($new_payment);
-                }
+            if($is_credit_card && $status->success){
+                //SAVE PAYMENT HISTORIES
+                $new_payment=[];
+                $new_payment["order_id"]=$order->id;
+                $new_payment["total"]=$grand_total;
+                $new_payment["user_id"]=$order->user_id;
+                $new_payment["transaction_id"]=$status->transaction->id;
+                $new_payment["payment_method"]=$status->transaction->paymentInstrumentType;
+                $new_payment["credit_card_type"]=$status->transaction->creditCard["cardType"];
+                $new_payment["credit_card_number"]=$status->transaction->creditCard["last4"];
+                $new_payment["payment_status"]=$status->transaction->processorResponseText;
+                $new_payment["ip"]=$request->ip();
+                $new_payment["created_at"]=carbon::now();
+                $this->payment_histories->insert($new_payment);
             }
             //save to products
             $new_product=[];
@@ -424,7 +416,7 @@ class adminPaymentController extends Controller
         
         $subtotal = $order->order_total - $order->order_discount;
 
-        $grand_total = ($order->order_total + $order->order_shipping + $order_tax + $order->delivery_speed_cost) - $order->order_discount;
+        $grand_total = ($order->order_total + $order->order_shipping + $order_tax) - $order->order_discount + $order->delivery_speed_cost;
 
 
         $order_detail=[
@@ -500,7 +492,7 @@ class adminPaymentController extends Controller
         }
         if($this->main_config->allow_delivery_time){
             $order_detail["order"]["delivery_speed_name"]=$order->delivery_speed_name;
-            $order_detail["order"]["delivery_speed_total"]=$order->delivery_speed_total;
+            $order_detail["order"]["delivery_speed_total"]=$order->delivery_speed_cost;
             $order_detail["order"]["delivery_speed_description"]=$order->delivery_speed_description;
         }
         if($payment_id){
@@ -543,7 +535,6 @@ class adminPaymentController extends Controller
         $discount = [];
         $coupon = $this->coupons->where("code","=",$coupon_code)->where("exp_date",">",carbon::today())->limit(1)->get();
         if(count($coupon)){
-            // dd($coupon[0]->code);
            if(Session::has("discount_apply")){
                 return response()->json(["status"=>false,"msg"=>__('general.cart_title.discount_restriction_applied')]);
            }

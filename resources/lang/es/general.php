@@ -197,7 +197,9 @@ return [
     //CART TITLES
     'cart_title'=>[
         'select_pick_up_speed'=>"Escoga Tiempo de Entrega",
+        'select_payment_method'=>"Metodo de Pago",
         'shipping'=>"Envío",
+        'pick_up_speed'=>"Tiempo de Entrega",
         'billing'=>"Facturación",
         'confirmation'=>"Confirmación",
         'qty'=>"Cant",
@@ -213,6 +215,7 @@ return [
         'total_price'=>"Precio Total",
         'order_total'=>"Total",
         'grand_total'=>"Gran Total",
+        'grand_total_delivery'=>"Gran Total con Entrega",
         'subtotal'=>"Subtotal",
         'total'=>"Total | Totales",
         'item_removed'=>":name Removido",

@@ -163,6 +163,24 @@
                         ${{ number_format($order_detail["order"]["grand_total"],'2','.',',') }}
                     </td>
                 </tr>
+                @if($order_detail['order']['allow_delivery_speed']=="true")
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>{{ $order_detail["order"]["delivery_speed_name"] }}</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["delivery_speed_total"],'2','.',',') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">
+                        <strong>{{ __('emails.order_cancel_admin.line_19') }}</strong>
+                    </td>
+                    <td align="right">
+                        ${{ number_format($order_detail["order"]["grand_total_delivery"],'2','.',',') }}
+                    </td>
+                </tr>
+                @endif
             </table>
         </td>
     </tr>

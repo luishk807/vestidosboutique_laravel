@@ -161,10 +161,9 @@
     </div>
     <!-- product delvieries-->
     @if($main_config->allow_delivery_time)
-       
         <div class="container product-delivery-section">
             <div class="row button">
-                <div class="col" style="background:#fafafa;font-weight:bold">
+                <div class="col vestidos-checkout-radio-title">
                     {{ __('general.cart_title.select_pick_up_speed') }}
                 </div>
             </div>
@@ -191,6 +190,11 @@
         <!-- <div id="dropin-container"></div>
         <input id="nonce" name="nonce" name="payment_method_nonce" type="hidden" /> -->
         <div class="container billing-payment-section">
+            <div class="row button">
+                <div class="col vestidos-checkout-radio-title">
+                    {{ __('general.cart_title.select_payment_method') }}
+                </div>
+            </div>
          @foreach($payment_types as $ptype_index=>$payment_type)
          @if(!$payment_type->is_credit_card || ($payment_type->is_credit_card && $main_config->allow_credit_card))
         <div class="row button">
