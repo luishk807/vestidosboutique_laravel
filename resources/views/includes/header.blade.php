@@ -72,6 +72,12 @@
                         {{ __('header.search') }}&nbsp;<i class="fas fa-search"></i>
                         </a>
                     </li>
+                    <li>
+                        <div id="vestidosearch"></div>
+                    </li>
+                    <li>
+                        <div id="test">test</div>
+                    </li>
                     <li class="nav-item">
                     <a class="navbar-link text-white playfair-display-italic" 
                     @if(Auth::guard('vestidosUsers')->check())
