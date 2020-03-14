@@ -13,3 +13,7 @@ composer.lock
 /build
 /public/hot
 /public/storage
+/public/css
+/public/images
+/public/js
+/public/mix-manifest.json
