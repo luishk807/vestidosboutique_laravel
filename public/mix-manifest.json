@@ -1,9 +1,0 @@
-{
-    "/css/app.css": "/css/app.css",
-    "/css/app_admin.css": "/css/app_admin.css",
-    "/js/vestidos.js": "/js/vestidos.js",
-    "/js/vestidos_admin.js": "/js/vestidos_admin.js",
-    "/js/vendor/jquery/jquery-3.2.1.min.js": "/js/vendor/jquery/jquery-3.2.1.min.js",
-    "/js/vendor/jquery/popper.min.js": "/js/vendor/jquery/popper.min.js",
-    "/js/bootstrap.min.js": "/js/bootstrap.min.js"
-}
