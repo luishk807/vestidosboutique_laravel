@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "braintree": "^2.12.0",
-        "font-face-mixin": "^1.1.0"
+        "font-face-mixin": "^1.1.0",
+        "react-router": "^5.1.2",
+        "react-router-dom": "^5.1.2"
     }
 }
