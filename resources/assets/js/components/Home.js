@@ -8,4 +8,4 @@ const Home = props =>{
     )
 }
 
-export default Home
+export default Home;

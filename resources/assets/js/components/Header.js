@@ -10,7 +10,7 @@ const Header = props=>{
             <nav>
                 <ul>
                     <li><Link to="/about">About</Link></li>
-                    <li><Link to="/home">Home</Link></li>
+                    <li><Link to="/">Home</Link></li>
                 </ul>
             </nav>
         </Router>

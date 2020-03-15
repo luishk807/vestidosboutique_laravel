@@ -35,15 +35,15 @@ class AppServiceProvider extends ServiceProvider
         if (!$this->app->runningInConsole()) {
             // App is not running in CLI context
             // Do HTTP-specific stuff here
-            view()->share('categories', Categories::all());
-            view()->share('vestidos_styles', Styles::all());
-            view()->share('statuses', Statuses::all());
-            view()->share('brands', Brands::all());
-            view()->share('countries', Countries::all());
-            view()->share('product_types', ProductTypes::all());
-            view()->share('product_events', ProductEvents::all());
-            view()->share('events', Events::all());
-            view()->share('main_config', MainConfig::first());
+            // view()->share('categories', Categories::all());
+            // view()->share('vestidos_styles', Styles::all());
+            // view()->share('statuses', Statuses::all());
+            // view()->share('brands', Brands::all());
+            // view()->share('countries', Countries::all());
+            // view()->share('product_types', ProductTypes::all());
+            // view()->share('product_events', ProductEvents::all());
+            // view()->share('events', Events::all());
+            // view()->share('main_config', MainConfig::first());
         }
     }
 
