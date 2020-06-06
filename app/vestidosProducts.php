@@ -228,6 +228,9 @@ class vestidosProducts extends Model
             case "oldest":
             $products->orderBy("created_at","asc");
             break;
+            case "available":
+            $products->orderBy("stock","desc");
+            break;
             default:
             $products->orderBy("products_name");
             break;
@@ -365,6 +368,9 @@ class vestidosProducts extends Model
             $products->orderBy("created_at","desc");
             break;
             case "oldest":
+            $products->orderBy("created_at","asc");
+            break;
+            case "available":
             $products->orderBy("created_at","asc");
             break;
             default:

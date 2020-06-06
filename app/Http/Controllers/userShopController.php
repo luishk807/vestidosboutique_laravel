@@ -47,7 +47,7 @@ class userShopController extends Controller
             "id"=>null
         )
       );
-      $this->sort_options=array("low"=>__('pagination.sort_options.low_price'),"high"=>__('pagination.sort_options.high_price'),"newest"=>__('pagination.sort_options.newest'));
+      $this->sort_options=array("low"=>__('pagination.sort_options.low_price'),"high"=>__('pagination.sort_options.high_price'),"newest"=>__('pagination.sort_options.newest'), "available"=>__('pagination.sort_options.avaliable'));
     }
     public function index($type=null,$type_id = null){
         $data=[];

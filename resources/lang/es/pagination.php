@@ -14,14 +14,15 @@ return [
     */
 
     'previous' => 'Anterior',
-    'next'     => 'Siguiente',
-    'last'     => 'Final',
-    'inicio'     => 'Inicio',
-    'sort_by'=>"Ordernar Por",
-    'of'=>"de",
-    'sort_options'=>[
-        'low_price'=>"Precio Más Bajo",
-        'high_price'=>"Precio Más Alto",
-        'newest'=>"Nuevos Vestidos",
+    'next' => 'Siguiente',
+    'last' => 'Final',
+    'inicio' => 'Inicio',
+    'sort_by' => 'Ordernar Por',
+    'of' => 'de',
+    'sort_options' => [
+        'low_price' => 'Precio Más Bajo',
+        'high_price' =>' Precio Más Alto',
+        'newest' => 'Nuevos Vestidos',
+        'avaliable' => 'Disponible',
     ]
 ];
