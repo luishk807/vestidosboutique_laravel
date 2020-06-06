@@ -15,13 +15,14 @@ return [
 
     'previous' => 'Previous',
     'next' => 'Next',
-    'last'     => 'End',
-    'inicio'     => 'Start',
-    'sort_by'=>"Sort By",
-    'of'=>"of",
-    'sort_options'=>[
-        'low_price'=>"Lowest Price",
-        'high_price'=>"Highest Price",
-        'newest'=>"Newest Arrival",
+    'last' => 'End',
+    'inicio' => 'Start',
+    'sort_by' => 'Sort By',
+    'of'=> 'of',
+    'sort_options' => [
+        'low_price' => 'Lowest Price',
+        'high_price' => 'Highest Price',
+        'newest' => 'Newest Arrival',
+        'avaliable' => 'Stock',
     ]
 ];
