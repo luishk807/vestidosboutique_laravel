@@ -154,8 +154,8 @@
                         <a class="nav-link text-white collapse-link" href="{{ route('how_to') }}">{{ __('header.how_to') }}</a>
                     </li>
                     <li class="nav-item mobile">
-                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed" data-target="#toggle-events">{{ __('header.event') }}</a>
-                        <div class="collapse vesti-collapse" id="toggle-events" style="height: 0px;">
+                        <a class="nav-link text-white collapse-link dropdown-toggle" href="#"  data-toggle="collapse" class="collapsed">{{ __('header.event') }}</a>
+                        <div>
                             <ul class="nav-list">
                                 @foreach($events as $event)
                                 @if($event->set_menu)
